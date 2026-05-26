@@ -29,3 +29,6 @@
 @media(max-width:1120px){.nav-groups{display:none}.mobile-toggle{display:block}}
 @media(max-width:980px){.hero-grid,.feature,.grid-2,.grid-3,.grid-4,.footer .container,.admin-layout,.cup-stage,.player-hero,.split-stat,.form-grid,.cookie .grid{grid-template-columns:1fr}.hero{min-height:auto}.hero-grid{padding-top:52px;padding-bottom:52px}.mini-grid{grid-template-columns:1fr}.head{align-items:flex-start;flex-direction:column}.sidebar{min-height:auto}.player-portrait{min-height:auto}.timeline-item{grid-template-columns:1fr}.staff-photo,.gallery-img,.video-thumb{height:220px}}
 @media(max-width:720px){.container{padding:0 14px}.nav-inner{height:auto;min-height:68px}.brand small{display:none}.hero-grid{padding-left:14px;padding-right:14px}.match-teams{grid-template-columns:1fr;gap:12px}.search input{min-width:0;width:100%}.grid{gap:16px}.title{font-size:42px}h1{font-size:58px}.list-row{align-items:flex-start;flex-direction:column}.teams{font-size:14px}.article-hero{height:280px}.player-portrait img{height:280px}}
+
+.pagination{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px}.pagination button{border-radius:999px;background:#fff;border:1px solid var(--line);padding:9px 13px;font-weight:950;color:#52525b}.pagination button.active,.pagination button:hover{background:#09090b;color:#fff}
+.nav-single .dropdown{display:none!important}
