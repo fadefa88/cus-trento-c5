@@ -9,6 +9,20 @@ const groups = [
 let state = hydrate({});  // parte dai defaults; i dati reali arrivano da content/data.json (vedi boot in fondo)
 let current = location.hash.replace("#","") || "home";
 let view = {staff:"prima", calendar:"prima", calendarFilter:"Tutte", calendarPage:1, standings:"prima", cup:"prima", stats:"prima"};
+
+function teamSwitch(kind){
+  const currentValue = view[kind] || "prima";
+  return `<div class="team-switch"><button class="${currentValue==='prima'?'active':''}" onclick="setView('${kind}','prima')">Prima squadra</button><button class="${currentValue==='u21'?'active':''}" onclick="setView('${kind}','u21')">Under 21</button></div>`;
+}
+function setView(kind,value){
+  view[kind]=value;
+  if(kind==="calendar"){view.calendarPage=1;fixtures();return;}
+  if(kind==="standings"){standings();return;}
+  if(kind==="cup"){coppa();return;}
+  if(kind==="stats"){stats();return;}
+  if(kind==="staff"){staff();return;}
+}
+
 const $ = s => document.querySelector(s);
 const app = $("#app");
 function hydrate(src){return {...defaults,...src,roster:defaults.roster.map(p=>({...p,...((src.roster||[]).find(x=>x.id===p.id)||{})}))};}
