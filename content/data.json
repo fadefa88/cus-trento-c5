@@ -2409,6 +2409,291 @@
           "text": "Timeline live aggiornabile dall'admin durante la gara."
         }
       ]
+    },
+    {
+      "id": 6,
+      "date": "2026-06-14",
+      "time": "21:00",
+      "home": "CUS Trento",
+      "away": "Levico Terme",
+      "venue": "Sanbàpolis",
+      "score": "",
+      "status": "Da giocare",
+      "competition": "Serie C1",
+      "summary": "Ultima gara casalinga della fase regolare.",
+      "mvp": "",
+      "scorers": [],
+      "yellow": [],
+      "red": [],
+      "stats": {
+        "shots": 0,
+        "shotsAgainst": 0,
+        "possession": 0,
+        "corners": 0
+      },
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "Luca Baccaro Zeni",
+          "Filippo Bernard",
+          "Saif Edine Safi",
+          "Tommaso Boldrini",
+          "Davide Filippi"
+        ],
+        "bench": [
+          "Alvise Tesser",
+          "Federico Addobbati",
+          "Filippo Baietta",
+          "Luca Cirasola",
+          "Mattia Cuman",
+          "Luca Frattoln",
+          "Federico Maciocia"
+        ],
+        "absent": [],
+        "suspended": [],
+        "injured": [],
+        "tacticalNotes": [
+          "Pressing alto nei primi minuti.",
+          "Rotazioni rapide sui laterali.",
+          "Gestione del possesso nei finali di tempo."
+        ]
+      },
+      "timeline": [
+        {
+          "minute": "Pre",
+          "event": "info",
+          "team": "CUS Trento",
+          "text": "Evento demo aggiornabile da CMS."
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "date": "2026-06-21",
+      "time": "20:30",
+      "home": "Altopiano Paganella",
+      "away": "CUS Trento",
+      "venue": "Palazzetto Andalo",
+      "score": "1-5",
+      "status": "Terminata",
+      "competition": "Serie C1",
+      "summary": "Vittoria esterna con buona gestione dei possessi.",
+      "mvp": "",
+      "scorers": [],
+      "yellow": [],
+      "red": [],
+      "stats": {
+        "shots": 0,
+        "shotsAgainst": 0,
+        "possession": 0,
+        "corners": 0
+      },
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "Luca Baccaro Zeni",
+          "Filippo Bernard",
+          "Saif Edine Safi",
+          "Tommaso Boldrini",
+          "Davide Filippi"
+        ],
+        "bench": [
+          "Alvise Tesser",
+          "Federico Addobbati",
+          "Filippo Baietta",
+          "Luca Cirasola",
+          "Mattia Cuman",
+          "Luca Frattoln",
+          "Federico Maciocia"
+        ],
+        "absent": [],
+        "suspended": [],
+        "injured": [],
+        "tacticalNotes": [
+          "Pressing alto nei primi minuti.",
+          "Rotazioni rapide sui laterali.",
+          "Gestione del possesso nei finali di tempo."
+        ]
+      },
+      "timeline": [
+        {
+          "minute": "Pre",
+          "event": "info",
+          "team": "CUS Trento",
+          "text": "Evento demo aggiornabile da CMS."
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "date": "2026-06-28",
+      "time": "21:00",
+      "home": "CUS Trento",
+      "away": "Rovereto Futsal",
+      "venue": "Sanbàpolis",
+      "score": "",
+      "status": "Da giocare",
+      "competition": "Playoff",
+      "summary": "Primo turno playoff davanti al pubblico di casa.",
+      "mvp": "",
+      "scorers": [],
+      "yellow": [],
+      "red": [],
+      "stats": {
+        "shots": 0,
+        "shotsAgainst": 0,
+        "possession": 0,
+        "corners": 0
+      },
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "Luca Baccaro Zeni",
+          "Filippo Bernard",
+          "Saif Edine Safi",
+          "Tommaso Boldrini",
+          "Davide Filippi"
+        ],
+        "bench": [
+          "Alvise Tesser",
+          "Federico Addobbati",
+          "Filippo Baietta",
+          "Luca Cirasola",
+          "Mattia Cuman",
+          "Luca Frattoln",
+          "Federico Maciocia"
+        ],
+        "absent": [],
+        "suspended": [],
+        "injured": [],
+        "tacticalNotes": [
+          "Pressing alto nei primi minuti.",
+          "Rotazioni rapide sui laterali.",
+          "Gestione del possesso nei finali di tempo."
+        ]
+      },
+      "timeline": [
+        {
+          "minute": "Pre",
+          "event": "info",
+          "team": "CUS Trento",
+          "text": "Evento demo aggiornabile da CMS."
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "date": "2026-07-05",
+      "time": "20:45",
+      "home": "Futsal Bolzano",
+      "away": "CUS Trento",
+      "venue": "Bolzano",
+      "score": "2-2",
+      "status": "Terminata",
+      "competition": "Serie C1",
+      "summary": "Pareggio combattuto in trasferta.",
+      "mvp": "",
+      "scorers": [],
+      "yellow": [],
+      "red": [],
+      "stats": {
+        "shots": 0,
+        "shotsAgainst": 0,
+        "possession": 0,
+        "corners": 0
+      },
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "Luca Baccaro Zeni",
+          "Filippo Bernard",
+          "Saif Edine Safi",
+          "Tommaso Boldrini",
+          "Davide Filippi"
+        ],
+        "bench": [
+          "Alvise Tesser",
+          "Federico Addobbati",
+          "Filippo Baietta",
+          "Luca Cirasola",
+          "Mattia Cuman",
+          "Luca Frattoln",
+          "Federico Maciocia"
+        ],
+        "absent": [],
+        "suspended": [],
+        "injured": [],
+        "tacticalNotes": [
+          "Pressing alto nei primi minuti.",
+          "Rotazioni rapide sui laterali.",
+          "Gestione del possesso nei finali di tempo."
+        ]
+      },
+      "timeline": [
+        {
+          "minute": "Pre",
+          "event": "info",
+          "team": "CUS Trento",
+          "text": "Evento demo aggiornabile da CMS."
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "date": "2026-07-12",
+      "time": "21:00",
+      "home": "CUS Trento",
+      "away": "Mezzolombardo C5",
+      "venue": "Sanbàpolis",
+      "score": "",
+      "status": "Da giocare",
+      "competition": "Serie C1",
+      "summary": "Match di calendario demo per testare la paginazione.",
+      "mvp": "",
+      "scorers": [],
+      "yellow": [],
+      "red": [],
+      "stats": {
+        "shots": 0,
+        "shotsAgainst": 0,
+        "possession": 0,
+        "corners": 0
+      },
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "Luca Baccaro Zeni",
+          "Filippo Bernard",
+          "Saif Edine Safi",
+          "Tommaso Boldrini",
+          "Davide Filippi"
+        ],
+        "bench": [
+          "Alvise Tesser",
+          "Federico Addobbati",
+          "Filippo Baietta",
+          "Luca Cirasola",
+          "Mattia Cuman",
+          "Luca Frattoln",
+          "Federico Maciocia"
+        ],
+        "absent": [],
+        "suspended": [],
+        "injured": [],
+        "tacticalNotes": [
+          "Pressing alto nei primi minuti.",
+          "Rotazioni rapide sui laterali.",
+          "Gestione del possesso nei finali di tempo."
+        ]
+      },
+      "timeline": [
+        {
+          "minute": "Pre",
+          "event": "info",
+          "team": "CUS Trento",
+          "text": "Evento demo aggiornabile da CMS."
+        }
+      ]
     }
   ],
   "u21Fixtures": [
@@ -2570,6 +2855,286 @@
         "possession": 0,
         "corners": 0
       }
+    },
+    {
+      "id": 104,
+      "date": "2026-06-03",
+      "time": "19:00",
+      "home": "CUS Trento U21",
+      "away": "Bolzano U21",
+      "venue": "Sanbàpolis",
+      "score": "",
+      "status": "Da giocare",
+      "competition": "Under 21",
+      "summary": "Gara U21 demo.",
+      "mvp": "",
+      "scorers": [],
+      "yellow": [],
+      "red": [],
+      "stats": {
+        "shots": 0,
+        "shotsAgainst": 0,
+        "possession": 0,
+        "corners": 0
+      },
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "Paolo Bigonzi",
+          "Giulio Tognolli",
+          "Lorenzo Zantorello",
+          "Alex Gasparri",
+          "Matteo Guidetti"
+        ],
+        "bench": [
+          "Matteo Mateia",
+          "Riccardo Toniolli",
+          "Alessandro Betti",
+          "Samuele Buda",
+          "Federico Caldonazzi",
+          "Joao Pedro Caccia Neff",
+          "Afrian Gavril Danus"
+        ],
+        "absent": [],
+        "suspended": [],
+        "injured": [],
+        "tacticalNotes": [
+          "Ritmo alto e pressione organizzata.",
+          "Sviluppo del gioco tramite laterali."
+        ]
+      },
+      "timeline": [
+        {
+          "minute": "Pre",
+          "event": "info",
+          "team": "CUS Trento",
+          "text": "Evento demo aggiornabile da CMS."
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "date": "2026-06-10",
+      "time": "18:30",
+      "home": "Levico U21",
+      "away": "CUS Trento U21",
+      "venue": "Levico",
+      "score": "1-4",
+      "status": "Terminata",
+      "competition": "Under 21",
+      "summary": "Vittoria U21 demo.",
+      "mvp": "",
+      "scorers": [],
+      "yellow": [],
+      "red": [],
+      "stats": {
+        "shots": 0,
+        "shotsAgainst": 0,
+        "possession": 0,
+        "corners": 0
+      },
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "Paolo Bigonzi",
+          "Giulio Tognolli",
+          "Lorenzo Zantorello",
+          "Alex Gasparri",
+          "Matteo Guidetti"
+        ],
+        "bench": [
+          "Matteo Mateia",
+          "Riccardo Toniolli",
+          "Alessandro Betti",
+          "Samuele Buda",
+          "Federico Caldonazzi",
+          "Joao Pedro Caccia Neff",
+          "Afrian Gavril Danus"
+        ],
+        "absent": [],
+        "suspended": [],
+        "injured": [],
+        "tacticalNotes": [
+          "Ritmo alto e pressione organizzata.",
+          "Sviluppo del gioco tramite laterali."
+        ]
+      },
+      "timeline": [
+        {
+          "minute": "Pre",
+          "event": "info",
+          "team": "CUS Trento",
+          "text": "Evento demo aggiornabile da CMS."
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "date": "2026-06-17",
+      "time": "19:00",
+      "home": "CUS Trento U21",
+      "away": "Rovereto U21",
+      "venue": "Sanbàpolis",
+      "score": "",
+      "status": "Da giocare",
+      "competition": "Under 21",
+      "summary": "Gara U21 demo.",
+      "mvp": "",
+      "scorers": [],
+      "yellow": [],
+      "red": [],
+      "stats": {
+        "shots": 0,
+        "shotsAgainst": 0,
+        "possession": 0,
+        "corners": 0
+      },
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "Paolo Bigonzi",
+          "Giulio Tognolli",
+          "Lorenzo Zantorello",
+          "Alex Gasparri",
+          "Matteo Guidetti"
+        ],
+        "bench": [
+          "Matteo Mateia",
+          "Riccardo Toniolli",
+          "Alessandro Betti",
+          "Samuele Buda",
+          "Federico Caldonazzi",
+          "Joao Pedro Caccia Neff",
+          "Afrian Gavril Danus"
+        ],
+        "absent": [],
+        "suspended": [],
+        "injured": [],
+        "tacticalNotes": [
+          "Ritmo alto e pressione organizzata.",
+          "Sviluppo del gioco tramite laterali."
+        ]
+      },
+      "timeline": [
+        {
+          "minute": "Pre",
+          "event": "info",
+          "team": "CUS Trento",
+          "text": "Evento demo aggiornabile da CMS."
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "date": "2026-06-24",
+      "time": "18:45",
+      "home": "Fiemme U21",
+      "away": "CUS Trento U21",
+      "venue": "Cavalese",
+      "score": "2-3",
+      "status": "Terminata",
+      "competition": "Under 21",
+      "summary": "Match U21 demo.",
+      "mvp": "",
+      "scorers": [],
+      "yellow": [],
+      "red": [],
+      "stats": {
+        "shots": 0,
+        "shotsAgainst": 0,
+        "possession": 0,
+        "corners": 0
+      },
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "Paolo Bigonzi",
+          "Giulio Tognolli",
+          "Lorenzo Zantorello",
+          "Alex Gasparri",
+          "Matteo Guidetti"
+        ],
+        "bench": [
+          "Matteo Mateia",
+          "Riccardo Toniolli",
+          "Alessandro Betti",
+          "Samuele Buda",
+          "Federico Caldonazzi",
+          "Joao Pedro Caccia Neff",
+          "Afrian Gavril Danus"
+        ],
+        "absent": [],
+        "suspended": [],
+        "injured": [],
+        "tacticalNotes": [
+          "Ritmo alto e pressione organizzata.",
+          "Sviluppo del gioco tramite laterali."
+        ]
+      },
+      "timeline": [
+        {
+          "minute": "Pre",
+          "event": "info",
+          "team": "CUS Trento",
+          "text": "Evento demo aggiornabile da CMS."
+        }
+      ]
+    },
+    {
+      "id": 108,
+      "date": "2026-07-01",
+      "time": "19:00",
+      "home": "CUS Trento U21",
+      "away": "Pergine U21",
+      "venue": "Sanbàpolis",
+      "score": "",
+      "status": "Da giocare",
+      "competition": "Under 21",
+      "summary": "Match U21 demo per paginazione.",
+      "mvp": "",
+      "scorers": [],
+      "yellow": [],
+      "red": [],
+      "stats": {
+        "shots": 0,
+        "shotsAgainst": 0,
+        "possession": 0,
+        "corners": 0
+      },
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "Paolo Bigonzi",
+          "Giulio Tognolli",
+          "Lorenzo Zantorello",
+          "Alex Gasparri",
+          "Matteo Guidetti"
+        ],
+        "bench": [
+          "Matteo Mateia",
+          "Riccardo Toniolli",
+          "Alessandro Betti",
+          "Samuele Buda",
+          "Federico Caldonazzi",
+          "Joao Pedro Caccia Neff",
+          "Afrian Gavril Danus"
+        ],
+        "absent": [],
+        "suspended": [],
+        "injured": [],
+        "tacticalNotes": [
+          "Ritmo alto e pressione organizzata.",
+          "Sviluppo del gioco tramite laterali."
+        ]
+      },
+      "timeline": [
+        {
+          "minute": "Pre",
+          "event": "info",
+          "team": "CUS Trento",
+          "text": "Evento demo aggiornabile da CMS."
+        }
+      ]
     }
   ],
   "standings": [
