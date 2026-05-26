@@ -1,10 +1,15 @@
-name: Deploy to VHosting2
+name: Deploy to VHosting
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      debug:
+        description: "Enable verbose FTP debug"
+        required: false
+        default: "true"
 
 permissions:
   contents: read
@@ -15,43 +20,155 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug GitHub context
+        run: |
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Branch ref: $GITHUB_REF"
+          echo "Commit SHA: $GITHUB_SHA"
+          echo "Actor: $GITHUB_ACTOR"
+          echo "Workspace: $GITHUB_WORKSPACE"
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_PAT }}
 
-      - name: Install lftp
+      - name: Verify local project files
+        run: |
+          echo "Current directory:"
+          pwd
+
+          echo "Root files:"
+          ls -la
+
+          echo "Expected project files:"
+          test -f index.html && echo "OK index.html found" || (echo "ERROR index.html missing" && exit 1)
+          test -d js && echo "OK js directory found" || (echo "ERROR js directory missing" && exit 1)
+          test -d content && echo "OK content directory found" || (echo "ERROR content directory missing" && exit 1)
+          test -f content/data.json && echo "OK content/data.json found" || (echo "ERROR content/data.json missing" && exit 1)
+          test -d admin && echo "OK admin directory found" || (echo "ERROR admin directory missing" && exit 1)
+
+          echo "data.json size:"
+          wc -c content/data.json
+
+      - name: Install FTP tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y lftp
+          sudo apt-get install -y lftp dnsutils curl
 
-      - name: Deploy via FTP with lftp
+          echo "lftp version:"
+          lftp --version
+
+      - name: DNS and network check
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+        run: |
+          echo "FTP server configured as: $FTP_SERVER"
+
+          echo "DNS lookup:"
+          nslookup "$FTP_SERVER" || true
+
+          echo "Resolved hosts:"
+          getent hosts "$FTP_SERVER" || true
+
+      - name: FTP connection and write test
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
         run: |
-          echo "Deploy target server: $FTP_SERVER"
-          echo "Deploy target dir: $FTP_SERVER_DIR"
+          echo "Creating probe file..."
+          echo "deploy probe $(date -u)" > __deploy_probe.txt
 
-          lftp <<EOF
+          echo "Target FTP server: $FTP_SERVER"
+          echo "Target FTP dir: $FTP_SERVER_DIR"
+
+          lftp -d <<EOF
           set cmd:fail-exit yes
+          set cmd:trace yes
+          set ftp:passive-mode yes
+          set ftp:ssl-allow no
+          set net:max-retries 2
+          set net:timeout 45
+
+          open -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER"
+
+          echo "REMOTE PWD BEFORE CD:"
+          pwd
+
+          echo "REMOTE LIST BEFORE CD:"
+          cls -la
+
+          cd "$FTP_SERVER_DIR"
+
+          echo "REMOTE PWD AFTER CD:"
+          pwd
+
+          echo "REMOTE LIST AFTER CD:"
+          cls -la
+
+          echo "UPLOAD PROBE FILE:"
+          put __deploy_probe.txt
+
+          echo "REMOTE LIST AFTER PROBE:"
+          cls -la
+
+          bye
+          EOF
+
+      - name: Deploy website via FTP
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
+        run: |
+          echo "Starting full mirror deploy..."
+          echo "Target FTP server: $FTP_SERVER"
+          echo "Target FTP dir: $FTP_SERVER_DIR"
+
+          lftp -d <<EOF
+          set cmd:fail-exit yes
+          set cmd:trace yes
           set ftp:passive-mode yes
           set ftp:ssl-allow no
           set net:max-retries 2
           set net:timeout 60
+          set xfer:log yes
 
           open -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER"
 
           cd "$FTP_SERVER_DIR"
 
+          echo "REMOTE PWD BEFORE MIRROR:"
+          pwd
+
+          echo "START MIRROR:"
           mirror -R --only-newer --verbose --parallel=1 \
             --exclude-glob .git/ \
             --exclude-glob .github/ \
             --exclude-glob README.md \
-            --exclude-glob __deploy_test.txt \
             ./ .
+
+          echo "REMOTE LIST AFTER MIRROR:"
+          cls -la
 
           bye
           EOF
+
+      - name: Public HTTP verification
+        run: |
+          echo "Checking public website..."
+
+          echo "Homepage headers:"
+          curl -I -L --max-time 30 "https://custrentocalcioa5.it" || true
+
+          echo "Probe file check:"
+          curl -I -L --max-time 30 "https://custrentocalcioa5.it/__deploy_probe.txt?cb=$(date +%s)" || true
+
+          echo "data.json check:"
+          curl -I -L --max-time 30 "https://custrentocalcioa5.it/content/data.json?cb=$(date +%s)" || true
+
+          echo "data.json first bytes:"
+          curl -L --max-time 30 "https://custrentocalcioa5.it/content/data.json?cb=$(date +%s)" | head -c 300 || true
