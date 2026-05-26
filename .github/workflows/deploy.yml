@@ -26,34 +26,33 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y lftp
 
-      - name: FTP connection test2
+      - name: Deploy via FTP with lftp
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
         run: |
-          echo "test deploy" > __deploy_test.txt
+          echo "Deploy target server: $FTP_SERVER"
+          echo "Deploy target dir: $FTP_SERVER_DIR"
 
-          echo "Server: $FTP_SERVER"
-          echo "Target dir: $FTP_SERVER_DIR"
-
-          lftp -d <<EOF
+          lftp <<EOF
           set cmd:fail-exit yes
           set ftp:passive-mode yes
           set ftp:ssl-allow no
-          set net:max-retries 1
-          set net:timeout 30
+          set net:max-retries 2
+          set net:timeout 60
 
           open -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER"
 
-          pwd
-          cls
-
           cd "$FTP_SERVER_DIR"
-          pwd
-          put __deploy_test.txt
-          cls
+
+          mirror -R --only-newer --verbose --parallel=1 \
+            --exclude-glob .git/ \
+            --exclude-glob .github/ \
+            --exclude-glob README.md \
+            --exclude-glob __deploy_test.txt \
+            ./ .
 
           bye
           EOF
