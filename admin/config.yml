@@ -1,0 +1,452 @@
+# ===========================================================================
+#  Configurazione Decap CMS — CUS Trento C5
+#  Modifica UN solo file: content/data.json (quello che il sito legge).
+#  Ogni sezione qui sotto e' un blocco dentro quel file.
+# ===========================================================================
+backend:
+  name: git-gateway
+  branch: main            # se il tuo branch principale si chiama "master", cambialo qui
+
+# Cartella dove finiscono le foto caricate dal pannello
+media_folder: "img/uploads"
+public_folder: "img/uploads"
+
+# Lingua del pannello
+locale: "it"
+
+collections:
+  # =========================================================================
+  #  TUTTO il sito in un unico file: content/data.json
+  # =========================================================================
+  - name: "sito"
+    label: "Contenuti del sito"
+    delete: false
+    editor:
+      preview: false
+    files:
+
+      # ------------------------------------------------------------- NEWS
+      - name: "news"
+        label: "News"
+        file: "content/data.json"
+        # NB: tutte le sezioni puntano allo stesso file; Decap unisce i campi.
+        fields:
+          - label: "News"
+            name: "news"
+            label_singular: "articolo"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Titolo", name: "title", widget: "string" }
+              - { label: "Categoria", name: "category", widget: "string" }
+              - { label: "Data", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Autore", name: "author", widget: "string" }
+              - { label: "Immagine (URL)", name: "image", widget: "string", required: false }
+              - { label: "Sommario", name: "excerpt", widget: "text" }
+              - { label: "Corpo (un paragrafo per riga)", name: "body", widget: "list", field: { label: "Paragrafo", name: "p", widget: "text" } }
+              - { label: "In evidenza", name: "pinned", widget: "boolean", default: false }
+
+      # ------------------------------------------------------------- ROSA
+      - name: "roster"
+        label: "Rosa giocatori"
+        file: "content/data.json"
+        fields:
+          - label: "Rosa"
+            name: "roster"
+            label_singular: "giocatore"
+            widget: "list"
+            summary: "#{{fields.number}} {{fields.name}} ({{fields.team}})"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Nome", name: "name", widget: "string" }
+              - { label: "Ruolo", name: "role", widget: "select", options: ["Portiere","Centrale","Laterale","Punta"] }
+              - { label: "Squadra", name: "team", widget: "select", options: ["Prima squadra","Under 21"] }
+              - { label: "Numero", name: "number", widget: "number", value_type: "int" }
+              - { label: "Eta'", name: "age", widget: "number", value_type: "int", required: false }
+              - { label: "Gol", name: "goals", widget: "number", value_type: "int", default: 0 }
+              - { label: "Assist", name: "assists", widget: "number", value_type: "int", default: 0 }
+              - { label: "Presenze", name: "appearances", widget: "number", value_type: "int", default: 0 }
+              - { label: "Sigla avatar", name: "avatar", widget: "string", required: false }
+              - { label: "Foto (URL)", name: "photo", widget: "string", required: false }
+              - { label: "Bio", name: "bio", widget: "text", required: false }
+              # Strutture annidate: editor JSON, modificale solo se serve
+              - { label: "Statistiche per competizione", name: "competitions", widget: "object", required: false, collapsed: true, fields: [
+                  { label: "Campionato", name: "campionato", widget: "object", fields: [ {label:"Presenze",name:"appearances",widget:"number",value_type:"int"},{label:"Gol",name:"goals",widget:"number",value_type:"int"},{label:"Assist",name:"assists",widget:"number",value_type:"int"} ] },
+                  { label: "Coppa", name: "coppa", widget: "object", fields: [ {label:"Presenze",name:"appearances",widget:"number",value_type:"int"},{label:"Gol",name:"goals",widget:"number",value_type:"int"},{label:"Assist",name:"assists",widget:"number",value_type:"int"} ] },
+                  { label: "Totale", name: "totale", widget: "object", fields: [ {label:"Presenze",name:"appearances",widget:"number",value_type:"int"},{label:"Gol",name:"goals",widget:"number",value_type:"int"},{label:"Assist",name:"assists",widget:"number",value_type:"int"} ] }
+                ] }
+              - { label: "Carriera (storico)", name: "history", widget: "list", required: false, collapsed: true, fields: [
+                  { label: "Stagione", name: "season", widget: "string" },
+                  { label: "Squadra", name: "team", widget: "string" },
+                  { label: "Presenze", name: "appearances", widget: "number", value_type: "int" },
+                  { label: "Gol", name: "goals", widget: "number", value_type: "int" },
+                  { label: "Assist", name: "assists", widget: "number", value_type: "int" }
+                ] }
+              - { label: "Statistiche portiere", name: "goalkeeperStats", widget: "object", required: false, collapsed: true, fields: [
+                  { label: "Presenze", name: "appearances", widget: "number", value_type: "int" },
+                  { label: "Minuti", name: "minutes", widget: "number", value_type: "int" },
+                  { label: "Clean sheet", name: "cleanSheets", widget: "number", value_type: "int" },
+                  { label: "Gol subiti", name: "goalsAgainst", widget: "number", value_type: "int" },
+                  { label: "Parate", name: "saves", widget: "number", value_type: "int" },
+                  { label: "Rigori parati", name: "penaltiesSaved", widget: "number", value_type: "int" },
+                  { label: "Save rate", name: "saveRate", widget: "number", value_type: "int" },
+                  { label: "Media gol subiti", name: "goalsAgainstAvg", widget: "number", value_type: "float" }
+                ] }
+
+      # ------------------------------------------------------- CALENDARIO
+      - name: "fixtures"
+        label: "Calendario Prima squadra"
+        file: "content/data.json"
+        fields:
+          - label: "Partite Prima squadra"
+            name: "fixtures"
+            label_singular: "partita"
+            widget: "list"
+            summary: "{{fields.date}} — {{fields.home}} vs {{fields.away}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Data", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Ora", name: "time", widget: "string" }
+              - { label: "Casa", name: "home", widget: "string" }
+              - { label: "Trasferta", name: "away", widget: "string" }
+              - { label: "Campo", name: "venue", widget: "string" }
+              - { label: "Risultato", name: "score", widget: "string", required: false }
+              - { label: "Stato", name: "status", widget: "select", options: ["Da giocare","Terminata","In attesa"] }
+              - { label: "Competizione", name: "competition", widget: "string" }
+              - { label: "MVP", name: "mvp", widget: "string", required: false }
+              - { label: "Marcatori", name: "scorers", widget: "list", required: false, field: { label: "Marcatore", name: "s", widget: "string" } }
+              - { label: "Ammoniti", name: "yellow", widget: "list", required: false, field: { label: "Giocatore", name: "y", widget: "string" } }
+              - { label: "Espulsi", name: "red", widget: "list", required: false, field: { label: "Giocatore", name: "r", widget: "string" } }
+              - { label: "Sommario", name: "summary", widget: "text", required: false }
+              - { label: "Statistiche", name: "stats", widget: "object", required: false, collapsed: true, fields: [
+                  {label:"Tiri",name:"shots",widget:"number",value_type:"int"},
+                  {label:"Tiri subiti",name:"shotsAgainst",widget:"number",value_type:"int"},
+                  {label:"Possesso %",name:"possession",widget:"number",value_type:"int"},
+                  {label:"Calci d'angolo",name:"corners",widget:"number",value_type:"int"} ] }
+              - { label: "Formazione", name: "lineup", widget: "object", required: false, collapsed: true, fields: [
+                  {label:"Modulo",name:"module",widget:"string"},
+                  {label:"Quintetto",name:"startingFive",widget:"list",field:{label:"Giocatore",name:"g",widget:"string"}},
+                  {label:"Panchina",name:"bench",widget:"list",field:{label:"Giocatore",name:"g",widget:"string"}},
+                  {label:"Assenti",name:"absent",widget:"list",required:false,field:{label:"Giocatore",name:"g",widget:"string"}},
+                  {label:"Squalificati",name:"suspended",widget:"list",required:false,field:{label:"Giocatore",name:"g",widget:"string"}},
+                  {label:"Infortunati",name:"injured",widget:"list",required:false,field:{label:"Giocatore",name:"g",widget:"string"}},
+                  {label:"Note tattiche",name:"tacticalNotes",widget:"list",required:false,field:{label:"Nota",name:"n",widget:"text"}} ] }
+              - { label: "Timeline eventi", name: "timeline", widget: "list", required: false, collapsed: true, fields: [
+                  {label:"Minuto",name:"minute",widget:"string"},
+                  {label:"Evento",name:"event",widget:"string"},
+                  {label:"Squadra",name:"team",widget:"string"},
+                  {label:"Testo",name:"text",widget:"text"} ] }
+
+      # --------------------------------------------------- CALENDARIO U21
+      - name: "u21Fixtures"
+        label: "Calendario Under 21"
+        file: "content/data.json"
+        fields:
+          - label: "Partite Under 21"
+            name: "u21Fixtures"
+            label_singular: "partita U21"
+            widget: "list"
+            summary: "{{fields.date}} — {{fields.home}} vs {{fields.away}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Data", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Ora", name: "time", widget: "string" }
+              - { label: "Casa", name: "home", widget: "string" }
+              - { label: "Trasferta", name: "away", widget: "string" }
+              - { label: "Campo", name: "venue", widget: "string" }
+              - { label: "Risultato", name: "score", widget: "string", required: false }
+              - { label: "Stato", name: "status", widget: "select", options: ["Da giocare","Terminata","In attesa"] }
+              - { label: "Competizione", name: "competition", widget: "string" }
+              - { label: "Formazione", name: "lineup", widget: "object", required: false, collapsed: true, fields: [
+                  {label:"Modulo",name:"module",widget:"string"},
+                  {label:"Quintetto",name:"startingFive",widget:"list",field:{label:"Giocatore",name:"g",widget:"string"}},
+                  {label:"Panchina",name:"bench",widget:"list",field:{label:"Giocatore",name:"g",widget:"string"}},
+                  {label:"Assenti",name:"absent",widget:"list",required:false,field:{label:"Giocatore",name:"g",widget:"string"}},
+                  {label:"Squalificati",name:"suspended",widget:"list",required:false,field:{label:"Giocatore",name:"g",widget:"string"}},
+                  {label:"Infortunati",name:"injured",widget:"list",required:false,field:{label:"Giocatore",name:"g",widget:"string"}},
+                  {label:"Note tattiche",name:"tacticalNotes",widget:"list",required:false,field:{label:"Nota",name:"n",widget:"text"}} ] }
+              - { label: "Timeline eventi", name: "timeline", widget: "list", required: false, collapsed: true, fields: [
+                  {label:"Minuto",name:"minute",widget:"string"},
+                  {label:"Evento",name:"event",widget:"string"},
+                  {label:"Squadra",name:"team",widget:"string"},
+                  {label:"Testo",name:"text",widget:"text"} ] }
+              - { label: "Statistiche", name: "stats", widget: "object", required: false, collapsed: true, fields: [
+                  {label:"Tiri",name:"shots",widget:"number",value_type:"int"},
+                  {label:"Tiri subiti",name:"shotsAgainst",widget:"number",value_type:"int"},
+                  {label:"Possesso %",name:"possession",widget:"number",value_type:"int"},
+                  {label:"Calci d'angolo",name:"corners",widget:"number",value_type:"int"} ] }
+
+      # ------------------------------------------- CLASSIFICA PRIMA SQUADRA
+      - name: "standings"
+        label: "Classifica Prima squadra"
+        file: "content/data.json"
+        fields:
+          - label: "Classifica"
+            name: "standings"
+            label_singular: "riga"
+            widget: "list"
+            summary: "{{fields.pos}}. {{fields.team}} — {{fields.pts}} pt"
+            fields:
+              - { label: "Posizione", name: "pos", widget: "number", value_type: "int" }
+              - { label: "Squadra", name: "team", widget: "string" }
+              - { label: "Punti", name: "pts", widget: "number", value_type: "int" }
+              - { label: "Giocate", name: "g", widget: "number", value_type: "int" }
+              - { label: "Vinte", name: "v", widget: "number", value_type: "int" }
+              - { label: "Pareggi", name: "n", widget: "number", value_type: "int" }
+              - { label: "Perse", name: "p", widget: "number", value_type: "int" }
+              - { label: "Gol fatti", name: "gf", widget: "number", value_type: "int" }
+              - { label: "Gol subiti", name: "gs", widget: "number", value_type: "int" }
+              - { label: "ID", name: "id", widget: "number", value_type: "int", required: false }
+
+      # ------------------------------------------------- CLASSIFICA U21
+      - name: "u21Standings"
+        label: "Classifica Under 21"
+        file: "content/data.json"
+        fields:
+          - label: "Classifica U21"
+            name: "u21Standings"
+            label_singular: "riga"
+            widget: "list"
+            summary: "{{fields.pos}}. {{fields.team}} — {{fields.pts}} pt"
+            fields:
+              - { label: "Posizione", name: "pos", widget: "number", value_type: "int" }
+              - { label: "Squadra", name: "team", widget: "string" }
+              - { label: "Punti", name: "pts", widget: "number", value_type: "int" }
+              - { label: "Giocate", name: "g", widget: "number", value_type: "int" }
+              - { label: "Vinte", name: "v", widget: "number", value_type: "int" }
+              - { label: "Pareggi", name: "n", widget: "number", value_type: "int" }
+              - { label: "Perse", name: "p", widget: "number", value_type: "int" }
+              - { label: "Gol fatti", name: "gf", widget: "number", value_type: "int" }
+              - { label: "Gol subiti", name: "gs", widget: "number", value_type: "int" }
+              - { label: "ID", name: "id", widget: "number", value_type: "int", required: false }
+
+      # ------------------------------------------------------------- COPPA
+      - name: "cup"
+        label: "Coppa Prima squadra"
+        file: "content/data.json"
+        fields:
+          - label: "Coppa"
+            name: "cup"
+            widget: "object"
+            fields:
+              - { label: "Titolo", name: "title", widget: "string" }
+              - { label: "Edizione", name: "edition", widget: "string" }
+              - { label: "Stato", name: "status", widget: "string" }
+              - { label: "Partite", name: "fixtures", widget: "list", fields: [
+                  {label:"ID",name:"id",widget:"number",value_type:"int"},
+                  {label:"Turno",name:"round",widget:"string"},
+                  {label:"Data",name:"date",widget:"date",format:"YYYY-MM-DD"},
+                  {label:"Ora",name:"time",widget:"string"},
+                  {label:"Casa",name:"home",widget:"string"},
+                  {label:"Trasferta",name:"away",widget:"string"},
+                  {label:"Campo",name:"venue",widget:"string"},
+                  {label:"Risultato",name:"score",widget:"string",required:false},
+                  {label:"Stato",name:"status",widget:"select",options:["Da giocare","Terminata","In attesa"]} ] }
+
+      # --------------------------------------------------------- COPPA U21
+      - name: "u21Cup"
+        label: "Coppa Under 21"
+        file: "content/data.json"
+        fields:
+          - label: "Coppa U21"
+            name: "u21Cup"
+            widget: "object"
+            fields:
+              - { label: "Titolo", name: "title", widget: "string" }
+              - { label: "Edizione", name: "edition", widget: "string" }
+              - { label: "Stato", name: "status", widget: "string" }
+              - { label: "Partite", name: "fixtures", widget: "list", fields: [
+                  {label:"ID",name:"id",widget:"number",value_type:"int"},
+                  {label:"Turno",name:"round",widget:"string"},
+                  {label:"Data",name:"date",widget:"date",format:"YYYY-MM-DD"},
+                  {label:"Ora",name:"time",widget:"string"},
+                  {label:"Casa",name:"home",widget:"string"},
+                  {label:"Trasferta",name:"away",widget:"string"},
+                  {label:"Campo",name:"venue",widget:"string"},
+                  {label:"Risultato",name:"score",widget:"string",required:false},
+                  {label:"Stato",name:"status",widget:"select",options:["Da giocare","Terminata","In attesa"]} ] }
+
+      # ------------------------------------------------- GALLERY ALBUM
+      - name: "galleryAlbums"
+        label: "Gallery (album)"
+        file: "content/data.json"
+        fields:
+          - label: "Album"
+            name: "galleryAlbums"
+            label_singular: "album"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Titolo", name: "title", widget: "string" }
+              - { label: "Categoria", name: "category", widget: "string" }
+              - { label: "Data", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Copertina (URL)", name: "cover", widget: "string", required: false }
+              - { label: "Descrizione", name: "description", widget: "text", required: false }
+              - { label: "Foto (URL, una per riga)", name: "photos", widget: "list", field: { label: "Foto URL", name: "u", widget: "string" } }
+
+      # --------------------------------------------- GALLERY (vecchia, semplice)
+      - name: "gallery"
+        label: "Gallery (foto singole)"
+        file: "content/data.json"
+        fields:
+          - label: "Foto"
+            name: "gallery"
+            label_singular: "foto"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Titolo", name: "title", widget: "string" }
+              - { label: "Data", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Categoria", name: "category", widget: "string" }
+              - { label: "Immagine (URL)", name: "image", widget: "string" }
+
+      # ----------------------------------------------------------- SPONSOR
+      - name: "sponsors"
+        label: "Sponsor"
+        file: "content/data.json"
+        fields:
+          - label: "Sponsor"
+            name: "sponsors"
+            label_singular: "sponsor"
+            widget: "list"
+            summary: "{{fields.name}} ({{fields.tier}})"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Nome", name: "name", widget: "string" }
+              - { label: "Livello", name: "tier", widget: "string" }
+              - { label: "Sigla logo", name: "logo", widget: "string" }
+              - { label: "Link (URL)", name: "url", widget: "string", required: false }
+
+      # -------------------------------------------------- PACCHETTI SPONSOR
+      - name: "sponsorPackages"
+        label: "Pacchetti sponsor"
+        file: "content/data.json"
+        fields:
+          - label: "Pacchetti"
+            name: "sponsorPackages"
+            label_singular: "pacchetto"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Nome", name: "name", widget: "string" }
+              - { label: "Prezzo", name: "price", widget: "string" }
+              - { label: "Visibilita'", name: "visibility", widget: "list", field: { label: "Voce", name: "v", widget: "string" } }
+              - { label: "Testo bottone", name: "cta", widget: "string" }
+
+      # ------------------------------------------------------------- STAFF
+      - name: "staff"
+        label: "Staff"
+        file: "content/data.json"
+        fields:
+          - label: "Staff"
+            name: "staff"
+            label_singular: "membro"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.role}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Nome", name: "name", widget: "string" }
+              - { label: "Ruolo", name: "role", widget: "string" }
+              - { label: "Squadra", name: "team", widget: "select", options: ["Prima squadra","Under 21"] }
+              - { label: "Foto (URL)", name: "photo", widget: "string", required: false }
+              - { label: "Bio", name: "bio", widget: "text", required: false }
+
+      # ------------------------------------------------------------ VIDEO
+      - name: "videos"
+        label: "Video"
+        file: "content/data.json"
+        fields:
+          - label: "Video"
+            name: "videos"
+            label_singular: "video"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Titolo", name: "title", widget: "string" }
+              - { label: "Categoria", name: "category", widget: "string" }
+              - { label: "Anteprima (URL)", name: "thumb", widget: "string", required: false }
+              - { label: "Link video (URL)", name: "url", widget: "string" }
+
+      # ----------------------------------------------------------- SOCIAL
+      - name: "social"
+        label: "Social wall"
+        file: "content/data.json"
+        fields:
+          - label: "Post social"
+            name: "social"
+            label_singular: "post"
+            widget: "list"
+            summary: "{{fields.network}} — {{fields.handle}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Rete", name: "network", widget: "string" }
+              - { label: "Handle", name: "handle", widget: "string" }
+              - { label: "Testo", name: "text", widget: "text" }
+              - { label: "Data", name: "date", widget: "date", format: "YYYY-MM-DD" }
+
+      # -------------------------------------------------- ARCHIVIO STAGIONI
+      - name: "seasons"
+        label: "Archivio stagioni"
+        file: "content/data.json"
+        fields:
+          - label: "Stagioni"
+            name: "seasons"
+            label_singular: "stagione"
+            widget: "list"
+            summary: "{{fields.season}} — {{fields.position}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Stagione", name: "season", widget: "string" }
+              - { label: "Competizione", name: "competition", widget: "string" }
+              - { label: "Posizione", name: "position", widget: "string" }
+              - { label: "Record (V-N-P)", name: "record", widget: "string" }
+              - { label: "Gol fatti", name: "gf", widget: "number", value_type: "int" }
+              - { label: "Gol subiti", name: "gs", widget: "number", value_type: "int" }
+              - { label: "Nota", name: "note", widget: "text", required: false }
+
+      # --------------------------------------------------------- TIMELINE
+      - name: "timeline"
+        label: "Timeline stagione"
+        file: "content/data.json"
+        fields:
+          - label: "Tappe"
+            name: "timeline"
+            label_singular: "tappa"
+            widget: "list"
+            summary: "{{fields.date}} — {{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Data", name: "date", widget: "string" }
+              - { label: "Titolo", name: "title", widget: "string" }
+              - { label: "Testo", name: "text", widget: "text" }
+
+      # ------------------------------------------------------- HALL OF FAME
+      - name: "records"
+        label: "Hall of fame / Record"
+        file: "content/data.json"
+        fields:
+          - label: "Record"
+            name: "records"
+            label_singular: "record"
+            widget: "list"
+            summary: "{{fields.label}}: {{fields.value}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Etichetta", name: "label", widget: "string" }
+              - { label: "Valore", name: "value", widget: "string" }
+              - { label: "Dettaglio", name: "detail", widget: "string" }
+
+      # ------------------------------------------------ CAMPI FORM PROVINI
+      - name: "tryoutFields"
+        label: "Campi form provini"
+        file: "content/data.json"
+        fields:
+          - label: "Campi del form provini"
+            name: "tryoutFields"
+            widget: "list"
+            field: { label: "Campo", name: "f", widget: "string" }
