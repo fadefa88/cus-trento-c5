@@ -1,6 +1,6 @@
 # Configurazione Decap CMS — CUS Trento C5
-# Generato in stile esteso (block) per evitare errori di sintassi.
-# Modifica UN solo file: content/data.json
+# Ogni sezione e' una voce separata nella barra laterale "Raccolte".
+# Tutte modificano lo stesso file: content/data.json
 
 backend:
   name: git-gateway
@@ -9,8 +9,8 @@ media_folder: img/uploads
 public_folder: img/uploads
 locale: it
 collections:
-  - name: sito
-    label: Contenuti del sito
+  - name: news
+    label: News
     delete: false
     editor:
       preview: false
@@ -23,7 +23,7 @@ collections:
             name: news
             widget: list
             label_singular: articolo
-            summary: "{{fields.title}}"
+            summary: '{{fields.title}}'
             fields:
               - label: ID
                 name: id
@@ -60,6 +60,12 @@ collections:
                 name: pinned
                 widget: boolean
                 default: false
+  - name: roster
+    label: Rosa giocatori
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: roster
         label: Rosa giocatori
         file: content/data.json
@@ -68,7 +74,7 @@ collections:
             name: roster
             widget: list
             label_singular: giocatore
-            summary: "#{{fields.number}} {{fields.name}} ({{fields.team}})"
+            summary: '#{{fields.number}} {{fields.name}} ({{fields.team}})'
             fields:
               - label: ID
                 name: id
@@ -243,6 +249,12 @@ collections:
                     name: goalsAgainstAvg
                     widget: number
                     value_type: float
+  - name: fixtures
+    label: Calendario Prima squadra
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: fixtures
         label: Calendario Prima squadra
         file: content/data.json
@@ -251,7 +263,7 @@ collections:
             name: fixtures
             widget: list
             label_singular: partita
-            summary: "{{fields.date}} — {{fields.home}} vs {{fields.away}}"
+            summary: '{{fields.date}} — {{fields.home}} vs {{fields.away}}'
             fields:
               - label: ID
                 name: id
@@ -305,7 +317,7 @@ collections:
                 required: false
                 field:
                   label: Giocatore
-                  name: "y"
+                  name: 'y'
                   widget: string
               - label: Espulsi
                 name: red
@@ -394,7 +406,7 @@ collections:
                     required: false
                     field:
                       label: Nota
-                      name: "n"
+                      name: 'n'
                       widget: text
               - label: Timeline eventi
                 name: timeline
@@ -414,6 +426,12 @@ collections:
                   - label: Testo
                     name: text
                     widget: text
+  - name: u21Fixtures
+    label: Calendario Under 21
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: u21Fixtures
         label: Calendario Under 21
         file: content/data.json
@@ -422,7 +440,7 @@ collections:
             name: u21Fixtures
             widget: list
             label_singular: partita U21
-            summary: "{{fields.date}} — {{fields.home}} vs {{fields.away}}"
+            summary: '{{fields.date}} — {{fields.home}} vs {{fields.away}}'
             fields:
               - label: ID
                 name: id
@@ -511,7 +529,7 @@ collections:
                     required: false
                     field:
                       label: Nota
-                      name: "n"
+                      name: 'n'
                       widget: text
               - label: Timeline eventi
                 name: timeline
@@ -553,6 +571,12 @@ collections:
                     name: corners
                     widget: number
                     value_type: int
+  - name: standings
+    label: Classifica Prima squadra
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: standings
         label: Classifica Prima squadra
         file: content/data.json
@@ -561,7 +585,7 @@ collections:
             name: standings
             widget: list
             label_singular: riga
-            summary: "{{fields.pos}}. {{fields.team}} — {{fields.pts}} pt"
+            summary: '{{fields.pos}}. {{fields.team}} — {{fields.pts}} pt'
             fields:
               - label: Posizione
                 name: pos
@@ -583,7 +607,7 @@ collections:
                 widget: number
                 value_type: int
               - label: Pareggi
-                name: "n"
+                name: 'n'
                 widget: number
                 value_type: int
               - label: Perse
@@ -603,6 +627,12 @@ collections:
                 widget: number
                 value_type: int
                 required: false
+  - name: u21Standings
+    label: Classifica Under 21
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: u21Standings
         label: Classifica Under 21
         file: content/data.json
@@ -611,7 +641,7 @@ collections:
             name: u21Standings
             widget: list
             label_singular: riga
-            summary: "{{fields.pos}}. {{fields.team}} — {{fields.pts}} pt"
+            summary: '{{fields.pos}}. {{fields.team}} — {{fields.pts}} pt'
             fields:
               - label: Posizione
                 name: pos
@@ -633,7 +663,7 @@ collections:
                 widget: number
                 value_type: int
               - label: Pareggi
-                name: "n"
+                name: 'n'
                 widget: number
                 value_type: int
               - label: Perse
@@ -653,6 +683,12 @@ collections:
                 widget: number
                 value_type: int
                 required: false
+  - name: cup
+    label: Coppa Prima squadra
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: cup
         label: Coppa Prima squadra
         file: content/data.json
@@ -708,6 +744,12 @@ collections:
                       - Da giocare
                       - Terminata
                       - In attesa
+  - name: u21Cup
+    label: Coppa Under 21
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: u21Cup
         label: Coppa Under 21
         file: content/data.json
@@ -763,6 +805,12 @@ collections:
                       - Da giocare
                       - Terminata
                       - In attesa
+  - name: galleryAlbums
+    label: Gallery (album)
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: galleryAlbums
         label: Gallery (album)
         file: content/data.json
@@ -771,7 +819,7 @@ collections:
             name: galleryAlbums
             widget: list
             label_singular: album
-            summary: "{{fields.title}}"
+            summary: '{{fields.title}}'
             fields:
               - label: ID
                 name: id
@@ -802,6 +850,12 @@ collections:
                   label: Foto URL
                   name: u
                   widget: string
+  - name: gallery
+    label: Gallery (foto singole)
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: gallery
         label: Gallery (foto singole)
         file: content/data.json
@@ -810,7 +864,7 @@ collections:
             name: gallery
             widget: list
             label_singular: foto
-            summary: "{{fields.title}}"
+            summary: '{{fields.title}}'
             fields:
               - label: ID
                 name: id
@@ -829,6 +883,12 @@ collections:
               - label: Immagine (URL)
                 name: image
                 widget: string
+  - name: sponsors
+    label: Sponsor
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: sponsors
         label: Sponsor
         file: content/data.json
@@ -837,7 +897,7 @@ collections:
             name: sponsors
             widget: list
             label_singular: sponsor
-            summary: "{{fields.name}} ({{fields.tier}})"
+            summary: '{{fields.name}} ({{fields.tier}})'
             fields:
               - label: ID
                 name: id
@@ -856,6 +916,12 @@ collections:
                 name: url
                 widget: string
                 required: false
+  - name: sponsorPackages
+    label: Pacchetti sponsor
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: sponsorPackages
         label: Pacchetti sponsor
         file: content/data.json
@@ -864,7 +930,7 @@ collections:
             name: sponsorPackages
             widget: list
             label_singular: pacchetto
-            summary: "{{fields.name}}"
+            summary: '{{fields.name}}'
             fields:
               - label: ID
                 name: id
@@ -886,6 +952,12 @@ collections:
               - label: Testo bottone
                 name: cta
                 widget: string
+  - name: staff
+    label: Staff
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: staff
         label: Staff
         file: content/data.json
@@ -894,7 +966,7 @@ collections:
             name: staff
             widget: list
             label_singular: membro
-            summary: "{{fields.name}} — {{fields.role}}"
+            summary: '{{fields.name}} — {{fields.role}}'
             fields:
               - label: ID
                 name: id
@@ -920,6 +992,12 @@ collections:
                 name: bio
                 widget: text
                 required: false
+  - name: videos
+    label: Video
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: videos
         label: Video
         file: content/data.json
@@ -928,7 +1006,7 @@ collections:
             name: videos
             widget: list
             label_singular: video
-            summary: "{{fields.title}}"
+            summary: '{{fields.title}}'
             fields:
               - label: ID
                 name: id
@@ -947,6 +1025,12 @@ collections:
               - label: Link video (URL)
                 name: url
                 widget: string
+  - name: social
+    label: Social wall
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: social
         label: Social wall
         file: content/data.json
@@ -955,7 +1039,7 @@ collections:
             name: social
             widget: list
             label_singular: post
-            summary: "{{fields.network}} — {{fields.handle}}"
+            summary: '{{fields.network}} — {{fields.handle}}'
             fields:
               - label: ID
                 name: id
@@ -974,6 +1058,12 @@ collections:
                 name: date
                 widget: date
                 format: YYYY-MM-DD
+  - name: seasons
+    label: Archivio stagioni
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: seasons
         label: Archivio stagioni
         file: content/data.json
@@ -982,7 +1072,7 @@ collections:
             name: seasons
             widget: list
             label_singular: stagione
-            summary: "{{fields.season}} — {{fields.position}}"
+            summary: '{{fields.season}} — {{fields.position}}'
             fields:
               - label: ID
                 name: id
@@ -1012,6 +1102,12 @@ collections:
                 name: note
                 widget: text
                 required: false
+  - name: timeline
+    label: Timeline stagione
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: timeline
         label: Timeline stagione
         file: content/data.json
@@ -1020,7 +1116,7 @@ collections:
             name: timeline
             widget: list
             label_singular: tappa
-            summary: "{{fields.date}} — {{fields.title}}"
+            summary: '{{fields.date}} — {{fields.title}}'
             fields:
               - label: ID
                 name: id
@@ -1035,6 +1131,12 @@ collections:
               - label: Testo
                 name: text
                 widget: text
+  - name: records
+    label: Hall of fame / Record
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: records
         label: Hall of fame / Record
         file: content/data.json
@@ -1043,7 +1145,7 @@ collections:
             name: records
             widget: list
             label_singular: record
-            summary: "{{fields.label}}: {{fields.value}}"
+            summary: '{{fields.label}}: {{fields.value}}'
             fields:
               - label: ID
                 name: id
@@ -1058,6 +1160,12 @@ collections:
               - label: Dettaglio
                 name: detail
                 widget: string
+  - name: tryoutFields
+    label: Campi form provini
+    delete: false
+    editor:
+      preview: false
+    files:
       - name: tryoutFields
         label: Campi form provini
         file: content/data.json
