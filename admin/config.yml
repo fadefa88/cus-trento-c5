@@ -599,6 +599,10 @@ collections:
               - label: Squadra
                 name: team
                 widget: string
+              - label: Logo squadra (URL)
+                name: logo
+                widget: string
+                required: false
               - label: Punti
                 name: pts
                 widget: number
@@ -655,6 +659,10 @@ collections:
               - label: Squadra
                 name: team
                 widget: string
+              - label: Logo squadra (URL)
+                name: logo
+                widget: string
+                required: false
               - label: Punti
                 name: pts
                 widget: number
@@ -1107,6 +1115,54 @@ collections:
                 name: note
                 widget: text
                 required: false
+  - name: clubHistory
+    label: Club overview / Storia
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: clubHistory
+        label: Club overview / Storia
+        file: content/data.json
+        fields:
+          - label: Storia club
+            name: clubHistory
+            widget: object
+            fields:
+              - { label: Titolo, name: title, widget: string }
+              - label: Testo storia
+                name: paragraphs
+                widget: list
+                field: { label: Paragrafo, name: paragraph, widget: text }
+              - label: Immagini storiche
+                name: images
+                widget: list
+                fields:
+                  - { label: Stagione, name: season, widget: string }
+                  - { label: Immagine URL, name: image, widget: string }
+  - name: historicalStats
+    label: Statistiche storiche
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: historicalStats
+        label: Statistiche storiche
+        file: content/data.json
+        fields:
+          - label: Statistiche storiche
+            name: historicalStats
+            widget: list
+            fields:
+              - { label: Stagione, name: season, widget: string }
+              - { label: Giocate, name: played, widget: number, value_type: int }
+              - { label: Vittorie, name: wins, widget: number, value_type: int }
+              - { label: Pareggi, name: draws, widget: number, value_type: int }
+              - { label: Sconfitte, name: losses, widget: number, value_type: int }
+              - { label: Gol fatti, name: goalsFor, widget: number, value_type: int }
+              - { label: Gol subiti, name: goalsAgainst, widget: number, value_type: int }
+              - { label: Differenza reti, name: goalDifference, widget: number, value_type: int }
+
   - name: records
     label: Hall of fame / Record
     delete: false
