@@ -1,4 +1,4 @@
-name: Deploy to VHosting
+name: Deploy to VHosting2
 
 on:
   push:
