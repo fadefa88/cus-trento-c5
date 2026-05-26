@@ -6,7 +6,7 @@ const groups = [
   {label:"Media",items:[["news","News"],["gallery","Gallery"],["video","Video"],["social","Social wall"]]},
   {label:"Club",items:[["club","Club overview"],["sponsor","Sponsor"],["tryout","Provini"],["seasons","Archivio"],["records","Hall of fame"],["contacts","Contatti"]]}
 ];
-let state = hydrate({});  // fallback iniziale; appena arriva content/data.json, il CMS diventa sorgente primaria
+let state = hydrate({});  // fallback iniziale, appena arriva content/data.json, il CMS diventa sorgente primaria
 let current = location.hash.replace("#","") || "home";
 let view = {staff:"prima", calendar:"prima", calendarFilter:"Tutte", calendarPage:1, standings:"prima", cup:"prima", stats:"prima"};
 
