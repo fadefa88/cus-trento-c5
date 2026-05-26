@@ -3400,6 +3400,36 @@
       "label": "Stagione più vincente",
       "value": "2013/2014",
       "detail": "23 vittorie"
+    },
+    {
+      "id": 7,
+      "label": "Totale vittorie storiche",
+      "value": "170",
+      "detail": "398 gare: 170 vittorie, 54 pareggi, 174 sconfitte"
+    },
+    {
+      "id": 8,
+      "label": "Media gol storica",
+      "value": "4.15",
+      "detail": "1650 gol fatti in 398 partite"
+    },
+    {
+      "id": 9,
+      "label": "Stagione più prolifica",
+      "value": "2018/2019",
+      "detail": "179 gol fatti"
+    },
+    {
+      "id": 10,
+      "label": "Miglior difesa stagionale",
+      "value": "2011/2012",
+      "detail": "161 gol subiti"
+    },
+    {
+      "id": 11,
+      "label": "Stagione con più vittorie",
+      "value": "2013/2014",
+      "detail": "23 vittorie"
     }
   ],
   "sponsorPackages": [
@@ -3762,5 +3792,10 @@
       "goalsAgainst": 161,
       "goalDifference": -38
     }
-  ]
+  ],
+  "site": {
+    "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+    "icon": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+    "name": "CUS Trento C5"
+  }
 }
