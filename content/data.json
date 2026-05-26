@@ -1579,17 +1579,6 @@
       "id": 4,
       "image": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1600&q=80",
       "category": "Analytics"
-    },
-    {
-      "pinned": false,
-      "id": 5,
-      "title": "prova",
-      "category": "test",
-      "author": "io",
-      "excerpt": "ciao ciao",
-      "body": [
-        "prova prova ciao"
-      ]
     }
   ],
   "galleryAlbums": [
