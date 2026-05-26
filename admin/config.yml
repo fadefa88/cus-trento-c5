@@ -1,6 +1,7 @@
 # Configurazione Decap CMS — CUS Trento C5
 # Ogni sezione e' una voce separata nella barra laterale "Raccolte".
 # Tutte modificano lo stesso file: content/data.json
+# Aggiornato: rimosso Timeline dal CMS; privacy resta raggiungibile ma non nel menu alto.
 
 backend:
   name: git-gateway
@@ -1102,35 +1103,6 @@ collections:
                 name: note
                 widget: text
                 required: false
-  - name: timeline
-    label: Timeline stagione
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: timeline
-        label: Timeline stagione
-        file: content/data.json
-        fields:
-          - label: Tappe
-            name: timeline
-            widget: list
-            label_singular: tappa
-            summary: '{{fields.date}} — {{fields.title}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Data
-                name: date
-                widget: string
-              - label: Titolo
-                name: title
-                widget: string
-              - label: Testo
-                name: text
-                widget: text
   - name: records
     label: Hall of fame / Record
     delete: false
