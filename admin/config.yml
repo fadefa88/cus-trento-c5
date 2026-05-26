@@ -7,9 +7,9 @@ backend:
   name: github
   repo: fadefa88/cus-trento-c5
   branch: main
-  base_url: https://cms-auth.tuodominio.it
+  base_url: https://decap-github-oauth.luca-defassi.workers.dev/
   auth_endpoint: auth
-  site_domain: https://www.tuodominio.it
+  site_domain: https://custrentocalcioa5.it/
   media_folder: img/uploads
   public_folder: img/uploads
 locale: it
