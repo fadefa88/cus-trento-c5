@@ -6,7 +6,7 @@ const groups = [
   {label:"Media",items:[["news","News"],["gallery","Gallery"],["video","Video"],["social","Social wall"]]},
   {label:"Club",items:[["club","Club overview"],["sponsor","Sponsor"],["tryout","Provini"],["seasons","Archivio"],["records","Hall of fame"],["contacts","Contatti"]]}
 ];
-let state = hydrate({});  // parte dai defaults; i dati reali arrivano da content/data.json (vedi boot in fondo)
+let state = hydrate({});  // fallback iniziale; appena arriva content/data.json, il CMS diventa sorgente primaria
 let current = location.hash.replace("#","") || "home";
 let view = {staff:"prima", calendar:"prima", calendarFilter:"Tutte", calendarPage:1, standings:"prima", cup:"prima", stats:"prima"};
 
@@ -25,7 +25,47 @@ function setView(kind,value){
 
 const $ = s => document.querySelector(s);
 const app = $("#app");
-function hydrate(src){return {...defaults,...src,roster:defaults.roster.map(p=>({...p,...((src.roster||[]).find(x=>x.id===p.id)||{})}))};}
+function hydrate(src = {}) {
+  // Il CMS deve essere la sorgente primaria.
+  // Se una collection esiste in content/data.json, usiamo ESATTAMENTE quella.
+  // Questo evita che elementi eliminati dal CMS vengano "resuscitati" dai defaults interni.
+  const arrayKeys = [
+    "news",
+    "roster",
+    "fixtures",
+    "u21Fixtures",
+    "standings",
+    "u21Standings",
+    "staff",
+    "gallery",
+    "galleryAlbums",
+    "sponsors",
+    "videos",
+    "social",
+    "seasons",
+    "records",
+    "sponsorPackages",
+    "tryoutFields",
+    "leads"
+  ];
+
+  const objectKeys = [
+    "cup",
+    "u21Cup"
+  ];
+
+  const hydrated = { ...defaults, ...src };
+
+  arrayKeys.forEach((key) => {
+    hydrated[key] = Array.isArray(src[key]) ? src[key] : (defaults[key] || []);
+  });
+
+  objectKeys.forEach((key) => {
+    hydrated[key] = src[key] && typeof src[key] === "object" ? src[key] : (defaults[key] || {});
+  });
+
+  return hydrated;
+}
 function fmt(d){return new Intl.DateTimeFormat("it-IT",{day:"2-digit",month:"short",year:"numeric"}).format(new Date(d));}
 
 // ===== Selezione automatica basata sulla data odierna =====
@@ -247,7 +287,7 @@ function render(){renderNav();if(current.startsWith("gallery-album-"))galleryAlb
 // ===== CMS BOOT: carica i contenuti pubblicati da content/data.json =====
 async function bootData(){
   try{
-    const res = await fetch('content/data.json', {cache:'no-store'});
+    const res = await fetch(`content/data.json?v=${Date.now()}`, {cache:'no-store'});
     if(res.ok){
       const published = await res.json();
       state = hydrate(published);     // i dati pubblicati hanno priorita'
