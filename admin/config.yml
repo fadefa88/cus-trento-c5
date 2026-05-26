@@ -4,10 +4,14 @@
 # Aggiornato: rimosso Timeline dal CMS; privacy resta raggiungibile ma non nel menu alto.
 
 backend:
-  name: git-gateway
+  name: github
+  repo: fadefa88/cus-trento-c5
   branch: main
-media_folder: img/uploads
-public_folder: img/uploads
+  base_url: https://cms-auth.tuodominio.it
+  auth_endpoint: auth
+  site_domain: https://www.tuodominio.it
+  media_folder: img/uploads
+  public_folder: img/uploads
 locale: it
 collections:
   - name: news
