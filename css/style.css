@@ -34,3 +34,33 @@
 .nav-single .dropdown{display:none!important}
 
 .crest.crest-logo{background:#fff;padding:3px}.crest.crest-logo:after{display:none}.crest.crest-logo img{width:100%;height:100%;object-fit:contain;border-radius:12px}.record-card .eyebrow{background:#ef4444;color:#fff}
+
+
+/* Final polish requested */
+.crest-logo{background:transparent!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
+.crest.crest-logo img{border-radius:0!important}
+.home-stack .fixture{margin-bottom:14px}
+.home-stack .fixture:last-child{margin-bottom:0}
+.home-standing{display:grid;gap:10px;margin-top:16px}
+.home-standing-row{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:13px 14px}
+.home-standing-team{display:flex;align-items:center;gap:10px}
+.home-standing-team img{width:30px;height:30px;object-fit:contain;border-radius:7px;background:#fff}
+.home-standing-row small{display:block;color:#71717a;font-weight:800;margin-top:3px}
+.home-standing-row strong{font-size:20px}
+.home-standing-cus{background:linear-gradient(135deg,#09090b,#7f1d1d);color:#fff;border-color:transparent}
+.home-standing-cus small{color:rgba(255,255,255,.72)}
+.staff-photo{height:350px!important;width:100%;object-fit:cover}
+.back-link{display:inline-flex;align-items:center;gap:8px;background:#09090b;color:#fff;border-radius:999px;padding:10px 14px;font-weight:950;box-shadow:0 12px 28px rgba(9,9,11,.12)}
+.back-link span{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.14)}
+.breadcrumb{gap:12px;flex-wrap:wrap}
+.google-map{width:100%;height:440px;border:0;border-radius:24px;display:block}
+.lightbox-frame{width:min(1040px,92vw);height:min(585px,70vh);border:0;border-radius:22px;background:#000}
+.mobile-menu{padding:10px 0 18px}
+.mobile-menu details{background:#fff;border:1px solid rgba(9,9,11,.08);border-radius:22px;margin:10px 0;padding:6px 10px;box-shadow:0 14px 35px rgba(9,9,11,.08)}
+.mobile-menu summary{list-style:none;display:flex;align-items:center;justify-content:space-between;padding:12px 8px;font-weight:1000}
+.mobile-menu summary::-webkit-details-marker{display:none}
+.mobile-menu summary:after{content:"+";width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#f4f4f5;color:#09090b}
+.mobile-menu details[open] summary:after{content:"–";background:#09090b;color:#fff}
+.mobile-menu button{display:block;width:100%;text-align:left;background:#f8fafc;border:1px solid rgba(9,9,11,.06);border-radius:16px;padding:12px 14px;margin:8px 0;font-weight:900}
+.mobile-menu>button{background:#09090b;color:#fff;border-radius:20px;padding:14px 16px;box-shadow:0 14px 35px rgba(9,9,11,.14)}
+@media(max-width:980px){.staff-photo{height:350px!important}.lightbox-frame{height:52vh}.google-map{height:360px}}
