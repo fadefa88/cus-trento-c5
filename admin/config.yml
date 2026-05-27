@@ -1174,3 +1174,113 @@ collections:
       - label: Dettaglio
         name: detail
         widget: string
+- name: site
+  label: Impostazioni sito
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: site
+    label: Impostazioni sito
+    file: content/data.json
+    fields:
+    - label: Sito
+      name: site
+      widget: object
+      fields:
+      - label: Nome sito
+        name: name
+        widget: string
+      - label: Logo (URL)
+        name: logo
+        widget: string
+      - label: Icona / favicon (URL)
+        name: icon
+        widget: string
+- name: seasons
+  label: Storico stagioni
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: seasons
+    label: Storico stagioni
+    file: content/data.json
+    fields:
+    - label: Stagioni
+      name: seasons
+      widget: list
+      label_singular: stagione
+      summary: '{{fields.season}} — {{fields.competition}}'
+      fields:
+      - label: Stagione
+        name: season
+        widget: string
+      - label: Competizione
+        name: competition
+        widget: string
+      - label: Posizione
+        name: position
+        widget: string
+      - label: Record (es. 11V 0N 6P)
+        name: record
+        widget: string
+      - label: Gol fatti
+        name: gf
+        widget: number
+        value_type: int
+      - label: Gol subiti
+        name: gs
+        widget: number
+        value_type: int
+      - label: Note
+        name: note
+        widget: text
+        required: false
+- name: timeline
+  label: Timeline stagione
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: timeline
+    label: Timeline stagione
+    file: content/data.json
+    fields:
+    - label: Eventi
+      name: timeline
+      widget: list
+      label_singular: evento
+      summary: '{{fields.date}} — {{fields.title}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Data (testo, es. "Set 2025")
+        name: date
+        widget: string
+      - label: Titolo
+        name: title
+        widget: string
+      - label: Testo
+        name: text
+        widget: text
+- name: tryoutFields
+  label: Campi modulo provini
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: tryoutFields
+    label: Campi modulo provini
+    file: content/data.json
+    fields:
+    - label: Campi del form (uno per riga)
+      name: tryoutFields
+      widget: list
+      label_singular: campo
+      field:
+        label: Etichetta campo
+        name: field
+        widget: string
