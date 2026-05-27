@@ -110,8 +110,12 @@ function shell(eyebrow,title,body,right="",desc=""){setSEO(title,desc||`${title}
 function footer(){return `<footer class="footer"><div class="container"><div><div class="brand" style="color:#fff">${brandMark()}<div>CUS Trento C5<small>Futsal universitario</small></div></div><p>Sito ufficiale CUS Trento Calcio a 5: news, rosa, calendario, classifica, storia, gallery e contenuti della stagione.</p></div><div><b>Navigazione</b><a href="#news">News</a><a href="#fixtures">Calendario</a><a href="#staff">Staff</a><a href="#matchday">Matchday</a></div><div><b>Club</b><a href="#club">Club overview</a><a href="#records">Hall of fame</a><a href="#contacts">Contatti</a><a href="#privacy">Privacy policy</a></div></div></footer>`;}
 function safe(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
 function fixtureRow(f){return `<div class="fixture clickable" onclick="route('match-${f.id}')"><div class="fixture-top"><span>${fmt(f.date)} · ${f.time}</span><span>${f.status}</span></div><div class="teams"><span>${f.home}</span><span class="score">${f.score||"VS"}</span><span>${f.away}</span></div><p class="muted">${f.venue} · ${f.competition||f.round}</p></div>`;}
-function tableRows(rows,cus="CUS Trento"){return rows.map(s=>`<tr class="${s.team.includes(cus)?'cus':''}"><td>${s.pos}</td><td><span style="display:flex;align-items:center;gap:10px">${s.logo?`<img src="${s.logo}" alt="${s.team}" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:#fff">`:""}<span>${s.team}</span></span></td><td>${s.pts}</td><td>${s.g}</td><td>${s.v}</td><td>${s.n}</td><td>${s.p}</td><td>${s.gf}</td><td>${s.gs}</td><td>${s.gf-s.gs>0?'+':''}${s.gf-s.gs}</td></tr>`).join("");}
-
+function tableRows(rows,cus="CUS Trento"){
+  return (rows||[]).map(s=>{
+    const highlight = isCusTeam(s.team) || teamKey(s.team).includes(teamKey(cus));
+    return `<tr class="${highlight?'cus':''}"><td>${s.pos}</td><td><span style="display:flex;align-items:center;gap:10px">${s.logo?`<img src="${s.logo}" alt="${s.team}" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:#fff">`:""}<span>${s.team}</span></span></td><td>${s.pts}</td><td>${s.g}</td><td>${s.v}</td><td>${s.n}</td><td>${s.p}</td><td>${s.gf}</td><td>${s.gs}</td><td>${s.gf-s.gs>0?'+':''}${s.gf-s.gs}</td></tr>`;
+  }).join("");
+}
 function standingMini(s){return `<div class="list-row home-standing-row ${isCusTeam(s.team)?'cus-row':''}"><div><b>${s.pos}. ${s.team}</b><div class="muted">DR ${s.gf-s.gs>0?'+':''}${s.gf-s.gs}</div></div><b>${s.pts}</b></div>`;}
 function homeStandingWidget(rows){
   const cus=findCusRow(rows)||{};
@@ -138,6 +142,57 @@ function goNewsPage(page){view.newsPage=page;renderNewsList();}
 function renderNewsList(){const cat=view.newsCategory||"Tutte";const items=cat==="Tutte"?state.news:state.news.filter(n=>n.category===cat);const pg=paginate(items,view.newsPage,6);view.newsPage=pg.page;const grid=$("#newsGrid"),pager=$("#newsPager");if(grid)grid.innerHTML=newsCards(pg.items);if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goNewsPage");}
 function searchNews(q){const items=state.news.filter(n=>(String(n.title||"")+String(n.excerpt||"")+String(n.category||"")).toLowerCase().includes(String(q||"").toLowerCase()));const grid=$("#newsGrid"),pager=$("#newsPager");if(grid)grid.innerHTML=newsCards(items.slice(0,6));if(pager)pager.innerHTML="";}
 window.searchNews=q=>searchNews(q);
+
+function articleDetail(id){
+  const n=(state.news||[]).find(x=>String(x.id)===String(id));
+  if(!n){route("news");return;}
+  const paragraphs=Array.isArray(n.body)?n.body:String(n.body||n.excerpt||"").split("\n").filter(Boolean);
+  shell(n.category||"News",n.title||"Articolo",`<div class="breadcrumb"><button class="back-link" onclick="route('news')"><span>←</span> News</button><span>${fmt(n.date)} · ${n.author||"Redazione"}</span></div><img class="article-hero" loading="lazy" decoding="async" src="${n.image||''}" alt="${n.title||'News'}"><div class="grid grid-2" style="margin-top:28px"><article class="card card-pad article-body">${paragraphs.map(p=>`<p>${p}</p>`).join("")}</article><aside class="card card-pad"><h2>Articoli correlati</h2>${(state.news||[]).filter(x=>String(x.id)!==String(n.id)).slice(0,3).map(x=>`<div class="list-row clickable" onclick="route('article-${x.id}')"><div><b>${x.title}</b><div class="muted">${fmt(x.date)}</div></div></div>`).join("")}</aside></div>`,"Leggi l'articolo completo del CUS Trento C5.",n.image);
+}
+
+function playerMetricsCard(p){
+  if(p.role==="Portiere"&&p.goalkeeperStats){
+    return `<div class="metrics"><div class="metric"><b>${p.appearances||0}</b><small>Pres</small></div><div class="metric gk-mini"><b>${p.goalkeeperStats.goalsAgainst||0}</b><small>Gol subiti</small></div><div class="metric gk-mini"><b>${p.goalkeeperStats.cleanSheets||0}</b><small>Clean sheet</small></div></div>`;
+  }
+  return `<div class="metrics"><div class="metric"><b>${p.appearances||0}</b><small>Pres</small></div><div class="metric"><b>${p.goals||0}</b><small>Reti</small></div><div class="metric"><b>${p.assists||0}</b><small>Assist</small></div></div>`;
+}
+function players(list){
+  return (list||[]).map(p=>`<article class="card player" onclick="route('player-${p.id}')"><div class="player-top"><div class="player-photo" style="background-image:url('${p.photo||''}')"></div><div class="num">${p.number||''}</div><div class="avatar"><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"></div></div><div class="card-pad"><span class="badge">${p.role||''}</span><p class="news-meta">${p.team||''}</p><h2>${p.name||''}</h2>${playerMetricsCard(p)}<div class="click-hint">Scheda completa</div></div></article>`).join("");
+}
+function setSquadTeam(team){view.squadTeam=team;view.squadPage=1;filterSquad();}
+function squad(){
+  const roles=["Tutti","Portiere","Centrale","Laterale","Punta"];
+  view.squadTeam=view.squadTeam||"Prima squadra";
+  view.squadPage=1;
+  shell("Team","Rosa",`<div class="team-switch"><button class="${view.squadTeam==='Prima squadra'?'active':''}" onclick="setSquadTeam('Prima squadra')">Prima squadra</button><button class="${view.squadTeam==='Under 21'?'active':''}" onclick="setSquadTeam('Under 21')">Under 21</button></div><div class="toolbar">${roles.map(r=>`<button class="pill rolef ${r==="Tutti"?"active":""}">${r}</button>`).join("")}</div><div class="grid grid-4" id="squadGrid"></div><div id="squadPager"></div>`,"","Rosa del CUS Trento C5 con profili giocatore e statistiche.");
+  document.querySelectorAll(".rolef").forEach(btn=>btn.onclick=function(){document.querySelectorAll(".rolef").forEach(x=>x.classList.remove("active"));this.classList.add("active");view.squadPage=1;filterSquad();});
+  filterSquad();
+}
+function getFilteredSquad(){
+  const team=view.squadTeam||"Prima squadra";
+  const role=document.querySelector(".rolef.active")?.textContent||"Tutti";
+  return (state.roster||[]).filter(p=>(p.team===team)&&(role==="Tutti"||p.role===role));
+}
+function goSquadPage(page){view.squadPage=page;filterSquad();}
+function filterSquad(){
+  const filtered=getFilteredSquad();
+  const pg=paginate(filtered,view.squadPage,8);
+  view.squadPage=pg.page;
+  const grid=$("#squadGrid"),pager=$("#squadPager");
+  if(grid)grid.innerHTML=players(pg.items)||"<div class='card card-pad'><p class='muted'>Nessun giocatore trovato.</p></div>";
+  if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goSquadPage");
+}
+function playerDetail(id){
+  const p=(state.roster||[]).find(x=>String(x.id)===String(id));
+  if(!p){route("squad");return;}
+  const rows=(p.history||[]).map(h=>`<tr><td>${h.season}</td><td>${h.team}</td><td>${h.appearances}</td><td>${h.goals}</td><td>${h.assists}</td></tr>`).join("");
+  const comps=p.competitions||{campionato:{appearances:p.appearances||0,goals:p.goals||0,assists:p.assists||0},coppa:{appearances:0,goals:0,assists:0},totale:{appearances:p.appearances||0,goals:p.goals||0,assists:p.assists||0}};
+  const split=Object.entries(comps).map(([k,v])=>({label:k[0].toUpperCase()+k.slice(1),...v}));
+  const gk=p.goalkeeperStats;
+  const gkBlock=gk?`<div class="gk-panel"><span class="eyebrow" style="background:white;color:#09090b">Goalkeeper analytics</span><h2 style="font-size:34px;margin:0 0 18px">Statistiche portiere</h2><div class="gk-grid"><div class="gk-box"><b>${gk.cleanSheets||0}</b><span>Clean sheet</span></div><div class="gk-box"><b>${gk.saves||0}</b><span>Parate</span></div><div class="gk-box"><b>${gk.goalsAgainst||0}</b><span>Gol subiti</span></div><div class="gk-box"><b>${gk.goalsAgainstAvg||0}</b><span>Media subiti</span></div><div class="gk-box"><b>${gk.penaltiesSaved||0}</b><span>Rigori parati</span></div><div class="gk-box"><b>${gk.saveRate||0}%</b><span>Save rate</span></div><div class="gk-box"><b>${gk.minutes||0}</b><span>Minuti</span></div><div class="gk-box"><b>${gk.appearances||p.appearances||0}</b><span>Presenze</span></div></div></div>`:"";
+  shell("Player profile",p.name,`<div class="breadcrumb"><button class="back-link" onclick="route('squad')"><span>←</span> Rosa</button><span>/ #${p.number||''} / ${p.role||''}</span></div><div class="player-hero"><aside class="player-portrait"><span class="eyebrow" style="background:white;color:#09090b">${p.team||''}</span><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"><h2 style="font-size:42px;line-height:.9;margin:22px 0 10px">${p.name||''}</h2><p style="color:rgba(255,255,255,.76)">${p.bio||''}</p></aside><section class="grid"><div class="grid grid-4"><div class="stat-tile"><b>#${p.number||''}</b><span>Numero</span></div><div class="stat-tile"><b>${p.appearances||0}</b><span>Presenze</span></div><div class="stat-tile"><b>${p.goals||0}</b><span>Reti</span></div><div class="stat-tile"><b>${p.assists||0}</b><span>Assist</span></div></div>${gkBlock}<div class="card card-pad"><h2>Statistiche per competizione</h2><div class="split-stat" style="margin-top:18px">${split.map(s=>`<div class="split-box"><h3>${s.label}</h3><div class="metrics"><div class="metric"><b>${s.appearances||0}</b><small>Pres</small></div><div class="metric"><b>${s.goals||0}</b><small>Reti</small></div><div class="metric"><b>${s.assists||0}</b><small>Assist</small></div></div></div>`).join("")}</div></div><div class="card card-pad table-wrap"><h2>Storico stagioni</h2><table class="profile-table" style="margin-top:16px"><thead><tr><th>Stagione</th><th>Squadra</th><th>Presenze</th><th>Reti</th><th>Assist</th></tr></thead><tbody>${rows}</tbody></table></div></section></div>`,"Scheda giocatore, presenze, reti, assist e statistiche portiere.",p.photo);
+}
+function normalizeMatchForCalendar(f, type){return {...f, competition:type||f.competition||f.round, _calendarType:type||f.competition||f.round};}
 function calendarSource(){
   if(view.calendar==="u21") return [...(state.u21Fixtures||[]).map(f=>normalizeMatchForCalendar(f,"Campionato")), ...(((state.u21Cup||{}).fixtures||[]).map(f=>normalizeMatchForCalendar(f,"Coppa")))];
   return [...(state.fixtures||[]).map(f=>normalizeMatchForCalendar(f, f.competition==="Playoff"?"Playoff":(f.competition==="Serie C1"||f.competition==="Campionato"?"Campionato":f.competition))), ...(((state.cup||{}).fixtures||[]).map(f=>normalizeMatchForCalendar(f,"Coppa")))];
