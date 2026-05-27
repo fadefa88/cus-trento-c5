@@ -1,8 +1,3 @@
-# Configurazione Decap CMS — CUS Trento C5
-# Ogni sezione e' una voce separata nella barra laterale "Raccolte".
-# Tutte modificano lo stesso file: content/data.json
-# Aggiornato: rimosso Timeline dal CMS; privacy resta raggiungibile ma non nel menu alto.
-
 backend:
   name: github
   repo: fadefa88/cus-trento-c5
@@ -11,1201 +6,1171 @@ backend:
   auth_endpoint: auth
   site_domain: https://custrentocalcioa5.it
 locale: it
-media_folder: "img/uploads"
-public_folder: "/img/uploads"
+media_folder: img/uploads
+public_folder: /img/uploads
 collections:
+- name: news
+  label: News
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: news
     label: News
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: news
-        label: News
-        file: content/data.json
-        fields:
-          - label: News
-            name: news
-            widget: list
-            label_singular: articolo
-            summary: '{{fields.title}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Titolo
-                name: title
-                widget: string
-              - label: Categoria
-                name: category
-                widget: string
-              - label: Data
-                name: date
-                widget: date
-                format: YYYY-MM-DD
-              - label: Autore
-                name: author
-                widget: string
-              - label: Immagine (URL)
-                name: image
-                widget: string
-                required: false
-              - label: Sommario
-                name: excerpt
-                widget: text
-              - label: Corpo (un paragrafo per riga)
-                name: body
-                widget: list
-                field:
-                  label: Paragrafo
-                  name: p
-                  widget: text
-              - label: In evidenza
-                name: pinned
-                widget: boolean
-                default: false
+    file: content/data.json
+    fields:
+    - label: News
+      name: news
+      widget: list
+      label_singular: articolo
+      summary: '{{fields.title}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Titolo
+        name: title
+        widget: string
+      - label: Categoria
+        name: category
+        widget: string
+      - label: Data
+        name: date
+        widget: date
+        format: YYYY-MM-DD
+      - label: Autore
+        name: author
+        widget: string
+      - label: Immagine (URL)
+        name: image
+        widget: string
+        required: false
+      - label: Sommario
+        name: excerpt
+        widget: text
+      - label: Corpo (un paragrafo per riga)
+        name: body
+        widget: list
+        field:
+          label: Paragrafo
+          name: p
+          widget: text
+      - label: In evidenza
+        name: pinned
+        widget: boolean
+        default: false
+- name: roster
+  label: Rosa giocatori
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: roster
     label: Rosa giocatori
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: roster
-        label: Rosa giocatori
-        file: content/data.json
+    file: content/data.json
+    fields:
+    - label: Rosa
+      name: roster
+      widget: list
+      label_singular: giocatore
+      summary: '#{{fields.number}} {{fields.name}} ({{fields.team}})'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Nome
+        name: name
+        widget: string
+      - label: Ruolo
+        name: role
+        widget: select
+        options:
+        - Portiere
+        - Centrale
+        - Laterale
+        - Punta
+      - label: Squadra
+        name: team
+        widget: select
+        options:
+        - Prima squadra
+        - Under 21
+      - label: Numero
+        name: number
+        widget: number
+        value_type: int
+      - label: Eta'
+        name: age
+        widget: number
+        value_type: int
+        required: false
+      - label: Gol
+        name: goals
+        widget: number
+        value_type: int
+        default: 0
+      - label: Assist
+        name: assists
+        widget: number
+        value_type: int
+        default: 0
+      - label: Presenze
+        name: appearances
+        widget: number
+        value_type: int
+        default: 0
+      - label: Sigla avatar
+        name: avatar
+        widget: string
+        required: false
+      - label: Foto (URL)
+        name: photo
+        widget: string
+        required: false
+      - label: Bio
+        name: bio
+        widget: text
+        required: false
+      - label: Statistiche per competizione
+        name: competitions
+        widget: object
+        required: false
+        collapsed: true
         fields:
-          - label: Rosa
-            name: roster
-            widget: list
-            label_singular: giocatore
-            summary: '#{{fields.number}} {{fields.name}} ({{fields.team}})'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Nome
-                name: name
-                widget: string
-              - label: Ruolo
-                name: role
-                widget: select
-                options:
-                  - Portiere
-                  - Centrale
-                  - Laterale
-                  - Punta
-              - label: Squadra
-                name: team
-                widget: select
-                options:
-                  - Prima squadra
-                  - Under 21
-              - label: Numero
-                name: number
-                widget: number
-                value_type: int
-              - label: Eta'
-                name: age
-                widget: number
-                value_type: int
-                required: false
-              - label: Gol
-                name: goals
-                widget: number
-                value_type: int
-                default: 0
-              - label: Assist
-                name: assists
-                widget: number
-                value_type: int
-                default: 0
-              - label: Presenze
-                name: appearances
-                widget: number
-                value_type: int
-                default: 0
-              - label: Sigla avatar
-                name: avatar
-                widget: string
-                required: false
-              - label: Foto (URL)
-                name: photo
-                widget: string
-                required: false
-              - label: Bio
-                name: bio
-                widget: text
-                required: false
-              - label: Statistiche per competizione
-                name: competitions
-                widget: object
-                required: false
-                collapsed: true
-                fields:
-                  - label: Campionato
-                    name: campionato
-                    widget: object
-                    fields:
-                      - label: Presenze
-                        name: appearances
-                        widget: number
-                        value_type: int
-                      - label: Gol
-                        name: goals
-                        widget: number
-                        value_type: int
-                      - label: Assist
-                        name: assists
-                        widget: number
-                        value_type: int
-                  - label: Coppa
-                    name: coppa
-                    widget: object
-                    fields:
-                      - label: Presenze
-                        name: appearances
-                        widget: number
-                        value_type: int
-                      - label: Gol
-                        name: goals
-                        widget: number
-                        value_type: int
-                      - label: Assist
-                        name: assists
-                        widget: number
-                        value_type: int
-                  - label: Totale
-                    name: totale
-                    widget: object
-                    fields:
-                      - label: Presenze
-                        name: appearances
-                        widget: number
-                        value_type: int
-                      - label: Gol
-                        name: goals
-                        widget: number
-                        value_type: int
-                      - label: Assist
-                        name: assists
-                        widget: number
-                        value_type: int
-              - label: Carriera (storico)
-                name: history
-                widget: list
-                required: false
-                collapsed: true
-                fields:
-                  - label: Stagione
-                    name: season
-                    widget: string
-                  - label: Squadra
-                    name: team
-                    widget: string
-                  - label: Presenze
-                    name: appearances
-                    widget: number
-                    value_type: int
-                  - label: Gol
-                    name: goals
-                    widget: number
-                    value_type: int
-                  - label: Assist
-                    name: assists
-                    widget: number
-                    value_type: int
-              - label: Statistiche portiere
-                name: goalkeeperStats
-                widget: object
-                required: false
-                collapsed: true
-                fields:
-                  - label: Presenze
-                    name: appearances
-                    widget: number
-                    value_type: int
-                  - label: Minuti
-                    name: minutes
-                    widget: number
-                    value_type: int
-                  - label: Clean sheet
-                    name: cleanSheets
-                    widget: number
-                    value_type: int
-                  - label: Gol subiti
-                    name: goalsAgainst
-                    widget: number
-                    value_type: int
-                  - label: Parate
-                    name: saves
-                    widget: number
-                    value_type: int
-                  - label: Rigori parati
-                    name: penaltiesSaved
-                    widget: number
-                    value_type: int
-                  - label: Save rate
-                    name: saveRate
-                    widget: number
-                    value_type: int
-                  - label: Media gol subiti
-                    name: goalsAgainstAvg
-                    widget: number
-                    value_type: float
+        - label: Campionato
+          name: campionato
+          widget: object
+          fields:
+          - label: Presenze
+            name: appearances
+            widget: number
+            value_type: int
+          - label: Gol
+            name: goals
+            widget: number
+            value_type: int
+          - label: Assist
+            name: assists
+            widget: number
+            value_type: int
+        - label: Coppa
+          name: coppa
+          widget: object
+          fields:
+          - label: Presenze
+            name: appearances
+            widget: number
+            value_type: int
+          - label: Gol
+            name: goals
+            widget: number
+            value_type: int
+          - label: Assist
+            name: assists
+            widget: number
+            value_type: int
+        - label: Totale
+          name: totale
+          widget: object
+          fields:
+          - label: Presenze
+            name: appearances
+            widget: number
+            value_type: int
+          - label: Gol
+            name: goals
+            widget: number
+            value_type: int
+          - label: Assist
+            name: assists
+            widget: number
+            value_type: int
+      - label: Carriera (storico)
+        name: history
+        widget: list
+        required: false
+        collapsed: true
+        fields:
+        - label: Stagione
+          name: season
+          widget: string
+        - label: Squadra
+          name: team
+          widget: string
+        - label: Presenze
+          name: appearances
+          widget: number
+          value_type: int
+        - label: Gol
+          name: goals
+          widget: number
+          value_type: int
+        - label: Assist
+          name: assists
+          widget: number
+          value_type: int
+      - label: Statistiche portiere
+        name: goalkeeperStats
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+        - label: Presenze
+          name: appearances
+          widget: number
+          value_type: int
+        - label: Minuti
+          name: minutes
+          widget: number
+          value_type: int
+        - label: Clean sheet
+          name: cleanSheets
+          widget: number
+          value_type: int
+        - label: Gol subiti
+          name: goalsAgainst
+          widget: number
+          value_type: int
+        - label: Parate
+          name: saves
+          widget: number
+          value_type: int
+        - label: Rigori parati
+          name: penaltiesSaved
+          widget: number
+          value_type: int
+        - label: Save rate
+          name: saveRate
+          widget: number
+          value_type: int
+        - label: Media gol subiti
+          name: goalsAgainstAvg
+          widget: number
+          value_type: float
+- name: fixtures
+  label: Calendario Prima squadra
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: fixtures
     label: Calendario Prima squadra
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: fixtures
-        label: Calendario Prima squadra
-        file: content/data.json
+    file: content/data.json
+    fields:
+    - label: Partite Prima squadra
+      name: fixtures
+      widget: list
+      label_singular: partita
+      summary: '{{fields.date}} — {{fields.home}} vs {{fields.away}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Data
+        name: date
+        widget: date
+        format: YYYY-MM-DD
+      - label: Ora
+        name: time
+        widget: string
+      - label: Casa
+        name: home
+        widget: string
+      - label: Trasferta
+        name: away
+        widget: string
+      - label: Campo
+        name: venue
+        widget: string
+      - label: Risultato
+        name: score
+        widget: string
+        required: false
+      - label: Stato
+        name: status
+        widget: select
+        options:
+        - Da giocare
+        - Terminata
+        - In attesa
+      - label: Competizione
+        name: competition
+        widget: string
+      - label: MVP
+        name: mvp
+        widget: string
+        required: false
+      - label: Marcatori
+        name: scorers
+        widget: list
+        required: false
+        field:
+          label: Marcatore
+          name: s
+          widget: string
+      - label: Ammoniti
+        name: yellow
+        widget: list
+        required: false
+        field:
+          label: Giocatore
+          name: y
+          widget: string
+      - label: Espulsi
+        name: red
+        widget: list
+        required: false
+        field:
+          label: Giocatore
+          name: r
+          widget: string
+      - label: Sommario
+        name: summary
+        widget: text
+        required: false
+      - label: Statistiche
+        name: stats
+        widget: object
+        required: false
+        collapsed: true
         fields:
-          - label: Partite Prima squadra
-            name: fixtures
-            widget: list
-            label_singular: partita
-            summary: '{{fields.date}} — {{fields.home}} vs {{fields.away}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Data
-                name: date
-                widget: date
-                format: YYYY-MM-DD
-              - label: Ora
-                name: time
-                widget: string
-              - label: Casa
-                name: home
-                widget: string
-              - label: Trasferta
-                name: away
-                widget: string
-              - label: Campo
-                name: venue
-                widget: string
-              - label: Risultato
-                name: score
-                widget: string
-                required: false
-              - label: Stato
-                name: status
-                widget: select
-                options:
-                  - Da giocare
-                  - Terminata
-                  - In attesa
-              - label: Competizione
-                name: competition
-                widget: string
-              - label: MVP
-                name: mvp
-                widget: string
-                required: false
-              - label: Marcatori
-                name: scorers
-                widget: list
-                required: false
-                field:
-                  label: Marcatore
-                  name: s
-                  widget: string
-              - label: Ammoniti
-                name: yellow
-                widget: list
-                required: false
-                field:
-                  label: Giocatore
-                  name: 'y'
-                  widget: string
-              - label: Espulsi
-                name: red
-                widget: list
-                required: false
-                field:
-                  label: Giocatore
-                  name: r
-                  widget: string
-              - label: Sommario
-                name: summary
-                widget: text
-                required: false
-              - label: Statistiche
-                name: stats
-                widget: object
-                required: false
-                collapsed: true
-                fields:
-                  - label: Tiri
-                    name: shots
-                    widget: number
-                    value_type: int
-                  - label: Tiri subiti
-                    name: shotsAgainst
-                    widget: number
-                    value_type: int
-                  - label: Possesso %
-                    name: possession
-                    widget: number
-                    value_type: int
-                  - label: Calci d'angolo
-                    name: corners
-                    widget: number
-                    value_type: int
-              - label: Formazione
-                name: lineup
-                widget: object
-                required: false
-                collapsed: true
-                fields:
-                  - label: Modulo
-                    name: module
-                    widget: string
-                  - label: Quintetto
-                    name: startingFive
-                    widget: list
-                    field:
-                      label: Giocatore
-                      name: g
-                      widget: string
-                  - label: Panchina
-                    name: bench
-                    widget: list
-                    field:
-                      label: Giocatore
-                      name: g
-                      widget: string
-                  - label: Assenti
-                    name: absent
-                    widget: list
-                    required: false
-                    field:
-                      label: Giocatore
-                      name: g
-                      widget: string
-                  - label: Squalificati
-                    name: suspended
-                    widget: list
-                    required: false
-                    field:
-                      label: Giocatore
-                      name: g
-                      widget: string
-                  - label: Infortunati
-                    name: injured
-                    widget: list
-                    required: false
-                    field:
-                      label: Giocatore
-                      name: g
-                      widget: string
-                  - label: Note tattiche
-                    name: tacticalNotes
-                    widget: list
-                    required: false
-                    field:
-                      label: Nota
-                      name: 'n'
-                      widget: text
-              - label: Timeline eventi
-                name: timeline
-                widget: list
-                required: false
-                collapsed: true
-                fields:
-                  - label: Minuto
-                    name: minute
-                    widget: string
-                  - label: Evento
-                    name: event
-                    widget: string
-                  - label: Squadra
-                    name: team
-                    widget: string
-                  - label: Testo
-                    name: text
-                    widget: text
+        - label: Tiri
+          name: shots
+          widget: number
+          value_type: int
+        - label: Tiri subiti
+          name: shotsAgainst
+          widget: number
+          value_type: int
+        - label: Possesso %
+          name: possession
+          widget: number
+          value_type: int
+        - label: Calci d'angolo
+          name: corners
+          widget: number
+          value_type: int
+      - label: Formazione
+        name: lineup
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+        - label: Modulo
+          name: module
+          widget: string
+        - label: Quintetto
+          name: startingFive
+          widget: list
+          field:
+            label: Giocatore
+            name: g
+            widget: string
+        - label: Panchina
+          name: bench
+          widget: list
+          field:
+            label: Giocatore
+            name: g
+            widget: string
+        - label: Assenti
+          name: absent
+          widget: list
+          required: false
+          field:
+            label: Giocatore
+            name: g
+            widget: string
+        - label: Squalificati
+          name: suspended
+          widget: list
+          required: false
+          field:
+            label: Giocatore
+            name: g
+            widget: string
+        - label: Infortunati
+          name: injured
+          widget: list
+          required: false
+          field:
+            label: Giocatore
+            name: g
+            widget: string
+        - label: Note tattiche
+          name: tacticalNotes
+          widget: list
+          required: false
+          field:
+            label: Nota
+            name: n
+            widget: text
+      - label: Timeline eventi
+        name: timeline
+        widget: list
+        required: false
+        collapsed: true
+        fields:
+        - label: Minuto
+          name: minute
+          widget: string
+        - label: Evento
+          name: event
+          widget: string
+        - label: Squadra
+          name: team
+          widget: string
+        - label: Testo
+          name: text
+          widget: text
+- name: u21Fixtures
+  label: Calendario Under 21
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: u21Fixtures
     label: Calendario Under 21
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: u21Fixtures
-        label: Calendario Under 21
-        file: content/data.json
+    file: content/data.json
+    fields:
+    - label: Partite Under 21
+      name: u21Fixtures
+      widget: list
+      label_singular: partita U21
+      summary: '{{fields.date}} — {{fields.home}} vs {{fields.away}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Data
+        name: date
+        widget: date
+        format: YYYY-MM-DD
+      - label: Ora
+        name: time
+        widget: string
+      - label: Casa
+        name: home
+        widget: string
+      - label: Trasferta
+        name: away
+        widget: string
+      - label: Campo
+        name: venue
+        widget: string
+      - label: Risultato
+        name: score
+        widget: string
+        required: false
+      - label: Stato
+        name: status
+        widget: select
+        options:
+        - Da giocare
+        - Terminata
+        - In attesa
+      - label: Competizione
+        name: competition
+        widget: string
+      - label: Formazione
+        name: lineup
+        widget: object
+        required: false
+        collapsed: true
         fields:
-          - label: Partite Under 21
-            name: u21Fixtures
-            widget: list
-            label_singular: partita U21
-            summary: '{{fields.date}} — {{fields.home}} vs {{fields.away}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Data
-                name: date
-                widget: date
-                format: YYYY-MM-DD
-              - label: Ora
-                name: time
-                widget: string
-              - label: Casa
-                name: home
-                widget: string
-              - label: Trasferta
-                name: away
-                widget: string
-              - label: Campo
-                name: venue
-                widget: string
-              - label: Risultato
-                name: score
-                widget: string
-                required: false
-              - label: Stato
-                name: status
-                widget: select
-                options:
-                  - Da giocare
-                  - Terminata
-                  - In attesa
-              - label: Competizione
-                name: competition
-                widget: string
-              - label: Formazione
-                name: lineup
-                widget: object
-                required: false
-                collapsed: true
-                fields:
-                  - label: Modulo
-                    name: module
-                    widget: string
-                  - label: Quintetto
-                    name: startingFive
-                    widget: list
-                    field:
-                      label: Giocatore
-                      name: g
-                      widget: string
-                  - label: Panchina
-                    name: bench
-                    widget: list
-                    field:
-                      label: Giocatore
-                      name: g
-                      widget: string
-                  - label: Assenti
-                    name: absent
-                    widget: list
-                    required: false
-                    field:
-                      label: Giocatore
-                      name: g
-                      widget: string
-                  - label: Squalificati
-                    name: suspended
-                    widget: list
-                    required: false
-                    field:
-                      label: Giocatore
-                      name: g
-                      widget: string
-                  - label: Infortunati
-                    name: injured
-                    widget: list
-                    required: false
-                    field:
-                      label: Giocatore
-                      name: g
-                      widget: string
-                  - label: Note tattiche
-                    name: tacticalNotes
-                    widget: list
-                    required: false
-                    field:
-                      label: Nota
-                      name: 'n'
-                      widget: text
-              - label: Timeline eventi
-                name: timeline
-                widget: list
-                required: false
-                collapsed: true
-                fields:
-                  - label: Minuto
-                    name: minute
-                    widget: string
-                  - label: Evento
-                    name: event
-                    widget: string
-                  - label: Squadra
-                    name: team
-                    widget: string
-                  - label: Testo
-                    name: text
-                    widget: text
-              - label: Statistiche
-                name: stats
-                widget: object
-                required: false
-                collapsed: true
-                fields:
-                  - label: Tiri
-                    name: shots
-                    widget: number
-                    value_type: int
-                  - label: Tiri subiti
-                    name: shotsAgainst
-                    widget: number
-                    value_type: int
-                  - label: Possesso %
-                    name: possession
-                    widget: number
-                    value_type: int
-                  - label: Calci d'angolo
-                    name: corners
-                    widget: number
-                    value_type: int
+        - label: Modulo
+          name: module
+          widget: string
+        - label: Quintetto
+          name: startingFive
+          widget: list
+          field:
+            label: Giocatore
+            name: g
+            widget: string
+        - label: Panchina
+          name: bench
+          widget: list
+          field:
+            label: Giocatore
+            name: g
+            widget: string
+        - label: Assenti
+          name: absent
+          widget: list
+          required: false
+          field:
+            label: Giocatore
+            name: g
+            widget: string
+        - label: Squalificati
+          name: suspended
+          widget: list
+          required: false
+          field:
+            label: Giocatore
+            name: g
+            widget: string
+        - label: Infortunati
+          name: injured
+          widget: list
+          required: false
+          field:
+            label: Giocatore
+            name: g
+            widget: string
+        - label: Note tattiche
+          name: tacticalNotes
+          widget: list
+          required: false
+          field:
+            label: Nota
+            name: n
+            widget: text
+      - label: Timeline eventi
+        name: timeline
+        widget: list
+        required: false
+        collapsed: true
+        fields:
+        - label: Minuto
+          name: minute
+          widget: string
+        - label: Evento
+          name: event
+          widget: string
+        - label: Squadra
+          name: team
+          widget: string
+        - label: Testo
+          name: text
+          widget: text
+      - label: Statistiche
+        name: stats
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+        - label: Tiri
+          name: shots
+          widget: number
+          value_type: int
+        - label: Tiri subiti
+          name: shotsAgainst
+          widget: number
+          value_type: int
+        - label: Possesso %
+          name: possession
+          widget: number
+          value_type: int
+        - label: Calci d'angolo
+          name: corners
+          widget: number
+          value_type: int
+- name: standings
+  label: Classifica Prima squadra
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: standings
     label: Classifica Prima squadra
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: standings
-        label: Classifica Prima squadra
-        file: content/data.json
-        fields:
-          - label: Classifica
-            name: standings
-            widget: list
-            label_singular: riga
-            summary: '{{fields.pos}}. {{fields.team}} — {{fields.pts}} pt'
-            fields:
-              - label: Posizione
-                name: pos
-                widget: number
-                value_type: int
-              - label: Squadra
-                name: team
-                widget: string
-              - label: Logo squadra (URL)
-                name: logo
-                widget: string
-                required: false
-              - label: Punti
-                name: pts
-                widget: number
-                value_type: int
-              - label: Giocate
-                name: g
-                widget: number
-                value_type: int
-              - label: Vinte
-                name: v
-                widget: number
-                value_type: int
-              - label: Pareggi
-                name: 'n'
-                widget: number
-                value_type: int
-              - label: Perse
-                name: p
-                widget: number
-                value_type: int
-              - label: Gol fatti
-                name: gf
-                widget: number
-                value_type: int
-              - label: Gol subiti
-                name: gs
-                widget: number
-                value_type: int
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-                required: false
+    file: content/data.json
+    fields:
+    - label: Classifica
+      name: standings
+      widget: list
+      label_singular: riga
+      summary: '{{fields.pos}}. {{fields.team}} — {{fields.pts}} pt'
+      fields:
+      - label: Posizione
+        name: pos
+        widget: number
+        value_type: int
+      - label: Squadra
+        name: team
+        widget: string
+      - label: Logo squadra (URL)
+        name: logo
+        widget: string
+        required: false
+      - label: Punti
+        name: pts
+        widget: number
+        value_type: int
+      - label: Giocate
+        name: g
+        widget: number
+        value_type: int
+      - label: Vinte
+        name: v
+        widget: number
+        value_type: int
+      - label: Pareggi
+        name: n
+        widget: number
+        value_type: int
+      - label: Perse
+        name: p
+        widget: number
+        value_type: int
+      - label: Gol fatti
+        name: gf
+        widget: number
+        value_type: int
+      - label: Gol subiti
+        name: gs
+        widget: number
+        value_type: int
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+        required: false
+- name: u21Standings
+  label: Classifica Under 21
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: u21Standings
     label: Classifica Under 21
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: u21Standings
-        label: Classifica Under 21
-        file: content/data.json
-        fields:
-          - label: Classifica U21
-            name: u21Standings
-            widget: list
-            label_singular: riga
-            summary: '{{fields.pos}}. {{fields.team}} — {{fields.pts}} pt'
-            fields:
-              - label: Posizione
-                name: pos
-                widget: number
-                value_type: int
-              - label: Squadra
-                name: team
-                widget: string
-              - label: Logo squadra (URL)
-                name: logo
-                widget: string
-                required: false
-              - label: Punti
-                name: pts
-                widget: number
-                value_type: int
-              - label: Giocate
-                name: g
-                widget: number
-                value_type: int
-              - label: Vinte
-                name: v
-                widget: number
-                value_type: int
-              - label: Pareggi
-                name: 'n'
-                widget: number
-                value_type: int
-              - label: Perse
-                name: p
-                widget: number
-                value_type: int
-              - label: Gol fatti
-                name: gf
-                widget: number
-                value_type: int
-              - label: Gol subiti
-                name: gs
-                widget: number
-                value_type: int
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-                required: false
+    file: content/data.json
+    fields:
+    - label: Classifica U21
+      name: u21Standings
+      widget: list
+      label_singular: riga
+      summary: '{{fields.pos}}. {{fields.team}} — {{fields.pts}} pt'
+      fields:
+      - label: Posizione
+        name: pos
+        widget: number
+        value_type: int
+      - label: Squadra
+        name: team
+        widget: string
+      - label: Logo squadra (URL)
+        name: logo
+        widget: string
+        required: false
+      - label: Punti
+        name: pts
+        widget: number
+        value_type: int
+      - label: Giocate
+        name: g
+        widget: number
+        value_type: int
+      - label: Vinte
+        name: v
+        widget: number
+        value_type: int
+      - label: Pareggi
+        name: n
+        widget: number
+        value_type: int
+      - label: Perse
+        name: p
+        widget: number
+        value_type: int
+      - label: Gol fatti
+        name: gf
+        widget: number
+        value_type: int
+      - label: Gol subiti
+        name: gs
+        widget: number
+        value_type: int
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+        required: false
+- name: cup
+  label: Coppa Prima squadra
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: cup
     label: Coppa Prima squadra
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: cup
-        label: Coppa Prima squadra
-        file: content/data.json
+    file: content/data.json
+    fields:
+    - label: Coppa
+      name: cup
+      widget: object
+      fields:
+      - label: Titolo
+        name: title
+        widget: string
+      - label: Edizione
+        name: edition
+        widget: string
+      - label: Stato
+        name: status
+        widget: string
+      - label: Partite
+        name: fixtures
+        widget: list
         fields:
-          - label: Coppa
-            name: cup
-            widget: object
-            fields:
-              - label: Titolo
-                name: title
-                widget: string
-              - label: Edizione
-                name: edition
-                widget: string
-              - label: Stato
-                name: status
-                widget: string
-              - label: Partite
-                name: fixtures
-                widget: list
-                fields:
-                  - label: ID
-                    name: id
-                    widget: number
-                    value_type: int
-                  - label: Turno
-                    name: round
-                    widget: string
-                  - label: Data
-                    name: date
-                    widget: date
-                    format: YYYY-MM-DD
-                  - label: Ora
-                    name: time
-                    widget: string
-                  - label: Casa
-                    name: home
-                    widget: string
-                  - label: Trasferta
-                    name: away
-                    widget: string
-                  - label: Campo
-                    name: venue
-                    widget: string
-                  - label: Risultato
-                    name: score
-                    widget: string
-                    required: false
-                  - label: Stato
-                    name: status
-                    widget: select
-                    options:
-                      - Da giocare
-                      - Terminata
-                      - In attesa
+        - label: ID
+          name: id
+          widget: number
+          value_type: int
+        - label: Turno
+          name: round
+          widget: string
+        - label: Data
+          name: date
+          widget: date
+          format: YYYY-MM-DD
+        - label: Ora
+          name: time
+          widget: string
+        - label: Casa
+          name: home
+          widget: string
+        - label: Trasferta
+          name: away
+          widget: string
+        - label: Campo
+          name: venue
+          widget: string
+        - label: Risultato
+          name: score
+          widget: string
+          required: false
+        - label: Stato
+          name: status
+          widget: select
+          options:
+          - Da giocare
+          - Terminata
+          - In attesa
+- name: u21Cup
+  label: Coppa Under 21
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: u21Cup
     label: Coppa Under 21
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: u21Cup
-        label: Coppa Under 21
-        file: content/data.json
+    file: content/data.json
+    fields:
+    - label: Coppa U21
+      name: u21Cup
+      widget: object
+      fields:
+      - label: Titolo
+        name: title
+        widget: string
+      - label: Edizione
+        name: edition
+        widget: string
+      - label: Stato
+        name: status
+        widget: string
+      - label: Partite
+        name: fixtures
+        widget: list
         fields:
-          - label: Coppa U21
-            name: u21Cup
-            widget: object
-            fields:
-              - label: Titolo
-                name: title
-                widget: string
-              - label: Edizione
-                name: edition
-                widget: string
-              - label: Stato
-                name: status
-                widget: string
-              - label: Partite
-                name: fixtures
-                widget: list
-                fields:
-                  - label: ID
-                    name: id
-                    widget: number
-                    value_type: int
-                  - label: Turno
-                    name: round
-                    widget: string
-                  - label: Data
-                    name: date
-                    widget: date
-                    format: YYYY-MM-DD
-                  - label: Ora
-                    name: time
-                    widget: string
-                  - label: Casa
-                    name: home
-                    widget: string
-                  - label: Trasferta
-                    name: away
-                    widget: string
-                  - label: Campo
-                    name: venue
-                    widget: string
-                  - label: Risultato
-                    name: score
-                    widget: string
-                    required: false
-                  - label: Stato
-                    name: status
-                    widget: select
-                    options:
-                      - Da giocare
-                      - Terminata
-                      - In attesa
+        - label: ID
+          name: id
+          widget: number
+          value_type: int
+        - label: Turno
+          name: round
+          widget: string
+        - label: Data
+          name: date
+          widget: date
+          format: YYYY-MM-DD
+        - label: Ora
+          name: time
+          widget: string
+        - label: Casa
+          name: home
+          widget: string
+        - label: Trasferta
+          name: away
+          widget: string
+        - label: Campo
+          name: venue
+          widget: string
+        - label: Risultato
+          name: score
+          widget: string
+          required: false
+        - label: Stato
+          name: status
+          widget: select
+          options:
+          - Da giocare
+          - Terminata
+          - In attesa
+- name: galleryAlbums
+  label: Gallery (album)
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: galleryAlbums
     label: Gallery (album)
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: galleryAlbums
-        label: Gallery (album)
-        file: content/data.json
-        fields:
-          - label: Album
-            name: galleryAlbums
-            widget: list
-            label_singular: album
-            summary: '{{fields.title}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Titolo
-                name: title
-                widget: string
-              - label: Categoria
-                name: category
-                widget: string
-              - label: Data
-                name: date
-                widget: date
-                format: YYYY-MM-DD
-              - label: Copertina (URL)
-                name: cover
-                widget: string
-                required: false
-              - label: Descrizione
-                name: description
-                widget: text
-                required: false
-              - label: Foto (URL, una per riga)
-                name: photos
-                widget: list
-                field:
-                  label: Foto URL
-                  name: u
-                  widget: string
+    file: content/data.json
+    fields:
+    - label: Album
+      name: galleryAlbums
+      widget: list
+      label_singular: album
+      summary: '{{fields.title}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Titolo
+        name: title
+        widget: string
+      - label: Categoria
+        name: category
+        widget: string
+      - label: Data
+        name: date
+        widget: date
+        format: YYYY-MM-DD
+      - label: Copertina (URL)
+        name: cover
+        widget: string
+        required: false
+      - label: Descrizione
+        name: description
+        widget: text
+        required: false
+      - label: Foto (URL, una per riga)
+        name: photos
+        widget: list
+        field:
+          label: Foto URL
+          name: u
+          widget: string
+- name: gallery
+  label: Gallery (foto singole)
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: gallery
     label: Gallery (foto singole)
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: gallery
-        label: Gallery (foto singole)
-        file: content/data.json
-        fields:
-          - label: Foto
-            name: gallery
-            widget: list
-            label_singular: foto
-            summary: '{{fields.title}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Titolo
-                name: title
-                widget: string
-              - label: Data
-                name: date
-                widget: date
-                format: YYYY-MM-DD
-              - label: Categoria
-                name: category
-                widget: string
-              - label: Immagine (URL)
-                name: image
-                widget: string
+    file: content/data.json
+    fields:
+    - label: Foto
+      name: gallery
+      widget: list
+      label_singular: foto
+      summary: '{{fields.title}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Titolo
+        name: title
+        widget: string
+      - label: Data
+        name: date
+        widget: date
+        format: YYYY-MM-DD
+      - label: Categoria
+        name: category
+        widget: string
+      - label: Immagine (URL)
+        name: image
+        widget: string
+- name: sponsors
+  label: Sponsor
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: sponsors
     label: Sponsor
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: sponsors
-        label: Sponsor
-        file: content/data.json
-        fields:
-          - label: Sponsor
-            name: sponsors
-            widget: list
-            label_singular: sponsor
-            summary: '{{fields.name}} ({{fields.tier}})'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Nome
-                name: name
-                widget: string
-              - label: Livello
-                name: tier
-                widget: string
-              - label: Sigla logo
-                name: logo
-                widget: string
-              - label: Link (URL)
-                name: url
-                widget: string
-                required: false
+    file: content/data.json
+    fields:
+    - label: Sponsor
+      name: sponsors
+      widget: list
+      label_singular: sponsor
+      summary: '{{fields.name}} ({{fields.tier}})'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Nome
+        name: name
+        widget: string
+      - label: Livello
+        name: tier
+        widget: string
+      - label: Sigla logo
+        name: logo
+        widget: string
+      - label: Link (URL)
+        name: url
+        widget: string
+        required: false
+- name: sponsorPackages
+  label: Pacchetti sponsor
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: sponsorPackages
     label: Pacchetti sponsor
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: sponsorPackages
-        label: Pacchetti sponsor
-        file: content/data.json
-        fields:
-          - label: Pacchetti
-            name: sponsorPackages
-            widget: list
-            label_singular: pacchetto
-            summary: '{{fields.name}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Nome
-                name: name
-                widget: string
-              - label: Prezzo
-                name: price
-                widget: string
-              - label: Visibilita'
-                name: visibility
-                widget: list
-                field:
-                  label: Voce
-                  name: v
-                  widget: string
-              - label: Testo bottone
-                name: cta
-                widget: string
+    file: content/data.json
+    fields:
+    - label: Pacchetti
+      name: sponsorPackages
+      widget: list
+      label_singular: pacchetto
+      summary: '{{fields.name}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Nome
+        name: name
+        widget: string
+      - label: Prezzo
+        name: price
+        widget: string
+      - label: Visibilita'
+        name: visibility
+        widget: list
+        field:
+          label: Voce
+          name: v
+          widget: string
+      - label: Testo bottone
+        name: cta
+        widget: string
+- name: staff
+  label: Staff
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: staff
     label: Staff
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: staff
-        label: Staff
-        file: content/data.json
-        fields:
-          - label: Staff
-            name: staff
-            widget: list
-            label_singular: membro
-            summary: '{{fields.name}} — {{fields.role}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Nome
-                name: name
-                widget: string
-              - label: Ruolo
-                name: role
-                widget: string
-              - label: Squadra
-                name: team
-                widget: select
-                options:
-                  - Prima squadra
-                  - Under 21
-              - label: Foto (URL)
-                name: photo
-                widget: string
-                required: false
-              - label: Bio
-                name: bio
-                widget: text
-                required: false
+    file: content/data.json
+    fields:
+    - label: Staff
+      name: staff
+      widget: list
+      label_singular: membro
+      summary: '{{fields.name}} — {{fields.role}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Nome
+        name: name
+        widget: string
+      - label: Ruolo
+        name: role
+        widget: string
+      - label: Squadra
+        name: team
+        widget: select
+        options:
+        - Prima squadra
+        - Under 21
+      - label: Foto (URL)
+        name: photo
+        widget: string
+        required: false
+      - label: Bio
+        name: bio
+        widget: text
+        required: false
+- name: videos
+  label: Video
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: videos
     label: Video
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: videos
-        label: Video
-        file: content/data.json
-        fields:
-          - label: Video
-            name: videos
-            widget: list
-            label_singular: video
-            summary: '{{fields.title}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Titolo
-                name: title
-                widget: string
-              - label: Categoria
-                name: category
-                widget: string
-              - label: Anteprima (URL)
-                name: thumb
-                widget: string
-                required: false
-              - label: Link video (URL)
-                name: url
-                widget: string
+    file: content/data.json
+    fields:
+    - label: Video
+      name: videos
+      widget: list
+      label_singular: video
+      summary: '{{fields.title}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Titolo
+        name: title
+        widget: string
+      - label: Categoria
+        name: category
+        widget: string
+      - label: Anteprima (URL)
+        name: thumb
+        widget: string
+        required: false
+      - label: Link video (URL)
+        name: url
+        widget: string
+- name: social
+  label: Social wall
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: social
     label: Social wall
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: social
-        label: Social wall
-        file: content/data.json
-        fields:
-          - label: Post social
-            name: social
-            widget: list
-            label_singular: post
-            summary: '{{fields.network}} — {{fields.handle}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Rete
-                name: network
-                widget: string
-              - label: Handle
-                name: handle
-                widget: string
-              - label: Testo
-                name: text
-                widget: text
-              - label: Data
-                name: date
-                widget: date
-                format: YYYY-MM-DD
-  - name: seasons
-    label: Archivio stagioni
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: seasons
-        label: Archivio stagioni
-        file: content/data.json
-        fields:
-          - label: Stagioni
-            name: seasons
-            widget: list
-            label_singular: stagione
-            summary: '{{fields.season}} — {{fields.position}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Stagione
-                name: season
-                widget: string
-              - label: Competizione
-                name: competition
-                widget: string
-              - label: Posizione
-                name: position
-                widget: string
-              - label: Record (V-N-P)
-                name: record
-                widget: string
-              - label: Gol fatti
-                name: gf
-                widget: number
-                value_type: int
-              - label: Gol subiti
-                name: gs
-                widget: number
-                value_type: int
-              - label: Nota
-                name: note
-                widget: text
-                required: false
+    file: content/data.json
+    fields:
+    - label: Post social
+      name: social
+      widget: list
+      label_singular: post
+      summary: '{{fields.network}} — {{fields.handle}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Rete
+        name: network
+        widget: string
+      - label: Handle
+        name: handle
+        widget: string
+      - label: Testo
+        name: text
+        widget: text
+      - label: Data
+        name: date
+        widget: date
+        format: YYYY-MM-DD
+- name: clubHistory
+  label: Club overview / Storia
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: clubHistory
     label: Club overview / Storia
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: clubHistory
-        label: Club overview / Storia
-        file: content/data.json
+    file: content/data.json
+    fields:
+    - label: Storia club
+      name: clubHistory
+      widget: object
+      fields:
+      - label: Titolo
+        name: title
+        widget: string
+      - label: Testo storia
+        name: paragraphs
+        widget: list
+        field:
+          label: Paragrafo
+          name: paragraph
+          widget: text
+      - label: Immagini storiche
+        name: images
+        widget: list
         fields:
-          - label: Storia club
-            name: clubHistory
-            widget: object
-            fields:
-              - { label: Titolo, name: title, widget: string }
-              - label: Testo storia
-                name: paragraphs
-                widget: list
-                field: { label: Paragrafo, name: paragraph, widget: text }
-              - label: Immagini storiche
-                name: images
-                widget: list
-                fields:
-                  - { label: Stagione, name: season, widget: string }
-                  - { label: Immagine URL, name: image, widget: string }
+        - label: Stagione
+          name: season
+          widget: string
+        - label: Immagine URL
+          name: image
+          widget: string
+- name: historicalStats
+  label: Statistiche storiche
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: historicalStats
     label: Statistiche storiche
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: historicalStats
-        label: Statistiche storiche
-        file: content/data.json
-        fields:
-          - label: Statistiche storiche
-            name: historicalStats
-            widget: list
-            fields:
-              - { label: Stagione, name: season, widget: string }
-              - { label: Giocate, name: played, widget: number, value_type: int }
-              - { label: Vittorie, name: wins, widget: number, value_type: int }
-              - { label: Pareggi, name: draws, widget: number, value_type: int }
-              - { label: Sconfitte, name: losses, widget: number, value_type: int }
-              - { label: Gol fatti, name: goalsFor, widget: number, value_type: int }
-              - { label: Gol subiti, name: goalsAgainst, widget: number, value_type: int }
-              - { label: Differenza reti, name: goalDifference, widget: number, value_type: int }
-
+    file: content/data.json
+    fields:
+    - label: Statistiche storiche
+      name: historicalStats
+      widget: list
+      fields:
+      - label: Stagione
+        name: season
+        widget: string
+      - label: Giocate
+        name: played
+        widget: number
+        value_type: int
+      - label: Vittorie
+        name: wins
+        widget: number
+        value_type: int
+      - label: Pareggi
+        name: draws
+        widget: number
+        value_type: int
+      - label: Sconfitte
+        name: losses
+        widget: number
+        value_type: int
+      - label: Gol fatti
+        name: goalsFor
+        widget: number
+        value_type: int
+      - label: Gol subiti
+        name: goalsAgainst
+        widget: number
+        value_type: int
+      - label: Differenza reti
+        name: goalDifference
+        widget: number
+        value_type: int
+- name: records
+  label: Hall of fame / Record
+  delete: false
+  editor:
+    preview: false
+  files:
   - name: records
     label: Hall of fame / Record
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: records
-        label: Hall of fame / Record
-        file: content/data.json
-        fields:
-          - label: Record
-            name: records
-            widget: list
-            label_singular: record
-            summary: '{{fields.label}}: {{fields.value}}'
-            fields:
-              - label: ID
-                name: id
-                widget: number
-                value_type: int
-              - label: Etichetta
-                name: label
-                widget: string
-              - label: Valore
-                name: value
-                widget: string
-              - label: Dettaglio
-                name: detail
-                widget: string
-  - name: tryoutFields
-    label: Campi form provini
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: tryoutFields
-        label: Campi form provini
-        file: content/data.json
-        fields:
-          - label: Campi del form provini
-            name: tryoutFields
-            widget: list
-            field:
-              label: Campo
-              name: v
-              widget: string
+    file: content/data.json
+    fields:
+    - label: Record
+      name: records
+      widget: list
+      label_singular: record
+      summary: '{{fields.label}}: {{fields.value}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Etichetta
+        name: label
+        widget: string
+      - label: Valore
+        name: value
+        widget: string
+      - label: Dettaglio
+        name: detail
+        widget: string
