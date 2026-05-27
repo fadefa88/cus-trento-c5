@@ -88,7 +88,10 @@ jobs:
           set cmd:fail-exit yes
           set cmd:trace yes
           set ftp:passive-mode yes
-          set ftp:ssl-allow no
+          set ftp:ssl-allow yes
+          set ftp:ssl-force no
+          set ftp:ssl-protect-data yes
+          set ssl:verify-certificate no
           set net:max-retries 2
           set net:timeout 45
 
@@ -132,7 +135,10 @@ jobs:
           set cmd:fail-exit yes
           set cmd:trace yes
           set ftp:passive-mode yes
-          set ftp:ssl-allow no
+          set ftp:ssl-allow yes
+          set ftp:ssl-force no
+          set ftp:ssl-protect-data yes
+          set ssl:verify-certificate no
           set net:max-retries 2
           set net:timeout 60
           set xfer:log yes
@@ -149,6 +155,9 @@ jobs:
             --exclude-glob .git/ \
             --exclude-glob .github/ \
             --exclude-glob README.md \
+            --exclude-glob __deploy_probe.txt \
+            --exclude-glob data.generated.optional.json \
+            --exclude-glob historicalStats-snippet.json \
             ./ .
 
           echo "REMOTE LIST AFTER MIRROR:"
@@ -172,3 +181,27 @@ jobs:
 
           echo "data.json first bytes:"
           curl -L --max-time 30 "https://custrentocalcioa5.it/content/data.json?cb=$(date +%s)" | head -c 300 || true
+
+      - name: Cleanup probe file
+        if: always()
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
+        run: |
+          echo "Removing remote probe file..."
+          lftp <<EOF
+          set ftp:passive-mode yes
+          set ftp:ssl-allow yes
+          set ftp:ssl-force no
+          set ftp:ssl-protect-data yes
+          set ssl:verify-certificate no
+          set net:max-retries 2
+          set net:timeout 45
+
+          open -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER"
+          cd "$FTP_SERVER_DIR"
+          rm -f __deploy_probe.txt
+          bye
+          EOF
