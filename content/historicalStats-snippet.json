@@ -1,0 +1,721 @@
+{
+  "historicalStats": {
+    "updatedFrom": "https://custrentocalcioa5.it/oldsite/statistiche/",
+    "summary": {
+      "played": 398,
+      "wins": 170,
+      "draws": 54,
+      "losses": 174,
+      "goalsFor": 1650,
+      "goalsForAvg": "4,14",
+      "goalsAgainst": 1688,
+      "goalsAgainstAvg": "4,24",
+      "goalDifference": -38
+    },
+    "seasons": [
+      {
+        "season": "2025/2026",
+        "played": 17,
+        "wins": 11,
+        "draws": 0,
+        "losses": 6,
+        "goalsFor": 81,
+        "goalsForAvg": "4,76",
+        "goalsAgainst": 67,
+        "goalsAgainstAvg": "3,94",
+        "goalDifference": 14
+      },
+      {
+        "season": "2024/2025",
+        "played": 27,
+        "wins": 8,
+        "draws": 2,
+        "losses": 17,
+        "goalsFor": 79,
+        "goalsForAvg": "2,92",
+        "goalsAgainst": 143,
+        "goalsAgainstAvg": "5,29",
+        "goalDifference": -64
+      },
+      {
+        "season": "2023/2024",
+        "played": 29,
+        "wins": 7,
+        "draws": 1,
+        "losses": 21,
+        "goalsFor": 97,
+        "goalsForAvg": "3,34",
+        "goalsAgainst": 150,
+        "goalsAgainstAvg": "5,17",
+        "goalDifference": -53
+      },
+      {
+        "season": "2022/2023",
+        "played": 27,
+        "wins": 8,
+        "draws": 2,
+        "losses": 17,
+        "goalsFor": 118,
+        "goalsForAvg": "4,37",
+        "goalsAgainst": 150,
+        "goalsAgainstAvg": "5,55",
+        "goalDifference": -32
+      },
+      {
+        "season": "2021/2022",
+        "played": 20,
+        "wins": 10,
+        "draws": 4,
+        "losses": 6,
+        "goalsFor": 69,
+        "goalsForAvg": "3,45",
+        "goalsAgainst": 71,
+        "goalsAgainstAvg": "3,55",
+        "goalDifference": -2
+      },
+      {
+        "season": "2020/2021",
+        "played": 3,
+        "wins": 0,
+        "draws": 2,
+        "losses": 1,
+        "goalsFor": 4,
+        "goalsForAvg": "1,33",
+        "goalsAgainst": 5,
+        "goalsAgainstAvg": "1,66",
+        "goalDifference": -1
+      },
+      {
+        "season": "2019/2020",
+        "played": 23,
+        "wins": 5,
+        "draws": 3,
+        "losses": 15,
+        "goalsFor": 58,
+        "goalsForAvg": "2,52",
+        "goalsAgainst": 82,
+        "goalsAgainstAvg": "3,56",
+        "goalDifference": -24
+      },
+      {
+        "season": "2018/2019",
+        "played": 37,
+        "wins": 19,
+        "draws": 9,
+        "losses": 9,
+        "goalsFor": 179,
+        "goalsForAvg": "4,83",
+        "goalsAgainst": 138,
+        "goalsAgainstAvg": "3,72",
+        "goalDifference": 41
+      },
+      {
+        "season": "2017/2018",
+        "played": 34,
+        "wins": 16,
+        "draws": 7,
+        "losses": 11,
+        "goalsFor": 141,
+        "goalsForAvg": "4,14",
+        "goalsAgainst": 144,
+        "goalsAgainstAvg": "4,23",
+        "goalDifference": -3
+      },
+      {
+        "season": "2016/2017",
+        "played": 31,
+        "wins": 20,
+        "draws": 5,
+        "losses": 6,
+        "goalsFor": 174,
+        "goalsForAvg": "5,61",
+        "goalsAgainst": 91,
+        "goalsAgainstAvg": "2,93",
+        "goalDifference": 83
+      },
+      {
+        "season": "2015/2016",
+        "played": 33,
+        "wins": 20,
+        "draws": 4,
+        "losses": 9,
+        "goalsFor": 146,
+        "goalsForAvg": "4,42",
+        "goalsAgainst": 115,
+        "goalsAgainstAvg": "3,48",
+        "goalDifference": 31
+      },
+      {
+        "season": "2014/2015",
+        "played": 33,
+        "wins": 9,
+        "draws": 3,
+        "losses": 21,
+        "goalsFor": 96,
+        "goalsForAvg": "2,91",
+        "goalsAgainst": 133,
+        "goalsAgainstAvg": "4,03",
+        "goalDifference": -37
+      },
+      {
+        "season": "2013/2014",
+        "played": 34,
+        "wins": 23,
+        "draws": 8,
+        "losses": 3,
+        "goalsFor": 139,
+        "goalsForAvg": "4,08",
+        "goalsAgainst": 82,
+        "goalsAgainstAvg": "2,41",
+        "goalDifference": 57
+      },
+      {
+        "season": "2012/2013",
+        "played": 24,
+        "wins": 7,
+        "draws": 2,
+        "losses": 15,
+        "goalsFor": 146,
+        "goalsForAvg": "4,42",
+        "goalsAgainst": 156,
+        "goalsAgainstAvg": "6,5",
+        "goalDifference": -28
+      },
+      {
+        "season": "2011/2012",
+        "played": 26,
+        "wins": 7,
+        "draws": 2,
+        "losses": 17,
+        "goalsFor": 123,
+        "goalsForAvg": "4,73",
+        "goalsAgainst": 161,
+        "goalsAgainstAvg": "6,19",
+        "goalDifference": -38
+      }
+    ],
+    "honors": [
+      {
+        "season": "2016/2017",
+        "items": [
+          "Promozione in serie C2"
+        ]
+      },
+      {
+        "season": "2015/2016",
+        "items": [
+          "Semifinale play-off serie D"
+        ]
+      },
+      {
+        "season": "2014/2015",
+        "items": [
+          "Retrocessione in serie D"
+        ]
+      },
+      {
+        "season": "2013/2014",
+        "items": [
+          "Promozione in serie C2",
+          "Semifinalista Coppa Provincia serie D"
+        ]
+      },
+      {
+        "season": "2011/2012",
+        "items": [
+          "Coppa Disciplina"
+        ]
+      }
+    ],
+    "allTimeGoals": [
+      {
+        "players": "Costantini",
+        "value": 95
+      },
+      {
+        "players": "Begnis Ruben",
+        "value": 81
+      },
+      {
+        "players": "Martinelli A.",
+        "value": 78
+      },
+      {
+        "players": "Deboni",
+        "value": 64
+      },
+      {
+        "players": "Cuberli",
+        "value": 59
+      },
+      {
+        "players": "Bortoletto",
+        "value": 57
+      },
+      {
+        "players": "Santoni",
+        "value": 56
+      },
+      {
+        "players": "Bakaj",
+        "value": 50
+      },
+      {
+        "players": "Pan",
+        "value": 48
+      },
+      {
+        "players": "Cirasola",
+        "value": 45
+      },
+      {
+        "players": "Vettorazzi",
+        "value": 40
+      },
+      {
+        "players": "Ruzzene",
+        "value": 36
+      },
+      {
+        "players": "Pace, Pieramati",
+        "value": 35
+      },
+      {
+        "players": "Id El Kaid, Donà",
+        "value": 31
+      },
+      {
+        "players": "Vaia Mattia",
+        "value": 30
+      },
+      {
+        "players": "Collini",
+        "value": 27
+      },
+      {
+        "players": "Osei",
+        "value": 26
+      },
+      {
+        "players": "Cinquanta",
+        "value": 25
+      },
+      {
+        "players": "Valentini, Deola",
+        "value": 24
+      },
+      {
+        "players": "Zambanini",
+        "value": 23
+      },
+      {
+        "players": "Ronzani, Saffioti, Franzoso, Pretto, Sarina",
+        "value": 21
+      },
+      {
+        "players": "Cantarella",
+        "value": 19
+      },
+      {
+        "players": "Vangelo",
+        "value": 18
+      },
+      {
+        "players": "Dusci",
+        "value": 16
+      },
+      {
+        "players": "Venturelli, Frattolin, Fior",
+        "value": 15
+      },
+      {
+        "players": "Begnis Reddy, Guaragna",
+        "value": 14
+      },
+      {
+        "players": "Tirelli, Mourahib",
+        "value": 13
+      },
+      {
+        "players": "Seguel Obregon, Berti, Barbieri, Degasperi, Staffa",
+        "value": 12
+      },
+      {
+        "players": "Rigon, Martinelli E.",
+        "value": 11
+      },
+      {
+        "players": "Busnardo, Donati",
+        "value": 10
+      },
+      {
+        "players": "Degani, Mondin, Battista",
+        "value": 9
+      },
+      {
+        "players": "Filippi",
+        "value": 8
+      },
+      {
+        "players": "Bertolini Garbari, Baietta, Brasca, Fiorentino",
+        "value": 7
+      },
+      {
+        "players": "Turcato, Topinelli, Bordiero, Furina, Bellio, D’Elia",
+        "value": 6
+      },
+      {
+        "players": "Albiero, Tesser, Gumirato, Boldrini, Ghislieri, Chinellato, Piccininno, Bergamini, Ghiro",
+        "value": 5
+      },
+      {
+        "players": "Zanetti, Gebbia, Annoli, del Ciello",
+        "value": 4
+      },
+      {
+        "players": "De Gennaro, Loperfido, Addobbati, Cuman, Hakala, Gurabardhi, Veronesi",
+        "value": 3
+      },
+      {
+        "players": "Piazza, Maciocia, Conti Bove, Micheli, Barruzza",
+        "value": 2
+      },
+      {
+        "players": "Stenico, Papalia, Fabbri, Zampedri, Mortara, Franceschini, Vaia Marco, Caviola, Bizzotto, Magagna, Bottega, Pina, Ruggeri, Tenaglia",
+        "value": 1
+      }
+    ],
+    "allTimeAppearances": [
+      {
+        "players": "Costantini",
+        "value": 155
+      },
+      {
+        "players": "Varvato",
+        "value": 130
+      },
+      {
+        "players": "Meta",
+        "value": 120
+      },
+      {
+        "players": "Deola",
+        "value": 119
+      },
+      {
+        "players": "Saffioti",
+        "value": 110
+      },
+      {
+        "players": "Begnis Ruben",
+        "value": 109
+      },
+      {
+        "players": "Ruzzene",
+        "value": 102
+      },
+      {
+        "players": "Osei",
+        "value": 99
+      },
+      {
+        "players": "Pieramati",
+        "value": 94
+      },
+      {
+        "players": "Deboni",
+        "value": 91
+      },
+      {
+        "players": "De Fassi, Zambanini",
+        "value": 68
+      },
+      {
+        "players": "Donà",
+        "value": 63
+      },
+      {
+        "players": "Busnardo",
+        "value": 59
+      },
+      {
+        "players": "Pretto, Sarina",
+        "value": 56
+      },
+      {
+        "players": "Chinellato, Mourahib",
+        "value": 55
+      },
+      {
+        "players": "Barbieri",
+        "value": 54
+      },
+      {
+        "players": "Rigon, Collini, Valentini",
+        "value": 50
+      },
+      {
+        "players": "Martinelli E.",
+        "value": 49
+      },
+      {
+        "players": "Pace, Battista",
+        "value": 43
+      },
+      {
+        "players": "Ghiro, Guaragna",
+        "value": 42
+      },
+      {
+        "players": "Martinelli A.",
+        "value": 52
+      },
+      {
+        "players": "Cinquanta, Audia",
+        "value": 38
+      },
+      {
+        "players": "Cuberli",
+        "value": 37
+      },
+      {
+        "players": "Pan, Santoni",
+        "value": 36
+      },
+      {
+        "players": "Berti",
+        "value": 35
+      },
+      {
+        "players": "Zanardello",
+        "value": 34
+      },
+      {
+        "players": "Cantarella",
+        "value": 33
+      },
+      {
+        "players": "Degasperi, Id El Kaid, Vaia Mattia",
+        "value": 32
+      },
+      {
+        "players": "Franzoso, De Gennaro",
+        "value": 31
+      },
+      {
+        "players": "Tirelli",
+        "value": 29
+      },
+      {
+        "players": "Ronzani",
+        "value": 27
+      },
+      {
+        "players": "Turcato, Fior",
+        "value": 26
+      },
+      {
+        "players": "Albiero",
+        "value": 25
+      },
+      {
+        "players": "Bakaj, Staffa, Begnis Reddy, Angeli, Piccininno",
+        "value": 22
+      },
+      {
+        "players": "Bontempo",
+        "value": 21
+      },
+      {
+        "players": "del Ciello, Fiorentino, Donati",
+        "value": 20
+      },
+      {
+        "players": "Bellio, Vaia Marco",
+        "value": 19
+      },
+      {
+        "players": "Micheli, Furina",
+        "value": 18
+      },
+      {
+        "players": "Gurabardhi",
+        "value": 17
+      },
+      {
+        "players": "Venturelli, Brasca",
+        "value": 16
+      },
+      {
+        "players": "Califano, Degani, Bove, Mortara, Boldrini, Tesser",
+        "value": 15
+      },
+      {
+        "players": "Ghislieri, Veronesi, Cirasola, Filippi",
+        "value": 14
+      },
+      {
+        "players": "Puddu, Bottega, Bergamini, Vettorazzi",
+        "value": 13
+      },
+      {
+        "players": "Seguel Obregon, Hasa, Sgroi, Bernard, Cuman",
+        "value": 11
+      },
+      {
+        "players": "Nuzzi, Annoli, Magagna, Gebbia, Baietta, Conti",
+        "value": 10
+      },
+      {
+        "players": "Bertolini Garbari, Bortoletto",
+        "value": 9
+      },
+      {
+        "players": "De Giacomo, D’Elia, Floriani, Rettore, Riccardi, Maciocia, Pina",
+        "value": 8
+      },
+      {
+        "players": "Piazza, Emiliani, Munaro, Caviola, Barruzza, Safi, Fabbri",
+        "value": 7
+      },
+      {
+        "players": "Lanteri",
+        "value": 6
+      },
+      {
+        "players": "Tenaglia, Cagnazzo, Zanetti",
+        "value": 5
+      },
+      {
+        "players": "Bertelli, Loperfido",
+        "value": 4
+      },
+      {
+        "players": "Ruggeri, Brandolini, Calzolari, Baratta, Mahni, Addobbati",
+        "value": 3
+      },
+      {
+        "players": "Gastaldello, Hamzallari, Baccaro Zeni",
+        "value": 2
+      },
+      {
+        "players": "Basso, Gaido, Toniolli, Bigonzi, Caldonazzi, Scala, Zampedri, Caccia Neff",
+        "value": 1
+      }
+    ],
+    "highlights": [
+      {
+        "label": "Gare ufficiali complessive",
+        "value": "398",
+        "detail": "Bilancio storico: 170 vittorie, 54 pareggi, 174 sconfitte"
+      },
+      {
+        "label": "Gol fatti storici",
+        "value": "1.650",
+        "detail": "Media 4,14 gol a partita"
+      },
+      {
+        "label": "Gol subiti storici",
+        "value": "1.688",
+        "detail": "Media 4,24 gol subiti a partita"
+      },
+      {
+        "label": "Differenza reti complessiva",
+        "value": "-38",
+        "detail": "Dato complessivo dalla stagione 2011/2012"
+      },
+      {
+        "label": "Miglior marcatore storico",
+        "value": "Costantini",
+        "detail": "95 reti"
+      },
+      {
+        "label": "Record presenze",
+        "value": "Costantini",
+        "detail": "155 presenze"
+      },
+      {
+        "label": "Stagione con più vittorie",
+        "value": "2013/2014",
+        "detail": "23 vittorie"
+      },
+      {
+        "label": "Miglior attacco stagionale",
+        "value": "2018/2019",
+        "detail": "179 gol fatti"
+      },
+      {
+        "label": "Miglior differenza reti",
+        "value": "2016/2017",
+        "detail": "+83"
+      },
+      {
+        "label": "Albo d’oro",
+        "value": "5 milestone",
+        "detail": "Promozioni, playoff, coppa disciplina e risultati storici"
+      }
+    ]
+  },
+  "records": [
+    {
+      "id": 11000,
+      "label": "Gare ufficiali complessive",
+      "value": "398",
+      "detail": "Bilancio storico: 170 vittorie, 54 pareggi, 174 sconfitte"
+    },
+    {
+      "id": 11001,
+      "label": "Gol fatti storici",
+      "value": "1.650",
+      "detail": "Media 4,14 gol a partita"
+    },
+    {
+      "id": 11002,
+      "label": "Gol subiti storici",
+      "value": "1.688",
+      "detail": "Media 4,24 gol subiti a partita"
+    },
+    {
+      "id": 11003,
+      "label": "Differenza reti complessiva",
+      "value": "-38",
+      "detail": "Dato complessivo dalla stagione 2011/2012"
+    },
+    {
+      "id": 11004,
+      "label": "Miglior marcatore storico",
+      "value": "Costantini",
+      "detail": "95 reti"
+    },
+    {
+      "id": 11005,
+      "label": "Record presenze",
+      "value": "Costantini",
+      "detail": "155 presenze"
+    },
+    {
+      "id": 11006,
+      "label": "Stagione con più vittorie",
+      "value": "2013/2014",
+      "detail": "23 vittorie"
+    },
+    {
+      "id": 11007,
+      "label": "Miglior attacco stagionale",
+      "value": "2018/2019",
+      "detail": "179 gol fatti"
+    },
+    {
+      "id": 11008,
+      "label": "Miglior differenza reti",
+      "value": "2016/2017",
+      "detail": "+83"
+    },
+    {
+      "id": 11009,
+      "label": "Albo d’oro",
+      "value": "5 milestone",
+      "detail": "Promozioni, playoff, coppa disciplina e risultati storici"
+    }
+  ]
+}
