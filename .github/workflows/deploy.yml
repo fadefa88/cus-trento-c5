@@ -1,207 +1,78 @@
-name: Deploy to VHosting
+name: Deploy to VHosting via SSH
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-    inputs:
-      debug:
-        description: "Enable verbose FTP debug"
-        required: false
-        default: "true"
 
 permissions:
   contents: read
 
 jobs:
   deploy:
-    name: Upload website to VHosting
+    name: Upload website to VHosting via rsync
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug GitHub context
-        run: |
-          echo "Repository: $GITHUB_REPOSITORY"
-          echo "Branch ref: $GITHUB_REF"
-          echo "Commit SHA: $GITHUB_SHA"
-          echo "Actor: $GITHUB_ACTOR"
-          echo "Workspace: $GITHUB_WORKSPACE"
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_PAT }}
 
-      - name: Verify local project files
-        run: |
-          echo "Current directory:"
-          pwd
-
-          echo "Root files:"
-          ls -la
-
-          echo "Expected project files:"
-          test -f index.html && echo "OK index.html found" || (echo "ERROR index.html missing" && exit 1)
-          test -d js && echo "OK js directory found" || (echo "ERROR js directory missing" && exit 1)
-          test -d content && echo "OK content directory found" || (echo "ERROR content directory missing" && exit 1)
-          test -f content/data.json && echo "OK content/data.json found" || (echo "ERROR content/data.json missing" && exit 1)
-          test -d admin && echo "OK admin directory found" || (echo "ERROR admin directory missing" && exit 1)
-
-          echo "data.json size:"
-          wc -c content/data.json
-
-      - name: Install FTP tools
+      - name: Install SSH and rsync
         run: |
           sudo apt-get update
-          sudo apt-get install -y lftp dnsutils curl
+          sudo apt-get install -y rsync openssh-client
 
-          echo "lftp version:"
-          lftp --version
-
-      - name: DNS and network check
+      - name: Prepare SSH key
         env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
-          echo "FTP server configured as: $FTP_SERVER"
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
 
-          echo "DNS lookup:"
-          nslookup "$FTP_SERVER" || true
-
-          echo "Resolved hosts:"
-          getent hosts "$FTP_SERVER" || true
-
-      - name: FTP connection and write test
+      - name: Verify remote connection
         env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_TARGET_DIR: ${{ secrets.SSH_TARGET_DIR }}
         run: |
-          echo "Creating probe file..."
-          echo "deploy probe $(date -u)" > __deploy_probe.txt
+          ssh \
+            -i ~/.ssh/deploy_key \
+            -p "$SSH_PORT" \
+            -o KexAlgorithms=curve25519-sha256@libssh.org \
+            -o Ciphers=aes128-ctr \
+            -o MACs=hmac-sha2-256 \
+            -o IPQoS=none \
+            "$SSH_USER@$SSH_HOST" \
+            "pwd && ls -la '$SSH_TARGET_DIR'"
 
-          echo "Target FTP server: $FTP_SERVER"
-          echo "Target FTP dir: $FTP_SERVER_DIR"
-
-          lftp -d <<EOF
-          set cmd:fail-exit yes
-          set cmd:trace yes
-          set ftp:passive-mode yes
-          set ftp:ssl-allow yes
-          set ftp:ssl-force no
-          set ftp:ssl-protect-data yes
-          set ssl:verify-certificate no
-          set net:max-retries 2
-          set net:timeout 45
-
-          open -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER"
-
-          echo "REMOTE PWD BEFORE CD:"
-          pwd
-
-          echo "REMOTE LIST BEFORE CD:"
-          cls -la
-
-          cd "$FTP_SERVER_DIR"
-
-          echo "REMOTE PWD AFTER CD:"
-          pwd
-
-          echo "REMOTE LIST AFTER CD:"
-          cls -la
-
-          echo "UPLOAD PROBE FILE:"
-          put __deploy_probe.txt
-
-          echo "REMOTE LIST AFTER PROBE:"
-          cls -la
-
-          bye
-          EOF
-
-      - name: Deploy website via FTP
+      - name: Deploy via rsync
         env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_TARGET_DIR: ${{ secrets.SSH_TARGET_DIR }}
         run: |
-          echo "Starting full mirror deploy..."
-          echo "Target FTP server: $FTP_SERVER"
-          echo "Target FTP dir: $FTP_SERVER_DIR"
+          rsync -avz \
+            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o KexAlgorithms=curve25519-sha256@libssh.org -o Ciphers=aes128-ctr -o MACs=hmac-sha2-256 -o IPQoS=none" \
+            --exclude ".git/" \
+            --exclude ".github/" \
+            --exclude "README.md" \
+            --exclude "__deploy_test.txt" \
+            --exclude "__deploy_probe.txt" \
+            ./ "$SSH_USER@$SSH_HOST:$SSH_TARGET_DIR/"
 
-          lftp -d <<EOF
-          set cmd:fail-exit yes
-          set cmd:trace yes
-          set ftp:passive-mode yes
-          set ftp:ssl-allow yes
-          set ftp:ssl-force no
-          set ftp:ssl-protect-data yes
-          set ssl:verify-certificate no
-          set net:max-retries 2
-          set net:timeout 60
-          set xfer:log yes
-
-          open -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER"
-
-          cd "$FTP_SERVER_DIR"
-
-          echo "REMOTE PWD BEFORE MIRROR:"
-          pwd
-
-          echo "START MIRROR:"
-          mirror -R --only-newer --verbose --parallel=1 \
-            --exclude-glob .git/ \
-            --exclude-glob .github/ \
-            --exclude-glob README.md \
-            --exclude-glob __deploy_probe.txt \
-            --exclude-glob data.generated.optional.json \
-            --exclude-glob historicalStats-snippet.json \
-            ./ .
-
-          echo "REMOTE LIST AFTER MIRROR:"
-          cls -la
-
-          bye
-          EOF
-
-      - name: Public HTTP verification
+      - name: Public verification
         run: |
-          echo "Checking public website..."
-
-          echo "Homepage headers:"
+          echo "Homepage:"
           curl -I -L --max-time 30 "https://custrentocalcioa5.it" || true
 
-          echo "Probe file check:"
-          curl -I -L --max-time 30 "https://custrentocalcioa5.it/__deploy_probe.txt?cb=$(date +%s)" || true
-
-          echo "data.json check:"
+          echo "data.json:"
           curl -I -L --max-time 30 "https://custrentocalcioa5.it/content/data.json?cb=$(date +%s)" || true
-
-          echo "data.json first bytes:"
-          curl -L --max-time 30 "https://custrentocalcioa5.it/content/data.json?cb=$(date +%s)" | head -c 300 || true
-
-      - name: Cleanup probe file
-        if: always()
-        env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
-        run: |
-          echo "Removing remote probe file..."
-          lftp <<EOF
-          set ftp:passive-mode yes
-          set ftp:ssl-allow yes
-          set ftp:ssl-force no
-          set ftp:ssl-protect-data yes
-          set ssl:verify-certificate no
-          set net:max-retries 2
-          set net:timeout 45
-
-          open -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER"
-          cd "$FTP_SERVER_DIR"
-          rm -f __deploy_probe.txt
-          bye
-          EOF
