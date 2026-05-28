@@ -381,7 +381,7 @@ function records(){
   const hs = historicalStatsData();
   const highlights = (hs.highlights || []).filter(r => {
     const label = String(r.label || "").toLowerCase();
-    return !label.includes("albo") && !label.includes("stagione corrente");
+    return !label.includes("albo") && !label.includes("stagione corrente") && !label.includes("differenza reti");
   });
   const topGoals = (hs.allTimeGoals || [])[0] || {};
   const topApps = (hs.allTimeAppearances || [])[0] || {};
