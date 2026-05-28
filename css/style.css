@@ -113,3 +113,26 @@
 }
 .source-box a:hover{text-decoration:underline}
 
+/* Imported SporTrentino article body */
+.imported-article a{
+  color:#b91c1c;
+  font-weight:900;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.imported-article .imported-figure{
+  margin:22px 0;
+}
+.imported-article .imported-figure img,
+.imported-article > img{
+  width:100%;
+  max-height:560px;
+  object-fit:contain;
+  border-radius:22px;
+  border:1px solid var(--line);
+  background:#f8fafc;
+}
+.imported-article figure a{
+  display:block;
+}
+
