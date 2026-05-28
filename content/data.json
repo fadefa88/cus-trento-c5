@@ -1103,8 +1103,22 @@
       "date": "2025-12-19",
       "lineup": {
         "module": "3-1",
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "2",
+          "4",
+          "17",
+          "16",
+          "6"
+        ],
+        "bench": [
+          "3",
+          "5",
+          "7",
+          "8",
+          "9",
+          "10",
+          "13"
+        ],
         "absent": [],
         "suspended": [],
         "injured": [],
@@ -1116,6 +1130,20 @@
       "status": "Terminata",
       "scorers": [],
       "yellow": [],
+      "scorerEvents": [
+        {
+          "goals": 2,
+          "playerId": "7"
+        },
+        {
+          "goals": 1,
+          "playerId": "6"
+        },
+        {
+          "goals": 1,
+          "playerId": "16"
+        }
+      ],
       "id": 15,
       "stats": {
         "shots": 0,
