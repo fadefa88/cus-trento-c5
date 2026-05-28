@@ -138,8 +138,7 @@ function historicalWithCurrentSeason(hsRaw,current,season,playerIncrements){
     {label:"Vittorie",value:s.wins,detail:"Vittorie complessive storiche"},
     {label:"Gol fatti",value:s.goalsFor,detail:`Media ${s.goalsForAvg} gol a partita`},
     {label:"Gol subiti",value:s.goalsAgainst,detail:`Media ${s.goalsAgainstAvg} gol subiti`},
-    {label:"Differenza reti",value:(s.goalDifference>0?`+${s.goalDifference}`:`${s.goalDifference}`),detail:"Saldo reti complessivo"},
-    {label:"Stagione corrente",value:cur.played,detail:`${season}: ${cur.wins}V ${cur.draws}N ${cur.losses}P, DR ${cur.goalDifference>0?`+${cur.goalDifference}`:cur.goalDifference}`}
+    {label:"Differenza reti",value:(s.goalDifference>0?`+${s.goalDifference}`:`${s.goalDifference}`),detail:"Saldo reti complessivo"}
   ];
   return hs;
 }
@@ -380,9 +379,19 @@ function seasonStatsRows(rows){return (rows||[]).map(s=>`<tr><td>${s.season}</td
 function rankingRows(rows){return (rows||[]).map((r,i)=>`<tr><td>${i+1}</td><td>${r.players}</td><td>${numIt(r.value)}</td></tr>`).join("");}
 function records(){
   const hs = historicalStatsData();
-  const highlights = (hs.highlights || []).filter(r => !String(r.label||"").toLowerCase().includes("albo"));
+  const highlights = (hs.highlights || []).filter(r => {
+    const label = String(r.label || "").toLowerCase();
+    return !label.includes("albo") && !label.includes("stagione corrente");
+  });
+  const topGoals = (hs.allTimeGoals || [])[0] || {};
+  const topApps = (hs.allTimeAppearances || [])[0] || {};
+  const topCards = [
+    {label:"Top gol all time", value: topGoals.value || 0, detail: topGoals.players || "Dato non disponibile"},
+    {label:"Top presenze all time", value: topApps.value || 0, detail: topApps.players || "Dato non disponibile"}
+  ];
+  const cards = [...highlights, ...topCards];
   shell("Hall of fame","Record e milestone del club",`
-    <div class="grid grid-3">${highlights.map(r=>`<div class="record-card"><span class="eyebrow">${r.label}</span><h2 style="font-size:34px">${r.value}</h2><p style="color:rgba(255,255,255,.68)">${r.detail}</p></div>`).join("")}</div>
+    <div class="grid grid-3">${cards.map(r=>`<div class="record-card"><span class="eyebrow">${r.label}</span><h2 style="font-size:34px">${numIt(r.value)}</h2><p style="color:rgba(255,255,255,.68)">${r.detail}</p></div>`).join("")}</div>
     <div class="newsletter" style="margin-top:28px">
       <span class="eyebrow" style="background:white;color:#09090b">Archivio completo</span>
       <h2 style="font-size:38px">Tutte le statistiche storiche, reti e presenze.</h2>
