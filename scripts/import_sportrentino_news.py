@@ -5,7 +5,7 @@ Importa automaticamente su content/data.json le notizie SporTrentino che parlano
 Cosa fa:
 - scansiona le pagine elenco di calcioa5.sportrentino.it;
 - apre ogni articolo;
-- importa solo gli articoli in cui titolo o corpo contengono keyword CUS Trento/Cus Trento C5;
+- importa solo gli articoli in cui titolo o corpo contengono solo le keyword richieste: CUS Trento, C.U.S. Trento o CUS come parola autonoma;
 - aggiunge fonte e link originale;
 - evita duplicati tramite sourceUrl;
 - ordina le news per data decrescente.
@@ -16,7 +16,7 @@ Uso:
   python scripts/import_sportrentino_news.py --max-pages 5 --sleep 0.8
 
 Nota copyright:
-  Lo script inserisce sourceName/sourceUrl in ogni articolo importato.
+  Lo script inserisce sourceName/sourceUrl in ogni articolo importato e mantiene gli URL reali assoluti degli articoli/immagini SporTrentino.
 """
 
 from __future__ import annotations
@@ -40,19 +40,12 @@ BASE = "https://calcioa5.sportrentino.it/"
 LIST_URL = BASE + "notizie.asp"
 DEFAULT_IMAGE = "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png"
 
-# Le keyword sono volutamente larghe, ma sempre legate al club.
-KEYWORDS = [
-    "cus trento",
-    "cus trento c5",
-    "c.u.s. trento",
-    "c5 trento",
-    "universitaria trentina",
-    "universitari trentini",
-]
-
-# Evita di importare articoli sul Trento calcio/futsal nazionale non CUS, quando non citano il CUS nel corpo.
-NEGATIVE_TITLE_HINTS = [
-    "dolomiti energia futsal",
+# Keyword richieste: solo CUS Trento, C.U.S. Trento e CUS come parola autonoma.
+# Per "cus" usiamo una regex con confini parola: non matcha medoacus, accusa, focus, cuscino, ecc.
+KEYWORD_PATTERNS = [
+    re.compile(r"\bcus\s+trento\b", re.I),
+    re.compile(r"\bc\.\s*u\.\s*s\.\s+trento\b", re.I),
+    re.compile(r"(?<![a-z0-9])cus(?![a-z0-9])", re.I),
 ]
 
 
@@ -104,7 +97,7 @@ def parse_italian_date(text: str) -> str:
 
 def contains_cus(text: str) -> bool:
     t = norm(text)
-    return any(k in t for k in KEYWORDS)
+    return any(pattern.search(t) for pattern in KEYWORD_PATTERNS)
 
 
 def article_id_from_url(url: str) -> str:
@@ -149,20 +142,37 @@ def extract_article_links(html_text: str) -> list[ArticleLink]:
     return links
 
 
-def extract_main_image(soup: BeautifulSoup) -> str:
-    # Prefer images inside article area. Fallback to empty string/default image.
-    candidates = []
+def extract_article_images(soup: BeautifulSoup) -> list[str]:
+    """Estrae le immagini reali dell'articolo e le rende URL assoluti."""
+    candidates: list[str] = []
     for img in soup.find_all("img"):
         src = img.get("src") or ""
         if not src:
             continue
+
         abs_src = urljoin(BASE, src)
         low = abs_src.lower()
-        if any(skip in low for skip in ["logo", "banner", "pixel", "facebook", "sportrentino"]):
-            continue
-        candidates.append(abs_src)
 
-    return candidates[0] if candidates else DEFAULT_IMAGE
+        # Escludi asset grafici ricorrenti/non editoriali.
+        if any(skip in low for skip in [
+            "pixel", "spacer", "facebook", "twitter", "instagram",
+            "youtube", "logo_sportrentino", "banner", "adv", "pubblicita"
+        ]):
+            continue
+
+        # Tieni solo formati immagine plausibili.
+        if not re.search(r"\.(jpg|jpeg|png|webp|gif)(\?|$)", low):
+            continue
+
+        if abs_src not in candidates:
+            candidates.append(abs_src)
+
+    return candidates
+
+
+def extract_main_image(soup: BeautifulSoup) -> str:
+    images = extract_article_images(soup)
+    return images[0] if images else DEFAULT_IMAGE
 
 
 def extract_article(session: requests.Session, link: ArticleLink) -> dict | None:
@@ -235,12 +245,8 @@ def extract_article(session: requests.Session, link: ArticleLink) -> dict | None
     if not contains_cus(full_text):
         return None
 
-    # Avoid weak title-only false positives if title looks like generic Trento but body doesn't mention CUS.
-    title_low = norm(title)
-    if any(bad in title_low for bad in NEGATIVE_TITLE_HINTS) and not contains_cus(" ".join(body)):
-        return None
-
-    image = extract_main_image(soup)
+    article_images = extract_article_images(soup)
+    image = article_images[0] if article_images else DEFAULT_IMAGE
     excerpt = body[0] if body else f"Articolo pubblicato da SporTrentino: {title}"
     if len(excerpt) > 240:
         excerpt = excerpt[:237].rstrip() + "..."
@@ -255,6 +261,7 @@ def extract_article(session: requests.Session, link: ArticleLink) -> dict | None
         "date": date,
         "author": "SporTrentino.it",
         "image": image,
+        "images": article_images,
         "excerpt": excerpt,
         "body": body,
         "pinned": False,
