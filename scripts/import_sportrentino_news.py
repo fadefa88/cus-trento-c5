@@ -48,17 +48,17 @@ LIST_SOURCES = [
     {
         "name": "calcio-a-5-generale",
         "pages": 186,
-        "params": {"s": 81, "l": 0, "li": 1, "s2": 81},
+        "params": {"s": 81, "li": 1, "l": 0, "s2": 81, "p": 1},
     },
     {
         "name": "archivio-a-642",
         "pages": 36,
-        "params": {"s": 81, "l": 0, "li": 1, "a": 642},
+        "params": {"s": 81, "li": 1, "l": 0, "a": 642, "p": 1},
     },
     {
         "name": "archivio-a-474",
         "pages": 26,
-        "params": {"s": 81, "s2": 81, "l": 0, "li": 1, "a": 474, "t": 0, "p": 1, "b": 1},
+        "params": {"s": 81, "s2": 81, "li": 1, "l": 0, "a": 474, "t": 0, "p": 1, "b": 1},
     },
 ]
 
@@ -316,10 +316,16 @@ def fetch(session: requests.Session, url: str, timeout: int = 30) -> str:
 
 
 def list_page_url(source: dict, page: int) -> str:
-    # 20 news per page: l = offset.
-    offset = (page - 1) * 20
+    """
+    SporTrentino pagina l'elenco con il parametro p.
+    Il parametro l resta a 0: usare l=20/40/... produce URL diversi/non coerenti
+    e può saltare molte notizie.
+    Esempio corretto:
+      notizie.asp?s=81&li=1&l=0&s2=81&p=2
+    """
     params = dict(source["params"])
-    params["l"] = offset
+    params["l"] = 0
+    params["p"] = page
     return LIST_URL + "?" + urlencode(params)
 
 
@@ -494,6 +500,8 @@ def main() -> int:
     existing_news = data.get("news", [])
     existing_sources = {n.get("sourceUrl") for n in existing_news if n.get("sourceUrl")}
     existing_ids = {str(n.get("id")) for n in existing_news if n.get("id") is not None}
+
+    print("Importer version: v6 - pagination uses p=page and l=0", flush=True)
 
     session = requests.Session()
     imported: list[dict] = []
