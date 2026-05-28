@@ -64,3 +64,49 @@
 .mobile-menu button{display:block;width:100%;text-align:left;background:#f8fafc;border:1px solid rgba(9,9,11,.06);border-radius:16px;padding:12px 14px;margin:8px 0;font-weight:900}
 .mobile-menu>button{background:#09090b;color:#fff;border-radius:20px;padding:14px 16px;box-shadow:0 14px 35px rgba(9,9,11,.14)}
 @media(max-width:980px){.staff-photo{height:350px!important}.lightbox-frame{height:52vh}.google-map{height:360px}}
+
+/* Mobile fix: homepage standings logos */
+.home-standing-team{
+  min-width:0;
+  flex:1 1 auto;
+}
+.home-standing-team img{
+  width:30px!important;
+  height:30px!important;
+  min-width:30px!important;
+  max-width:30px!important;
+  min-height:30px!important;
+  max-height:30px!important;
+  inline-size:30px!important;
+  block-size:30px!important;
+  flex:0 0 30px!important;
+  object-fit:contain!important;
+}
+.home-standing-row{
+  min-width:0;
+}
+.home-standing-row > strong{
+  flex:0 0 auto;
+}
+@media(max-width:720px){
+  .home-standing-row{
+    align-items:center!important;
+    gap:10px!important;
+    padding:12px!important;
+  }
+  .home-standing-team{
+    gap:9px!important;
+  }
+  .home-standing-team img{
+    width:28px!important;
+    height:28px!important;
+    min-width:28px!important;
+    max-width:28px!important;
+    min-height:28px!important;
+    max-height:28px!important;
+    inline-size:28px!important;
+    block-size:28px!important;
+    flex-basis:28px!important;
+  }
+}
+
