@@ -287,6 +287,7 @@ collections:
           name: startingFive
           widget: select
           multiple: true
+          required: false
           min: 5
           max: 5
           options:
