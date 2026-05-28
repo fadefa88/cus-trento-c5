@@ -5,7 +5,7 @@
       "name": "Emiliano Piazza",
       "role": "Allenatore",
       "team": "Prima squadra",
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/17-PIAZZA-EMILIANO-ALLENATORE-PRIMA-SQUADRA-scaled.jpg",
+      "photo": "/img/players/17-piazza-emiliano-allenatore-prima-squadra.webp.webp",
       "bio": "Allenatore Prima Squadra."
     },
     {
@@ -13,7 +13,7 @@
       "name": "Denis Gurabardhi",
       "role": "Vice Allenatore",
       "team": "Prima squadra",
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/18-GURABARDHI-DENIS-VICE-ALLENATORE-PRIMA-SQUADRA-scaled.jpg",
+      "photo": "/img/players/18-gurabardhi-denis-vice-allenatore-prima-squadra.webp",
       "bio": "Vice allenatore Prima Squadra."
     },
     {
@@ -21,7 +21,7 @@
       "name": "Diego Cadamuro",
       "role": "Team Manager",
       "team": "Prima squadra",
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/20.-CADAMURO-DIEGO-TEAM-MANAGER-PRIMA-SQUADRA-scaled.jpg",
+      "photo": "/img/players/20-cadamuro-diego-team-manager-prima-squadra.webp",
       "bio": "Team Manager Prima Squadra."
     },
     {
@@ -29,7 +29,7 @@
       "name": "Stanis Jukni",
       "role": "Dirigente",
       "team": "Prima squadra",
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/19-JUKNI-STANIS-DIRIGENTE-PRIMA-SQUADRA-scaled.jpg",
+      "photo": "/img/players/19-jukni-stanis-dirigente-prima-squadra.webp",
       "bio": "Dirigente Prima Squadra."
     },
     {
@@ -529,9 +529,9 @@
       "bio": "Portiere della rosa ufficiale 2026/27.",
       "number": 1,
       "assists": 0,
-      "name": "SAFI SAIF EDINE",
+      "name": "Safi Saif Edine",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2014/09/3-SAFI-SAIF-EDINE-PORTIERE-scaled.jpg",
+      "photo": "/img/players/3-safi-saif-edine-portiere.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -593,7 +593,7 @@
       "assists": 0,
       "name": "Lucca Baccaro Zeni",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2014/09/1-BACCARO-ZENI-LUCCA-PORTIERE-scaled.jpg",
+      "photo": "/img/players/1-baccaro-zeni-lucca-portiere.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -655,7 +655,7 @@
       "assists": 0,
       "name": "Filippo Bernard",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/2-bernard-filippo-portiere.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -717,7 +717,7 @@
       "assists": 0,
       "name": "Tommaso Boldrini",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2014/09/4-BOLDRINI-TOMMASO-CENTRALE-scaled.jpg",
+      "photo": "/img/players/4-boldrini-tommaso-centrale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -749,7 +749,7 @@
       "assists": 0,
       "name": "Davide Filippi",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/10-filippi-davide-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -781,7 +781,7 @@
       "assists": 0,
       "name": "Alvise Tesser",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/5-tesser-alvise-centrale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -813,7 +813,7 @@
       "assists": 0,
       "name": "Federico Addobbati",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/noplayer.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -845,7 +845,7 @@
       "assists": 0,
       "name": "Filippo Baietta",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/6-baietta-filippo-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -877,7 +877,7 @@
       "assists": 0,
       "name": "Luca Cirasola",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/7-cirasola-luca-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -909,7 +909,7 @@
       "assists": 0,
       "name": "Mattia Cuman",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2014/09/8-CUMAN-MATTIA-LATERALE-scaled.jpg",
+      "photo": "/img/players/8-cuman-mattia-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -941,7 +941,7 @@
       "assists": 0,
       "name": "Luca Frattolin",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/noplayer.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -973,7 +973,7 @@
       "assists": 0,
       "name": "Federico Maciocia",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/11-maciocia-federico-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1005,7 +1005,7 @@
       "assists": 0,
       "name": "Mattia Vaia",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/12-VAIA-MATTIA-LATERALE-1-scaled.jpg",
+      "photo": "/img/players/12-vaia-mattia-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1037,7 +1037,7 @@
       "assists": 0,
       "name": "Alessandro Zanetti",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/13-zanetti-alessandro-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1069,7 +1069,7 @@
       "assists": 0,
       "name": "Diego Conti",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/14-conti-diego-pivot.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1101,7 +1101,7 @@
       "assists": 0,
       "name": "Andrea Martinelli",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/16-martinelli-andrea-universale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1133,7 +1133,7 @@
       "assists": 0,
       "name": "Cesare Vettorazzi",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/15-vettorazzi-cesare-pivot.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1158,38 +1158,7 @@
       "team": "Prima squadra",
       "age": ""
     },
-    {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 24,
-      "assists": 0,
-      "name": "Fabbri",
-      "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "F",
-      "id": 18,
-      "team": "Prima squadra",
-      "age": ""
-    },
+    
     {
       "goals": 0,
       "bio": "Portiere della rosa ufficiale 2026/27.",
