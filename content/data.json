@@ -510,7 +510,7 @@
     {
       "summary": "ciao sono il sommario",
       "time": "21:00",
-      "away": "trasferta?",
+      "away": "Besenello",
       "date": "2026-05-28",
       "lineup": {
         "module": "3-1"
@@ -519,7 +519,7 @@
       "score": "3-2",
       "status": "Da giocare",
       "id": 1,
-      "home": "casa?",
+      "home": "CUS Trento",
       "competition": "Campionato"
     }
   ],
