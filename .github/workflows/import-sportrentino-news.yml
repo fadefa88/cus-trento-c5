@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       max_pages:
-        description: "Numero pagine elenco da scansionare"
+        description: "Debug: pagine per ogni fonte. Lascia 0 per rilevare automaticamente le pagine"
         required: false
-        default: "186"
+        default: "0"
+      sources:
+        description: "Fonti da scansionare: all oppure nomi separati da virgola"
+        required: false
+        default: "all"
       sleep:
         description: "Pausa tra richieste articolo, in secondi"
         required: false
@@ -40,9 +44,12 @@ jobs:
           pip install -r requirements-sportrentino.txt
 
       - name: Run importer
+        env:
+          PYTHONUNBUFFERED: "1"
         run: |
-          python scripts/import_sportrentino_news.py \
-            --max-pages "${{ github.event.inputs.max_pages || '186' }}" \
+          python -u scripts/import_sportrentino_news.py \
+            --sources "${{ github.event.inputs.sources || 'all' }}" \
+            --max-pages "${{ github.event.inputs.max_pages || '0' }}" \
             --sleep "${{ github.event.inputs.sleep || '0.35' }}"
 
       - name: Validate JSON
