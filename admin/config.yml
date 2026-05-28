@@ -288,8 +288,6 @@ collections:
           widget: select
           multiple: true
           required: false
-          min: 5
-          max: 5
           options:
           - label: '#1 SAFI SAIF EDINE'
             value: '1'
@@ -581,8 +579,6 @@ collections:
           name: startingFive
           widget: select
           multiple: true
-          min: 5
-          max: 5
           options:
           - label: '#30 Paolo Bigonzi'
             value: '19'
