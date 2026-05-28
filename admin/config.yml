@@ -269,10 +269,6 @@ collections:
         name: id
         widget: number
         value_type: int
-      - label: Stagione
-        name: season
-        widget: string
-        default: 2026/2027
       - label: Data
         name: date
         widget: date
@@ -312,6 +308,28 @@ collections:
         name: summary
         widget: text
         required: false
+      - label: Statistiche
+        name: stats
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+        - label: Tiri
+          name: shots
+          widget: number
+          value_type: int
+        - label: Tiri subiti
+          name: shotsAgainst
+          widget: number
+          value_type: int
+        - label: Possesso %
+          name: possession
+          widget: number
+          value_type: int
+        - label: Calci d'angolo
+          name: corners
+          widget: number
+          value_type: int
       - label: Formazione
         name: lineup
         widget: object
@@ -321,11 +339,9 @@ collections:
         - label: Modulo
           name: module
           widget: string
-          default: 3-1
-        - label: Quintetto titolare
+        - label: Quintetto
           name: startingFive
           widget: list
-          summary: '{{fields.g}}'
           field:
             label: Giocatore
             name: g
@@ -367,15 +383,52 @@ collections:
               value: '17'
             - label: '#24 Fabbri'
               value: '18'
-        - label: Panchina / convocati
+            - label: '#30 Paolo Bigonzi'
+              value: '19'
+            - label: '#31 Giulio Tognolli'
+              value: '20'
+            - label: '#32 Lorenzo Zantorello'
+              value: '21'
+            - label: '#34 Alex Gasperi'
+              value: '22'
+            - label: '#35 Matteo Guidetti'
+              value: '23'
+            - label: '#36 Matteo Materia'
+              value: '24'
+            - label: '#37 Riccardo Toniolli'
+              value: '25'
+            - label: '#38 Alessandro Betti'
+              value: '26'
+            - label: '#39 Samuele Buda'
+              value: '27'
+            - label: '#40 Federico Caldonazzi'
+              value: '28'
+            - label: '#41 Joao Pedro Caccia Neff'
+              value: '29'
+            - label: '#42 Afrian Gavril Dancus'
+              value: '30'
+            - label: '#44 Mirko Annunziato Tondo'
+              value: '31'
+            - label: '#45 Daniele Zampedri'
+              value: '32'
+            - label: '#46 Michele Ceola'
+              value: '33'
+            - label: '#47 Damiano Loperfido'
+              value: '34'
+            - label: '#48 Luca Scala'
+              value: '35'
+            - label: '#49 Lazzarini'
+              value: '36'
+          summary: '{{fields.g}}'
+        - label: Panchina
           name: bench
           widget: list
-          summary: '{{fields.g}}'
           field:
             label: Giocatore
             name: g
             widget: select
             options: *id001
+          summary: '{{fields.g}}'
         - label: Squalificati
           name: suspended
           widget: list
@@ -385,6 +438,7 @@ collections:
             name: g
             widget: select
             options: *id001
+          summary: '{{fields.g}}'
         - label: Infortunati
           name: injured
           widget: list
@@ -394,13 +448,14 @@ collections:
             name: g
             widget: select
             options: *id001
+          summary: '{{fields.g}}'
         - label: Note tattiche
           name: tacticalNotes
           widget: list
           required: false
           field:
             label: Nota
-            name: note
+            name: n
             widget: text
       - label: Timeline eventi
         name: timeline
@@ -456,10 +511,6 @@ collections:
         name: id
         widget: number
         value_type: int
-      - label: Stagione
-        name: season
-        widget: string
-        default: 2026/2027
       - label: Data
         name: date
         widget: date
@@ -504,61 +555,24 @@ collections:
         - label: Modulo
           name: module
           widget: string
-          default: 3-1
-        - label: Quintetto titolare
+        - label: Quintetto
           name: startingFive
           widget: list
-          summary: '{{fields.g}}'
           field:
             label: Giocatore
             name: g
             widget: select
-            options: &id002
-            - label: '#30 Paolo Bigonzi'
-              value: '19'
-            - label: '#31 Giulio Tognolli'
-              value: '20'
-            - label: '#32 Lorenzo Zantorello'
-              value: '21'
-            - label: '#34 Alex Gasperi'
-              value: '22'
-            - label: '#35 Matteo Guidetti'
-              value: '23'
-            - label: '#36 Matteo Materia'
-              value: '24'
-            - label: '#37 Riccardo Toniolli'
-              value: '25'
-            - label: '#38 Alessandro Betti'
-              value: '26'
-            - label: '#39 Samuele Buda'
-              value: '27'
-            - label: '#40 Federico Caldonazzi'
-              value: '28'
-            - label: '#41 Joao Pedro Caccia Neff'
-              value: '29'
-            - label: '#42 Afrian Gavril Dancus'
-              value: '30'
-            - label: '#44 Mirko Annunziato Tondo'
-              value: '31'
-            - label: '#45 Daniele Zampedri'
-              value: '32'
-            - label: '#46 Michele Ceola'
-              value: '33'
-            - label: '#47 Damiano Loperfido'
-              value: '34'
-            - label: '#48 Luca Scala'
-              value: '35'
-            - label: '#49 Lazzarini'
-              value: '36'
-        - label: Panchina / convocati
+            options: *id001
+          summary: '{{fields.g}}'
+        - label: Panchina
           name: bench
           widget: list
-          summary: '{{fields.g}}'
           field:
             label: Giocatore
             name: g
             widget: select
-            options: *id002
+            options: *id001
+          summary: '{{fields.g}}'
         - label: Squalificati
           name: suspended
           widget: list
@@ -567,7 +581,8 @@ collections:
             label: Giocatore
             name: g
             widget: select
-            options: *id002
+            options: *id001
+          summary: '{{fields.g}}'
         - label: Infortunati
           name: injured
           widget: list
@@ -576,14 +591,15 @@ collections:
             label: Giocatore
             name: g
             widget: select
-            options: *id002
+            options: *id001
+          summary: '{{fields.g}}'
         - label: Note tattiche
           name: tacticalNotes
           widget: list
           required: false
           field:
             label: Nota
-            name: note
+            name: n
             widget: text
       - label: Timeline eventi
         name: timeline
@@ -603,6 +619,28 @@ collections:
         - label: Testo
           name: text
           widget: text
+      - label: Statistiche
+        name: stats
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+        - label: Tiri
+          name: shots
+          widget: number
+          value_type: int
+        - label: Tiri subiti
+          name: shotsAgainst
+          widget: number
+          value_type: int
+        - label: Possesso %
+          name: possession
+          widget: number
+          value_type: int
+        - label: Calci d'angolo
+          name: corners
+          widget: number
+          value_type: int
       - label: Marcatori (automatico statistiche)
         name: scorerEvents
         widget: list
@@ -613,7 +651,7 @@ collections:
         - label: Giocatore
           name: playerId
           widget: select
-          options: *id002
+          options: *id001
         - label: Gol
           name: goals
           widget: number
@@ -770,10 +808,6 @@ collections:
           name: id
           widget: number
           value_type: int
-        - label: Stagione
-          name: season
-          widget: string
-          default: 2026/2027
         - label: Turno
           name: round
           widget: string
@@ -804,60 +838,6 @@ collections:
           - Da giocare
           - Terminata
           - In attesa
-        - label: Formazione / Convocati
-          name: lineup
-          widget: object
-          required: false
-          collapsed: true
-          fields:
-          - label: Modulo
-            name: module
-            widget: string
-            default: 3-1
-          - label: Quintetto titolare
-            name: startingFive
-            widget: list
-            summary: '{{fields.g}}'
-            field:
-              label: Giocatore
-              name: g
-              widget: select
-              options: *id001
-          - label: Panchina / convocati
-            name: bench
-            widget: list
-            summary: '{{fields.g}}'
-            field:
-              label: Giocatore
-              name: g
-              widget: select
-              options: *id001
-          - label: Squalificati
-            name: suspended
-            widget: list
-            required: false
-            field:
-              label: Giocatore
-              name: g
-              widget: select
-              options: *id001
-          - label: Infortunati
-            name: injured
-            widget: list
-            required: false
-            field:
-              label: Giocatore
-              name: g
-              widget: select
-              options: *id001
-          - label: Note tattiche
-            name: tacticalNotes
-            widget: list
-            required: false
-            field:
-              label: Nota
-              name: note
-              widget: text
         - label: Marcatori (automatico statistiche)
           name: scorerEvents
           widget: list
@@ -905,10 +885,6 @@ collections:
           name: id
           widget: number
           value_type: int
-        - label: Stagione
-          name: season
-          widget: string
-          default: 2026/2027
         - label: Turno
           name: round
           widget: string
@@ -939,60 +915,6 @@ collections:
           - Da giocare
           - Terminata
           - In attesa
-        - label: Formazione / Convocati
-          name: lineup
-          widget: object
-          required: false
-          collapsed: true
-          fields:
-          - label: Modulo
-            name: module
-            widget: string
-            default: 3-1
-          - label: Quintetto titolare
-            name: startingFive
-            widget: list
-            summary: '{{fields.g}}'
-            field:
-              label: Giocatore
-              name: g
-              widget: select
-              options: *id002
-          - label: Panchina / convocati
-            name: bench
-            widget: list
-            summary: '{{fields.g}}'
-            field:
-              label: Giocatore
-              name: g
-              widget: select
-              options: *id002
-          - label: Squalificati
-            name: suspended
-            widget: list
-            required: false
-            field:
-              label: Giocatore
-              name: g
-              widget: select
-              options: *id002
-          - label: Infortunati
-            name: injured
-            widget: list
-            required: false
-            field:
-              label: Giocatore
-              name: g
-              widget: select
-              options: *id002
-          - label: Note tattiche
-            name: tacticalNotes
-            widget: list
-            required: false
-            field:
-              label: Nota
-              name: note
-              widget: text
         - label: Marcatori (automatico statistiche)
           name: scorerEvents
           widget: list
@@ -1003,7 +925,7 @@ collections:
           - label: Giocatore
             name: playerId
             widget: select
-            options: *id002
+            options: *id001
           - label: Gol
             name: goals
             widget: number
