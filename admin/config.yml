@@ -269,6 +269,10 @@ collections:
         name: id
         widget: number
         value_type: int
+      - label: Stagione
+        name: season
+        widget: string
+        default: 2026/2027
       - label: Data
         name: date
         widget: date
@@ -298,61 +302,16 @@ collections:
         - In attesa
       - label: Competizione
         name: competition
-        widget: string
-      - label: MVP
-        name: mvp
-        widget: string
-        required: false
-      - label: Marcatori
-        name: scorers
-        widget: list
-        required: false
-        field:
-          label: Marcatore
-          name: s
-          widget: string
-      - label: Ammoniti
-        name: yellow
-        widget: list
-        required: false
-        field:
-          label: Giocatore
-          name: y
-          widget: string
-      - label: Espulsi
-        name: red
-        widget: list
-        required: false
-        field:
-          label: Giocatore
-          name: r
-          widget: string
+        widget: select
+        options:
+        - Campionato
+        - Coppa
+        - Playoff
+        default: Campionato
       - label: Sommario
         name: summary
         widget: text
         required: false
-      - label: Statistiche
-        name: stats
-        widget: object
-        required: false
-        collapsed: true
-        fields:
-        - label: Tiri
-          name: shots
-          widget: number
-          value_type: int
-        - label: Tiri subiti
-          name: shotsAgainst
-          widget: number
-          value_type: int
-        - label: Possesso %
-          name: possession
-          widget: number
-          value_type: int
-        - label: Calci d'angolo
-          name: corners
-          widget: number
-          value_type: int
       - label: Formazione
         name: lineup
         widget: object
@@ -362,28 +321,61 @@ collections:
         - label: Modulo
           name: module
           widget: string
-        - label: Quintetto
+          default: 3-1
+        - label: Quintetto titolare
           name: startingFive
           widget: list
+          summary: '{{fields.g}}'
           field:
             label: Giocatore
             name: g
-            widget: string
-        - label: Panchina
+            widget: select
+            options: &id001
+            - label: '#1 SAFI SAIF EDINE'
+              value: '1'
+            - label: '#12 Lucca Baccaro Zeni'
+              value: '2'
+            - label: '#2 Filippo Bernard'
+              value: '3'
+            - label: '#5 Tommaso Boldrini'
+              value: '4'
+            - label: '#6 Davide Filippi'
+              value: '5'
+            - label: '#7 Alvise Tesser'
+              value: '6'
+            - label: '#8 Federico Addobbati'
+              value: '7'
+            - label: '#9 Filippo Baietta'
+              value: '8'
+            - label: '#10 Luca Cirasola'
+              value: '9'
+            - label: '#27 Mattia Cuman'
+              value: '10'
+            - label: '#23 Luca Frattolin'
+              value: '11'
+            - label: '#17 Federico Maciocia'
+              value: '12'
+            - label: '#11 Mattia Vaia'
+              value: '13'
+            - label: '#19 Alessandro Zanetti'
+              value: '14'
+            - label: '#20 Diego Conti'
+              value: '15'
+            - label: '#21 Andrea Martinelli'
+              value: '16'
+            - label: '#22 Cesare Vettorazzi'
+              value: '17'
+            - label: '#24 Fabbri'
+              value: '18'
+        - label: Panchina / convocati
           name: bench
           widget: list
+          summary: '{{fields.g}}'
           field:
             label: Giocatore
             name: g
-            widget: string
-        - label: Assenti
-          name: absent
-          widget: list
-          required: false
-          field:
-            label: Giocatore
-            name: g
-            widget: string
+            widget: select
+            options: *id001
         - label: Squalificati
           name: suspended
           widget: list
@@ -391,7 +383,8 @@ collections:
           field:
             label: Giocatore
             name: g
-            widget: string
+            widget: select
+            options: *id001
         - label: Infortunati
           name: injured
           widget: list
@@ -399,14 +392,15 @@ collections:
           field:
             label: Giocatore
             name: g
-            widget: string
+            widget: select
+            options: *id001
         - label: Note tattiche
           name: tacticalNotes
           widget: list
           required: false
           field:
             label: Nota
-            name: n
+            name: note
             widget: text
       - label: Timeline eventi
         name: timeline
@@ -426,6 +420,22 @@ collections:
         - label: Testo
           name: text
           widget: text
+      - label: Marcatori (automatico statistiche)
+        name: scorerEvents
+        widget: list
+        required: false
+        collapsed: true
+        summary: '{{fields.playerId}} — {{fields.goals}} gol'
+        fields:
+        - label: Giocatore
+          name: playerId
+          widget: select
+          options: *id001
+        - label: Gol
+          name: goals
+          widget: number
+          value_type: int
+          default: 1
 - name: u21Fixtures
   label: Calendario Under 21
   delete: false
@@ -446,6 +456,10 @@ collections:
         name: id
         widget: number
         value_type: int
+      - label: Stagione
+        name: season
+        widget: string
+        default: 2026/2027
       - label: Data
         name: date
         widget: date
@@ -475,7 +489,12 @@ collections:
         - In attesa
       - label: Competizione
         name: competition
-        widget: string
+        widget: select
+        options:
+        - Campionato
+        - Coppa
+        - Playoff
+        default: Campionato
       - label: Formazione
         name: lineup
         widget: object
@@ -485,28 +504,61 @@ collections:
         - label: Modulo
           name: module
           widget: string
-        - label: Quintetto
+          default: 3-1
+        - label: Quintetto titolare
           name: startingFive
           widget: list
+          summary: '{{fields.g}}'
           field:
             label: Giocatore
             name: g
-            widget: string
-        - label: Panchina
+            widget: select
+            options: &id002
+            - label: '#30 Paolo Bigonzi'
+              value: '19'
+            - label: '#31 Giulio Tognolli'
+              value: '20'
+            - label: '#32 Lorenzo Zantorello'
+              value: '21'
+            - label: '#34 Alex Gasperi'
+              value: '22'
+            - label: '#35 Matteo Guidetti'
+              value: '23'
+            - label: '#36 Matteo Materia'
+              value: '24'
+            - label: '#37 Riccardo Toniolli'
+              value: '25'
+            - label: '#38 Alessandro Betti'
+              value: '26'
+            - label: '#39 Samuele Buda'
+              value: '27'
+            - label: '#40 Federico Caldonazzi'
+              value: '28'
+            - label: '#41 Joao Pedro Caccia Neff'
+              value: '29'
+            - label: '#42 Afrian Gavril Dancus'
+              value: '30'
+            - label: '#44 Mirko Annunziato Tondo'
+              value: '31'
+            - label: '#45 Daniele Zampedri'
+              value: '32'
+            - label: '#46 Michele Ceola'
+              value: '33'
+            - label: '#47 Damiano Loperfido'
+              value: '34'
+            - label: '#48 Luca Scala'
+              value: '35'
+            - label: '#49 Lazzarini'
+              value: '36'
+        - label: Panchina / convocati
           name: bench
           widget: list
+          summary: '{{fields.g}}'
           field:
             label: Giocatore
             name: g
-            widget: string
-        - label: Assenti
-          name: absent
-          widget: list
-          required: false
-          field:
-            label: Giocatore
-            name: g
-            widget: string
+            widget: select
+            options: *id002
         - label: Squalificati
           name: suspended
           widget: list
@@ -514,7 +566,8 @@ collections:
           field:
             label: Giocatore
             name: g
-            widget: string
+            widget: select
+            options: *id002
         - label: Infortunati
           name: injured
           widget: list
@@ -522,14 +575,15 @@ collections:
           field:
             label: Giocatore
             name: g
-            widget: string
+            widget: select
+            options: *id002
         - label: Note tattiche
           name: tacticalNotes
           widget: list
           required: false
           field:
             label: Nota
-            name: n
+            name: note
             widget: text
       - label: Timeline eventi
         name: timeline
@@ -549,28 +603,22 @@ collections:
         - label: Testo
           name: text
           widget: text
-      - label: Statistiche
-        name: stats
-        widget: object
+      - label: Marcatori (automatico statistiche)
+        name: scorerEvents
+        widget: list
         required: false
         collapsed: true
+        summary: '{{fields.playerId}} — {{fields.goals}} gol'
         fields:
-        - label: Tiri
-          name: shots
+        - label: Giocatore
+          name: playerId
+          widget: select
+          options: *id002
+        - label: Gol
+          name: goals
           widget: number
           value_type: int
-        - label: Tiri subiti
-          name: shotsAgainst
-          widget: number
-          value_type: int
-        - label: Possesso %
-          name: possession
-          widget: number
-          value_type: int
-        - label: Calci d'angolo
-          name: corners
-          widget: number
-          value_type: int
+          default: 1
 - name: standings
   label: Classifica Prima squadra
   delete: false
@@ -722,6 +770,10 @@ collections:
           name: id
           widget: number
           value_type: int
+        - label: Stagione
+          name: season
+          widget: string
+          default: 2026/2027
         - label: Turno
           name: round
           widget: string
@@ -752,6 +804,76 @@ collections:
           - Da giocare
           - Terminata
           - In attesa
+        - label: Formazione / Convocati
+          name: lineup
+          widget: object
+          required: false
+          collapsed: true
+          fields:
+          - label: Modulo
+            name: module
+            widget: string
+            default: 3-1
+          - label: Quintetto titolare
+            name: startingFive
+            widget: list
+            summary: '{{fields.g}}'
+            field:
+              label: Giocatore
+              name: g
+              widget: select
+              options: *id001
+          - label: Panchina / convocati
+            name: bench
+            widget: list
+            summary: '{{fields.g}}'
+            field:
+              label: Giocatore
+              name: g
+              widget: select
+              options: *id001
+          - label: Squalificati
+            name: suspended
+            widget: list
+            required: false
+            field:
+              label: Giocatore
+              name: g
+              widget: select
+              options: *id001
+          - label: Infortunati
+            name: injured
+            widget: list
+            required: false
+            field:
+              label: Giocatore
+              name: g
+              widget: select
+              options: *id001
+          - label: Note tattiche
+            name: tacticalNotes
+            widget: list
+            required: false
+            field:
+              label: Nota
+              name: note
+              widget: text
+        - label: Marcatori (automatico statistiche)
+          name: scorerEvents
+          widget: list
+          required: false
+          collapsed: true
+          summary: '{{fields.playerId}} — {{fields.goals}} gol'
+          fields:
+          - label: Giocatore
+            name: playerId
+            widget: select
+            options: *id001
+          - label: Gol
+            name: goals
+            widget: number
+            value_type: int
+            default: 1
 - name: u21Cup
   label: Coppa Under 21
   delete: false
@@ -783,6 +905,10 @@ collections:
           name: id
           widget: number
           value_type: int
+        - label: Stagione
+          name: season
+          widget: string
+          default: 2026/2027
         - label: Turno
           name: round
           widget: string
@@ -813,6 +939,76 @@ collections:
           - Da giocare
           - Terminata
           - In attesa
+        - label: Formazione / Convocati
+          name: lineup
+          widget: object
+          required: false
+          collapsed: true
+          fields:
+          - label: Modulo
+            name: module
+            widget: string
+            default: 3-1
+          - label: Quintetto titolare
+            name: startingFive
+            widget: list
+            summary: '{{fields.g}}'
+            field:
+              label: Giocatore
+              name: g
+              widget: select
+              options: *id002
+          - label: Panchina / convocati
+            name: bench
+            widget: list
+            summary: '{{fields.g}}'
+            field:
+              label: Giocatore
+              name: g
+              widget: select
+              options: *id002
+          - label: Squalificati
+            name: suspended
+            widget: list
+            required: false
+            field:
+              label: Giocatore
+              name: g
+              widget: select
+              options: *id002
+          - label: Infortunati
+            name: injured
+            widget: list
+            required: false
+            field:
+              label: Giocatore
+              name: g
+              widget: select
+              options: *id002
+          - label: Note tattiche
+            name: tacticalNotes
+            widget: list
+            required: false
+            field:
+              label: Nota
+              name: note
+              widget: text
+        - label: Marcatori (automatico statistiche)
+          name: scorerEvents
+          widget: list
+          required: false
+          collapsed: true
+          summary: '{{fields.playerId}} — {{fields.goals}} gol'
+          fields:
+          - label: Giocatore
+            name: playerId
+            widget: select
+            options: *id002
+          - label: Gol
+            name: goals
+            widget: number
+            value_type: int
+            default: 1
 - name: galleryAlbums
   label: Gallery (album)
   delete: false
@@ -1173,114 +1369,4 @@ collections:
         widget: string
       - label: Dettaglio
         name: detail
-        widget: string
-- name: site
-  label: Impostazioni sito
-  delete: false
-  editor:
-    preview: false
-  files:
-  - name: site
-    label: Impostazioni sito
-    file: content/data.json
-    fields:
-    - label: Sito
-      name: site
-      widget: object
-      fields:
-      - label: Nome sito
-        name: name
-        widget: string
-      - label: Logo (URL)
-        name: logo
-        widget: string
-      - label: Icona / favicon (URL)
-        name: icon
-        widget: string
-- name: seasons
-  label: Storico stagioni
-  delete: false
-  editor:
-    preview: false
-  files:
-  - name: seasons
-    label: Storico stagioni
-    file: content/data.json
-    fields:
-    - label: Stagioni
-      name: seasons
-      widget: list
-      label_singular: stagione
-      summary: '{{fields.season}} — {{fields.competition}}'
-      fields:
-      - label: Stagione
-        name: season
-        widget: string
-      - label: Competizione
-        name: competition
-        widget: string
-      - label: Posizione
-        name: position
-        widget: string
-      - label: Record (es. 11V 0N 6P)
-        name: record
-        widget: string
-      - label: Gol fatti
-        name: gf
-        widget: number
-        value_type: int
-      - label: Gol subiti
-        name: gs
-        widget: number
-        value_type: int
-      - label: Note
-        name: note
-        widget: text
-        required: false
-- name: timeline
-  label: Timeline stagione
-  delete: false
-  editor:
-    preview: false
-  files:
-  - name: timeline
-    label: Timeline stagione
-    file: content/data.json
-    fields:
-    - label: Eventi
-      name: timeline
-      widget: list
-      label_singular: evento
-      summary: '{{fields.date}} — {{fields.title}}'
-      fields:
-      - label: ID
-        name: id
-        widget: number
-        value_type: int
-      - label: Data (testo, es. "Set 2025")
-        name: date
-        widget: string
-      - label: Titolo
-        name: title
-        widget: string
-      - label: Testo
-        name: text
-        widget: text
-- name: tryoutFields
-  label: Campi modulo provini
-  delete: false
-  editor:
-    preview: false
-  files:
-  - name: tryoutFields
-    label: Campi modulo provini
-    file: content/data.json
-    fields:
-    - label: Campi del form (uno per riga)
-      name: tryoutFields
-      widget: list
-      label_singular: campo
-      field:
-        label: Etichetta campo
-        name: field
         widget: string
