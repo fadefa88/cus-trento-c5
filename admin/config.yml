@@ -37,8 +37,11 @@ collections:
         widget: string
       - label: Data
         name: date
-        widget: date
+        widget: datetime
         format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        picker_utc: false
       - label: Autore
         name: author
         widget: string
@@ -111,11 +114,6 @@ collections:
         widget: number
         value_type: int
         default: 0
-      - label: Assist
-        name: assists
-        widget: number
-        value_type: int
-        default: 0
       - label: Presenze
         name: appearances
         widget: number
@@ -151,10 +149,6 @@ collections:
             name: goals
             widget: number
             value_type: int
-          - label: Assist
-            name: assists
-            widget: number
-            value_type: int
         - label: Coppa
           name: coppa
           widget: object
@@ -165,10 +159,6 @@ collections:
             value_type: int
           - label: Gol
             name: goals
-            widget: number
-            value_type: int
-          - label: Assist
-            name: assists
             widget: number
             value_type: int
         - label: Totale
@@ -183,34 +173,6 @@ collections:
             name: goals
             widget: number
             value_type: int
-          - label: Assist
-            name: assists
-            widget: number
-            value_type: int
-      - label: Carriera (storico)
-        name: history
-        widget: list
-        required: false
-        collapsed: true
-        fields:
-        - label: Stagione
-          name: season
-          widget: string
-        - label: Squadra
-          name: team
-          widget: string
-        - label: Presenze
-          name: appearances
-          widget: number
-          value_type: int
-        - label: Gol
-          name: goals
-          widget: number
-          value_type: int
-        - label: Assist
-          name: assists
-          widget: number
-          value_type: int
       - label: Statistiche portiere
         name: goalkeeperStats
         widget: object
@@ -271,8 +233,11 @@ collections:
         value_type: int
       - label: Data
         name: date
-        widget: date
+        widget: datetime
         format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        picker_utc: false
       - label: Ora
         name: time
         widget: string
@@ -295,7 +260,7 @@ collections:
         options:
         - Da giocare
         - Terminata
-        - In attesa
+        default: Da giocare
       - label: Competizione
         name: competition
         widget: select
@@ -308,189 +273,241 @@ collections:
         name: summary
         widget: text
         required: false
-      - label: Statistiche
-        name: stats
-        widget: object
-        required: false
-        collapsed: true
-        fields:
-        - label: Tiri
-          name: shots
-          widget: number
-          value_type: int
-        - label: Tiri subiti
-          name: shotsAgainst
-          widget: number
-          value_type: int
-        - label: Possesso %
-          name: possession
-          widget: number
-          value_type: int
-        - label: Calci d'angolo
-          name: corners
-          widget: number
-          value_type: int
       - label: Formazione
         name: lineup
         widget: object
-        required: false
-        collapsed: true
+        collapsed: false
         fields:
         - label: Modulo
           name: module
           widget: string
-        - label: Quintetto
+          required: false
+          default: 3-1
+        - label: Quintetto titolare
           name: startingFive
-          widget: list
-          field:
-            label: Giocatore
-            name: g
-            widget: select
-            options: &id001
-            - label: '#1 SAFI SAIF EDINE'
-              value: '1'
-            - label: '#12 Lucca Baccaro Zeni'
-              value: '2'
-            - label: '#2 Filippo Bernard'
-              value: '3'
-            - label: '#5 Tommaso Boldrini'
-              value: '4'
-            - label: '#6 Davide Filippi'
-              value: '5'
-            - label: '#7 Alvise Tesser'
-              value: '6'
-            - label: '#8 Federico Addobbati'
-              value: '7'
-            - label: '#9 Filippo Baietta'
-              value: '8'
-            - label: '#10 Luca Cirasola'
-              value: '9'
-            - label: '#27 Mattia Cuman'
-              value: '10'
-            - label: '#23 Luca Frattolin'
-              value: '11'
-            - label: '#17 Federico Maciocia'
-              value: '12'
-            - label: '#11 Mattia Vaia'
-              value: '13'
-            - label: '#19 Alessandro Zanetti'
-              value: '14'
-            - label: '#20 Diego Conti'
-              value: '15'
-            - label: '#21 Andrea Martinelli'
-              value: '16'
-            - label: '#22 Cesare Vettorazzi'
-              value: '17'
-            - label: '#24 Fabbri'
-              value: '18'
-            - label: '#30 Paolo Bigonzi'
-              value: '19'
-            - label: '#31 Giulio Tognolli'
-              value: '20'
-            - label: '#32 Lorenzo Zantorello'
-              value: '21'
-            - label: '#34 Alex Gasperi'
-              value: '22'
-            - label: '#35 Matteo Guidetti'
-              value: '23'
-            - label: '#36 Matteo Materia'
-              value: '24'
-            - label: '#37 Riccardo Toniolli'
-              value: '25'
-            - label: '#38 Alessandro Betti'
-              value: '26'
-            - label: '#39 Samuele Buda'
-              value: '27'
-            - label: '#40 Federico Caldonazzi'
-              value: '28'
-            - label: '#41 Joao Pedro Caccia Neff'
-              value: '29'
-            - label: '#42 Afrian Gavril Dancus'
-              value: '30'
-            - label: '#44 Mirko Annunziato Tondo'
-              value: '31'
-            - label: '#45 Daniele Zampedri'
-              value: '32'
-            - label: '#46 Michele Ceola'
-              value: '33'
-            - label: '#47 Damiano Loperfido'
-              value: '34'
-            - label: '#48 Luca Scala'
-              value: '35'
-            - label: '#49 Lazzarini'
-              value: '36'
-          summary: '{{fields.g}}'
-        - label: Panchina
+          widget: select
+          multiple: true
+          min: 5
+          max: 5
+          options:
+          - label: '#1 SAFI SAIF EDINE'
+            value: '1'
+          - label: '#12 Lucca Baccaro Zeni'
+            value: '2'
+          - label: '#2 Filippo Bernard'
+            value: '3'
+          - label: '#5 Tommaso Boldrini'
+            value: '4'
+          - label: '#6 Davide Filippi'
+            value: '5'
+          - label: '#7 Alvise Tesser'
+            value: '6'
+          - label: '#8 Federico Addobbati'
+            value: '7'
+          - label: '#9 Filippo Baietta'
+            value: '8'
+          - label: '#10 Luca Cirasola'
+            value: '9'
+          - label: '#27 Mattia Cuman'
+            value: '10'
+          - label: '#23 Luca Frattolin'
+            value: '11'
+          - label: '#17 Federico Maciocia'
+            value: '12'
+          - label: '#11 Mattia Vaia'
+            value: '13'
+          - label: '#19 Alessandro Zanetti'
+            value: '14'
+          - label: '#20 Diego Conti'
+            value: '15'
+          - label: '#21 Andrea Martinelli'
+            value: '16'
+          - label: '#22 Cesare Vettorazzi'
+            value: '17'
+          - label: '#24 Fabbri'
+            value: '18'
+          hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
+        - label: Panchina / Convocati
           name: bench
-          widget: list
-          field:
-            label: Giocatore
-            name: g
-            widget: select
-            options: *id001
-          summary: '{{fields.g}}'
+          widget: select
+          multiple: true
+          required: false
+          options:
+          - label: '#1 SAFI SAIF EDINE'
+            value: '1'
+          - label: '#12 Lucca Baccaro Zeni'
+            value: '2'
+          - label: '#2 Filippo Bernard'
+            value: '3'
+          - label: '#5 Tommaso Boldrini'
+            value: '4'
+          - label: '#6 Davide Filippi'
+            value: '5'
+          - label: '#7 Alvise Tesser'
+            value: '6'
+          - label: '#8 Federico Addobbati'
+            value: '7'
+          - label: '#9 Filippo Baietta'
+            value: '8'
+          - label: '#10 Luca Cirasola'
+            value: '9'
+          - label: '#27 Mattia Cuman'
+            value: '10'
+          - label: '#23 Luca Frattolin'
+            value: '11'
+          - label: '#17 Federico Maciocia'
+            value: '12'
+          - label: '#11 Mattia Vaia'
+            value: '13'
+          - label: '#19 Alessandro Zanetti'
+            value: '14'
+          - label: '#20 Diego Conti'
+            value: '15'
+          - label: '#21 Andrea Martinelli'
+            value: '16'
+          - label: '#22 Cesare Vettorazzi'
+            value: '17'
+          - label: '#24 Fabbri'
+            value: '18'
+          hint: Scegli solo giocatori non già presenti nel quintetto.
         - label: Squalificati
           name: suspended
-          widget: list
+          widget: select
+          multiple: true
           required: false
-          field:
-            label: Giocatore
-            name: g
-            widget: select
-            options: *id001
-          summary: '{{fields.g}}'
+          options:
+          - label: '#1 SAFI SAIF EDINE'
+            value: '1'
+          - label: '#12 Lucca Baccaro Zeni'
+            value: '2'
+          - label: '#2 Filippo Bernard'
+            value: '3'
+          - label: '#5 Tommaso Boldrini'
+            value: '4'
+          - label: '#6 Davide Filippi'
+            value: '5'
+          - label: '#7 Alvise Tesser'
+            value: '6'
+          - label: '#8 Federico Addobbati'
+            value: '7'
+          - label: '#9 Filippo Baietta'
+            value: '8'
+          - label: '#10 Luca Cirasola'
+            value: '9'
+          - label: '#27 Mattia Cuman'
+            value: '10'
+          - label: '#23 Luca Frattolin'
+            value: '11'
+          - label: '#17 Federico Maciocia'
+            value: '12'
+          - label: '#11 Mattia Vaia'
+            value: '13'
+          - label: '#19 Alessandro Zanetti'
+            value: '14'
+          - label: '#20 Diego Conti'
+            value: '15'
+          - label: '#21 Andrea Martinelli'
+            value: '16'
+          - label: '#22 Cesare Vettorazzi'
+            value: '17'
+          - label: '#24 Fabbri'
+            value: '18'
         - label: Infortunati
           name: injured
-          widget: list
+          widget: select
+          multiple: true
           required: false
-          field:
-            label: Giocatore
-            name: g
-            widget: select
-            options: *id001
-          summary: '{{fields.g}}'
-        - label: Note tattiche
-          name: tacticalNotes
-          widget: list
-          required: false
-          field:
-            label: Nota
-            name: n
-            widget: text
-      - label: Timeline eventi
-        name: timeline
-        widget: list
-        required: false
-        collapsed: true
-        fields:
-        - label: Minuto
-          name: minute
-          widget: string
-        - label: Evento
-          name: event
-          widget: string
-        - label: Squadra
-          name: team
-          widget: string
-        - label: Testo
-          name: text
-          widget: text
-      - label: Marcatori (automatico statistiche)
+          options:
+          - label: '#1 SAFI SAIF EDINE'
+            value: '1'
+          - label: '#12 Lucca Baccaro Zeni'
+            value: '2'
+          - label: '#2 Filippo Bernard'
+            value: '3'
+          - label: '#5 Tommaso Boldrini'
+            value: '4'
+          - label: '#6 Davide Filippi'
+            value: '5'
+          - label: '#7 Alvise Tesser'
+            value: '6'
+          - label: '#8 Federico Addobbati'
+            value: '7'
+          - label: '#9 Filippo Baietta'
+            value: '8'
+          - label: '#10 Luca Cirasola'
+            value: '9'
+          - label: '#27 Mattia Cuman'
+            value: '10'
+          - label: '#23 Luca Frattolin'
+            value: '11'
+          - label: '#17 Federico Maciocia'
+            value: '12'
+          - label: '#11 Mattia Vaia'
+            value: '13'
+          - label: '#19 Alessandro Zanetti'
+            value: '14'
+          - label: '#20 Diego Conti'
+            value: '15'
+          - label: '#21 Andrea Martinelli'
+            value: '16'
+          - label: '#22 Cesare Vettorazzi'
+            value: '17'
+          - label: '#24 Fabbri'
+            value: '18'
+      - label: Marcatori
         name: scorerEvents
         widget: list
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goals}} gol'
+        hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è convocato.
         fields:
         - label: Giocatore
           name: playerId
           widget: select
-          options: *id001
+          options:
+          - label: '#1 SAFI SAIF EDINE'
+            value: '1'
+          - label: '#12 Lucca Baccaro Zeni'
+            value: '2'
+          - label: '#2 Filippo Bernard'
+            value: '3'
+          - label: '#5 Tommaso Boldrini'
+            value: '4'
+          - label: '#6 Davide Filippi'
+            value: '5'
+          - label: '#7 Alvise Tesser'
+            value: '6'
+          - label: '#8 Federico Addobbati'
+            value: '7'
+          - label: '#9 Filippo Baietta'
+            value: '8'
+          - label: '#10 Luca Cirasola'
+            value: '9'
+          - label: '#27 Mattia Cuman'
+            value: '10'
+          - label: '#23 Luca Frattolin'
+            value: '11'
+          - label: '#17 Federico Maciocia'
+            value: '12'
+          - label: '#11 Mattia Vaia'
+            value: '13'
+          - label: '#19 Alessandro Zanetti'
+            value: '14'
+          - label: '#20 Diego Conti'
+            value: '15'
+          - label: '#21 Andrea Martinelli'
+            value: '16'
+          - label: '#22 Cesare Vettorazzi'
+            value: '17'
+          - label: '#24 Fabbri'
+            value: '18'
         - label: Gol
           name: goals
           widget: number
           value_type: int
           default: 1
+          min: 1
 - name: u21Fixtures
   label: Calendario Under 21
   delete: false
@@ -513,8 +530,11 @@ collections:
         value_type: int
       - label: Data
         name: date
-        widget: date
+        widget: datetime
         format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        picker_utc: false
       - label: Ora
         name: time
         widget: string
@@ -537,7 +557,7 @@ collections:
         options:
         - Da giocare
         - Terminata
-        - In attesa
+        default: Da giocare
       - label: Competizione
         name: competition
         widget: select
@@ -549,114 +569,238 @@ collections:
       - label: Formazione
         name: lineup
         widget: object
-        required: false
-        collapsed: true
+        collapsed: false
         fields:
         - label: Modulo
           name: module
           widget: string
-        - label: Quintetto
+          required: false
+          default: 3-1
+        - label: Quintetto titolare
           name: startingFive
-          widget: list
-          field:
-            label: Giocatore
-            name: g
-            widget: select
-            options: *id001
-          summary: '{{fields.g}}'
-        - label: Panchina
+          widget: select
+          multiple: true
+          min: 5
+          max: 5
+          options:
+          - label: '#30 Paolo Bigonzi'
+            value: '19'
+          - label: '#31 Giulio Tognolli'
+            value: '20'
+          - label: '#32 Lorenzo Zantorello'
+            value: '21'
+          - label: '#34 Alex Gasperi'
+            value: '22'
+          - label: '#35 Matteo Guidetti'
+            value: '23'
+          - label: '#36 Matteo Materia'
+            value: '24'
+          - label: '#37 Riccardo Toniolli'
+            value: '25'
+          - label: '#38 Alessandro Betti'
+            value: '26'
+          - label: '#39 Samuele Buda'
+            value: '27'
+          - label: '#40 Federico Caldonazzi'
+            value: '28'
+          - label: '#41 Joao Pedro Caccia Neff'
+            value: '29'
+          - label: '#42 Afrian Gavril Dancus'
+            value: '30'
+          - label: '#44 Mirko Annunziato Tondo'
+            value: '31'
+          - label: '#45 Daniele Zampedri'
+            value: '32'
+          - label: '#46 Michele Ceola'
+            value: '33'
+          - label: '#47 Damiano Loperfido'
+            value: '34'
+          - label: '#48 Luca Scala'
+            value: '35'
+          - label: '#49 Lazzarini'
+            value: '36'
+          hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
+        - label: Panchina / Convocati
           name: bench
-          widget: list
-          field:
-            label: Giocatore
-            name: g
-            widget: select
-            options: *id001
-          summary: '{{fields.g}}'
+          widget: select
+          multiple: true
+          required: false
+          options:
+          - label: '#30 Paolo Bigonzi'
+            value: '19'
+          - label: '#31 Giulio Tognolli'
+            value: '20'
+          - label: '#32 Lorenzo Zantorello'
+            value: '21'
+          - label: '#34 Alex Gasperi'
+            value: '22'
+          - label: '#35 Matteo Guidetti'
+            value: '23'
+          - label: '#36 Matteo Materia'
+            value: '24'
+          - label: '#37 Riccardo Toniolli'
+            value: '25'
+          - label: '#38 Alessandro Betti'
+            value: '26'
+          - label: '#39 Samuele Buda'
+            value: '27'
+          - label: '#40 Federico Caldonazzi'
+            value: '28'
+          - label: '#41 Joao Pedro Caccia Neff'
+            value: '29'
+          - label: '#42 Afrian Gavril Dancus'
+            value: '30'
+          - label: '#44 Mirko Annunziato Tondo'
+            value: '31'
+          - label: '#45 Daniele Zampedri'
+            value: '32'
+          - label: '#46 Michele Ceola'
+            value: '33'
+          - label: '#47 Damiano Loperfido'
+            value: '34'
+          - label: '#48 Luca Scala'
+            value: '35'
+          - label: '#49 Lazzarini'
+            value: '36'
+          hint: Scegli solo giocatori non già presenti nel quintetto.
         - label: Squalificati
           name: suspended
-          widget: list
+          widget: select
+          multiple: true
           required: false
-          field:
-            label: Giocatore
-            name: g
-            widget: select
-            options: *id001
-          summary: '{{fields.g}}'
+          options:
+          - label: '#30 Paolo Bigonzi'
+            value: '19'
+          - label: '#31 Giulio Tognolli'
+            value: '20'
+          - label: '#32 Lorenzo Zantorello'
+            value: '21'
+          - label: '#34 Alex Gasperi'
+            value: '22'
+          - label: '#35 Matteo Guidetti'
+            value: '23'
+          - label: '#36 Matteo Materia'
+            value: '24'
+          - label: '#37 Riccardo Toniolli'
+            value: '25'
+          - label: '#38 Alessandro Betti'
+            value: '26'
+          - label: '#39 Samuele Buda'
+            value: '27'
+          - label: '#40 Federico Caldonazzi'
+            value: '28'
+          - label: '#41 Joao Pedro Caccia Neff'
+            value: '29'
+          - label: '#42 Afrian Gavril Dancus'
+            value: '30'
+          - label: '#44 Mirko Annunziato Tondo'
+            value: '31'
+          - label: '#45 Daniele Zampedri'
+            value: '32'
+          - label: '#46 Michele Ceola'
+            value: '33'
+          - label: '#47 Damiano Loperfido'
+            value: '34'
+          - label: '#48 Luca Scala'
+            value: '35'
+          - label: '#49 Lazzarini'
+            value: '36'
         - label: Infortunati
           name: injured
-          widget: list
+          widget: select
+          multiple: true
           required: false
-          field:
-            label: Giocatore
-            name: g
-            widget: select
-            options: *id001
-          summary: '{{fields.g}}'
-        - label: Note tattiche
-          name: tacticalNotes
-          widget: list
-          required: false
-          field:
-            label: Nota
-            name: n
-            widget: text
-      - label: Timeline eventi
-        name: timeline
-        widget: list
-        required: false
-        collapsed: true
-        fields:
-        - label: Minuto
-          name: minute
-          widget: string
-        - label: Evento
-          name: event
-          widget: string
-        - label: Squadra
-          name: team
-          widget: string
-        - label: Testo
-          name: text
-          widget: text
-      - label: Statistiche
-        name: stats
-        widget: object
-        required: false
-        collapsed: true
-        fields:
-        - label: Tiri
-          name: shots
-          widget: number
-          value_type: int
-        - label: Tiri subiti
-          name: shotsAgainst
-          widget: number
-          value_type: int
-        - label: Possesso %
-          name: possession
-          widget: number
-          value_type: int
-        - label: Calci d'angolo
-          name: corners
-          widget: number
-          value_type: int
-      - label: Marcatori (automatico statistiche)
+          options:
+          - label: '#30 Paolo Bigonzi'
+            value: '19'
+          - label: '#31 Giulio Tognolli'
+            value: '20'
+          - label: '#32 Lorenzo Zantorello'
+            value: '21'
+          - label: '#34 Alex Gasperi'
+            value: '22'
+          - label: '#35 Matteo Guidetti'
+            value: '23'
+          - label: '#36 Matteo Materia'
+            value: '24'
+          - label: '#37 Riccardo Toniolli'
+            value: '25'
+          - label: '#38 Alessandro Betti'
+            value: '26'
+          - label: '#39 Samuele Buda'
+            value: '27'
+          - label: '#40 Federico Caldonazzi'
+            value: '28'
+          - label: '#41 Joao Pedro Caccia Neff'
+            value: '29'
+          - label: '#42 Afrian Gavril Dancus'
+            value: '30'
+          - label: '#44 Mirko Annunziato Tondo'
+            value: '31'
+          - label: '#45 Daniele Zampedri'
+            value: '32'
+          - label: '#46 Michele Ceola'
+            value: '33'
+          - label: '#47 Damiano Loperfido'
+            value: '34'
+          - label: '#48 Luca Scala'
+            value: '35'
+          - label: '#49 Lazzarini'
+            value: '36'
+      - label: Marcatori
         name: scorerEvents
         widget: list
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goals}} gol'
+        hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è convocato.
         fields:
         - label: Giocatore
           name: playerId
           widget: select
-          options: *id001
+          options:
+          - label: '#30 Paolo Bigonzi'
+            value: '19'
+          - label: '#31 Giulio Tognolli'
+            value: '20'
+          - label: '#32 Lorenzo Zantorello'
+            value: '21'
+          - label: '#34 Alex Gasperi'
+            value: '22'
+          - label: '#35 Matteo Guidetti'
+            value: '23'
+          - label: '#36 Matteo Materia'
+            value: '24'
+          - label: '#37 Riccardo Toniolli'
+            value: '25'
+          - label: '#38 Alessandro Betti'
+            value: '26'
+          - label: '#39 Samuele Buda'
+            value: '27'
+          - label: '#40 Federico Caldonazzi'
+            value: '28'
+          - label: '#41 Joao Pedro Caccia Neff'
+            value: '29'
+          - label: '#42 Afrian Gavril Dancus'
+            value: '30'
+          - label: '#44 Mirko Annunziato Tondo'
+            value: '31'
+          - label: '#45 Daniele Zampedri'
+            value: '32'
+          - label: '#46 Michele Ceola'
+            value: '33'
+          - label: '#47 Damiano Loperfido'
+            value: '34'
+          - label: '#48 Luca Scala'
+            value: '35'
+          - label: '#49 Lazzarini'
+            value: '36'
         - label: Gol
           name: goals
           widget: number
           value_type: int
           default: 1
+          min: 1
 - name: standings
   label: Classifica Prima squadra
   delete: false
@@ -813,8 +957,11 @@ collections:
           widget: string
         - label: Data
           name: date
-          widget: date
+          widget: datetime
           format: YYYY-MM-DD
+          date_format: DD/MM/YYYY
+          time_format: false
+          picker_utc: false
         - label: Ora
           name: time
           widget: string
@@ -837,23 +984,62 @@ collections:
           options:
           - Da giocare
           - Terminata
-          - In attesa
-        - label: Marcatori (automatico statistiche)
+          default: Da giocare
+        - label: Marcatori
           name: scorerEvents
           widget: list
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.goals}} gol'
+          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è
+            convocato.
           fields:
           - label: Giocatore
             name: playerId
             widget: select
-            options: *id001
+            options:
+            - label: '#1 SAFI SAIF EDINE'
+              value: '1'
+            - label: '#12 Lucca Baccaro Zeni'
+              value: '2'
+            - label: '#2 Filippo Bernard'
+              value: '3'
+            - label: '#5 Tommaso Boldrini'
+              value: '4'
+            - label: '#6 Davide Filippi'
+              value: '5'
+            - label: '#7 Alvise Tesser'
+              value: '6'
+            - label: '#8 Federico Addobbati'
+              value: '7'
+            - label: '#9 Filippo Baietta'
+              value: '8'
+            - label: '#10 Luca Cirasola'
+              value: '9'
+            - label: '#27 Mattia Cuman'
+              value: '10'
+            - label: '#23 Luca Frattolin'
+              value: '11'
+            - label: '#17 Federico Maciocia'
+              value: '12'
+            - label: '#11 Mattia Vaia'
+              value: '13'
+            - label: '#19 Alessandro Zanetti'
+              value: '14'
+            - label: '#20 Diego Conti'
+              value: '15'
+            - label: '#21 Andrea Martinelli'
+              value: '16'
+            - label: '#22 Cesare Vettorazzi'
+              value: '17'
+            - label: '#24 Fabbri'
+              value: '18'
           - label: Gol
             name: goals
             widget: number
             value_type: int
             default: 1
+            min: 1
 - name: u21Cup
   label: Coppa Under 21
   delete: false
@@ -890,8 +1076,11 @@ collections:
           widget: string
         - label: Data
           name: date
-          widget: date
+          widget: datetime
           format: YYYY-MM-DD
+          date_format: DD/MM/YYYY
+          time_format: false
+          picker_utc: false
         - label: Ora
           name: time
           widget: string
@@ -914,23 +1103,62 @@ collections:
           options:
           - Da giocare
           - Terminata
-          - In attesa
-        - label: Marcatori (automatico statistiche)
+          default: Da giocare
+        - label: Marcatori
           name: scorerEvents
           widget: list
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.goals}} gol'
+          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è
+            convocato.
           fields:
           - label: Giocatore
             name: playerId
             widget: select
-            options: *id001
+            options:
+            - label: '#30 Paolo Bigonzi'
+              value: '19'
+            - label: '#31 Giulio Tognolli'
+              value: '20'
+            - label: '#32 Lorenzo Zantorello'
+              value: '21'
+            - label: '#34 Alex Gasperi'
+              value: '22'
+            - label: '#35 Matteo Guidetti'
+              value: '23'
+            - label: '#36 Matteo Materia'
+              value: '24'
+            - label: '#37 Riccardo Toniolli'
+              value: '25'
+            - label: '#38 Alessandro Betti'
+              value: '26'
+            - label: '#39 Samuele Buda'
+              value: '27'
+            - label: '#40 Federico Caldonazzi'
+              value: '28'
+            - label: '#41 Joao Pedro Caccia Neff'
+              value: '29'
+            - label: '#42 Afrian Gavril Dancus'
+              value: '30'
+            - label: '#44 Mirko Annunziato Tondo'
+              value: '31'
+            - label: '#45 Daniele Zampedri'
+              value: '32'
+            - label: '#46 Michele Ceola'
+              value: '33'
+            - label: '#47 Damiano Loperfido'
+              value: '34'
+            - label: '#48 Luca Scala'
+              value: '35'
+            - label: '#49 Lazzarini'
+              value: '36'
           - label: Gol
             name: goals
             widget: number
             value_type: int
             default: 1
+            min: 1
 - name: galleryAlbums
   label: Gallery (album)
   delete: false
@@ -959,8 +1187,11 @@ collections:
         widget: string
       - label: Data
         name: date
-        widget: date
+        widget: datetime
         format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        picker_utc: false
       - label: Copertina (URL)
         name: cover
         widget: string
@@ -1001,8 +1232,11 @@ collections:
         widget: string
       - label: Data
         name: date
-        widget: date
+        widget: datetime
         format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        picker_utc: false
       - label: Categoria
         name: category
         widget: string
@@ -1182,8 +1416,11 @@ collections:
         widget: text
       - label: Data
         name: date
-        widget: date
+        widget: datetime
         format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        picker_utc: false
 - name: clubHistory
   label: Club overview / Storia
   delete: false
