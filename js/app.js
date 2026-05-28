@@ -655,14 +655,38 @@ function closeLightbox(){const frame=$("#lightboxFrame");if(frame)frame.src="";$
 function render(){renderNav();if(current.startsWith("gallery-album-"))galleryAlbum(current.replace("gallery-album-",""));else if(current.startsWith("article-"))articleDetail(current.replace("article-",""));else if(current.startsWith("player-"))playerDetail(current.replace("player-",""));else if(current.startsWith("match-"))matchDetail(current.replace("match-",""));else if(current==="news")news();else if(current==="squad")squad();else if(current==="fixtures")fixtures();else if(current==="coppa")coppa();else if(current==="u21")u21();else if(current==="standings")standings();else if(current==="stats")stats();else if(current==="staff")staff();else if(current==="matchday")matchday();else if(current==="gallery")gallery();else if(current==="video")videos();else if(current==="social")social();else if(current==="sponsor")sponsor();else if(current==="sponsor-lead")sponsorLead();else if(current==="historical-stats")historicalStatsPage();else if(current==="records")records();else if(current==="contacts")contacts();else if(current==="privacy")privacy();else if(current==="cookies")cookies();else if(current==="club")club();else home();}
 // ===== CMS BOOT: carica i contenuti pubblicati da content/data.json =====
 async function bootData(){
+  let dataLoaded = false;
+  let loadError = null;
+
   try{
     const res = await fetch(`content/data.json?v=${Date.now()}`, {cache:'no-store'});
-    if(res.ok){
-      const published = await res.json();
-      state = applyAutomations(hydrate(published));     // i dati pubblicati hanno priorita' e vengono incrementati dai match terminati
-    }
-  }catch(e){ /* fallback: restano i defaults gia' in state */ }
+    if(!res.ok) throw new Error(`content/data.json non caricato: HTTP ${res.status}`);
+
+    const raw = await res.text();
+    const published = JSON.parse(raw);
+
+    state = applyAutomations(hydrate(published));     // i dati pubblicati hanno priorita' e vengono incrementati dai match terminati
+    dataLoaded = true;
+  }catch(e){
+    loadError = e;
+    console.error("Errore caricamento content/data.json. Il sito sta usando i defaults interni di app.js.", e);
+  }
+
   render();
+
+  if(!dataLoaded && app){
+    app.insertAdjacentHTML("afterbegin", `
+      <section class="container" style="padding-top:24px">
+        <div class="card card-pad" style="border:2px solid #ef4444">
+          <span class="eyebrow">Errore dati CMS</span>
+          <h2>content/data.json non è stato caricato correttamente</h2>
+          <p class="muted">Il sito sta mostrando i dati di fallback presenti in app.js. Controlla che content/data.json sia JSON valido e pubblicato nella cartella corretta.</p>
+          <pre style="white-space:pre-wrap;background:#111;color:#fff;padding:14px;border-radius:12px;overflow:auto">${String(loadError && loadError.message || loadError)}</pre>
+        </div>
+      </section>
+    `);
+  }
+
   showCookie();
 }
 bootData();
