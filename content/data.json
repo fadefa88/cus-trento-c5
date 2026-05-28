@@ -71,13 +71,13 @@
       "age": "",
       "goals": 0,
       "assists": 0,
-      "appearances": 1,
+      "appearances": 0,
       "avatar": "SS",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2014/09/3-SAFI-SAIF-EDINE-PORTIERE-scaled.jpg",
       "bio": "Portiere della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 1,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
@@ -87,29 +87,49 @@
           "assists": 0
         },
         "totale": {
-          "appearances": 1,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 1,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       ],
       "goalkeeperStats": {
-        "appearances": 1,
-        "minutes": 40,
+        "appearances": 0,
+        "minutes": 0,
         "cleanSheets": 0,
-        "goalsAgainst": 5,
+        "goalsAgainst": 0,
         "saves": 0,
         "penaltiesSaved": 0,
         "saveRate": 0,
-        "goalsAgainstAvg": 5.0
+        "goalsAgainstAvg": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        }
       }
     },
     {
@@ -121,45 +141,65 @@
       "age": "",
       "goals": 0,
       "assists": 0,
-      "appearances": 13,
+      "appearances": 0,
       "avatar": "LB",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2014/09/1-BACCARO-ZENI-LUCCA-PORTIERE-scaled.jpg",
       "bio": "Portiere della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 11,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 13,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 13,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       ],
       "goalkeeperStats": {
-        "appearances": 13,
-        "minutes": 520,
+        "appearances": 0,
+        "minutes": 0,
         "cleanSheets": 0,
-        "goalsAgainst": 55,
+        "goalsAgainst": 0,
         "saves": 0,
         "penaltiesSaved": 0,
         "saveRate": 0,
-        "goalsAgainstAvg": 4.23
+        "goalsAgainstAvg": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        }
       }
     },
     {
@@ -171,13 +211,13 @@
       "age": "",
       "goals": 0,
       "assists": 0,
-      "appearances": 3,
+      "appearances": 0,
       "avatar": "FB",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Portiere della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 3,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
@@ -187,29 +227,49 @@
           "assists": 0
         },
         "totale": {
-          "appearances": 3,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 3,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       ],
       "goalkeeperStats": {
-        "appearances": 3,
-        "minutes": 120,
+        "appearances": 0,
+        "minutes": 0,
         "cleanSheets": 0,
-        "goalsAgainst": 7,
+        "goalsAgainst": 0,
         "saves": 0,
         "penaltiesSaved": 0,
         "saveRate": 0,
-        "goalsAgainstAvg": 2.33
+        "goalsAgainstAvg": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        }
       }
     },
     {
@@ -219,35 +279,35 @@
       "team": "Prima squadra",
       "number": 5,
       "age": "",
-      "goals": 3,
+      "goals": 0,
       "assists": 0,
-      "appearances": 15,
+      "appearances": 0,
       "avatar": "TB",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2014/09/4-BOLDRINI-TOMMASO-CENTRALE-scaled.jpg",
       "bio": "Centrale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 13,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
-          "goals": 1,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 15,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 15,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -259,35 +319,35 @@
       "team": "Prima squadra",
       "number": 6,
       "age": "",
-      "goals": 3,
+      "goals": 0,
       "assists": 0,
-      "appearances": 14,
+      "appearances": 0,
       "avatar": "DF",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Centrale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 12,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 14,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 14,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -299,35 +359,35 @@
       "team": "Prima squadra",
       "number": 7,
       "age": "",
-      "goals": 5,
+      "goals": 0,
       "assists": 0,
-      "appearances": 15,
+      "appearances": 0,
       "avatar": "AT",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Centrale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 13,
-          "goals": 5,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 15,
-          "goals": 5,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 15,
-          "goals": 5,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -339,16 +399,16 @@
       "team": "Prima squadra",
       "number": 8,
       "age": "",
-      "goals": 3,
+      "goals": 0,
       "assists": 0,
-      "appearances": 3,
+      "appearances": 0,
       "avatar": "FA",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 3,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
@@ -357,17 +417,17 @@
           "assists": 0
         },
         "totale": {
-          "appearances": 3,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 3,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -381,32 +441,32 @@
       "age": "",
       "goals": 0,
       "assists": 0,
-      "appearances": 10,
+      "appearances": 0,
       "avatar": "FB",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 8,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 10,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 10,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
@@ -419,35 +479,35 @@
       "team": "Prima squadra",
       "number": 10,
       "age": "",
-      "goals": 13,
+      "goals": 0,
       "assists": 0,
-      "appearances": 14,
+      "appearances": 0,
       "avatar": "LC",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 12,
-          "goals": 10,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 14,
-          "goals": 13,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 14,
-          "goals": 13,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -459,35 +519,35 @@
       "team": "Prima squadra",
       "number": 27,
       "age": "",
-      "goals": 3,
+      "goals": 0,
       "assists": 0,
-      "appearances": 11,
+      "appearances": 0,
       "avatar": "MC",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2014/09/8-CUMAN-MATTIA-LATERALE-scaled.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 10,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 1,
-          "goals": 1,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 11,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 11,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -524,7 +584,7 @@
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
           "appearances": 0,
           "goals": 0,
@@ -539,16 +599,16 @@
       "team": "Prima squadra",
       "number": 17,
       "age": "",
-      "goals": 2,
+      "goals": 0,
       "assists": 0,
-      "appearances": 8,
+      "appearances": 0,
       "avatar": "FM",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 8,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
@@ -557,17 +617,17 @@
           "assists": 0
         },
         "totale": {
-          "appearances": 8,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 8,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -579,35 +639,35 @@
       "team": "Prima squadra",
       "number": 11,
       "age": "",
-      "goals": 7,
+      "goals": 0,
       "assists": 0,
-      "appearances": 14,
+      "appearances": 0,
       "avatar": "MV",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/12-VAIA-MATTIA-LATERALE-1-scaled.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 13,
-          "goals": 7,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 1,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 14,
-          "goals": 7,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 14,
-          "goals": 7,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -621,32 +681,32 @@
       "age": "",
       "goals": 0,
       "assists": 0,
-      "appearances": 5,
+      "appearances": 0,
       "avatar": "AZ",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 3,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 5,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 5,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
@@ -659,35 +719,35 @@
       "team": "Prima squadra",
       "number": 20,
       "age": "",
-      "goals": 4,
+      "goals": 0,
       "assists": 0,
-      "appearances": 10,
+      "appearances": 0,
       "avatar": "DC",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Punta della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 8,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 10,
-          "goals": 4,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 10,
-          "goals": 4,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -699,35 +759,35 @@
       "team": "Prima squadra",
       "number": 21,
       "age": "",
-      "goals": 14,
+      "goals": 0,
       "assists": 0,
-      "appearances": 13,
+      "appearances": 0,
       "avatar": "AM",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Punta della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 11,
-          "goals": 12,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 13,
-          "goals": 14,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 13,
-          "goals": 14,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -739,16 +799,16 @@
       "team": "Prima squadra",
       "number": 22,
       "age": "",
-      "goals": 19,
+      "goals": 0,
       "assists": 0,
-      "appearances": 13,
+      "appearances": 0,
       "avatar": "CV",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Punta della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 13,
-          "goals": 19,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
@@ -757,17 +817,17 @@
           "assists": 0
         },
         "totale": {
-          "appearances": 13,
-          "goals": 19,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 13,
-          "goals": 19,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -779,35 +839,35 @@
       "team": "Prima squadra",
       "number": 24,
       "age": "",
-      "goals": 1,
+      "goals": 0,
       "assists": 0,
-      "appearances": 7,
+      "appearances": 0,
       "avatar": "F",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 5,
-          "goals": 1,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 7,
-          "goals": 1,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Prima squadra",
-          "appearances": 7,
-          "goals": 1,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -844,7 +904,7 @@
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
           "appearances": 0,
           "goals": 0,
@@ -859,7 +919,27 @@
         "saves": 0,
         "penaltiesSaved": 0,
         "saveRate": 0,
-        "goalsAgainstAvg": 0
+        "goalsAgainstAvg": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        }
       }
     },
     {
@@ -894,7 +974,7 @@
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
           "appearances": 0,
           "goals": 0,
@@ -909,7 +989,27 @@
         "saves": 0,
         "penaltiesSaved": 0,
         "saveRate": 0,
-        "goalsAgainstAvg": 0
+        "goalsAgainstAvg": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        }
       }
     },
     {
@@ -944,7 +1044,7 @@
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
           "appearances": 0,
           "goals": 0,
@@ -959,7 +1059,27 @@
         "saves": 0,
         "penaltiesSaved": 0,
         "saveRate": 0,
-        "goalsAgainstAvg": 0
+        "goalsAgainstAvg": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        }
       }
     },
     {
@@ -971,32 +1091,32 @@
       "age": "",
       "goals": 0,
       "assists": 0,
-      "appearances": 2,
+      "appearances": 0,
       "avatar": "AG",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Centrale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 1,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 1,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 2,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 2,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
@@ -1009,35 +1129,35 @@
       "team": "Under 21",
       "number": 35,
       "age": "",
-      "goals": 4,
+      "goals": 0,
       "assists": 0,
-      "appearances": 4,
+      "appearances": 0,
       "avatar": "MG",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Centrale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 4,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
           "appearances": 0,
-          "goals": 2,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 4,
-          "goals": 4,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 4,
-          "goals": 4,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -1051,13 +1171,13 @@
       "age": "",
       "goals": 0,
       "assists": 0,
-      "appearances": 7,
+      "appearances": 0,
       "avatar": "MM",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Centrale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 7,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
@@ -1067,16 +1187,16 @@
           "assists": 0
         },
         "totale": {
-          "appearances": 7,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 7,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
@@ -1091,7 +1211,7 @@
       "age": "",
       "goals": 0,
       "assists": 0,
-      "appearances": 1,
+      "appearances": 0,
       "avatar": "RT",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Centrale della rosa ufficiale 2025/26.",
@@ -1102,21 +1222,21 @@
           "assists": 0
         },
         "coppa": {
-          "appearances": 1,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 1,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 1,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
@@ -1129,35 +1249,35 @@
       "team": "Under 21",
       "number": 38,
       "age": "",
-      "goals": 12,
+      "goals": 0,
       "assists": 0,
-      "appearances": 8,
+      "appearances": 0,
       "avatar": "AB",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 6,
-          "goals": 6,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
-          "goals": 6,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 8,
-          "goals": 12,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 8,
-          "goals": 12,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -1171,13 +1291,13 @@
       "age": "",
       "goals": 0,
       "assists": 0,
-      "appearances": 3,
+      "appearances": 0,
       "avatar": "SB",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 3,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         },
@@ -1187,16 +1307,16 @@
           "assists": 0
         },
         "totale": {
-          "appearances": 3,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 3,
+          "appearances": 0,
           "goals": 0,
           "assists": 0
         }
@@ -1209,35 +1329,35 @@
       "team": "Under 21",
       "number": 40,
       "age": "",
-      "goals": 4,
+      "goals": 0,
       "assists": 0,
-      "appearances": 13,
+      "appearances": 0,
       "avatar": "FC",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 10,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 3,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 13,
-          "goals": 4,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 13,
-          "goals": 4,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -1249,35 +1369,35 @@
       "team": "Under 21",
       "number": 41,
       "age": "",
-      "goals": 8,
+      "goals": 0,
       "assists": 0,
-      "appearances": 7,
+      "appearances": 0,
       "avatar": "JP",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 5,
-          "goals": 4,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
-          "goals": 4,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 7,
-          "goals": 8,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 7,
-          "goals": 8,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -1289,35 +1409,35 @@
       "team": "Under 21",
       "number": 42,
       "age": "",
-      "goals": 2,
+      "goals": 0,
       "assists": 0,
-      "appearances": 7,
+      "appearances": 0,
       "avatar": "AG",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 6,
-          "goals": 1,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 1,
-          "goals": 1,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 7,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 7,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -1329,35 +1449,35 @@
       "team": "Under 21",
       "number": 44,
       "age": "",
-      "goals": 2,
+      "goals": 0,
       "assists": 0,
-      "appearances": 10,
+      "appearances": 0,
       "avatar": "MA",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 9,
-          "goals": 1,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 1,
-          "goals": 1,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 10,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 10,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -1369,35 +1489,35 @@
       "team": "Under 21",
       "number": 45,
       "age": "",
-      "goals": 8,
+      "goals": 0,
       "assists": 0,
-      "appearances": 7,
+      "appearances": 0,
       "avatar": "DZ",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Laterale della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 5,
-          "goals": 4,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 2,
-          "goals": 4,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 7,
-          "goals": 8,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 7,
-          "goals": 8,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -1409,35 +1529,35 @@
       "team": "Under 21",
       "number": 46,
       "age": "",
-      "goals": 18,
+      "goals": 0,
       "assists": 0,
-      "appearances": 12,
+      "appearances": 0,
       "avatar": "MC",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Punta della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 9,
-          "goals": 9,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 3,
-          "goals": 9,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 12,
-          "goals": 18,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 12,
-          "goals": 18,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -1449,35 +1569,35 @@
       "team": "Under 21",
       "number": 47,
       "age": "",
-      "goals": 6,
+      "goals": 0,
       "assists": 0,
-      "appearances": 3,
+      "appearances": 0,
       "avatar": "DL",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Punta della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 2,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 1,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 3,
-          "goals": 6,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 3,
-          "goals": 6,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -1489,35 +1609,35 @@
       "team": "Under 21",
       "number": 48,
       "age": "",
-      "goals": 6,
+      "goals": 0,
       "assists": 0,
-      "appearances": 14,
+      "appearances": 0,
       "avatar": "LS",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Punta della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 11,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
-          "appearances": 3,
-          "goals": 3,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 14,
-          "goals": 6,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 14,
-          "goals": 6,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -1529,35 +1649,35 @@
       "team": "Under 21",
       "number": 49,
       "age": "",
-      "goals": 2,
+      "goals": 0,
       "assists": 0,
-      "appearances": 4,
+      "appearances": 0,
       "avatar": "L",
       "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
       "bio": "Punta della rosa ufficiale 2025/26.",
       "competitions": {
         "campionato": {
-          "appearances": 4,
-          "goals": 1,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         },
         "coppa": {
           "appearances": 0,
-          "goals": 1,
+          "goals": 0,
           "assists": 0
         },
         "totale": {
-          "appearances": 4,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       },
       "history": [
         {
-          "season": "2025/26",
+          "season": "2026/2027",
           "team": "Under 21",
-          "appearances": 4,
-          "goals": 2,
+          "appearances": 0,
+          "goals": 0,
           "assists": 0
         }
       ]
@@ -1565,1030 +1685,128 @@
   ],
   "fixtures": [
     {
-      "id": 1,
-      "date": "2026-04-17",
-      "time": "21:00",
-      "home": "Virtus Rovere",
-      "away": "CUS Trento",
-      "venue": "Trasferta",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "date": "2026-04-10",
-      "time": "21:00",
-      "home": "Besenello",
-      "away": "CUS Trento",
-      "venue": "Trasferta",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "date": "2026-03-27",
+      "id": 2601,
+      "season": "2026/2027",
+      "date": "2026-09-18",
       "time": "21:00",
       "home": "CUS Trento",
-      "away": "Cles",
+      "away": "Futsal Rovereto",
       "venue": "Sanbàpolis",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "date": "2026-03-20",
-      "time": "21:00",
-      "home": "Mezzolombardo",
-      "away": "CUS Trento",
-      "venue": "Trasferta",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "date": "2026-03-13",
-      "time": "21:00",
-      "home": "CUS Trento",
-      "away": "Gostivar",
-      "venue": "Sanbàpolis",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "date": "2026-03-06",
-      "time": "21:00",
-      "home": "Calcio Bleggio",
-      "away": "CUS Trento",
-      "venue": "Trasferta",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "date": "2026-02-27",
-      "time": "21:00",
-      "home": "CUS Trento",
-      "away": "Neugries",
-      "venue": "Sanbàpolis",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "date": "2026-02-20",
-      "time": "21:00",
-      "home": "Fraveggio",
-      "away": "CUS Trento",
-      "venue": "Trasferta",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "date": "2026-02-13",
-      "time": "21:00",
-      "home": "CUS Trento",
-      "away": "GNU Team Ala",
-      "venue": "Sanbàpolis",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 10,
-      "date": "2026-02-06",
-      "time": "21:00",
-      "home": "Imperial Grumo",
-      "away": "CUS Trento",
-      "venue": "Trasferta",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 11,
-      "date": "2026-01-30",
-      "time": "21:00",
-      "home": "CUS Trento",
-      "away": "Futsal Fiemme",
-      "venue": "Sanbàpolis",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 12,
-      "date": "2026-01-23",
-      "time": "21:00",
-      "home": "Fiavè",
-      "away": "CUS Trento",
-      "venue": "Trasferta",
-      "score": "10-2",
+      "score": "4-2",
       "status": "Terminata",
       "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
+      "summary": "Risultato demo per verificare automazioni statistiche stagione 2026/2027.",
       "lineup": {
         "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
+        "startingFive": [
+          2,
+          4,
+          9,
+          15,
+          17
+        ],
+        "bench": [
+          1,
+          5,
+          6,
+          10,
+          13,
+          16
+        ],
         "suspended": [],
         "injured": [],
-        "tacticalNotes": []
+        "tacticalNotes": [
+          "Dati demo stagione 2026/2027. Le statistiche sono calcolate automaticamente da convocati, marcatori e risultato."
+        ]
       },
-      "timeline": [
+      "scorerEvents": [
         {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
+          "playerId": 9,
+          "goals": 2
+        },
+        {
+          "playerId": 15,
+          "goals": 1
+        },
+        {
+          "playerId": 17,
+          "goals": 1
         }
       ]
     },
     {
-      "id": 13,
-      "date": "2026-01-16",
-      "time": "21:00",
-      "home": "CUS Trento",
-      "away": "Pineta",
-      "venue": "Sanbàpolis",
-      "score": "4-0",
-      "status": "Terminata",
+      "id": 2602,
+      "season": "2026/2027",
+      "date": "2026-10-02",
+      "time": "20:30",
+      "home": "Bubi Merano",
+      "away": "CUS Trento",
+      "venue": "Merano",
+      "score": "",
+      "status": "Da giocare",
       "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
+      "summary": "Prossima partita demo.",
       "lineup": {
         "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
+        "startingFive": [
+          1,
+          5,
+          7,
+          13,
+          16
+        ],
+        "bench": [
+          2,
+          4,
+          9,
+          15,
+          17
+        ],
         "suspended": [],
         "injured": [],
-        "tacticalNotes": []
+        "tacticalNotes": [
+          "Dati demo stagione 2026/2027. Le statistiche sono calcolate automaticamente da convocati, marcatori e risultato."
+        ]
       },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 14,
-      "date": "2026-01-09",
-      "time": "21:00",
-      "home": "CUS Trento",
-      "away": "Virtus Rovere",
-      "venue": "Sanbàpolis",
-      "score": "4-1",
-      "status": "Terminata",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
-    },
-    {
-      "id": 15,
-      "date": "2025-12-19",
-      "time": "21:00",
-      "home": "CUS Trento",
-      "away": "Besenello",
-      "venue": "Sanbàpolis",
-      "score": "4-3",
-      "status": "Terminata",
-      "competition": "Campionato",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "summary": "Calendario ufficiale importato dal vecchio sito CUS Trento C5.",
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [],
-        "bench": [],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": []
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Dettaglio gara da aggiornare."
-        }
-      ]
+      "scorerEvents": []
     }
   ],
   "u21Fixtures": [
     {
-      "id": 101,
-      "date": "2026-04-13",
-      "time": "19:30",
-      "home": "CUS Trento U21",
-      "away": "Levico U21",
-      "venue": "Sanbàpolis",
-      "score": "4-1",
-      "status": "Terminata",
-      "competition": "Under 21",
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [
-          "Paolo Bigonzi",
-          "Giulio Tognolli",
-          "Lorenzo Zantorello",
-          "Alex Gasparri",
-          "Matteo Guidetti"
-        ],
-        "bench": [
-          "Matteo Mateia",
-          "Riccardo Toniolli",
-          "Alessandro Betti",
-          "Samuele Buda",
-          "Federico Caldonazzi",
-          "Joao Pedro Caccia Neff",
-          "Afrian Gavril Danus"
-        ],
-        "absent": [
-          "Da definire"
-        ],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": [
-          "Pressione alta sui primi possessi.",
-          "Rotazioni rapide sui laterali."
-        ]
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Timeline aggiornabile dal CMS."
-        }
-      ],
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      }
-    },
-    {
-      "id": 102,
-      "date": "2026-04-20",
+      "id": 2801,
+      "season": "2026/2027",
+      "date": "2026-09-20",
       "time": "18:30",
-      "home": "Rovereto U21",
-      "away": "CUS Trento U21",
-      "venue": "Rovereto",
-      "score": "2-2",
-      "status": "Terminata",
-      "competition": "Under 21",
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [
-          "Paolo Bigonzi",
-          "Giulio Tognolli",
-          "Lorenzo Zantorello",
-          "Alex Gasparri",
-          "Matteo Guidetti"
-        ],
-        "bench": [
-          "Matteo Mateia",
-          "Riccardo Toniolli",
-          "Alessandro Betti",
-          "Samuele Buda",
-          "Federico Caldonazzi",
-          "Joao Pedro Caccia Neff",
-          "Afrian Gavril Danus"
-        ],
-        "absent": [
-          "Da definire"
-        ],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": [
-          "Pressione alta sui primi possessi.",
-          "Rotazioni rapide sui laterali."
-        ]
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Timeline aggiornabile dal CMS."
-        }
-      ],
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      }
-    },
-    {
-      "id": 103,
-      "date": "2026-05-27",
-      "time": "19:00",
-      "home": "CUS Trento U21",
-      "away": "Fiemme U21",
-      "venue": "Sanbàpolis",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Under 21",
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [
-          "Paolo Bigonzi",
-          "Giulio Tognolli",
-          "Lorenzo Zantorello",
-          "Alex Gasparri",
-          "Matteo Guidetti"
-        ],
-        "bench": [
-          "Matteo Mateia",
-          "Riccardo Toniolli",
-          "Alessandro Betti",
-          "Samuele Buda",
-          "Federico Caldonazzi",
-          "Joao Pedro Caccia Neff",
-          "Afrian Gavril Danus"
-        ],
-        "absent": [
-          "Da definire"
-        ],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": [
-          "Pressione alta sui primi possessi.",
-          "Rotazioni rapide sui laterali."
-        ]
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Timeline aggiornabile dal CMS."
-        }
-      ],
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      }
-    },
-    {
-      "id": 104,
-      "date": "2026-06-03",
-      "time": "19:00",
-      "home": "CUS Trento U21",
-      "away": "Bolzano U21",
-      "venue": "Sanbàpolis",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Under 21",
-      "summary": "Gara U21 demo.",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [
-          "Paolo Bigonzi",
-          "Giulio Tognolli",
-          "Lorenzo Zantorello",
-          "Alex Gasparri",
-          "Matteo Guidetti"
-        ],
-        "bench": [
-          "Matteo Mateia",
-          "Riccardo Toniolli",
-          "Alessandro Betti",
-          "Samuele Buda",
-          "Federico Caldonazzi",
-          "Joao Pedro Caccia Neff",
-          "Afrian Gavril Danus"
-        ],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": [
-          "Ritmo alto e pressione organizzata.",
-          "Sviluppo del gioco tramite laterali."
-        ]
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Evento demo aggiornabile da CMS."
-        }
-      ]
-    },
-    {
-      "id": 105,
-      "date": "2026-06-10",
-      "time": "18:30",
-      "home": "Levico U21",
-      "away": "CUS Trento U21",
-      "venue": "Levico",
-      "score": "1-4",
-      "status": "Terminata",
-      "competition": "Under 21",
-      "summary": "Vittoria U21 demo.",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [
-          "Paolo Bigonzi",
-          "Giulio Tognolli",
-          "Lorenzo Zantorello",
-          "Alex Gasparri",
-          "Matteo Guidetti"
-        ],
-        "bench": [
-          "Matteo Mateia",
-          "Riccardo Toniolli",
-          "Alessandro Betti",
-          "Samuele Buda",
-          "Federico Caldonazzi",
-          "Joao Pedro Caccia Neff",
-          "Afrian Gavril Danus"
-        ],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": [
-          "Ritmo alto e pressione organizzata.",
-          "Sviluppo del gioco tramite laterali."
-        ]
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Evento demo aggiornabile da CMS."
-        }
-      ]
-    },
-    {
-      "id": 106,
-      "date": "2026-06-17",
-      "time": "19:00",
       "home": "CUS Trento U21",
       "away": "Rovereto U21",
       "venue": "Sanbàpolis",
       "score": "",
       "status": "Da giocare",
-      "competition": "Under 21",
-      "summary": "Gara U21 demo.",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
+      "competition": "Campionato",
+      "summary": "Prima gara U21 2026/2027.",
       "lineup": {
         "module": "3-1",
         "startingFive": [
-          "Paolo Bigonzi",
-          "Giulio Tognolli",
-          "Lorenzo Zantorello",
-          "Alex Gasparri",
-          "Matteo Guidetti"
+          19,
+          22,
+          23,
+          25,
+          33
         ],
         "bench": [
-          "Matteo Mateia",
-          "Riccardo Toniolli",
-          "Alessandro Betti",
-          "Samuele Buda",
-          "Federico Caldonazzi",
-          "Joao Pedro Caccia Neff",
-          "Afrian Gavril Danus"
+          20,
+          21,
+          24,
+          26,
+          27
         ],
-        "absent": [],
         "suspended": [],
         "injured": [],
         "tacticalNotes": [
-          "Ritmo alto e pressione organizzata.",
-          "Sviluppo del gioco tramite laterali."
+          "Dati demo stagione 2026/2027. Le statistiche sono calcolate automaticamente da convocati, marcatori e risultato."
         ]
       },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Evento demo aggiornabile da CMS."
-        }
-      ]
-    },
-    {
-      "id": 107,
-      "date": "2026-06-24",
-      "time": "18:45",
-      "home": "Fiemme U21",
-      "away": "CUS Trento U21",
-      "venue": "Cavalese",
-      "score": "2-3",
-      "status": "Terminata",
-      "competition": "Under 21",
-      "summary": "Match U21 demo.",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [
-          "Paolo Bigonzi",
-          "Giulio Tognolli",
-          "Lorenzo Zantorello",
-          "Alex Gasparri",
-          "Matteo Guidetti"
-        ],
-        "bench": [
-          "Matteo Mateia",
-          "Riccardo Toniolli",
-          "Alessandro Betti",
-          "Samuele Buda",
-          "Federico Caldonazzi",
-          "Joao Pedro Caccia Neff",
-          "Afrian Gavril Danus"
-        ],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": [
-          "Ritmo alto e pressione organizzata.",
-          "Sviluppo del gioco tramite laterali."
-        ]
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Evento demo aggiornabile da CMS."
-        }
-      ]
-    },
-    {
-      "id": 108,
-      "date": "2026-07-01",
-      "time": "19:00",
-      "home": "CUS Trento U21",
-      "away": "Pergine U21",
-      "venue": "Sanbàpolis",
-      "score": "",
-      "status": "Da giocare",
-      "competition": "Under 21",
-      "summary": "Match U21 demo per paginazione.",
-      "mvp": "",
-      "scorers": [],
-      "yellow": [],
-      "red": [],
-      "stats": {
-        "shots": 0,
-        "shotsAgainst": 0,
-        "possession": 0,
-        "corners": 0
-      },
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [
-          "Paolo Bigonzi",
-          "Giulio Tognolli",
-          "Lorenzo Zantorello",
-          "Alex Gasparri",
-          "Matteo Guidetti"
-        ],
-        "bench": [
-          "Matteo Mateia",
-          "Riccardo Toniolli",
-          "Alessandro Betti",
-          "Samuele Buda",
-          "Federico Caldonazzi",
-          "Joao Pedro Caccia Neff",
-          "Afrian Gavril Danus"
-        ],
-        "absent": [],
-        "suspended": [],
-        "injured": [],
-        "tacticalNotes": [
-          "Ritmo alto e pressione organizzata.",
-          "Sviluppo del gioco tramite laterali."
-        ]
-      },
-      "timeline": [
-        {
-          "minute": "Pre",
-          "event": "info",
-          "team": "CUS Trento",
-          "text": "Evento demo aggiornabile da CMS."
-        }
-      ]
+      "scorerEvents": []
     }
   ],
   "standings": [
@@ -3017,52 +2235,96 @@
   ],
   "cup": {
     "title": "Coppa Trentino Alto Adige",
-    "edition": "2025/26",
-    "status": "Quarti di finale",
+    "edition": "2026/2027",
+    "status": "Fase iniziale",
     "fixtures": [
       {
-        "id": 201,
-        "round": "Ottavi",
-        "date": "2026-01-18",
-        "time": "20:30",
-        "home": "CUS Trento",
-        "away": "Levico Terme",
-        "venue": "Sanbàpolis",
-        "score": "5-2",
-        "status": "Terminata"
-      },
-      {
-        "id": 202,
-        "round": "Quarti",
-        "date": "2026-02-07",
+        "id": 2701,
+        "season": "2026/2027",
+        "round": "Primo turno",
+        "date": "2026-09-25",
         "time": "21:00",
         "home": "CUS Trento",
-        "away": "Futsal Atesina",
+        "away": "Futsal Bolzano",
         "venue": "Sanbàpolis",
-        "score": "",
-        "status": "Da giocare"
+        "score": "3-1",
+        "status": "Terminata",
+        "competition": "Coppa",
+        "summary": "Risultato demo Coppa per verificare distinzione Campionato/Coppa.",
+        "lineup": {
+          "module": "3-1",
+          "startingFive": [
+            1,
+            5,
+            7,
+            13,
+            16
+          ],
+          "bench": [
+            2,
+            4,
+            9,
+            15,
+            17
+          ],
+          "suspended": [],
+          "injured": [],
+          "tacticalNotes": [
+            "Dati demo stagione 2026/2027. Le statistiche sono calcolate automaticamente da convocati, marcatori e risultato."
+          ]
+        },
+        "scorerEvents": [
+          {
+            "playerId": 13,
+            "goals": 1
+          },
+          {
+            "playerId": 16,
+            "goals": 1
+          },
+          {
+            "playerId": 15,
+            "goals": 1
+          }
+        ]
       },
       {
-        "id": 203,
-        "round": "Semifinale",
-        "date": "2026-03-01",
-        "time": "20:30",
-        "home": "Vincente QF2",
-        "away": "Vincente QF3",
-        "venue": "Da definire",
+        "id": 2702,
+        "season": "2026/2027",
+        "round": "Secondo turno",
+        "date": "2026-10-16",
+        "time": "21:00",
+        "home": "Levico Terme",
+        "away": "CUS Trento",
+        "venue": "Levico",
         "score": "",
-        "status": "In attesa"
-      },
-      {
-        "id": 204,
-        "round": "Finale",
-        "date": "2026-03-21",
-        "time": "18:30",
-        "home": "Vincente SF1",
-        "away": "Vincente SF2",
-        "venue": "Da definire",
-        "score": "",
-        "status": "In attesa"
+        "status": "Da giocare",
+        "competition": "Coppa",
+        "summary": "Partita di coppa demo.",
+        "lineup": {
+          "module": "3-1",
+          "startingFive": [
+            2,
+            4,
+            9,
+            15,
+            17
+          ],
+          "bench": [
+            1,
+            5,
+            6,
+            10,
+            13,
+            16
+          ],
+          "suspended": [],
+          "injured": [],
+          "tacticalNotes": [
+            "Dati demo stagione 2026/2027. Le statistiche sono calcolate automaticamente da convocati, marcatori e risultato."
+          ]
+        },
+        "scorerEvents": []
       }
     ]
   },
@@ -3492,43 +2754,9 @@
   ],
   "u21Cup": {
     "title": "Coppa Under 21",
-    "edition": "2025/26",
-    "status": "Girone eliminatorio",
-    "fixtures": [
-      {
-        "id": 301,
-        "round": "Girone",
-        "date": "2026-01-12",
-        "time": "19:00",
-        "home": "CUS Trento U21",
-        "away": "Rovereto U21",
-        "venue": "Sanbàpolis",
-        "score": "3-1",
-        "status": "Terminata"
-      },
-      {
-        "id": 302,
-        "round": "Girone",
-        "date": "2026-02-02",
-        "time": "18:30",
-        "home": "Fiemme U21",
-        "away": "CUS Trento U21",
-        "venue": "Cavalese",
-        "score": "",
-        "status": "Da giocare"
-      },
-      {
-        "id": 303,
-        "round": "Semifinale",
-        "date": "2026-03-10",
-        "time": "19:30",
-        "home": "Da definire",
-        "away": "Da definire",
-        "venue": "Da definire",
-        "score": "",
-        "status": "In attesa"
-      }
-    ]
+    "edition": "2026/2027",
+    "status": "Da iniziare",
+    "fixtures": []
   },
   "galleryAlbums": [
     {
@@ -3797,5 +3025,10 @@
     "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
     "icon": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
     "name": "CUS Trento C5"
+  },
+  "automation": {
+    "enabled": true,
+    "currentSeason": "2026/2027",
+    "mode": "derive-from-terminated-fixtures"
   }
 }
