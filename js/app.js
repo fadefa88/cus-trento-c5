@@ -118,11 +118,58 @@ function ensurePlayerStatShape(p){
   }
   return out;
 }
+function titleCaseWords(v){
+  return String(v||"").toLowerCase().split(/\s+/).filter(Boolean).map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(" ");
+}
+function historicalPlayerName(name){
+  const raw=String(name||"").trim().replace(/\s+/g," ");
+  const key=normText(raw);
+  const aliases={
+    "lucacirasola":"Cirasola",
+    "cesarevettorazzi":"Vettorazzi",
+    "mattiavaia":"Vaia Mattia",
+    "marcovaia":"Vaia Marco",
+    "andreamartinelli":"Martinelli A.",
+    "eliamartinelli":"Martinelli E.",
+    "luccabaccarozeni":"Baccaro Zeni",
+    "lucabaccarozeni":"Baccaro Zeni",
+    "safisaifedine":"Safi",
+    "saifedinesafi":"Safi",
+    "luca frattolin":"Frattolin",
+    "lucafrattolin":"Frattolin",
+    "luca frattoln":"Frattolin",
+    "lucafrattoln":"Frattolin",
+    "filippobaietta":"Baietta",
+    "filippobernard":"Bernard",
+    "tommasoboldrini":"Boldrini",
+    "davidefilippi":"Filippi",
+    "alvisetesser":"Tesser",
+    "federicoaddobbati":"Addobbati",
+    "mattiacuman":"Cuman",
+    "federicomaciocia":"Maciocia",
+    "alessandrozanetti":"Zanetti",
+    "damianoloperfido":"Loperfido",
+    "diego conti":"Conti",
+    "diegoconti":"Conti"
+  };
+  if(aliases[key])return aliases[key];
+  const parts=raw.split(" ").filter(Boolean);
+  if(parts.length<=1)return titleCaseWords(raw);
+  const first=titleCaseWords(parts[0]);
+  const last=titleCaseWords(parts[parts.length-1]);
+  const lastKey=normText(last);
+  if(lastKey==="vaia")return `Vaia ${first}`;
+  if(lastKey==="martinelli")return `Martinelli ${first.charAt(0).toUpperCase()}.`;
+  if(key.includes("baccarozeni"))return "Baccaro Zeni";
+  if(key.includes("caccianeff"))return "Caccia Neff";
+  if(raw===raw.toUpperCase())return titleCaseWords(parts[0]);
+  return last;
+}
 function bumpRanking(rows, name, amount){
   if(!amount)return rows||[];
-  const out=deepClone(rows||[]);const key=normText(name);let found=false;
+  const out=deepClone(rows||[]);const display=historicalPlayerName(name);const key=normText(display);let found=false;
   out.forEach(r=>{const names=String(r.players||"").split(",").map(x=>normText(x.trim()));if(names.includes(key)||normText(r.players)===key){r.value=toNumber(r.value)+amount;found=true;}});
-  if(!found)out.push({players:name,value:amount});
+  if(!found)out.push({players:display,value:amount});
   out.sort((a,b)=>toNumber(b.value)-toNumber(a.value));return out;
 }
 function historicalWithCurrentSeason(hsRaw,current,season,playerIncrements){
@@ -151,8 +198,8 @@ function applyAutomations(baseData){
   const addMap=(map,id,val)=>map.set(String(id),(map.get(String(id))||0)+val);
   function processMatch(match,sourceType){
     if(!isTerminatedMatch(match))return;const comp=competitionKeyFromMatch(match,sourceType);const teamKey=isU21Match(match,sourceType)?"u21":"prima";const gfga=goalsForAgainst(match);const bucket=teamStats[teamKey][comp];bucket.played++;bucket.goalsFor+=gfga.forGoals;bucket.goalsAgainst+=gfga.againstGoals;if(gfga.forGoals>gfga.againstGoals)bucket.wins++;else if(gfga.forGoals===gfga.againstGoals)bucket.draws++;else bucket.losses++;
-    lineupIds(match,out.roster).forEach(id=>{const p=byId.get(String(id));if(!p)return;p.appearances=toNumber(p.appearances)+1;p.competitions[comp].appearances=toNumber(p.competitions[comp].appearances)+1;p.competitions.totale.appearances=toNumber(p.competitions.totale.appearances)+1;if(p.history&&p.history[0])p.history[0].appearances=toNumber(p.history[0].appearances)+1;addMap(appMap,id,1);});
-    scorerEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(!p)return;p.goals=toNumber(p.goals)+e.goals;p.competitions[comp].goals=toNumber(p.competitions[comp].goals)+e.goals;p.competitions.totale.goals=toNumber(p.competitions.totale.goals)+e.goals;if(p.history&&p.history[0])p.history[0].goals=toNumber(p.history[0].goals)+e.goals;addMap(goalMap,e.playerId,e.goals);});
+    lineupIds(match,out.roster).forEach(id=>{const p=byId.get(String(id));if(!p)return;p.appearances=toNumber(p.appearances)+1;p.competitions[comp].appearances=toNumber(p.competitions[comp].appearances)+1;p.competitions.totale.appearances=toNumber(p.competitions.totale.appearances)+1;if(p.history&&p.history[0])p.history[0].appearances=toNumber(p.history[0].appearances)+1;if(teamKey==="prima")addMap(appMap,id,1);});
+    scorerEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(!p)return;p.goals=toNumber(p.goals)+e.goals;p.competitions[comp].goals=toNumber(p.competitions[comp].goals)+e.goals;p.competitions.totale.goals=toNumber(p.competitions.totale.goals)+e.goals;if(p.history&&p.history[0])p.history[0].goals=toNumber(p.history[0].goals)+e.goals;if(teamKey==="prima")addMap(goalMap,e.playerId,e.goals);});
     const gkId=startingGoalkeeperId(match,out.roster);const gk=byId.get(String(gkId));if(gk&&gk.goalkeeperStats){const gs=gk.goalkeeperStats;[comp,"totale"].forEach(k=>{gs.byCompetition[k].appearances=toNumber(gs.byCompetition[k].appearances)+1;gs.byCompetition[k].minutes=toNumber(gs.byCompetition[k].minutes)+40;gs.byCompetition[k].goalsAgainst=toNumber(gs.byCompetition[k].goalsAgainst)+gfga.againstGoals;if(gfga.againstGoals===0)gs.byCompetition[k].cleanSheets=toNumber(gs.byCompetition[k].cleanSheets)+1;});gs.appearances=toNumber(gs.appearances)+1;gs.minutes=toNumber(gs.minutes)+40;gs.goalsAgainst=toNumber(gs.goalsAgainst)+gfga.againstGoals;if(gfga.againstGoals===0)gs.cleanSheets=toNumber(gs.cleanSheets)+1;gs.goalsAgainstAvg=gs.appearances?Number((gs.goalsAgainst/gs.appearances).toFixed(2)):0;}
   }
   (out.fixtures||[]).forEach(m=>processMatch(m,"campionato"));((out.cup||{}).fixtures||[]).forEach(m=>processMatch(m,"cup"));(out.u21Fixtures||[]).forEach(m=>processMatch(m,"u21"));((out.u21Cup||{}).fixtures||[]).forEach(m=>processMatch(m,"u21cup"));
