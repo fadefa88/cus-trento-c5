@@ -1,0 +1,64 @@
+name: Import SporTrentino CUS News
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_pages:
+        description: "Numero pagine elenco da scansionare"
+        required: false
+        default: "186"
+      sleep:
+        description: "Pausa tra richieste articolo, in secondi"
+        required: false
+        default: "0.35"
+  schedule:
+    # Ogni notte alle 03:30 UTC
+    - cron: "30 3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  import-news:
+    name: Import CUS Trento news from SporTrentino
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-sportrentino.txt
+
+      - name: Run importer
+        run: |
+          python scripts/import_sportrentino_news.py \
+            --max-pages "${{ github.event.inputs.max_pages || '186' }}" \
+            --sleep "${{ github.event.inputs.sleep || '0.35' }}"
+
+      - name: Validate JSON
+        run: |
+          python -m json.tool content/data.json > /tmp/data.validated.json
+
+      - name: Commit imported news
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          if git diff --quiet content/data.json; then
+            echo "No new SporTrentino news to commit."
+            exit 0
+          fi
+
+          git add content/data.json
+          git commit -m "Import SporTrentino CUS news"
+          git push
