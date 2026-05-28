@@ -1126,8 +1126,8 @@
       },
       "venue": "Sanbàpolis",
       "red": [],
-      "score": "4-3",
-      "status": "Da giocare",
+      "score": "12-3",
+      "status": "Terminata",
       "scorers": [],
       "yellow": [],
       "scorerEvents": [
@@ -1140,7 +1140,7 @@
           "playerId": "6"
         },
         {
-          "goals": 1,
+          "goals": 9,
           "playerId": "16"
         }
       ],
