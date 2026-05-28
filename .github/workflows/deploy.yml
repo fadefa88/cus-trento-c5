@@ -32,9 +32,17 @@ jobs:
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+
+          printf "%s\n" "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          sed -i 's/\r$//' ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+
+          touch ~/.ssh/known_hosts
+
+          echo "SSH host configured"
+          echo "SSH port configured"
+
+          ssh-keyscan -T 30 -p "$SSH_PORT" -t ed25519 "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
 
       - name: Verify remote connection
         env:
@@ -46,6 +54,8 @@ jobs:
           ssh \
             -i ~/.ssh/deploy_key \
             -p "$SSH_PORT" \
+            -o StrictHostKeyChecking=accept-new \
+            -o UserKnownHostsFile=~/.ssh/known_hosts \
             -o KexAlgorithms=curve25519-sha256@libssh.org \
             -o Ciphers=aes128-ctr \
             -o MACs=hmac-sha2-256 \
@@ -61,7 +71,7 @@ jobs:
           SSH_TARGET_DIR: ${{ secrets.SSH_TARGET_DIR }}
         run: |
           rsync -avz \
-            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o KexAlgorithms=curve25519-sha256@libssh.org -o Ciphers=aes128-ctr -o MACs=hmac-sha2-256 -o IPQoS=none" \
+            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=~/.ssh/known_hosts -o KexAlgorithms=curve25519-sha256@libssh.org -o Ciphers=aes128-ctr -o MACs=hmac-sha2-256 -o IPQoS=none" \
             --exclude ".git/" \
             --exclude ".github/" \
             --exclude "README.md" \
