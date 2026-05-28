@@ -165,12 +165,46 @@ function historicalPlayerName(name){
   if(raw===raw.toUpperCase())return titleCaseWords(parts[0]);
   return last;
 }
+function mergeTiedRankingMap(map){
+  const groups=new Map();
+  [...map.values()].forEach(item=>{
+    const value=toNumber(item.value);
+    if(!groups.has(value))groups.set(value,[]);
+    groups.get(value).push(item);
+  });
+  return [...groups.entries()]
+    .sort((a,b)=>toNumber(b[0])-toNumber(a[0]))
+    .map(([value,items])=>({
+      players:items.sort((a,b)=>a.order-b.order).map(x=>x.display).join(", "),
+      value:toNumber(value)
+    }));
+}
+function rankingToIndividualMap(rows){
+  const map=new Map();
+  let order=0;
+  (rows||[]).forEach(r=>{
+    const value=toNumber(r.value);
+    String(r.players||"").split(",").map(x=>x.trim()).filter(Boolean).forEach(name=>{
+      const display=titleCaseWords(name).replace(/\bA\.$/,"A.").replace(/\bE\.$/,"E.");
+      const key=normText(display);
+      if(!map.has(key))map.set(key,{key,display,value,order:order++});
+    });
+  });
+  return map;
+}
 function bumpRanking(rows, name, amount){
   if(!amount)return rows||[];
-  const out=deepClone(rows||[]);const display=historicalPlayerName(name);const key=normText(display);let found=false;
-  out.forEach(r=>{const names=String(r.players||"").split(",").map(x=>normText(x.trim()));if(names.includes(key)||normText(r.players)===key){r.value=toNumber(r.value)+amount;found=true;}});
-  if(!found)out.push({players:display,value:amount});
-  out.sort((a,b)=>toNumber(b.value)-toNumber(a.value));return out;
+  const map=rankingToIndividualMap(rows);
+  const display=historicalPlayerName(name);
+  const key=normText(display);
+  if(map.has(key)){
+    const item=map.get(key);
+    item.value=toNumber(item.value)+toNumber(amount);
+    item.display=display;
+  }else{
+    map.set(key,{key,display,value:toNumber(amount),order:map.size+10000});
+  }
+  return mergeTiedRankingMap(map);
 }
 function historicalWithCurrentSeason(hsRaw,current,season,playerIncrements){
   const hs=deepClone(hsRaw||{});if(!hs.summary)return hs;
