@@ -37,7 +37,7 @@
       "name": "Livia Copellino",
       "role": "Allenatrice",
       "team": "Under 21",
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/16-COPELLINO-LIVIA-ALLENATRICE-U21-scaled.jpg",
+      "photo": "/img/players/16-copellino-livia-allenatrice-u21.webp",
       "bio": "Allenatrice Under 21."
     },
     {
@@ -45,7 +45,7 @@
       "name": "Duilio Lazzarini",
       "role": "Team Manager",
       "team": "Under 21",
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/17-LAZZARINI-DUILIO-TEAM-MANAGER-U21-scaled.jpg",
+      "photo": "/img/players/17-lazzarini-duilio-team-manager-u21.webp",
       "bio": "Team Manager Under 21."
     },
     {
@@ -53,7 +53,7 @@
       "name": "Francesco Coppo",
       "role": "Dirigente",
       "team": "Under 21",
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/18-COPPO-FRANCESCO-DIRIGENTE-U21-scaled.jpg",
+      "photo": "/img/players/18-coppo-francesco-dirigente-u21.webp",
       "bio": "Dirigente Under 21."
     }
   ],
@@ -1166,7 +1166,7 @@
       "assists": 0,
       "name": "Paolo Bigonzi",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/1-bigonzi-paolo-portiere.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1228,7 +1228,7 @@
       "assists": 0,
       "name": "Giulio Tognolli",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/2-toniolli-giulio-portiere.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1290,7 +1290,7 @@
       "assists": 0,
       "name": "Lorenzo Zantorello",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/3-zarantonello-lorenzo-portiere.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1352,7 +1352,7 @@
       "assists": 0,
       "name": "Alex Gasperi",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/noplayer.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1384,7 +1384,7 @@
       "assists": 0,
       "name": "Matteo Guidetti",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/4-guidetti-matteo-centrale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1416,7 +1416,7 @@
       "assists": 0,
       "name": "Matteo Materia",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/5-materia-matteo-centrale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1448,7 +1448,7 @@
       "assists": 0,
       "name": "Riccardo Toniolli",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/6-toniolli-riccardo-centrale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1480,7 +1480,7 @@
       "assists": 0,
       "name": "Alessandro Betti",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/7-betti-alessandro-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1512,7 +1512,7 @@
       "assists": 0,
       "name": "Samuele Buda",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/noplayer.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1544,7 +1544,7 @@
       "assists": 0,
       "name": "Federico Caldonazzi",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/8-caldonazzi-federico-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1576,7 +1576,7 @@
       "assists": 0,
       "name": "Joao Pedro Caccia Neff",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/12-caccia-neff-joao-pedro-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1608,7 +1608,7 @@
       "assists": 0,
       "name": "Afrian Gavril Dancus",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/9-dancus-adrian-gavril-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1640,7 +1640,7 @@
       "assists": 0,
       "name": "Mirko Annunziato Tondo",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/10-tondo-mirko-a-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1672,7 +1672,7 @@
       "assists": 0,
       "name": "Daniele Zampedri",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/11-zampedri-daniele-laterale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1704,7 +1704,7 @@
       "assists": 0,
       "name": "Michele Ceola",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/13-ceola-michele-pivot.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1736,7 +1736,7 @@
       "assists": 0,
       "name": "Damiano Loperfido",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/14-loperfido-damiano-pivot.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1768,7 +1768,7 @@
       "assists": 0,
       "name": "Luca Scala",
       "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
+      "photo": "/img/players/15-scala-luca-universale.webp",
       "history": [],
       "competitions": {
         "campionato": {
@@ -1793,38 +1793,6 @@
       "team": "Under 21",
       "age": ""
     },
-    {
-      "goals": 0,
-      "bio": "Punta della rosa ufficiale 2026/27.",
-      "number": 49,
-      "assists": 0,
-      "name": "Lazzarini",
-      "appearances": 0,
-      "photo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/noplayer.jpg",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Punta",
-      "avatar": "L",
-      "id": 36,
-      "team": "Under 21",
-      "age": ""
-    }
   ],
   "tryoutFields": [
     "Nome e cognome",
