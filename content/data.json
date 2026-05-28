@@ -4047,11 +4047,15 @@
         "value": 137
       },
       {
+        "players": "Martinelli A.",
+        "value": 125
+      },
+      {
         "players": "Meta",
         "value": 120
       },
       {
-        "players": "Deola",
+        "players": "Deola, Vaia Mattia",
         "value": 119
       },
       {
@@ -4067,13 +4071,13 @@
         "value": 102
       },
       {
-        "players": "Martinelli A.",
-        "value": 101
-      },
-      {
         "players": "Osei",
         "value": 99
       },
+      {
+        "players": "Cirasola",
+        "value": 95
+      },      
       {
         "players": "Pieramati",
         "value": 94
@@ -4083,16 +4087,16 @@
         "value": 91
       },
       {
-        "players": "Vaia Mattia",
-        "value": 88
-      },
-      {
-        "players": "Cirasola",
-        "value": 70
+        "players": "Bernard",
+        "value": 77
       },
       {
         "players": "De Fassi, Zambanini",
         "value": 68
+      },
+      {
+        "players": "Vettorazzi",
+        "value": 65
       },
       {
         "players": "Donà",
@@ -4119,23 +4123,35 @@
         "value": 54
       },
       {
-        "players": "Audia",
+        "players": "Gurabardhi",
+        "value": 52
+      },
+      {
+        "players": "Audia, Boldrini",
         "value": 51
       },
       {
-        "players": "Rigon, Collini, Valentini, Bernard",
+        "players": "Rigon, Collini, Valentini",
         "value": 50
       },
       {
-        "players": "Gurabardhi",
+        "players": "Filippi",
+        "value": 48
+      },
+      {
+        "players": "Dusci, Cuman",
         "value": 46
+      },
+      {
+        "players": "Baietta",
+        "value": 45
       },
       {
         "players": "Stenico",
         "value": 44
       },
       {
-        "players": "Pace, Battista, Vettorazzi",
+        "players": "Pace, Battista, Frattolin",
         "value": 43
       },
       {
@@ -4147,7 +4163,7 @@
         "value": 41
       },
       {
-        "players": "Cinquanta",
+        "players": "Cinquanta, Vaia Marco",
         "value": 38
       },
       {
@@ -4155,7 +4171,7 @@
         "value": 37
       },
       {
-        "players": "Pan, Santoni, Frattolin, Guarnier",
+        "players": "Pan, Santoni, Guarnier",
         "value": 36
       },
       {
@@ -4179,7 +4195,7 @@
         "value": 31
       },
       {
-        "players": "Dusci, Vangelo",
+        "players": "Vangelo",
         "value": 30
       },
       {
@@ -4187,7 +4203,11 @@
         "value": 29
       },
       {
-        "players": "Ronzani, Boldrini, Bordieri, Mondin",
+        "players": "Zanetti",
+        "value": 28
+      },
+      {
+        "players": "Ronzani, Bordieri, Mondin, Safi",
         "value": 27
       },
       {
@@ -4195,15 +4215,11 @@
         "value": 26
       },
       {
-        "players": "Albiero, Baccaro Zeni, Cuman",
+        "players": "Albiero, Baccaro Zeni",
         "value": 25
       },
       {
-        "players": "Vaia Marco",
-        "value": 24
-      },
-      {
-        "players": "Bakaj, Staffa, Begnis Reddy, Angeli, Piccininno, Baietta",
+        "players": "Bakaj, Staffa, Begnis Reddy, Angeli, Piccininno",
         "value": 22
       },
       {
@@ -4215,11 +4231,11 @@
         "value": 20
       },
       {
-        "players": "Bellio, Filippi, Tesser",
+        "players": "Bellio, Tesser",
         "value": 19
       },
       {
-        "players": "Micheli, Furina",
+        "players": "Micheli, Furina, Mangiagli",
         "value": 18
       },
       {
@@ -4239,7 +4255,7 @@
         "value": 13
       },
       {
-        "players": "Seguel Obregon, Hasa, Sgroi, Safi",
+        "players": "Seguel Obregon, Hasa, Sgroi",
         "value": 11
       },
       {
@@ -4251,27 +4267,27 @@
         "value": 9
       },
       {
-        "players": "De Giacomo, D’Elia, Floriani, Rettore, Riccardi, Pina, Papa",
+        "players": "De Giacomo, Hakala, D’Elia, Floriani, Rettore, Riccardi, Pina, Papa, Gumirato",
         "value": 8
       },
       {
-        "players": "Piazza, Emiliani, Munaro, Caviola, Barruzza, Papalia, Curri, Fabbri, Loperfido",
+        "players": "Piazza, Emiliani, Munaro, Caviola, Barruzza, Papalia, Curri, Fabbri, Loperfido, Nigro, Pascu",
         "value": 7
       },
       {
-        "players": "Lanteri, Mangiagli",
+        "players": "Lanteri",
         "value": 6
       },
       {
-        "players": "Tenaglia, Cagnazzo, Zanetti, Bizzotto",
+        "players": "Tenaglia, Cagnazzo, Bizzotto",
         "value": 5
       },
       {
-        "players": "Bertelli, Lorenzetti",
+        "players": "Bertelli, Lorenzetti, Luchesa",
         "value": 4
       },
       {
-        "players": "Ruggeri, Brandolini, Calzolari, Baratta, Mahni, Lanfranconi, Cova",
+        "players": "Ruggeri, Materia, Brandolini, Calzolari, Baratta, Mahni, Lanfranconi, Cova",
         "value": 3
       },
       {
@@ -4279,7 +4295,7 @@
         "value": 2
       },
       {
-        "players": "Basso, Gaido, Toniolli, Bigonzi, Caldonazzi, Ceola, Bassa",
+        "players": "Basso, Franceschini, Gaido, Toniolli, Bigonzi, Caldonazzi, Ceola, Bassa",
         "value": 1
       }
     ]
