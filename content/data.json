@@ -1158,7 +1158,6 @@
       "team": "Prima squadra",
       "age": ""
     },
-    
     {
       "goals": 0,
       "bio": "Portiere della rosa ufficiale 2026/27.",
@@ -1792,7 +1791,7 @@
       "id": 35,
       "team": "Under 21",
       "age": ""
-    },
+    }
   ],
   "tryoutFields": [
     "Nome e cognome",
