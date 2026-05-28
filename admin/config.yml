@@ -35,6 +35,19 @@ collections:
       - label: Categoria
         name: category
         widget: string
+      - label: Tag
+        name: tags
+        widget: select
+        multiple: true
+        required: false
+        options:
+        - SporTrentino
+        - Prima squadra
+        - Under 21
+        - Club
+        - Matchday
+        - U21
+        - Analytics
       - label: Data
         name: date
         widget: datetime
