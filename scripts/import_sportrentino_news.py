@@ -62,13 +62,16 @@ LIST_SOURCES = [
     },
 ]
 
-# Keyword richieste: solo CUS Trento, C.U.S. Trento e CUS come parola autonoma.
-# Per "cus" usiamo una regex con confini parola: non matcha medoacus, accusa, focus, cuscino, ecc.
-KEYWORD_PATTERNS = [
+# Keyword richieste:
+# - Prima squadra: CUS Trento, C.U.S. Trento, oppure CUS come parola autonoma.
+#   Nota: se nel testo compare "CUS Trento U21", NON viene categorizzata Prima squadra.
+# - Under 21: SOLO "CUS Trento U21", case-insensitive.
+FIRST_TEAM_PATTERNS = [
     re.compile(r"\bcus\s+trento\b", re.I),
     re.compile(r"\bc\.\s*u\.\s*s\.\s+trento\b", re.I),
     re.compile(r"(?<![a-z0-9])cus(?![a-z0-9])", re.I),
 ]
+U21_PATTERN = re.compile(r"\bcus\s+trento\s+u21\b", re.I)
 
 
 MONTHS_IT = {
@@ -294,9 +297,26 @@ def parse_italian_date(text: str) -> str:
     return f"{year:04d}-{month}-{day:02d}"
 
 
-def contains_cus(text: str) -> bool:
+def classify_cus_article(text: str) -> str | None:
+    """
+    Ritorna:
+    - "Under 21" se trova SOLO la keyword U21 richiesta: CUS Trento U21
+    - "Prima squadra" se trova keyword CUS/CUS Trento ma NON CUS Trento U21
+    - None se non è rilevante per CUS Trento
+    """
     t = norm(text)
-    return any(pattern.search(t) for pattern in KEYWORD_PATTERNS)
+
+    if U21_PATTERN.search(t):
+        return "Under 21"
+
+    if any(pattern.search(t) for pattern in FIRST_TEAM_PATTERNS):
+        return "Prima squadra"
+
+    return None
+
+
+def contains_cus(text: str) -> bool:
+    return classify_cus_article(text) is not None
 
 
 def article_id_from_url(url: str) -> str:
@@ -440,7 +460,8 @@ def extract_article(session: requests.Session, link: ArticleLink) -> dict | None
     body, body_html, article_images = extract_article_content(soup, title)
 
     full_text = " ".join([title, *body])
-    if not contains_cus(full_text):
+    team_tag = classify_cus_article(full_text)
+    if not team_tag:
         return None
 
     image = article_images[0] if article_images else DEFAULT_IMAGE
@@ -454,7 +475,10 @@ def extract_article(session: requests.Session, link: ArticleLink) -> dict | None
     return {
         "id": imported_id,
         "title": title,
-        "category": category or "SporTrentino",
+        "category": "SporTrentino",
+        "tags": ["SporTrentino", team_tag],
+        "teamTag": team_tag,
+        "originalCategory": category or "SporTrentino",
         "date": date,
         "author": "SporTrentino.it",
         "image": image,
@@ -501,7 +525,7 @@ def main() -> int:
     existing_sources = {n.get("sourceUrl") for n in existing_news if n.get("sourceUrl")}
     existing_ids = {str(n.get("id")) for n in existing_news if n.get("id") is not None}
 
-    print("Importer version: v6 - pagination uses p=page and l=0", flush=True)
+    print("Importer version: v7 - tags Prima squadra/Under 21 + pagination p=page", flush=True)
 
     session = requests.Session()
     imported: list[dict] = []
