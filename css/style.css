@@ -143,3 +143,55 @@
   align-items:center;
 }
 
+/* Compact pagination with page jump */
+.smart-pager{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:22px;
+}
+.smart-pager .pill:disabled{
+  opacity:.42;
+  cursor:not-allowed;
+  pointer-events:none;
+}
+.page-jump{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fff;
+  padding:6px 10px;
+  color:#52525b;
+  font-weight:900;
+  font-size:13px;
+}
+.page-jump input{
+  width:76px;
+  border:0;
+  outline:0;
+  background:#f4f4f5;
+  border-radius:999px;
+  padding:8px 10px;
+  text-align:center;
+  font-weight:1000;
+  color:#09090b;
+}
+@media(max-width:720px){
+  .smart-pager{
+    justify-content:stretch;
+  }
+  .smart-pager .pill{
+    flex:1 1 auto;
+    text-align:center;
+  }
+  .page-jump{
+    width:100%;
+    justify-content:center;
+    order:-1;
+  }
+}
+
