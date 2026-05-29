@@ -3,5 +3,5 @@ setlocal
 echo Installing dependencies...
 python -m pip install -r requirements-sportrentino.txt
 echo Running importer...
-python scripts\import_sportrentino_news.py --sources all --max-pages 0 --sleep 0.35
+python scripts\import_sportrentino_news.py --sources all --max-pages 1 --sleep 0.35
 pause
