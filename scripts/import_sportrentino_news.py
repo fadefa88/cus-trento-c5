@@ -502,7 +502,7 @@ def sort_news(news: list[dict]) -> list[dict]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", default="content/data.json", help="Path to content/data.json")
-    parser.add_argument("--max-pages", type=int, default=1, help="Pages to scan. Default: 1, only the configured SporTrentino page 1.")
+    parser.add_argument("--max-pages", type=int, default=160, help="Pages to scan. Default: 1, only the configured SporTrentino page 1.")
     parser.add_argument("--sources", default="all", help="Comma-separated source names or 'all'.")
     parser.add_argument("--sleep", type=float, default=0.35, help="Seconds between article requests")
     parser.add_argument("--limit-articles", type=int, default=0, help="Optional hard limit for debug across all sources")
