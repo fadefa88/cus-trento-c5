@@ -3,7 +3,7 @@
 Importa automaticamente su content/data.json le notizie SporTrentino che parlano di CUS Trento C5.
 
 Cosa fa:
-- scansiona le tre pagine elenco configurate di calcioa5.sportrentino.it;
+- scansiona solo la pagina 1 configurata di calcioa5.sportrentino.it;
 - apre ogni articolo;
 - importa solo gli articoli in cui titolo o corpo contengono solo le keyword richieste: CUS Trento, C.U.S. Trento o CUS come parola autonoma;
 - aggiunge fonte e link originale;
@@ -40,25 +40,14 @@ BASE = "https://calcioa5.sportrentino.it/"
 LIST_URL = BASE + "notizie.asp"
 DEFAULT_IMAGE = "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png"
 
-# Fonti da scansionare. Lo script usa l'offset "l" a passi di 20.
-# - archivio generale calcio a 5: 186 pagine
-# - archivio filtro a=642: 38 pagine
-# - archivio filtro a=474: 26 pagine
+# Fonte unica da scansionare.
+# Richiesta: usare SOLO la pagina 1 del feed generale SporTrentino calcio a 5.
+# URL: https://calcioa5.sportrentino.it/notizie.asp?s=81&li=1&l=0&s2=81&p=1
 LIST_SOURCES = [
     {
-        "name": "calcio-a-5-generale",
-        "pages": 186,
+        "name": "calcio-a-5-pagina-1",
+        "pages": 1,
         "params": {"s": 81, "li": 1, "l": 0, "s2": 81, "p": 1},
-    },
-    {
-        "name": "archivio-a-642",
-        "pages": 36,
-        "params": {"s": 81, "li": 1, "l": 0, "a": 642, "p": 1},
-    },
-    {
-        "name": "archivio-a-474",
-        "pages": 26,
-        "params": {"s": 81, "s2": 81, "li": 1, "l": 0, "a": 474, "t": 0, "p": 1, "b": 1},
     },
 ]
 
@@ -513,7 +502,7 @@ def sort_news(news: list[dict]) -> list[dict]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", default="content/data.json", help="Path to content/data.json")
-    parser.add_argument("--max-pages", type=int, default=0, help="Debug: override pages per source. 0 = use configured source pages.")
+    parser.add_argument("--max-pages", type=int, default=1, help="Pages to scan. Default: 1, only the configured SporTrentino page 1.")
     parser.add_argument("--sources", default="all", help="Comma-separated source names or 'all'.")
     parser.add_argument("--sleep", type=float, default=0.35, help="Seconds between article requests")
     parser.add_argument("--limit-articles", type=int, default=0, help="Optional hard limit for debug across all sources")
@@ -525,7 +514,7 @@ def main() -> int:
     existing_sources = {n.get("sourceUrl") for n in existing_news if n.get("sourceUrl")}
     existing_ids = {str(n.get("id")) for n in existing_news if n.get("id") is not None}
 
-    print("Importer version: v7 - tags Prima squadra/Under 21 + pagination p=page", flush=True)
+    print("Importer version: v8 - ONLY SporTrentino page 1", flush=True)
 
     session = requests.Session()
     imported: list[dict] = []
@@ -542,29 +531,17 @@ def main() -> int:
 
     print("Selected sources:", flush=True)
     for src in selected_sources:
-        pages = args.max_pages if args.max_pages and args.max_pages > 0 else f"auto (fallback {src['pages']})"
-        print(f"  - {src['name']}: {pages} pages", flush=True)
+        pages = args.max_pages if args.max_pages and args.max_pages > 0 else int(src["pages"])
+        print(f"  - {src['name']}: {pages} page(s)", flush=True)
 
     for source in selected_sources:
         source_pages = args.max_pages if args.max_pages and args.max_pages > 0 else int(source["pages"])
-        first_page_html = None
-
-        if not args.max_pages or args.max_pages <= 0:
-            first_url = list_page_url(source, 1)
-            try:
-                first_page_html = fetch(session, first_url)
-                detected_pages = page_count_from_html(first_page_html, int(source["pages"]))
-                source_pages = detected_pages
-                print(f"[{source['name']}] detected pages: {source_pages}", flush=True)
-            except Exception as exc:
-                print(f"  WARN first page detection failed for {source['name']}: {exc}", flush=True)
-                source_pages = int(source["pages"])
 
         for page in range(1, source_pages + 1):
             url = list_page_url(source, page)
             print(f"[{source['name']}] [page {page}/{source_pages}] {url}", flush=True)
             try:
-                html_text = first_page_html if page == 1 and first_page_html is not None else fetch(session, url)
+                html_text = fetch(session, url)
             except Exception as exc:
                 print(f"  WARN list page failed: {exc}", flush=True)
                 continue
