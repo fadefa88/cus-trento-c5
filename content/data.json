@@ -1,0 +1,2916 @@
+{
+  "staff": [
+    {
+      "id": 1,
+      "name": "Emiliano Piazza",
+      "role": "Allenatore",
+      "team": "Prima squadra",
+      "photo": "/img/players/17-piazza-emiliano-allenatore-prima-squadra.webp",
+      "bio": "Allenatore Prima Squadra."
+    },
+    {
+      "id": 2,
+      "name": "Denis Gurabardhi",
+      "role": "Vice Allenatore",
+      "team": "Prima squadra",
+      "photo": "/img/players/18-gurabardhi-denis-vice-allenatore-prima-squadra.webp",
+      "bio": "Vice allenatore Prima Squadra."
+    },
+    {
+      "id": 3,
+      "name": "Diego Cadamuro",
+      "role": "Team Manager",
+      "team": "Prima squadra",
+      "photo": "/img/players/20-cadamuro-diego-team-manager-prima-squadra.webp",
+      "bio": "Team Manager Prima Squadra."
+    },
+    {
+      "id": 4,
+      "name": "Stanis Jukni",
+      "role": "Dirigente",
+      "team": "Prima squadra",
+      "photo": "/img/players/19-jukni-stanis-dirigente-prima-squadra.webp",
+      "bio": "Dirigente Prima Squadra."
+    },
+    {
+      "id": 5,
+      "name": "Livia Copellino",
+      "role": "Allenatrice",
+      "team": "Under 21",
+      "photo": "/img/players/16-copellino-livia-allenatrice-u21.webp",
+      "bio": "Allenatrice Under 21."
+    },
+    {
+      "id": 6,
+      "name": "Duilio Lazzarini",
+      "role": "Team Manager",
+      "team": "Under 21",
+      "photo": "/img/players/17-lazzarini-duilio-team-manager-u21.webp",
+      "bio": "Team Manager Under 21."
+    },
+    {
+      "id": 7,
+      "name": "Francesco Coppo",
+      "role": "Dirigente",
+      "team": "Under 21",
+      "photo": "/img/players/18-coppo-francesco-dirigente-u21.webp",
+      "bio": "Dirigente Under 21."
+    }
+  ],
+  "timeline": [
+    {
+      "date": "Set 2025",
+      "title": "Raduno e preparazione",
+      "text": "Inizio stagione con test atletici e integrazione giovani.",
+      "id": 9000
+    },
+    {
+      "date": "Ott 2025",
+      "title": "Esordio campionato",
+      "text": "Prima fase dedicata a ritmo gara e automatismi.",
+      "id": 9001
+    },
+    {
+      "date": "Gen 2026",
+      "title": "Coppa: passaggio agli ottavi",
+      "text": "Vittoria casalinga e accesso al turno successivo.",
+      "id": 9002
+    },
+    {
+      "date": "Apr 2026",
+      "title": "Sprint playoff",
+      "text": "Punti pesanti nelle ultime giornate di Serie C1.",
+      "id": 9003
+    },
+    {
+      "date": "Mag 2026",
+      "title": "Matchday decisivi",
+      "text": "Focus su playoff, community e crescita del progetto.",
+      "id": 9004
+    }
+  ],
+  "records": [
+    {
+      "id": 1,
+      "label": "Miglior marcatore storico",
+      "value": "Costantini",
+      "detail": "95 reti"
+    },
+    {
+      "id": 2,
+      "label": "Più presenze",
+      "value": "Costantini",
+      "detail": "155 presenze"
+    },
+    {
+      "id": 3,
+      "label": "Totale gare ufficiali",
+      "value": "398",
+      "detail": "170 vittorie, 54 pareggi, 174 sconfitte"
+    },
+    {
+      "id": 4,
+      "label": "Gol storici",
+      "value": "1.650",
+      "detail": "Media 4,14 gol a partita"
+    },
+    {
+      "id": 5,
+      "label": "Miglior differenza reti",
+      "value": "2016/2017",
+      "detail": "+83"
+    },
+    {
+      "id": 6,
+      "label": "Stagione più vincente",
+      "value": "2013/2014",
+      "detail": "23 vittorie"
+    },
+    {
+      "id": 7,
+      "label": "Totale vittorie storiche",
+      "value": "170",
+      "detail": "398 gare: 170 vittorie, 54 pareggi, 174 sconfitte"
+    },
+    {
+      "id": 8,
+      "label": "Media gol storica",
+      "value": "4.15",
+      "detail": "1650 gol fatti in 398 partite"
+    },
+    {
+      "id": 9,
+      "label": "Stagione più prolifica",
+      "value": "2018/2019",
+      "detail": "179 gol fatti"
+    },
+    {
+      "id": 10,
+      "label": "Miglior difesa stagionale",
+      "value": "2011/2012",
+      "detail": "161 gol subiti"
+    },
+    {
+      "id": 11,
+      "label": "Stagione con più vittorie",
+      "value": "2013/2014",
+      "detail": "23 vittorie"
+    }
+  ],
+  "standings": [
+    {
+      "g": 15,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24224logo.png",
+      "gs": 70,
+      "n": 0,
+      "pts": 33,
+      "p": 4,
+      "pos": 1,
+      "v": 11,
+      "team": "CALCIO BLEGGIO",
+      "gf": 99
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24259logo.png",
+      "gs": 36,
+      "n": 2,
+      "pts": 32,
+      "p": 0,
+      "pos": 2,
+      "v": 10,
+      "team": "OLTREFERSINA",
+      "gf": 102
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24251logo.png",
+      "gs": 29,
+      "n": 1,
+      "pts": 28,
+      "p": 2,
+      "pos": 3,
+      "v": 9,
+      "team": "ALTOPIANO PAGANELLA",
+      "gf": 73
+    },
+    {
+      "g": 15,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24220logo.png",
+      "gs": 75,
+      "n": 1,
+      "pts": 28,
+      "p": 5,
+      "pos": 4,
+      "v": 9,
+      "team": "MEZZOLOMBARDO",
+      "gf": 80
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24254logo.png",
+      "gs": 34,
+      "n": 2,
+      "pts": 26,
+      "p": 2,
+      "pos": 5,
+      "v": 8,
+      "team": "LEVICO TERME",
+      "gf": 57
+    },
+    {
+      "g": 15,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24223logo.png",
+      "gs": 78,
+      "n": 0,
+      "pts": 24,
+      "p": 7,
+      "pos": 6,
+      "v": 8,
+      "team": "GNU TEAM ALA",
+      "gf": 103
+    },
+    {
+      "g": 15,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24227logo.png",
+      "gs": 58,
+      "n": 0,
+      "pts": 24,
+      "p": 7,
+      "pos": 7,
+      "v": 8,
+      "team": "PINETA",
+      "gf": 63
+    },
+    {
+      "g": 15,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24222logo.png",
+      "gs": 54,
+      "n": 1,
+      "pts": 22,
+      "p": 7,
+      "pos": 8,
+      "v": 7,
+      "team": "NEUGRIES",
+      "gf": 51
+    },
+    {
+      "g": 15,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24218logo.png",
+      "gs": 67,
+      "n": 3,
+      "pts": 21,
+      "p": 6,
+      "pos": 9,
+      "v": 6,
+      "team": "CLES",
+      "gf": 71
+    },
+    {
+      "g": 15,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24221logo.png",
+      "gs": 103,
+      "n": 0,
+      "pts": 21,
+      "p": 8,
+      "pos": 10,
+      "v": 7,
+      "team": "FRAVEGGIO",
+      "gf": 89
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24252logo.png",
+      "gs": 61,
+      "n": 1,
+      "pts": 19,
+      "p": 5,
+      "pos": 11,
+      "v": 6,
+      "team": "PIEDICASTELLO",
+      "gf": 60
+    },
+    {
+      "g": 15,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24217logo.png",
+      "gs": 93,
+      "n": 1,
+      "pts": 19,
+      "p": 8,
+      "pos": 12,
+      "v": 6,
+      "team": "FIAVÈ 1945",
+      "gf": 88
+    },
+    {
+      "g": 15,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24215logo.png",
+      "gs": 69,
+      "n": 1,
+      "pts": 19,
+      "p": 8,
+      "pos": 13,
+      "v": 6,
+      "team": "BESENELLO",
+      "gf": 62
+    },
+    {
+      "g": 15,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24225logo.png",
+      "gs": 68,
+      "n": 0,
+      "pts": 18,
+      "p": 9,
+      "pos": 14,
+      "v": 6,
+      "team": "IMPERIAL GRUMO",
+      "gf": 63
+    },
+    {
+      "g": 15,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24216logo.png",
+      "gs": 58,
+      "n": 0,
+      "pts": 18,
+      "p": 9,
+      "pos": 15,
+      "v": 6,
+      "team": "VIRTUS ROVERE",
+      "gf": 48
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24258logo.png",
+      "gs": 78,
+      "n": 2,
+      "pts": 17,
+      "p": 5,
+      "pos": 16,
+      "v": 5,
+      "team": "FUTSAL PINÈ",
+      "gf": 47
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24260logo.png",
+      "gs": 56,
+      "n": 1,
+      "pts": 16,
+      "p": 6,
+      "pos": 17,
+      "v": 5,
+      "team": "TNT MONTE PELLER",
+      "gf": 57
+    },
+    {
+      "g": 11,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24253logo.png",
+      "gs": 51,
+      "n": 1,
+      "pts": 16,
+      "p": 5,
+      "pos": 18,
+      "v": 5,
+      "team": "BORGO",
+      "gf": 40
+    },
+    {
+      "g": 14,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24219logo.png",
+      "gs": 59,
+      "n": 3,
+      "pts": 15,
+      "p": 7,
+      "pos": 19,
+      "v": 4,
+      "team": "FUTSAL FIEMME",
+      "gf": 46
+    },
+    {
+      "g": 14,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24226logo.png",
+      "gs": 101,
+      "n": 0,
+      "pts": 15,
+      "p": 9,
+      "pos": 20,
+      "v": 5,
+      "team": "GOSTIVAR",
+      "gf": 76
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24257logo.png",
+      "gs": 62,
+      "n": 2,
+      "pts": 14,
+      "p": 6,
+      "pos": 21,
+      "v": 4,
+      "team": "LEGION OF DOOM",
+      "gf": 54
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24255logo.png",
+      "gs": 64,
+      "n": 2,
+      "pts": 11,
+      "p": 7,
+      "pos": 22,
+      "v": 3,
+      "team": "DX GENERATION",
+      "gf": 54
+    },
+    {
+      "g": 11,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+      "gs": 54,
+      "n": 2,
+      "pts": 8,
+      "p": 7,
+      "pos": 23,
+      "v": 2,
+      "team": "CUS TRENTO",
+      "gf": 38
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24256logo.png",
+      "gs": 85,
+      "n": 0,
+      "pts": 0,
+      "p": 12,
+      "pos": 24,
+      "v": 0,
+      "team": "REAL FRADEO",
+      "gf": 28
+    }
+  ],
+  "sponsorPackages": [
+    {
+      "id": 1,
+      "name": "Main Partner",
+      "price": "Da definire",
+      "visibility": [
+        "Logo maglia gara",
+        "Hero sponsor in home",
+        "Post social dedicati",
+        "Presenza su backdrop interviste"
+      ],
+      "cta": "Richiedi proposta Main Partner"
+    },
+    {
+      "id": 2,
+      "name": "Gold Sponsor",
+      "price": "Da definire",
+      "visibility": [
+        "Logo in pagina sponsor",
+        "Citazione nei matchday post",
+        "Banner digitale",
+        "Inviti eventi club"
+      ],
+      "cta": "Richiedi pacchetto Gold"
+    },
+    {
+      "id": 3,
+      "name": "Silver Sponsor",
+      "price": "Da definire",
+      "visibility": [
+        "Logo sito",
+        "Presenza gallery partner",
+        "Citazione periodica social"
+      ],
+      "cta": "Richiedi pacchetto Silver"
+    },
+    {
+      "id": 4,
+      "name": "Community Partner",
+      "price": "Da definire",
+      "visibility": [
+        "Presenza sito",
+        "Attività territoriali",
+        "Iniziative studenti"
+      ],
+      "cta": "Diventa partner community"
+    }
+  ],
+  "site": {
+    "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+    "icon": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+    "name": "CUS Trento C5"
+  },
+  "u21Cup": {
+    "title": "Coppa Under 21",
+    "edition": "2026/27",
+    "status": "Girone eliminatorio",
+    "fixtures": []
+  },
+  "fixtures": [
+    {
+      "summary": "ciao sono il sommario",
+      "time": "21:00",
+      "away": "Besenello",
+      "date": "2026-05-28",
+      "lineup": {
+        "module": "3-1"
+      },
+      "venue": "Sanbàpolis",
+      "score": "3-2",
+      "status": "Da giocare",
+      "id": 1,
+      "home": "CUS Trento",
+      "competition": "Campionato"
+    }
+  ],
+  "roster": [
+    {
+      "goals": 0,
+      "bio": "Portiere della rosa ufficiale 2026/27.",
+      "number": 1,
+      "assists": 0,
+      "name": "Safi Saif Edine",
+      "appearances": 0,
+      "photo": "/img/players/3-safi-saif-edine-portiere.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Portiere",
+      "avatar": "SS",
+      "goalkeeperStats": {
+        "penaltiesSaved": 0,
+        "goalsAgainst": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        },
+        "appearances": 0,
+        "goalsAgainstAvg": 0,
+        "saves": 0,
+        "cleanSheets": 0,
+        "saveRate": 0,
+        "minutes": 0
+      },
+      "id": 1,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Portiere della rosa ufficiale 2026/27.",
+      "number": 12,
+      "assists": 0,
+      "name": "Lucca Baccaro Zeni",
+      "appearances": 0,
+      "photo": "/img/players/1-baccaro-zeni-lucca-portiere.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Portiere",
+      "avatar": "LB",
+      "goalkeeperStats": {
+        "penaltiesSaved": 0,
+        "goalsAgainst": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        },
+        "appearances": 0,
+        "goalsAgainstAvg": 0,
+        "saves": 0,
+        "cleanSheets": 0,
+        "saveRate": 0,
+        "minutes": 0
+      },
+      "id": 2,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Portiere della rosa ufficiale 2026/27.",
+      "number": 2,
+      "assists": 0,
+      "name": "Filippo Bernard",
+      "appearances": 0,
+      "photo": "/img/players/2-bernard-filippo-portiere.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Portiere",
+      "avatar": "FB",
+      "goalkeeperStats": {
+        "penaltiesSaved": 0,
+        "goalsAgainst": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        },
+        "appearances": 0,
+        "goalsAgainstAvg": 0,
+        "saves": 0,
+        "cleanSheets": 0,
+        "saveRate": 0,
+        "minutes": 0
+      },
+      "id": 3,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Centrale della rosa ufficiale 2026/27.",
+      "number": 5,
+      "assists": 0,
+      "name": "Tommaso Boldrini",
+      "appearances": 0,
+      "photo": "/img/players/4-boldrini-tommaso-centrale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Centrale",
+      "avatar": "TB",
+      "id": 4,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Centrale della rosa ufficiale 2026/27.",
+      "number": 6,
+      "assists": 0,
+      "name": "Davide Filippi",
+      "appearances": 0,
+      "photo": "/img/players/10-filippi-davide-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Centrale",
+      "avatar": "DF",
+      "id": 5,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Centrale della rosa ufficiale 2026/27.",
+      "number": 7,
+      "assists": 0,
+      "name": "Alvise Tesser",
+      "appearances": 0,
+      "photo": "/img/players/5-tesser-alvise-centrale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Centrale",
+      "avatar": "AT",
+      "id": 6,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 8,
+      "assists": 0,
+      "name": "Federico Addobbati",
+      "appearances": 0,
+      "photo": "/img/players/noplayer.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "FA",
+      "id": 7,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 9,
+      "assists": 0,
+      "name": "Filippo Baietta",
+      "appearances": 0,
+      "photo": "/img/players/6-baietta-filippo-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "FB",
+      "id": 8,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 10,
+      "assists": 0,
+      "name": "Luca Cirasola",
+      "appearances": 0,
+      "photo": "/img/players/7-cirasola-luca-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "LC",
+      "id": 9,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 27,
+      "assists": 0,
+      "name": "Mattia Cuman",
+      "appearances": 0,
+      "photo": "/img/players/8-cuman-mattia-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "MC",
+      "id": 10,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 23,
+      "assists": 0,
+      "name": "Luca Frattolin",
+      "appearances": 0,
+      "photo": "/img/players/noplayer.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "LF",
+      "id": 11,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 17,
+      "assists": 0,
+      "name": "Federico Maciocia",
+      "appearances": 0,
+      "photo": "/img/players/11-maciocia-federico-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "FM",
+      "id": 12,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 11,
+      "assists": 0,
+      "name": "Mattia Vaia",
+      "appearances": 0,
+      "photo": "/img/players/12-vaia-mattia-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "MV",
+      "id": 13,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 19,
+      "assists": 0,
+      "name": "Alessandro Zanetti",
+      "appearances": 0,
+      "photo": "/img/players/13-zanetti-alessandro-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "AZ",
+      "id": 14,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Punta della rosa ufficiale 2026/27.",
+      "number": 20,
+      "assists": 0,
+      "name": "Diego Conti",
+      "appearances": 0,
+      "photo": "/img/players/14-conti-diego-pivot.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Punta",
+      "avatar": "DC",
+      "id": 15,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Punta della rosa ufficiale 2026/27.",
+      "number": 21,
+      "assists": 0,
+      "name": "Andrea Martinelli",
+      "appearances": 0,
+      "photo": "/img/players/16-martinelli-andrea-universale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Punta",
+      "avatar": "AM",
+      "id": 16,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Punta della rosa ufficiale 2026/27.",
+      "number": 22,
+      "assists": 0,
+      "name": "Cesare Vettorazzi",
+      "appearances": 0,
+      "photo": "/img/players/15-vettorazzi-cesare-pivot.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Punta",
+      "avatar": "CV",
+      "id": 17,
+      "team": "Prima squadra",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Portiere della rosa ufficiale 2026/27.",
+      "number": 30,
+      "assists": 0,
+      "name": "Paolo Bigonzi",
+      "appearances": 0,
+      "photo": "/img/players/1-bigonzi-paolo-portiere.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Portiere",
+      "avatar": "PB",
+      "goalkeeperStats": {
+        "penaltiesSaved": 0,
+        "goalsAgainst": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        },
+        "appearances": 0,
+        "goalsAgainstAvg": 0,
+        "saves": 0,
+        "cleanSheets": 0,
+        "saveRate": 0,
+        "minutes": 0
+      },
+      "id": 19,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Portiere della rosa ufficiale 2026/27.",
+      "number": 31,
+      "assists": 0,
+      "name": "Giulio Tognolli",
+      "appearances": 0,
+      "photo": "/img/players/2-toniolli-giulio-portiere.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Portiere",
+      "avatar": "GT",
+      "goalkeeperStats": {
+        "penaltiesSaved": 0,
+        "goalsAgainst": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        },
+        "appearances": 0,
+        "goalsAgainstAvg": 0,
+        "saves": 0,
+        "cleanSheets": 0,
+        "saveRate": 0,
+        "minutes": 0
+      },
+      "id": 20,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Portiere della rosa ufficiale 2026/27.",
+      "number": 32,
+      "assists": 0,
+      "name": "Lorenzo Zantorello",
+      "appearances": 0,
+      "photo": "/img/players/3-zarantonello-lorenzo-portiere.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Portiere",
+      "avatar": "LZ",
+      "goalkeeperStats": {
+        "penaltiesSaved": 0,
+        "goalsAgainst": 0,
+        "byCompetition": {
+          "campionato": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "coppa": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          },
+          "totale": {
+            "appearances": 0,
+            "minutes": 0,
+            "cleanSheets": 0,
+            "goalsAgainst": 0
+          }
+        },
+        "appearances": 0,
+        "goalsAgainstAvg": 0,
+        "saves": 0,
+        "cleanSheets": 0,
+        "saveRate": 0,
+        "minutes": 0
+      },
+      "id": 21,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Centrale della rosa ufficiale 2026/27.",
+      "number": 34,
+      "assists": 0,
+      "name": "Alex Gasperi",
+      "appearances": 0,
+      "photo": "/img/players/noplayer.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Centrale",
+      "avatar": "AG",
+      "id": 22,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Centrale della rosa ufficiale 2026/27.",
+      "number": 35,
+      "assists": 0,
+      "name": "Matteo Guidetti",
+      "appearances": 0,
+      "photo": "/img/players/4-guidetti-matteo-centrale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Centrale",
+      "avatar": "MG",
+      "id": 23,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Centrale della rosa ufficiale 2026/27.",
+      "number": 36,
+      "assists": 0,
+      "name": "Matteo Materia",
+      "appearances": 0,
+      "photo": "/img/players/5-materia-matteo-centrale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Centrale",
+      "avatar": "MM",
+      "id": 24,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Centrale della rosa ufficiale 2026/27.",
+      "number": 37,
+      "assists": 0,
+      "name": "Riccardo Toniolli",
+      "appearances": 0,
+      "photo": "/img/players/6-toniolli-riccardo-centrale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Centrale",
+      "avatar": "RT",
+      "id": 25,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 38,
+      "assists": 0,
+      "name": "Alessandro Betti",
+      "appearances": 0,
+      "photo": "/img/players/7-betti-alessandro-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "AB",
+      "id": 26,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 39,
+      "assists": 0,
+      "name": "Samuele Buda",
+      "appearances": 0,
+      "photo": "/img/players/noplayer.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "SB",
+      "id": 27,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 40,
+      "assists": 0,
+      "name": "Federico Caldonazzi",
+      "appearances": 0,
+      "photo": "/img/players/8-caldonazzi-federico-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "FC",
+      "id": 28,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 41,
+      "assists": 0,
+      "name": "Joao Pedro Caccia Neff",
+      "appearances": 0,
+      "photo": "/img/players/12-caccia-neff-joao-pedro-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "JP",
+      "id": 29,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 42,
+      "assists": 0,
+      "name": "Afrian Gavril Dancus",
+      "appearances": 0,
+      "photo": "/img/players/9-dancus-adrian-gavril-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "AG",
+      "id": 30,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 44,
+      "assists": 0,
+      "name": "Mirko Annunziato Tondo",
+      "appearances": 0,
+      "photo": "/img/players/10-tondo-mirko-a-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "MA",
+      "id": 31,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Laterale della rosa ufficiale 2026/27.",
+      "number": 45,
+      "assists": 0,
+      "name": "Daniele Zampedri",
+      "appearances": 0,
+      "photo": "/img/players/11-zampedri-daniele-laterale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Laterale",
+      "avatar": "DZ",
+      "id": 32,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Punta della rosa ufficiale 2026/27.",
+      "number": 46,
+      "assists": 0,
+      "name": "Michele Ceola",
+      "appearances": 0,
+      "photo": "/img/players/13-ceola-michele-pivot.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Punta",
+      "avatar": "MC",
+      "id": 33,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Punta della rosa ufficiale 2026/27.",
+      "number": 47,
+      "assists": 0,
+      "name": "Damiano Loperfido",
+      "appearances": 0,
+      "photo": "/img/players/14-loperfido-damiano-pivot.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Punta",
+      "avatar": "DL",
+      "id": 34,
+      "team": "Under 21",
+      "age": ""
+    },
+    {
+      "goals": 0,
+      "bio": "Punta della rosa ufficiale 2026/27.",
+      "number": 48,
+      "assists": 0,
+      "name": "Luca Scala",
+      "appearances": 0,
+      "photo": "/img/players/15-scala-luca-universale.webp",
+      "history": [],
+      "competitions": {
+        "campionato": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "coppa": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        },
+        "totale": {
+          "appearances": 0,
+          "goals": 0,
+          "assists": 0
+        }
+      },
+      "role": "Punta",
+      "avatar": "LS",
+      "id": 35,
+      "team": "Under 21",
+      "age": ""
+    }
+  ],
+  "tryoutFields": [
+    "Nome e cognome",
+    "Età",
+    "Ruolo",
+    "Università / corso",
+    "Esperienza futsal/calcio",
+    "Telefono",
+    "Email",
+    "Note"
+  ],
+  "social": [
+    {
+      "network": "Instagram",
+      "handle": "@custrentoc5",
+      "text": "Matchday vibes da Sanbàpolis. La tribuna conta.",
+      "date": "2026-05-21",
+      "id": 11000
+    },
+    {
+      "network": "TikTok",
+      "handle": "@custrentoc5",
+      "text": "Skill check: tunnel, suola e finalizzazione sottoporta.",
+      "date": "2026-05-19",
+      "id": 11001
+    },
+    {
+      "network": "YouTube",
+      "handle": "CUS Trento C5",
+      "text": "Online gli highlights dell’ultima vittoria esterna.",
+      "date": "2026-05-18",
+      "id": 11002
+    }
+  ],
+  "seasons": [
+    {
+      "season": "2025/2026",
+      "competition": "Storico CUS Trento C5",
+      "position": "-",
+      "record": "11V 0N 6P",
+      "gf": 81,
+      "gs": 67,
+      "note": "Giocate 17, differenza reti +14."
+    },
+    {
+      "season": "2024/2025",
+      "competition": "Storico CUS Trento C5",
+      "position": "-",
+      "record": "8V 2N 17P",
+      "gf": 79,
+      "gs": 143,
+      "note": "Giocate 27, differenza reti -64."
+    },
+    {
+      "season": "2023/2024",
+      "competition": "Storico CUS Trento C5",
+      "position": "-",
+      "record": "7V 1N 21P",
+      "gf": 97,
+      "gs": 150,
+      "note": "Giocate 29, differenza reti -53."
+    },
+    {
+      "season": "2022/2023",
+      "competition": "Storico CUS Trento C5",
+      "position": "-",
+      "record": "8V 2N 17P",
+      "gf": 118,
+      "gs": 150,
+      "note": "Giocate 27, differenza reti -32."
+    },
+    {
+      "season": "2021/2022",
+      "competition": "Storico CUS Trento C5",
+      "position": "-",
+      "record": "10V 4N 6P",
+      "gf": 69,
+      "gs": 71,
+      "note": "Giocate 20, differenza reti -2."
+    },
+    {
+      "season": "2020/2021",
+      "competition": "Storico CUS Trento C5",
+      "position": "-",
+      "record": "0V 2N 1P",
+      "gf": 4,
+      "gs": 5,
+      "note": "Giocate 3, differenza reti -1."
+    },
+    {
+      "season": "2019/2020",
+      "competition": "Storico CUS Trento C5",
+      "position": "-",
+      "record": "5V 3N 15P",
+      "gf": 58,
+      "gs": 82,
+      "note": "Giocate 23, differenza reti -24."
+    },
+    {
+      "season": "2018/2019",
+      "competition": "Storico CUS Trento C5",
+      "position": "-",
+      "record": "19V 9N 9P",
+      "gf": 179,
+      "gs": 138,
+      "note": "Giocate 37, differenza reti +41."
+    }
+  ],
+  "gallery": [
+    {
+      "id": 1,
+      "title": "Ingresso in campo a Sanbàpolis",
+      "date": "2026-05-24",
+      "category": "Matchday",
+      "image": "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80"
+    },
+    {
+      "id": 2,
+      "title": "Team huddle pre-partita",
+      "date": "2026-05-18",
+      "category": "Spogliatoio",
+      "image": "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80"
+    },
+    {
+      "id": 3,
+      "title": "Esultanza sotto la tribuna",
+      "date": "2026-04-17",
+      "category": "Goal",
+      "image": "https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1400&q=80"
+    },
+    {
+      "id": 4,
+      "title": "Allenamento tecnico U21",
+      "date": "2026-04-12",
+      "category": "Training",
+      "image": "https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80"
+    },
+    {
+      "id": 5,
+      "title": "Dettaglio scarpe e parquet",
+      "date": "2026-03-28",
+      "category": "Detail",
+      "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1400&q=80"
+    },
+    {
+      "id": 6,
+      "title": "Foto squadra post vittoria",
+      "date": "2026-03-14",
+      "category": "Team",
+      "image": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80"
+    }
+  ],
+  "u21Standings": [
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24259logo.png",
+      "gs": 36,
+      "n": 2,
+      "pts": 32,
+      "p": 0,
+      "pos": 1,
+      "v": 10,
+      "team": "OLTREFERSINA",
+      "gf": 102
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24251logo.png",
+      "gs": 29,
+      "n": 1,
+      "pts": 28,
+      "p": 2,
+      "pos": 2,
+      "v": 9,
+      "team": "ALTOPIANO PAGANELLA",
+      "gf": 73
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24254logo.png",
+      "gs": 34,
+      "n": 2,
+      "pts": 26,
+      "p": 2,
+      "pos": 3,
+      "v": 8,
+      "team": "LEVICO TERME",
+      "gf": 57
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24252logo.png",
+      "gs": 61,
+      "n": 1,
+      "pts": 19,
+      "p": 5,
+      "pos": 4,
+      "v": 6,
+      "team": "PIEDICASTELLO",
+      "gf": 60
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24258logo.png",
+      "gs": 78,
+      "n": 2,
+      "pts": 17,
+      "p": 5,
+      "pos": 5,
+      "v": 5,
+      "team": "FUTSAL PINÈ",
+      "gf": 47
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24260logo.png",
+      "gs": 56,
+      "n": 1,
+      "pts": 16,
+      "p": 6,
+      "pos": 6,
+      "v": 5,
+      "team": "TNT MONTE PELLER",
+      "gf": 57
+    },
+    {
+      "g": 11,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24253logo.png",
+      "gs": 51,
+      "n": 1,
+      "pts": 16,
+      "p": 5,
+      "pos": 7,
+      "v": 5,
+      "team": "BORGO",
+      "gf": 40
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24257logo.png",
+      "gs": 62,
+      "n": 2,
+      "pts": 14,
+      "p": 6,
+      "pos": 8,
+      "v": 4,
+      "team": "LEGION OF DOOM",
+      "gf": 54
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24255logo.png",
+      "gs": 64,
+      "n": 2,
+      "pts": 11,
+      "p": 7,
+      "pos": 9,
+      "v": 3,
+      "team": "DX GENERATION",
+      "gf": 54
+    },
+    {
+      "g": 11,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+      "gs": 54,
+      "n": 2,
+      "pts": 8,
+      "p": 7,
+      "pos": 10,
+      "v": 2,
+      "team": "CUS TRENTO",
+      "gf": 38
+    },
+    {
+      "g": 12,
+      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/24256logo.png",
+      "gs": 85,
+      "n": 0,
+      "pts": 0,
+      "p": 12,
+      "pos": 11,
+      "v": 0,
+      "team": "REAL FRADEO",
+      "gf": 28
+    }
+  ],
+  "news": [
+  ],
+  "historicalStats": {
+    "summary": {
+      "goalsAgainst": 1725,
+      "goalsFor": 1693,
+      "goalsForAvg": "4,12",
+      "draws": 55,
+      "goalDifference": -32,
+      "goalsAgainstAvg": "4,19",
+      "losses": 178,
+      "played": 411,
+      "wins": 178
+    },
+    "highlights": [
+      {
+        "label": "Gare ufficiali complessive",
+        "value": "411",
+        "detail": "Bilancio storico: 178 vittorie, 55 pareggi, 178 sconfitte"
+      },
+      {
+        "label": "Gol fatti storici",
+        "value": "1.693",
+        "detail": "Media 4,12 gol a partita"
+      },
+      {
+        "label": "Gol subiti storici",
+        "value": "1.725",
+        "detail": "Media 4,19 gol subiti a partita"
+      },
+      {
+        "label": "Differenza reti complessiva",
+        "value": "-32",
+        "detail": "Dato complessivo dalla stagione 2011/2012"
+      },
+      {
+        "label": "Miglior marcatore storico",
+        "value": "Costantini",
+        "detail": "95 reti"
+      },
+      {
+        "label": "Record presenze",
+        "value": "Costantini",
+        "detail": "155 presenze"
+      },
+      {
+        "label": "Stagione con più vittorie",
+        "value": "2013/2014",
+        "detail": "23 vittorie"
+      },
+      {
+        "label": "Miglior attacco stagionale",
+        "value": "2018/2019",
+        "detail": "179 gol fatti"
+      },
+      {
+        "label": "Miglior differenza reti",
+        "value": "2016/2017",
+        "detail": "+83"
+      },
+      {
+        "label": "Stagione più recente",
+        "value": "2025/2026",
+        "detail": "30 gare, 19 vittorie, differenza reti +20"
+      }
+    ],
+    "seasons": [
+      {
+        "goalsAgainst": 104,
+        "season": "2025/2026",
+        "goalsFor": 124,
+        "goalsForAvg": "4,13",
+        "draws": 1,
+        "goalDifference": 20,
+        "goalsAgainstAvg": "3,46",
+        "losses": 10,
+        "played": 30,
+        "wins": 19
+      },
+      {
+        "goalsAgainst": 143,
+        "season": "2024/2025",
+        "goalsFor": 79,
+        "goalsForAvg": "2,92",
+        "draws": 2,
+        "goalDifference": -64,
+        "goalsAgainstAvg": "5,29",
+        "losses": 17,
+        "played": 27,
+        "wins": 8
+      },
+      {
+        "goalsAgainst": 150,
+        "season": "2023/2024",
+        "goalsFor": 97,
+        "goalsForAvg": "3,34",
+        "draws": 1,
+        "goalDifference": -53,
+        "goalsAgainstAvg": "5,17",
+        "losses": 21,
+        "played": 29,
+        "wins": 7
+      },
+      {
+        "goalsAgainst": 150,
+        "season": "2022/2023",
+        "goalsFor": 118,
+        "goalsForAvg": "4,37",
+        "draws": 2,
+        "goalDifference": -32,
+        "goalsAgainstAvg": "5,55",
+        "losses": 17,
+        "played": 27,
+        "wins": 8
+      },
+      {
+        "goalsAgainst": 71,
+        "season": "2021/2022",
+        "goalsFor": 69,
+        "goalsForAvg": "3,45",
+        "draws": 4,
+        "goalDifference": -2,
+        "goalsAgainstAvg": "3,55",
+        "losses": 6,
+        "played": 20,
+        "wins": 10
+      },
+      {
+        "goalsAgainst": 5,
+        "season": "2020/2021",
+        "goalsFor": 4,
+        "goalsForAvg": "1,33",
+        "draws": 2,
+        "goalDifference": -1,
+        "goalsAgainstAvg": "1,66",
+        "losses": 1,
+        "played": 3,
+        "wins": 0
+      },
+      {
+        "goalsAgainst": 82,
+        "season": "2019/2020",
+        "goalsFor": 58,
+        "goalsForAvg": "2,52",
+        "draws": 3,
+        "goalDifference": -24,
+        "goalsAgainstAvg": "3,56",
+        "losses": 15,
+        "played": 23,
+        "wins": 5
+      },
+      {
+        "goalsAgainst": 138,
+        "season": "2018/2019",
+        "goalsFor": 179,
+        "goalsForAvg": "4,83",
+        "draws": 9,
+        "goalDifference": 41,
+        "goalsAgainstAvg": "3,72",
+        "losses": 9,
+        "played": 37,
+        "wins": 19
+      },
+      {
+        "goalsAgainst": 144,
+        "season": "2017/2018",
+        "goalsFor": 141,
+        "goalsForAvg": "4,14",
+        "draws": 7,
+        "goalDifference": -3,
+        "goalsAgainstAvg": "4,23",
+        "losses": 11,
+        "played": 34,
+        "wins": 16
+      },
+      {
+        "goalsAgainst": 91,
+        "season": "2016/2017",
+        "goalsFor": 174,
+        "goalsForAvg": "5,61",
+        "draws": 5,
+        "goalDifference": 83,
+        "goalsAgainstAvg": "2,93",
+        "losses": 6,
+        "played": 31,
+        "wins": 20
+      },
+      {
+        "goalsAgainst": 115,
+        "season": "2015/2016",
+        "goalsFor": 146,
+        "goalsForAvg": "4,42",
+        "draws": 4,
+        "goalDifference": 31,
+        "goalsAgainstAvg": "3,48",
+        "losses": 9,
+        "played": 33,
+        "wins": 20
+      },
+      {
+        "goalsAgainst": 133,
+        "season": "2014/2015",
+        "goalsFor": 96,
+        "goalsForAvg": "2,91",
+        "draws": 3,
+        "goalDifference": -37,
+        "goalsAgainstAvg": "4,03",
+        "losses": 21,
+        "played": 33,
+        "wins": 9
+      },
+      {
+        "goalsAgainst": 82,
+        "season": "2013/2014",
+        "goalsFor": 139,
+        "goalsForAvg": "4,08",
+        "draws": 8,
+        "goalDifference": 57,
+        "goalsAgainstAvg": "2,41",
+        "losses": 3,
+        "played": 34,
+        "wins": 23
+      },
+      {
+        "goalsAgainst": 156,
+        "season": "2012/2013",
+        "goalsFor": 146,
+        "goalsForAvg": "4,42",
+        "draws": 2,
+        "goalDifference": -28,
+        "goalsAgainstAvg": "6,5",
+        "losses": 15,
+        "played": 24,
+        "wins": 7
+      },
+      {
+        "goalsAgainst": 161,
+        "season": "2011/2012",
+        "goalsFor": 123,
+        "goalsForAvg": "4,73",
+        "draws": 2,
+        "goalDifference": -38,
+        "goalsAgainstAvg": "6,19",
+        "losses": 17,
+        "played": 26,
+        "wins": 7
+      }
+    ],
+    "allTimeGoals": [
+      {
+        "players": "Costantini",
+        "value": 95
+      },
+      {
+        "players": "Martinelli A.",
+        "value": 89
+      },
+      {
+        "players": "Begnis Ruben",
+        "value": 81
+      },
+      {
+        "players": "Deboni",
+        "value": 64
+      },
+      {
+        "players": "Cuberli",
+        "value": 59
+      },
+      {
+        "players": "Bortoletto",
+        "value": 57
+      },
+      {
+        "players": "Santoni",
+        "value": 56
+      },
+      {
+        "players": "Bakaj",
+        "value": 50
+      },
+      {
+        "players": "Pan",
+        "value": 48
+      },
+      {
+        "players": "Cirasola",
+        "value": 47
+      },
+      {
+        "players": "Vettorazzi",
+        "value": 42
+      },
+      {
+        "players": "Ruzzene",
+        "value": 36
+      },
+      {
+        "players": "Pace, Pieramati, Vaia Mattia",
+        "value": 35
+      },
+      {
+        "players": "Id El Kaid, Donà",
+        "value": 31
+      },
+      {
+        "players": "Collini",
+        "value": 27
+      },
+      {
+        "players": "Osei",
+        "value": 26
+      },
+      {
+        "players": "Cinquanta",
+        "value": 25
+      },
+      {
+        "players": "Valentini, Deola",
+        "value": 24
+      },
+      {
+        "players": "Zambanini",
+        "value": 23
+      },
+      {
+        "players": "Ronzani, Saffioti, Franzoso, Pretto, Sarina",
+        "value": 21
+      },
+      {
+        "players": "Cantarella",
+        "value": 19
+      },
+      {
+        "players": "Vangelo",
+        "value": 18
+      },
+      {
+        "players": "Dusci",
+        "value": 16
+      },
+      {
+        "players": "Venturelli, Frattolin, Fior",
+        "value": 15
+      },
+      {
+        "players": "Begnis Reddy, Guaragna",
+        "value": 14
+      },
+      {
+        "players": "Tirelli, Mourahib",
+        "value": 13
+      },
+      {
+        "players": "Seguel Obregon, Berti, Barbieri, Degasperi, Staffa",
+        "value": 12
+      },
+      {
+        "players": "Rigon, Conti, Martinelli E.",
+        "value": 11
+      },
+      {
+        "players": "Busnardo, Donati, Filippi",
+        "value": 10
+      },
+      {
+        "players": "Degani, Mondin, Baietta, Battista",
+        "value": 9
+      },
+      {
+        "players": "Bertolini Garbari, Brasca, Fiorentino",
+        "value": 7
+      },
+      {
+        "players": "Turcato, Addobbati, Tesser, Topinelli, Bordieri, Furina, Bellio, D’Elia",
+        "value": 6
+      },
+      {
+        "players": "Albiero, Loperfido, Cuman, Gumirato, Boldrini, Ghislieri, Chinellato, Piccininno, Bergamini, Ghiro",
+        "value": 5
+      },
+      {
+        "players": "Zanetti, Gebbia, Annoli, del Ciello",
+        "value": 4
+      },
+      {
+        "players": "De Gennaro, Zampedri, Hakala, Gurabardhi, Veronesi",
+        "value": 3
+      },
+      {
+        "players": "Piazza, Maciocia, Bove, Micheli, Barruzza",
+        "value": 2
+      },
+      {
+        "players": "Stenico, Papalia, Fabbri, Mortara, Franceschini, Vaia Marco, Caviola, Bizzotto, Magagna, Bottega, Pina, Ruggeri, Tenaglia",
+        "value": 1
+      }
+    ],
+    "allTimeAppearances": [
+      {
+        "players": "Costantini",
+        "value": 155
+      },
+      {
+        "players": "Varvato",
+        "value": 137
+      },
+      {
+        "players": "Meta",
+        "value": 120
+      },
+      {
+        "players": "Deola",
+        "value": 119
+      },
+      {
+        "players": "Saffioti",
+        "value": 110
+      },
+      {
+        "players": "Begnis Ruben",
+        "value": 109
+      },
+      {
+        "players": "Ruzzene",
+        "value": 102
+      },
+      {
+        "players": "Martinelli A.",
+        "value": 101
+      },
+      {
+        "players": "Osei",
+        "value": 99
+      },
+      {
+        "players": "Pieramati",
+        "value": 94
+      },
+      {
+        "players": "Deboni, Martinelli E.",
+        "value": 91
+      },
+      {
+        "players": "Vaia Mattia",
+        "value": 88
+      },
+      {
+        "players": "Cirasola",
+        "value": 70
+      },
+      {
+        "players": "De Fassi, Zambanini",
+        "value": 68
+      },
+      {
+        "players": "Donà",
+        "value": 63
+      },
+      {
+        "players": "Busnardo",
+        "value": 59
+      },
+      {
+        "players": "Brasca",
+        "value": 58
+      },
+      {
+        "players": "Pretto, Sarina",
+        "value": 56
+      },
+      {
+        "players": "Chinellato, Mourahib",
+        "value": 55
+      },
+      {
+        "players": "Barbieri",
+        "value": 54
+      },
+      {
+        "players": "Audia",
+        "value": 51
+      },
+      {
+        "players": "Rigon, Collini, Valentini, Bernard",
+        "value": 50
+      },
+      {
+        "players": "Gurabardhi",
+        "value": 46
+      },
+      {
+        "players": "Stenico",
+        "value": 44
+      },
+      {
+        "players": "Pace, Battista, Vettorazzi",
+        "value": 43
+      },
+      {
+        "players": "Ghiro, Guaragna",
+        "value": 42
+      },
+      {
+        "players": "Bortoletto",
+        "value": 41
+      },
+      {
+        "players": "Cinquanta",
+        "value": 38
+      },
+      {
+        "players": "Cuberli",
+        "value": 37
+      },
+      {
+        "players": "Pan, Santoni, Frattolin, Guarnier",
+        "value": 36
+      },
+      {
+        "players": "Berti, Fiorentino",
+        "value": 35
+      },
+      {
+        "players": "Zanardello",
+        "value": 34
+      },
+      {
+        "players": "Cantarella",
+        "value": 33
+      },
+      {
+        "players": "Degasperi, Id El Kaid",
+        "value": 32
+      },
+      {
+        "players": "Franzoso, De Gennaro, Topinelli",
+        "value": 31
+      },
+      {
+        "players": "Dusci, Vangelo",
+        "value": 30
+      },
+      {
+        "players": "Tirelli",
+        "value": 29
+      },
+      {
+        "players": "Ronzani, Boldrini, Bordieri, Mondin",
+        "value": 27
+      },
+      {
+        "players": "Turcato, Fior",
+        "value": 26
+      },
+      {
+        "players": "Albiero, Baccaro Zeni, Cuman",
+        "value": 25
+      },
+      {
+        "players": "Vaia Marco",
+        "value": 24
+      },
+      {
+        "players": "Bakaj, Staffa, Begnis Reddy, Angeli, Piccininno, Baietta",
+        "value": 22
+      },
+      {
+        "players": "Bontempo",
+        "value": 21
+      },
+      {
+        "players": "del Ciello, Donati, Conti",
+        "value": 20
+      },
+      {
+        "players": "Bellio, Filippi, Tesser",
+        "value": 19
+      },
+      {
+        "players": "Micheli, Furina",
+        "value": 18
+      },
+      {
+        "players": "Venturelli",
+        "value": 16
+      },
+      {
+        "players": "Califano, Degani, Bove, Mortara",
+        "value": 15
+      },
+      {
+        "players": "Ghislieri, Veronesi, Addobbati",
+        "value": 14
+      },
+      {
+        "players": "Puddu, Bottega, Bergamini, Zampedri, Maciocia, Pop",
+        "value": 13
+      },
+      {
+        "players": "Seguel Obregon, Hasa, Sgroi, Safi",
+        "value": 11
+      },
+      {
+        "players": "Nuzzi, Annoli, Magagna, Gebbia",
+        "value": 10
+      },
+      {
+        "players": "Bertolini Garbari",
+        "value": 9
+      },
+      {
+        "players": "De Giacomo, D’Elia, Floriani, Rettore, Riccardi, Pina, Papa",
+        "value": 8
+      },
+      {
+        "players": "Piazza, Emiliani, Munaro, Caviola, Barruzza, Papalia, Curri, Fabbri, Loperfido",
+        "value": 7
+      },
+      {
+        "players": "Lanteri, Mangiagli",
+        "value": 6
+      },
+      {
+        "players": "Tenaglia, Cagnazzo, Zanetti, Bizzotto",
+        "value": 5
+      },
+      {
+        "players": "Bertelli, Lorenzetti",
+        "value": 4
+      },
+      {
+        "players": "Ruggeri, Brandolini, Calzolari, Baratta, Mahni, Lanfranconi, Cova",
+        "value": 3
+      },
+      {
+        "players": "Gastaldello, Hamzallari, Scala, Caccia Neff, Bassani",
+        "value": 2
+      },
+      {
+        "players": "Basso, Gaido, Toniolli, Bigonzi, Caldonazzi, Ceola, Bassa",
+        "value": 1
+      }
+    ]
+  },
+  "galleryAlbums": [
+    {
+      "id": 1,
+      "title": "Matchday Sanbàpolis",
+      "category": "Matchday",
+      "date": "2026-05-24",
+      "cover": "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80",
+      "description": "Foto placeholder della giornata gara a Sanbàpolis.",
+      "photos": [
+        "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Training Week",
+      "category": "Training",
+      "date": "2026-04-18",
+      "cover": "https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80",
+      "description": "Allenamento tecnico, possessi e finalizzazione.",
+      "photos": [
+        "https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1400&q=80"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Under 21",
+      "category": "U21",
+      "date": "2026-04-12",
+      "cover": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
+      "description": "Momenti del gruppo Under 21.",
+      "photos": [
+        "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1400&q=80"
+      ]
+    },
+    {
+      "id": 50,
+      "title": "Rose storiche CUS Trento C5",
+      "category": "Storia",
+      "date": "2026-01-01",
+      "cover": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png",
+      "description": "Album delle rose storiche CUS Trento C5 dal vecchio sito.",
+      "photos": [
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/11-12.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/12-13.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/13-14.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/14-15.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/15-16.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/16-17.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2017real.png",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/814330A0-63DD-4B35-AFA9-64AFF265B7DC.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2022-2023.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png"
+      ]
+    }
+  ],
+  "automation": {
+    "enabled": true,
+    "currentSeason": "2026/2027",
+    "mode": "increment-from-terminated-fixtures"
+  },
+  "videos": [
+    {
+      "id": 1,
+      "title": "Highlights: CUS Trento vs Calcio Bleggio",
+      "category": "Highlights",
+      "thumb": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1400&q=80",
+      "url": "https://www.youtube.com"
+    },
+    {
+      "id": 2,
+      "title": "Intervista post partita: Diego Conti",
+      "category": "Interview",
+      "thumb": "https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=1400&q=80",
+      "url": "https://www.youtube.com"
+    },
+    {
+      "id": 3,
+      "title": "Training cam: lavoro sui possessi",
+      "category": "Training",
+      "thumb": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
+      "url": "https://www.youtube.com"
+    }
+  ],
+  "sponsors": [
+    {
+      "id": 1,
+      "name": "UniTrento Sport",
+      "tier": "Main Partner",
+      "logo": "UT",
+      "url": "#"
+    },
+    {
+      "id": 2,
+      "name": "Sanbàpolis Arena",
+      "tier": "Venue Partner",
+      "logo": "SB",
+      "url": "#"
+    },
+    {
+      "id": 3,
+      "name": "Trentino Energia",
+      "tier": "Gold Sponsor",
+      "logo": "TE",
+      "url": "#"
+    },
+    {
+      "id": 4,
+      "name": "Dolomiti Lab",
+      "tier": "Silver Sponsor",
+      "logo": "DL",
+      "url": "#"
+    },
+    {
+      "id": 5,
+      "name": "Caffè Trento",
+      "tier": "Community Partner",
+      "logo": "CT",
+      "url": "#"
+    },
+    {
+      "id": 6,
+      "name": "Studio Fisio 5",
+      "tier": "Medical Partner",
+      "logo": "F5",
+      "url": "#"
+    }
+  ],
+  "u21Fixtures": [],
+  "cup": {
+    "title": "Coppa Trentino Alto Adige",
+    "edition": "2026/27",
+    "status": "Quarti di finale",
+    "fixtures": []
+  },
+  "clubHistory": {
+    "title": "La nostra storia",
+    "paragraphs": [
+      "Club fondato nell’anno 2011/2012, il CUS Trento debuttò nella serie D ottenendo il primo anno un decimo posto e ripetendo nella stagione 2012/2013 lo stesso piazzamento. Nel primo anno di partecipazione la squadra ottiene la coppa disciplina e nella stagione 2013/2014 si piazza prima nel girone A della serie D, ottenendo la possibilità di partecipare alla serie C2 nella stagione 2014/2015. Al termine della stagione la squadra viene sconfitta ai play-out e ricomincia dalla serie D.",
+      "Nella stagione 2015/2016 la squadra arriva alla semifinale play-off venendo sconfitta e non presenterà la domanda di ripescaggio per salire in serie C2. Al termine della stagione 2016/2017, la squadra ottiene la promozione in serie C2. Dopo anni complicati soprattutto a causa delle limitazioni imposte dal COVID, la squadra ottiene la promozione in C1, categoria in cui milita attualmente, al termine della stagione 2021/2022."
+    ],
+    "images": [
+      {
+        "season": "2011/2012",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/11-12.jpg"
+      },
+      {
+        "season": "2012/2013",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/12-13.jpg"
+      },
+      {
+        "season": "2013/2014",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/13-14.jpg"
+      },
+      {
+        "season": "2014/2015",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/14-15.jpg"
+      },
+      {
+        "season": "2015/2016",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/15-16.jpg"
+      },
+      {
+        "season": "2016/2017",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/16-17.jpg"
+      },
+      {
+        "season": "2017/2018",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2017real.png"
+      },
+      {
+        "season": "2018/2019",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/814330A0-63DD-4B35-AFA9-64AFF265B7DC.jpg"
+      },
+      {
+        "season": "2022/2023",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2022-2023.jpg"
+      },
+      {
+        "season": "2025/2026",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png"
+      }
+    ]
+  }
+}
