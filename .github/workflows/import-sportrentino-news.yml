@@ -4,19 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       max_pages:
-        description: "Debug: pagine per ogni fonte. Lascia 0 per rilevare automaticamente le pagine"
+        description: "Pagine da scansionare. Usa 186 per import massivo, 1 per controllo giornaliero."
         required: false
-        default: "0"
+        default: "1"
       sources:
-        description: "Fonti da scansionare: all oppure nomi separati da virgola"
+        description: "Fonte da scansionare. Lascia all."
         required: false
         default: "all"
       sleep:
         description: "Pausa tra richieste articolo, in secondi"
         required: false
         default: "0.35"
+
   schedule:
-    # Ogni notte alle 03:30 UTC
     - cron: "30 3 * * *"
 
 permissions:
@@ -49,7 +49,7 @@ jobs:
         run: |
           python -u scripts/import_sportrentino_news.py \
             --sources "${{ github.event.inputs.sources || 'all' }}" \
-            --max-pages "${{ github.event.inputs.max_pages || '0' }}" \
+            --max-pages "${{ github.event.inputs.max_pages || '1' }}" \
             --sleep "${{ github.event.inputs.sleep || '0.35' }}"
 
       - name: Validate JSON
