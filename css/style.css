@@ -40,7 +40,7 @@
 .crest-logo{background:transparent!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
 .crest.crest-logo img{border-radius:0!important}
 .home-stack .fixture{margin-bottom:14px}
-.home-stack .fixture:last-child{margin-bottom:0}
+.home-stack .fixture:last-child{margin-bottom:0; margin-top:10px;}
 .home-standing{display:grid;gap:10px;margin-top:16px}
 .home-standing-row{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:13px 14px}
 .home-standing-team{display:flex;align-items:center;gap:10px}
