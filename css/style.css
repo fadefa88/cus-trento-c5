@@ -267,3 +267,6 @@
   .stats-meta-strip{grid-template-columns:1fr}
   .stats-big-tile{min-height:118px}
 }
+
+/* Contact form */
+.contact-form{margin-top:18px}.hp-field{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}.privacy-check{display:flex;align-items:flex-start;gap:10px;background:#f4f4f5;border-radius:18px;padding:12px}.privacy-check input{width:auto;margin-top:2px;flex:0 0 auto}.privacy-check span{display:block;font-size:12px;line-height:1.45;font-weight:800;letter-spacing:0;text-transform:none;color:#52525b}.form-alert{display:none;margin-top:14px;border-radius:18px;padding:12px 14px;font-size:13px;font-weight:900}.form-alert.success{display:block;background:#dcfce7;color:#166534;border:1px solid #86efac}.form-alert.error{display:block;background:#fee2e2;color:#991b1b;border:1px solid #fecaca}button[disabled]{opacity:.62;cursor:not-allowed}
