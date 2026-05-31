@@ -101,12 +101,67 @@ function scorerEvents(match, roster){
   return events;
 }
 function scorerText(match){const events=scorerEvents(match,state.roster||[]);if(events.length){return events.map(e=>`${playerDisplayNameById(state.roster,e.playerId)}${e.goals>1?` ${e.goals}`:""}`).join(", ");}return (match.scorers||[]).join(", ")||"Da definire";}
+function toList(v){return Array.isArray(v)?v:(v?[v]:[]);}
+function statCount(v, fallback=1){const n=toNumber(v);return n>0?n:fallback;}
+function statEventList(match, roster, objectKeys, legacyKeys, countKeys){
+  const events=[];
+  objectKeys.forEach(key=>{
+    toList(match[key]).forEach(ev=>{
+      const id=resolvePlayerId(ev&&typeof ev==="object"?(ev.playerId||ev.player||ev.name||ev.id):ev, roster);
+      const count=statCount(countKeys.map(k=>ev&&typeof ev==="object"?ev[k]:null).find(v=>toNumber(v)>0),1);
+      if(id!==null)events.push({playerId:id,count});
+    });
+  });
+  legacyKeys.forEach(key=>{
+    toList(match[key]).forEach(raw=>{
+      const id=resolvePlayerId(raw, roster);
+      if(id!==null)events.push({playerId:id,count:1});
+    });
+  });
+  return events;
+}
+function yellowCardEvents(match, roster){return statEventList(match,roster,["yellowCardEvents","yellowEvents","yellowCards"],["yellow"],["cards","yellow","count","value"]);}
+function redCardEvents(match, roster){return statEventList(match,roster,["redCardEvents","redEvents","redCards"],["red"],["cards","red","count","value"]);}
+function cardText(match,type){
+  const events=type==="red"?redCardEvents(match,state.roster||[]):yellowCardEvents(match,state.roster||[]);
+  if(events.length)return events.map(e=>`${playerDisplayNameById(state.roster,e.playerId)}${e.count>1?` ${e.count}`:""}`).join(", ");
+  return "Nessuno";
+}
+function goalkeeperAgainstEvents(match, roster, againstGoals){
+  const raw=[...toList(match.goalkeeperEvents),...toList(match.goalkeeperGoalsAgainst),...toList(match.goalsAgainstEvents)];
+  const events=[];
+  raw.forEach(ev=>{
+    const id=resolvePlayerId(ev&&typeof ev==="object"?(ev.playerId||ev.player||ev.name||ev.id):ev, roster);
+    if(id===null)return;
+    const goalsAgainst=statCount(ev&&typeof ev==="object"?(ev.goalsAgainst||ev.against||ev.goals||ev.value):againstGoals, againstGoals);
+    const minutes=toNumber(ev&&typeof ev==="object"?ev.minutes:0)||40;
+    const appearances=(ev&&typeof ev==="object"&&ev.appearances===0)?0:1;
+    events.push({playerId:id,goalsAgainst,minutes,appearances});
+  });
+  if(events.length)return events;
+  const gkId=startingGoalkeeperId(match,roster);
+  return gkId!==null?[{playerId:gkId,goalsAgainst:againstGoals,minutes:40,appearances:1}]:[];
+}
+function playerCardsShape(p){
+  const src=p.cards||p.cardStats||p.discipline||{};
+  const empty={yellow:0,red:0};
+  const out={campionato:{...empty,...(src.campionato||{})},coppa:{...empty,...(src.coppa||{})},totale:{...empty,...(src.totale||{})}};
+  ["campionato","coppa","totale"].forEach(k=>{out[k].yellow=toNumber(out[k].yellow);out[k].red=toNumber(out[k].red);});
+  return out;
+}
+function prettyDate(v){if(!v)return "—";const d=new Date(v);if(Number.isNaN(d.getTime()))return String(v);return new Intl.DateTimeFormat("it-IT",{day:"2-digit",month:"2-digit",year:"numeric"}).format(d);}
+function playerBirthDate(p){return p.birthDate||p.dateOfBirth||p.dob||"";}
+function playerBirthPlace(p){return p.birthPlace||p.placeOfBirth||p.birthplace||"";}
+function playerFaculty(p){return p.faculty||p.universityFaculty||p.universityCourse||p.university||p.course||"";}
+function compLabel(key){return key==="campionato"?"Campionato":(key==="coppa"?"Coppa":"Complessivo");}
+
 function ensurePlayerStatShape(p){
   const out={...p};
   const camp=out.competitions&&out.competitions.campionato?{...out.competitions.campionato}:{appearances:0,goals:0,assists:0};
   const coppa=out.competitions&&out.competitions.coppa?{...out.competitions.coppa}:{appearances:0,goals:0,assists:0};
   const totale=out.competitions&&out.competitions.totale?{...out.competitions.totale}:{appearances:toNumber(out.appearances),goals:toNumber(out.goals),assists:toNumber(out.assists)};
   out.competitions={campionato:{appearances:toNumber(camp.appearances),goals:toNumber(camp.goals),assists:toNumber(camp.assists)},coppa:{appearances:toNumber(coppa.appearances),goals:toNumber(coppa.goals),assists:toNumber(coppa.assists)},totale:{appearances:toNumber(totale.appearances),goals:toNumber(totale.goals),assists:toNumber(totale.assists)}};
+  out.cards=playerCardsShape(out);
   out.appearances=toNumber(out.appearances)||out.competitions.totale.appearances;
   out.goals=toNumber(out.goals)||out.competitions.totale.goals;
   out.assists=toNumber(out.assists)||out.competitions.totale.assists;
@@ -225,21 +280,79 @@ function historicalWithCurrentSeason(hsRaw,current,season,playerIncrements){
 }
 function applyAutomations(baseData){
   if(baseData.automation && baseData.automation.enabled===false)return baseData;
-  const season=currentSeasonOf(baseData);const out={...baseData,roster:(baseData.roster||[]).map(ensurePlayerStatShape)};const byId=new Map(out.roster.map(p=>[String(p.id),p]));
+  const season=currentSeasonOf(baseData);
+  const out={...baseData,roster:(baseData.roster||[]).map(ensurePlayerStatShape)};
+  const byId=new Map(out.roster.map(p=>[String(p.id),p]));
   const empty=()=>({played:0,wins:0,draws:0,losses:0,goalsFor:0,goalsAgainst:0});
   const teamStats={prima:{campionato:empty(),coppa:empty()},u21:{campionato:empty(),coppa:empty()}};
-  const playerIncrements={goals:[],appearances:[]};const goalMap=new Map(), appMap=new Map();
+  const playerIncrements={goals:[],appearances:[]};
+  const goalMap=new Map(), appMap=new Map();
   const addMap=(map,id,val)=>map.set(String(id),(map.get(String(id))||0)+val);
-  function processMatch(match,sourceType){
-    if(!isTerminatedMatch(match))return;const comp=competitionKeyFromMatch(match,sourceType);const teamKey=isU21Match(match,sourceType)?"u21":"prima";const gfga=goalsForAgainst(match);const bucket=teamStats[teamKey][comp];bucket.played++;bucket.goalsFor+=gfga.forGoals;bucket.goalsAgainst+=gfga.againstGoals;if(gfga.forGoals>gfga.againstGoals)bucket.wins++;else if(gfga.forGoals===gfga.againstGoals)bucket.draws++;else bucket.losses++;
-    lineupIds(match,out.roster).forEach(id=>{const p=byId.get(String(id));if(!p)return;p.appearances=toNumber(p.appearances)+1;p.competitions[comp].appearances=toNumber(p.competitions[comp].appearances)+1;p.competitions.totale.appearances=toNumber(p.competitions.totale.appearances)+1;if(p.history&&p.history[0])p.history[0].appearances=toNumber(p.history[0].appearances)+1;if(teamKey==="prima")addMap(appMap,id,1);});
-    scorerEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(!p)return;p.goals=toNumber(p.goals)+e.goals;p.competitions[comp].goals=toNumber(p.competitions[comp].goals)+e.goals;p.competitions.totale.goals=toNumber(p.competitions.totale.goals)+e.goals;if(p.history&&p.history[0])p.history[0].goals=toNumber(p.history[0].goals)+e.goals;if(teamKey==="prima")addMap(goalMap,e.playerId,e.goals);});
-    const gkId=startingGoalkeeperId(match,out.roster);const gk=byId.get(String(gkId));if(gk&&gk.goalkeeperStats){const gs=gk.goalkeeperStats;[comp,"totale"].forEach(k=>{gs.byCompetition[k].appearances=toNumber(gs.byCompetition[k].appearances)+1;gs.byCompetition[k].minutes=toNumber(gs.byCompetition[k].minutes)+40;gs.byCompetition[k].goalsAgainst=toNumber(gs.byCompetition[k].goalsAgainst)+gfga.againstGoals;if(gfga.againstGoals===0)gs.byCompetition[k].cleanSheets=toNumber(gs.byCompetition[k].cleanSheets)+1;});gs.appearances=toNumber(gs.appearances)+1;gs.minutes=toNumber(gs.minutes)+40;gs.goalsAgainst=toNumber(gs.goalsAgainst)+gfga.againstGoals;if(gfga.againstGoals===0)gs.cleanSheets=toNumber(gs.cleanSheets)+1;gs.goalsAgainstAvg=gs.appearances?Number((gs.goalsAgainst/gs.appearances).toFixed(2)):0;}
+
+  function addCards(p,comp,yellow,red){
+    p.cards=p.cards||playerCardsShape(p);
+    p.cards[comp].yellow=toNumber(p.cards[comp].yellow)+toNumber(yellow);
+    p.cards[comp].red=toNumber(p.cards[comp].red)+toNumber(red);
+    p.cards.totale.yellow=toNumber(p.cards.totale.yellow)+toNumber(yellow);
+    p.cards.totale.red=toNumber(p.cards.totale.red)+toNumber(red);
   }
-  (out.fixtures||[]).forEach(m=>processMatch(m,"campionato"));((out.cup||{}).fixtures||[]).forEach(m=>processMatch(m,"cup"));(out.u21Fixtures||[]).forEach(m=>processMatch(m,"u21"));((out.u21Cup||{}).fixtures||[]).forEach(m=>processMatch(m,"u21cup"));
+
+  function processMatch(match,sourceType){
+    if(!isTerminatedMatch(match))return;
+    const comp=competitionKeyFromMatch(match,sourceType);
+    const teamKey=isU21Match(match,sourceType)?"u21":"prima";
+    const gfga=goalsForAgainst(match);
+    const bucket=teamStats[teamKey][comp];
+    bucket.played++;bucket.goalsFor+=gfga.forGoals;bucket.goalsAgainst+=gfga.againstGoals;
+    if(gfga.forGoals>gfga.againstGoals)bucket.wins++;else if(gfga.forGoals===gfga.againstGoals)bucket.draws++;else bucket.losses++;
+
+    lineupIds(match,out.roster).forEach(id=>{
+      const p=byId.get(String(id));if(!p)return;
+      p.appearances=toNumber(p.appearances)+1;
+      p.competitions[comp].appearances=toNumber(p.competitions[comp].appearances)+1;
+      p.competitions.totale.appearances=toNumber(p.competitions.totale.appearances)+1;
+      if(p.history&&p.history[0])p.history[0].appearances=toNumber(p.history[0].appearances)+1;
+      if(teamKey==="prima")addMap(appMap,id,1);
+    });
+
+    scorerEvents(match,out.roster).forEach(e=>{
+      const p=byId.get(String(e.playerId));if(!p)return;
+      p.goals=toNumber(p.goals)+e.goals;
+      p.competitions[comp].goals=toNumber(p.competitions[comp].goals)+e.goals;
+      p.competitions.totale.goals=toNumber(p.competitions.totale.goals)+e.goals;
+      if(p.history&&p.history[0])p.history[0].goals=toNumber(p.history[0].goals)+e.goals;
+      if(teamKey==="prima")addMap(goalMap,e.playerId,e.goals);
+    });
+
+    yellowCardEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(p)addCards(p,comp,e.count,0);});
+    redCardEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(p)addCards(p,comp,0,e.count);});
+
+    goalkeeperAgainstEvents(match,out.roster,gfga.againstGoals).forEach(e=>{
+      const gk=byId.get(String(e.playerId));if(!gk||!gk.goalkeeperStats)return;
+      const gs=gk.goalkeeperStats;
+      [comp,"totale"].forEach(k=>{
+        gs.byCompetition[k].appearances=toNumber(gs.byCompetition[k].appearances)+toNumber(e.appearances);
+        gs.byCompetition[k].minutes=toNumber(gs.byCompetition[k].minutes)+toNumber(e.minutes);
+        gs.byCompetition[k].goalsAgainst=toNumber(gs.byCompetition[k].goalsAgainst)+toNumber(e.goalsAgainst);
+        if(toNumber(e.goalsAgainst)===0 && toNumber(e.appearances)>0)gs.byCompetition[k].cleanSheets=toNumber(gs.byCompetition[k].cleanSheets)+1;
+      });
+      gs.appearances=toNumber(gs.appearances)+toNumber(e.appearances);
+      gs.minutes=toNumber(gs.minutes)+toNumber(e.minutes);
+      gs.goalsAgainst=toNumber(gs.goalsAgainst)+toNumber(e.goalsAgainst);
+      if(toNumber(e.goalsAgainst)===0 && toNumber(e.appearances)>0)gs.cleanSheets=toNumber(gs.cleanSheets)+1;
+      gs.goalsAgainstAvg=gs.appearances?Number((gs.goalsAgainst/gs.appearances).toFixed(2)):0;
+    });
+  }
+
+  (out.fixtures||[]).forEach(m=>processMatch(m,"campionato"));
+  ((out.cup||{}).fixtures||[]).forEach(m=>processMatch(m,"cup"));
+  (out.u21Fixtures||[]).forEach(m=>processMatch(m,"u21"));
+  ((out.u21Cup||{}).fixtures||[]).forEach(m=>processMatch(m,"u21cup"));
+
   function totals(obj){const a=obj.campionato,b=obj.coppa;const t={played:a.played+b.played,wins:a.wins+b.wins,draws:a.draws+b.draws,losses:a.losses+b.losses,goalsFor:a.goalsFor+b.goalsFor,goalsAgainst:a.goalsAgainst+b.goalsAgainst};t.goalDifference=t.goalsFor-t.goalsAgainst;return t;}
   out.currentSeasonStats={season,prima:{...teamStats.prima,totale:totals(teamStats.prima)},u21:{...teamStats.u21,totale:totals(teamStats.u21)}};
-  goalMap.forEach((value,id)=>{const p=byId.get(String(id));if(p)playerIncrements.goals.push({name:p.name,value});});appMap.forEach((value,id)=>{const p=byId.get(String(id));if(p)playerIncrements.appearances.push({name:p.name,value});});
+  goalMap.forEach((value,id)=>{const p=byId.get(String(id));if(p)playerIncrements.goals.push({name:p.name,value});});
+  appMap.forEach((value,id)=>{const p=byId.get(String(id));if(p)playerIncrements.appearances.push({name:p.name,value});});
   out.historicalStats=historicalWithCurrentSeason(out.historicalStats,out.currentSeasonStats.prima.totale,season,playerIncrements);
   return out;
 }
@@ -415,16 +528,31 @@ function filterSquad(){
 function playerDetail(id){
   const p=(state.roster||[]).find(x=>String(x.id)===String(id));
   if(!p){route("squad");return;}
+  const isGk=p.role==="Portiere"||!!p.goalkeeperStats;
+  const cards=playerCardsShape(p);
   const comps=p.competitions||{campionato:{appearances:p.appearances||0,goals:p.goals||0},coppa:{appearances:0,goals:0},totale:{appearances:p.appearances||0,goals:p.goals||0}};
-  const gk=p.goalkeeperStats;
-  function compGoalsAgainst(key){
-    if(!gk)return 0;
-    if(key==="totale")return gk.goalsAgainst||0;
-    return (gk.byCompetition&&gk.byCompetition[key]&&gk.byCompetition[key].goalsAgainst)||0;
+  const gk=p.goalkeeperStats||{};
+  function compLine(key){
+    const c=comps[key]||{};
+    const gkb=gk.byCompetition&&gk.byCompetition[key]?gk.byCompetition[key]:{};
+    return {
+      key,
+      label:compLabel(key),
+      appearances:toNumber(c.appearances),
+      value:isGk?toNumber(gkb.goalsAgainst):toNumber(c.goals),
+      yellow:toNumber(cards[key]&&cards[key].yellow),
+      red:toNumber(cards[key]&&cards[key].red)
+    };
   }
-  const split=Object.entries(comps).map(([k,v])=>({label:k[0].toUpperCase()+k.slice(1),...v,goalsAgainst:compGoalsAgainst(k)}));
-  const gkBlock=gk?`<div class="gk-panel"><span class="eyebrow" style="background:white;color:#09090b">Statistiche portiere</span><h2 style="font-size:34px;margin:0 0 18px">Gol subiti e presenze</h2><div class="gk-grid"><div class="gk-box"><b>${gk.goalsAgainst||0}</b><span>Gol subiti</span></div><div class="gk-box"><b>${gk.appearances||p.appearances||0}</b><span>Presenze</span></div><div class="gk-box"><b>${gk.minutes||0}</b><span>Minuti</span></div><div class="gk-box"><b>${gk.goalsAgainstAvg||0}</b><span>Media subiti</span></div></div></div>`:"";
-  shell("Player profile",p.name,`<div class="breadcrumb"><button class="back-link" onclick="route('squad')"><span>←</span> Rosa</button><span>/ #${p.number||''} / ${p.role||''}</span></div><div class="player-hero"><aside class="player-portrait"><span class="eyebrow" style="background:white;color:#09090b">${p.team||''}</span><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"><h2 style="font-size:42px;line-height:.9;margin:22px 0 10px">${p.name||''}</h2><p style="color:rgba(255,255,255,.76)">${p.bio||''}</p></aside><section class="grid"><div class="grid grid-4"><div class="stat-tile"><b>#${p.number||''}</b><span>Numero</span></div><div class="stat-tile"><b>${p.appearances||0}</b><span>Presenze</span></div><div class="stat-tile"><b>${p.goals||0}</b><span>Reti</span></div>${gk?`<div class="stat-tile"><b>${gk.goalsAgainst||0}</b><span>Gol subiti</span></div>`:""}</div>${gkBlock}<div class="card card-pad"><h2>Statistiche per competizione</h2><div class="split-stat" style="margin-top:18px">${split.map(s=>`<div class="split-box"><h3>${s.label}</h3><div class="metrics"><div class="metric"><b>${s.appearances||0}</b><small>Pres</small></div><div class="metric"><b>${s.goals||0}</b><small>Reti</small></div>${gk?`<div class="metric gk-mini"><b>${s.goalsAgainst||0}</b><small>Gol subiti</small></div>`:""}</div></div>`).join("")}</div></div></section></div>`,"",p.photo);
+  const rows=[compLine("campionato"),compLine("coppa"),compLine("totale")];
+  const total=rows.find(r=>r.key==="totale")||rows[0];
+  const statLabel=isGk?"Gol subiti":"Gol fatti";
+  const infoRows=[
+    ["Data di nascita",prettyDate(playerBirthDate(p))],
+    ["Luogo di nascita",playerBirthPlace(p)||"—"],
+    ["Facoltà universitaria",playerFaculty(p)||"—"]
+  ];
+  shell("Player profile",p.name,`<div class="breadcrumb"><button class="back-link" onclick="route('squad')"><span>←</span> Rosa</button><span>${p.role||''} · ${p.team||''}</span></div><div class="player-hero"><aside class="player-portrait"><span class="eyebrow" style="background:white;color:#09090b">${p.team||''}</span><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"><h2 style="font-size:42px;line-height:.9;margin:22px 0 10px">${p.name||''}</h2><p style="color:rgba(255,255,255,.76);font-weight:900">${p.role||''}</p></aside><section class="grid"><div class="grid grid-4"><div class="stat-tile"><b>${total.appearances}</b><span>Presenze</span></div><div class="stat-tile"><b>${total.value}</b><span>${statLabel}</span></div><div class="stat-tile"><b>${total.yellow}</b><span>Ammonizioni</span></div><div class="stat-tile"><b>${total.red}</b><span>Espulsioni</span></div></div><div class="card card-pad"><h2>Dati giocatore</h2><div class="player-info-grid">${infoRows.map(([label,value])=>`<div class="player-info-box"><span>${label}</span><b>${value}</b></div>`).join("")}</div></div><div class="card card-pad table-wrap"><h2>Statistiche per competizione</h2><table class="table player-stat-table" style="box-shadow:none;margin-top:16px"><thead><tr><th>Competizione</th><th>Presenze</th><th>${statLabel}</th><th>Ammonizioni</th><th>Espulsioni</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.label}</td><td>${r.appearances}</td><td>${r.value}</td><td>${r.yellow}</td><td>${r.red}</td></tr>`).join("")}</tbody></table></div></section></div>`,"",p.photo);
 }
 function normalizeMatchForCalendar(f, type){return {...f, competition:type||f.competition||f.round, _calendarType:type||f.competition||f.round};}
 function calendarSource(){
@@ -456,7 +584,7 @@ function renderCalendarList(){
   if(target) target.innerHTML=`${pageItems.map(fixtureRow).join("")||"<div class='card card-pad'><p class='muted'>Nessuna partita trovata.</p></div>"}${calendarPageButtons(totalPages)}`;
 }
 function fixtures(){const team=view.calendar==="u21"?"Under 21":"Prima squadra";shell("Stagione","Calendario",`${teamSwitch("calendar")}<div class="toolbar">${["Tutte","Da giocare","Terminata","Campionato","Coppa","Playoff"].map(f=>`<button class="pill fixf ${view.calendarFilter===f?"active":""}" onclick="setCalendarFilter('${f}')">${f}</button>`).join("")}</div><div class="grid" id="fixGrid"></div>`,"","Calendario e risultati CUS Trento C5.");renderCalendarList();}
-function matchDetail(id){const f=[...(state.fixtures||[]),...(state.u21Fixtures||[]),...(((state.cup||{}).fixtures)||[]).map(x=>({...x,competition:"Coppa"})),...(((state.u21Cup||{}).fixtures)||[]).map(x=>({...x,competition:"Coppa"}))].find(x=>String(x.id)===String(id));if(!f){route("fixtures");return;}const lineup=f.lineup||{module:"3-1",startingFive:[],bench:[],suspended:[],injured:[],tacticalNotes:[]};const starters=lineup.startingFive||[];const spots=["gk","p1","p2","p3","p4"];shell("Match center",`${f.home} - ${f.away}`,`<div class="breadcrumb"><button class="back-link" onclick="route('fixtures')"><span>←</span> Calendario</button><span>${fmt(f.date)} · ${f.time} · ${f.venue}</span></div><div class="grid grid-2"><div class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">${f.competition||f.round}</span><div class="match-teams"><div><div class="clubmark">${f.home.includes("CUS")?"CUS":f.home.slice(0,2)}</div><b>${f.home}</b></div><div><div class="timebox">${f.score||"VS"}</div><small>${f.status}</small></div><div><div class="clubmark">${f.away.includes("CUS")?"CUS":f.away.slice(0,2)}</div><b>${f.away}</b></div></div><p style="color:rgba(255,255,255,.72)">${f.summary||"Dettaglio partita in aggiornamento."}</p></div><div class="card card-pad"><h2>Tabellino</h2><div class="grid grid-2" style="margin-top:18px"><div><b>Marcatori</b><p class="muted">${(f.scorers||[]).join(", ")||"Da definire"}</p></div><div><b>MVP</b><p class="muted">${f.mvp||"Da definire"}</p></div><div><b>Ammoniti</b><p class="muted">${(f.yellow||[]).join(", ")||"Nessuno"}</p></div><div><b>Espulsi</b><p class="muted">${(f.red||[]).join(", ")||"Nessuno"}</p></div></div></div></div><div class="grid grid-2" style="margin-top:22px"><div class="lineup-board"><span class="eyebrow" style="background:white;color:#09090b">Tattica</span><h2 style="font-size:34px;margin:0">Modulo ${lineup.module}</h2><div class="pitch">${starters.slice(0,5).map((name,i)=>`<div class="spot ${spots[i]||"p4"}">${name}</div>`).join("")}</div></div><div class="card card-pad"><h2>Convocati e note tattiche</h2><div class="grid grid-2" style="margin-top:18px"><div><b>Quintetto</b><p class="muted">${starters.join(", ")||"Da definire"}</p></div><div><b>Panchina</b><p class="muted">${(lineup.bench||[]).join(", ")||"Da definire"}</p></div><div><b>Squalificati / infortunati</b><p class="muted">${[...(lineup.suspended||[]),...(lineup.injured||[])].join(", ")||"Nessuno"}</p></div></div><h2 style="margin-top:20px">Game plan</h2>${(lineup.tacticalNotes||[]).map(n=>`<p class="muted">• ${n}</p>`).join("")}</div></div>`,"Dettaglio partita, formazione, tattica e tabellino.");}
+function matchDetail(id){const f=[...(state.fixtures||[]),...(state.u21Fixtures||[]),...(((state.cup||{}).fixtures)||[]).map(x=>({...x,competition:"Coppa"})),...(((state.u21Cup||{}).fixtures)||[]).map(x=>({...x,competition:"Coppa"}))].find(x=>String(x.id)===String(id));if(!f){route("fixtures");return;}const lineup=f.lineup||{module:"3-1",startingFive:[],bench:[],suspended:[],injured:[],tacticalNotes:[]};const starters=lineup.startingFive||[];const spots=["gk","p1","p2","p3","p4"];shell("Match center",`${f.home} - ${f.away}`,`<div class="breadcrumb"><button class="back-link" onclick="route('fixtures')"><span>←</span> Calendario</button><span>${fmt(f.date)} · ${f.time} · ${f.venue}</span></div><div class="grid grid-2"><div class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">${f.competition||f.round}</span><div class="match-teams"><div><div class="clubmark">${f.home.includes("CUS")?"CUS":f.home.slice(0,2)}</div><b>${f.home}</b></div><div><div class="timebox">${f.score||"VS"}</div><small>${f.status}</small></div><div><div class="clubmark">${f.away.includes("CUS")?"CUS":f.away.slice(0,2)}</div><b>${f.away}</b></div></div><p style="color:rgba(255,255,255,.72)">${f.summary||"Dettaglio partita in aggiornamento."}</p></div><div class="card card-pad"><h2>Tabellino</h2><div class="grid grid-2" style="margin-top:18px"><div><b>Marcatori</b><p class="muted">${scorerText(f)}</p></div><div><b>MVP</b><p class="muted">${f.mvp||"Da definire"}</p></div><div><b>Ammoniti</b><p class="muted">${cardText(f,"yellow")}</p></div><div><b>Espulsi</b><p class="muted">${cardText(f,"red")}</p></div></div></div></div><div class="grid grid-2" style="margin-top:22px"><div class="lineup-board"><span class="eyebrow" style="background:white;color:#09090b">Tattica</span><h2 style="font-size:34px;margin:0">Modulo ${lineup.module}</h2><div class="pitch">${starters.slice(0,5).map((name,i)=>`<div class="spot ${spots[i]||"p4"}">${playerDisplayNameById(state.roster,resolvePlayerId(name,state.roster)||name)}</div>`).join("")}</div></div><div class="card card-pad"><h2>Convocati e note tattiche</h2><div class="grid grid-2" style="margin-top:18px"><div><b>Quintetto</b><p class="muted">${starters.map(x=>playerDisplayNameById(state.roster,resolvePlayerId(x,state.roster)||x)).join(", ")||"Da definire"}</p></div><div><b>Panchina</b><p class="muted">${(lineup.bench||[]).map(x=>playerDisplayNameById(state.roster,resolvePlayerId(x,state.roster)||x)).join(", ")||"Da definire"}</p></div><div><b>Squalificati / infortunati</b><p class="muted">${[...(lineup.suspended||[]),...(lineup.injured||[])].map(x=>playerDisplayNameById(state.roster,resolvePlayerId(x,state.roster)||x)).join(", ")||"Nessuno"}</p></div></div><h2 style="margin-top:20px">Game plan</h2>${(lineup.tacticalNotes||[]).map(n=>`<p class="muted">• ${n}</p>`).join("")}</div></div>`,"Dettaglio partita, formazione, tattica e tabellino.");}
 function cupFixture(f,compact=false){
   if(!f || !Object.keys(f).length){
     return `<div style="margin-top:16px"><div class="fixture" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.18);color:white"><div class="fixture-top" style="color:rgba(255,255,255,.7)"><span>Coppa · Da definire</span><span>Da giocare</span></div><div class="teams"><span>CUS Trento</span><span class="score">VS</span><span>Avversario</span></div><p style="color:rgba(255,255,255,.7)">Inserisci le partite di coppa dal CMS.</p></div></div>`;
