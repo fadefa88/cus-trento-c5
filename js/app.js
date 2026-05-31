@@ -504,7 +504,7 @@ function players(list){
 }
 function setSquadTeam(team){view.squadTeam=team;view.squadPage=1;filterSquad();}
 function squad(){
-  const roles=["Tutti","Portiere","Centrale","Laterale","Punta"];
+  const roles=["Tutti","Portiere","Centrale","Laterale","Pivot", "Universale"];
   view.squadTeam=view.squadTeam||"Prima squadra";
   view.squadPage=1;
   shell("Team","Rosa",`<div class="team-switch"><button class="${view.squadTeam==='Prima squadra'?'active':''}" onclick="setSquadTeam('Prima squadra')">Prima squadra</button><button class="${view.squadTeam==='Under 21'?'active':''}" onclick="setSquadTeam('Under 21')">Under 21</button></div><div class="toolbar">${roles.map(r=>`<button class="pill rolef ${r==="Tutti"?"active":""}">${r}</button>`).join("")}</div><div class="grid grid-4" id="squadGrid"></div><div id="squadPager"></div>`,"","Rosa del CUS Trento C5 con profili giocatore e statistiche.");
