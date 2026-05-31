@@ -694,7 +694,67 @@ function renderLightbox(){const g=getLightboxAlbum(lightboxState.albumId);if(!g)
 function moveLightbox(delta){const g=getLightboxAlbum(lightboxState.albumId);if(!g)return;const len=g.videos?g.videos.length:(g.photos?g.photos.length:0);if(!len)return;lightboxState.index=(lightboxState.index+delta+len)%len;renderLightbox();}
 function closeLightbox(){const frame=$("#lightboxFrame");if(frame)frame.src="";$("#lightbox").classList.remove("show");}
 function render(){renderNav();if(current.startsWith("gallery-album-"))galleryAlbum(current.replace("gallery-album-",""));else if(current.startsWith("article-"))articleDetail(current.replace("article-",""));else if(current.startsWith("player-"))playerDetail(current.replace("player-",""));else if(current.startsWith("match-"))matchDetail(current.replace("match-",""));else if(current==="news")news();else if(current==="squad")squad();else if(current==="fixtures")fixtures();else if(current==="coppa")coppa();else if(current==="u21")u21();else if(current==="standings")standings();else if(current==="stats")stats();else if(current==="staff")staff();else if(current==="matchday")matchday();else if(current==="gallery")gallery();else if(current==="video")videos();else if(current==="social")social();else if(current==="sponsor")sponsor();else if(current==="sponsor-lead")sponsorLead();else if(current==="historical-stats")historicalStatsPage();else if(current==="records")records();else if(current==="contacts")contacts();else if(current==="privacy")privacy();else if(current==="cookies")cookies();else if(current==="club")club();else home();}
-// ===== CMS BOOT: carica i contenuti pubblicati da content/data.json =====
+// ===== CMS BOOT: carica i contenuti pubblicati da content/data.json + archivio news importate =====
+function newsKeyForMerge(n){
+  return String(
+    (n && (n.sourceUrl || n._sportrentino_source_url || n.sourceId || n.id)) ||
+    `${n && n.title || ""}|${n && n.date || ""}`
+  );
+}
+
+function sortNewsForFrontend(news){
+  return [...(news || [])].sort((a,b)=>{
+    const da = String(a && a.date || "");
+    const db = String(b && b.date || "");
+    if(db !== da) return db.localeCompare(da);
+    return Number(b && b.id || 0) - Number(a && a.id || 0);
+  });
+}
+
+function mergeCmsNewsWithImportedArchive(cmsNews, importedNews){
+  const merged = [];
+  const seen = new Set();
+
+  // Prima le news del CMS: se una news nuova viene importata in data.json, vince su eventuali copie archiviate.
+  (cmsNews || []).forEach(n=>{
+    const key = newsKeyForMerge(n);
+    if(!seen.has(key)){
+      seen.add(key);
+      merged.push(n);
+    }
+  });
+
+  // Poi l'archivio storico read-only, che non deve appesantire il CMS.
+  (importedNews || []).forEach(n=>{
+    const key = newsKeyForMerge(n);
+    if(!seen.has(key)){
+      seen.add(key);
+      merged.push(n);
+    }
+  });
+
+  return sortNewsForFrontend(merged);
+}
+
+async function loadImportedNewsArchive(){
+  try{
+    const res = await fetch(`content/news.imported.json?v=${Date.now()}`, {cache:'no-store'});
+    if(!res.ok){
+      console.warn(`content/news.imported.json non caricato: HTTP ${res.status}. Il sito userà solo le news CMS.`);
+      return [];
+    }
+
+    const raw = await res.text();
+    const archive = JSON.parse(raw);
+    if(Array.isArray(archive)) return archive;
+    if(archive && Array.isArray(archive.news)) return archive.news;
+    return [];
+  }catch(e){
+    console.warn("Errore caricamento content/news.imported.json. Il sito userà solo le news CMS.", e);
+    return [];
+  }
+}
+
 async function bootData(){
   let dataLoaded = false;
   let loadError = null;
@@ -705,6 +765,9 @@ async function bootData(){
 
     const raw = await res.text();
     const published = JSON.parse(raw);
+    const importedArchiveNews = await loadImportedNewsArchive();
+
+    published.news = mergeCmsNewsWithImportedArchive(published.news || [], importedArchiveNews);
 
     state = applyAutomations(hydrate(published));     // i dati pubblicati hanno priorita' e vengono incrementati dai match terminati
     dataLoaded = true;
