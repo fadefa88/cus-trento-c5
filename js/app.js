@@ -511,7 +511,7 @@ function playerMetricsCard(p){
   return `<div class="metrics"><div class="metric"><b>${p.appearances||0}</b><small>Presenze</small></div><div class="metric"><b>${p.goals||0}</b><small>Reti</small></div></div>`;
 }
 function players(list){
-  return (list||[]).map(p=>`<article class="card player" onclick="route('player-${p.id}')"><div class="player-top"><div class="player-photo" style="background-image:url('${p.photo||''}')"></div><div class="num">${p.number||''}</div><div class="avatar"><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"></div></div><div class="card-pad"><span class="badge">${p.role||''}</span><p class="news-meta">${p.team||''}</p><h2>${p.name||''}</h2>${playerMetricsCard(p)}<div class="click-hint">Scheda completa</div></div></article>`).join("");
+  return (list||[]).map(p=>`<article class="card player" onclick="route('player-${p.id}')"><div class="player-top"><div class="player-photo" style="background-image:url('${p.photo||''}')"></div><div class="num">${p.number||''}</div><div class="avatar"><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"></div></div><div class="card-pad"><span class="badge">${p.role||''}</span><p class="news-meta"></p><h2>${p.name||''}</h2>${playerMetricsCard(p)}<div class="click-hint">Scheda completa</div></div></article>`).join("");
 }
 function setSquadTeam(team){view.squadTeam=team;view.squadPage=1;filterSquad();}
 function squad(){
