@@ -65,13 +65,20 @@
       selected.add(id);
     });
 
-    arr(match.scorerEvents).forEach((ev, idx) => {
-      const playerId = norm(ev && ev.playerId);
+    function checkSelectedEvents(events, label){
+      arr(events).forEach((ev, idx) => {
+        const playerId = norm(ev && ev.playerId);
 
-      if(playerId && !selected.has(playerId)){
-        errors.push(`${path}: marcatore #${idx+1} (${labelOf(playerId)}) non è presente tra quintetto o panchina.`);
-      }
-    });
+        if(playerId && !selected.has(playerId)){
+          errors.push(`${path}: ${label} #${idx+1} (${labelOf(playerId)}) non è presente tra quintetto o panchina.`);
+        }
+      });
+    }
+
+    checkSelectedEvents(match.scorerEvents, "marcatore");
+    checkSelectedEvents(match.yellowCardEvents, "ammonito");
+    checkSelectedEvents(match.redCardEvents, "espulso");
+    checkSelectedEvents(match.goalkeeperEvents, "portiere con gol subiti");
   }
 
   function validateData(data){
