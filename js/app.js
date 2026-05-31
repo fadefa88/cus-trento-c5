@@ -748,7 +748,6 @@ function records(){
 function historicalStatsPage(){
   const hs = historicalStatsData();
   const s = hs.summary || {};
-  const bestWins=bestWinsSeason(hs);
   shell("Archivio statistiche","Statistiche storiche complete",`
     <div class="breadcrumb"><button class="back-link" onclick="route('records')"><span>←</span> Hall of fame</button><span>Dati aggiornati dalla pagina statistiche storiche</span></div>
     <div class="grid grid-4" style="margin-bottom:22px">
@@ -757,7 +756,7 @@ function historicalStatsPage(){
       <div class="stat-tile"><b>${numIt(s.draws)}</b><span>Pareggi</span></div>
       <div class="stat-tile"><b>${numIt(s.losses)}</b><span>Sconfitte</span></div>
       <div class="stat-tile"><b>${numIt(s.goalsFor)}</b><span>Gol fatti (${avgPerGame(s.goalsFor,s.played)})</span></div>
-      <div class="stat-tile"><b>${numIt(bestWins.value)}</b><span>Stagione con più vittorie — ${bestWins.detail}</span></div>
+      <div class="stat-tile"><b>${numIt(s.goalsAgainst)}</b><span>Gol subiti (${avgPerGame(s.goalsAgainst,s.played)})</span></div>
       <div class="stat-tile"><b>${statDiff(s.goalDifference)}</b><span>Differenza reti</span></div>
     </div>
     <div class="grid grid-2" style="margin-top:24px">
