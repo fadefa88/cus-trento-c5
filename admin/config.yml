@@ -133,113 +133,12 @@ collections:
         name: faculty
         widget: string
         required: false
-      - label: Eta'
-        name: age
-        widget: number
-        value_type: int
-        required: false
-      - label: Gol
-        name: goals
-        widget: number
-        value_type: int
-        default: 0
-      - label: Presenze
-        name: appearances
-        widget: number
-        value_type: int
-        default: 0
-      - label: Sigla avatar
-        name: avatar
-        widget: string
-        required: false
       - label: Foto (URL)
         name: photo
         widget: string
         required: false
-      - label: Bio
-        name: bio
-        widget: text
-        required: false
-      - label: Statistiche per competizione
-        name: competitions
-        widget: object
-        required: false
-        collapsed: true
-        fields:
-        - label: Campionato
-          name: campionato
-          widget: object
-          fields:
-          - label: Presenze
-            name: appearances
-            widget: number
-            value_type: int
-          - label: Gol
-            name: goals
-            widget: number
-            value_type: int
-        - label: Coppa
-          name: coppa
-          widget: object
-          fields:
-          - label: Presenze
-            name: appearances
-            widget: number
-            value_type: int
-          - label: Gol
-            name: goals
-            widget: number
-            value_type: int
-        - label: Totale
-          name: totale
-          widget: object
-          fields:
-          - label: Presenze
-            name: appearances
-            widget: number
-            value_type: int
-          - label: Gol
-            name: goals
-            widget: number
-            value_type: int
-      - label: Statistiche portiere
-        name: goalkeeperStats
-        widget: object
-        required: false
-        collapsed: true
-        fields:
-        - label: Presenze
-          name: appearances
-          widget: number
-          value_type: int
-        - label: Minuti
-          name: minutes
-          widget: number
-          value_type: int
-        - label: Clean sheet
-          name: cleanSheets
-          widget: number
-          value_type: int
-        - label: Gol subiti
-          name: goalsAgainst
-          widget: number
-          value_type: int
-        - label: Parate
-          name: saves
-          widget: number
-          value_type: int
-        - label: Rigori parati
-          name: penaltiesSaved
-          widget: number
-          value_type: int
-        - label: Save rate
-          name: saveRate
-          widget: number
-          value_type: int
-        - label: Media gol subiti
-          name: goalsAgainstAvg
-          widget: number
-          value_type: float
+      hint: 'Le statistiche non si modificano qui: presenze, gol, ammonizioni, espulsioni e gol subiti sono calcolati automaticamente
+        dai match terminati.'
 - name: fixtures
   label: Calendario Prima squadra
   delete: false
@@ -1933,42 +1832,6 @@ collections:
           label: Foto URL
           name: u
           widget: string
-- name: gallery
-  label: Gallery (foto singole)
-  delete: false
-  editor:
-    preview: false
-  files:
-  - name: gallery
-    label: Gallery (foto singole)
-    file: content/data.json
-    fields:
-    - label: Foto
-      name: gallery
-      widget: list
-      label_singular: foto
-      summary: '{{fields.title}}'
-      fields:
-      - label: ID
-        name: id
-        widget: number
-        value_type: int
-      - label: Titolo
-        name: title
-        widget: string
-      - label: Data
-        name: date
-        widget: datetime
-        format: YYYY-MM-DD
-        date_format: DD/MM/YYYY
-        time_format: false
-        picker_utc: false
-      - label: Categoria
-        name: category
-        widget: string
-      - label: Immagine (URL)
-        name: image
-        widget: string
 - name: sponsors
   label: Sponsor
   delete: false
@@ -2226,32 +2089,3 @@ collections:
         name: goalDifference
         widget: number
         value_type: int
-- name: records
-  label: Hall of fame / Record
-  delete: false
-  editor:
-    preview: false
-  files:
-  - name: records
-    label: Hall of fame / Record
-    file: content/data.json
-    fields:
-    - label: Record
-      name: records
-      widget: list
-      label_singular: record
-      summary: '{{fields.label}}: {{fields.value}}'
-      fields:
-      - label: ID
-        name: id
-        widget: number
-        value_type: int
-      - label: Etichetta
-        name: label
-        widget: string
-      - label: Valore
-        name: value
-        widget: string
-      - label: Dettaglio
-        name: detail
-        widget: string
