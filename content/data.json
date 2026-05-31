@@ -506,54 +506,7 @@
     "status": "Girone eliminatorio",
     "fixtures": []
   },
-  "fixtures": [
-    {
-      "summary": "ciao sono il sommario",
-      "time": "21:00",
-      "away": "Besenello",
-      "date": "2026-05-28",
-      "lineup": {
-        "module": "3-1",
-        "startingFive": [
-          "2",
-          "4",
-          "5",
-          "7",
-          "9"
-        ],
-        "bench": [
-          "1",
-          "3",
-          "8",
-          "18",
-          "17",
-          "16"
-        ]
-      },
-      "venue": "Sanbàpolis",
-      "score": "3-2",
-      "status": "Terminata",
-      "scorerEvents": [
-        {
-          "goals": 2,
-          "playerId": "4"
-        },
-        {
-          "goals": 1,
-          "playerId": "9"
-        }
-      ],
-      "id": 1,
-      "yellowCardEvents": [
-        {
-          "cards": 1,
-          "playerId": "2"
-        }
-      ],
-      "home": "CUS Trento",
-      "competition": "Campionato"
-    }
-  ],
+  "fixtures": [],
   "roster": [
     {
       "goals": 0,
