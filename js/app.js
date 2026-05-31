@@ -495,7 +495,7 @@ function articleDetail(id){
 
 function playerMetricsCard(p){
   if(p.role==="Portiere"&&p.goalkeeperStats){
-    return `<div class="metrics"><div class="metric"><b>${p.appearances||0}</b><small>Presenze</small></div><div class="metric gk-mini"><b>${p.goalkeeperStats.goalsAgainst||0}</b><small>Gol subiti</small></div></div>`;
+    return `<div class="metrics"><div class="metric"><b>${p.appearances||0}</b><small>Pres</small></div><div class="metric gk-mini"><b>${p.goalkeeperStats.goalsAgainst||0}</b><small>Gol subiti</small></div></div>`;
   }
   return `<div class="metrics"><div class="metric"><b>${p.appearances||0}</b><small>Pres</small></div><div class="metric"><b>${p.goals||0}</b><small>Reti</small></div></div>`;
 }
@@ -504,7 +504,7 @@ function players(list){
 }
 function setSquadTeam(team){view.squadTeam=team;view.squadPage=1;filterSquad();}
 function squad(){
-  const roles=["Tutti","Portiere","Centrale","Laterale","Pivot", "Universale"];
+  const roles=["Tutti","Portiere","Centrale","Laterale","Punta"];
   view.squadTeam=view.squadTeam||"Prima squadra";
   view.squadPage=1;
   shell("Team","Rosa",`<div class="team-switch"><button class="${view.squadTeam==='Prima squadra'?'active':''}" onclick="setSquadTeam('Prima squadra')">Prima squadra</button><button class="${view.squadTeam==='Under 21'?'active':''}" onclick="setSquadTeam('Under 21')">Under 21</button></div><div class="toolbar">${roles.map(r=>`<button class="pill rolef ${r==="Tutti"?"active":""}">${r}</button>`).join("")}</div><div class="grid grid-4" id="squadGrid"></div><div id="squadPager"></div>`,"","Rosa del CUS Trento C5 con profili giocatore e statistiche.");
@@ -608,16 +608,57 @@ function barChartData(items){const max=Math.max(...items.map(x=>x.value||0),1);r
 function statsCompetitionSwitch(){const current=view.statsCompetition||"totale";const items=[["campionato","Campionato"],["coppa","Coppa"],["totale","Complessivo"]];return `<div class="team-switch" style="margin-top:-6px">${items.map(([key,label])=>`<button class="${current===key?'active':''}" onclick="setStatsCompetition('${key}')">${label}</button>`).join("")}</div>`;}
 function setStatsCompetition(value){view.statsCompetition=value;stats();}
 function statsCompetitionLabel(){return ({campionato:"Campionato",coppa:"Coppa",totale:"Complessivo"})[view.statsCompetition||"totale"]||"Complessivo";}
-function playerGoalsForCompetition(p,scope){if(scope==="totale")return p.goals||0;return (p.competitions&&p.competitions[scope]&&Number(p.competitions[scope].goals))||0;}
-function playerAppearancesForCompetition(p,scope){if(scope==="totale")return p.appearances||0;return (p.competitions&&p.competitions[scope]&&Number(p.competitions[scope].appearances))||0;}
-function goalkeeperGoalsAgainstForCompetition(p,scope){const gk=p.goalkeeperStats;if(!gk)return 0;const total=Number(gk.goalsAgainst)||0;if(scope==="totale")return total;const totalApps=Number(gk.appearances||p.appearances)||0;const apps=playerAppearancesForCompetition(p,scope);if(totalApps>0)return Math.round(total*apps/totalApps);return scope==="campionato"?total:0;}
-function parseScore(score){const parts=String(score||"").split(/[-–]/).map(x=>parseInt(x.trim(),10));return parts.length>=2&&Number.isFinite(parts[0])&&Number.isFinite(parts[1])?parts:null;}
-function isCusMatchForStats(f,isU21){const h=teamKey(f.home),a=teamKey(f.away);if(isU21)return h.includes("custrentou21")||a.includes("custrentou21")||h.includes("cusu21")||a.includes("cusu21");return (h.includes("custrento")&&!h.includes("u21"))||(a.includes("custrento")&&!a.includes("u21"));}
-function matchTeamGoals(f,isU21,type){const score=parseScore(f.score);if(!score||!isCusMatchForStats(f,isU21))return 0;const homeCus=isCusTeam(f.home);const awayCus=isCusTeam(f.away);if(type==="for")return homeCus?score[0]:(awayCus?score[1]:0);return homeCus?score[1]:(awayCus?score[0]:0);}
-function cupFixturesForStats(isU21){return isU21?(((state.u21Cup||{}).fixtures)||[]):(((state.cup||{}).fixtures)||[]);}
-function teamGoalsForCompetition(isU21,scope,teamRow){const league=Number(teamRow.gf)||0;const cup=cupFixturesForStats(isU21).reduce((s,f)=>s+matchTeamGoals(f,isU21,"for"),0);if(scope==="campionato")return league;if(scope==="coppa")return cup;return league+cup;}
-function teamGoalsAgainstForCompetition(isU21,scope,teamRow){const league=Number(teamRow.gs)||0;const cup=cupFixturesForStats(isU21).reduce((s,f)=>s+matchTeamGoals(f,isU21,"against"),0);if(scope==="campionato")return league;if(scope==="coppa")return cup;return league+cup;}
-function stats(){const isU21=view.stats==="u21";const scope=view.statsCompetition||"totale";const playersScope=state.roster.filter(p=>isU21?p.team==="Under 21":p.team==="Prima squadra");const table=isU21?state.u21Standings:state.standings;const teamRow=findCusRow(table)||{};const goalsFor=teamGoalsForCompetition(isU21,scope,teamRow);const goalsAgainst=teamGoalsAgainstForCompetition(isU21,scope,teamRow);const top=[...playersScope].map(p=>({...p,statGoals:playerGoalsForCompetition(p,scope)})).sort((a,b)=>b.statGoals-a.statGoals).slice(0,8);const keepers=[...playersScope].filter(p=>p.role==="Portiere"||p.goalkeeperStats).map(p=>({label:p.name.split(" ").slice(0,2).join(" "),value:goalkeeperGoalsAgainstForCompetition(p,scope)})).sort((a,b)=>b.value-a.value);const totalPlayerGoals=playersScope.reduce((s,p)=>s+playerGoalsForCompetition(p,scope),0);const title=isU21?"Under 21":"Prima squadra";const compLabel=statsCompetitionLabel();shell("Analytics","Statistiche",`${teamSwitch("stats")}${statsCompetitionSwitch()}<div class="grid grid-4" style="margin-bottom:22px"><div class="stat-tile"><b>${totalPlayerGoals}</b><span>Goal giocatori</span></div><div class="stat-tile"><b>${goalsAgainst}</b><span>Gol subiti</span></div><div class="stat-tile"><b>${goalsFor}</b><span>Gol fatti</span></div><div class="stat-tile"><b>${goalsFor-goalsAgainst>0?"+":""}${goalsFor-goalsAgainst}</b><span>Differenza reti</span></div></div><div class="grid grid-2"><div class="card card-pad"><h2>Top scorer — ${compLabel}</h2>${barChartData(top.map(p=>({label:p.name.split(" ").slice(0,2).join(" "),value:p.statGoals})))}</div><div class="card card-pad"><h2>Gol subiti portieri — ${compLabel}</h2>${keepers.length?barChartData(keepers):"<p class='muted'>Nessun dato portieri disponibile.</p>"}</div></div>`,"","Statistiche e trend CUS Trento C5.");}
+function statsTeamLabel(isU21){return isU21?"Under 21":"Prima squadra";}
+function statsCompetitionSource(isU21){
+  const src=[];
+  if(isU21){
+    (state.u21Fixtures||[]).forEach(m=>src.push({...m,_statsCompetition:"campionato",_statsTeam:"u21"}));
+    (((state.u21Cup||{}).fixtures)||[]).forEach(m=>src.push({...m,_statsCompetition:"coppa",_statsTeam:"u21"}));
+  }else{
+    (state.fixtures||[]).forEach(m=>src.push({...m,_statsCompetition:"campionato",_statsTeam:"prima"}));
+    (((state.cup||{}).fixtures)||[]).forEach(m=>src.push({...m,_statsCompetition:"coppa",_statsTeam:"prima"}));
+  }
+  return src;
+}
+function statsMatchesForScope(isU21,scope){return statsCompetitionSource(isU21).filter(m=>isTerminatedMatch(m)&&isCusMatchForStats(m,isU21)&&(scope==="totale"||m._statsCompetition===scope));}
+function resultStatsFromMatches(matches){
+  const out={played:0,wins:0,draws:0,losses:0,goalsFor:0,goalsAgainst:0,goalDifference:0};
+  (matches||[]).forEach(m=>{
+    const g=goalsForAgainst(m);
+    out.played++;out.goalsFor+=g.forGoals;out.goalsAgainst+=g.againstGoals;
+    if(g.forGoals>g.againstGoals)out.wins++;else if(g.forGoals===g.againstGoals)out.draws++;else out.losses++;
+  });
+  out.goalDifference=out.goalsFor-out.goalsAgainst;
+  return out;
+}
+function teamRosterForStats(isU21){return (state.roster||[]).filter(p=>isU21?p.team==="Under 21":p.team==="Prima squadra");}
+function statShortName(p){return (p&&p.name?String(p.name):"").split(" ").slice(0,2).join(" ")||"Giocatore";}
+function statRankingFromMap(map){return [...map.values()].sort((a,b)=>b.value-a.value||String(a.label).localeCompare(String(b.label)));}
+function topScorersFromMatches(matches,isU21){
+  const roster=teamRosterForStats(isU21);const allowed=new Set(roster.map(p=>String(p.id)));const byId=new Map((state.roster||[]).map(p=>[String(p.id),p]));const map=new Map();
+  (matches||[]).forEach(m=>scorerEvents(m,state.roster||[]).forEach(e=>{
+    const key=String(e.playerId);if(!allowed.has(key))return;const p=byId.get(key);if(!map.has(key))map.set(key,{label:statShortName(p),value:0,fullName:p&&p.name});map.get(key).value+=toNumber(e.goals)||1;
+  }));
+  return statRankingFromMap(map);
+}
+function goalkeeperAgainstFromMatches(matches,isU21){
+  const roster=teamRosterForStats(isU21);const allowed=new Set(roster.filter(p=>p.role==="Portiere"||p.goalkeeperStats).map(p=>String(p.id)));const byId=new Map((state.roster||[]).map(p=>[String(p.id),p]));const map=new Map();
+  (matches||[]).forEach(m=>{
+    const gfga=goalsForAgainst(m);
+    goalkeeperAgainstEvents(m,state.roster||[],gfga.againstGoals).forEach(e=>{
+      const key=String(e.playerId);if(!allowed.has(key))return;const p=byId.get(key);if(!map.has(key))map.set(key,{label:statShortName(p),value:0,fullName:p&&p.name});map.get(key).value+=toNumber(e.goalsAgainst);
+    });
+  });
+  return statRankingFromMap(map);
+}
+function statTile(label,value,detail=""){return `<div class="stat-tile stats-big-tile"><b>${value}</b><span>${label}</span>${detail?`<small>${detail}</small>`:""}</div>`;}
+function statsMetaStrip(s){return `<div class="stats-meta-strip"><div><span>Gol fatti</span><b>${s.goalsFor}</b></div><div><span>Gol subiti</span><b>${s.goalsAgainst}</b></div><div><span>Diff. reti</span><b>${s.goalDifference>0?"+":""}${s.goalDifference}</b></div></div>`;}
+function statsRankingCard(title,items,emptyText){return `<div class="card card-pad stats-ranking-card"><h2>${title}</h2>${items.length?barChartData(items.slice(0,10)):`<p class='muted'>${emptyText}</p>`}</div>`;}
+function stats(){
+  const isU21=view.stats==="u21";const scope=view.statsCompetition||"totale";const teamTitle=statsTeamLabel(isU21);const compLabel=statsCompetitionLabel();
+  const matches=statsMatchesForScope(isU21,scope);const results=resultStatsFromMatches(matches);const scorers=topScorersFromMatches(matches,isU21);const keepers=goalkeeperAgainstFromMatches(matches,isU21);
+  shell("Analytics",`Statistiche — ${teamTitle}`,`${teamSwitch("stats")}${statsCompetitionSwitch()}<p class="muted stats-source-note">Dati calcolati automaticamente dalle partite con stato <b>Terminata</b> e risultato inserito nel calendario. Ambito: <b>${compLabel}</b>.</p><div class="grid grid-4 stats-result-grid">${statTile("Giocate",results.played)}${statTile("Vinte",results.wins)}${statTile("Pari",results.draws)}${statTile("Perse",results.losses)}</div>${statsMetaStrip(results)}<div class="grid grid-2 stats-rankings-grid">${statsRankingCard(`Marcatori — ${compLabel}`,scorers,"Nessun marcatore inserito nei match terminati di questo filtro.")}${statsRankingCard(`Portieri: gol subiti — ${compLabel}`,keepers,"Nessun gol subito attribuito ai portieri nei match terminati di questo filtro.")}</div>` ,"","Statistiche calcolate da risultati, marcatori e gol subiti portieri inseriti nei singoli match.");
+}
 function staff(){const team=view.staff==="u21"?"Under 21":"Prima squadra";const items=state.staff.filter(s=>(s.team||"Prima squadra")===team);shell("Staff",`Staff tecnico — ${team}`,`${teamSwitch("staff")}<div class="grid grid-4">${items.map(s=>`<article class="card"><img loading="lazy" class="staff-photo" src="${s.photo}" alt="${s.name}"><div class="card-pad"><span class="badge">${s.role}</span><h2 style="margin-top:12px">${s.name}</h2><p class="muted">${s.bio}</p></div></article>`).join("")}</div>`,"","Staff tecnico CUS Trento C5.");}
 function mapQueryForFixture(f){
   if(!f) return "Sanbàpolis Trento";
