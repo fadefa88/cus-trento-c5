@@ -2078,23 +2078,7 @@
       "gf": 28
     }
   ],
-  "news": [
-    {
-      "excerpt": "asdasd",
-      "body": [
-        "asegasegaseg"
-      ],
-      "author": "asd",
-      "date": "2026-05-31",
-      "title": "pippo",
-      "pinned": false,
-      "tags": [
-        "Prima squadra"
-      ],
-      "id": 12312323,
-      "category": ""
-    }
-  ],
+  "news": [],
   "historicalStats": {
     "summary": {
       "goalsAgainst": 1725,
