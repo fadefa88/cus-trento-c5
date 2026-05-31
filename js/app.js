@@ -37,15 +37,11 @@ function hydrate(src = {}) {
     "standings",
     "u21Standings",
     "staff",
-    "gallery",
     "galleryAlbums",
     "sponsors",
     "videos",
     "social",
-    "seasons",
-    "records",
     "sponsorPackages",
-    "tryoutFields",
     "leads"
   ];
 
@@ -100,7 +96,9 @@ function resolvePlayerId(value, roster){
   return null;
 }
 function lineupIds(match, roster){const l=match.lineup||{};const values=[...(l.startingFive||[]),...(l.bench||[])];const ids=[];values.forEach(v=>{const id=resolvePlayerId(v,roster);if(id!==null&&!ids.includes(id))ids.push(id);});return ids;}
-function startingGoalkeeperId(match, roster){const l=match.lineup||{};for(const v of (l.startingFive||[])){const id=resolvePlayerId(v,roster);const p=(roster||[]).find(x=>String(x.id)===String(id));if(p && (p.role==="Portiere"||p.goalkeeperStats))return p.id;}return null;}
+function startingLineupIds(match, roster){const l=match.lineup||{};const ids=[];(l.startingFive||[]).forEach(v=>{const id=resolvePlayerId(v,roster);if(id!==null&&!ids.includes(id))ids.push(id);});return ids;}
+function isGoalkeeperPlayer(p){return !!p && (p.role==="Portiere"||!!p.goalkeeperStats);}
+function startingGoalkeeperId(match, roster){const l=match.lineup||{};for(const v of (l.startingFive||[])){const id=resolvePlayerId(v,roster);const p=(roster||[]).find(x=>String(x.id)===String(id));if(isGoalkeeperPlayer(p))return p.id;}return null;}
 function scorerEvents(match, roster){
   const events=[];
   (match.scorerEvents||[]).forEach(e=>{const id=resolvePlayerId(e.playerId||e.player||e.name||e.id,e.playerId?roster:roster);const goals=Math.max(1,toNumber(e.goals||e.value||1));if(id!==null)events.push({playerId:id,goals});});
@@ -314,12 +312,17 @@ function applyAutomations(baseData){
     bucket.played++;bucket.goalsFor+=gfga.forGoals;bucket.goalsAgainst+=gfga.againstGoals;
     if(gfga.forGoals>gfga.againstGoals)bucket.wins++;else if(gfga.forGoals===gfga.againstGoals)bucket.draws++;else bucket.losses++;
 
+    const startingIds=new Set(startingLineupIds(match,out.roster).map(id=>String(id)));
     lineupIds(match,out.roster).forEach(id=>{
       const p=byId.get(String(id));if(!p)return;
-      p.appearances=toNumber(p.appearances)+1;
-      p.competitions[comp].appearances=toNumber(p.competitions[comp].appearances)+1;
-      p.competitions.totale.appearances=toNumber(p.competitions.totale.appearances)+1;
-      if(p.history&&p.history[0])p.history[0].appearances=toNumber(p.history[0].appearances)+1;
+      const isNonStartingGoalkeeper=isGoalkeeperPlayer(p)&&!startingIds.has(String(id));
+      if(!isNonStartingGoalkeeper){
+        p.appearances=toNumber(p.appearances)+1;
+        p.competitions[comp].appearances=toNumber(p.competitions[comp].appearances)+1;
+        p.competitions.totale.appearances=toNumber(p.competitions.totale.appearances)+1;
+        if(p.history&&p.history[0])p.history[0].appearances=toNumber(p.history[0].appearances)+1;
+      }
+      // I portieri in panchina contano solo per i dati storici/all-time, non per la scheda rosa corrente.
       if(teamKey==="prima")addMap(appMap,id,1);
     });
 
@@ -841,7 +844,7 @@ function saveLead(type){
   const company=g("lead_company"), pkg=g("lead_package");
   const name=g("lead_name")||g("try_name");
   const email=g("lead_email")||g("try_email");
-  const role=g("try_role"), age=g("try_age"), phone=g("try_phone"), university=g("try_university"), exp=g("try_exp"), note=g("try_note")||g("lead_note");
+  const role=g("try_role"), age=g("try_age"), phone=g("try_phone"), university=g("try_university"), exp=g("try_exp"), note=g("try_note")||g("lead_msg")||g("lead_note");
   const subject = type==="sponsor" ? "Richiesta sponsor — "+(company||name) : "Candidatura provini — "+(name||"");
   let body="";
   if(type==="sponsor"){
