@@ -80,6 +80,14 @@ function isTerminatedMatch(m){return normText(m.status)==="terminata" && !!score
 function isCusName(name){const t=normText(name);return t.includes("custrento")||t.includes("custrentocalcioa5")||t==="cus";}
 function isU21Match(m, sourceType){return sourceType==="u21" || sourceType==="u21cup" || normText(m.home).includes("u21") || normText(m.away).includes("u21");}
 function goalsForAgainst(m){const score=scoreParts(m.score);if(!score)return {forGoals:0,againstGoals:0};const homeCus=isCusName(m.home);const awayCus=isCusName(m.away);return {forGoals: homeCus?score[0]:(awayCus?score[1]:0), againstGoals: homeCus?score[1]:(awayCus?score[0]:0)};}
+function isCusMatchForStats(m,isU21){
+  const hasCus=isCusName(m.home)||isCusName(m.away);
+  if(!hasCus)return false;
+  const team=String(m._statsTeam||"").toLowerCase();
+  if(team)return team===(isU21?"u21":"prima");
+  const hasU21=normText(m.home).includes("u21")||normText(m.away).includes("u21");
+  return isU21?hasU21:!hasU21;
+}
 function playerDisplayNameById(roster,id){const p=(roster||[]).find(x=>String(x.id)===String(id));return p?p.name:String(id||"");}
 function resolvePlayerId(value, roster){
   if(value && typeof value==="object") value=value.playerId||value.id||value.g||value.name||value.player||value.value;
