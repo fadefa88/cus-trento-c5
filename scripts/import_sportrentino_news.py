@@ -499,22 +499,57 @@ def sort_news(news: list[dict]) -> list[dict]:
     return sorted(news, key=lambda n: (n.get("date") or "", int(n.get("id") or 0)), reverse=True)
 
 
+def news_identity(n: dict) -> str:
+    return str(
+        n.get("sourceUrl")
+        or n.get("_sportrentino_source_url")
+        or n.get("sourceId")
+        or n.get("id")
+        or f"{n.get('title','')}|{n.get('date','')}"
+    )
+
+
+def load_news_archive(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    try:
+        payload = load_data(path)
+    except Exception as exc:
+        print(f"WARN imported-news archive not loaded: {path} -> {exc}", flush=True)
+        return []
+    if isinstance(payload, list):
+        return payload
+    if isinstance(payload, dict) and isinstance(payload.get("news"), list):
+        return payload["news"]
+    return []
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data", default="content/data.json", help="Path to content/data.json")
-    parser.add_argument("--max-pages", type=int, default=160, help="Pages to scan. Default: 1, only the configured SporTrentino page 1.")
+    parser.add_argument("--data", default="content/data.json", help="Path to CMS content/data.json. New imports are written here.")
+    parser.add_argument("--imported-archive", default="content/news.imported.json", help="Read-only archive of historical imported news used only for deduplication.")
+    parser.add_argument("--max-pages", type=int, default=1, help="Pages to scan. Use 186 only for a one-off mass import.")
     parser.add_argument("--sources", default="all", help="Comma-separated source names or 'all'.")
     parser.add_argument("--sleep", type=float, default=0.35, help="Seconds between article requests")
     parser.add_argument("--limit-articles", type=int, default=0, help="Optional hard limit for debug across all sources")
     args = parser.parse_args()
 
     data_path = Path(args.data)
+    archive_path = Path(args.imported_archive)
     data = load_data(data_path)
     existing_news = data.get("news", [])
-    existing_sources = {n.get("sourceUrl") for n in existing_news if n.get("sourceUrl")}
-    existing_ids = {str(n.get("id")) for n in existing_news if n.get("id") is not None}
+    archived_news = load_news_archive(archive_path)
+    all_known_news = [*existing_news, *archived_news]
 
-    print("Importer version: v8 - ONLY SporTrentino page 1", flush=True)
+    existing_sources = {n.get("sourceUrl") for n in all_known_news if n.get("sourceUrl")}
+    existing_sources.update({n.get("_sportrentino_source_url") for n in all_known_news if n.get("_sportrentino_source_url")})
+    existing_source_ids = {str(n.get("sourceId")) for n in all_known_news if n.get("sourceId") is not None}
+    existing_identities = {news_identity(n) for n in all_known_news}
+    existing_ids = {str(n.get("id")) for n in all_known_news if n.get("id") is not None}
+
+    print("Importer version: v9 - CMS data.json + read-only imported archive dedup", flush=True)
+    print(f"CMS news currently: {len(existing_news)}", flush=True)
+    print(f"Archived imported news: {len(archived_news)}", flush=True)
 
     session = requests.Session()
     imported: list[dict] = []
@@ -554,7 +589,8 @@ def main() -> int:
                 if args.limit_articles and scanned_links > args.limit_articles:
                     break
 
-                if link.url in existing_sources:
+                source_id = article_id_from_url(link.url)
+                if link.url in existing_sources or source_id in existing_source_ids:
                     continue
 
                 try:
@@ -568,6 +604,10 @@ def main() -> int:
                     time.sleep(args.sleep)
                     continue
 
+                if news_identity(article) in existing_identities:
+                    time.sleep(args.sleep)
+                    continue
+
                 article["importSource"] = source["name"]
 
                 # Make ID unique if needed.
@@ -578,6 +618,8 @@ def main() -> int:
                 article["id"] = candidate
                 existing_ids.add(str(candidate))
                 existing_sources.add(article["sourceUrl"])
+                existing_source_ids.add(str(article.get("sourceId")))
+                existing_identities.add(news_identity(article))
 
                 imported.append(article)
                 print(f"  IMPORT {article['date']} - {article['title']}", flush=True)
@@ -596,7 +638,8 @@ def main() -> int:
     print("-" * 70)
     print(f"Scanned links: {scanned_links}")
     print(f"Imported new articles: {len(imported)}")
-    print(f"Total news now: {len(data.get('news', []))}")
+    print(f"CMS news now: {len(data.get('news', []))}")
+    print(f"Total public news including archive: {len(data.get('news', [])) + len(archived_news)}")
 
     return 0
 
