@@ -433,8 +433,8 @@ function standingMini(s){return `<div class="list-row home-standing-row ${isCusT
 function homeStandingWidget(rows){
   const cus=findCusRow(rows)||{};
   const topRows=(rows||[]).filter(r=>!isCusTeam(r.team)).slice(0,4);
-  const rowsHtml=topRows.map(s=>`<div class="home-standing-row"><div class="home-standing-team">${s.logo?`<img src="${s.logo}" alt="${s.team}">`:""}<div><b>${s.pos}. ${s.team}</b><small>${s.g||0} gare · DR ${((s.gf||0)-(s.gs||0))>0?"+":""}${(s.gf||0)-(s.gs||0)}</small></div></div><strong>${s.pts||0}</strong></div>`).join("");
-  const cusHtml=cus.team?`<div class="home-standing-row home-standing-cus"><div class="home-standing-team">${cus.logo?`<img src="${cus.logo}" alt="${cus.team}">`:""}<div><b>${cus.pos}. ${cus.team}</b><small>${cus.g||0} gare · DR ${((cus.gf||0)-(cus.gs||0))>0?"+":""}${(cus.gf||0)-(cus.gs||0)}</small></div></div><strong>${cus.pts||0}</strong></div>`:"";
+  const rowsHtml=topRows.map(s=>`<div class="home-standing-row"><div class="home-standing-team">${s.logo?`<img src="${s.logo}" alt="${s.team}">`:""}<div><b>${s.pos}. ${s.team}</b></div></div><strong>${s.pts||0}</strong></div>`).join("");
+  const cusHtml=cus.team?`<div class="home-standing-row home-standing-cus"><div class="home-standing-team">${cus.logo?`<img src="${cus.logo}" alt="${cus.team}">`:""}<div><b>${cus.pos}. ${cus.team}</b></div></div><strong>${cus.pts||0}</strong></div>`:"";
   return `<div class="home-standing">${rowsHtml}${cusHtml}</div><button class="btn soft small" style="margin-top:14px" onclick="route('standings')">Classifica completa</button>`;
 }
 
