@@ -766,7 +766,7 @@ function historicalStatsPage(){
     <div class="card card-pad table-wrap" style="margin-top:24px"><h2>Statistiche per stagione</h2><table class="table" style="box-shadow:none;margin-top:16px"><thead><tr><th>Stagione</th><th>G</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead><tbody>${seasonStatsRows(hs.seasons)}</tbody></table></div>
   `,"","Statistiche storiche complete CUS Trento C5.");
 }
-function contacts(){shell("Contatti","Contatti e richieste",`<div class="grid grid-2"><div class="newsletter"><span class="eyebrow" style="background:white;color:#09090b">CUS Trento</span><h2 style="font-size:38px">Contatti ufficiali</h2><p style="color:rgba(255,255,255,.78);line-height:1.8"><b>Indirizzo</b><br>Via Inama 1, 38122 Trento (TN)<br><br><b>Telefono</b><br>0461.281855<br><br><b>Email</b><br><a href="mailto:custrentocalcio@gmail.com" style="color:white;text-decoration:underline">custrentocalcio@gmail.com</a><br><br><b>Orari segreteria</b><br>09.30 – 12.00 dal lunedì al venerdì<br>14.00 – 16.00 il martedì</p></div><div class="card card-pad"><h2>Scrivici</h2><div class="form-grid" style="grid-template-columns:1fr"><label><span>Nome</span><input></label><label><span>Email</span><input></label><label><span>Motivo</span><select><option>Diventa sponsor</option><option>Provino</option><option>Informazioni partita</option><option>Media</option></select></label><label><span>Messaggio</span><textarea></textarea></label></div><button class="btn dark" style="margin-top:14px" onclick="alert('Demo: form non collegato a backend')">Invia richiesta</button></div></div>`,"","Contatti ufficiali CUS Trento C5.");}
+function contacts(){shell("Contatti","Contatti e richieste",`<div class="grid grid-2"><div class="newsletter"><span class="eyebrow" style="background:white;color:#09090b">CUS Trento</span><h2 style="font-size:38px">Contatti ufficiali</h2><p style="color:rgba(255,255,255,.78);line-height:1.8"><b>Indirizzo</b><br>Via Inama 1, 38122 Trento (TN)<br><br><b>Telefono</b><br>0461.281855<br><br><b>Email</b><br><a href="mailto:custrentocalcio@gmail.com" style="color:white;text-decoration:underline">custrentocalcio@gmail.com</a><br><br><b>Orari segreteria</b><br>09.30 – 12.00 dal lunedì al venerdì<br>14.00 – 16.00 il martedì</p></div><div class="card card-pad"><h2>Scrivici</h2><p class="muted" style="margin-top:6px">Compila il modulo: il messaggio arriva direttamente nella casella ufficiale del CUS Trento C5.</p><form id="contactForm" class="contact-form" method="post" action="api/contact.php" onsubmit="submitContact(event)"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><div class="form-grid" style="grid-template-columns:1fr"><label><span>Nome e cognome</span><input name="name" autocomplete="name" required></label><label><span>Email</span><input name="email" type="email" autocomplete="email" required></label><label><span>Telefono</span><input name="phone" type="tel" autocomplete="tel"></label><label><span>Motivo</span><select name="reason" required><option>Informazioni generali</option><option>Diventa sponsor</option><option>Provino</option><option>Informazioni partita</option><option>Media</option></select></label><label><span>Messaggio</span><textarea name="message" required minlength="10"></textarea></label><label class="privacy-check"><input type="checkbox" name="privacy" required><span>Ho letto la privacy policy e autorizzo il trattamento dei dati per ricevere risposta.</span></label></div><div id="contactStatus" class="form-alert" aria-live="polite"></div><button id="contactSubmit" class="btn dark" type="submit" style="margin-top:14px">Invia richiesta</button></form></div></div>`,"","Contatti ufficiali CUS Trento C5.");}
 function privacy(){shell("Privacy Policy","Informativa sul trattamento dei dati personali",`
 <div class="card card-pad article-body">
   <p class="muted">Ultimo aggiornamento: maggio 2026</p>
@@ -783,8 +783,8 @@ function privacy(){shell("Privacy Policy","Informativa sul trattamento dei dati 
   <h2>Quali dati raccogliamo</h2>
   <p>Questo sito e' un sito statico: <b>non dispone di un database e non registra automaticamente i dati di navigazione</b>. I dati personali vengono trattati solo nei casi seguenti:</p>
   <ul>
-    <li><b>Modulo Provini</b>: quando invii una candidatura, il modulo apre il tuo programma di posta con un'email precompilata indirizzata al club. I dati che decidi di inviare (es. nome, eta', ruolo, universita'/corso, telefono, email, note) vengono trasmessi via email e trattati per gestire la tua richiesta.</li>
-    <li><b>Modulo Sponsor / contatto commerciale</b>: analogamente, i dati dell'azienda e del referente (nome, email, eventuali note) vengono inviati via email per valutare la proposta di partnership.</li>
+    <li><b>Modulo Contatti</b>: quando invii una richiesta dal sito, i dati inseriti (nome, email, telefono facoltativo, motivo e messaggio) vengono trasmessi via email alla casella ufficiale del club per permetterci di rispondere.</li>
+    <li><b>Modulo Provini e Sponsor</b>: eventuali candidature o richieste commerciali vengono trattate solo per gestire la richiesta ricevuta e ricontattarti.</li>
     <li><b>Preferenza cookie</b>: una piccola informazione tecnica salvata nel tuo browser (localStorage) per ricordare se hai accettato il banner. Non e' un dato identificativo e non viene trasmesso a noi.</li>
   </ul>
   <p>Non raccogliamo dati tramite newsletter, non profiliamo gli utenti e non vendiamo dati a terzi.</p>
@@ -851,6 +851,32 @@ function showCookie(){if(!localStorage.getItem("cus_cookie_ok"))$("#cookieBanner
 function openCookieDetails(){$("#cookieModal").classList.add("show");}
 function closeCookieDetails(){$("#cookieModal").classList.remove("show");}
 function acceptCookies(){localStorage.setItem("cus_cookie_ok","yes");$("#cookieBanner").classList.remove("show");}
+
+
+async function submitContact(event){
+  event.preventDefault();
+  const form=event.currentTarget;
+  const status=$("#contactStatus");
+  const btn=$("#contactSubmit");
+  if(status){status.className="form-alert";status.textContent="";}
+  if(btn){btn.disabled=true;btn.textContent="Invio in corso...";}
+  try{
+    const payload=Object.fromEntries(new FormData(form).entries());
+    const res=await fetch(form.getAttribute("action")||"api/contact.php",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify(payload)
+    });
+    const data=await res.json().catch(()=>({ok:false,message:"Risposta non valida dal server."}));
+    if(!res.ok||!data.ok) throw new Error(data.message||"Invio non riuscito. Riprova più tardi.");
+    form.reset();
+    if(status){status.className="form-alert success";status.textContent=data.message||"Messaggio inviato correttamente.";}
+  }catch(err){
+    if(status){status.className="form-alert error";status.textContent=err.message||"Invio non riuscito. Riprova più tardi.";}
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent="Invia richiesta";}
+  }
+}
 
 function saveLead(type){
   const g=id=>{const el=$("#"+id);return el?el.value:"";};
