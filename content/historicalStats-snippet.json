@@ -7,7 +7,7 @@
     "goalsFor": 1693,
     "goalsForAvg": "4,12",
     "goalsAgainst": 1725,
-    "goalsAgainstAvg": "4,19",
+    "goalsAgainstAvg": "4,20",
     "goalDifference": -32
   },
   "highlights": [
@@ -22,9 +22,9 @@
       "detail": "Media 4,12 gol a partita"
     },
     {
-      "label": "Gol subiti storici",
-      "value": "1.725",
-      "detail": "Media 4,19 gol subiti a partita"
+      "label": "Stagione con più vittorie",
+      "value": "2013/2014",
+      "detail": "23 vittorie"
     },
     {
       "label": "Differenza reti complessiva",
@@ -40,11 +40,6 @@
       "label": "Record presenze",
       "value": "Costantini",
       "detail": "155 presenze"
-    },
-    {
-      "label": "Stagione con più vittorie",
-      "value": "2013/2014",
-      "detail": "23 vittorie"
     },
     {
       "label": "Miglior attacco stagionale",
