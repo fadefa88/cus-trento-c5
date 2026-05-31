@@ -495,7 +495,7 @@ function articleDetail(id){
 
 function playerMetricsCard(p){
   if(p.role==="Portiere"&&p.goalkeeperStats){
-    return `<div class="metrics"><div class="metric"><b>${p.appearances||0}</b><small>Pres</small></div><div class="metric gk-mini"><b>${p.goalkeeperStats.goalsAgainst||0}</b><small>Gol subiti</small></div></div>`;
+    return `<div class="metrics"><div class="metric"><b>${p.appearances||0}</b><small>Presenze</small></div><div class="metric gk-mini"><b>${p.goalkeeperStats.goalsAgainst||0}</b><small>Gol subiti</small></div></div>`;
   }
   return `<div class="metrics"><div class="metric"><b>${p.appearances||0}</b><small>Pres</small></div><div class="metric"><b>${p.goals||0}</b><small>Reti</small></div></div>`;
 }
