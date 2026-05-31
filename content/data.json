@@ -57,106 +57,6 @@
       "bio": "Dirigente Under 21."
     }
   ],
-  "timeline": [
-    {
-      "date": "Set 2025",
-      "title": "Raduno e preparazione",
-      "text": "Inizio stagione con test atletici e integrazione giovani.",
-      "id": 9000
-    },
-    {
-      "date": "Ott 2025",
-      "title": "Esordio campionato",
-      "text": "Prima fase dedicata a ritmo gara e automatismi.",
-      "id": 9001
-    },
-    {
-      "date": "Gen 2026",
-      "title": "Coppa: passaggio agli ottavi",
-      "text": "Vittoria casalinga e accesso al turno successivo.",
-      "id": 9002
-    },
-    {
-      "date": "Apr 2026",
-      "title": "Sprint playoff",
-      "text": "Punti pesanti nelle ultime giornate di Serie C1.",
-      "id": 9003
-    },
-    {
-      "date": "Mag 2026",
-      "title": "Matchday decisivi",
-      "text": "Focus su playoff, community e crescita del progetto.",
-      "id": 9004
-    }
-  ],
-  "records": [
-    {
-      "id": 1,
-      "label": "Miglior marcatore storico",
-      "value": "Costantini",
-      "detail": "95 reti"
-    },
-    {
-      "id": 2,
-      "label": "Più presenze",
-      "value": "Costantini",
-      "detail": "155 presenze"
-    },
-    {
-      "id": 3,
-      "label": "Totale gare ufficiali",
-      "value": "398",
-      "detail": "170 vittorie, 54 pareggi, 174 sconfitte"
-    },
-    {
-      "id": 4,
-      "label": "Gol storici",
-      "value": "1.650",
-      "detail": "Media 4,14 gol a partita"
-    },
-    {
-      "id": 5,
-      "label": "Miglior differenza reti",
-      "value": "2016/2017",
-      "detail": "+83"
-    },
-    {
-      "id": 6,
-      "label": "Stagione più vincente",
-      "value": "2013/2014",
-      "detail": "23 vittorie"
-    },
-    {
-      "id": 7,
-      "label": "Totale vittorie storiche",
-      "value": "170",
-      "detail": "398 gare: 170 vittorie, 54 pareggi, 174 sconfitte"
-    },
-    {
-      "id": 8,
-      "label": "Media gol storica",
-      "value": "4.15",
-      "detail": "1650 gol fatti in 398 partite"
-    },
-    {
-      "id": 9,
-      "label": "Stagione più prolifica",
-      "value": "2018/2019",
-      "detail": "179 gol fatti"
-    },
-    {
-      "id": 10,
-      "label": "Miglior difesa stagionale",
-      "value": "2011/2012",
-      "detail": "161 gol subiti"
-    },
-    {
-      "id": 11,
-      "label": "Stagione con più vittorie",
-      "value": "2013/2014",
-      "detail": "23 vittorie"
-    }
-  ],
   "standings": [
     {
       "g": 15,
@@ -508,1299 +408,325 @@
   },
   "fixtures": [
     {
+      "summary": "ciao sono il sommario",
       "time": "21:00",
       "away": "Besenello",
-      "date": "2026-05-31",
+      "date": "2026-05-28",
       "lineup": {
-        "module": "3-1"
+        "module": "3-1",
+        "startingFive": [
+          "2",
+          "4",
+          "5",
+          "7",
+          "9"
+        ],
+        "bench": [
+          "1",
+          "3",
+          "8",
+          "18",
+          "17",
+          "16"
+        ]
       },
       "venue": "Sanbàpolis",
-      "score": "",
-      "status": "Da giocare",
+      "score": "3-2",
+      "status": "Terminata",
+      "scorerEvents": [
+        {
+          "goals": 2,
+          "playerId": "4"
+        },
+        {
+          "goals": 1,
+          "playerId": "9"
+        }
+      ],
       "id": 1,
+      "yellowCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "2"
+        }
+      ],
       "home": "CUS Trento",
       "competition": "Campionato"
     }
   ],
   "roster": [
     {
-      "goals": 0,
-      "bio": "Portiere della rosa ufficiale 2026/27.",
-      "number": 1,
-      "assists": 0,
-      "name": "Safi Saif Edine",
-      "appearances": 0,
-      "photo": "/img/players/3-safi-saif-edine-portiere.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Portiere",
-      "avatar": "SS",
-      "goalkeeperStats": {
-        "penaltiesSaved": 0,
-        "goalsAgainst": 0,
-        "byCompetition": {
-          "campionato": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "coppa": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "totale": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          }
-        },
-        "appearances": 0,
-        "goalsAgainstAvg": 0,
-        "saves": 0,
-        "cleanSheets": 0,
-        "saveRate": 0,
-        "minutes": 0
-      },
       "id": 1,
+      "name": "Safi Saif Edine",
+      "role": "Portiere",
       "team": "Prima squadra",
-      "age": ""
+      "number": 1,
+      "photo": "/img/players/3-safi-saif-edine-portiere.webp"
     },
     {
-      "goals": 0,
-      "bio": "Portiere della rosa ufficiale 2026/27.",
-      "number": 12,
-      "assists": 0,
-      "name": "Lucca Baccaro Zeni",
-      "appearances": 0,
-      "photo": "/img/players/1-baccaro-zeni-lucca-portiere.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Portiere",
-      "avatar": "LB",
-      "goalkeeperStats": {
-        "penaltiesSaved": 0,
-        "goalsAgainst": 0,
-        "byCompetition": {
-          "campionato": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "coppa": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "totale": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          }
-        },
-        "appearances": 0,
-        "goalsAgainstAvg": 0,
-        "saves": 0,
-        "cleanSheets": 0,
-        "saveRate": 0,
-        "minutes": 0
-      },
       "id": 2,
+      "name": "Lucca Baccaro Zeni",
+      "role": "Portiere",
       "team": "Prima squadra",
-      "age": ""
+      "number": 12,
+      "photo": "/img/players/1-baccaro-zeni-lucca-portiere.webp"
     },
     {
-      "goals": 0,
-      "bio": "Portiere della rosa ufficiale 2026/27.",
-      "number": 2,
-      "assists": 0,
-      "name": "Filippo Bernard",
-      "appearances": 0,
-      "photo": "/img/players/2-bernard-filippo-portiere.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Portiere",
-      "avatar": "FB",
-      "goalkeeperStats": {
-        "penaltiesSaved": 0,
-        "goalsAgainst": 0,
-        "byCompetition": {
-          "campionato": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "coppa": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "totale": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          }
-        },
-        "appearances": 0,
-        "goalsAgainstAvg": 0,
-        "saves": 0,
-        "cleanSheets": 0,
-        "saveRate": 0,
-        "minutes": 0
-      },
       "id": 3,
+      "name": "Filippo Bernard",
+      "role": "Portiere",
       "team": "Prima squadra",
-      "age": ""
+      "number": 2,
+      "photo": "/img/players/2-bernard-filippo-portiere.webp"
     },
     {
-      "goals": 0,
-      "bio": "Centrale della rosa ufficiale 2026/27.",
-      "number": 5,
-      "assists": 0,
-      "name": "Tommaso Boldrini",
-      "appearances": 0,
-      "photo": "/img/players/4-boldrini-tommaso-centrale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Centrale",
-      "avatar": "TB",
       "id": 4,
+      "name": "Tommaso Boldrini",
+      "role": "Centrale",
       "team": "Prima squadra",
-      "age": ""
+      "number": 5,
+      "photo": "/img/players/4-boldrini-tommaso-centrale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Centrale della rosa ufficiale 2026/27.",
-      "number": 6,
-      "assists": 0,
-      "name": "Davide Filippi",
-      "appearances": 0,
-      "photo": "/img/players/10-filippi-davide-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Centrale",
-      "avatar": "DF",
       "id": 5,
+      "name": "Davide Filippi",
+      "role": "Centrale",
       "team": "Prima squadra",
-      "age": ""
+      "number": 6,
+      "photo": "/img/players/10-filippi-davide-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Centrale della rosa ufficiale 2026/27.",
-      "number": 7,
-      "assists": 0,
-      "name": "Alvise Tesser",
-      "appearances": 0,
-      "photo": "/img/players/5-tesser-alvise-centrale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Centrale",
-      "avatar": "AT",
       "id": 6,
+      "name": "Alvise Tesser",
+      "role": "Centrale",
       "team": "Prima squadra",
-      "age": ""
+      "number": 7,
+      "photo": "/img/players/5-tesser-alvise-centrale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 8,
-      "assists": 0,
-      "name": "Federico Addobbati",
-      "appearances": 0,
-      "photo": "/img/players/noplayer.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "FA",
       "id": 7,
+      "name": "Federico Addobbati",
+      "role": "Laterale",
       "team": "Prima squadra",
-      "age": ""
+      "number": 8,
+      "photo": "/img/players/noplayer.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 9,
-      "assists": 0,
-      "name": "Filippo Baietta",
-      "appearances": 0,
-      "photo": "/img/players/6-baietta-filippo-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "FB",
       "id": 8,
+      "name": "Filippo Baietta",
+      "role": "Laterale",
       "team": "Prima squadra",
-      "age": ""
+      "number": 9,
+      "photo": "/img/players/6-baietta-filippo-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 10,
-      "assists": 0,
-      "name": "Luca Cirasola",
-      "appearances": 0,
-      "photo": "/img/players/7-cirasola-luca-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "LC",
       "id": 9,
+      "name": "Luca Cirasola",
+      "role": "Laterale",
       "team": "Prima squadra",
-      "age": ""
+      "number": 10,
+      "photo": "/img/players/7-cirasola-luca-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 27,
-      "assists": 0,
-      "name": "Mattia Cuman",
-      "appearances": 0,
-      "photo": "/img/players/8-cuman-mattia-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "MC",
       "id": 10,
+      "name": "Mattia Cuman",
+      "role": "Laterale",
       "team": "Prima squadra",
-      "age": ""
+      "number": 27,
+      "photo": "/img/players/8-cuman-mattia-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 23,
-      "assists": 0,
-      "name": "Luca Frattolin",
-      "appearances": 0,
-      "photo": "/img/players/noplayer.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "LF",
       "id": 11,
+      "name": "Luca Frattolin",
+      "role": "Laterale",
       "team": "Prima squadra",
-      "age": ""
+      "number": 23,
+      "photo": "/img/players/noplayer.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 17,
-      "assists": 0,
-      "name": "Federico Maciocia",
-      "appearances": 0,
-      "photo": "/img/players/11-maciocia-federico-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "FM",
       "id": 12,
+      "name": "Federico Maciocia",
+      "role": "Laterale",
       "team": "Prima squadra",
-      "age": ""
+      "number": 17,
+      "photo": "/img/players/11-maciocia-federico-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 11,
-      "assists": 0,
-      "name": "Mattia Vaia",
-      "appearances": 0,
-      "photo": "/img/players/12-vaia-mattia-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "MV",
       "id": 13,
+      "name": "Mattia Vaia",
+      "role": "Laterale",
       "team": "Prima squadra",
-      "age": ""
+      "number": 11,
+      "photo": "/img/players/12-vaia-mattia-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 19,
-      "assists": 0,
-      "name": "Alessandro Zanetti",
-      "appearances": 0,
-      "photo": "/img/players/13-zanetti-alessandro-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "AZ",
       "id": 14,
+      "name": "Alessandro Zanetti",
+      "role": "Laterale",
       "team": "Prima squadra",
-      "age": ""
+      "number": 19,
+      "photo": "/img/players/13-zanetti-alessandro-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Punta della rosa ufficiale 2026/27.",
-      "number": 20,
-      "assists": 0,
-      "name": "Diego Conti",
-      "appearances": 0,
-      "photo": "/img/players/14-conti-diego-pivot.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Punta",
-      "avatar": "DC",
       "id": 15,
+      "name": "Diego Conti",
+      "role": "Punta",
       "team": "Prima squadra",
-      "age": ""
+      "number": 20,
+      "photo": "/img/players/14-conti-diego-pivot.webp"
     },
     {
-      "goals": 0,
-      "bio": "Punta della rosa ufficiale 2026/27.",
-      "number": 21,
-      "assists": 0,
-      "name": "Andrea Martinelli",
-      "appearances": 0,
-      "photo": "/img/players/16-martinelli-andrea-universale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Punta",
-      "avatar": "AM",
       "id": 16,
+      "name": "Andrea Martinelli",
+      "role": "Punta",
       "team": "Prima squadra",
-      "age": ""
+      "number": 21,
+      "photo": "/img/players/16-martinelli-andrea-universale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Punta della rosa ufficiale 2026/27.",
-      "number": 22,
-      "assists": 0,
-      "name": "Cesare Vettorazzi",
-      "appearances": 0,
-      "photo": "/img/players/15-vettorazzi-cesare-pivot.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Punta",
-      "avatar": "CV",
       "id": 17,
+      "name": "Cesare Vettorazzi",
+      "role": "Punta",
       "team": "Prima squadra",
-      "age": ""
+      "number": 22,
+      "photo": "/img/players/15-vettorazzi-cesare-pivot.webp"
     },
     {
-      "goals": 0,
-      "bio": "Portiere della rosa ufficiale 2026/27.",
-      "number": 30,
-      "assists": 0,
-      "name": "Paolo Bigonzi",
-      "appearances": 0,
-      "photo": "/img/players/1-bigonzi-paolo-portiere.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Portiere",
-      "avatar": "PB",
-      "goalkeeperStats": {
-        "penaltiesSaved": 0,
-        "goalsAgainst": 0,
-        "byCompetition": {
-          "campionato": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "coppa": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "totale": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          }
-        },
-        "appearances": 0,
-        "goalsAgainstAvg": 0,
-        "saves": 0,
-        "cleanSheets": 0,
-        "saveRate": 0,
-        "minutes": 0
-      },
       "id": 19,
+      "name": "Paolo Bigonzi",
+      "role": "Portiere",
       "team": "Under 21",
-      "age": ""
+      "number": 30,
+      "photo": "/img/players/1-bigonzi-paolo-portiere.webp"
     },
     {
-      "goals": 0,
-      "bio": "Portiere della rosa ufficiale 2026/27.",
-      "number": 31,
-      "assists": 0,
-      "name": "Giulio Tognolli",
-      "appearances": 0,
-      "photo": "/img/players/2-toniolli-giulio-portiere.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Portiere",
-      "avatar": "GT",
-      "goalkeeperStats": {
-        "penaltiesSaved": 0,
-        "goalsAgainst": 0,
-        "byCompetition": {
-          "campionato": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "coppa": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "totale": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          }
-        },
-        "appearances": 0,
-        "goalsAgainstAvg": 0,
-        "saves": 0,
-        "cleanSheets": 0,
-        "saveRate": 0,
-        "minutes": 0
-      },
       "id": 20,
-      "team": "Under 21",
-      "age": ""
-    },
-    {
-      "goals": 0,
-      "bio": "Portiere della rosa ufficiale 2026/27.",
-      "number": 32,
-      "assists": 0,
-      "name": "Lorenzo Zantorello",
-      "appearances": 0,
-      "photo": "/img/players/3-zarantonello-lorenzo-portiere.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
+      "name": "Giulio Tognolli",
       "role": "Portiere",
-      "avatar": "LZ",
-      "goalkeeperStats": {
-        "penaltiesSaved": 0,
-        "goalsAgainst": 0,
-        "byCompetition": {
-          "campionato": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "coppa": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          },
-          "totale": {
-            "appearances": 0,
-            "minutes": 0,
-            "cleanSheets": 0,
-            "goalsAgainst": 0
-          }
-        },
-        "appearances": 0,
-        "goalsAgainstAvg": 0,
-        "saves": 0,
-        "cleanSheets": 0,
-        "saveRate": 0,
-        "minutes": 0
-      },
+      "team": "Under 21",
+      "number": 31,
+      "photo": "/img/players/2-toniolli-giulio-portiere.webp"
+    },
+    {
       "id": 21,
+      "name": "Lorenzo Zantorello",
+      "role": "Portiere",
       "team": "Under 21",
-      "age": ""
+      "number": 32,
+      "photo": "/img/players/3-zarantonello-lorenzo-portiere.webp"
     },
     {
-      "goals": 0,
-      "bio": "Centrale della rosa ufficiale 2026/27.",
-      "number": 34,
-      "assists": 0,
-      "name": "Alex Gasperi",
-      "appearances": 0,
-      "photo": "/img/players/noplayer.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Centrale",
-      "avatar": "AG",
       "id": 22,
+      "name": "Alex Gasperi",
+      "role": "Centrale",
       "team": "Under 21",
-      "age": ""
+      "number": 34,
+      "photo": "/img/players/noplayer.webp"
     },
     {
-      "goals": 0,
-      "bio": "Centrale della rosa ufficiale 2026/27.",
-      "number": 35,
-      "assists": 0,
-      "name": "Matteo Guidetti",
-      "appearances": 0,
-      "photo": "/img/players/4-guidetti-matteo-centrale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Centrale",
-      "avatar": "MG",
       "id": 23,
+      "name": "Matteo Guidetti",
+      "role": "Centrale",
       "team": "Under 21",
-      "age": ""
+      "number": 35,
+      "photo": "/img/players/4-guidetti-matteo-centrale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Centrale della rosa ufficiale 2026/27.",
-      "number": 36,
-      "assists": 0,
-      "name": "Matteo Materia",
-      "appearances": 0,
-      "photo": "/img/players/5-materia-matteo-centrale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Centrale",
-      "avatar": "MM",
       "id": 24,
-      "team": "Under 21",
-      "age": ""
-    },
-    {
-      "goals": 0,
-      "bio": "Centrale della rosa ufficiale 2026/27.",
-      "number": 37,
-      "assists": 0,
-      "name": "Riccardo Toniolli",
-      "appearances": 0,
-      "photo": "/img/players/6-toniolli-riccardo-centrale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
+      "name": "Matteo Materia",
       "role": "Centrale",
-      "avatar": "RT",
+      "team": "Under 21",
+      "number": 36,
+      "photo": "/img/players/5-materia-matteo-centrale.webp"
+    },
+    {
       "id": 25,
+      "name": "Riccardo Toniolli",
+      "role": "Centrale",
       "team": "Under 21",
-      "age": ""
+      "number": 37,
+      "photo": "/img/players/6-toniolli-riccardo-centrale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 38,
-      "assists": 0,
-      "name": "Alessandro Betti",
-      "appearances": 0,
-      "photo": "/img/players/7-betti-alessandro-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "AB",
       "id": 26,
+      "name": "Alessandro Betti",
+      "role": "Laterale",
       "team": "Under 21",
-      "age": ""
+      "number": 38,
+      "photo": "/img/players/7-betti-alessandro-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 39,
-      "assists": 0,
-      "name": "Samuele Buda",
-      "appearances": 0,
-      "photo": "/img/players/noplayer.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "SB",
       "id": 27,
+      "name": "Samuele Buda",
+      "role": "Laterale",
       "team": "Under 21",
-      "age": ""
+      "number": 39,
+      "photo": "/img/players/noplayer.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 40,
-      "assists": 0,
-      "name": "Federico Caldonazzi",
-      "appearances": 0,
-      "photo": "/img/players/8-caldonazzi-federico-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "FC",
       "id": 28,
+      "name": "Federico Caldonazzi",
+      "role": "Laterale",
       "team": "Under 21",
-      "age": ""
+      "number": 40,
+      "photo": "/img/players/8-caldonazzi-federico-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 41,
-      "assists": 0,
-      "name": "Joao Pedro Caccia Neff",
-      "appearances": 0,
-      "photo": "/img/players/12-caccia-neff-joao-pedro-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "JP",
       "id": 29,
+      "name": "Joao Pedro Caccia Neff",
+      "role": "Laterale",
       "team": "Under 21",
-      "age": ""
+      "number": 41,
+      "photo": "/img/players/12-caccia-neff-joao-pedro-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 42,
-      "assists": 0,
-      "name": "Afrian Gavril Dancus",
-      "appearances": 0,
-      "photo": "/img/players/9-dancus-adrian-gavril-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "AG",
       "id": 30,
+      "name": "Afrian Gavril Dancus",
+      "role": "Laterale",
       "team": "Under 21",
-      "age": ""
+      "number": 42,
+      "photo": "/img/players/9-dancus-adrian-gavril-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 44,
-      "assists": 0,
-      "name": "Mirko Annunziato Tondo",
-      "appearances": 0,
-      "photo": "/img/players/10-tondo-mirko-a-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Laterale",
-      "avatar": "MA",
       "id": 31,
-      "team": "Under 21",
-      "age": ""
-    },
-    {
-      "goals": 0,
-      "bio": "Laterale della rosa ufficiale 2026/27.",
-      "number": 45,
-      "assists": 0,
-      "name": "Daniele Zampedri",
-      "appearances": 0,
-      "photo": "/img/players/11-zampedri-daniele-laterale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
+      "name": "Mirko Annunziato Tondo",
       "role": "Laterale",
-      "avatar": "DZ",
+      "team": "Under 21",
+      "number": 44,
+      "photo": "/img/players/10-tondo-mirko-a-laterale.webp"
+    },
+    {
       "id": 32,
+      "name": "Daniele Zampedri",
+      "role": "Laterale",
       "team": "Under 21",
-      "age": ""
+      "number": 45,
+      "photo": "/img/players/11-zampedri-daniele-laterale.webp"
     },
     {
-      "goals": 0,
-      "bio": "Punta della rosa ufficiale 2026/27.",
-      "number": 46,
-      "assists": 0,
-      "name": "Michele Ceola",
-      "appearances": 0,
-      "photo": "/img/players/13-ceola-michele-pivot.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Punta",
-      "avatar": "MC",
       "id": 33,
+      "name": "Michele Ceola",
+      "role": "Punta",
       "team": "Under 21",
-      "age": ""
+      "number": 46,
+      "photo": "/img/players/13-ceola-michele-pivot.webp"
     },
     {
-      "goals": 0,
-      "bio": "Punta della rosa ufficiale 2026/27.",
-      "number": 47,
-      "assists": 0,
-      "name": "Damiano Loperfido",
-      "appearances": 0,
-      "photo": "/img/players/14-loperfido-damiano-pivot.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Punta",
-      "avatar": "DL",
       "id": 34,
+      "name": "Damiano Loperfido",
+      "role": "Punta",
       "team": "Under 21",
-      "age": ""
+      "number": 47,
+      "photo": "/img/players/14-loperfido-damiano-pivot.webp"
     },
     {
-      "goals": 0,
-      "bio": "Punta della rosa ufficiale 2026/27.",
-      "number": 48,
-      "assists": 0,
-      "name": "Luca Scala",
-      "appearances": 0,
-      "photo": "/img/players/15-scala-luca-universale.webp",
-      "history": [],
-      "competitions": {
-        "campionato": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "coppa": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        },
-        "totale": {
-          "appearances": 0,
-          "goals": 0,
-          "assists": 0
-        }
-      },
-      "role": "Punta",
-      "avatar": "LS",
       "id": 35,
+      "name": "Luca Scala",
+      "role": "Punta",
       "team": "Under 21",
-      "age": ""
+      "number": 48,
+      "photo": "/img/players/15-scala-luca-universale.webp"
     }
-  ],
-  "tryoutFields": [
-    "Nome e cognome",
-    "Età",
-    "Ruolo",
-    "Università / corso",
-    "Esperienza futsal/calcio",
-    "Telefono",
-    "Email",
-    "Note"
   ],
   "social": [
     {
@@ -1823,124 +749,6 @@
       "text": "Online gli highlights dell’ultima vittoria esterna.",
       "date": "2026-05-18",
       "id": 11002
-    }
-  ],
-  "seasons": [
-    {
-      "season": "2025/2026",
-      "competition": "Storico CUS Trento C5",
-      "position": "-",
-      "record": "11V 0N 6P",
-      "gf": 81,
-      "gs": 67,
-      "note": "Giocate 17, differenza reti +14."
-    },
-    {
-      "season": "2024/2025",
-      "competition": "Storico CUS Trento C5",
-      "position": "-",
-      "record": "8V 2N 17P",
-      "gf": 79,
-      "gs": 143,
-      "note": "Giocate 27, differenza reti -64."
-    },
-    {
-      "season": "2023/2024",
-      "competition": "Storico CUS Trento C5",
-      "position": "-",
-      "record": "7V 1N 21P",
-      "gf": 97,
-      "gs": 150,
-      "note": "Giocate 29, differenza reti -53."
-    },
-    {
-      "season": "2022/2023",
-      "competition": "Storico CUS Trento C5",
-      "position": "-",
-      "record": "8V 2N 17P",
-      "gf": 118,
-      "gs": 150,
-      "note": "Giocate 27, differenza reti -32."
-    },
-    {
-      "season": "2021/2022",
-      "competition": "Storico CUS Trento C5",
-      "position": "-",
-      "record": "10V 4N 6P",
-      "gf": 69,
-      "gs": 71,
-      "note": "Giocate 20, differenza reti -2."
-    },
-    {
-      "season": "2020/2021",
-      "competition": "Storico CUS Trento C5",
-      "position": "-",
-      "record": "0V 2N 1P",
-      "gf": 4,
-      "gs": 5,
-      "note": "Giocate 3, differenza reti -1."
-    },
-    {
-      "season": "2019/2020",
-      "competition": "Storico CUS Trento C5",
-      "position": "-",
-      "record": "5V 3N 15P",
-      "gf": 58,
-      "gs": 82,
-      "note": "Giocate 23, differenza reti -24."
-    },
-    {
-      "season": "2018/2019",
-      "competition": "Storico CUS Trento C5",
-      "position": "-",
-      "record": "19V 9N 9P",
-      "gf": 179,
-      "gs": 138,
-      "note": "Giocate 37, differenza reti +41."
-    }
-  ],
-  "gallery": [
-    {
-      "id": 1,
-      "title": "Ingresso in campo a Sanbàpolis",
-      "date": "2026-05-24",
-      "category": "Matchday",
-      "image": "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80"
-    },
-    {
-      "id": 2,
-      "title": "Team huddle pre-partita",
-      "date": "2026-05-18",
-      "category": "Spogliatoio",
-      "image": "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80"
-    },
-    {
-      "id": 3,
-      "title": "Esultanza sotto la tribuna",
-      "date": "2026-04-17",
-      "category": "Goal",
-      "image": "https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1400&q=80"
-    },
-    {
-      "id": 4,
-      "title": "Allenamento tecnico U21",
-      "date": "2026-04-12",
-      "category": "Training",
-      "image": "https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80"
-    },
-    {
-      "id": 5,
-      "title": "Dettaglio scarpe e parquet",
-      "date": "2026-03-28",
-      "category": "Detail",
-      "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1400&q=80"
-    },
-    {
-      "id": 6,
-      "title": "Foto squadra post vittoria",
-      "date": "2026-03-14",
-      "category": "Team",
-      "image": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80"
     }
   ],
   "u21Standings": [
