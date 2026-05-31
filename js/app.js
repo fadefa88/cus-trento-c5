@@ -377,7 +377,7 @@ function articleDetail(id){
   const tagBox=`<div class="badge-row" style="margin:0 0 14px">${newsTags(n).map(t=>`<span class="badge">${t}</span>`).join("")}</div>`;
   const sourceBox=n.sourceUrl?`<div class="source-box"><b>Fonte:</b> <a href="${n.sourceUrl}" target="_blank" rel="noopener noreferrer">${n.sourceName||"SporTrentino.it"}</a></div>`:"";
   const articleContent=n.bodyHtml?String(n.bodyHtml):paragraphs.map(p=>`<p>${p}</p>`).join("");
-  shell(n.category||"News",n.title||"Articolo",`<div class="breadcrumb"><button class="back-link" onclick="route('news')"><span>←</span> News</button><span>${fmt(n.date)} · ${n.author||"Redazione"}</span></div>${tagBox}${sourceBox}<img class="article-hero" loading="lazy" decoding="async" src="${n.image||''}" alt="${n.title||'News'}"><div class="grid grid" style="margin-top:28px"><article class="card card-pad article-body imported-article">${articleContent}</article></div>`,,n.image);
+  shell(n.category||"News",n.title||"Articolo",`<div class="breadcrumb"><button class="back-link" onclick="route('news')"><span>←</span> News</button><span>${fmt(n.date)} · ${n.author||"Redazione"}</span></div>${tagBox}${sourceBox}<img class="article-hero" loading="lazy" decoding="async" src="${n.image||''}" alt="${n.title||'News'}"><div class="grid grid" style="margin-top:28px"><article class="card card-pad article-body imported-article">${articleContent}</article></div>`, "", n.image);
 }
 
 function playerMetricsCard(p){
