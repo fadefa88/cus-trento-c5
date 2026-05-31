@@ -464,12 +464,15 @@
       "photo": "/img/players/3-safi-saif-edine-portiere.webp"
     },
     {
-      "id": 2,
-      "name": "Lucca Baccaro Zeni",
-      "role": "Portiere",
-      "team": "Prima squadra",
+      "faculty": "Lettere",
+      "birthPlace": "Padova (PD)",
       "number": 12,
-      "photo": "/img/players/1-baccaro-zeni-lucca-portiere.webp"
+      "name": "Lucca Baccaro Zeni",
+      "birthDate": "2000-01-18",
+      "photo": "/img/players/1-baccaro-zeni-lucca-portiere.webp",
+      "role": "Portiere",
+      "id": 2,
+      "team": "Prima squadra"
     },
     {
       "id": 3,
