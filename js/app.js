@@ -725,14 +725,17 @@ function newsShareButtons(n,compact=false){
   const title=String(n.title||"News CUS Trento C5");
   const encTitle=encodeURIComponent(title);
   const newsId=safe(String(n.id||""));
+  const safeUrl=safe(url);
+  const safeTitle=safe(title);
+  const payload=`data-news-id="${newsId}" data-news-url="${safeUrl}" data-news-title="${safeTitle}"`;
   return `<div class="news-share ${compact?'compact':''}">
     <span class="share-label">Condividi</span>
-    <a class="share-action share-whatsapp" href="https://wa.me/?text=${encTitle}%20${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su WhatsApp"><span class="share-icon" aria-hidden="true">WA</span><span>WhatsApp</span></a>
-    <a class="share-action share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su Facebook"><span class="share-icon" aria-hidden="true">f</span><span>Facebook</span></a>
-    <a class="share-action share-x" href="https://twitter.com/intent/tweet?text=${encTitle}&url=${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su X"><span class="share-icon" aria-hidden="true">𝕏</span><span>X</span></a>
-    <a class="share-action share-telegram" href="https://t.me/share/url?url=${encUrl}&text=${encTitle}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su Telegram"><span class="share-icon" aria-hidden="true">TG</span><span>Telegram</span></a>
-    <button class="share-action share-copy" type="button" data-news-share-action="copy" data-news-id="${newsId}" aria-label="Copia link della news"><span class="share-icon" aria-hidden="true">🔗</span><span>Copia link</span></button>
-    <button class="share-action share-native" type="button" data-news-share-action="native" data-news-id="${newsId}" aria-label="Apri altre opzioni di condivisione"><span class="share-icon" aria-hidden="true">⋯</span><span>Altro</span></button>
+    <a class="share-action share-whatsapp" href="https://wa.me/?text=${encTitle}%20${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su WhatsApp"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-whatsapp"></i></span><span>WhatsApp</span></a>
+    <a class="share-action share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su Facebook"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-facebook-f"></i></span><span>Facebook</span></a>
+    <a class="share-action share-x" href="https://twitter.com/intent/tweet?text=${encTitle}&url=${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su X"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-x-twitter"></i></span><span>X</span></a>
+    <a class="share-action share-telegram" href="https://t.me/share/url?url=${encUrl}&text=${encTitle}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su Telegram"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-telegram"></i></span><span>Telegram</span></a>
+    <button class="share-action share-copy" type="button" data-news-share-action="copy" ${payload} aria-label="Copia link della news"><span class="share-icon" aria-hidden="true"><i class="fa-solid fa-link"></i></span><span>Copia link</span></button>
+    <button class="share-action share-native" type="button" data-news-share-action="native" ${payload} aria-label="Apri altre opzioni di condivisione"><span class="share-icon" aria-hidden="true"><i class="fa-solid fa-share-nodes"></i></span><span>Altro</span></button>
   </div>`;
 }
 function showShareToast(message){
@@ -772,11 +775,17 @@ async function writeTextToClipboard(text){
     return false;
   }
 }
-async function nativeShareNews(id){
-  const n=findNewsById(id);
-  if(!n)return;
-  const url=articleShareUrl(n);
-  const data={title:n.title||"CUS Trento C5",text:n.excerpt||n.title||"News CUS Trento C5",url};
+function sharePayloadFromTrigger(trigger){
+  const id=trigger && trigger.getAttribute('data-news-id');
+  const n=id ? findNewsById(id) : null;
+  const url=(trigger && trigger.getAttribute('data-news-url')) || (n ? articleShareUrl(n) : location.href);
+  const title=(trigger && trigger.getAttribute('data-news-title')) || (n && n.title) || 'CUS Trento C5';
+  const text=(n && (n.excerpt || n.title)) || title || 'News CUS Trento C5';
+  return {id,url,title,text};
+}
+async function nativeShareNews(input){
+  const payload=typeof input==='object' && input ? input : sharePayloadFromTrigger(document.querySelector(`[data-news-share-action="native"][data-news-id="${String(input||'').replace(/"/g,'\\"')}"]`));
+  const data={title:payload.title||"CUS Trento C5",text:payload.text||payload.title||"News CUS Trento C5",url:payload.url};
   if(navigator.share){
     try{
       await navigator.share(data);
@@ -785,17 +794,15 @@ async function nativeShareNews(id){
       if(e && e.name==='AbortError')return;
     }
   }
-  const copied=await writeTextToClipboard(url);
+  const copied=await writeTextToClipboard(payload.url);
   if(copied)showShareToast('Condivisione non supportata qui: link copiato.');
-  else prompt('Copia il link della news:',url);
+  else prompt('Copia il link della news:',payload.url);
 }
-async function copyNewsLink(id){
-  const n=findNewsById(id);
-  if(!n)return;
-  const url=articleShareUrl(n);
-  const copied=await writeTextToClipboard(url);
+async function copyNewsLink(input){
+  const payload=typeof input==='object' && input ? input : sharePayloadFromTrigger(document.querySelector(`[data-news-share-action="copy"][data-news-id="${String(input||'').replace(/"/g,'\\"')}"]`));
+  const copied=await writeTextToClipboard(payload.url);
   if(copied)showShareToast('Link copiato negli appunti.');
-  else prompt('Copia il link della news:',url);
+  else prompt('Copia il link della news:',payload.url);
 }
 function setupNewsShareHandlers(){
   if(window.__cusNewsShareHandlersBound)return;
@@ -808,9 +815,9 @@ function setupNewsShareHandlers(){
     event.stopPropagation();
     if(action==='external')return;
     event.preventDefault();
-    const id=trigger.getAttribute('data-news-id');
-    if(action==='copy')copyNewsLink(id);
-    if(action==='native')nativeShareNews(id);
+    const payload=sharePayloadFromTrigger(trigger);
+    if(action==='copy')copyNewsLink(payload);
+    if(action==='native')nativeShareNews(payload);
   }, true);
 }
 function newsCards(items){
