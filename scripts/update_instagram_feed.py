@@ -2,16 +2,33 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import html
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import requests
 
 
 DEFAULT_FEED_URL = "https://rss.app/feeds/v1.1/ZARGBanc4ELDomJR.json"
 DEFAULT_THUMBNAIL = "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png"
+
+
+IMAGE_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (compatible; CUS-Trento-C5-SocialFeedUpdater/1.0)",
+    "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+    "Referer": "https://www.instagram.com/",
+}
+
+
+FEED_HEADERS = {
+    "User-Agent": "CUS-Trento-C5-SocialFeedUpdater/1.0",
+    "Accept": "application/feed+json, application/json, */*",
+}
 
 
 def load_json(path: Path, fallback: Any) -> Any:
@@ -32,44 +49,138 @@ def save_json(path: Path, payload: Any) -> None:
 
 
 def fetch_rss_app_json(feed_url: str) -> dict:
-    response = requests.get(
-        feed_url,
-        timeout=30,
-        headers={
-            "User-Agent": "CUS-Trento-C5-SocialFeedUpdater/1.0",
-            "Accept": "application/feed+json, application/json, */*",
-        },
-    )
+    response = requests.get(feed_url, timeout=30, headers=FEED_HEADERS)
     response.raise_for_status()
     return response.json()
 
 
-def normalize_item(item: dict, index: int) -> dict:
-    post_url = item.get("url") or item.get("external_url") or ""
+def clean_text(value: str) -> str:
+    value = html.unescape(value or "")
+    value = re.sub(r"\s+", " ", value).strip()
+    return value
+
+
+def image_extension(url: str, content_type: str = "") -> str:
+    ctype = (content_type or "").lower().split(";", 1)[0].strip()
+    if ctype == "image/png":
+        return ".png"
+    if ctype == "image/webp":
+        return ".webp"
+    if ctype == "image/gif":
+        return ".gif"
+    if ctype in {"image/jpeg", "image/jpg"}:
+        return ".jpg"
+
+    path = urlparse(url).path.lower()
+    for ext in (".jpg", ".jpeg", ".png", ".webp", ".gif"):
+        if path.endswith(ext):
+            return ".jpg" if ext == ".jpeg" else ext
+    return ".jpg"
+
+
+def local_image_path_for(post_url: str, image_url: str, content_type: str = "") -> Path:
+    digest_source = post_url or image_url
+    digest = hashlib.sha1(digest_source.encode("utf-8", errors="ignore")).hexdigest()[:16]
+    return Path("img/social") / f"instagram-{digest}{image_extension(image_url, content_type)}"
+
+
+def to_site_path(path: Path) -> str:
+    return "/" + path.as_posix().lstrip("/")
+
+
+def download_image(image_url: str, post_url: str, repo_root: Path, existing_local_image: str = "") -> tuple[str, str]:
+    """
+    Downloads a remote Instagram/RSS image into img/social and returns:
+    - public site path, for example /img/social/instagram-xxxx.jpg
+    - original remote image URL
+
+    If download fails, keeps a previous local image for the same post if available;
+    otherwise falls back to DEFAULT_THUMBNAIL.
+    """
+    image_url = html.unescape(image_url or "").strip()
+    if not image_url or image_url == DEFAULT_THUMBNAIL:
+        return existing_local_image or DEFAULT_THUMBNAIL, image_url
+
+    if existing_local_image and existing_local_image.startswith("/img/social/"):
+        existing_file = repo_root / existing_local_image.lstrip("/")
+        if existing_file.exists() and existing_file.stat().st_size > 0:
+            return existing_local_image, image_url
+
+    try:
+        with requests.get(image_url, timeout=45, headers=IMAGE_HEADERS, stream=True) as response:
+            response.raise_for_status()
+            content_type = response.headers.get("Content-Type", "")
+            if content_type and not content_type.lower().startswith("image/"):
+                raise ValueError(f"unexpected content type: {content_type}")
+
+            relative_path = local_image_path_for(post_url, image_url, content_type)
+            output_path = repo_root / relative_path
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+
+            max_bytes = 10 * 1024 * 1024
+            total = 0
+            with output_path.open("wb") as f:
+                for chunk in response.iter_content(chunk_size=64 * 1024):
+                    if not chunk:
+                        continue
+                    total += len(chunk)
+                    if total > max_bytes:
+                        raise ValueError("image too large")
+                    f.write(chunk)
+
+            if output_path.stat().st_size <= 0:
+                raise ValueError("empty image file")
+
+            return to_site_path(relative_path), image_url
+    except Exception as exc:
+        print(f"WARN: image download failed for {post_url or image_url}: {exc}", flush=True)
+        return existing_local_image or DEFAULT_THUMBNAIL, image_url
+
+
+def extract_remote_image(item: dict) -> str:
     image = item.get("image") or ""
+    if image:
+        return html.unescape(str(image))
 
-    if not image:
-        attachments = item.get("attachments") or []
-        for attachment in attachments:
-            if isinstance(attachment, dict) and attachment.get("url"):
-                image = attachment["url"]
-                break
+    attachments = item.get("attachments") or []
+    for attachment in attachments:
+        if isinstance(attachment, dict) and attachment.get("url"):
+            return html.unescape(str(attachment["url"]))
 
-    text = (
+    return ""
+
+
+def normalize_item(item: dict, index: int, repo_root: Path, existing_by_url: dict[str, dict]) -> dict:
+    post_url = html.unescape(str(item.get("url") or item.get("external_url") or "")).strip()
+    remote_image = extract_remote_image(item)
+
+    existing = existing_by_url.get(post_url, {}) if post_url else {}
+    existing_local_image = str(existing.get("image") or existing.get("thumbnail") or "")
+    if existing_local_image.startswith("http"):
+        existing_local_image = ""
+
+    local_image, original_image = download_image(
+        image_url=remote_image,
+        post_url=post_url,
+        repo_root=repo_root,
+        existing_local_image=existing_local_image,
+    )
+
+    text = clean_text(
         item.get("content_text")
         or item.get("summary")
         or item.get("title")
         or "Post Instagram"
-    ).strip()
+    )
 
-    title = (item.get("title") or text or "Post Instagram").strip()
+    title = clean_text(item.get("title") or text or "Post Instagram")
     if len(title) > 120:
         title = title[:117].rstrip() + "..."
 
-    published = item.get("date_published") or item.get("date_modified") or ""
+    published = str(item.get("date_published") or item.get("date_modified") or "")
 
     return {
-        "id": f"instagram-{item.get('id') or index}",
+        "id": f"instagram-{item.get('id') or hashlib.sha1((post_url or str(index)).encode()).hexdigest()[:12]}",
         "platform": "Instagram",
         "source": "rss.app",
         "username": "@custrentoc5",
@@ -79,8 +190,9 @@ def normalize_item(item: dict, index: int) -> dict:
         "caption": text,
         "url": post_url,
         "permalink": post_url,
-        "image": image or DEFAULT_THUMBNAIL,
-        "thumbnail": image or DEFAULT_THUMBNAIL,
+        "image": local_image,
+        "thumbnail": local_image,
+        "remoteImage": original_image,
         "date": published[:10] if published else "",
         "publishedAt": published,
         "updatedAt": datetime.now(timezone.utc).isoformat(),
@@ -127,9 +239,16 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=4)
     args = parser.parse_args()
 
-    feed_path = Path(args.feed)
+    repo_root = Path.cwd()
+    feed_path = repo_root / args.feed
     existing_payload = load_json(feed_path, {"updatedAt": "", "posts": []})
     old_posts, output_as_list = existing_posts(existing_payload)
+
+    existing_by_url = {
+        str(item.get("url") or item.get("permalink") or ""): item
+        for item in old_posts
+        if item.get("url") or item.get("permalink")
+    }
 
     print(f"Existing social feed posts: {len(old_posts)}")
     print(f"Reading Instagram JSON feed: {args.feed_url}")
@@ -146,7 +265,7 @@ def main() -> int:
 
     instagram_posts = []
     for index, item in enumerate(raw_items[: args.limit], start=1):
-        normalized = normalize_item(item, index)
+        normalized = normalize_item(item, index, repo_root, existing_by_url)
         if normalized.get("url"):
             instagram_posts.append(normalized)
 
@@ -165,7 +284,6 @@ def main() -> int:
             "instagramFeedUrl": args.feed_url,
             "posts": new_posts,
         }
-        # Avoid a parallel items array: the frontend reads posts.
         new_payload.pop("items", None)
 
     before = json.dumps(existing_payload, ensure_ascii=False, sort_keys=True)
@@ -179,6 +297,7 @@ def main() -> int:
 
     print(f"Imported Instagram posts: {len(instagram_posts)}")
     print(f"Total social feed posts now: {len(new_posts)}")
+    print("Images saved under img/social when available.")
     return 0
 
 
