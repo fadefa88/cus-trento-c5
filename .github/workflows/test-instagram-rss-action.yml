@@ -1,0 +1,56 @@
+name: Test Instagram RSS Action
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test-instagram-rss:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0
+
+      - name: Generate Instagram RSS test feed
+        uses: katydecorah/instagram-rss-action@v0.3.0
+        with:
+          yourInstagram: ${{ secrets.IG_TEST_USERNAME }}
+          listOfInstagrams: custrentoc5
+          fileName: instagram-test.json
+          feedTitle: CUS Trento C5 Instagram
+          pretty: false
+
+      - name: Show generated file
+        run: |
+          echo "Generated files:"
+          ls -la
+          echo "Preview:"
+          if [ -f instagram-test.json ]; then
+            head -c 2000 instagram-test.json
+          else
+            echo "instagram-test.json not found"
+            exit 1
+          fi
+
+      - name: Commit test feed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          if git diff --quiet instagram-test.json; then
+            echo "No Instagram test feed changes to commit."
+            exit 0
+          fi
+
+          git add instagram-test.json
+          git commit -m "Test Instagram RSS action"
+
+          BRANCH="${GITHUB_REF_NAME:-main}"
+          git pull --rebase origin "$BRANCH"
+          git push origin HEAD:"$BRANCH"
