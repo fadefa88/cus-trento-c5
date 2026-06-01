@@ -1,47 +1,55 @@
 name: Update standings from SporTrentino
 
 on:
-workflow_dispatch:
-schedule:
-- cron: “7 * * * *”
+  workflow_dispatch:
+  schedule:
+    - cron: "7 * * * *"
 
 permissions:
-contents: write
+  contents: write
 
 jobs:
-update-standings:
-runs-on: ubuntu-latest
+  update-standings:
+    runs-on: ubuntu-latest
 
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v4
-    with:
-      token: ${{ secrets.GH_PAT }}
-      fetch-depth: 0
-  - name: Set up Python
-    uses: actions/setup-python@v5
-    with:
-      python-version: "3.12"
-  - name: Install dependencies
-    run: |
-      python -m pip install --upgrade pip
-      pip install requests beautifulsoup4 lxml
-  - name: Run standings updater
-    run: |
-      python scripts/update_standings.py --data content/data.json
-  - name: Validate JSON
-    run: |
-      python -m json.tool content/data.json > /dev/null
-  - name: Commit and push changes
-    run: |
-      git config user.name "github-actions"
-      git config user.email "github-actions@github.com"
-      if git diff --quiet content/data.json; then
-        echo "No standings changes to commit."
-        exit 0
-      fi
-      git add content/data.json
-      git commit -m "Update SporTrentino standings"
-      BRANCH="${GITHUB_REF_NAME:-main}"
-      git pull --rebase origin "$BRANCH"
-      git push origin HEAD:"$BRANCH"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 lxml
+
+      - name: Update standings
+        run: |
+          python scripts/update_standings.py --data content/data.json
+
+      - name: Validate JSON
+        run: |
+          python -m json.tool content/data.json > /dev/null
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          if git diff --quiet content/data.json; then
+            echo "No standings changes to commit."
+            exit 0
+          fi
+
+          git add content/data.json
+          git commit -m "Update SporTrentino standings"
+
+          BRANCH="${GITHUB_REF_NAME:-main}"
+          git pull --rebase origin "$BRANCH"
+          git push origin HEAD:"$BRANCH"
