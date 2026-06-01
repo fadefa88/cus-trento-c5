@@ -1079,3 +1079,18 @@ body.menu-open{
     justify-content:center;
   }
 }
+
+/* News sharing buttons — Font Awesome icons */
+.news-share .share-icon i{
+  display:block;
+  font-size:13px;
+  line-height:1;
+}
+.news-share .share-facebook .share-icon i{font-size:12px;}
+.news-share .share-x .share-icon i{font-size:12px;}
+.news-share .share-copy .share-icon i{font-size:12px;}
+.news-share .share-native .share-icon i{font-size:13px;}
+.news-share.compact .share-icon i{font-size:11px;}
+.news-share.compact .share-facebook .share-icon i,
+.news-share.compact .share-x .share-icon i,
+.news-share.compact .share-copy .share-icon i{font-size:10px;}
