@@ -619,6 +619,24 @@
 .table tr.cus.standing-promoted td,.table tr.cus.standing-playoff td,.table tr.cus.standing-playout td,.table tr.cus.standing-relegated td{font-weight:1000}
 .table tr.cus.standing-playoff td{box-shadow:inset 4px 0 0 var(--red)}
 
+/* Keep CUS Trento highlighted even when it is also in a standings rule zone */
+.table tr.cus.standing-promoted td,
+.table tr.cus.standing-playoff td,
+.table tr.cus.standing-playout td,
+.table tr.cus.standing-relegated td {
+  background: var(--red);
+  color: #fff;
+  box-shadow: inset 4px 0 0 rgba(255,255,255,.55);
+}
+
+.table tr.cus.standing-promoted .standing-status,
+.table tr.cus.standing-playoff .standing-status,
+.table tr.cus.standing-playout .standing-status,
+.table tr.cus.standing-relegated .standing-status {
+  background: rgba(255,255,255,.94);
+  color: var(--red);
+}
+
 /* Mobile menu v2 - robust full-screen drawer */
 body.menu-open{overflow:hidden}
 .mobile-toggle{width:56px;height:56px;display:none;align-items:center;justify-content:center;border-radius:999px;background:#fff;color:var(--red);font-size:25px;font-weight:1000;box-shadow:0 18px 44px rgba(9,9,11,.12);border:1px solid rgba(9,9,11,.06)}
@@ -877,23 +895,6 @@ body.menu-open{
 
 
 /* News search and sharing */
-.news-search{
-  margin:0;
-}
-.news-search .search-submit{
-  border:0;
-  border-radius:999px;
-  background:var(--ink);
-  color:#fff;
-  font-weight:950;
-  padding:8px 13px;
-  cursor:pointer;
-  white-space:nowrap;
-}
-.news-search .search-submit:hover{
-  background:#27272a;
-}
-
 .news-search input{
   min-width:min(360px,70vw);
 }
