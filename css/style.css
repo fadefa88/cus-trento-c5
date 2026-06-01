@@ -432,6 +432,108 @@
 }
 
 /* Standings status highlights */
+.standings-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin: 14px 0 4px;
+  color: #52525b;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.standings-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 11px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  display: inline-block;
+  background: #a1a1aa;
+}
+
+.legend-dot.promoted { background: #16a34a; }
+.legend-dot.playoff { background: #09090b; }
+.legend-dot.playout { background: #f59e0b; }
+.legend-dot.relegated { background: #dc2626; }
+
+.standing-status {
+  display: block;
+  width: max-content;
+  margin-top: 5px;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  background: #e4e4e7;
+  color: #18181b;
+}
+
+.standing-status.promoted {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.standing-status.playoff {
+  background: #09090b;
+  color: #fff;
+}
+
+.standing-status.playout {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.standing-status.relegated {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.table tr.standing-promoted td {
+  background: #f0fdf4;
+  color: #14532d;
+}
+
+.table tr.standing-playoff td {
+  background: #f4f4f5;
+  color: #09090b;
+}
+
+.table tr.standing-playout td {
+  background: #fffbeb;
+  color: #78350f;
+}
+
+.table tr.standing-relegated td {
+  background: #fef2f2;
+  color: #7f1d1d;
+}
+
+.table tr.cus td {
+  box-shadow: inset 4px 0 0 var(--red);
+}
+
+.table tr.cus.standing-promoted td,
+.table tr.cus.standing-playoff td,
+.table tr.cus.standing-playout td,
+.table tr.cus.standing-relegated td {
+  font-weight: 1000;
+}
+
+/* Standings status highlights */
 .standings-legend{display:flex;flex-wrap:wrap;gap:10px 14px;margin:14px 0 4px;color:#52525b;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
 .standings-legend span{display:inline-flex;align-items:center;gap:7px;background:#f8fafc;border:1px solid var(--line);border-radius:999px;padding:8px 11px}
 .legend-dot{width:10px;height:10px;border-radius:999px;display:inline-block;background:#a1a1aa}
