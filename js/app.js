@@ -1234,6 +1234,50 @@ async function loadSocialFeed(){
   }
 }
 
+
+async function loadOptionalJson(path){
+  try{
+    const res = await fetch(`${path}?v=${Date.now()}`, {cache:'no-store'});
+    if(!res.ok){
+      if(res.status !== 404) console.warn(`${path} non caricato: HTTP ${res.status}`);
+      return {};
+    }
+    const raw = await res.text();
+    if(!raw.trim()) return {};
+    return JSON.parse(raw);
+  }catch(e){
+    console.warn(`Errore caricamento ${path}. Il sito userà i dati base.`, e);
+    return {};
+  }
+}
+
+async function loadCmsDataOverrides(){
+  const files = [
+    'content/cms/news.json',
+    'content/cms/roster.json',
+    'content/cms/fixtures.json',
+    'content/cms/u21-fixtures.json',
+    'content/cms/cup.json',
+    'content/cms/u21-cup.json',
+    'content/cms/gallery-albums.json',
+    'content/cms/sponsors.json',
+    'content/cms/sponsor-packages.json',
+    'content/cms/staff.json',
+    'content/cms/videos.json',
+    'content/cms/club-history.json'
+  ];
+
+  const merged = {};
+  for(const file of files){
+    const payload = await loadOptionalJson(file);
+    const clean = normalizePublishedData(payload);
+    Object.keys(clean || {}).forEach(key => {
+      merged[key] = clean[key];
+    });
+  }
+  return merged;
+}
+
 async function bootData(){
   let dataLoaded = false;
   let loadError = null;
@@ -1243,11 +1287,15 @@ async function bootData(){
     if(!res.ok) throw new Error(`content/data.json non caricato: HTTP ${res.status}`);
 
     const raw = await res.text();
-    const published = normalizePublishedData(JSON.parse(raw));
+    const basePublished = normalizePublishedData(JSON.parse(raw));
+    const cmsOverrides = await loadCmsDataOverrides();
+    const published = normalizePublishedData({...basePublished, ...cmsOverrides});
     const importedArchiveNews = await loadImportedNewsArchive();
     const latestSocialFeed = await loadSocialFeed();
 
-    published.news = mergeCmsNewsWithImportedArchive(published.news || [], importedArchiveNews);
+    // Le news possono arrivare sia dal CMS separato sia dall'importer SporTrentino che aggiorna data.json.
+    // Non sostituiamo una fonte con l'altra: le deduplichiamo per source URL / ID / titolo+data.
+    published.news = mergeCmsNewsWithImportedArchive([...(cmsOverrides.news || []), ...(basePublished.news || [])], importedArchiveNews);
     published.socialFeed = latestSocialFeed.length ? latestSocialFeed : (published.socialFeed || legacySocialToFeed(published.social || []));
 
     state = applyAutomations(hydrate(published));     // i dati pubblicati hanno priorita' e vengono incrementati dai match terminati
