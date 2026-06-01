@@ -33,7 +33,7 @@ jobs:
         run: |
           python scripts/update_instagram_feed.py \
             --instagram-feed-url "https://rss.app/feeds/v1.1/ZARGBanc4ELDomJR.json" \
-            --tiktok-feed-url "https://rss.app/feeds/v1.1/Xo03hvSH8G9qLSfy.json" \
+            --tiktok-feed-url "https://rss-bridge.sans-nuage.fr/?action=display&bridge=TikTokBridge&context=By+user&username=%40custrentoc5&format=Json" \
             --instagram-limit 4 \
             --tiktok-limit 4 \
             --feed content/social-feed.json
