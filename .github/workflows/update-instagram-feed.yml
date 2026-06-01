@@ -1,4 +1,4 @@
-name: Update Instagram feed
+name: Update social feed
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  update-instagram-feed:
+  update-social-feed:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +29,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Update Instagram feed from RSS.app
+      - name: Update Instagram and TikTok feed from RSS.app
         run: |
           python scripts/update_instagram_feed.py \
-            --feed-url "https://rss.app/feeds/v1.1/ZARGBanc4ELDomJR.json" \
-            --limit 4 \
+            --instagram-feed-url "https://rss.app/feeds/v1.1/ZARGBanc4ELDomJR.json" \
+            --tiktok-feed-url "https://rss.app/feeds/v1.1/Xo03hvSH8G9qLSfy.json" \
+            --instagram-limit 4 \
+            --tiktok-limit 4 \
             --feed content/social-feed.json
 
       - name: Validate JSON
@@ -46,12 +48,12 @@ jobs:
           git config user.email "github-actions@github.com"
 
           if git diff --quiet content/social-feed.json img/social; then
-            echo "No Instagram feed changes to commit."
+            echo "No social feed changes to commit."
             exit 0
           fi
 
           git add content/social-feed.json img/social
-          git commit -m "Update Instagram social feed"
+          git commit -m "Update social feed"
 
           BRANCH="${GITHUB_REF_NAME:-main}"
           git pull --rebase origin "$BRANCH"
