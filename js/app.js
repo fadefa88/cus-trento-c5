@@ -585,24 +585,65 @@ function pagerHtml(total,page,fn){
 function esc(v){return String(v ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));}
 function socialPlatformLabel(platform){const p=String(platform||"").toLowerCase();return p.includes("tiktok")?"TikTok":"Instagram";}
 function socialPlatformClass(platform){return socialPlatformLabel(platform).toLowerCase()==="tiktok"?"tiktok":"instagram";}
-function legacySocialToFeed(items){return (items||[]).filter(s=>/instagram|tiktok/i.test(s.network||"")).slice(0,4).map((s,i)=>({id:s.id||`legacy-${i}`,platform:s.network,username:s.handle,url:s.url||"#",caption:s.text,date:s.date,thumbnail:s.thumbnail||"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",source:"manual"}));}
-function socialFeedItems(){const feed=Array.isArray(state.socialFeed)&&state.socialFeed.length?state.socialFeed:legacySocialToFeed(state.social);return feed.filter(x=>/instagram|tiktok/i.test(x.platform||"")).slice(0,4);}
+const SOCIAL_FALLBACK_THUMB="https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png";
+function legacySocialToFeed(items){
+  return (items||[])
+    .filter(s=>/instagram|tiktok/i.test(s.network||""))
+    .map((s,i)=>({
+      id:s.id||`legacy-${i}`,
+      platform:s.network,
+      username:s.handle,
+      url:s.url||"",
+      caption:s.text,
+      date:s.date,
+      thumbnail:s.thumbnail||SOCIAL_FALLBACK_THUMB,
+      source:"manual"
+    }));
+}
+function socialSourceItems(){
+  const feed=Array.isArray(state.socialFeed)&&state.socialFeed.length?state.socialFeed:legacySocialToFeed(state.social);
+  return (feed||[]).filter(x=>/instagram|tiktok/i.test(x.platform||""));
+}
+function socialPlaceholder(platform,index){
+  return {
+    id:`placeholder-${socialPlatformClass(platform)}-${index}`,
+    platform,
+    username:"@custrentoc5",
+    url:"",
+    caption:`${platform} in aggiornamento automatico. Quando l'automazione avrà i token validi, qui comparirà uno degli ultimi post reali.`,
+    date:"",
+    thumbnail:SOCIAL_FALLBACK_THUMB,
+    placeholder:true
+  };
+}
+function socialFeedItems(perPlatform=2){
+  const source=socialSourceItems();
+  const pick=(platform)=>{
+    const cls=socialPlatformClass(platform);
+    const items=source.filter(x=>socialPlatformClass(x.platform)===cls).slice(0,perPlatform);
+    while(items.length<perPlatform)items.push(socialPlaceholder(platform,items.length+1));
+    return items;
+  };
+  return [...pick("Instagram"),...pick("TikTok")];
+}
 function socialCard(item,index){
   const platform=socialPlatformLabel(item.platform);
   const cls=socialPlatformClass(item.platform);
   const caption=item.caption||item.title||"Ultimo contenuto social del CUS Trento C5";
-  const url=item.url||item.permalink||item.share_url||"#";
-  const thumb=item.thumbnail||item.media_url||item.cover_image_url||"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png";
+  const url=item.url||item.permalink||item.share_url||"";
+  const thumb=item.thumbnail||item.media_url||item.cover_image_url||SOCIAL_FALLBACK_THUMB;
   const date=item.date||item.timestamp||item.create_time||"";
-  return `<article class="social-feed-card ${cls}">
-    <a href="${esc(url)}" target="_blank" rel="noopener noreferrer" aria-label="Apri post ${esc(platform)}">
-      <div class="social-feed-thumb"><img loading="lazy" decoding="async" src="${esc(thumb)}" alt="Post ${esc(platform)} CUS Trento C5"><span class="social-feed-platform">${esc(platform)}</span></div>
-      <div class="social-feed-body"><div class="social-feed-meta"><b>${esc(platform)}</b><span>${esc(item.username||item.handle||"@custrentoc5")}</span></div><p>${esc(caption)}</p>${date?`<small>${fmt(date)}</small>`:""}</div>
-    </a>
+  const media=`<div class="social-feed-thumb"><img loading="lazy" decoding="async" src="${esc(thumb)}" alt="Post ${esc(platform)} CUS Trento C5"><span class="social-feed-platform">${esc(platform)}</span>${item.placeholder?`<span class="social-feed-soon">In arrivo</span>`:""}</div>
+      <div class="social-feed-body"><div class="social-feed-meta"><b>${esc(platform)}</b><span>${esc(item.username||item.handle||"@custrentoc5")}</span></div><p>${esc(caption)}</p>${date?`<small>${fmt(date)}</small>`:""}</div>`;
+  return `<article class="social-feed-card ${cls}${item.placeholder?' placeholder':''}">
+    ${url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" aria-label="Apri post ${esc(platform)}">${media}</a>`:`<div class="social-feed-static">${media}</div>`}
   </article>`;
 }
-function socialGrid(){const items=socialFeedItems();return `<div class="social-feed-grid">${items.map(socialCard).join("") || `<div class="card card-pad"><h2>Social feed in configurazione</h2><p class="muted">Quando l'automazione avrà token validi, qui appariranno gli ultimi due post Instagram e gli ultimi due TikTok.</p></div>`}</div>`;}
-function homeSocialSection(){return `<section class="section social-home-section"><div class="container"><div class="head"><div><span class="eyebrow">Social wall</span><h2 class="title">Ultimi dai social</h2></div><button class="btn soft" onclick="route('social')">Apri social wall</button></div>${socialGrid()}</div></section>`;}
+function socialGrid(perPlatform=2){
+  const items=socialFeedItems(perPlatform);
+  return `<div class="social-feed-grid${perPlatform>=4?' social-feed-grid-large':''}">${items.map(socialCard).join("")}</div>`;
+}
+function homeSocialSection(){return `<section class="section social-home-section"><div class="container"><div class="head"><div><span class="eyebrow">Social wall</span><h2 class="title">Ultimi dai social</h2><p class="muted">2 Instagram + 2 TikTok, aggiornabili automaticamente.</p></div><button class="btn soft" onclick="route('social')">Apri social wall</button></div>${socialGrid(2)}</div></section>`;}
 function home(){setSEO("Home","CUS Trento C5: sito ufficiale con news, rosa, calendari e match center.");const next=nextFixture(state.fixtures);const last=lastResult(state.fixtures);const cus=findCusRow(state.standings);const top=[...state.roster].filter(p=>p.team==="Prima squadra").sort((a,b)=>(b.goals||0)-(a.goals||0))[0]||{};const pinned=latestNews(state.news);const cupNext=nextFixture(((state.cup||{}).fixtures)||[]);app.innerHTML=`<section class="hero"><div class="container hero-grid"><div><span class="tag">Serie C1</span><span class="tag ghost">Stagione 26/27</span><h1>More than a team. <span class="red">Trento</span> plays fast.</h1><p class="lead"><br><br></p><p class="lead"></p><div class="btns"><button class="btn" onclick="route('fixtures')">Prossima partita →</button><button class="btn light" onclick="route('squad')">Scopri la rosa</button><button class="btn ghost" onclick="route('matchday')">Info matchday</button></div></div><div><div class="match-card"><div class="kicker">Prossima partita</div><div class="match-teams"><div><div class="clubmark">${next.home&&next.home.includes("CUS")?"CUS":String(next.home||"").slice(0,2)}</div><b>${next.home||"CUS Trento"}</b></div><div><small>${next.date?fmt(next.date):"Da definire"}</small><div class="timebox">${next.time||"--:--"}</div></div><div><div class="clubmark">${next.away&&next.away.includes("CUS")?"CUS":String(next.away||"").slice(0,2)}</div><b>${next.away||"Avversario"}</b></div></div></div><div class="mini-grid"><div class="mini"><strong>#${cus.pos||"-"}</strong><span>Posizione<br>${cus.pts!=null?cus.pts+" pt":""}</span></div><div class="mini"><strong>${top.goals||0}</strong><span>Top scorer<br>${top.name||""}</span></div><div class="mini"><strong>${last.score||"-"}</strong><span>Ultimo risultato</span></div></div></div></div></section><section class="section"><div class="container grid grid-2"><article class="card feature clickable" onclick="route('article-${pinned.id}')"><img loading="lazy" decoding="async" src="${pinned.image}" alt="${pinned.title}"><div class="card-pad"><span class="badge">${pinned.category}</span><h2 style="margin-top:14px">${pinned.title}</h2><p class="muted">${pinned.excerpt}</p><button class="btn dark">Leggi articolo</button></div></article><article class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">Coppa</span><h2 style="font-size:34px;margin:0">${state.cup.title}</h2><p style="color:rgba(255,255,255,.75)">Stato: <b>${state.cup.status}</b></p>${cupFixture(cupNext,true)}<button class="btn ghost" style="margin-top:16px" onclick="route('coppa')">Vai alla Coppa</button></article></div></section><section class="section" style="padding-top:0"><div class="container grid grid-2"><div class="card card-pad home-stack"><h2>Calendario</h2>${(state.fixtures||[]).slice(0,3).map(fixtureRow).join("") || `<div class="fixture"><div class="fixture-top"><span>Calendario</span><span>Nuova stagione</span></div><div class="teams"><span>CUS Trento</span><span class="score">VS</span><span>Avversario</span></div><p class="muted">Inserisci le nuove partite dal CMS.</p></div>`}</div><div class="card card-pad"><h2>Classifica</h2>${homeStandingWidget(state.standings)}</div></div></section>${homeSocialSection()}${footer()}`;}
 function newsTags(n){
   const raw=[n.category,...(Array.isArray(n.tags)?n.tags:[])].filter(Boolean);
@@ -815,7 +856,7 @@ function videos(){shell("Video","Highlights, interviste e contenuti social video
 function videoCards(items){return items.map((v,i)=>`<article class="card clickable" onclick="openVideoLightbox(${(state.videos||[]).findIndex(x=>x===v)})"><div style="position:relative"><img loading="lazy" class="video-thumb" src="${v.thumb}" alt="${v.title}"><div class="play">▶</div></div><div class="card-pad"><span class="badge">${v.category}</span><h2 style="margin-top:12px">${v.title}</h2></div></article>`).join("");}
 function goVideoPage(page){view.videoPage=page;renderVideoList();}
 function renderVideoList(){const pg=paginate(state.videos||[],view.videoPage,6);view.videoPage=pg.page;const grid=$("#videoGrid"),pager=$("#videoPager");if(grid)grid.innerHTML=videoCards(pg.items);if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goVideoPage");}
-function social(){shell("Social wall","Ultimi due post Instagram e ultimi due TikTok",`<div class="social-page-intro"><p class="muted">Feed generato da content/social-feed.json. Quando l'automazione GitHub Actions avrà i token, il file verrà aggiornato in automatico.</p></div>${socialGrid()}`,"","Social wall CUS Trento C5.");}
+function social(){shell("Social wall","Ultimi post Instagram e TikTok",`<div class="social-page-intro"><p class="muted">Qui mostriamo 4 contenuti Instagram e 4 TikTok. Il feed legge da content/social-feed.json; quando l'automazione avrà token validi, questi box verranno aggiornati con i post reali più recenti.</p></div>${socialGrid(4)}`,"","Social wall CUS Trento C5.");}
 
 function tryout(){shell("Provini","Entra nel progetto CUS Trento C5",`<div class="grid grid-2"><div class="tryout-hero"><span class="eyebrow" style="background:white;color:#09090b">Tryout</span><h2 style="font-size:42px">Vuoi giocare con noi?</h2><p style="color:rgba(255,255,255,.74)">Compila la candidatura demo: ruolo, esperienza, università/corso e contatti. In produzione il form invierà la richiesta allo staff tecnico.</p><div class="grid grid-2" style="margin-top:22px">${["Prima squadra","Under 21","Portieri","Studenti UniTrento"].map(x=>`<div class="gk-box"><b>${x}</b><span>Area</span></div>`).join("")}</div></div><div class="lead-form"><h2>Modulo candidatura</h2><div class="form-grid" style="grid-template-columns:1fr 1fr"><label><span>Nome e cognome</span><input id="try_name"></label><label><span>Età</span><input id="try_age" type="number"></label><label><span>Ruolo</span><select id="try_role"><option>Portiere</option><option>Centrale</option><option>Laterale</option><option>Pivot</option><option>Universale</option></select></label><label><span>Università / corso</span><input id="try_university"></label><label><span>Telefono</span><input id="try_phone"></label><label><span>Email</span><input id="try_email" type="email"></label><label style="grid-column:1/-1"><span>Esperienza e note</span><textarea id="try_notes"></textarea></label></div><button class="btn dark" style="margin-top:14px" onclick="saveLead('tryout')">Invia candidatura demo</button></div></div><div class="grid grid-3" style="margin-top:24px">${["Valutazione tecnica","Allenamento di prova","Inserimento nel gruppo"].map((x,i)=>`<div class="card card-pad"><span class="badge">Step 0${i+1}</span><h2 style="margin-top:12px">${x}</h2><p class="muted">Workflow demo per gestire le richieste dei giocatori interessati.</p></div>`).join("")}</div>`,"","Modulo provini e candidature CUS Trento C5.");}
 
