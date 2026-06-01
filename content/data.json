@@ -1,1628 +1,1604 @@
 {
-  "partial": false,
-  "path": "content/data.json",
-  "meta": {
-    "path": "content/data.json"
+  "staff": [
+    {
+      "id": 1,
+      "name": "Emiliano Piazza",
+      "role": "Allenatore",
+      "team": "Prima squadra",
+      "photo": "/img/players/17-piazza-emiliano-allenatore-prima-squadra.webp",
+      "bio": "Allenatore Prima Squadra."
+    },
+    {
+      "id": 2,
+      "name": "Denis Gurabardhi",
+      "role": "Vice Allenatore",
+      "team": "Prima squadra",
+      "photo": "/img/players/18-gurabardhi-denis-vice-allenatore-prima-squadra.webp",
+      "bio": "Vice allenatore Prima Squadra."
+    },
+    {
+      "id": 3,
+      "name": "Diego Cadamuro",
+      "role": "Team Manager",
+      "team": "Prima squadra",
+      "photo": "/img/players/20-cadamuro-diego-team-manager-prima-squadra.webp",
+      "bio": "Team Manager Prima Squadra."
+    },
+    {
+      "id": 4,
+      "name": "Stanis Jukni",
+      "role": "Dirigente",
+      "team": "Prima squadra",
+      "photo": "/img/players/19-jukni-stanis-dirigente-prima-squadra.webp",
+      "bio": "Dirigente Prima Squadra."
+    },
+    {
+      "id": 5,
+      "name": "Livia Copellino",
+      "role": "Allenatrice",
+      "team": "Under 21",
+      "photo": "/img/players/16-copellino-livia-allenatrice-u21.webp",
+      "bio": "Allenatrice Under 21."
+    },
+    {
+      "id": 6,
+      "name": "Duilio Lazzarini",
+      "role": "Team Manager",
+      "team": "Under 21",
+      "photo": "/img/players/17-lazzarini-duilio-team-manager-u21.webp",
+      "bio": "Team Manager Under 21."
+    },
+    {
+      "id": 7,
+      "name": "Francesco Coppo",
+      "role": "Dirigente",
+      "team": "Under 21",
+      "photo": "/img/players/18-coppo-francesco-dirigente-u21.webp",
+      "bio": "Dirigente Under 21."
+    }
+  ],
+  "standings": [
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24224logo.png",
+      "gs": 114,
+      "n": 0,
+      "pts": 60,
+      "p": 6,
+      "pos": 1,
+      "v": 20,
+      "team": "CALCIO BLEGGIO",
+      "gf": 185
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24228logo.png",
+      "gs": 88,
+      "n": 0,
+      "pts": 54,
+      "p": 8,
+      "pos": 2,
+      "v": 18,
+      "team": "CUS TRENTO",
+      "gf": 113
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24220logo.png",
+      "gs": 129,
+      "n": 2,
+      "pts": 53,
+      "p": 7,
+      "pos": 3,
+      "v": 17,
+      "team": "MEZZOLOMBARDO",
+      "gf": 153
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24223logo.png",
+      "gs": 128,
+      "n": 1,
+      "pts": 40,
+      "p": 12,
+      "pos": 4,
+      "v": 13,
+      "team": "GNU TEAM ALA",
+      "gf": 171
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24227logo.png",
+      "gs": 102,
+      "n": 3,
+      "pts": 39,
+      "p": 11,
+      "pos": 5,
+      "v": 12,
+      "team": "PINETA",
+      "gf": 108
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24225logo.png",
+      "gs": 119,
+      "n": 2,
+      "pts": 38,
+      "p": 12,
+      "pos": 6,
+      "v": 12,
+      "team": "IMPERIAL GRUMO",
+      "gf": 123
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24222logo.png",
+      "gs": 112,
+      "n": 1,
+      "pts": 37,
+      "p": 13,
+      "pos": 7,
+      "v": 12,
+      "team": "NEUGRIES",
+      "gf": 94
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24218logo.png",
+      "gs": 117,
+      "n": 3,
+      "pts": 36,
+      "p": 12,
+      "pos": 8,
+      "v": 11,
+      "team": "CLES",
+      "gf": 120
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24221logo.png",
+      "gs": 165,
+      "n": 0,
+      "pts": 36,
+      "p": 14,
+      "pos": 9,
+      "v": 12,
+      "team": "FRAVEGGIO",
+      "gf": 152
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24215logo.png",
+      "gs": 131,
+      "n": 2,
+      "pts": 35,
+      "p": 13,
+      "pos": 10,
+      "v": 11,
+      "team": "BESENELLO",
+      "gf": 123
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24219logo.png",
+      "gs": 109,
+      "n": 4,
+      "pts": 31,
+      "p": 13,
+      "pos": 11,
+      "v": 9,
+      "team": "FUTSAL FIEMME",
+      "gf": 100
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24217logo.png",
+      "gs": 163,
+      "n": 1,
+      "pts": 28,
+      "p": 16,
+      "pos": 12,
+      "v": 9,
+      "team": "FIAVÉ 1945",
+      "gf": 146
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24216logo.png",
+      "gs": 116,
+      "n": 1,
+      "pts": 28,
+      "p": 16,
+      "pos": 13,
+      "v": 9,
+      "team": "VIRTUS ROVERE",
+      "gf": 86
+    },
+    {
+      "g": 26,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24226logo.png",
+      "gs": 202,
+      "n": 0,
+      "pts": 21,
+      "p": 19,
+      "pos": 14,
+      "v": 7,
+      "team": "GOSTIVAR",
+      "gf": 121
+    }
+  ],
+  "sponsorPackages": [
+    {
+      "id": 1,
+      "name": "Main Partner",
+      "price": "Da definire",
+      "visibility": [
+        "Logo maglia gara",
+        "Hero sponsor in home",
+        "Post social dedicati",
+        "Presenza su backdrop interviste"
+      ],
+      "cta": "Richiedi proposta Main Partner"
+    },
+    {
+      "id": 2,
+      "name": "Gold Sponsor",
+      "price": "Da definire",
+      "visibility": [
+        "Logo in pagina sponsor",
+        "Citazione nei matchday post",
+        "Banner digitale",
+        "Inviti eventi club"
+      ],
+      "cta": "Richiedi pacchetto Gold"
+    },
+    {
+      "id": 3,
+      "name": "Silver Sponsor",
+      "price": "Da definire",
+      "visibility": [
+        "Logo sito",
+        "Presenza gallery partner",
+        "Citazione periodica social"
+      ],
+      "cta": "Richiedi pacchetto Silver"
+    },
+    {
+      "id": 4,
+      "name": "Community Partner",
+      "price": "Da definire",
+      "visibility": [
+        "Presenza sito",
+        "Attività territoriali",
+        "Iniziative studenti"
+      ],
+      "cta": "Diventa partner community"
+    }
+  ],
+  "site": {
+    "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+    "icon": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+    "name": "CUS Trento C5"
   },
-  "isModification": null,
-  "raw": "{\n  \"staff\": [\n    {\n      \"id\": 1,\n      \"name\": \"Emiliano Piazza\",\n      \"role\": \"Allenatore\",\n      \"team\": \"Prima squadra\",\n      \"photo\": \"/img/players/17-piazza-emiliano-allenatore-prima-squadra.webp\",\n      \"bio\": \"Allenatore Prima Squadra.\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Denis Gurabardhi\",\n      \"role\": \"Vice Allenatore\",\n      \"team\": \"Prima squadra\",\n      \"photo\": \"/img/players/18-gurabardhi-denis-vice-allenatore-prima-squadra.webp\",\n      \"bio\": \"Vice allenatore Prima Squadra.\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Diego Cadamuro\",\n      \"role\": \"Team Manager\",\n      \"team\": \"Prima squadra\",\n      \"photo\": \"/img/players/20-cadamuro-diego-team-manager-prima-squadra.webp\",\n      \"bio\": \"Team Manager Prima Squadra.\"\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Stanis Jukni\",\n      \"role\": \"Dirigente\",\n      \"team\": \"Prima squadra\",\n      \"photo\": \"/img/players/19-jukni-stanis-dirigente-prima-squadra.webp\",\n      \"bio\": \"Dirigente Prima Squadra.\"\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Livia Copellino\",\n      \"role\": \"Allenatrice\",\n      \"team\": \"Under 21\",\n      \"photo\": \"/img/players/16-copellino-livia-allenatrice-u21.webp\",\n      \"bio\": \"Allenatrice Under 21.\"\n    },\n    {\n      \"id\": 6,\n      \"name\": \"Duilio Lazzarini\",\n      \"role\": \"Team Manager\",\n      \"team\": \"Under 21\",\n      \"photo\": \"/img/players/17-lazzarini-duilio-team-manager-u21.webp\",\n      \"bio\": \"Team Manager Under 21.\"\n    },\n    {\n      \"id\": 7,\n      \"name\": \"Francesco Coppo\",\n      \"role\": \"Dirigente\",\n      \"team\": \"Under 21\",\n      \"photo\": \"/img/players/18-coppo-francesco-dirigente-u21.webp\",\n      \"bio\": \"Dirigente Under 21.\"\n    }\n  ],\n  \"standings\": [\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24224logo.png\",\n      \"gs\": 114,\n      \"n\": 0,\n      \"pts\": 60,\n      \"p\": 6,\n      \"pos\": 1,\n      \"v\": 20,\n      \"team\": \"CALCIO BLEGGIO\",\n      \"gf\": 185\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24228logo.png\",\n      \"gs\": 88,\n      \"n\": 0,\n      \"pts\": 54,\n      \"p\": 8,\n      \"pos\": 2,\n      \"v\": 18,\n      \"team\": \"CUS TRENTO\",\n      \"gf\": 113\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24220logo.png\",\n      \"gs\": 129,\n      \"n\": 2,\n      \"pts\": 53,\n      \"p\": 7,\n      \"pos\": 3,\n      \"v\": 17,\n      \"team\": \"MEZZOLOMBARDO\",\n      \"gf\": 153\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24223logo.png\",\n      \"gs\": 128,\n      \"n\": 1,\n      \"pts\": 40,\n      \"p\": 12,\n      \"pos\": 4,\n      \"v\": 13,\n      \"team\": \"GNU TEAM ALA\",\n      \"gf\": 171\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24227logo.png\",\n      \"gs\": 102,\n      \"n\": 3,\n      \"pts\": 39,\n      \"p\": 11,\n      \"pos\": 5,\n      \"v\": 12,\n      \"team\": \"PINETA\",\n      \"gf\": 108\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24225logo.png\",\n      \"gs\": 119,\n      \"n\": 2,\n      \"pts\": 38,\n      \"p\": 12,\n      \"pos\": 6,\n      \"v\": 12,\n      \"team\": \"IMPERIAL GRUMO\",\n      \"gf\": 123\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24222logo.png\",\n      \"gs\": 112,\n      \"n\": 1,\n      \"pts\": 37,\n      \"p\": 13,\n      \"pos\": 7,\n      \"v\": 12,\n      \"team\": \"NEUGRIES\",\n      \"gf\": 94\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24218logo.png\",\n      \"gs\": 117,\n      \"n\": 3,\n      \"pts\": 36,\n      \"p\": 12,\n      \"pos\": 8,\n      \"v\": 11,\n      \"team\": \"CLES\",\n      \"gf\": 120\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24221logo.png\",\n      \"gs\": 165,\n      \"n\": 0,\n      \"pts\": 36,\n      \"p\": 14,\n      \"pos\": 9,\n      \"v\": 12,\n      \"team\": \"FRAVEGGIO\",\n      \"gf\": 152\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24215logo.png\",\n      \"gs\": 131,\n      \"n\": 2,\n      \"pts\": 35,\n      \"p\": 13,\n      \"pos\": 10,\n      \"v\": 11,\n      \"team\": \"BESENELLO\",\n      \"gf\": 123\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24219logo.png\",\n      \"gs\": 109,\n      \"n\": 4,\n      \"pts\": 31,\n      \"p\": 13,\n      \"pos\": 11,\n      \"v\": 9,\n      \"team\": \"FUTSAL FIEMME\",\n      \"gf\": 100\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24217logo.png\",\n      \"gs\": 163,\n      \"n\": 1,\n      \"pts\": 28,\n      \"p\": 16,\n      \"pos\": 12,\n      \"v\": 9,\n      \"team\": \"FIAVÉ 1945\",\n      \"gf\": 146\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24216logo.png\",\n      \"gs\": 116,\n      \"n\": 1,\n      \"pts\": 28,\n      \"p\": 16,\n      \"pos\": 13,\n      \"v\": 9,\n      \"team\": \"VIRTUS ROVERE\",\n      \"gf\": 86\n    },\n    {\n      \"g\": 26,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24226logo.png\",\n      \"gs\": 202,\n      \"n\": 0,\n      \"pts\": 21,\n      \"p\": 19,\n      \"pos\": 14,\n      \"v\": 7,\n      \"team\": \"GOSTIVAR\",\n      \"gf\": 121\n    }\n  ],\n  \"sponsorPackages\": [\n    {\n      \"id\": 1,\n      \"name\": \"Main Partner\",\n      \"price\": \"Da definire\",\n      \"visibility\": [\n        \"Logo maglia gara\",\n        \"Hero sponsor in home\",\n        \"Post social dedicati\",\n        \"Presenza su backdrop interviste\"\n      ],\n      \"cta\": \"Richiedi proposta Main Partner\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Gold Sponsor\",\n      \"price\": \"Da definire\",\n      \"visibility\": [\n        \"Logo in pagina sponsor\",\n        \"Citazione nei matchday post\",\n        \"Banner digitale\",\n        \"Inviti eventi club\"\n      ],\n      \"cta\": \"Richiedi pacchetto Gold\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Silver Sponsor\",\n      \"price\": \"Da definire\",\n      \"visibility\": [\n        \"Logo sito\",\n        \"Presenza gallery partner\",\n        \"Citazione periodica social\"\n      ],\n      \"cta\": \"Richiedi pacchetto Silver\"\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Community Partner\",\n      \"price\": \"Da definire\",\n      \"visibility\": [\n        \"Presenza sito\",\n        \"Attività territoriali\",\n        \"Iniziative studenti\"\n      ],\n      \"cta\": \"Diventa partner community\"\n    }\n  ],\n  \"site\": {\n    \"logo\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png\",\n    \"icon\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png\",\n    \"name\": \"CUS Trento C5\"\n  },\n  \"u21Cup\": {\n    \"title\": \"Coppa Under 21\",\n    \"edition\": \"2026/27\",\n    \"status\": \"Girone eliminatorio\",\n    \"fixtures\": []\n  },\n  \"fixtures\": [\n    {\n      \"summary\": \"ciao sono il sommario\",\n      \"time\": \"21:00\",\n      \"away\": \"Besenello\",\n      \"date\": \"2026-05-28\",\n      \"lineup\": {\n        \"module\": \"3-1\",\n        \"startingFive\": [\n          \"2\",\n          \"4\",\n          \"5\",\n          \"7\",\n          \"9\"\n        ],\n        \"bench\": [\n          \"1\",\n          \"3\",\n          \"8\",\n          \"18\",\n          \"17\",\n          \"16\"\n        ]\n      },\n      \"venue\": \"Sanbàpolis\",\n      \"score\": \"3-2\",\n      \"status\": \"Da giocare\",\n      \"scorerEvents\": [\n        {\n          \"goals\": 2,\n          \"playerId\": \"4\"\n        },\n        {\n          \"goals\": 1,\n          \"playerId\": \"9\"\n        }\n      ],\n      \"id\": 1,\n      \"yellowCardEvents\": [\n        {\n          \"cards\": 1,\n          \"playerId\": \"2\"\n        }\n      ],\n      \"home\": \"CUS Trento\",\n      \"competition\": \"Campionato\"\n    }\n  ],\n  \"roster\": [\n    {\n      \"id\": 1,\n      \"name\": \"Safi Saif Edine\",\n      \"role\": \"Portiere\",\n      \"team\": \"Prima squadra\",\n      \"number\": 1,\n      \"photo\": \"/img/players/3-safi-saif-edine-portiere.webp\"\n    },\n    {\n      \"faculty\": \"Lettere\",\n      \"birthPlace\": \"Padova (PD)\",\n      \"number\": 12,\n      \"name\": \"Lucca Baccaro Zeni\",\n      \"birthDate\": \"2000-01-18\",\n      \"photo\": \"/img/players/1-baccaro-zeni-lucca-portiere.webp\",\n      \"role\": \"Portiere\",\n      \"id\": 2,\n      \"team\": \"Prima squadra\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Filippo Bernard\",\n      \"role\": \"Portiere\",\n      \"team\": \"Prima squadra\",\n      \"number\": 2,\n      \"photo\": \"/img/players/2-bernard-filippo-portiere.webp\"\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Tommaso Boldrini\",\n      \"role\": \"Centrale\",\n      \"team\": \"Prima squadra\",\n      \"number\": 5,\n      \"photo\": \"/img/players/4-boldrini-tommaso-centrale.webp\"\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Davide Filippi\",\n      \"role\": \"Centrale\",\n      \"team\": \"Prima squadra\",\n      \"number\": 6,\n      \"photo\": \"/img/players/10-filippi-davide-laterale.webp\"\n    },\n    {\n      \"id\": 6,\n      \"name\": \"Alvise Tesser\",\n      \"role\": \"Centrale\",\n      \"team\": \"Prima squadra\",\n      \"number\": 7,\n      \"photo\": \"/img/players/5-tesser-alvise-centrale.webp\"\n    },\n    {\n      \"id\": 7,\n      \"name\": \"Federico Addobbati\",\n      \"role\": \"Laterale\",\n      \"team\": \"Prima squadra\",\n      \"number\": 8,\n      \"photo\": \"/img/players/noplayer.webp\"\n    },\n    {\n      \"id\": 8,\n      \"name\": \"Filippo Baietta\",\n      \"role\": \"Laterale\",\n      \"team\": \"Prima squadra\",\n      \"number\": 9,\n      \"photo\": \"/img/players/6-baietta-filippo-laterale.webp\"\n    },\n    {\n      \"id\": 9,\n      \"name\": \"Luca Cirasola\",\n      \"role\": \"Laterale\",\n      \"team\": \"Prima squadra\",\n      \"number\": 10,\n      \"photo\": \"/img/players/7-cirasola-luca-laterale.webp\"\n    },\n    {\n      \"id\": 10,\n      \"name\": \"Mattia Cuman\",\n      \"role\": \"Laterale\",\n      \"team\": \"Prima squadra\",\n      \"number\": 27,\n      \"photo\": \"/img/players/8-cuman-mattia-laterale.webp\"\n    },\n    {\n      \"id\": 11,\n      \"name\": \"Luca Frattolin\",\n      \"role\": \"Laterale\",\n      \"team\": \"Prima squadra\",\n      \"number\": 23,\n      \"photo\": \"/img/players/noplayer.webp\"\n    },\n    {\n      \"id\": 12,\n      \"name\": \"Federico Maciocia\",\n      \"role\": \"Laterale\",\n      \"team\": \"Prima squadra\",\n      \"number\": 17,\n      \"photo\": \"/img/players/11-maciocia-federico-laterale.webp\"\n    },\n    {\n      \"id\": 13,\n      \"name\": \"Mattia Vaia\",\n      \"role\": \"Laterale\",\n      \"team\": \"Prima squadra\",\n      \"number\": 11,\n      \"photo\": \"/img/players/12-vaia-mattia-laterale.webp\"\n    },\n    {\n      \"id\": 14,\n      \"name\": \"Alessandro Zanetti\",\n      \"role\": \"Laterale\",\n      \"team\": \"Prima squadra\",\n      \"number\": 19,\n      \"photo\": \"/img/players/13-zanetti-alessandro-laterale.webp\"\n    },\n    {\n      \"id\": 15,\n      \"name\": \"Diego Conti\",\n      \"role\": \"Punta\",\n      \"team\": \"Prima squadra\",\n      \"number\": 20,\n      \"photo\": \"/img/players/14-conti-diego-pivot.webp\"\n    },\n    {\n      \"id\": 16,\n      \"name\": \"Andrea Martinelli\",\n      \"role\": \"Punta\",\n      \"team\": \"Prima squadra\",\n      \"number\": 21,\n      \"photo\": \"/img/players/16-martinelli-andrea-universale.webp\"\n    },\n    {\n      \"id\": 17,\n      \"name\": \"Cesare Vettorazzi\",\n      \"role\": \"Punta\",\n      \"team\": \"Prima squadra\",\n      \"number\": 22,\n      \"photo\": \"/img/players/15-vettorazzi-cesare-pivot.webp\"\n    },\n    {\n      \"id\": 19,\n      \"name\": \"Paolo Bigonzi\",\n      \"role\": \"Portiere\",\n      \"team\": \"Under 21\",\n      \"number\": 30,\n      \"photo\": \"/img/players/1-bigonzi-paolo-portiere.webp\"\n    },\n    {\n      \"id\": 20,\n      \"name\": \"Giulio Tognolli\",\n      \"role\": \"Portiere\",\n      \"team\": \"Under 21\",\n      \"number\": 31,\n      \"photo\": \"/img/players/2-toniolli-giulio-portiere.webp\"\n    },\n    {\n      \"id\": 21,\n      \"name\": \"Lorenzo Zantorello\",\n      \"role\": \"Portiere\",\n      \"team\": \"Under 21\",\n      \"number\": 32,\n      \"photo\": \"/img/players/3-zarantonello-lorenzo-portiere.webp\"\n    },\n    {\n      \"id\": 22,\n      \"name\": \"Alex Gasperi\",\n      \"role\": \"Centrale\",\n      \"team\": \"Under 21\",\n      \"number\": 34,\n      \"photo\": \"/img/players/noplayer.webp\"\n    },\n    {\n      \"id\": 23,\n      \"name\": \"Matteo Guidetti\",\n      \"role\": \"Centrale\",\n      \"team\": \"Under 21\",\n      \"number\": 35,\n      \"photo\": \"/img/players/4-guidetti-matteo-centrale.webp\"\n    },\n    {\n      \"id\": 24,\n      \"name\": \"Matteo Materia\",\n      \"role\": \"Centrale\",\n      \"team\": \"Under 21\",\n      \"number\": 36,\n      \"photo\": \"/img/players/5-materia-matteo-centrale.webp\"\n    },\n    {\n      \"id\": 25,\n      \"name\": \"Riccardo Toniolli\",\n      \"role\": \"Centrale\",\n      \"team\": \"Under 21\",\n      \"number\": 37,\n      \"photo\": \"/img/players/6-toniolli-riccardo-centrale.webp\"\n    },\n    {\n      \"id\": 26,\n      \"name\": \"Alessandro Betti\",\n      \"role\": \"Laterale\",\n      \"team\": \"Under 21\",\n      \"number\": 38,\n      \"photo\": \"/img/players/7-betti-alessandro-laterale.webp\"\n    },\n    {\n      \"id\": 27,\n      \"name\": \"Samuele Buda\",\n      \"role\": \"Laterale\",\n      \"team\": \"Under 21\",\n      \"number\": 39,\n      \"photo\": \"/img/players/noplayer.webp\"\n    },\n    {\n      \"id\": 28,\n      \"name\": \"Federico Caldonazzi\",\n      \"role\": \"Laterale\",\n      \"team\": \"Under 21\",\n      \"number\": 40,\n      \"photo\": \"/img/players/8-caldonazzi-federico-laterale.webp\"\n    },\n    {\n      \"id\": 29,\n      \"name\": \"Joao Pedro Caccia Neff\",\n      \"role\": \"Laterale\",\n      \"team\": \"Under 21\",\n      \"number\": 41,\n      \"photo\": \"/img/players/12-caccia-neff-joao-pedro-laterale.webp\"\n    },\n    {\n      \"id\": 30,\n      \"name\": \"Afrian Gavril Dancus\",\n      \"role\": \"Laterale\",\n      \"team\": \"Under 21\",\n      \"number\": 42,\n      \"photo\": \"/img/players/9-dancus-adrian-gavril-laterale.webp\"\n    },\n    {\n      \"id\": 31,\n      \"name\": \"Mirko Annunziato Tondo\",\n      \"role\": \"Laterale\",\n      \"team\": \"Under 21\",\n      \"number\": 44,\n      \"photo\": \"/img/players/10-tondo-mirko-a-laterale.webp\"\n    },\n    {\n      \"id\": 32,\n      \"name\": \"Daniele Zampedri\",\n      \"role\": \"Laterale\",\n      \"team\": \"Under 21\",\n      \"number\": 45,\n      \"photo\": \"/img/players/11-zampedri-daniele-laterale.webp\"\n    },\n    {\n      \"id\": 33,\n      \"name\": \"Michele Ceola\",\n      \"role\": \"Punta\",\n      \"team\": \"Under 21\",\n      \"number\": 46,\n      \"photo\": \"/img/players/13-ceola-michele-pivot.webp\"\n    },\n    {\n      \"id\": 34,\n      \"name\": \"Damiano Loperfido\",\n      \"role\": \"Punta\",\n      \"team\": \"Under 21\",\n      \"number\": 47,\n      \"photo\": \"/img/players/14-loperfido-damiano-pivot.webp\"\n    },\n    {\n      \"id\": 35,\n      \"name\": \"Luca Scala\",\n      \"role\": \"Punta\",\n      \"team\": \"Under 21\",\n      \"number\": 48,\n      \"photo\": \"/img/players/15-scala-luca-universale.webp\"\n    }\n  ],\n  \"social\": [\n    {\n      \"network\": \"Instagram\",\n      \"handle\": \"@custrentoc5\",\n      \"text\": \"Matchday vibes da Sanbàpolis. La tribuna conta.\",\n      \"date\": \"2026-05-21\",\n      \"id\": 11000\n    },\n    {\n      \"network\": \"TikTok\",\n      \"handle\": \"@custrentoc5\",\n      \"text\": \"Skill check: tunnel, suola e finalizzazione sottoporta.\",\n      \"date\": \"2026-05-19\",\n      \"id\": 11001\n    },\n    {\n      \"network\": \"YouTube\",\n      \"handle\": \"CUS Trento C5\",\n      \"text\": \"Online gli highlights dell’ultima vittoria esterna.\",\n      \"date\": \"2026-05-18\",\n      \"id\": 11002\n    }\n  ],\n  \"u21Standings\": [\n    {\n      \"g\": 20,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24259logo.png\",\n      \"gs\": 64,\n      \"n\": 2,\n      \"pts\": 50,\n      \"p\": 2,\n      \"pos\": 1,\n      \"v\": 16,\n      \"team\": \"OLTREFERSINA\",\n      \"gf\": 158\n    },\n    {\n      \"g\": 20,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24251logo.png\",\n      \"gs\": 60,\n      \"n\": 2,\n      \"pts\": 47,\n      \"p\": 3,\n      \"pos\": 2,\n      \"v\": 15,\n      \"team\": \"ALTOPIANO PAGANELLA\",\n      \"gf\": 123\n    },\n    {\n      \"g\": 20,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24254logo.png\",\n      \"gs\": 55,\n      \"n\": 3,\n      \"pts\": 45,\n      \"p\": 3,\n      \"pos\": 3,\n      \"v\": 14,\n      \"team\": \"LEVICO TERME\",\n      \"gf\": 112\n    },\n    {\n      \"g\": 20,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24260logo.png\",\n      \"gs\": 87,\n      \"n\": 3,\n      \"pts\": 33,\n      \"p\": 7,\n      \"pos\": 4,\n      \"v\": 10,\n      \"team\": \"TNT MONTE PELLER\",\n      \"gf\": 104\n    },\n    {\n      \"g\": 20,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24253logo.png\",\n      \"gs\": 80,\n      \"n\": 2,\n      \"pts\": 32,\n      \"p\": 8,\n      \"pos\": 5,\n      \"v\": 10,\n      \"team\": \"BORGO\",\n      \"gf\": 85\n    },\n    {\n      \"g\": 20,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24258logo.png\",\n      \"gs\": 113,\n      \"n\": 3,\n      \"pts\": 27,\n      \"p\": 9,\n      \"pos\": 6,\n      \"v\": 8,\n      \"team\": \"FUTSAL PINÉ\",\n      \"gf\": 77\n    },\n    {\n      \"g\": 20,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24252logo.png\",\n      \"gs\": 106,\n      \"n\": 1,\n      \"pts\": 25,\n      \"p\": 11,\n      \"pos\": 7,\n      \"v\": 8,\n      \"team\": \"PIEDICASTELLO\",\n      \"gf\": 82\n    },\n    {\n      \"g\": 20,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24257logo.png\",\n      \"gs\": 115,\n      \"n\": 3,\n      \"pts\": 24,\n      \"p\": 10,\n      \"pos\": 8,\n      \"v\": 7,\n      \"team\": \"LEGION OF DOOM\",\n      \"gf\": 94\n    },\n    {\n      \"g\": 20,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24261logo.png\",\n      \"gs\": 90,\n      \"n\": 3,\n      \"pts\": 21,\n      \"p\": 11,\n      \"pos\": 9,\n      \"v\": 6,\n      \"team\": \"CUS TRENTO UNDER 21\",\n      \"gf\": 70\n    },\n    {\n      \"g\": 20,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24255logo.png\",\n      \"gs\": 114,\n      \"n\": 2,\n      \"pts\": 14,\n      \"p\": 14,\n      \"pos\": 10,\n      \"v\": 4,\n      \"team\": \"DX GENERATION\",\n      \"gf\": 87\n    },\n    {\n      \"g\": 20,\n      \"logo\": \"https://cms.pegasomedia.it/public/camp/squadre/2025/24256logo.png\",\n      \"gs\": 157,\n      \"n\": 0,\n      \"pts\": 0,\n      \"p\": 20,\n      \"pos\": 11,\n      \"v\": 0,\n      \"team\": \"REAL FRADEO\",\n      \"gf\": 49\n    }\n  ],\n  \"news\": [],\n  \"historicalStats\": {\n    \"summary\": {\n      \"goalsAgainst\": 1725,\n      \"goalsFor\": 1693,\n      \"goalsForAvg\": \"4,12\",\n      \"draws\": 55,\n      \"goalDifference\": -32,\n      \"goalsAgainstAvg\": \"4,20\",\n      \"losses\": 178,\n      \"played\": 411,\n      \"wins\": 178\n    },\n    \"highlights\": [\n      {\n        \"label\": \"Gare ufficiali complessive\",\n        \"value\": \"411\",\n        \"detail\": \"Bilancio storico: 178 vittorie, 55 pareggi, 178 sconfitte\"\n      },\n      {\n        \"label\": \"Gol fatti storici\",\n        \"value\": \"1.693\",\n        \"detail\": \"Media 4,12 gol a partita\"\n      },\n      {\n        \"label\": \"Stagione con più vittorie\",\n        \"value\": \"2013/2014\",\n        \"detail\": \"23 vittorie\"\n      },\n      {\n        \"label\": \"Differenza reti complessiva\",\n        \"value\": \"-32\",\n        \"detail\": \"Dato complessivo dalla stagione 2011/2012\"\n      },\n      {\n        \"label\": \"Miglior marcatore storico\",\n        \"value\": \"Costantini\",\n        \"detail\": \"95 reti\"\n      },\n      {\n        \"label\": \"Record presenze\",\n        \"value\": \"Costantini\",\n        \"detail\": \"155 presenze\"\n      },\n      {\n        \"label\": \"Miglior attacco stagionale\",\n        \"value\": \"2018/2019\",\n        \"detail\": \"179 gol fatti\"\n      },\n      {\n        \"label\": \"Miglior differenza reti\",\n        \"value\": \"2016/2017\",\n        \"detail\": \"+83\"\n      },\n      {\n        \"label\": \"Stagione più recente\",\n        \"value\": \"2025/2026\",\n        \"detail\": \"30 gare, 19 vittorie, differenza reti +20\"\n      }\n    ],\n    \"seasons\": [\n      {\n        \"goalsAgainst\": 104,\n        \"season\": \"2025/2026\",\n        \"goalsFor\": 124,\n        \"goalsForAvg\": \"4,13\",\n        \"draws\": 1,\n        \"goalDifference\": 20,\n        \"goalsAgainstAvg\": \"3,46\",\n        \"losses\": 10,\n        \"played\": 30,\n        \"wins\": 19\n      },\n      {\n        \"goalsAgainst\": 143,\n        \"season\": \"2024/2025\",\n        \"goalsFor\": 79,\n        \"goalsForAvg\": \"2,92\",\n        \"draws\": 2,\n        \"goalDifference\": -64,\n        \"goalsAgainstAvg\": \"5,29\",\n        \"losses\": 17,\n        \"played\": 27,\n        \"wins\": 8\n      },\n      {\n        \"goalsAgainst\": 150,\n        \"season\": \"2023/2024\",\n        \"goalsFor\": 97,\n        \"goalsForAvg\": \"3,34\",\n        \"draws\": 1,\n        \"goalDifference\": -53,\n        \"goalsAgainstAvg\": \"5,17\",\n        \"losses\": 21,\n        \"played\": 29,\n        \"wins\": 7\n      },\n      {\n        \"goalsAgainst\": 150,\n        \"season\": \"2022/2023\",\n        \"goalsFor\": 118,\n        \"goalsForAvg\": \"4,37\",\n        \"draws\": 2,\n        \"goalDifference\": -32,\n        \"goalsAgainstAvg\": \"5,55\",\n        \"losses\": 17,\n        \"played\": 27,\n        \"wins\": 8\n      },\n      {\n        \"goalsAgainst\": 71,\n        \"season\": \"2021/2022\",\n        \"goalsFor\": 69,\n        \"goalsForAvg\": \"3,45\",\n        \"draws\": 4,\n        \"goalDifference\": -2,\n        \"goalsAgainstAvg\": \"3,55\",\n        \"losses\": 6,\n        \"played\": 20,\n        \"wins\": 10\n      },\n      {\n        \"goalsAgainst\": 5,\n        \"season\": \"2020/2021\",\n        \"goalsFor\": 4,\n        \"goalsForAvg\": \"1,33\",\n        \"draws\": 2,\n        \"goalDifference\": -1,\n        \"goalsAgainstAvg\": \"1,66\",\n        \"losses\": 1,\n        \"played\": 3,\n        \"wins\": 0\n      },\n      {\n        \"goalsAgainst\": 82,\n        \"season\": \"2019/2020\",\n        \"goalsFor\": 58,\n        \"goalsForAvg\": \"2,52\",\n        \"draws\": 3,\n        \"goalDifference\": -24,\n        \"goalsAgainstAvg\": \"3,56\",\n        \"losses\": 15,\n        \"played\": 23,\n        \"wins\": 5\n      },\n      {\n        \"goalsAgainst\": 138,\n        \"season\": \"2018/2019\",\n        \"goalsFor\": 179,\n        \"goalsForAvg\": \"4,83\",\n        \"draws\": 9,\n        \"goalDifference\": 41,\n        \"goalsAgainstAvg\": \"3,72\",\n        \"losses\": 9,\n        \"played\": 37,\n        \"wins\": 19\n      },\n      {\n        \"goalsAgainst\": 144,\n        \"season\": \"2017/2018\",\n        \"goalsFor\": 141,\n        \"goalsForAvg\": \"4,14\",\n        \"draws\": 7,\n        \"goalDifference\": -3,\n        \"goalsAgainstAvg\": \"4,23\",\n        \"losses\": 11,\n        \"played\": 34,\n        \"wins\": 16\n      },\n      {\n        \"goalsAgainst\": 91,\n        \"season\": \"2016/2017\",\n        \"goalsFor\": 174,\n        \"goalsForAvg\": \"5,61\",\n        \"draws\": 5,\n        \"goalDifference\": 83,\n        \"goalsAgainstAvg\": \"2,93\",\n        \"losses\": 6,\n        \"played\": 31,\n        \"wins\": 20\n      },\n      {\n        \"goalsAgainst\": 115,\n        \"season\": \"2015/2016\",\n        \"goalsFor\": 146,\n        \"goalsForAvg\": \"4,42\",\n        \"draws\": 4,\n        \"goalDifference\": 31,\n        \"goalsAgainstAvg\": \"3,48\",\n        \"losses\": 9,\n        \"played\": 33,\n        \"wins\": 20\n      },\n      {\n        \"goalsAgainst\": 133,\n        \"season\": \"2014/2015\",\n        \"goalsFor\": 96,\n        \"goalsForAvg\": \"2,91\",\n        \"draws\": 3,\n        \"goalDifference\": -37,\n        \"goalsAgainstAvg\": \"4,03\",\n        \"losses\": 21,\n        \"played\": 33,\n        \"wins\": 9\n      },\n      {\n        \"goalsAgainst\": 82,\n        \"season\": \"2013/2014\",\n        \"goalsFor\": 139,\n        \"goalsForAvg\": \"4,08\",\n        \"draws\": 8,\n        \"goalDifference\": 57,\n        \"goalsAgainstAvg\": \"2,41\",\n        \"losses\": 3,\n        \"played\": 34,\n        \"wins\": 23\n      },\n      {\n        \"goalsAgainst\": 156,\n        \"season\": \"2012/2013\",\n        \"goalsFor\": 146,\n        \"goalsForAvg\": \"4,42\",\n        \"draws\": 2,\n        \"goalDifference\": -28,\n        \"goalsAgainstAvg\": \"6,5\",\n        \"losses\": 15,\n        \"played\": 24,\n        \"wins\": 7\n      },\n      {\n        \"goalsAgainst\": 161,\n        \"season\": \"2011/2012\",\n        \"goalsFor\": 123,\n        \"goalsForAvg\": \"4,73\",\n        \"draws\": 2,\n        \"goalDifference\": -38,\n        \"goalsAgainstAvg\": \"6,19\",\n        \"losses\": 17,\n        \"played\": 26,\n        \"wins\": 7\n      }\n    ],\n    \"allTimeGoals\": [\n      {\n        \"players\": \"Costantini\",\n        \"value\": 95\n      },\n      {\n        \"players\": \"Martinelli A.\",\n        \"value\": 89\n      },\n      {\n        \"players\": \"Begnis Ruben\",\n        \"value\": 81\n      },\n      {\n        \"players\": \"Deboni\",\n        \"value\": 64\n      },\n      {\n        \"players\": \"Cuberli\",\n        \"value\": 59\n      },\n      {\n        \"players\": \"Bortoletto\",\n        \"value\": 57\n      },\n      {\n        \"players\": \"Santoni\",\n        \"value\": 56\n      },\n      {\n        \"players\": \"Bakaj\",\n        \"value\": 50\n      },\n      {\n        \"players\": \"Pan\",\n        \"value\": 48\n      },\n      {\n        \"players\": \"Cirasola\",\n        \"value\": 47\n      },\n      {\n        \"players\": \"Vettorazzi\",\n        \"value\": 42\n      },\n      {\n        \"players\": \"Ruzzene\",\n        \"value\": 36\n      },\n      {\n        \"players\": \"Pace, Pieramati, Vaia Mattia\",\n        \"value\": 35\n      },\n      {\n        \"players\": \"Id El Kaid, Donà\",\n        \"value\": 31\n      },\n      {\n        \"players\": \"Collini\",\n        \"value\": 27\n      },\n      {\n        \"players\": \"Osei\",\n        \"value\": 26\n      },\n      {\n        \"players\": \"Cinquanta\",\n        \"value\": 25\n      },\n      {\n        \"players\": \"Valentini, Deola\",\n        \"value\": 24\n      },\n      {\n        \"players\": \"Zambanini\",\n        \"value\": 23\n      },\n      {\n        \"players\": \"Ronzani, Saffioti, Franzoso, Pretto, Sarina\",\n        \"value\": 21\n      },\n      {\n        \"players\": \"Cantarella\",\n        \"value\": 19\n      },\n      {\n        \"players\": \"Vangelo\",\n        \"value\": 18\n      },\n      {\n        \"players\": \"Dusci\",\n        \"value\": 16\n      },\n      {\n        \"players\": \"Venturelli, Frattolin, Fior\",\n        \"value\": 15\n      },\n      {\n        \"players\": \"Begnis Reddy, Guaragna\",\n        \"value\": 14\n      },\n      {\n        \"players\": \"Tirelli, Mourahib\",\n        \"value\": 13\n      },\n      {\n        \"players\": \"Seguel Obregon, Berti, Barbieri, Degasperi, Staffa\",\n        \"value\": 12\n      },\n      {\n        \"players\": \"Rigon, Conti, Martinelli E.\",\n        \"value\": 11\n      },\n      {\n        \"players\": \"Busnardo, Donati, Filippi\",\n        \"value\": 10\n      },\n      {\n        \"players\": \"Degani, Mondin, Baietta, Battista\",\n        \"value\": 9\n      },\n      {\n        \"players\": \"Bertolini Garbari, Brasca, Fiorentino\",\n        \"value\": 7\n      },\n      {\n        \"players\": \"Turcato, Addobbati, Tesser, Topinelli, Bordieri, Furina, Bellio, D’Elia\",\n        \"value\": 6\n      },\n      {\n        \"players\": \"Albiero, Loperfido, Cuman, Gumirato, Boldrini, Ghislieri, Chinellato, Piccininno, Bergamini, Ghiro\",\n        \"value\": 5\n      },\n      {\n        \"players\": \"Zanetti, Gebbia, Annoli, del Ciello\",\n        \"value\": 4\n      },\n      {\n        \"players\": \"De Gennaro, Zampedri, Hakala, Gurabardhi, Veronesi\",\n        \"value\": 3\n      },\n      {\n        \"players\": \"Piazza, Maciocia, Bove, Micheli, Barruzza\",\n        \"value\": 2\n      },\n      {\n        \"players\": \"Stenico, Papalia, Fabbri, Mortara, Franceschini, Vaia Marco, Caviola, Bizzotto, Magagna, Bottega, Pina, Ruggeri, Tenaglia\",\n        \"value\": 1\n      }\n    ],\n    \"allTimeAppearances\": [\n      {\n        \"players\": \"Costantini\",\n        \"value\": 155\n      },\n      {\n        \"players\": \"Varvato\",\n        \"value\": 137\n      },\n      {\n        \"players\": \"Meta\",\n        \"value\": 120\n      },\n      {\n        \"players\": \"Deola\",\n        \"value\": 119\n      },\n      {\n        \"players\": \"Saffioti\",\n        \"value\": 110\n      },\n      {\n        \"players\": \"Begnis Ruben\",\n        \"value\": 109\n      },\n      {\n        \"players\": \"Ruzzene\",\n        \"value\": 102\n      },\n      {\n        \"players\": \"Martinelli A.\",\n        \"value\": 101\n      },\n      {\n        \"players\": \"Osei\",\n        \"value\": 99\n      },\n      {\n        \"players\": \"Pieramati\",\n        \"value\": 94\n      },\n      {\n        \"players\": \"Deboni, Martinelli E.\",\n        \"value\": 91\n      },\n      {\n        \"players\": \"Vaia Mattia\",\n        \"value\": 88\n      },\n      {\n        \"players\": \"Cirasola\",\n        \"value\": 70\n      },\n      {\n        \"players\": \"De Fassi, Zambanini\",\n        \"value\": 68\n      },\n      {\n        \"players\": \"Donà\",\n        \"value\": 63\n      },\n      {\n        \"players\": \"Busnardo\",\n        \"value\": 59\n      },\n      {\n        \"players\": \"Brasca\",\n        \"value\": 58\n      },\n      {\n        \"players\": \"Pretto, Sarina\",\n        \"value\": 56\n      },\n      {\n        \"players\": \"Chinellato, Mourahib\",\n        \"value\": 55\n      },\n      {\n        \"players\": \"Barbieri\",\n        \"value\": 54\n      },\n      {\n        \"players\": \"Audia\",\n        \"value\": 51\n      },\n      {\n        \"players\": \"Rigon, Collini, Valentini, Bernard\",\n        \"value\": 50\n      },\n      {\n        \"players\": \"Gurabardhi\",\n        \"value\": 46\n      },\n      {\n        \"players\": \"Stenico\",\n        \"value\": 44\n      },\n      {\n        \"players\": \"Pace, Battista, Vettorazzi\",\n        \"value\": 43\n      },\n      {\n        \"players\": \"Ghiro, Guaragna\",\n        \"value\": 42\n      },\n      {\n        \"players\": \"Bortoletto\",\n        \"value\": 41\n      },\n      {\n        \"players\": \"Cinquanta\",\n        \"value\": 38\n      },\n      {\n        \"players\": \"Cuberli\",\n        \"value\": 37\n      },\n      {\n        \"players\": \"Pan, Santoni, Frattolin, Guarnier\",\n        \"value\": 36\n      },\n      {\n        \"players\": \"Berti, Fiorentino\",\n        \"value\": 35\n      },\n      {\n        \"players\": \"Zanardello\",\n        \"value\": 34\n      },\n      {\n        \"players\": \"Cantarella\",\n        \"value\": 33\n      },\n      {\n        \"players\": \"Degasperi, Id El Kaid\",\n        \"value\": 32\n      },\n      {\n        \"players\": \"Franzoso, De Gennaro, Topinelli\",\n        \"value\": 31\n      },\n      {\n        \"players\": \"Dusci, Vangelo\",\n        \"value\": 30\n      },\n      {\n        \"players\": \"Tirelli\",\n        \"value\": 29\n      },\n      {\n        \"players\": \"Ronzani, Boldrini, Bordieri, Mondin\",\n        \"value\": 27\n      },\n      {\n        \"players\": \"Turcato, Fior\",\n        \"value\": 26\n      },\n      {\n        \"players\": \"Albiero, Baccaro Zeni, Cuman\",\n        \"value\": 25\n      },\n      {\n        \"players\": \"Vaia Marco\",\n        \"value\": 24\n      },\n      {\n        \"players\": \"Bakaj, Staffa, Begnis Reddy, Angeli, Piccininno, Baietta\",\n        \"value\": 22\n      },\n      {\n        \"players\": \"Bontempo\",\n        \"value\": 21\n      },\n      {\n        \"players\": \"del Ciello, Donati, Conti\",\n        \"value\": 20\n      },\n      {\n        \"players\": \"Bellio, Filippi, Tesser\",\n        \"value\": 19\n      },\n      {\n        \"players\": \"Micheli, Furina\",\n        \"value\": 18\n      },\n      {\n        \"players\": \"Venturelli\",\n        \"value\": 16\n      },\n      {\n        \"players\": \"Califano, Degani, Bove, Mortara\",\n        \"value\": 15\n      },\n      {\n        \"players\": \"Ghislieri, Veronesi, Addobbati\",\n        \"value\": 14\n      },\n      {\n        \"players\": \"Puddu, Bottega, Bergamini, Zampedri, Maciocia, Pop\",\n        \"value\": 13\n      },\n      {\n        \"players\": \"Seguel Obregon, Hasa, Sgroi, Safi\",\n        \"value\": 11\n      },\n      {\n        \"players\": \"Nuzzi, Annoli, Magagna, Gebbia\",\n        \"value\": 10\n      },\n      {\n        \"players\": \"Bertolini Garbari\",\n        \"value\": 9\n      },\n      {\n        \"players\": \"De Giacomo, D’Elia, Floriani, Rettore, Riccardi, Pina, Papa\",\n        \"value\": 8\n      },\n      {\n        \"players\": \"Piazza, Emiliani, Munaro, Caviola, Barruzza, Papalia, Curri, Fabbri, Loperfido\",\n        \"value\": 7\n      },\n      {\n        \"players\": \"Lanteri, Mangiagli\",\n        \"value\": 6\n      },\n      {\n        \"players\": \"Tenaglia, Cagnazzo, Zanetti, Bizzotto\",\n        \"value\": 5\n      },\n      {\n        \"players\": \"Bertelli, Lorenzetti\",\n        \"value\": 4\n      },\n      {\n        \"players\": \"Ruggeri, Brandolini, Calzolari, Baratta, Mahni, Lanfranconi, Cova\",\n        \"value\": 3\n      },\n      {\n        \"players\": \"Gastaldello, Hamzallari, Scala, Caccia Neff, Bassani\",\n        \"value\": 2\n      },\n      {\n        \"players\": \"Basso, Gaido, Toniolli, Bigonzi, Caldonazzi, Ceola, Bassa\",\n        \"value\": 1\n      }\n    ]\n  },\n  \"galleryAlbums\": [\n    {\n      \"id\": 1,\n      \"title\": \"Matchday Sanbàpolis\",\n      \"category\": \"Matchday\",\n      \"date\": \"2026-05-24\",\n      \"cover\": \"https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80\",\n      \"description\": \"Foto placeholder della giornata gara a Sanbàpolis.\",\n      \"photos\": [\n        \"https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80\",\n        \"https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1400&q=80\",\n        \"https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80\",\n        \"https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80\"\n      ]\n    },\n    {\n      \"id\": 2,\n      \"title\": \"Training Week\",\n      \"category\": \"Training\",\n      \"date\": \"2026-04-18\",\n      \"cover\": \"https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80\",\n      \"description\": \"Allenamento tecnico, possessi e finalizzazione.\",\n      \"photos\": [\n        \"https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80\",\n        \"https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1400&q=80\",\n        \"https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1400&q=80\"\n      ]\n    },\n    {\n      \"id\": 3,\n      \"title\": \"Under 21\",\n      \"category\": \"U21\",\n      \"date\": \"2026-04-12\",\n      \"cover\": \"https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80\",\n      \"description\": \"Momenti del gruppo Under 21.\",\n      \"photos\": [\n        \"https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80\",\n        \"https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80\",\n        \"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1400&q=80\"\n      ]\n    },\n    {\n      \"id\": 50,\n      \"title\": \"Rose storiche CUS Trento C5\",\n      \"category\": \"Storia\",\n      \"date\": \"2026-01-01\",\n      \"cover\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png\",\n      \"description\": \"Album delle rose storiche CUS Trento C5 dal vecchio sito.\",\n      \"photos\": [\n        \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/11-12.jpg\",\n        \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/12-13.jpg\",\n        \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/13-14.jpg\",\n        \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/14-15.jpg\",\n        \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/15-16.jpg\",\n        \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/16-17.jpg\",\n        \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2017real.png\",\n        \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/814330A0-63DD-4B35-AFA9-64AFF265B7DC.jpg\",\n        \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2022-2023.jpg\",\n        \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png\"\n      ]\n    }\n  ],\n  \"automation\": {\n    \"enabled\": true,\n    \"currentSeason\": \"2026/2027\",\n    \"mode\": \"increment-from-terminated-fixtures\"\n  },\n  \"videos\": [\n    {\n      \"id\": 1,\n      \"title\": \"Highlights: CUS Trento vs Calcio Bleggio\",\n      \"category\": \"Highlights\",\n      \"thumb\": \"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1400&q=80\",\n      \"url\": \"https://www.youtube.com\"\n    },\n    {\n      \"id\": 2,\n      \"title\": \"Intervista post partita: Diego Conti\",\n      \"category\": \"Interview\",\n      \"thumb\": \"https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=1400&q=80\",\n      \"url\": \"https://www.youtube.com\"\n    },\n    {\n      \"id\": 3,\n      \"title\": \"Training cam: lavoro sui possessi\",\n      \"category\": \"Training\",\n      \"thumb\": \"https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80\",\n      \"url\": \"https://www.youtube.com\"\n    }\n  ],\n  \"sponsors\": [\n    {\n      \"id\": 1,\n      \"name\": \"UniTrento Sport\",\n      \"tier\": \"Main Partner\",\n      \"logo\": \"UT\",\n      \"url\": \"#\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Sanbàpolis Arena\",\n      \"tier\": \"Venue Partner\",\n      \"logo\": \"SB\",\n      \"url\": \"#\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Trentino Energia\",\n      \"tier\": \"Gold Sponsor\",\n      \"logo\": \"TE\",\n      \"url\": \"#\"\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Dolomiti Lab\",\n      \"tier\": \"Silver Sponsor\",\n      \"logo\": \"DL\",\n      \"url\": \"#\"\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Caffè Trento\",\n      \"tier\": \"Community Partner\",\n      \"logo\": \"CT\",\n      \"url\": \"#\"\n    },\n    {\n      \"id\": 6,\n      \"name\": \"Studio Fisio 5\",\n      \"tier\": \"Medical Partner\",\n      \"logo\": \"F5\",\n      \"url\": \"#\"\n    }\n  ],\n  \"u21Fixtures\": [],\n  \"cup\": {\n    \"title\": \"Coppa Trentino Alto Adige\",\n    \"edition\": \"2026/27\",\n    \"status\": \"Quarti di finale\",\n    \"fixtures\": []\n  },\n  \"clubHistory\": {\n    \"title\": \"La nostra storia\",\n    \"paragraphs\": [\n      \"Club fondato nell’anno 2011/2012, il CUS Trento debuttò nella serie D ottenendo il primo anno un decimo posto e ripetendo nella stagione 2012/2013 lo stesso piazzamento. Nel primo anno di partecipazione la squadra ottiene la coppa disciplina e nella stagione 2013/2014 si piazza prima nel girone A della serie D, ottenendo la possibilità di partecipare alla serie C2 nella stagione 2014/2015. Al termine della stagione la squadra viene sconfitta ai play-out e ricomincia dalla serie D.\",\n      \"Nella stagione 2015/2016 la squadra arriva alla semifinale play-off venendo sconfitta e non presenterà la domanda di ripescaggio per salire in serie C2. Al termine della stagione 2016/2017, la squadra ottiene la promozione in serie C2. Dopo anni complicati soprattutto a causa delle limitazioni imposte dal COVID, la squadra ottiene la promozione in C1, categoria in cui milita attualmente, al termine della stagione 2021/2022. La miglior stagione si conclude con il secondo posto in serie C1 nella stagione 2025/2026, perdendo il triangolare per la promozione in serie B.\"\n    ],\n    \"images\": [\n      {\n        \"season\": \"2011/2012\",\n        \"image\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/11-12.jpg\"\n      },\n      {\n        \"season\": \"2012/2013\",\n        \"image\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/12-13.jpg\"\n      },\n      {\n        \"season\": \"2013/2014\",\n        \"image\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/13-14.jpg\"\n      },\n      {\n        \"season\": \"2014/2015\",\n        \"image\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/14-15.jpg\"\n      },\n      {\n        \"season\": \"2015/2016\",\n        \"image\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/15-16.jpg\"\n      },\n      {\n        \"season\": \"2016/2017\",\n        \"image\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/16-17.jpg\"\n      },\n      {\n        \"season\": \"2017/2018\",\n        \"image\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2017real.png\"\n      },\n      {\n        \"season\": \"2018/2019\",\n        \"image\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/814330A0-63DD-4B35-AFA9-64AFF265B7DC.jpg\"\n      },\n      {\n        \"season\": \"2022/2023\",\n        \"image\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2022-2023.jpg\"\n      },\n      {\n        \"season\": \"2024/2025\",\n        \"image\": \"https://custrentocalcioa5.it/assets/team.webp\"\n      },\n      {\n        \"season\": \"2025/2026\",\n        \"image\": \"https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png\"\n      }\n    ]\n  }\n}\n",
-  "data": {
-    "staff": [
-      {
-        "id": 1,
-        "name": "Emiliano Piazza",
-        "role": "Allenatore",
-        "team": "Prima squadra",
-        "photo": "/img/players/17-piazza-emiliano-allenatore-prima-squadra.webp",
-        "bio": "Allenatore Prima Squadra."
-      },
-      {
-        "id": 2,
-        "name": "Denis Gurabardhi",
-        "role": "Vice Allenatore",
-        "team": "Prima squadra",
-        "photo": "/img/players/18-gurabardhi-denis-vice-allenatore-prima-squadra.webp",
-        "bio": "Vice allenatore Prima Squadra."
-      },
-      {
-        "id": 3,
-        "name": "Diego Cadamuro",
-        "role": "Team Manager",
-        "team": "Prima squadra",
-        "photo": "/img/players/20-cadamuro-diego-team-manager-prima-squadra.webp",
-        "bio": "Team Manager Prima Squadra."
-      },
-      {
-        "id": 4,
-        "name": "Stanis Jukni",
-        "role": "Dirigente",
-        "team": "Prima squadra",
-        "photo": "/img/players/19-jukni-stanis-dirigente-prima-squadra.webp",
-        "bio": "Dirigente Prima Squadra."
-      },
-      {
-        "id": 5,
-        "name": "Livia Copellino",
-        "role": "Allenatrice",
-        "team": "Under 21",
-        "photo": "/img/players/16-copellino-livia-allenatrice-u21.webp",
-        "bio": "Allenatrice Under 21."
-      },
-      {
-        "id": 6,
-        "name": "Duilio Lazzarini",
-        "role": "Team Manager",
-        "team": "Under 21",
-        "photo": "/img/players/17-lazzarini-duilio-team-manager-u21.webp",
-        "bio": "Team Manager Under 21."
-      },
-      {
-        "id": 7,
-        "name": "Francesco Coppo",
-        "role": "Dirigente",
-        "team": "Under 21",
-        "photo": "/img/players/18-coppo-francesco-dirigente-u21.webp",
-        "bio": "Dirigente Under 21."
-      }
-    ],
-    "standings": [
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24224logo.png",
-        "gs": 114,
-        "n": 0,
-        "pts": 60,
-        "p": 6,
-        "pos": 1,
-        "v": 20,
-        "team": "CALCIO BLEGGIO",
-        "gf": 185
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24228logo.png",
-        "gs": 88,
-        "n": 0,
-        "pts": 54,
-        "p": 8,
-        "pos": 2,
-        "v": 18,
-        "team": "CUS TRENTO",
-        "gf": 113
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24220logo.png",
-        "gs": 129,
-        "n": 2,
-        "pts": 53,
-        "p": 7,
-        "pos": 3,
-        "v": 17,
-        "team": "MEZZOLOMBARDO",
-        "gf": 153
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24223logo.png",
-        "gs": 128,
-        "n": 1,
-        "pts": 40,
-        "p": 12,
-        "pos": 4,
-        "v": 13,
-        "team": "GNU TEAM ALA",
-        "gf": 171
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24227logo.png",
-        "gs": 102,
-        "n": 3,
-        "pts": 39,
-        "p": 11,
-        "pos": 5,
-        "v": 12,
-        "team": "PINETA",
-        "gf": 108
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24225logo.png",
-        "gs": 119,
-        "n": 2,
-        "pts": 38,
-        "p": 12,
-        "pos": 6,
-        "v": 12,
-        "team": "IMPERIAL GRUMO",
-        "gf": 123
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24222logo.png",
-        "gs": 112,
-        "n": 1,
-        "pts": 37,
-        "p": 13,
-        "pos": 7,
-        "v": 12,
-        "team": "NEUGRIES",
-        "gf": 94
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24218logo.png",
-        "gs": 117,
-        "n": 3,
-        "pts": 36,
-        "p": 12,
-        "pos": 8,
-        "v": 11,
-        "team": "CLES",
-        "gf": 120
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24221logo.png",
-        "gs": 165,
-        "n": 0,
-        "pts": 36,
-        "p": 14,
-        "pos": 9,
-        "v": 12,
-        "team": "FRAVEGGIO",
-        "gf": 152
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24215logo.png",
-        "gs": 131,
-        "n": 2,
-        "pts": 35,
-        "p": 13,
-        "pos": 10,
-        "v": 11,
-        "team": "BESENELLO",
-        "gf": 123
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24219logo.png",
-        "gs": 109,
-        "n": 4,
-        "pts": 31,
-        "p": 13,
-        "pos": 11,
-        "v": 9,
-        "team": "FUTSAL FIEMME",
-        "gf": 100
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24217logo.png",
-        "gs": 163,
-        "n": 1,
-        "pts": 28,
-        "p": 16,
-        "pos": 12,
-        "v": 9,
-        "team": "FIAVÉ 1945",
-        "gf": 146
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24216logo.png",
-        "gs": 116,
-        "n": 1,
-        "pts": 28,
-        "p": 16,
-        "pos": 13,
-        "v": 9,
-        "team": "VIRTUS ROVERE",
-        "gf": 86
-      },
-      {
-        "g": 26,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24226logo.png",
-        "gs": 202,
-        "n": 0,
-        "pts": 21,
-        "p": 19,
-        "pos": 14,
-        "v": 7,
-        "team": "GOSTIVAR",
-        "gf": 121
-      }
-    ],
-    "sponsorPackages": [
-      {
-        "id": 1,
-        "name": "Main Partner",
-        "price": "Da definire",
-        "visibility": [
-          "Logo maglia gara",
-          "Hero sponsor in home",
-          "Post social dedicati",
-          "Presenza su backdrop interviste"
+  "u21Cup": {
+    "title": "Coppa Under 21",
+    "edition": "2026/27",
+    "status": "Girone eliminatorio",
+    "fixtures": []
+  },
+  "fixtures": [
+    {
+      "summary": "ciao sono il sommario",
+      "time": "21:00",
+      "away": "Besenello",
+      "date": "2026-05-28",
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "2",
+          "4",
+          "5",
+          "7",
+          "9"
         ],
-        "cta": "Richiedi proposta Main Partner"
+        "bench": [
+          "1",
+          "3",
+          "8",
+          "18",
+          "17",
+          "16"
+        ]
       },
-      {
-        "id": 2,
-        "name": "Gold Sponsor",
-        "price": "Da definire",
-        "visibility": [
-          "Logo in pagina sponsor",
-          "Citazione nei matchday post",
-          "Banner digitale",
-          "Inviti eventi club"
-        ],
-        "cta": "Richiedi pacchetto Gold"
-      },
-      {
-        "id": 3,
-        "name": "Silver Sponsor",
-        "price": "Da definire",
-        "visibility": [
-          "Logo sito",
-          "Presenza gallery partner",
-          "Citazione periodica social"
-        ],
-        "cta": "Richiedi pacchetto Silver"
-      },
-      {
-        "id": 4,
-        "name": "Community Partner",
-        "price": "Da definire",
-        "visibility": [
-          "Presenza sito",
-          "Attività territoriali",
-          "Iniziative studenti"
-        ],
-        "cta": "Diventa partner community"
-      }
-    ],
-    "site": {
-      "logo": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
-      "icon": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
-      "name": "CUS Trento C5"
-    },
-    "u21Cup": {
-      "title": "Coppa Under 21",
-      "edition": "2026/27",
-      "status": "Girone eliminatorio",
-      "fixtures": []
-    },
-    "fixtures": [
-      {
-        "summary": "ciao sono il sommario",
-        "time": "21:00",
-        "away": "Besenello",
-        "date": "2026-05-28",
-        "lineup": {
-          "module": "3-1",
-          "startingFive": [
-            "2",
-            "4",
-            "5",
-            "7",
-            "9"
-          ],
-          "bench": [
-            "1",
-            "3",
-            "8",
-            "18",
-            "17",
-            "16"
-          ],
-          "suspended": [
-            "13"
-          ],
-          "injured": [
-            "12"
-          ]
+      "venue": "Sanbàpolis",
+      "score": "3-2",
+      "status": "Da giocare",
+      "scorerEvents": [
+        {
+          "goals": 2,
+          "playerId": "4"
         },
-        "venue": "Sanbàpolis",
-        "score": "3-2",
-        "status": "Da giocare",
-        "scorerEvents": [
-          {
-            "goals": 2,
-            "playerId": "4"
-          },
-          {
-            "goals": 1,
-            "playerId": "9"
-          }
-        ],
-        "id": 1,
-        "yellowCardEvents": [
-          {
-            "cards": 1,
-            "playerId": "2"
-          }
-        ],
-        "home": "CUS Trento",
-        "competition": "Campionato"
+        {
+          "goals": 1,
+          "playerId": "9"
+        }
+      ],
+      "id": 1,
+      "yellowCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "2"
+        }
+      ],
+      "home": "CUS Trento",
+      "competition": "Campionato"
+    }
+  ],
+  "roster": [
+    {
+      "id": 1,
+      "name": "Safi Saif Edine",
+      "role": "Portiere",
+      "team": "Prima squadra",
+      "number": 1,
+      "photo": "/img/players/3-safi-saif-edine-portiere.webp"
+    },
+    {
+      "faculty": "Lettere",
+      "birthPlace": "Padova (PD)",
+      "number": 12,
+      "name": "Lucca Baccaro Zeni",
+      "birthDate": "2000-01-18",
+      "photo": "/img/players/1-baccaro-zeni-lucca-portiere.webp",
+      "role": "Portiere",
+      "id": 2,
+      "team": "Prima squadra"
+    },
+    {
+      "id": 3,
+      "name": "Filippo Bernard",
+      "role": "Portiere",
+      "team": "Prima squadra",
+      "number": 2,
+      "photo": "/img/players/2-bernard-filippo-portiere.webp"
+    },
+    {
+      "id": 4,
+      "name": "Tommaso Boldrini",
+      "role": "Centrale",
+      "team": "Prima squadra",
+      "number": 5,
+      "photo": "/img/players/4-boldrini-tommaso-centrale.webp"
+    },
+    {
+      "id": 5,
+      "name": "Davide Filippi",
+      "role": "Centrale",
+      "team": "Prima squadra",
+      "number": 6,
+      "photo": "/img/players/10-filippi-davide-laterale.webp"
+    },
+    {
+      "id": 6,
+      "name": "Alvise Tesser",
+      "role": "Centrale",
+      "team": "Prima squadra",
+      "number": 7,
+      "photo": "/img/players/5-tesser-alvise-centrale.webp"
+    },
+    {
+      "id": 7,
+      "name": "Federico Addobbati",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 8,
+      "photo": "/img/players/noplayer.webp"
+    },
+    {
+      "id": 8,
+      "name": "Filippo Baietta",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 9,
+      "photo": "/img/players/6-baietta-filippo-laterale.webp"
+    },
+    {
+      "id": 9,
+      "name": "Luca Cirasola",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 10,
+      "photo": "/img/players/7-cirasola-luca-laterale.webp"
+    },
+    {
+      "id": 10,
+      "name": "Mattia Cuman",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 27,
+      "photo": "/img/players/8-cuman-mattia-laterale.webp"
+    },
+    {
+      "id": 11,
+      "name": "Luca Frattolin",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 23,
+      "photo": "/img/players/noplayer.webp"
+    },
+    {
+      "id": 12,
+      "name": "Federico Maciocia",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 17,
+      "photo": "/img/players/11-maciocia-federico-laterale.webp"
+    },
+    {
+      "id": 13,
+      "name": "Mattia Vaia",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 11,
+      "photo": "/img/players/12-vaia-mattia-laterale.webp"
+    },
+    {
+      "id": 14,
+      "name": "Alessandro Zanetti",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 19,
+      "photo": "/img/players/13-zanetti-alessandro-laterale.webp"
+    },
+    {
+      "id": 15,
+      "name": "Diego Conti",
+      "role": "Punta",
+      "team": "Prima squadra",
+      "number": 20,
+      "photo": "/img/players/14-conti-diego-pivot.webp"
+    },
+    {
+      "id": 16,
+      "name": "Andrea Martinelli",
+      "role": "Punta",
+      "team": "Prima squadra",
+      "number": 21,
+      "photo": "/img/players/16-martinelli-andrea-universale.webp"
+    },
+    {
+      "id": 17,
+      "name": "Cesare Vettorazzi",
+      "role": "Punta",
+      "team": "Prima squadra",
+      "number": 22,
+      "photo": "/img/players/15-vettorazzi-cesare-pivot.webp"
+    },
+    {
+      "id": 19,
+      "name": "Paolo Bigonzi",
+      "role": "Portiere",
+      "team": "Under 21",
+      "number": 30,
+      "photo": "/img/players/1-bigonzi-paolo-portiere.webp"
+    },
+    {
+      "id": 20,
+      "name": "Giulio Tognolli",
+      "role": "Portiere",
+      "team": "Under 21",
+      "number": 31,
+      "photo": "/img/players/2-toniolli-giulio-portiere.webp"
+    },
+    {
+      "id": 21,
+      "name": "Lorenzo Zantorello",
+      "role": "Portiere",
+      "team": "Under 21",
+      "number": 32,
+      "photo": "/img/players/3-zarantonello-lorenzo-portiere.webp"
+    },
+    {
+      "id": 22,
+      "name": "Alex Gasperi",
+      "role": "Centrale",
+      "team": "Under 21",
+      "number": 34,
+      "photo": "/img/players/noplayer.webp"
+    },
+    {
+      "id": 23,
+      "name": "Matteo Guidetti",
+      "role": "Centrale",
+      "team": "Under 21",
+      "number": 35,
+      "photo": "/img/players/4-guidetti-matteo-centrale.webp"
+    },
+    {
+      "id": 24,
+      "name": "Matteo Materia",
+      "role": "Centrale",
+      "team": "Under 21",
+      "number": 36,
+      "photo": "/img/players/5-materia-matteo-centrale.webp"
+    },
+    {
+      "id": 25,
+      "name": "Riccardo Toniolli",
+      "role": "Centrale",
+      "team": "Under 21",
+      "number": 37,
+      "photo": "/img/players/6-toniolli-riccardo-centrale.webp"
+    },
+    {
+      "id": 26,
+      "name": "Alessandro Betti",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 38,
+      "photo": "/img/players/7-betti-alessandro-laterale.webp"
+    },
+    {
+      "id": 27,
+      "name": "Samuele Buda",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 39,
+      "photo": "/img/players/noplayer.webp"
+    },
+    {
+      "id": 28,
+      "name": "Federico Caldonazzi",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 40,
+      "photo": "/img/players/8-caldonazzi-federico-laterale.webp"
+    },
+    {
+      "id": 29,
+      "name": "Joao Pedro Caccia Neff",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 41,
+      "photo": "/img/players/12-caccia-neff-joao-pedro-laterale.webp"
+    },
+    {
+      "id": 30,
+      "name": "Afrian Gavril Dancus",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 42,
+      "photo": "/img/players/9-dancus-adrian-gavril-laterale.webp"
+    },
+    {
+      "id": 31,
+      "name": "Mirko Annunziato Tondo",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 44,
+      "photo": "/img/players/10-tondo-mirko-a-laterale.webp"
+    },
+    {
+      "id": 32,
+      "name": "Daniele Zampedri",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 45,
+      "photo": "/img/players/11-zampedri-daniele-laterale.webp"
+    },
+    {
+      "id": 33,
+      "name": "Michele Ceola",
+      "role": "Punta",
+      "team": "Under 21",
+      "number": 46,
+      "photo": "/img/players/13-ceola-michele-pivot.webp"
+    },
+    {
+      "id": 34,
+      "name": "Damiano Loperfido",
+      "role": "Punta",
+      "team": "Under 21",
+      "number": 47,
+      "photo": "/img/players/14-loperfido-damiano-pivot.webp"
+    },
+    {
+      "id": 35,
+      "name": "Luca Scala",
+      "role": "Punta",
+      "team": "Under 21",
+      "number": 48,
+      "photo": "/img/players/15-scala-luca-universale.webp"
+    }
+  ],
+  "social": [
+    {
+      "network": "Instagram",
+      "handle": "@custrentoc5",
+      "text": "Matchday vibes da Sanbàpolis. La tribuna conta.",
+      "date": "2026-05-21",
+      "id": 11000
+    },
+    {
+      "network": "TikTok",
+      "handle": "@custrentoc5",
+      "text": "Skill check: tunnel, suola e finalizzazione sottoporta.",
+      "date": "2026-05-19",
+      "id": 11001
+    },
+    {
+      "network": "YouTube",
+      "handle": "CUS Trento C5",
+      "text": "Online gli highlights dell’ultima vittoria esterna.",
+      "date": "2026-05-18",
+      "id": 11002
+    }
+  ],
+  "u21Standings": [
+    {
+      "g": 20,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24259logo.png",
+      "gs": 64,
+      "n": 2,
+      "pts": 50,
+      "p": 2,
+      "pos": 1,
+      "v": 16,
+      "team": "OLTREFERSINA",
+      "gf": 158
+    },
+    {
+      "g": 20,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24251logo.png",
+      "gs": 60,
+      "n": 2,
+      "pts": 47,
+      "p": 3,
+      "pos": 2,
+      "v": 15,
+      "team": "ALTOPIANO PAGANELLA",
+      "gf": 123
+    },
+    {
+      "g": 20,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24254logo.png",
+      "gs": 55,
+      "n": 3,
+      "pts": 45,
+      "p": 3,
+      "pos": 3,
+      "v": 14,
+      "team": "LEVICO TERME",
+      "gf": 112
+    },
+    {
+      "g": 20,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24260logo.png",
+      "gs": 87,
+      "n": 3,
+      "pts": 33,
+      "p": 7,
+      "pos": 4,
+      "v": 10,
+      "team": "TNT MONTE PELLER",
+      "gf": 104
+    },
+    {
+      "g": 20,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24253logo.png",
+      "gs": 80,
+      "n": 2,
+      "pts": 32,
+      "p": 8,
+      "pos": 5,
+      "v": 10,
+      "team": "BORGO",
+      "gf": 85
+    },
+    {
+      "g": 20,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24258logo.png",
+      "gs": 113,
+      "n": 3,
+      "pts": 27,
+      "p": 9,
+      "pos": 6,
+      "v": 8,
+      "team": "FUTSAL PINÉ",
+      "gf": 77
+    },
+    {
+      "g": 20,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24252logo.png",
+      "gs": 106,
+      "n": 1,
+      "pts": 25,
+      "p": 11,
+      "pos": 7,
+      "v": 8,
+      "team": "PIEDICASTELLO",
+      "gf": 82
+    },
+    {
+      "g": 20,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24257logo.png",
+      "gs": 115,
+      "n": 3,
+      "pts": 24,
+      "p": 10,
+      "pos": 8,
+      "v": 7,
+      "team": "LEGION OF DOOM",
+      "gf": 94
+    },
+    {
+      "g": 20,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24261logo.png",
+      "gs": 90,
+      "n": 3,
+      "pts": 21,
+      "p": 11,
+      "pos": 9,
+      "v": 6,
+      "team": "CUS TRENTO UNDER 21",
+      "gf": 70
+    },
+    {
+      "g": 20,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24255logo.png",
+      "gs": 114,
+      "n": 2,
+      "pts": 14,
+      "p": 14,
+      "pos": 10,
+      "v": 4,
+      "team": "DX GENERATION",
+      "gf": 87
+    },
+    {
+      "g": 20,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24256logo.png",
+      "gs": 157,
+      "n": 0,
+      "pts": 0,
+      "p": 20,
+      "pos": 11,
+      "v": 0,
+      "team": "REAL FRADEO",
+      "gf": 49
+    }
+  ],
+  "news": [],
+  "historicalStats": {
+    "summary": {
+      "goalsAgainst": 1725,
+      "goalsFor": 1693,
+      "goalsForAvg": "4,12",
+      "draws": 55,
+      "goalDifference": -32,
+      "goalsAgainstAvg": "4,20",
+      "losses": 178,
+      "played": 411,
+      "wins": 178
+    },
+    "highlights": [
+      {
+        "label": "Gare ufficiali complessive",
+        "value": "411",
+        "detail": "Bilancio storico: 178 vittorie, 55 pareggi, 178 sconfitte"
+      },
+      {
+        "label": "Gol fatti storici",
+        "value": "1.693",
+        "detail": "Media 4,12 gol a partita"
+      },
+      {
+        "label": "Stagione con più vittorie",
+        "value": "2013/2014",
+        "detail": "23 vittorie"
+      },
+      {
+        "label": "Differenza reti complessiva",
+        "value": "-32",
+        "detail": "Dato complessivo dalla stagione 2011/2012"
+      },
+      {
+        "label": "Miglior marcatore storico",
+        "value": "Costantini",
+        "detail": "95 reti"
+      },
+      {
+        "label": "Record presenze",
+        "value": "Costantini",
+        "detail": "155 presenze"
+      },
+      {
+        "label": "Miglior attacco stagionale",
+        "value": "2018/2019",
+        "detail": "179 gol fatti"
+      },
+      {
+        "label": "Miglior differenza reti",
+        "value": "2016/2017",
+        "detail": "+83"
+      },
+      {
+        "label": "Stagione più recente",
+        "value": "2025/2026",
+        "detail": "30 gare, 19 vittorie, differenza reti +20"
       }
     ],
-    "roster": [
+    "seasons": [
       {
-        "id": 1,
-        "name": "Safi Saif Edine",
-        "role": "Portiere",
-        "team": "Prima squadra",
-        "number": 1,
-        "photo": "/img/players/3-safi-saif-edine-portiere.webp"
+        "goalsAgainst": 104,
+        "season": "2025/2026",
+        "goalsFor": 124,
+        "goalsForAvg": "4,13",
+        "draws": 1,
+        "goalDifference": 20,
+        "goalsAgainstAvg": "3,46",
+        "losses": 10,
+        "played": 30,
+        "wins": 19
       },
       {
-        "faculty": "Lettere",
-        "birthPlace": "Padova (PD)",
-        "number": 12,
-        "name": "Lucca Baccaro Zeni",
-        "birthDate": "2000-01-18",
-        "photo": "/img/players/1-baccaro-zeni-lucca-portiere.webp",
-        "role": "Portiere",
-        "id": 2,
-        "team": "Prima squadra"
+        "goalsAgainst": 143,
+        "season": "2024/2025",
+        "goalsFor": 79,
+        "goalsForAvg": "2,92",
+        "draws": 2,
+        "goalDifference": -64,
+        "goalsAgainstAvg": "5,29",
+        "losses": 17,
+        "played": 27,
+        "wins": 8
       },
       {
-        "id": 3,
-        "name": "Filippo Bernard",
-        "role": "Portiere",
-        "team": "Prima squadra",
-        "number": 2,
-        "photo": "/img/players/2-bernard-filippo-portiere.webp"
+        "goalsAgainst": 150,
+        "season": "2023/2024",
+        "goalsFor": 97,
+        "goalsForAvg": "3,34",
+        "draws": 1,
+        "goalDifference": -53,
+        "goalsAgainstAvg": "5,17",
+        "losses": 21,
+        "played": 29,
+        "wins": 7
       },
       {
-        "id": 4,
-        "name": "Tommaso Boldrini",
-        "role": "Centrale",
-        "team": "Prima squadra",
-        "number": 5,
-        "photo": "/img/players/4-boldrini-tommaso-centrale.webp"
-      },
-      {
-        "id": 5,
-        "name": "Davide Filippi",
-        "role": "Centrale",
-        "team": "Prima squadra",
-        "number": 6,
-        "photo": "/img/players/10-filippi-davide-laterale.webp"
-      },
-      {
-        "id": 6,
-        "name": "Alvise Tesser",
-        "role": "Centrale",
-        "team": "Prima squadra",
-        "number": 7,
-        "photo": "/img/players/5-tesser-alvise-centrale.webp"
-      },
-      {
-        "id": 7,
-        "name": "Federico Addobbati",
-        "role": "Laterale",
-        "team": "Prima squadra",
-        "number": 8,
-        "photo": "/img/players/noplayer.webp"
-      },
-      {
-        "id": 8,
-        "name": "Filippo Baietta",
-        "role": "Laterale",
-        "team": "Prima squadra",
-        "number": 9,
-        "photo": "/img/players/6-baietta-filippo-laterale.webp"
-      },
-      {
-        "id": 9,
-        "name": "Luca Cirasola",
-        "role": "Laterale",
-        "team": "Prima squadra",
-        "number": 10,
-        "photo": "/img/players/7-cirasola-luca-laterale.webp"
-      },
-      {
-        "id": 10,
-        "name": "Mattia Cuman",
-        "role": "Laterale",
-        "team": "Prima squadra",
-        "number": 27,
-        "photo": "/img/players/8-cuman-mattia-laterale.webp"
-      },
-      {
-        "id": 11,
-        "name": "Luca Frattolin",
-        "role": "Laterale",
-        "team": "Prima squadra",
-        "number": 23,
-        "photo": "/img/players/noplayer.webp"
-      },
-      {
-        "id": 12,
-        "name": "Federico Maciocia",
-        "role": "Laterale",
-        "team": "Prima squadra",
-        "number": 17,
-        "photo": "/img/players/11-maciocia-federico-laterale.webp"
-      },
-      {
-        "id": 13,
-        "name": "Mattia Vaia",
-        "role": "Laterale",
-        "team": "Prima squadra",
-        "number": 11,
-        "photo": "/img/players/12-vaia-mattia-laterale.webp"
-      },
-      {
-        "id": 14,
-        "name": "Alessandro Zanetti",
-        "role": "Laterale",
-        "team": "Prima squadra",
-        "number": 19,
-        "photo": "/img/players/13-zanetti-alessandro-laterale.webp"
-      },
-      {
-        "id": 15,
-        "name": "Diego Conti",
-        "role": "Punta",
-        "team": "Prima squadra",
-        "number": 20,
-        "photo": "/img/players/14-conti-diego-pivot.webp"
-      },
-      {
-        "id": 16,
-        "name": "Andrea Martinelli",
-        "role": "Punta",
-        "team": "Prima squadra",
-        "number": 21,
-        "photo": "/img/players/16-martinelli-andrea-universale.webp"
-      },
-      {
-        "id": 17,
-        "name": "Cesare Vettorazzi",
-        "role": "Punta",
-        "team": "Prima squadra",
-        "number": 22,
-        "photo": "/img/players/15-vettorazzi-cesare-pivot.webp"
-      },
-      {
-        "id": 19,
-        "name": "Paolo Bigonzi",
-        "role": "Portiere",
-        "team": "Under 21",
-        "number": 30,
-        "photo": "/img/players/1-bigonzi-paolo-portiere.webp"
-      },
-      {
-        "id": 20,
-        "name": "Giulio Tognolli",
-        "role": "Portiere",
-        "team": "Under 21",
-        "number": 31,
-        "photo": "/img/players/2-toniolli-giulio-portiere.webp"
-      },
-      {
-        "id": 21,
-        "name": "Lorenzo Zantorello",
-        "role": "Portiere",
-        "team": "Under 21",
-        "number": 32,
-        "photo": "/img/players/3-zarantonello-lorenzo-portiere.webp"
-      },
-      {
-        "id": 22,
-        "name": "Alex Gasperi",
-        "role": "Centrale",
-        "team": "Under 21",
-        "number": 34,
-        "photo": "/img/players/noplayer.webp"
-      },
-      {
-        "id": 23,
-        "name": "Matteo Guidetti",
-        "role": "Centrale",
-        "team": "Under 21",
-        "number": 35,
-        "photo": "/img/players/4-guidetti-matteo-centrale.webp"
-      },
-      {
-        "id": 24,
-        "name": "Matteo Materia",
-        "role": "Centrale",
-        "team": "Under 21",
-        "number": 36,
-        "photo": "/img/players/5-materia-matteo-centrale.webp"
-      },
-      {
-        "id": 25,
-        "name": "Riccardo Toniolli",
-        "role": "Centrale",
-        "team": "Under 21",
-        "number": 37,
-        "photo": "/img/players/6-toniolli-riccardo-centrale.webp"
-      },
-      {
-        "id": 26,
-        "name": "Alessandro Betti",
-        "role": "Laterale",
-        "team": "Under 21",
-        "number": 38,
-        "photo": "/img/players/7-betti-alessandro-laterale.webp"
-      },
-      {
-        "id": 27,
-        "name": "Samuele Buda",
-        "role": "Laterale",
-        "team": "Under 21",
-        "number": 39,
-        "photo": "/img/players/noplayer.webp"
-      },
-      {
-        "id": 28,
-        "name": "Federico Caldonazzi",
-        "role": "Laterale",
-        "team": "Under 21",
-        "number": 40,
-        "photo": "/img/players/8-caldonazzi-federico-laterale.webp"
-      },
-      {
-        "id": 29,
-        "name": "Joao Pedro Caccia Neff",
-        "role": "Laterale",
-        "team": "Under 21",
-        "number": 41,
-        "photo": "/img/players/12-caccia-neff-joao-pedro-laterale.webp"
-      },
-      {
-        "id": 30,
-        "name": "Afrian Gavril Dancus",
-        "role": "Laterale",
-        "team": "Under 21",
-        "number": 42,
-        "photo": "/img/players/9-dancus-adrian-gavril-laterale.webp"
-      },
-      {
-        "id": 31,
-        "name": "Mirko Annunziato Tondo",
-        "role": "Laterale",
-        "team": "Under 21",
-        "number": 44,
-        "photo": "/img/players/10-tondo-mirko-a-laterale.webp"
-      },
-      {
-        "id": 32,
-        "name": "Daniele Zampedri",
-        "role": "Laterale",
-        "team": "Under 21",
-        "number": 45,
-        "photo": "/img/players/11-zampedri-daniele-laterale.webp"
-      },
-      {
-        "id": 33,
-        "name": "Michele Ceola",
-        "role": "Punta",
-        "team": "Under 21",
-        "number": 46,
-        "photo": "/img/players/13-ceola-michele-pivot.webp"
-      },
-      {
-        "id": 34,
-        "name": "Damiano Loperfido",
-        "role": "Punta",
-        "team": "Under 21",
-        "number": 47,
-        "photo": "/img/players/14-loperfido-damiano-pivot.webp"
-      },
-      {
-        "id": 35,
-        "name": "Luca Scala",
-        "role": "Punta",
-        "team": "Under 21",
-        "number": 48,
-        "photo": "/img/players/15-scala-luca-universale.webp"
-      }
-    ],
-    "social": [
-      {
-        "network": "Instagram",
-        "handle": "@custrentoc5",
-        "text": "Matchday vibes da Sanbàpolis. La tribuna conta.",
-        "date": "2026-05-21",
-        "id": 11000
-      },
-      {
-        "network": "TikTok",
-        "handle": "@custrentoc5",
-        "text": "Skill check: tunnel, suola e finalizzazione sottoporta.",
-        "date": "2026-05-19",
-        "id": 11001
-      },
-      {
-        "network": "YouTube",
-        "handle": "CUS Trento C5",
-        "text": "Online gli highlights dell’ultima vittoria esterna.",
-        "date": "2026-05-18",
-        "id": 11002
-      }
-    ],
-    "u21Standings": [
-      {
-        "g": 20,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24259logo.png",
-        "gs": 64,
-        "n": 2,
-        "pts": 50,
-        "p": 2,
-        "pos": 1,
-        "v": 16,
-        "team": "OLTREFERSINA",
-        "gf": 158
-      },
-      {
-        "g": 20,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24251logo.png",
-        "gs": 60,
-        "n": 2,
-        "pts": 47,
-        "p": 3,
-        "pos": 2,
-        "v": 15,
-        "team": "ALTOPIANO PAGANELLA",
-        "gf": 123
-      },
-      {
-        "g": 20,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24254logo.png",
-        "gs": 55,
-        "n": 3,
-        "pts": 45,
-        "p": 3,
-        "pos": 3,
-        "v": 14,
-        "team": "LEVICO TERME",
-        "gf": 112
-      },
-      {
-        "g": 20,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24260logo.png",
-        "gs": 87,
-        "n": 3,
-        "pts": 33,
-        "p": 7,
-        "pos": 4,
-        "v": 10,
-        "team": "TNT MONTE PELLER",
-        "gf": 104
-      },
-      {
-        "g": 20,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24253logo.png",
-        "gs": 80,
-        "n": 2,
-        "pts": 32,
-        "p": 8,
-        "pos": 5,
-        "v": 10,
-        "team": "BORGO",
-        "gf": 85
-      },
-      {
-        "g": 20,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24258logo.png",
-        "gs": 113,
-        "n": 3,
-        "pts": 27,
-        "p": 9,
-        "pos": 6,
-        "v": 8,
-        "team": "FUTSAL PINÉ",
-        "gf": 77
-      },
-      {
-        "g": 20,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24252logo.png",
-        "gs": 106,
-        "n": 1,
-        "pts": 25,
-        "p": 11,
-        "pos": 7,
-        "v": 8,
-        "team": "PIEDICASTELLO",
-        "gf": 82
-      },
-      {
-        "g": 20,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24257logo.png",
-        "gs": 115,
-        "n": 3,
-        "pts": 24,
-        "p": 10,
-        "pos": 8,
-        "v": 7,
-        "team": "LEGION OF DOOM",
-        "gf": 94
-      },
-      {
-        "g": 20,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24261logo.png",
-        "gs": 90,
-        "n": 3,
-        "pts": 21,
-        "p": 11,
-        "pos": 9,
-        "v": 6,
-        "team": "CUS TRENTO UNDER 21",
-        "gf": 70
-      },
-      {
-        "g": 20,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24255logo.png",
-        "gs": 114,
-        "n": 2,
-        "pts": 14,
-        "p": 14,
-        "pos": 10,
-        "v": 4,
-        "team": "DX GENERATION",
-        "gf": 87
-      },
-      {
-        "g": 20,
-        "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24256logo.png",
-        "gs": 157,
-        "n": 0,
-        "pts": 0,
-        "p": 20,
-        "pos": 11,
-        "v": 0,
-        "team": "REAL FRADEO",
-        "gf": 49
-      }
-    ],
-    "news": [],
-    "historicalStats": {
-      "summary": {
-        "goalsAgainst": 1725,
-        "goalsFor": 1693,
-        "goalsForAvg": "4,12",
-        "draws": 55,
+        "goalsAgainst": 150,
+        "season": "2022/2023",
+        "goalsFor": 118,
+        "goalsForAvg": "4,37",
+        "draws": 2,
         "goalDifference": -32,
-        "goalsAgainstAvg": "4,20",
-        "losses": 178,
-        "played": 411,
-        "wins": 178
+        "goalsAgainstAvg": "5,55",
+        "losses": 17,
+        "played": 27,
+        "wins": 8
       },
-      "highlights": [
-        {
-          "label": "Gare ufficiali complessive",
-          "value": "411",
-          "detail": "Bilancio storico: 178 vittorie, 55 pareggi, 178 sconfitte"
-        },
-        {
-          "label": "Gol fatti storici",
-          "value": "1.693",
-          "detail": "Media 4,12 gol a partita"
-        },
-        {
-          "label": "Stagione con più vittorie",
-          "value": "2013/2014",
-          "detail": "23 vittorie"
-        },
-        {
-          "label": "Differenza reti complessiva",
-          "value": "-32",
-          "detail": "Dato complessivo dalla stagione 2011/2012"
-        },
-        {
-          "label": "Miglior marcatore storico",
-          "value": "Costantini",
-          "detail": "95 reti"
-        },
-        {
-          "label": "Record presenze",
-          "value": "Costantini",
-          "detail": "155 presenze"
-        },
-        {
-          "label": "Miglior attacco stagionale",
-          "value": "2018/2019",
-          "detail": "179 gol fatti"
-        },
-        {
-          "label": "Miglior differenza reti",
-          "value": "2016/2017",
-          "detail": "+83"
-        },
-        {
-          "label": "Stagione più recente",
-          "value": "2025/2026",
-          "detail": "30 gare, 19 vittorie, differenza reti +20"
-        }
-      ],
-      "seasons": [
-        {
-          "goalsAgainst": 104,
-          "season": "2025/2026",
-          "goalsFor": 124,
-          "goalsForAvg": "4,13",
-          "draws": 1,
-          "goalDifference": 20,
-          "goalsAgainstAvg": "3,46",
-          "losses": 10,
-          "played": 30,
-          "wins": 19
-        },
-        {
-          "goalsAgainst": 143,
-          "season": "2024/2025",
-          "goalsFor": 79,
-          "goalsForAvg": "2,92",
-          "draws": 2,
-          "goalDifference": -64,
-          "goalsAgainstAvg": "5,29",
-          "losses": 17,
-          "played": 27,
-          "wins": 8
-        },
-        {
-          "goalsAgainst": 150,
-          "season": "2023/2024",
-          "goalsFor": 97,
-          "goalsForAvg": "3,34",
-          "draws": 1,
-          "goalDifference": -53,
-          "goalsAgainstAvg": "5,17",
-          "losses": 21,
-          "played": 29,
-          "wins": 7
-        },
-        {
-          "goalsAgainst": 150,
-          "season": "2022/2023",
-          "goalsFor": 118,
-          "goalsForAvg": "4,37",
-          "draws": 2,
-          "goalDifference": -32,
-          "goalsAgainstAvg": "5,55",
-          "losses": 17,
-          "played": 27,
-          "wins": 8
-        },
-        {
-          "goalsAgainst": 71,
-          "season": "2021/2022",
-          "goalsFor": 69,
-          "goalsForAvg": "3,45",
-          "draws": 4,
-          "goalDifference": -2,
-          "goalsAgainstAvg": "3,55",
-          "losses": 6,
-          "played": 20,
-          "wins": 10
-        },
-        {
-          "goalsAgainst": 5,
-          "season": "2020/2021",
-          "goalsFor": 4,
-          "goalsForAvg": "1,33",
-          "draws": 2,
-          "goalDifference": -1,
-          "goalsAgainstAvg": "1,66",
-          "losses": 1,
-          "played": 3,
-          "wins": 0
-        },
-        {
-          "goalsAgainst": 82,
-          "season": "2019/2020",
-          "goalsFor": 58,
-          "goalsForAvg": "2,52",
-          "draws": 3,
-          "goalDifference": -24,
-          "goalsAgainstAvg": "3,56",
-          "losses": 15,
-          "played": 23,
-          "wins": 5
-        },
-        {
-          "goalsAgainst": 138,
-          "season": "2018/2019",
-          "goalsFor": 179,
-          "goalsForAvg": "4,83",
-          "draws": 9,
-          "goalDifference": 41,
-          "goalsAgainstAvg": "3,72",
-          "losses": 9,
-          "played": 37,
-          "wins": 19
-        },
-        {
-          "goalsAgainst": 144,
-          "season": "2017/2018",
-          "goalsFor": 141,
-          "goalsForAvg": "4,14",
-          "draws": 7,
-          "goalDifference": -3,
-          "goalsAgainstAvg": "4,23",
-          "losses": 11,
-          "played": 34,
-          "wins": 16
-        },
-        {
-          "goalsAgainst": 91,
-          "season": "2016/2017",
-          "goalsFor": 174,
-          "goalsForAvg": "5,61",
-          "draws": 5,
-          "goalDifference": 83,
-          "goalsAgainstAvg": "2,93",
-          "losses": 6,
-          "played": 31,
-          "wins": 20
-        },
-        {
-          "goalsAgainst": 115,
-          "season": "2015/2016",
-          "goalsFor": 146,
-          "goalsForAvg": "4,42",
-          "draws": 4,
-          "goalDifference": 31,
-          "goalsAgainstAvg": "3,48",
-          "losses": 9,
-          "played": 33,
-          "wins": 20
-        },
-        {
-          "goalsAgainst": 133,
-          "season": "2014/2015",
-          "goalsFor": 96,
-          "goalsForAvg": "2,91",
-          "draws": 3,
-          "goalDifference": -37,
-          "goalsAgainstAvg": "4,03",
-          "losses": 21,
-          "played": 33,
-          "wins": 9
-        },
-        {
-          "goalsAgainst": 82,
-          "season": "2013/2014",
-          "goalsFor": 139,
-          "goalsForAvg": "4,08",
-          "draws": 8,
-          "goalDifference": 57,
-          "goalsAgainstAvg": "2,41",
-          "losses": 3,
-          "played": 34,
-          "wins": 23
-        },
-        {
-          "goalsAgainst": 156,
-          "season": "2012/2013",
-          "goalsFor": 146,
-          "goalsForAvg": "4,42",
-          "draws": 2,
-          "goalDifference": -28,
-          "goalsAgainstAvg": "6,5",
-          "losses": 15,
-          "played": 24,
-          "wins": 7
-        },
-        {
-          "goalsAgainst": 161,
-          "season": "2011/2012",
-          "goalsFor": 123,
-          "goalsForAvg": "4,73",
-          "draws": 2,
-          "goalDifference": -38,
-          "goalsAgainstAvg": "6,19",
-          "losses": 17,
-          "played": 26,
-          "wins": 7
-        }
-      ],
-      "allTimeGoals": [
-        {
-          "players": "Costantini",
-          "value": 95
-        },
-        {
-          "players": "Martinelli A.",
-          "value": 89
-        },
-        {
-          "players": "Begnis Ruben",
-          "value": 81
-        },
-        {
-          "players": "Deboni",
-          "value": 64
-        },
-        {
-          "players": "Cuberli",
-          "value": 59
-        },
-        {
-          "players": "Bortoletto",
-          "value": 57
-        },
-        {
-          "players": "Santoni",
-          "value": 56
-        },
-        {
-          "players": "Bakaj",
-          "value": 50
-        },
-        {
-          "players": "Pan",
-          "value": 48
-        },
-        {
-          "players": "Cirasola",
-          "value": 47
-        },
-        {
-          "players": "Vettorazzi",
-          "value": 42
-        },
-        {
-          "players": "Ruzzene",
-          "value": 36
-        },
-        {
-          "players": "Pace, Pieramati, Vaia Mattia",
-          "value": 35
-        },
-        {
-          "players": "Id El Kaid, Donà",
-          "value": 31
-        },
-        {
-          "players": "Collini",
-          "value": 27
-        },
-        {
-          "players": "Osei",
-          "value": 26
-        },
-        {
-          "players": "Cinquanta",
-          "value": 25
-        },
-        {
-          "players": "Valentini, Deola",
-          "value": 24
-        },
-        {
-          "players": "Zambanini",
-          "value": 23
-        },
-        {
-          "players": "Ronzani, Saffioti, Franzoso, Pretto, Sarina",
-          "value": 21
-        },
-        {
-          "players": "Cantarella",
-          "value": 19
-        },
-        {
-          "players": "Vangelo",
-          "value": 18
-        },
-        {
-          "players": "Dusci",
-          "value": 16
-        },
-        {
-          "players": "Venturelli, Frattolin, Fior",
-          "value": 15
-        },
-        {
-          "players": "Begnis Reddy, Guaragna",
-          "value": 14
-        },
-        {
-          "players": "Tirelli, Mourahib",
-          "value": 13
-        },
-        {
-          "players": "Seguel Obregon, Berti, Barbieri, Degasperi, Staffa",
-          "value": 12
-        },
-        {
-          "players": "Rigon, Conti, Martinelli E.",
-          "value": 11
-        },
-        {
-          "players": "Busnardo, Donati, Filippi",
-          "value": 10
-        },
-        {
-          "players": "Degani, Mondin, Baietta, Battista",
-          "value": 9
-        },
-        {
-          "players": "Bertolini Garbari, Brasca, Fiorentino",
-          "value": 7
-        },
-        {
-          "players": "Turcato, Addobbati, Tesser, Topinelli, Bordieri, Furina, Bellio, D’Elia",
-          "value": 6
-        },
-        {
-          "players": "Albiero, Loperfido, Cuman, Gumirato, Boldrini, Ghislieri, Chinellato, Piccininno, Bergamini, Ghiro",
-          "value": 5
-        },
-        {
-          "players": "Zanetti, Gebbia, Annoli, del Ciello",
-          "value": 4
-        },
-        {
-          "players": "De Gennaro, Zampedri, Hakala, Gurabardhi, Veronesi",
-          "value": 3
-        },
-        {
-          "players": "Piazza, Maciocia, Bove, Micheli, Barruzza",
-          "value": 2
-        },
-        {
-          "players": "Stenico, Papalia, Fabbri, Mortara, Franceschini, Vaia Marco, Caviola, Bizzotto, Magagna, Bottega, Pina, Ruggeri, Tenaglia",
-          "value": 1
-        }
-      ],
-      "allTimeAppearances": [
-        {
-          "players": "Costantini",
-          "value": 155
-        },
-        {
-          "players": "Varvato",
-          "value": 137
-        },
-        {
-          "players": "Meta",
-          "value": 120
-        },
-        {
-          "players": "Deola",
-          "value": 119
-        },
-        {
-          "players": "Saffioti",
-          "value": 110
-        },
-        {
-          "players": "Begnis Ruben",
-          "value": 109
-        },
-        {
-          "players": "Ruzzene",
-          "value": 102
-        },
-        {
-          "players": "Martinelli A.",
-          "value": 101
-        },
-        {
-          "players": "Osei",
-          "value": 99
-        },
-        {
-          "players": "Pieramati",
-          "value": 94
-        },
-        {
-          "players": "Deboni, Martinelli E.",
-          "value": 91
-        },
-        {
-          "players": "Vaia Mattia",
-          "value": 88
-        },
-        {
-          "players": "Cirasola",
-          "value": 70
-        },
-        {
-          "players": "De Fassi, Zambanini",
-          "value": 68
-        },
-        {
-          "players": "Donà",
-          "value": 63
-        },
-        {
-          "players": "Busnardo",
-          "value": 59
-        },
-        {
-          "players": "Brasca",
-          "value": 58
-        },
-        {
-          "players": "Pretto, Sarina",
-          "value": 56
-        },
-        {
-          "players": "Chinellato, Mourahib",
-          "value": 55
-        },
-        {
-          "players": "Barbieri",
-          "value": 54
-        },
-        {
-          "players": "Audia",
-          "value": 51
-        },
-        {
-          "players": "Rigon, Collini, Valentini, Bernard",
-          "value": 50
-        },
-        {
-          "players": "Gurabardhi",
-          "value": 46
-        },
-        {
-          "players": "Stenico",
-          "value": 44
-        },
-        {
-          "players": "Pace, Battista, Vettorazzi",
-          "value": 43
-        },
-        {
-          "players": "Ghiro, Guaragna",
-          "value": 42
-        },
-        {
-          "players": "Bortoletto",
-          "value": 41
-        },
-        {
-          "players": "Cinquanta",
-          "value": 38
-        },
-        {
-          "players": "Cuberli",
-          "value": 37
-        },
-        {
-          "players": "Pan, Santoni, Frattolin, Guarnier",
-          "value": 36
-        },
-        {
-          "players": "Berti, Fiorentino",
-          "value": 35
-        },
-        {
-          "players": "Zanardello",
-          "value": 34
-        },
-        {
-          "players": "Cantarella",
-          "value": 33
-        },
-        {
-          "players": "Degasperi, Id El Kaid",
-          "value": 32
-        },
-        {
-          "players": "Franzoso, De Gennaro, Topinelli",
-          "value": 31
-        },
-        {
-          "players": "Dusci, Vangelo",
-          "value": 30
-        },
-        {
-          "players": "Tirelli",
-          "value": 29
-        },
-        {
-          "players": "Ronzani, Boldrini, Bordieri, Mondin",
-          "value": 27
-        },
-        {
-          "players": "Turcato, Fior",
-          "value": 26
-        },
-        {
-          "players": "Albiero, Baccaro Zeni, Cuman",
-          "value": 25
-        },
-        {
-          "players": "Vaia Marco",
-          "value": 24
-        },
-        {
-          "players": "Bakaj, Staffa, Begnis Reddy, Angeli, Piccininno, Baietta",
-          "value": 22
-        },
-        {
-          "players": "Bontempo",
-          "value": 21
-        },
-        {
-          "players": "del Ciello, Donati, Conti",
-          "value": 20
-        },
-        {
-          "players": "Bellio, Filippi, Tesser",
-          "value": 19
-        },
-        {
-          "players": "Micheli, Furina",
-          "value": 18
-        },
-        {
-          "players": "Venturelli",
-          "value": 16
-        },
-        {
-          "players": "Califano, Degani, Bove, Mortara",
-          "value": 15
-        },
-        {
-          "players": "Ghislieri, Veronesi, Addobbati",
-          "value": 14
-        },
-        {
-          "players": "Puddu, Bottega, Bergamini, Zampedri, Maciocia, Pop",
-          "value": 13
-        },
-        {
-          "players": "Seguel Obregon, Hasa, Sgroi, Safi",
-          "value": 11
-        },
-        {
-          "players": "Nuzzi, Annoli, Magagna, Gebbia",
-          "value": 10
-        },
-        {
-          "players": "Bertolini Garbari",
-          "value": 9
-        },
-        {
-          "players": "De Giacomo, D’Elia, Floriani, Rettore, Riccardi, Pina, Papa",
-          "value": 8
-        },
-        {
-          "players": "Piazza, Emiliani, Munaro, Caviola, Barruzza, Papalia, Curri, Fabbri, Loperfido",
-          "value": 7
-        },
-        {
-          "players": "Lanteri, Mangiagli",
-          "value": 6
-        },
-        {
-          "players": "Tenaglia, Cagnazzo, Zanetti, Bizzotto",
-          "value": 5
-        },
-        {
-          "players": "Bertelli, Lorenzetti",
-          "value": 4
-        },
-        {
-          "players": "Ruggeri, Brandolini, Calzolari, Baratta, Mahni, Lanfranconi, Cova",
-          "value": 3
-        },
-        {
-          "players": "Gastaldello, Hamzallari, Scala, Caccia Neff, Bassani",
-          "value": 2
-        },
-        {
-          "players": "Basso, Gaido, Toniolli, Bigonzi, Caldonazzi, Ceola, Bassa",
-          "value": 1
-        }
+      {
+        "goalsAgainst": 71,
+        "season": "2021/2022",
+        "goalsFor": 69,
+        "goalsForAvg": "3,45",
+        "draws": 4,
+        "goalDifference": -2,
+        "goalsAgainstAvg": "3,55",
+        "losses": 6,
+        "played": 20,
+        "wins": 10
+      },
+      {
+        "goalsAgainst": 5,
+        "season": "2020/2021",
+        "goalsFor": 4,
+        "goalsForAvg": "1,33",
+        "draws": 2,
+        "goalDifference": -1,
+        "goalsAgainstAvg": "1,66",
+        "losses": 1,
+        "played": 3,
+        "wins": 0
+      },
+      {
+        "goalsAgainst": 82,
+        "season": "2019/2020",
+        "goalsFor": 58,
+        "goalsForAvg": "2,52",
+        "draws": 3,
+        "goalDifference": -24,
+        "goalsAgainstAvg": "3,56",
+        "losses": 15,
+        "played": 23,
+        "wins": 5
+      },
+      {
+        "goalsAgainst": 138,
+        "season": "2018/2019",
+        "goalsFor": 179,
+        "goalsForAvg": "4,83",
+        "draws": 9,
+        "goalDifference": 41,
+        "goalsAgainstAvg": "3,72",
+        "losses": 9,
+        "played": 37,
+        "wins": 19
+      },
+      {
+        "goalsAgainst": 144,
+        "season": "2017/2018",
+        "goalsFor": 141,
+        "goalsForAvg": "4,14",
+        "draws": 7,
+        "goalDifference": -3,
+        "goalsAgainstAvg": "4,23",
+        "losses": 11,
+        "played": 34,
+        "wins": 16
+      },
+      {
+        "goalsAgainst": 91,
+        "season": "2016/2017",
+        "goalsFor": 174,
+        "goalsForAvg": "5,61",
+        "draws": 5,
+        "goalDifference": 83,
+        "goalsAgainstAvg": "2,93",
+        "losses": 6,
+        "played": 31,
+        "wins": 20
+      },
+      {
+        "goalsAgainst": 115,
+        "season": "2015/2016",
+        "goalsFor": 146,
+        "goalsForAvg": "4,42",
+        "draws": 4,
+        "goalDifference": 31,
+        "goalsAgainstAvg": "3,48",
+        "losses": 9,
+        "played": 33,
+        "wins": 20
+      },
+      {
+        "goalsAgainst": 133,
+        "season": "2014/2015",
+        "goalsFor": 96,
+        "goalsForAvg": "2,91",
+        "draws": 3,
+        "goalDifference": -37,
+        "goalsAgainstAvg": "4,03",
+        "losses": 21,
+        "played": 33,
+        "wins": 9
+      },
+      {
+        "goalsAgainst": 82,
+        "season": "2013/2014",
+        "goalsFor": 139,
+        "goalsForAvg": "4,08",
+        "draws": 8,
+        "goalDifference": 57,
+        "goalsAgainstAvg": "2,41",
+        "losses": 3,
+        "played": 34,
+        "wins": 23
+      },
+      {
+        "goalsAgainst": 156,
+        "season": "2012/2013",
+        "goalsFor": 146,
+        "goalsForAvg": "4,42",
+        "draws": 2,
+        "goalDifference": -28,
+        "goalsAgainstAvg": "6,5",
+        "losses": 15,
+        "played": 24,
+        "wins": 7
+      },
+      {
+        "goalsAgainst": 161,
+        "season": "2011/2012",
+        "goalsFor": 123,
+        "goalsForAvg": "4,73",
+        "draws": 2,
+        "goalDifference": -38,
+        "goalsAgainstAvg": "6,19",
+        "losses": 17,
+        "played": 26,
+        "wins": 7
+      }
+    ],
+    "allTimeGoals": [
+      {
+        "players": "Costantini",
+        "value": 95
+      },
+      {
+        "players": "Martinelli A.",
+        "value": 89
+      },
+      {
+        "players": "Begnis Ruben",
+        "value": 81
+      },
+      {
+        "players": "Deboni",
+        "value": 64
+      },
+      {
+        "players": "Cuberli",
+        "value": 59
+      },
+      {
+        "players": "Bortoletto",
+        "value": 57
+      },
+      {
+        "players": "Santoni",
+        "value": 56
+      },
+      {
+        "players": "Bakaj",
+        "value": 50
+      },
+      {
+        "players": "Pan",
+        "value": 48
+      },
+      {
+        "players": "Cirasola",
+        "value": 47
+      },
+      {
+        "players": "Vettorazzi",
+        "value": 42
+      },
+      {
+        "players": "Ruzzene",
+        "value": 36
+      },
+      {
+        "players": "Pace, Pieramati, Vaia Mattia",
+        "value": 35
+      },
+      {
+        "players": "Id El Kaid, Donà",
+        "value": 31
+      },
+      {
+        "players": "Collini",
+        "value": 27
+      },
+      {
+        "players": "Osei",
+        "value": 26
+      },
+      {
+        "players": "Cinquanta",
+        "value": 25
+      },
+      {
+        "players": "Valentini, Deola",
+        "value": 24
+      },
+      {
+        "players": "Zambanini",
+        "value": 23
+      },
+      {
+        "players": "Ronzani, Saffioti, Franzoso, Pretto, Sarina",
+        "value": 21
+      },
+      {
+        "players": "Cantarella",
+        "value": 19
+      },
+      {
+        "players": "Vangelo",
+        "value": 18
+      },
+      {
+        "players": "Dusci",
+        "value": 16
+      },
+      {
+        "players": "Venturelli, Frattolin, Fior",
+        "value": 15
+      },
+      {
+        "players": "Begnis Reddy, Guaragna",
+        "value": 14
+      },
+      {
+        "players": "Tirelli, Mourahib",
+        "value": 13
+      },
+      {
+        "players": "Seguel Obregon, Berti, Barbieri, Degasperi, Staffa",
+        "value": 12
+      },
+      {
+        "players": "Rigon, Conti, Martinelli E.",
+        "value": 11
+      },
+      {
+        "players": "Busnardo, Donati, Filippi",
+        "value": 10
+      },
+      {
+        "players": "Degani, Mondin, Baietta, Battista",
+        "value": 9
+      },
+      {
+        "players": "Bertolini Garbari, Brasca, Fiorentino",
+        "value": 7
+      },
+      {
+        "players": "Turcato, Addobbati, Tesser, Topinelli, Bordieri, Furina, Bellio, D’Elia",
+        "value": 6
+      },
+      {
+        "players": "Albiero, Loperfido, Cuman, Gumirato, Boldrini, Ghislieri, Chinellato, Piccininno, Bergamini, Ghiro",
+        "value": 5
+      },
+      {
+        "players": "Zanetti, Gebbia, Annoli, del Ciello",
+        "value": 4
+      },
+      {
+        "players": "De Gennaro, Zampedri, Hakala, Gurabardhi, Veronesi",
+        "value": 3
+      },
+      {
+        "players": "Piazza, Maciocia, Bove, Micheli, Barruzza",
+        "value": 2
+      },
+      {
+        "players": "Stenico, Papalia, Fabbri, Mortara, Franceschini, Vaia Marco, Caviola, Bizzotto, Magagna, Bottega, Pina, Ruggeri, Tenaglia",
+        "value": 1
+      }
+    ],
+    "allTimeAppearances": [
+      {
+        "players": "Costantini",
+        "value": 155
+      },
+      {
+        "players": "Varvato",
+        "value": 137
+      },
+      {
+        "players": "Meta",
+        "value": 120
+      },
+      {
+        "players": "Deola",
+        "value": 119
+      },
+      {
+        "players": "Saffioti",
+        "value": 110
+      },
+      {
+        "players": "Begnis Ruben",
+        "value": 109
+      },
+      {
+        "players": "Ruzzene",
+        "value": 102
+      },
+      {
+        "players": "Martinelli A.",
+        "value": 101
+      },
+      {
+        "players": "Osei",
+        "value": 99
+      },
+      {
+        "players": "Pieramati",
+        "value": 94
+      },
+      {
+        "players": "Deboni, Martinelli E.",
+        "value": 91
+      },
+      {
+        "players": "Vaia Mattia",
+        "value": 88
+      },
+      {
+        "players": "Cirasola",
+        "value": 70
+      },
+      {
+        "players": "De Fassi, Zambanini",
+        "value": 68
+      },
+      {
+        "players": "Donà",
+        "value": 63
+      },
+      {
+        "players": "Busnardo",
+        "value": 59
+      },
+      {
+        "players": "Brasca",
+        "value": 58
+      },
+      {
+        "players": "Pretto, Sarina",
+        "value": 56
+      },
+      {
+        "players": "Chinellato, Mourahib",
+        "value": 55
+      },
+      {
+        "players": "Barbieri",
+        "value": 54
+      },
+      {
+        "players": "Audia",
+        "value": 51
+      },
+      {
+        "players": "Rigon, Collini, Valentini, Bernard",
+        "value": 50
+      },
+      {
+        "players": "Gurabardhi",
+        "value": 46
+      },
+      {
+        "players": "Stenico",
+        "value": 44
+      },
+      {
+        "players": "Pace, Battista, Vettorazzi",
+        "value": 43
+      },
+      {
+        "players": "Ghiro, Guaragna",
+        "value": 42
+      },
+      {
+        "players": "Bortoletto",
+        "value": 41
+      },
+      {
+        "players": "Cinquanta",
+        "value": 38
+      },
+      {
+        "players": "Cuberli",
+        "value": 37
+      },
+      {
+        "players": "Pan, Santoni, Frattolin, Guarnier",
+        "value": 36
+      },
+      {
+        "players": "Berti, Fiorentino",
+        "value": 35
+      },
+      {
+        "players": "Zanardello",
+        "value": 34
+      },
+      {
+        "players": "Cantarella",
+        "value": 33
+      },
+      {
+        "players": "Degasperi, Id El Kaid",
+        "value": 32
+      },
+      {
+        "players": "Franzoso, De Gennaro, Topinelli",
+        "value": 31
+      },
+      {
+        "players": "Dusci, Vangelo",
+        "value": 30
+      },
+      {
+        "players": "Tirelli",
+        "value": 29
+      },
+      {
+        "players": "Ronzani, Boldrini, Bordieri, Mondin",
+        "value": 27
+      },
+      {
+        "players": "Turcato, Fior",
+        "value": 26
+      },
+      {
+        "players": "Albiero, Baccaro Zeni, Cuman",
+        "value": 25
+      },
+      {
+        "players": "Vaia Marco",
+        "value": 24
+      },
+      {
+        "players": "Bakaj, Staffa, Begnis Reddy, Angeli, Piccininno, Baietta",
+        "value": 22
+      },
+      {
+        "players": "Bontempo",
+        "value": 21
+      },
+      {
+        "players": "del Ciello, Donati, Conti",
+        "value": 20
+      },
+      {
+        "players": "Bellio, Filippi, Tesser",
+        "value": 19
+      },
+      {
+        "players": "Micheli, Furina",
+        "value": 18
+      },
+      {
+        "players": "Venturelli",
+        "value": 16
+      },
+      {
+        "players": "Califano, Degani, Bove, Mortara",
+        "value": 15
+      },
+      {
+        "players": "Ghislieri, Veronesi, Addobbati",
+        "value": 14
+      },
+      {
+        "players": "Puddu, Bottega, Bergamini, Zampedri, Maciocia, Pop",
+        "value": 13
+      },
+      {
+        "players": "Seguel Obregon, Hasa, Sgroi, Safi",
+        "value": 11
+      },
+      {
+        "players": "Nuzzi, Annoli, Magagna, Gebbia",
+        "value": 10
+      },
+      {
+        "players": "Bertolini Garbari",
+        "value": 9
+      },
+      {
+        "players": "De Giacomo, D’Elia, Floriani, Rettore, Riccardi, Pina, Papa",
+        "value": 8
+      },
+      {
+        "players": "Piazza, Emiliani, Munaro, Caviola, Barruzza, Papalia, Curri, Fabbri, Loperfido",
+        "value": 7
+      },
+      {
+        "players": "Lanteri, Mangiagli",
+        "value": 6
+      },
+      {
+        "players": "Tenaglia, Cagnazzo, Zanetti, Bizzotto",
+        "value": 5
+      },
+      {
+        "players": "Bertelli, Lorenzetti",
+        "value": 4
+      },
+      {
+        "players": "Ruggeri, Brandolini, Calzolari, Baratta, Mahni, Lanfranconi, Cova",
+        "value": 3
+      },
+      {
+        "players": "Gastaldello, Hamzallari, Scala, Caccia Neff, Bassani",
+        "value": 2
+      },
+      {
+        "players": "Basso, Gaido, Toniolli, Bigonzi, Caldonazzi, Ceola, Bassa",
+        "value": 1
+      }
+    ]
+  },
+  "galleryAlbums": [
+    {
+      "id": 1,
+      "title": "Matchday Sanbàpolis",
+      "category": "Matchday",
+      "date": "2026-05-24",
+      "cover": "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80",
+      "description": "Foto placeholder della giornata gara a Sanbàpolis.",
+      "photos": [
+        "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80"
       ]
     },
-    "galleryAlbums": [
-      {
-        "id": 1,
-        "title": "Matchday Sanbàpolis",
-        "category": "Matchday",
-        "date": "2026-05-24",
-        "cover": "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80",
-        "description": "Foto placeholder della giornata gara a Sanbàpolis.",
-        "photos": [
-          "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80",
-          "https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1400&q=80",
-          "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80",
-          "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80"
-        ]
-      },
-      {
-        "id": 2,
-        "title": "Training Week",
-        "category": "Training",
-        "date": "2026-04-18",
-        "cover": "https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80",
-        "description": "Allenamento tecnico, possessi e finalizzazione.",
-        "photos": [
-          "https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80",
-          "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1400&q=80",
-          "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1400&q=80"
-        ]
-      },
-      {
-        "id": 3,
-        "title": "Under 21",
-        "category": "U21",
-        "date": "2026-04-12",
-        "cover": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
-        "description": "Momenti del gruppo Under 21.",
-        "photos": [
-          "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
-          "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80",
-          "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1400&q=80"
-        ]
-      },
-      {
-        "id": 50,
-        "title": "Rose storiche CUS Trento C5",
-        "category": "Storia",
-        "date": "2026-01-01",
-        "cover": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png",
-        "description": "Album delle rose storiche CUS Trento C5 dal vecchio sito.",
-        "photos": [
-          "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/11-12.jpg",
-          "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/12-13.jpg",
-          "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/13-14.jpg",
-          "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/14-15.jpg",
-          "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/15-16.jpg",
-          "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/16-17.jpg",
-          "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2017real.png",
-          "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/814330A0-63DD-4B35-AFA9-64AFF265B7DC.jpg",
-          "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2022-2023.jpg",
-          "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png"
-        ]
-      }
-    ],
-    "automation": {
-      "enabled": true,
-      "currentSeason": "2026/2027",
-      "mode": "increment-from-terminated-fixtures"
+    {
+      "id": 2,
+      "title": "Training Week",
+      "category": "Training",
+      "date": "2026-04-18",
+      "cover": "https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80",
+      "description": "Allenamento tecnico, possessi e finalizzazione.",
+      "photos": [
+        "https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1400&q=80"
+      ]
     },
-    "videos": [
-      {
-        "id": 1,
-        "title": "Highlights: CUS Trento vs Calcio Bleggio",
-        "category": "Highlights",
-        "thumb": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1400&q=80",
-        "url": "https://www.youtube.com"
-      },
-      {
-        "id": 2,
-        "title": "Intervista post partita: Diego Conti",
-        "category": "Interview",
-        "thumb": "https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=1400&q=80",
-        "url": "https://www.youtube.com"
-      },
-      {
-        "id": 3,
-        "title": "Training cam: lavoro sui possessi",
-        "category": "Training",
-        "thumb": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
-        "url": "https://www.youtube.com"
-      }
-    ],
-    "sponsors": [
-      {
-        "id": 1,
-        "name": "UniTrento Sport",
-        "tier": "Main Partner",
-        "logo": "UT",
-        "url": "#"
-      },
-      {
-        "id": 2,
-        "name": "Sanbàpolis Arena",
-        "tier": "Venue Partner",
-        "logo": "SB",
-        "url": "#"
-      },
-      {
-        "id": 3,
-        "name": "Trentino Energia",
-        "tier": "Gold Sponsor",
-        "logo": "TE",
-        "url": "#"
-      },
-      {
-        "id": 4,
-        "name": "Dolomiti Lab",
-        "tier": "Silver Sponsor",
-        "logo": "DL",
-        "url": "#"
-      },
-      {
-        "id": 5,
-        "name": "Caffè Trento",
-        "tier": "Community Partner",
-        "logo": "CT",
-        "url": "#"
-      },
-      {
-        "id": 6,
-        "name": "Studio Fisio 5",
-        "tier": "Medical Partner",
-        "logo": "F5",
-        "url": "#"
-      }
-    ],
-    "u21Fixtures": [],
-    "cup": {
-      "title": "Coppa Trentino Alto Adige",
-      "edition": "2026/27",
-      "status": "Quarti di finale",
-      "fixtures": []
+    {
+      "id": 3,
+      "title": "Under 21",
+      "category": "U21",
+      "date": "2026-04-12",
+      "cover": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
+      "description": "Momenti del gruppo Under 21.",
+      "photos": [
+        "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1400&q=80"
+      ]
     },
-    "clubHistory": {
-      "title": "La nostra storia",
-      "paragraphs": [
-        "Club fondato nell’anno 2011/2012, il CUS Trento debuttò nella serie D ottenendo il primo anno un decimo posto e ripetendo nella stagione 2012/2013 lo stesso piazzamento. Nel primo anno di partecipazione la squadra ottiene la coppa disciplina e nella stagione 2013/2014 si piazza prima nel girone A della serie D, ottenendo la possibilità di partecipare alla serie C2 nella stagione 2014/2015. Al termine della stagione la squadra viene sconfitta ai play-out e ricomincia dalla serie D.",
-        "Nella stagione 2015/2016 la squadra arriva alla semifinale play-off venendo sconfitta e non presenterà la domanda di ripescaggio per salire in serie C2. Al termine della stagione 2016/2017, la squadra ottiene la promozione in serie C2. Dopo anni complicati soprattutto a causa delle limitazioni imposte dal COVID, la squadra ottiene la promozione in C1, categoria in cui milita attualmente, al termine della stagione 2021/2022. La miglior stagione si conclude con il secondo posto in serie C1 nella stagione 2025/2026, perdendo il triangolare per la promozione in serie B."
-      ],
-      "images": [
-        {
-          "season": "2011/2012",
-          "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/11-12.jpg"
-        },
-        {
-          "season": "2012/2013",
-          "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/12-13.jpg"
-        },
-        {
-          "season": "2013/2014",
-          "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/13-14.jpg"
-        },
-        {
-          "season": "2014/2015",
-          "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/14-15.jpg"
-        },
-        {
-          "season": "2015/2016",
-          "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/15-16.jpg"
-        },
-        {
-          "season": "2016/2017",
-          "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/16-17.jpg"
-        },
-        {
-          "season": "2017/2018",
-          "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2017real.png"
-        },
-        {
-          "season": "2018/2019",
-          "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/814330A0-63DD-4B35-AFA9-64AFF265B7DC.jpg"
-        },
-        {
-          "season": "2022/2023",
-          "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2022-2023.jpg"
-        },
-        {
-          "season": "2024/2025",
-          "image": "https://custrentocalcioa5.it/assets/team.webp"
-        },
-        {
-          "season": "2025/2026",
-          "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png"
-        }
+    {
+      "id": 50,
+      "title": "Rose storiche CUS Trento C5",
+      "category": "Storia",
+      "date": "2026-01-01",
+      "cover": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png",
+      "description": "Album delle rose storiche CUS Trento C5 dal vecchio sito.",
+      "photos": [
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/11-12.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/12-13.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/13-14.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/14-15.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/15-16.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/16-17.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2017real.png",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/814330A0-63DD-4B35-AFA9-64AFF265B7DC.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2022-2023.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png"
       ]
     }
+  ],
+  "automation": {
+    "enabled": true,
+    "currentSeason": "2026/2027",
+    "mode": "increment-from-terminated-fixtures"
   },
-  "author": "",
-  "slug": "fixtures",
-  "newRecord": false,
-  "status": "",
-  "mediaFiles": [],
-  "label": "Calendario Prima squadra",
-  "updatedOn": "",
-  "i18n": {},
-  "collection": "fixtures"
+  "videos": [
+    {
+      "id": 1,
+      "title": "Highlights: CUS Trento vs Calcio Bleggio",
+      "category": "Highlights",
+      "thumb": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1400&q=80",
+      "url": "https://www.youtube.com"
+    },
+    {
+      "id": 2,
+      "title": "Intervista post partita: Diego Conti",
+      "category": "Interview",
+      "thumb": "https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=1400&q=80",
+      "url": "https://www.youtube.com"
+    },
+    {
+      "id": 3,
+      "title": "Training cam: lavoro sui possessi",
+      "category": "Training",
+      "thumb": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
+      "url": "https://www.youtube.com"
+    }
+  ],
+  "sponsors": [
+    {
+      "id": 1,
+      "name": "UniTrento Sport",
+      "tier": "Main Partner",
+      "logo": "UT",
+      "url": "#"
+    },
+    {
+      "id": 2,
+      "name": "Sanbàpolis Arena",
+      "tier": "Venue Partner",
+      "logo": "SB",
+      "url": "#"
+    },
+    {
+      "id": 3,
+      "name": "Trentino Energia",
+      "tier": "Gold Sponsor",
+      "logo": "TE",
+      "url": "#"
+    },
+    {
+      "id": 4,
+      "name": "Dolomiti Lab",
+      "tier": "Silver Sponsor",
+      "logo": "DL",
+      "url": "#"
+    },
+    {
+      "id": 5,
+      "name": "Caffè Trento",
+      "tier": "Community Partner",
+      "logo": "CT",
+      "url": "#"
+    },
+    {
+      "id": 6,
+      "name": "Studio Fisio 5",
+      "tier": "Medical Partner",
+      "logo": "F5",
+      "url": "#"
+    }
+  ],
+  "u21Fixtures": [],
+  "cup": {
+    "title": "Coppa Trentino Alto Adige",
+    "edition": "2026/27",
+    "status": "Quarti di finale",
+    "fixtures": []
+  },
+  "clubHistory": {
+    "title": "La nostra storia",
+    "paragraphs": [
+      "Club fondato nell’anno 2011/2012, il CUS Trento debuttò nella serie D ottenendo il primo anno un decimo posto e ripetendo nella stagione 2012/2013 lo stesso piazzamento. Nel primo anno di partecipazione la squadra ottiene la coppa disciplina e nella stagione 2013/2014 si piazza prima nel girone A della serie D, ottenendo la possibilità di partecipare alla serie C2 nella stagione 2014/2015. Al termine della stagione la squadra viene sconfitta ai play-out e ricomincia dalla serie D.",
+      "Nella stagione 2015/2016 la squadra arriva alla semifinale play-off venendo sconfitta e non presenterà la domanda di ripescaggio per salire in serie C2. Al termine della stagione 2016/2017, la squadra ottiene la promozione in serie C2. Dopo anni complicati soprattutto a causa delle limitazioni imposte dal COVID, la squadra ottiene la promozione in C1, categoria in cui milita attualmente, al termine della stagione 2021/2022. La miglior stagione si conclude con il secondo posto in serie C1 nella stagione 2025/2026, perdendo il triangolare per la promozione in serie B."
+    ],
+    "images": [
+      {
+        "season": "2011/2012",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/11-12.jpg"
+      },
+      {
+        "season": "2012/2013",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/12-13.jpg"
+      },
+      {
+        "season": "2013/2014",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/13-14.jpg"
+      },
+      {
+        "season": "2014/2015",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/14-15.jpg"
+      },
+      {
+        "season": "2015/2016",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/15-16.jpg"
+      },
+      {
+        "season": "2016/2017",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/16-17.jpg"
+      },
+      {
+        "season": "2017/2018",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2017real.png"
+      },
+      {
+        "season": "2018/2019",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/814330A0-63DD-4B35-AFA9-64AFF265B7DC.jpg"
+      },
+      {
+        "season": "2022/2023",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2022-2023.jpg"
+      },
+      {
+        "season": "2024/2025",
+        "image": "https://custrentocalcioa5.it/assets/team.webp"
+      },
+      {
+        "season": "2025/2026",
+        "image": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png"
+      }
+    ]
+  }
 }
