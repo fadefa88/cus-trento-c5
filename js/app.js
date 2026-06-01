@@ -652,13 +652,98 @@ function newsTags(n){
 function newsHasTag(n,tag){
   return newsTags(n).includes(tag);
 }
-function newsCards(items){return items.map(n=>{const tags=newsTags(n);return `<article class="card news-card" onclick="route('article-${n.id}')"><img loading="lazy" decoding="async" src="${n.image}" alt="${n.title}"><div class="card-pad"><div class="badge-row">${tags.map(t=>`<span class="badge">${t}</span>`).join("")}</div><div class="news-meta" style="margin-top:12px">${fmt(n.date)} · ${n.author}</div><h2>${n.title}</h2><p class="muted">${n.excerpt}</p><button class="btn soft">Leggi →</button></div></article>`}).join("");}
-function news(){const cats=["Tutte",...new Set((state.news||[]).flatMap(newsTags))];shell("Media center","News, match report e storie dal club",`<div class="toolbar">${cats.map(c=>`<button class="pill newsf ${view.newsCategory===c?"active":""}" onclick="setNewsCategory('${c}')">${c}</button>`).join("")}</div><div class="grid grid-3" id="newsGrid"></div><div id="newsPager"></div>`,`<div class="search">⌕ <input oninput="searchNews(this.value)" placeholder="Cerca news" aria-label="Cerca news"></div>`,"News, articoli e match report CUS Trento C5.");renderNewsList();}
-function setNewsCategory(cat){view.newsCategory=cat;view.newsPage=1;news();}
+function newsSearchText(n){
+  return [
+    n.title,
+    n.excerpt,
+    n.author,
+    n.category,
+    n.date,
+    Array.isArray(n.body)?n.body.join(" "):n.body,
+    n.bodyHtml?String(n.bodyHtml).replace(/<[^>]+>/g," "):"",
+    newsTags(n).join(" ")
+  ].filter(Boolean).join(" ").toLowerCase();
+}
+function articleShareUrl(n){
+  const base=location.origin+location.pathname;
+  return `${base}#article-${encodeURIComponent(n.id)}`;
+}
+function newsShareButtons(n,compact=false){
+  const url=articleShareUrl(n);
+  const encUrl=encodeURIComponent(url);
+  const title=String(n.title||"News CUS Trento C5");
+  const encTitle=encodeURIComponent(title);
+  const stop=compact?' onclick="event.stopPropagation()"':"";
+  return `<div class="news-share ${compact?'compact':''}"${stop}>
+    <span>Condividi</span>
+    <a href="https://wa.me/?text=${encTitle}%20${encUrl}" target="_blank" rel="noopener noreferrer" aria-label="Condividi su WhatsApp">WhatsApp</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=${encUrl}" target="_blank" rel="noopener noreferrer" aria-label="Condividi su Facebook">Facebook</a>
+    <a href="https://twitter.com/intent/tweet?text=${encTitle}&url=${encUrl}" target="_blank" rel="noopener noreferrer" aria-label="Condividi su X">X</a>
+    <a href="https://t.me/share/url?url=${encUrl}&text=${encTitle}" target="_blank" rel="noopener noreferrer" aria-label="Condividi su Telegram">Telegram</a>
+    <button type="button" onclick="copyNewsLink('${String(n.id).replace(/'/g,"\\'")}')">Copia link</button>
+    <button type="button" onclick="nativeShareNews('${String(n.id).replace(/'/g,"\\'")}')">Altro</button>
+  </div>`;
+}
+async function nativeShareNews(id){
+  const n=(state.news||[]).find(x=>String(x.id)===String(id));
+  if(!n)return;
+  const data={title:n.title||"CUS Trento C5",text:n.excerpt||n.title||"News CUS Trento C5",url:articleShareUrl(n)};
+  if(navigator.share){
+    try{await navigator.share(data);return;}catch(e){}
+  }
+  copyNewsLink(id);
+}
+async function copyNewsLink(id){
+  const n=(state.news||[]).find(x=>String(x.id)===String(id));
+  if(!n)return;
+  const url=articleShareUrl(n);
+  try{
+    await navigator.clipboard.writeText(url);
+    alert("Link copiato negli appunti.");
+  }catch(e){
+    prompt("Copia il link della news:",url);
+  }
+}
+function newsCards(items){
+  if(!items.length)return `<div class="card card-pad empty-news"><h2>Nessuna news trovata</h2><p class="muted">Prova a cambiare categoria o testo di ricerca.</p></div>`;
+  return items.map(n=>{const tags=newsTags(n);return `<article class="card news-card" onclick="route('article-${n.id}')"><img loading="lazy" decoding="async" src="${n.image}" alt="${safe(n.title)}"><div class="card-pad"><div class="badge-row">${tags.map(t=>`<span class="badge">${safe(t)}</span>`).join("")}</div><div class="news-meta" style="margin-top:12px">${fmt(n.date)} · ${safe(n.author||"Redazione")}</div><h2>${safe(n.title)}</h2><p class="muted">${safe(n.excerpt||"")}</p><div class="news-card-actions"><button class="btn soft">Leggi →</button></div>${newsShareButtons(n,true)}</div></article>`}).join("");
+}
+function news(){
+  const cats=["Tutte",...new Set((state.news||[]).flatMap(newsTags))];
+  view.newsCategory=view.newsCategory||"Tutte";
+  view.newsQuery=view.newsQuery||"";
+  shell("Media center","News, match report e storie dal club",`<div class="toolbar">${cats.map(c=>`<button class="pill newsf ${view.newsCategory===c?"active":""}" onclick="setNewsCategory('${String(c).replace(/'/g,"\\'")}')">${safe(c)}</button>`).join("")}</div><div class="news-results-info" id="newsResultsInfo"></div><div class="grid grid-3" id="newsGrid"></div><div id="newsPager"></div>`,`<div class="search news-search">⌕ <input value="${safe(view.newsQuery)}" oninput="setNewsSearch(this.value)" placeholder="Cerca news per titolo, testo, autore..." aria-label="Cerca news"></div>`,"News, articoli e match report CUS Trento C5.");
+  renderNewsList();
+}
+function setNewsCategory(cat){view.newsCategory=cat;view.newsPage=1;renderNewsList();}
+function setNewsSearch(q){view.newsQuery=String(q||"");view.newsPage=1;renderNewsList();}
 function goNewsPage(page){view.newsPage=page;renderNewsList();}
-function renderNewsList(){const cat=view.newsCategory||"Tutte";const items=cat==="Tutte"?state.news:state.news.filter(n=>newsHasTag(n,cat));const pg=paginate(items,view.newsPage,6);view.newsPage=pg.page;const grid=$("#newsGrid"),pager=$("#newsPager");if(grid)grid.innerHTML=newsCards(pg.items);if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goNewsPage");}
-function searchNews(q){const items=state.news.filter(n=>(String(n.title||"")+String(n.excerpt||"")+newsTags(n).join(" ")).toLowerCase().includes(String(q||"").toLowerCase()));const grid=$("#newsGrid"),pager=$("#newsPager");if(grid)grid.innerHTML=newsCards(items.slice(0,6));if(pager)pager.innerHTML="";}
+function filteredNewsItems(){
+  const cat=view.newsCategory||"Tutte";
+  const q=String(view.newsQuery||"").trim().toLowerCase();
+  let items=cat==="Tutte"?(state.news||[]):(state.news||[]).filter(n=>newsHasTag(n,cat));
+  if(q)items=items.filter(n=>newsSearchText(n).includes(q));
+  return items;
+}
+function renderNewsList(){
+  const items=filteredNewsItems();
+  const pg=paginate(items,view.newsPage,6);
+  view.newsPage=pg.page;
+  const grid=$("#newsGrid"),pager=$("#newsPager"),info=$("#newsResultsInfo");
+  if(grid)grid.innerHTML=newsCards(pg.items);
+  if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goNewsPage");
+  if(info){
+    const q=String(view.newsQuery||"").trim();
+    const cat=view.newsCategory||"Tutte";
+    info.innerHTML=(q||cat!=="Tutte")?`<span>${items.length} risultati${cat!=="Tutte"?` · categoria ${safe(cat)}`:""}${q?` · ricerca “${safe(q)}”`:""}</span><button class="pill" onclick="clearNewsSearch()">Reset</button>`:"";
+  }
+}
+function clearNewsSearch(){view.newsQuery="";view.newsCategory="Tutte";view.newsPage=1;news();}
+function searchNews(q){setNewsSearch(q);}
 window.searchNews=q=>searchNews(q);
+window.setNewsSearch=q=>setNewsSearch(q);
+window.copyNewsLink=id=>copyNewsLink(id);
+window.nativeShareNews=id=>nativeShareNews(id);
 
 function articleDetail(id){
   const n=(state.news||[]).find(x=>String(x.id)===String(id));
@@ -667,7 +752,7 @@ function articleDetail(id){
   const tagBox=`<div class="badge-row" style="margin:0 0 14px">${newsTags(n).map(t=>`<span class="badge">${t}</span>`).join("")}</div>`;
   const sourceBox=n.sourceUrl?`<div class="source-box"><b>Fonte:</b> <a href="${n.sourceUrl}" target="_blank" rel="noopener noreferrer">${n.sourceName||"SporTrentino.it"}</a></div>`:"";
   const articleContent=n.bodyHtml?String(n.bodyHtml):paragraphs.map(p=>`<p>${p}</p>`).join("");
-  shell(n.category||"News",n.title||"Articolo",`<div class="breadcrumb"><button class="back-link" onclick="route('news')"><span>←</span> News</button><span>${fmt(n.date)} · ${n.author||"Redazione"}</span></div>${tagBox}${sourceBox}<img class="article-hero" loading="lazy" decoding="async" src="${n.image||''}" alt="${n.title||'News'}"><div class="grid grid" style="margin-top:28px"><article class="card card-pad article-body imported-article">${articleContent}</article></div>`, "", n.image);
+  shell(n.category||"News",n.title||"Articolo",`<div class="breadcrumb"><button class="back-link" onclick="route('news')"><span>←</span> News</button><span>${fmt(n.date)} · ${safe(n.author||"Redazione")}</span></div>${tagBox}${sourceBox}${newsShareButtons(n)}<img class="article-hero" loading="lazy" decoding="async" src="${n.image||''}" alt="${safe(n.title||'News')}"><div class="grid grid" style="margin-top:28px"><article class="card card-pad article-body imported-article">${articleContent}<div class="article-share-bottom">${newsShareButtons(n)}</div></article></div>`, "", n.image);
 }
 
 function playerMetricsCard(p){
