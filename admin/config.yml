@@ -9,33 +9,16 @@ locale: it
 media_folder: img/uploads
 public_folder: /img/uploads
 collections:
-- name: siteContent
-  label: Contenuti sito
+- name: news
+  label: News
   delete: false
   editor:
     preview: false
   files:
-  - name: data
-    label: Dati sito
+  - name: news
+    label: News
     file: content/data.json
     fields:
-    - label: Impostazioni sito
-      name: site
-      widget: object
-      collapsed: true
-      fields:
-      - label: Nome sito
-        name: name
-        widget: string
-        required: false
-      - label: Logo URL
-        name: logo
-        widget: string
-        required: false
-      - label: Icona URL
-        name: icon
-        widget: string
-        required: false
     - label: News
       name: news
       widget: list
@@ -93,6 +76,16 @@ collections:
         name: pinned
         widget: boolean
         default: false
+- name: roster
+  label: Rosa giocatori
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: roster
+    label: Rosa giocatori
+    file: content/data.json
+    fields:
     - label: Rosa
       name: roster
       widget: list
@@ -144,37 +137,18 @@ collections:
         name: photo
         widget: string
         required: false
-      hint: 'Le statistiche non si modificano qui: presenze, gol, ammonizioni, espulsioni e gol subiti sono calcolati automaticamente dai match terminati.'
-    - label: Staff
-      name: staff
-      widget: list
-      label_singular: membro
-      summary: '{{fields.name}} — {{fields.role}}'
-      fields:
-      - label: ID
-        name: id
-        widget: number
-        value_type: int
-      - label: Nome
-        name: name
-        widget: string
-      - label: Ruolo
-        name: role
-        widget: string
-      - label: Squadra
-        name: team
-        widget: select
-        options:
-        - Prima squadra
-        - Under 21
-      - label: Foto (URL)
-        name: photo
-        widget: string
-        required: false
-      - label: Bio
-        name: bio
-        widget: text
-        required: false
+      hint: 'Le statistiche non si modificano qui: presenze, gol, ammonizioni, espulsioni e gol subiti sono calcolati automaticamente
+        dai match terminati.'
+- name: fixtures
+  label: Calendario Prima squadra
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: fixtures
+    label: Calendario Prima squadra
+    file: content/data.json
+    fields:
     - label: Partite Prima squadra
       name: fixtures
       widget: list
@@ -575,8 +549,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
-          titolare.
+        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
+          i gol subiti al portiere nel quintetto titolare.
         fields:
         - label: Portiere
           name: playerId
@@ -636,6 +610,16 @@ collections:
           value_type: int
           default: 1
           min: 0
+- name: u21Fixtures
+  label: Calendario Under 21
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: u21Fixtures
+    label: Calendario Under 21
+    file: content/data.json
+    fields:
     - label: Partite Under 21
       name: u21Fixtures
       widget: list
@@ -1031,8 +1015,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
-          titolare.
+        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
+          i gol subiti al portiere nel quintetto titolare.
         fields:
         - label: Portiere
           name: playerId
@@ -1092,6 +1076,16 @@ collections:
           value_type: int
           default: 1
           min: 0
+- name: cup
+  label: Coppa Prima squadra
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: cup
+    label: Coppa Prima squadra
+    file: content/data.json
+    fields:
     - label: Coppa
       name: cup
       widget: object
@@ -1152,7 +1146,8 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.goals}} gol'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è convocato.
+          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è
+            convocato.
           fields:
           - label: Giocatore
             name: playerId
@@ -1314,8 +1309,8 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-          hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
-            titolare.
+          hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
+            i gol subiti al portiere nel quintetto titolare.
           fields:
           - label: Portiere
             name: playerId
@@ -1375,6 +1370,16 @@ collections:
             value_type: int
             default: 1
             min: 0
+- name: u21Cup
+  label: Coppa Under 21
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: u21Cup
+    label: Coppa Under 21
+    file: content/data.json
+    fields:
     - label: Coppa U21
       name: u21Cup
       widget: object
@@ -1435,7 +1440,8 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.goals}} gol'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è convocato.
+          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è
+            convocato.
           fields:
           - label: Giocatore
             name: playerId
@@ -1597,8 +1603,8 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-          hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
-            titolare.
+          hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
+            i gol subiti al portiere nel quintetto titolare.
           fields:
           - label: Portiere
             name: playerId
@@ -1658,6 +1664,16 @@ collections:
             value_type: int
             default: 1
             min: 0
+- name: galleryAlbums
+  label: Gallery (album)
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: galleryAlbums
+    label: Gallery (album)
+    file: content/data.json
+    fields:
     - label: Album
       name: galleryAlbums
       widget: list
@@ -1696,53 +1712,16 @@ collections:
           label: Foto URL
           name: u
           widget: string
-    - label: Video
-      name: videos
-      widget: list
-      label_singular: video
-      summary: '{{fields.title}}'
-      fields:
-      - label: ID
-        name: id
-        widget: number
-        value_type: int
-      - label: Titolo
-        name: title
-        widget: string
-      - label: Categoria
-        name: category
-        widget: string
-      - label: Anteprima (URL)
-        name: thumb
-        widget: string
-        required: false
-      - label: Link video (URL)
-        name: url
-        widget: string
-    - label: Storia club
-      name: clubHistory
-      widget: object
-      fields:
-      - label: Titolo
-        name: title
-        widget: string
-      - label: Testo storia
-        name: paragraphs
-        widget: list
-        field:
-          label: Paragrafo
-          name: paragraph
-          widget: text
-      - label: Immagini storiche
-        name: images
-        widget: list
-        fields:
-        - label: Stagione
-          name: season
-          widget: string
-        - label: Immagine URL
-          name: image
-          widget: string
+- name: sponsors
+  label: Sponsor
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: sponsors
+    label: Sponsor
+    file: content/data.json
+    fields:
     - label: Sponsor
       name: sponsors
       widget: list
@@ -1766,6 +1745,16 @@ collections:
         name: url
         widget: string
         required: false
+- name: sponsorPackages
+  label: Pacchetti sponsor
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: sponsorPackages
+    label: Pacchetti sponsor
+    file: content/data.json
+    fields:
     - label: Pacchetti
       name: sponsorPackages
       widget: list
@@ -1792,23 +1781,110 @@ collections:
       - label: Testo bottone
         name: cta
         widget: string
-    - label: Classifica Prima squadra - generata automaticamente
-      name: standings
-      widget: hidden
-      required: false
-    - label: Classifica Under 21 - generata automaticamente
-      name: u21Standings
-      widget: hidden
-      required: false
-    - label: Vecchio social wall - non più usato
-      name: social
-      widget: hidden
-      required: false
-    - label: Statistiche storiche - non modificabili da CMS
-      name: historicalStats
-      widget: hidden
-      required: false
-    - label: Automazioni interne
-      name: automation
-      widget: hidden
-      required: false
+- name: staff
+  label: Staff
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: staff
+    label: Staff
+    file: content/data.json
+    fields:
+    - label: Staff
+      name: staff
+      widget: list
+      label_singular: membro
+      summary: '{{fields.name}} — {{fields.role}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Nome
+        name: name
+        widget: string
+      - label: Ruolo
+        name: role
+        widget: string
+      - label: Squadra
+        name: team
+        widget: select
+        options:
+        - Prima squadra
+        - Under 21
+      - label: Foto (URL)
+        name: photo
+        widget: string
+        required: false
+      - label: Bio
+        name: bio
+        widget: text
+        required: false
+- name: videos
+  label: Video
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: videos
+    label: Video
+    file: content/data.json
+    fields:
+    - label: Video
+      name: videos
+      widget: list
+      label_singular: video
+      summary: '{{fields.title}}'
+      fields:
+      - label: ID
+        name: id
+        widget: number
+        value_type: int
+      - label: Titolo
+        name: title
+        widget: string
+      - label: Categoria
+        name: category
+        widget: string
+      - label: Anteprima (URL)
+        name: thumb
+        widget: string
+        required: false
+      - label: Link video (URL)
+        name: url
+        widget: string
+- name: clubHistory
+  label: Club overview / Storia
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: clubHistory
+    label: Club overview / Storia
+    file: content/data.json
+    fields:
+    - label: Storia club
+      name: clubHistory
+      widget: object
+      fields:
+      - label: Titolo
+        name: title
+        widget: string
+      - label: Testo storia
+        name: paragraphs
+        widget: list
+        field:
+          label: Paragrafo
+          name: paragraph
+          widget: text
+      - label: Immagini storiche
+        name: images
+        widget: list
+        fields:
+        - label: Stagione
+          name: season
+          widget: string
+        - label: Immagine URL
+          name: image
+          widget: string
