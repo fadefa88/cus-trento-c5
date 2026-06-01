@@ -728,14 +728,15 @@ function newsShareButtons(n,compact=false){
   const safeUrl=safe(url);
   const safeTitle=safe(title);
   const payload=`data-news-id="${newsId}" data-news-url="${safeUrl}" data-news-title="${safeTitle}"`;
-  return `<div class="news-share ${compact?'compact':''}">
+  const stop=`onclick="event.stopPropagation()"`;
+  return `<div class="news-share ${compact?'compact':''}" onclick="event.stopPropagation()">
     <span class="share-label">Condividi</span>
-    <a class="share-action share-whatsapp" href="https://wa.me/?text=${encTitle}%20${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su WhatsApp"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-whatsapp"></i></span><span>WhatsApp</span></a>
-    <a class="share-action share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su Facebook"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-facebook-f"></i></span><span>Facebook</span></a>
-    <a class="share-action share-x" href="https://twitter.com/intent/tweet?text=${encTitle}&url=${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su X"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-x-twitter"></i></span><span>X</span></a>
-    <a class="share-action share-telegram" href="https://t.me/share/url?url=${encUrl}&text=${encTitle}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su Telegram"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-telegram"></i></span><span>Telegram</span></a>
-    <button class="share-action share-copy" type="button" data-news-share-action="copy" ${payload} aria-label="Copia link della news"><span class="share-icon" aria-hidden="true"><i class="fa-solid fa-link"></i></span><span>Copia link</span></button>
-    <button class="share-action share-native" type="button" data-news-share-action="native" ${payload} aria-label="Apri altre opzioni di condivisione"><span class="share-icon" aria-hidden="true"><i class="fa-solid fa-share-nodes"></i></span><span>Altro</span></button>
+    <a class="share-action share-whatsapp" href="https://wa.me/?text=${encTitle}%20${encUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su WhatsApp"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-whatsapp"></i></span><span>WhatsApp</span></a>
+    <a class="share-action share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su Facebook"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-facebook-f"></i></span><span>Facebook</span></a>
+    <a class="share-action share-x" href="https://twitter.com/intent/tweet?text=${encTitle}&url=${encUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su X"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-x-twitter"></i></span><span>X</span></a>
+    <a class="share-action share-telegram" href="https://t.me/share/url?url=${encUrl}&text=${encTitle}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su Telegram"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-telegram"></i></span><span>Telegram</span></a>
+    <button class="share-action share-copy" type="button" data-news-share-action="copy" ${payload} onclick="copyNewsLinkFromButton(this,event);return false;" aria-label="Copia link della news"><span class="share-icon" aria-hidden="true"><i class="fa-solid fa-link"></i></span><span>Copia link</span></button>
+    <button class="share-action share-native" type="button" data-news-share-action="native" ${payload} onclick="nativeShareNewsFromButton(this,event);return false;" aria-label="Apri altre opzioni di condivisione"><span class="share-icon" aria-hidden="true"><i class="fa-solid fa-share-nodes"></i></span><span>Altro</span></button>
   </div>`;
 }
 function showShareToast(message){
@@ -818,7 +819,7 @@ function setupNewsShareHandlers(){
     const payload=sharePayloadFromTrigger(trigger);
     if(action==='copy')copyNewsLink(payload);
     if(action==='native')nativeShareNews(payload);
-  }, true);
+  }, false);
 }
 function newsCards(items){
   if(!items.length)return `<div class="card card-pad empty-news"><h2>Nessuna news trovata</h2><p class="muted">Prova a cambiare categoria o testo di ricerca.</p></div>`;
@@ -895,6 +896,16 @@ window.searchNews=q=>searchNews(q);
 window.setNewsSearch=q=>setNewsSearch(q);
 window.submitNewsSearch=event=>submitNewsSearch(event);
 window.clearNewsSearch=()=>clearNewsSearch();
+function copyNewsLinkFromButton(button,event){
+  if(event){event.preventDefault();event.stopPropagation();}
+  return copyNewsLink(sharePayloadFromTrigger(button));
+}
+function nativeShareNewsFromButton(button,event){
+  if(event){event.preventDefault();event.stopPropagation();}
+  return nativeShareNews(sharePayloadFromTrigger(button));
+}
+window.copyNewsLinkFromButton=copyNewsLinkFromButton;
+window.nativeShareNewsFromButton=nativeShareNewsFromButton;
 window.copyNewsLink=id=>copyNewsLink(id);
 window.nativeShareNews=id=>nativeShareNews(id);
 
