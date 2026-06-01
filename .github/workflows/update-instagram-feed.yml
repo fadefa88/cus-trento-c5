@@ -45,12 +45,12 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          if git diff --quiet content/social-feed.json; then
+          if git diff --quiet content/social-feed.json img/social; then
             echo "No Instagram feed changes to commit."
             exit 0
           fi
 
-          git add content/social-feed.json
+          git add content/social-feed.json img/social
           git commit -m "Update Instagram social feed"
 
           BRANCH="${GITHUB_REF_NAME:-main}"
