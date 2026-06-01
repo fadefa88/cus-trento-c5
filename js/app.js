@@ -651,7 +651,7 @@ function socialGrid(perPlatform=2){
 function homeSocialSection(){return `<section class="section social-home-section"><div class="container"><div class="head"><div><span class="eyebrow">Social wall</span><h2 class="title">Ultimi Post</h2></div><button class="btn soft" onclick="route('social')">Apri social wall</button></div>${socialGrid(2)}</div></section>`;}
 function home(){setSEO("Home","CUS Trento C5: sito ufficiale con news, rosa, calendari e match center.");const next=nextFixture(state.fixtures);const last=lastResult(state.fixtures);const cus=findCusRow(state.standings);const top=[...state.roster].filter(p=>p.team==="Prima squadra").sort((a,b)=>(b.goals||0)-(a.goals||0))[0]||{};const pinned=latestNews(state.news);const cupNext=nextFixture(((state.cup||{}).fixtures)||[]);app.innerHTML=`<section class="hero"><div class="container hero-grid"><div><span class="tag">Serie C1</span><span class="tag ghost">Stagione 26/27</span><h1>More than a team. <span class="red">Trento</span> plays fast.</h1><p class="lead"><br><br></p><p class="lead"></p><div class="btns"><button class="btn" onclick="route('fixtures')">Prossima partita →</button><button class="btn light" onclick="route('squad')">Scopri la rosa</button><button class="btn ghost" onclick="route('matchday')">Info matchday</button></div></div><div><div class="match-card"><div class="kicker">Prossima partita</div><div class="match-teams"><div><div class="clubmark">${next.home&&next.home.includes("CUS")?"CUS":String(next.home||"").slice(0,2)}</div><b>${next.home||"CUS Trento"}</b></div><div><small>${next.date?fmt(next.date):"Da definire"}</small><div class="timebox">${next.time||"--:--"}</div></div><div><div class="clubmark">${next.away&&next.away.includes("CUS")?"CUS":String(next.away||"").slice(0,2)}</div><b>${next.away||"Avversario"}</b></div></div></div><div class="mini-grid"><div class="mini"><strong>#${cus.pos||"-"}</strong><span>Posizione<br>${cus.pts!=null?cus.pts+" pt":""}</span></div><div class="mini"><strong>${top.goals||0}</strong><span>Top scorer<br>${top.name||""}</span></div><div class="mini"><strong>${last.score||"-"}</strong><span>Ultimo risultato</span></div></div></div></div></section><section class="section"><div class="container grid grid-2"><article class="card feature clickable" onclick="route('article-${pinned.id}')"><img loading="lazy" decoding="async" src="${pinned.image}" alt="${pinned.title}"><div class="card-pad"><span class="badge">${pinned.category}</span><h2 style="margin-top:14px">${pinned.title}</h2><p class="muted">${pinned.excerpt}</p><button class="btn dark">Leggi articolo</button></div></article><article class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">Coppa</span><h2 style="font-size:34px;margin:0">${state.cup.title}</h2><p style="color:rgba(255,255,255,.75)">Stato: <b>${state.cup.status}</b></p>${cupFixture(cupNext,true)}<button class="btn ghost" style="margin-top:16px" onclick="route('coppa')">Vai alla Coppa</button></article></div></section><section class="section" style="padding-top:0"><div class="container grid grid-2"><div class="card card-pad home-stack"><h2>Calendario</h2>${(state.fixtures||[]).slice(0,3).map(fixtureRow).join("") || `<div class="fixture"><div class="fixture-top"><span>Calendario</span><span>Nuova stagione</span></div><div class="teams"><span>CUS Trento</span><span class="score">VS</span><span>Avversario</span></div><p class="muted">Inserisci le nuove partite dal CMS.</p></div>`}</div><div class="card card-pad"><h2>Classifica</h2>${homeStandingWidget(state.standings)}</div></div></section>${homeSocialSection()}${footer()}`;}
 function newsTags(n){
-  const raw=[n.category,...(Array.isArray(n.tags)?n.tags:[])].filter(Boolean);
+  const raw=[n&&n.category,...(Array.isArray(n&&n.tags)?n.tags:[])].filter(Boolean);
   return [...new Set(raw.map(x=>String(x).trim()).filter(Boolean))];
 }
 function newsHasTag(n,tag){
@@ -665,18 +665,38 @@ function normalizeSearchValue(value){
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 }
+function cleanImportedHtmlText(value){
+  return String(value || "")
+    .replace(/<script[\s\S]*?<\/script>/gi," ")
+    .replace(/<style[\s\S]*?<\/style>/gi," ")
+    .replace(/<nav[\s\S]*?<\/nav>/gi," ")
+    .replace(/<footer[\s\S]*?<\/footer>/gi," ")
+    .replace(/<[^>]+>/g," ")
+    .replace(/&nbsp;/gi," ")
+    .replace(/&amp;/gi,"&")
+    .replace(/\s+/g," ")
+    .trim();
+}
+function newsBodyText(n){
+  if(!n)return "";
+  if(Array.isArray(n.body))return n.body.join(" ");
+  if(typeof n.body==="string" && n.body.trim())return n.body;
+  // bodyHtml viene usato solo come ultima risorsa, ripulito dal boilerplate HTML.
+  return cleanImportedHtmlText(n.bodyHtml || "");
+}
 function newsSearchText(n){
+  // Non usare sourceUrl/sourceName/HTML grezzo: negli import SporTrentino sono molto ripetitivi
+  // e fanno sembrare che qualsiasi ricerca restituisca tutte le news.
   return normalizeSearchValue([
     n && n.title,
     n && n.excerpt,
-    n && n.author,
+    n && n.author && String(n.author).toLowerCase() !== "sportrentino.it" ? n.author : "",
     n && n.category,
+    n && n.originalCategory,
+    n && n.teamTag,
     n && n.date,
-    n && n.sourceName,
-    n && n.sourceUrl,
-    n && Array.isArray(n.body) ? n.body.join(" ") : n && n.body,
-    n && n.bodyHtml ? String(n.bodyHtml).replace(/<[^>]+>/g," ") : "",
-    newsTags(n || {}).join(" ")
+    newsTags(n || {}).join(" "),
+    newsBodyText(n || {})
   ].filter(Boolean).join(" "));
 }
 function articleShareUrl(n){
@@ -728,9 +748,9 @@ function news(){
   view.newsCategory=view.newsCategory||"Tutte";
   view.newsQuery=view.newsQuery||"";
   const escapedQuery=safe(view.newsQuery);
-  const searchBox=`<form class="search news-search" id="newsSearchForm" onsubmit="submitNewsSearch(event)" role="search" aria-label="Cerca nelle news">
+  const searchBox=`<form class="search news-search" id="newsSearchForm" role="search" aria-label="Cerca nelle news">
     <span aria-hidden="true">⌕</span>
-    <input id="newsSearchInput" name="q" value="${escapedQuery}" oninput="setNewsSearch(this.value)" placeholder="Cerca news per titolo, testo, autore..." aria-label="Cerca news" autocomplete="off">
+    <input id="newsSearchInput" name="q" value="${escapedQuery}" placeholder="Cerca news per titolo, testo, autore..." aria-label="Cerca news" autocomplete="off">
     <button class="news-search-button" type="submit">Cerca</button>
   </form>`;
   shell("Media center","News, match report e storie dal club",`<div class="toolbar">${cats.map(c=>`<button class="pill newsf ${view.newsCategory===c?"active":""}" onclick="setNewsCategory('${String(c).replace(/'/g,"\\'")}')">${safe(c)}</button>`).join("")}</div><div class="news-results-info" id="newsResultsInfo"></div><div class="grid grid-3" id="newsGrid"></div><div id="newsPager"></div>`,searchBox,"News, articoli e match report CUS Trento C5.");
@@ -744,10 +764,9 @@ function bindNewsSearch(){
     form.addEventListener("submit", submitNewsSearch);
   }
   if(input){
+    input.addEventListener("input", ()=>setNewsSearch(input.value));
     input.addEventListener("keydown", event=>{
-      if(event.key==="Enter"){
-        submitNewsSearch(event);
-      }
+      if(event.key==="Enter") submitNewsSearch(event);
     });
   }
 }
@@ -759,9 +778,11 @@ function submitNewsSearch(event){
   return false;
 }
 function setNewsCategory(cat){view.newsCategory=cat;view.newsPage=1;renderNewsList();}
-function setNewsSearch(q){view.newsQuery=String(q||"");view.newsPage=1;renderNewsList();}
-function setNewsCategory(cat){view.newsCategory=cat;view.newsPage=1;renderNewsList();}
-function setNewsSearch(q){view.newsQuery=String(q||"");view.newsPage=1;renderNewsList();}
+function setNewsSearch(q){
+  view.newsQuery=String(q||"");
+  view.newsPage=1;
+  renderNewsList();
+}
 function goNewsPage(page){view.newsPage=page;renderNewsList();}
 function filteredNewsItems(){
   const cat=view.newsCategory||"Tutte";
@@ -774,7 +795,8 @@ function renderNewsList(){
   const items=filteredNewsItems();
   const pg=paginate(items,view.newsPage,6);
   view.newsPage=pg.page;
-  const grid=$("#newsGrid"),pager=$("#newsPager"),info=$("#newsResultsInfo");
+  const grid=$("#newsGrid"),pager=$("#newsPager"),info=$("#newsResultsInfo"),input=$("#newsSearchInput");
+  if(input && input.value!==String(view.newsQuery||"")) input.value=String(view.newsQuery||"");
   if(grid)grid.innerHTML=newsCards(pg.items);
   if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goNewsPage");
   if(info){
