@@ -1010,3 +1010,27 @@ body.menu-open{
     text-align:center;
   }
 }
+
+/* News search submit button */
+.news-search-button{
+  appearance:none;
+  border:0;
+  border-radius:999px;
+  background:var(--ink);
+  color:#fff;
+  padding:8px 13px;
+  font-size:12px;
+  line-height:1;
+  font-weight:1000;
+  cursor:pointer;
+  transition:transform .18s ease, opacity .18s ease;
+}
+.news-search-button:hover{
+  transform:translateY(-1px);
+  opacity:.92;
+}
+@media(max-width:700px){
+  .news-search-button{
+    padding:8px 10px;
+  }
+}
