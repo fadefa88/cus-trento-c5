@@ -874,3 +874,121 @@ body.menu-open{
   #mobileMenu .mobile-quick button{min-height:60px !important;font-size:14px !important;}
   #mobileMenu .mobile-nav-item{font-size:16px !important;min-height:54px !important;}
 }
+
+
+/* News search and sharing */
+.news-search input{
+  min-width:min(360px,70vw);
+}
+
+.news-results-info{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:0 0 18px;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:800;
+}
+
+.news-results-info:empty{
+  display:none;
+}
+
+.news-card-actions{
+  margin-top:16px;
+}
+
+.news-share{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+  margin:18px 0 22px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 12px 28px rgba(9,9,11,.06);
+}
+
+.news-share span{
+  margin-right:4px;
+  color:#71717a;
+  font-size:11px;
+  font-weight:1000;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.news-share a,
+.news-share button{
+  appearance:none;
+  border:1px solid var(--line);
+  background:#f8fafc;
+  color:#09090b;
+  border-radius:999px;
+  padding:8px 11px;
+  font-size:12px;
+  line-height:1;
+  font-weight:1000;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease;
+}
+
+.news-share a:hover,
+.news-share button:hover{
+  transform:translateY(-1px);
+  background:#09090b;
+  border-color:#09090b;
+  color:#fff;
+}
+
+.news-share.compact{
+  margin:14px 0 0;
+  padding:0;
+  border:0;
+  box-shadow:none;
+  background:transparent;
+}
+
+.news-share.compact span{
+  flex-basis:100%;
+}
+
+.news-share.compact a,
+.news-share.compact button{
+  padding:7px 9px;
+  font-size:11px;
+}
+
+.article-share-bottom{
+  margin-top:30px;
+  border-top:1px solid var(--line);
+  padding-top:10px;
+}
+
+.empty-news{
+  grid-column:1/-1;
+}
+
+@media(max-width:700px){
+  .news-search{
+    width:100%;
+  }
+  .news-search input{
+    min-width:0;
+    width:100%;
+  }
+  .news-share{
+    gap:7px;
+    padding:10px;
+  }
+  .news-share a,
+  .news-share button{
+    flex:1 1 auto;
+    text-align:center;
+  }
+}
