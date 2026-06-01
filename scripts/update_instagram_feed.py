@@ -14,20 +14,27 @@ from urllib.parse import urlparse
 import requests
 
 
-DEFAULT_FEED_URL = "https://rss.app/feeds/v1.1/ZARGBanc4ELDomJR.json"
+DEFAULT_INSTAGRAM_FEED_URL = "https://rss.app/feeds/v1.1/ZARGBanc4ELDomJR.json"
+DEFAULT_TIKTOK_FEED_URL = "https://rss.app/feeds/v1.1/Xo03hvSH8G9qLSfy.json"
 DEFAULT_THUMBNAIL = "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png"
-
-
-IMAGE_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; CUS-Trento-C5-SocialFeedUpdater/1.0)",
-    "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-    "Referer": "https://www.instagram.com/",
-}
 
 
 FEED_HEADERS = {
     "User-Agent": "CUS-Trento-C5-SocialFeedUpdater/1.0",
     "Accept": "application/feed+json, application/json, */*",
+}
+
+IMAGE_HEADERS_BY_PLATFORM = {
+    "instagram": {
+        "User-Agent": "Mozilla/5.0 (compatible; CUS-Trento-C5-SocialFeedUpdater/1.0)",
+        "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "Referer": "https://www.instagram.com/",
+    },
+    "tiktok": {
+        "User-Agent": "Mozilla/5.0 (compatible; CUS-Trento-C5-SocialFeedUpdater/1.0)",
+        "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        "Referer": "https://www.tiktok.com/",
+    },
 }
 
 
@@ -55,7 +62,7 @@ def fetch_rss_app_json(feed_url: str) -> dict:
 
 
 def clean_text(value: str) -> str:
-    value = html.unescape(value or "")
+    value = html.unescape(str(value or ""))
     value = re.sub(r"\s+", " ", value).strip()
     return value
 
@@ -78,26 +85,33 @@ def image_extension(url: str, content_type: str = "") -> str:
     return ".jpg"
 
 
-def local_image_path_for(post_url: str, image_url: str, content_type: str = "") -> Path:
+def local_image_path_for(platform: str, post_url: str, image_url: str, content_type: str = "") -> Path:
     digest_source = post_url or image_url
     digest = hashlib.sha1(digest_source.encode("utf-8", errors="ignore")).hexdigest()[:16]
-    return Path("img/social") / f"instagram-{digest}{image_extension(image_url, content_type)}"
+    safe_platform = re.sub(r"[^a-z0-9_-]+", "", platform.lower()) or "social"
+    return Path("img/social") / f"{safe_platform}-{digest}{image_extension(image_url, content_type)}"
 
 
 def to_site_path(path: Path) -> str:
     return "/" + path.as_posix().lstrip("/")
 
 
-def download_image(image_url: str, post_url: str, repo_root: Path, existing_local_image: str = "") -> tuple[str, str]:
+def download_image(
+    platform: str,
+    image_url: str,
+    post_url: str,
+    repo_root: Path,
+    existing_local_image: str = "",
+) -> tuple[str, str]:
     """
-    Downloads a remote Instagram/RSS image into img/social and returns:
+    Downloads a remote RSS image into img/social and returns:
     - public site path, for example /img/social/instagram-xxxx.jpg
     - original remote image URL
 
-    If download fails, keeps a previous local image for the same post if available;
+    If download fails, keeps the previous local image for the same post if available;
     otherwise falls back to DEFAULT_THUMBNAIL.
     """
-    image_url = html.unescape(image_url or "").strip()
+    image_url = html.unescape(str(image_url or "")).strip()
     if not image_url or image_url == DEFAULT_THUMBNAIL:
         return existing_local_image or DEFAULT_THUMBNAIL, image_url
 
@@ -106,18 +120,20 @@ def download_image(image_url: str, post_url: str, repo_root: Path, existing_loca
         if existing_file.exists() and existing_file.stat().st_size > 0:
             return existing_local_image, image_url
 
+    headers = IMAGE_HEADERS_BY_PLATFORM.get(platform.lower(), IMAGE_HEADERS_BY_PLATFORM["instagram"])
+
     try:
-        with requests.get(image_url, timeout=45, headers=IMAGE_HEADERS, stream=True) as response:
+        with requests.get(image_url, timeout=45, headers=headers, stream=True) as response:
             response.raise_for_status()
             content_type = response.headers.get("Content-Type", "")
             if content_type and not content_type.lower().startswith("image/"):
                 raise ValueError(f"unexpected content type: {content_type}")
 
-            relative_path = local_image_path_for(post_url, image_url, content_type)
+            relative_path = local_image_path_for(platform, post_url, image_url, content_type)
             output_path = repo_root / relative_path
             output_path.parent.mkdir(parents=True, exist_ok=True)
 
-            max_bytes = 10 * 1024 * 1024
+            max_bytes = 12 * 1024 * 1024
             total = 0
             with output_path.open("wb") as f:
                 for chunk in response.iter_content(chunk_size=64 * 1024):
@@ -133,24 +149,39 @@ def download_image(image_url: str, post_url: str, repo_root: Path, existing_loca
 
             return to_site_path(relative_path), image_url
     except Exception as exc:
-        print(f"WARN: image download failed for {post_url or image_url}: {exc}", flush=True)
+        print(f"WARN: image download failed for {platform} {post_url or image_url}: {exc}", flush=True)
         return existing_local_image or DEFAULT_THUMBNAIL, image_url
 
 
 def extract_remote_image(item: dict) -> str:
-    image = item.get("image") or ""
+    image = item.get("image") or item.get("banner_image") or ""
     if image:
         return html.unescape(str(image))
 
     attachments = item.get("attachments") or []
     for attachment in attachments:
-        if isinstance(attachment, dict) and attachment.get("url"):
+        if not isinstance(attachment, dict):
+            continue
+        if attachment.get("image"):
+            return html.unescape(str(attachment["image"]))
+        if attachment.get("url") and str(attachment.get("mime_type", "")).startswith("image/"):
+            return html.unescape(str(attachment["url"]))
+        if attachment.get("url"):
             return html.unescape(str(attachment["url"]))
 
     return ""
 
 
-def normalize_item(item: dict, index: int, repo_root: Path, existing_by_url: dict[str, dict]) -> dict:
+def normalize_item(
+    item: dict,
+    index: int,
+    platform: str,
+    handle: str,
+    repo_root: Path,
+    existing_by_url: dict[str, dict],
+) -> dict:
+    platform_lower = platform.lower()
+    platform_label = "Instagram" if platform_lower == "instagram" else "TikTok"
     post_url = html.unescape(str(item.get("url") or item.get("external_url") or "")).strip()
     remote_image = extract_remote_image(item)
 
@@ -160,6 +191,7 @@ def normalize_item(item: dict, index: int, repo_root: Path, existing_by_url: dic
         existing_local_image = ""
 
     local_image, original_image = download_image(
+        platform=platform_lower,
         image_url=remote_image,
         post_url=post_url,
         repo_root=repo_root,
@@ -170,21 +202,22 @@ def normalize_item(item: dict, index: int, repo_root: Path, existing_by_url: dic
         item.get("content_text")
         or item.get("summary")
         or item.get("title")
-        or "Post Instagram"
+        or f"Post {platform_label}"
     )
 
-    title = clean_text(item.get("title") or text or "Post Instagram")
+    title = clean_text(item.get("title") or text or f"Post {platform_label}")
     if len(title) > 120:
         title = title[:117].rstrip() + "..."
 
     published = str(item.get("date_published") or item.get("date_modified") or "")
+    item_id = item.get("id") or hashlib.sha1((post_url or f"{platform}-{index}").encode()).hexdigest()[:12]
 
     return {
-        "id": f"instagram-{item.get('id') or hashlib.sha1((post_url or str(index)).encode()).hexdigest()[:12]}",
-        "platform": "Instagram",
+        "id": f"{platform_lower}-{item_id}",
+        "platform": platform_label,
         "source": "rss.app",
-        "username": "@custrentoc5",
-        "handle": "@custrentoc5",
+        "username": handle,
+        "handle": handle,
         "title": title,
         "text": text,
         "caption": text,
@@ -212,19 +245,28 @@ def existing_posts(payload: Any) -> tuple[list[dict], bool]:
     return [], False
 
 
-def merge_instagram_posts(existing: list[dict], instagram_posts: list[dict]) -> list[dict]:
-    non_instagram = [
-        item for item in existing
-        if str(item.get("platform") or item.get("source") or "").lower() != "instagram"
-    ]
+def platform_key(item: dict) -> str:
+    return str(item.get("platform") or "").strip().lower()
 
-    merged = instagram_posts + non_instagram
+
+def merge_social_posts(existing: list[dict], imported_by_platform: dict[str, list[dict]]) -> list[dict]:
+    replaced_platforms = {k.lower() for k, v in imported_by_platform.items() if v}
+
+    kept = [item for item in existing if platform_key(item) not in replaced_platforms]
+
+    ordered_imports: list[dict] = []
+    for platform in ("instagram", "tiktok"):
+        ordered_imports.extend(imported_by_platform.get(platform, []))
+
+    merged = ordered_imports + kept
 
     seen = set()
     unique = []
     for item in merged:
         key = item.get("url") or item.get("permalink") or item.get("id")
-        if not key or key in seen:
+        if not key:
+            continue
+        if key in seen:
             continue
         seen.add(key)
         unique.append(item)
@@ -232,12 +274,51 @@ def merge_instagram_posts(existing: list[dict], instagram_posts: list[dict]) -> 
     return unique
 
 
+def read_platform_feed(
+    platform: str,
+    feed_url: str,
+    limit: int,
+    handle: str,
+    repo_root: Path,
+    existing_by_url: dict[str, dict],
+) -> list[dict]:
+    print(f"Reading {platform} JSON feed: {feed_url}")
+    try:
+        payload = fetch_rss_app_json(feed_url)
+    except Exception as exc:
+        print(f"WARN: failed to fetch {platform} RSS.app JSON feed: {exc}", flush=True)
+        return []
+
+    raw_items = payload.get("items") or []
+    print(f"{platform} RSS.app items found: {len(raw_items)}")
+
+    posts = []
+    for index, item in enumerate(raw_items[:limit], start=1):
+        normalized = normalize_item(item, index, platform, handle, repo_root, existing_by_url)
+        if normalized.get("url"):
+            posts.append(normalized)
+
+    print(f"Usable {platform} posts: {len(posts)}")
+    return posts
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--feed-url", default=DEFAULT_FEED_URL)
+    parser.add_argument("--instagram-feed-url", default=DEFAULT_INSTAGRAM_FEED_URL)
+    parser.add_argument("--tiktok-feed-url", default=DEFAULT_TIKTOK_FEED_URL)
+    parser.add_argument("--feed-url", default="", help="Backward-compatible alias for --instagram-feed-url")
     parser.add_argument("--feed", default="content/social-feed.json")
-    parser.add_argument("--limit", type=int, default=4)
+    parser.add_argument("--instagram-limit", type=int, default=4)
+    parser.add_argument("--tiktok-limit", type=int, default=4)
+    parser.add_argument("--limit", type=int, default=0, help="Backward-compatible limit applied to Instagram only")
+    parser.add_argument("--instagram-handle", default="@custrentoc5")
+    parser.add_argument("--tiktok-handle", default="@custrentoc5")
     args = parser.parse_args()
+
+    if args.feed_url:
+        args.instagram_feed_url = args.feed_url
+    if args.limit and args.limit > 0:
+        args.instagram_limit = args.limit
 
     repo_root = Path.cwd()
     feed_path = repo_root / args.feed
@@ -251,29 +332,36 @@ def main() -> int:
     }
 
     print(f"Existing social feed posts: {len(old_posts)}")
-    print(f"Reading Instagram JSON feed: {args.feed_url}")
 
-    try:
-        payload = fetch_rss_app_json(args.feed_url)
-    except Exception as exc:
-        print(f"WARN: failed to fetch RSS.app JSON feed: {exc}", flush=True)
-        print("Keeping existing social-feed.json unchanged.")
+    instagram_posts = read_platform_feed(
+        platform="instagram",
+        feed_url=args.instagram_feed_url,
+        limit=args.instagram_limit,
+        handle=args.instagram_handle,
+        repo_root=repo_root,
+        existing_by_url=existing_by_url,
+    )
+
+    tiktok_posts = read_platform_feed(
+        platform="tiktok",
+        feed_url=args.tiktok_feed_url,
+        limit=args.tiktok_limit,
+        handle=args.tiktok_handle,
+        repo_root=repo_root,
+        existing_by_url=existing_by_url,
+    )
+
+    if not instagram_posts and not tiktok_posts:
+        print("WARN: no usable social posts found. Keeping existing feed unchanged.")
         return 0
 
-    raw_items = payload.get("items") or []
-    print(f"RSS.app items found: {len(raw_items)}")
-
-    instagram_posts = []
-    for index, item in enumerate(raw_items[: args.limit], start=1):
-        normalized = normalize_item(item, index, repo_root, existing_by_url)
-        if normalized.get("url"):
-            instagram_posts.append(normalized)
-
-    if not instagram_posts:
-        print("WARN: no usable Instagram posts found. Keeping existing feed unchanged.")
-        return 0
-
-    new_posts = merge_instagram_posts(old_posts, instagram_posts)
+    new_posts = merge_social_posts(
+        old_posts,
+        {
+            "instagram": instagram_posts,
+            "tiktok": tiktok_posts,
+        },
+    )
 
     if output_as_list:
         new_payload = new_posts
@@ -281,7 +369,8 @@ def main() -> int:
         new_payload = {
             **(existing_payload if isinstance(existing_payload, dict) else {}),
             "updatedAt": datetime.now(timezone.utc).isoformat(),
-            "instagramFeedUrl": args.feed_url,
+            "instagramFeedUrl": args.instagram_feed_url,
+            "tiktokFeedUrl": args.tiktok_feed_url,
             "posts": new_posts,
         }
         new_payload.pop("items", None)
@@ -296,6 +385,7 @@ def main() -> int:
     save_json(feed_path, new_payload)
 
     print(f"Imported Instagram posts: {len(instagram_posts)}")
+    print(f"Imported TikTok posts: {len(tiktok_posts)}")
     print(f"Total social feed posts now: {len(new_posts)}")
     print("Images saved under img/social when available.")
     return 0
