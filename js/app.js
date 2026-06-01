@@ -411,8 +411,39 @@ function latestNews(list){
   if(pinned) return pinned;
   return [...(list||[])].sort((a,b)=>(_d(b.date)||0)-(_d(a.date)||0))[0] || {};
 }
-function route(id){location.hash=id;current=id;window.scrollTo(0,0);render();}
-function toggleMobile(){$("#mobileMenu").classList.toggle("hidden");renderNav();}
+function closeMobileMenu(){
+  const menu=$("#mobileMenu");
+  const toggle=document.querySelector(".mobile-toggle");
+  if(menu){
+    menu.classList.remove("open");
+    menu.setAttribute("aria-hidden","true");
+  }
+  if(toggle)toggle.setAttribute("aria-expanded","false");
+  document.body.classList.remove("menu-open");
+}
+function openMobileMenu(){
+  const menu=$("#mobileMenu");
+  const toggle=document.querySelector(".mobile-toggle");
+  if(menu){
+    renderNav();
+    menu.classList.add("open");
+    menu.setAttribute("aria-hidden","false");
+  }
+  if(toggle)toggle.setAttribute("aria-expanded","true");
+  document.body.classList.add("menu-open");
+}
+function route(id){
+  closeMobileMenu();
+  location.hash=id;
+  current=id;
+  window.scrollTo(0,0);
+  render();
+}
+function toggleMobile(){
+  const menu=$("#mobileMenu");
+  if(menu&&menu.classList.contains("open"))closeMobileMenu();
+  else openMobileMenu();
+}
 window.addEventListener("hashchange",()=>{current=location.hash.replace("#","")||"home";render();});
 function setSEO(title,desc,img){document.title=title+" | CUS Trento C5";$("#metaDescription").setAttribute("content",desc);$("#ogTitle").setAttribute("content",title);$("#ogDescription").setAttribute("content",desc);if(img)$("#ogImage").setAttribute("content",img);$("#canonical").setAttribute("href",location.href.split("#")[0]+"#"+current);}
 function active(id){return current===id||current.startsWith(id+"-");}
