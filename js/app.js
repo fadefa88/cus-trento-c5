@@ -506,10 +506,10 @@ function standingsRuleLabel(row, rows, isU21=false){
   const cls=standingsRuleClass(row,rows,isU21);
   if(!cls)return "";
   if(isU21){
-    if(cls==="promoted")return "Promossa in C2";
+    if(cls==="promoted")return "Promozione in C2";
     if(cls==="playoff")return "Playoff";
   }
-  if(cls==="promoted")return "Promossa in B";
+  if(cls==="promoted")return "Promozione in B";
   if(cls==="playoff")return "Playoff";
   if(cls==="playout")return "Playout";
   if(cls==="relegated")return "Retrocessione in C2";
