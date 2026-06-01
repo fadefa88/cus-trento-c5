@@ -1,4 +1,4 @@
-name: Update Instagram feed from widgets
+name: Update social feed from widgets
 
 on:
   workflow_dispatch:
@@ -14,14 +14,14 @@ on:
           - elfsight
           - embedsocial
   schedule:
-    # Every 24 hours. Uses Elfsight + EmbedSocial as data sources. Only Elfsight and EmbedSocial are used.
+    # Every 24 hours. Imports Instagram from Elfsight/EmbedSocial and TikTok from RSS-Bridge JSON.
     - cron: "23 5 * * *"
 
 permissions:
   contents: write
 
 jobs:
-  update-instagram-feed:
+  update-social-feed:
     runs-on: ubuntu-latest
 
     steps:
@@ -42,7 +42,7 @@ jobs:
           pip install requests playwright
           python -m playwright install --with-deps chromium
 
-      - name: Update Instagram feed from Elfsight and EmbedSocial
+      - name: Update Instagram and TikTok social feed
         run: |
           SOURCE="${{ github.event.inputs.source }}"
           if [ -z "$SOURCE" ]; then
@@ -54,6 +54,10 @@ jobs:
             --elfsight-app-id "017a8b39-9a1b-46d1-b742-cb533321bea1" \
             --embedsocial-ref "9abb7ef43c2b80e9cc04e6d7b00fb4d4ebd3e83b" \
             --limit 12 \
+            --instagram-handle "@custrentoc5" \
+            --tiktok-feed-url "https://rss-bridge.sans-nuage.fr/?action=display&bridge=TikTokBridge&context=By+user&username=%40custrentoc5&format=Json" \
+            --tiktok-limit 12 \
+            --tiktok-handle "@custrentoc5" \
             --feed content/social-feed.json
 
       - name: Validate JSON
@@ -71,7 +75,7 @@ jobs:
           fi
 
           git add content/social-feed.json img/social
-          git commit -m "Update Instagram feed"
+          git commit -m "Update social feed"
 
           BRANCH="${GITHUB_REF_NAME:-main}"
 
@@ -80,7 +84,7 @@ jobs:
             git fetch origin "$BRANCH"
             git rebase "origin/$BRANCH"
             if git push origin HEAD:"$BRANCH"; then
-              echo "Instagram feed update pushed."
+              echo "Social feed update pushed."
               exit 0
             fi
             sleep 3
