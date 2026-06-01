@@ -37,7 +37,7 @@ IMAGE_HEADERS = {
 
 INSTAGRAM_URL_RE = re.compile(r"https?:\\/\\/(?:www\\.)?instagram\\.com\\/(?:p|reel|tv)\\/[A-Za-z0-9_-]+[^\\s\"'<>)]*", re.I)
 IMAGE_URL_RE = re.compile(r"https?:\\/\\/[^\\s\"'<>)]*?(?:\\.jpg|\\.jpeg|\\.png|\\.webp)(?:\\?[^\\s\"'<>)]*)?", re.I)
-TIKTOK_URL_RE = re.compile(r"https?:\/\/(?:www\.)?tiktok\.com\/[^\s\"'<>)]*", re.I)
+TIKTOK_URL_RE = re.compile(r"https?:\\/\\/(?:www\\.)?tiktok\\.com\\/[^\\s\"'<>)]*", re.I)
 
 EXTRACT_POSTS_JS = r"""
 (() => {
@@ -235,6 +235,87 @@ EXTRACT_POSTS_JS = r"""
   }
 
   return items;
+})()
+"""
+
+
+EXTRACT_VISIBLE_IMAGES_JS = r"""
+(() => {
+  const absolutize = (url) => {
+    try { return new URL(String(url || ""), location.href).href; } catch (_) { return ""; }
+  };
+  const bestFromSrcset = (srcset) => {
+    if (!srcset) return "";
+    const entries = String(srcset).split(",").map(x => x.trim()).filter(Boolean);
+    const scored = entries.map(entry => {
+      const parts = entry.split(/\s+/);
+      const url = parts[0] || "";
+      const descriptor = parts[1] || "";
+      const score = descriptor.endsWith("w") ? Number(descriptor.slice(0, -1)) || 0 : 0;
+      return {url, score};
+    }).filter(x => x.url);
+    scored.sort((a, b) => b.score - a.score);
+    return scored[0]?.url || entries[entries.length - 1]?.split(/\s+/)[0] || "";
+  };
+  const cleanImage = (url) => {
+    const src = absolutize(url);
+    const lower = src.toLowerCase();
+    if (!src) return "";
+    if (lower.startsWith("data:image/svg") || lower.startsWith("blob:")) return "";
+    if (["logo", "branding", "embedsocial-logo", "elfsight", "powered"].some(x => lower.includes(x))) return "";
+    return src;
+  };
+  const isVisible = (el) => {
+    if (!el || !el.getBoundingClientRect) return false;
+    const r = el.getBoundingClientRect();
+    const s = window.getComputedStyle(el);
+    return r.width > 40 && r.height > 40 && s.display !== "none" && s.visibility !== "hidden" && Number(s.opacity || 1) !== 0;
+  };
+  const walkDeep = (root) => {
+    const out = [];
+    const visit = (node) => {
+      if (!node) return;
+      if (node.nodeType === 1) {
+        out.push(node);
+        if (node.shadowRoot) visit(node.shadowRoot);
+      }
+      for (const child of node.children || []) visit(child);
+    };
+    visit(root);
+    return out;
+  };
+  const candidates = [];
+  for (const node of walkDeep(document.documentElement || document.body || document)) {
+    if (!isVisible(node)) continue;
+    const tag = (node.tagName || "").toLowerCase();
+    let url = "";
+    if (tag === "img") {
+      url = node.currentSrc || node.src || node.getAttribute("data-src") || node.getAttribute("data-original") || node.getAttribute("data-lazy-src") || node.getAttribute("data-ll-src") || bestFromSrcset(node.getAttribute("srcset"));
+    } else if (tag === "source") {
+      url = bestFromSrcset(node.getAttribute("srcset"));
+    } else if (tag === "video") {
+      url = node.poster || node.getAttribute("data-poster") || "";
+    }
+    if (!url) {
+      const style = window.getComputedStyle(node);
+      const bg = style.backgroundImage || node.style?.backgroundImage || "";
+      const match = bg.match(/url\(["']?([^"')]+)["']?\)/i);
+      if (match) url = match[1];
+    }
+    url = cleanImage(url);
+    if (!url) continue;
+    const rect = node.getBoundingClientRect();
+    candidates.push({url, area: rect.width * rect.height, top: rect.top, left: rect.left});
+  }
+  const seen = new Set();
+  return candidates
+    .sort((a, b) => (a.top - b.top) || (a.left - b.left) || (b.area - a.area))
+    .filter(item => {
+      if (seen.has(item.url)) return false;
+      seen.add(item.url);
+      return true;
+    })
+    .map(item => item.url);
 })()
 """
 
@@ -478,10 +559,23 @@ def extract_posts_with_playwright(source: str, elfsight_app_id: str, embedsocial
         for frame in page.frames:
             try:
                 items = frame.evaluate(EXTRACT_POSTS_JS)
+                visible_images = []
+                try:
+                    maybe_images = frame.evaluate(EXTRACT_VISIBLE_IMAGES_JS)
+                    if isinstance(maybe_images, list):
+                        visible_images = [str(x) for x in maybe_images if x]
+                except Exception:
+                    visible_images = []
+
                 if isinstance(items, list):
+                    image_idx = 0
                     for item in items:
-                        if isinstance(item, dict):
-                            item["_source"] = source
+                        if not isinstance(item, dict):
+                            continue
+                        item["_source"] = source
+                        if not item.get("image") and image_idx < len(visible_images):
+                            item["image"] = visible_images[image_idx]
+                            image_idx += 1
                     collected.extend(items)
             except Exception:
                 continue
@@ -520,6 +614,39 @@ def local_image_path_for(post_url: str, image_url: str, content_type: str = "", 
     return Path("img/social") / f"{safe_prefix}-{digest}{image_extension(image_url, content_type)}"
 
 
+
+def instagram_shortcode(post_url: str) -> tuple[str, str]:
+    """Return (kind, shortcode) for Instagram p/reel/tv URLs."""
+    normalized = normalize_instagram_url(post_url)
+    if not normalized:
+        return "", ""
+    parts = [p for p in urlparse(normalized).path.split("/") if p]
+    if len(parts) >= 2 and parts[0].lower() in {"p", "reel", "tv"}:
+        return parts[0].lower(), parts[1]
+    return "", ""
+
+
+def instagram_media_fallback_urls(post_url: str) -> list[str]:
+    """Undocumented public media endpoint fallback used only when widget image extraction is empty/blocked."""
+    kind, shortcode = instagram_shortcode(post_url)
+    if not shortcode:
+        return []
+    candidates = []
+    # /p/<shortcode>/media usually returns the thumbnail/image even for many reels.
+    candidates.append(f"https://www.instagram.com/p/{shortcode}/media/?size=l")
+    if kind != "p":
+        candidates.append(f"https://www.instagram.com/{kind}/{shortcode}/media/?size=l")
+    return candidates
+
+
+def looks_like_local_social_image(value: str, repo_root: Path) -> bool:
+    value = str(value or "")
+    if not value.startswith("/img/social/"):
+        return False
+    candidate = repo_root / value.lstrip("/")
+    return candidate.exists() and candidate.stat().st_size > 0
+
+
 def to_site_path(path: Path) -> str:
     return "/" + path.as_posix().lstrip("/")
 
@@ -532,11 +659,17 @@ def download_image(image_url: str, post_url: str, repo_root: Path, existing_loca
         if existing_file.exists() and existing_file.stat().st_size > 0:
             return existing_local_image, image_url
 
+    if image_url.startswith("/img/social/") and looks_like_local_social_image(image_url, repo_root):
+        return image_url, image_url
+
     if not image_url or image_url.startswith("data:") or image_url.startswith("blob:"):
         return existing_local_image or DEFAULT_THUMBNAIL, image_url
 
     try:
-        with requests.get(image_url, timeout=45, headers=IMAGE_HEADERS, stream=True, allow_redirects=True) as response:
+        request_headers = dict(IMAGE_HEADERS)
+        if post_url:
+            request_headers["Referer"] = post_url
+        with requests.get(image_url, timeout=45, headers=request_headers, stream=True, allow_redirects=True) as response:
             response.raise_for_status()
             content_type = response.headers.get("Content-Type", "")
             if content_type and not content_type.lower().startswith("image/"):
@@ -564,6 +697,30 @@ def download_image(image_url: str, post_url: str, repo_root: Path, existing_loca
     except Exception as exc:
         print(f"WARN: image download failed for {post_url or image_url}: {exc}", flush=True)
         return existing_local_image or DEFAULT_THUMBNAIL, image_url
+
+
+
+def download_best_image(image_urls: list[str], post_url: str, repo_root: Path, existing_local_image: str = "", prefix: str = "instagram") -> tuple[str, str]:
+    """Try multiple image candidates and return the first real local social image."""
+    seen: set[str] = set()
+    candidates: list[str] = []
+    for image_url in image_urls:
+        image_url = html.unescape(str(image_url or "")).strip()
+        if image_url and image_url not in seen:
+            seen.add(image_url)
+            candidates.append(image_url)
+
+    if existing_local_image and looks_like_local_social_image(existing_local_image, repo_root):
+        return existing_local_image, candidates[0] if candidates else ""
+
+    last_local = existing_local_image or DEFAULT_THUMBNAIL
+    last_remote = ""
+    for image_url in candidates:
+        local, remote = download_image(image_url, post_url, repo_root, existing_local_image="", prefix=prefix)
+        last_local, last_remote = local, remote
+        if looks_like_local_social_image(local, repo_root):
+            return local, remote
+    return last_local, last_remote
 
 
 def existing_posts(payload: Any) -> tuple[list[dict], bool]:
@@ -602,8 +759,16 @@ def normalize_item(raw: dict, repo_root: Path, existing_by_url: dict[str, dict],
     if existing_local_image.startswith("http"):
         existing_local_image = ""
 
-    local_image, remote_image = download_image(
-        image_url=str(raw.get("image") or ""),
+    raw_image = str(raw.get("image") or raw.get("thumbnail") or raw.get("remoteImage") or "")
+    image_candidates = [raw_image]
+    if not raw_image or raw_image.startswith("data:") or raw_image.startswith("blob:"):
+        image_candidates.extend(instagram_media_fallback_urls(post_url))
+    else:
+        # Keep the public Instagram media endpoint as a fallback if the widget image URL is blocked.
+        image_candidates.extend(instagram_media_fallback_urls(post_url))
+
+    local_image, remote_image = download_best_image(
+        image_urls=image_candidates,
         post_url=post_url,
         repo_root=repo_root,
         existing_local_image=existing_local_image,
@@ -881,6 +1046,87 @@ def merge_social_posts(existing: list[dict], imported_instagram: list[dict], imp
     return unique
 
 
+
+def compact_post_for_report(item: dict) -> dict:
+    platform = str(item.get("platform") or "")
+    raw_url = str(item.get("url") or item.get("permalink") or "")
+    if platform.lower() == "instagram":
+        normalized_url = normalize_instagram_url(raw_url)
+    elif platform.lower() == "tiktok":
+        normalized_url = normalize_tiktok_url(raw_url)
+    else:
+        normalized_url = raw_url
+    return {
+        "platform": platform,
+        "source": item.get("source") or item.get("importedFrom") or "",
+        "url": normalized_url or raw_url,
+        "title": clean_text(item.get("title") or ""),
+        "caption": clean_text(item.get("caption") or item.get("text") or ""),
+        "image": item.get("image") or item.get("thumbnail") or "",
+        "remoteImage": item.get("remoteImage") or "",
+        "date": item.get("date") or "",
+        "publishedAt": item.get("publishedAt") or "",
+    }
+
+
+def print_post_summary(label: str, posts: list[dict]) -> None:
+    print(f"\n{label}: {len(posts)}")
+    for idx, item in enumerate(posts, 1):
+        compact = compact_post_for_report(item)
+        caption = compact["caption"].replace("\n", " ")
+        if len(caption) > 90:
+            caption = caption[:87].rstrip() + "..."
+        print(f"  {idx}. [{compact['platform'] or 'unknown'}] {compact['url']}")
+        print(f"     source={compact['source'] or '-'} date={compact['date'] or '-'} image={compact['image'] or '-'}")
+        print(f"     caption={caption or '-'}")
+
+
+def build_import_report(old_posts: list[dict], imported_instagram: list[dict], imported_tiktok: list[dict], new_posts: list[dict], source_hits: dict[str, int]) -> dict:
+    old_instagram_by_url = {}
+    old_tiktok_by_url = {}
+    for item in old_posts:
+        platform = str(item.get("platform") or "").lower()
+        if "instagram" in platform:
+            url = normalize_instagram_url(str(item.get("url") or item.get("permalink") or ""))
+            if url:
+                old_instagram_by_url[url] = item
+        elif "tiktok" in platform:
+            url = normalize_tiktok_url(str(item.get("url") or item.get("permalink") or ""))
+            if url:
+                old_tiktok_by_url[url] = item
+
+    def comparison(imported: list[dict], old_by_url: dict[str, dict], platform: str) -> list[dict]:
+        rows = []
+        for item in imported:
+            url = normalize_instagram_url(str(item.get("url") or item.get("permalink") or "")) if platform == "instagram" else normalize_tiktok_url(str(item.get("url") or item.get("permalink") or ""))
+            old = old_by_url.get(url or "", {})
+            new_caption = clean_text(item.get("caption") or item.get("text") or "")
+            old_caption = clean_text(old.get("caption") or old.get("text") or "")
+            new_image = str(item.get("image") or item.get("thumbnail") or "")
+            old_image = str(old.get("image") or old.get("thumbnail") or "")
+            rows.append({
+                "url": url,
+                "existedBefore": bool(old),
+                "captionChanged": bool(old) and new_caption != old_caption,
+                "imageChanged": bool(old) and new_image != old_image,
+                "dateChanged": bool(old) and str(item.get("date") or "") != str(old.get("date") or ""),
+                "old": compact_post_for_report(old) if old else None,
+                "new": compact_post_for_report(item),
+            })
+        return rows
+
+    return {
+        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "sourceHits": source_hits,
+        "oldInstagramCount": len(old_instagram_by_url),
+        "newInstagramCount": len(imported_instagram),
+        "oldTikTokCount": len(old_tiktok_by_url),
+        "newTikTokCount": len(imported_tiktok),
+        "instagramComparison": comparison(imported_instagram, old_instagram_by_url, "instagram"),
+        "tiktokComparison": comparison(imported_tiktok, old_tiktok_by_url, "tiktok"),
+        "finalPosts": [compact_post_for_report(item) for item in new_posts],
+    }
+
 def source_order(source: str) -> list[str]:
     source = source.lower().strip()
     if source == "auto":
@@ -907,6 +1153,7 @@ def main() -> int:
     parser.add_argument("--tiktok-feed-url", default=DEFAULT_TIKTOK_FEED_URL)
     parser.add_argument("--tiktok-limit", type=int, default=12)
     parser.add_argument("--tiktok-handle", default=DEFAULT_TIKTOK_HANDLE)
+    parser.add_argument("--report", default="social-feed-import-report.json", help="Write a debug/audit report with old vs imported posts.")
     args = parser.parse_args()
 
     repo_root = Path.cwd()
@@ -972,6 +1219,17 @@ def main() -> int:
         return 0
 
     new_posts = merge_social_posts(old_posts, instagram_posts, tiktok_posts)
+
+    print_post_summary("Imported Instagram posts", instagram_posts)
+    print_post_summary("Imported TikTok posts", tiktok_posts)
+
+    report_path = repo_root / args.report
+    try:
+        report = build_import_report(old_posts, instagram_posts, tiktok_posts, new_posts, {**source_hits, "tiktok": len(tiktok_posts)})
+        save_json(report_path, report)
+        print(f"Import report written to: {args.report}")
+    except Exception as exc:
+        print(f"WARN: could not write import report: {exc}", flush=True)
 
     if output_as_list:
         new_payload = new_posts
