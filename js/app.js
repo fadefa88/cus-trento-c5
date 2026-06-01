@@ -703,41 +703,102 @@ function articleShareUrl(n){
   const base=location.origin+location.pathname;
   return `${base}#article-${encodeURIComponent(n.id)}`;
 }
+function findNewsById(id){
+  return (state.news||[]).find(x=>String(x.id)===String(id));
+}
 function newsShareButtons(n,compact=false){
   const url=articleShareUrl(n);
   const encUrl=encodeURIComponent(url);
   const title=String(n.title||"News CUS Trento C5");
   const encTitle=encodeURIComponent(title);
-  const stop=compact?' onclick="event.stopPropagation()"':"";
-  return `<div class="news-share ${compact?'compact':''}"${stop}>
-    <span>Condividi</span>
-    <a href="https://wa.me/?text=${encTitle}%20${encUrl}" target="_blank" rel="noopener noreferrer" aria-label="Condividi su WhatsApp">WhatsApp</a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=${encUrl}" target="_blank" rel="noopener noreferrer" aria-label="Condividi su Facebook">Facebook</a>
-    <a href="https://twitter.com/intent/tweet?text=${encTitle}&url=${encUrl}" target="_blank" rel="noopener noreferrer" aria-label="Condividi su X">X</a>
-    <a href="https://t.me/share/url?url=${encUrl}&text=${encTitle}" target="_blank" rel="noopener noreferrer" aria-label="Condividi su Telegram">Telegram</a>
-    <button type="button" onclick="copyNewsLink('${String(n.id).replace(/'/g,"\\'")}')">Copia link</button>
-    <button type="button" onclick="nativeShareNews('${String(n.id).replace(/'/g,"\\'")}')">Altro</button>
+  const newsId=safe(String(n.id||""));
+  return `<div class="news-share ${compact?'compact':''}">
+    <span class="share-label">Condividi</span>
+    <a class="share-action share-whatsapp" href="https://wa.me/?text=${encTitle}%20${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su WhatsApp"><span class="share-icon" aria-hidden="true">WA</span><span>WhatsApp</span></a>
+    <a class="share-action share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su Facebook"><span class="share-icon" aria-hidden="true">f</span><span>Facebook</span></a>
+    <a class="share-action share-x" href="https://twitter.com/intent/tweet?text=${encTitle}&url=${encUrl}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su X"><span class="share-icon" aria-hidden="true">𝕏</span><span>X</span></a>
+    <a class="share-action share-telegram" href="https://t.me/share/url?url=${encUrl}&text=${encTitle}" target="_blank" rel="noopener noreferrer" data-news-share-action="external" aria-label="Condividi su Telegram"><span class="share-icon" aria-hidden="true">TG</span><span>Telegram</span></a>
+    <button class="share-action share-copy" type="button" data-news-share-action="copy" data-news-id="${newsId}" aria-label="Copia link della news"><span class="share-icon" aria-hidden="true">🔗</span><span>Copia link</span></button>
+    <button class="share-action share-native" type="button" data-news-share-action="native" data-news-id="${newsId}" aria-label="Apri altre opzioni di condivisione"><span class="share-icon" aria-hidden="true">⋯</span><span>Altro</span></button>
   </div>`;
 }
-async function nativeShareNews(id){
-  const n=(state.news||[]).find(x=>String(x.id)===String(id));
-  if(!n)return;
-  const data={title:n.title||"CUS Trento C5",text:n.excerpt||n.title||"News CUS Trento C5",url:articleShareUrl(n)};
-  if(navigator.share){
-    try{await navigator.share(data);return;}catch(e){}
-  }
-  copyNewsLink(id);
+function showShareToast(message){
+  const old=document.querySelector('.share-toast');
+  if(old)old.remove();
+  const toast=document.createElement('div');
+  toast.className='share-toast';
+  toast.textContent=message;
+  document.body.appendChild(toast);
+  requestAnimationFrame(()=>toast.classList.add('show'));
+  setTimeout(()=>{
+    toast.classList.remove('show');
+    setTimeout(()=>toast.remove(),220);
+  },2200);
 }
-async function copyNewsLink(id){
-  const n=(state.news||[]).find(x=>String(x.id)===String(id));
+async function writeTextToClipboard(text){
+  if(navigator.clipboard && window.isSecureContext){
+    try{
+      await navigator.clipboard.writeText(text);
+      return true;
+    }catch(e){}
+  }
+  try{
+    const area=document.createElement('textarea');
+    area.value=text;
+    area.setAttribute('readonly','');
+    area.style.position='fixed';
+    area.style.left='-9999px';
+    area.style.top='0';
+    document.body.appendChild(area);
+    area.focus();
+    area.select();
+    const ok=document.execCommand('copy');
+    area.remove();
+    return !!ok;
+  }catch(e){
+    return false;
+  }
+}
+async function nativeShareNews(id){
+  const n=findNewsById(id);
   if(!n)return;
   const url=articleShareUrl(n);
-  try{
-    await navigator.clipboard.writeText(url);
-    alert("Link copiato negli appunti.");
-  }catch(e){
-    prompt("Copia il link della news:",url);
+  const data={title:n.title||"CUS Trento C5",text:n.excerpt||n.title||"News CUS Trento C5",url};
+  if(navigator.share){
+    try{
+      await navigator.share(data);
+      return;
+    }catch(e){
+      if(e && e.name==='AbortError')return;
+    }
   }
+  const copied=await writeTextToClipboard(url);
+  if(copied)showShareToast('Condivisione non supportata qui: link copiato.');
+  else prompt('Copia il link della news:',url);
+}
+async function copyNewsLink(id){
+  const n=findNewsById(id);
+  if(!n)return;
+  const url=articleShareUrl(n);
+  const copied=await writeTextToClipboard(url);
+  if(copied)showShareToast('Link copiato negli appunti.');
+  else prompt('Copia il link della news:',url);
+}
+function setupNewsShareHandlers(){
+  if(window.__cusNewsShareHandlersBound)return;
+  window.__cusNewsShareHandlersBound=true;
+  document.addEventListener('click',event=>{
+    const trigger=event.target.closest('[data-news-share-action]');
+    if(!trigger)return;
+    const action=trigger.getAttribute('data-news-share-action');
+    // Anche i link esterni devono bloccare il click della card news sottostante.
+    event.stopPropagation();
+    if(action==='external')return;
+    event.preventDefault();
+    const id=trigger.getAttribute('data-news-id');
+    if(action==='copy')copyNewsLink(id);
+    if(action==='native')nativeShareNews(id);
+  }, true);
 }
 function newsCards(items){
   if(!items.length)return `<div class="card card-pad empty-news"><h2>Nessuna news trovata</h2><p class="muted">Prova a cambiare categoria o testo di ricerca.</p></div>`;
@@ -1386,4 +1447,5 @@ async function bootData(){
 
   showCookie();
 }
+setupNewsShareHandlers();
 bootData();
