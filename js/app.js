@@ -712,7 +712,7 @@ function news(){
   const cats=["Tutte",...new Set((state.news||[]).flatMap(newsTags))];
   view.newsCategory=view.newsCategory||"Tutte";
   view.newsQuery=view.newsQuery||"";
-  shell("Media center","News, match report e storie dal club",`<div class="toolbar">${cats.map(c=>`<button class="pill newsf ${view.newsCategory===c?"active":""}" onclick="setNewsCategory('${String(c).replace(/'/g,"\\'")}')">${safe(c)}</button>`).join("")}</div><div class="news-results-info" id="newsResultsInfo"></div><div class="grid grid-3" id="newsGrid"></div><div id="newsPager"></div>`,`<div class="search news-search">⌕ <input value="${safe(view.newsQuery)}" oninput="setNewsSearch(this.value)" placeholder="Cerca news per titolo, testo, autore..." aria-label="Cerca news"></div>`,"News, articoli e match report CUS Trento C5.");
+  shell("Media center","News, match report e storie dal club",`<div class="toolbar">${cats.map(c=>`<button class="pill newsf ${view.newsCategory===c?"active":""}" onclick="setNewsCategory('${String(c).replace(/'/g,"\\'")}')">${safe(c)}</button>`).join("")}</div><div class="news-results-info" id="newsResultsInfo"></div><div class="grid grid-3" id="newsGrid"></div><div id="newsPager"></div>`,`<form class="search news-search" role="search" onsubmit="return submitNewsSearch(event)"><span aria-hidden="true">⌕</span><input id="newsSearchInput" type="search" value="${safe(view.newsQuery)}" oninput="setNewsSearch(this.value)" onkeydown="if(event.key==='Enter'){submitNewsSearch(event)}" placeholder="Cerca news per titolo, testo, autore..." aria-label="Cerca news"><button class="search-submit" type="submit">Cerca</button></form>`,"News, articoli e match report CUS Trento C5.");
   renderNewsList();
 }
 function setNewsCategory(cat){view.newsCategory=cat;view.newsPage=1;renderNewsList();}
@@ -739,9 +739,20 @@ function renderNewsList(){
   }
 }
 function clearNewsSearch(){view.newsQuery="";view.newsCategory="Tutte";view.newsPage=1;news();}
-function searchNews(q){setNewsSearch(q);}
+function submitNewsSearch(event){
+  if(event&&typeof event.preventDefault==="function")event.preventDefault();
+  const input=$("#newsSearchInput");
+  if(input)view.newsQuery=String(input.value||"").trim();
+  view.newsPage=1;
+  renderNewsList();
+  const grid=$("#newsGrid");
+  if(grid&&view.newsQuery)grid.scrollIntoView({behavior:"smooth",block:"start"});
+  return false;
+}
+function searchNews(q){view.newsQuery=String(q||"");view.newsPage=1;if(current!=="news")route("news");else renderNewsList();}
 window.searchNews=q=>searchNews(q);
 window.setNewsSearch=q=>setNewsSearch(q);
+window.submitNewsSearch=e=>submitNewsSearch(e);
 window.copyNewsLink=id=>copyNewsLink(id);
 window.nativeShareNews=id=>nativeShareNews(id);
 
