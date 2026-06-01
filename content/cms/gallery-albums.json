@@ -1,0 +1,64 @@
+{
+  "galleryAlbums": [
+    {
+      "id": 1,
+      "title": "Matchday Sanbàpolis",
+      "category": "Matchday",
+      "date": "2026-05-24",
+      "cover": "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80",
+      "description": "Foto placeholder della giornata gara a Sanbàpolis.",
+      "photos": [
+        "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Training Week",
+      "category": "Training",
+      "date": "2026-04-18",
+      "cover": "https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80",
+      "description": "Allenamento tecnico, possessi e finalizzazione.",
+      "photos": [
+        "https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1400&q=80"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Under 21",
+      "category": "U21",
+      "date": "2026-04-12",
+      "cover": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
+      "description": "Momenti del gruppo Under 21.",
+      "photos": [
+        "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80",
+        "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1400&q=80"
+      ]
+    },
+    {
+      "id": 50,
+      "title": "Rose storiche CUS Trento C5",
+      "category": "Storia",
+      "date": "2026-01-01",
+      "cover": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png",
+      "description": "Album delle rose storiche CUS Trento C5 dal vecchio sito.",
+      "photos": [
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/11-12.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/12-13.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/13-14.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/14-15.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/15-16.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/16-17.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2017real.png",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/814330A0-63DD-4B35-AFA9-64AFF265B7DC.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2022-2023.jpg",
+        "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png"
+      ]
+    }
+  ]
+}

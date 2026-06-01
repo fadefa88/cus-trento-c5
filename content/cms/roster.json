@@ -1,0 +1,279 @@
+{
+  "roster": [
+    {
+      "id": 1,
+      "name": "Safi Saif Edine",
+      "role": "Portiere",
+      "team": "Prima squadra",
+      "number": 1,
+      "photo": "/img/players/3-safi-saif-edine-portiere.webp"
+    },
+    {
+      "faculty": "Lettere",
+      "birthPlace": "Padova (PD)",
+      "number": 12,
+      "name": "Lucca Baccaro Zeni",
+      "birthDate": "2000-01-18",
+      "photo": "/img/players/1-baccaro-zeni-lucca-portiere.webp",
+      "role": "Portiere",
+      "id": 2,
+      "team": "Prima squadra"
+    },
+    {
+      "id": 3,
+      "name": "Filippo Bernard",
+      "role": "Portiere",
+      "team": "Prima squadra",
+      "number": 2,
+      "photo": "/img/players/2-bernard-filippo-portiere.webp"
+    },
+    {
+      "id": 4,
+      "name": "Tommaso Boldrini",
+      "role": "Centrale",
+      "team": "Prima squadra",
+      "number": 5,
+      "photo": "/img/players/4-boldrini-tommaso-centrale.webp"
+    },
+    {
+      "id": 5,
+      "name": "Davide Filippi",
+      "role": "Centrale",
+      "team": "Prima squadra",
+      "number": 6,
+      "photo": "/img/players/10-filippi-davide-laterale.webp"
+    },
+    {
+      "id": 6,
+      "name": "Alvise Tesser",
+      "role": "Centrale",
+      "team": "Prima squadra",
+      "number": 7,
+      "photo": "/img/players/5-tesser-alvise-centrale.webp"
+    },
+    {
+      "id": 7,
+      "name": "Federico Addobbati",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 8,
+      "photo": "/img/players/noplayer.webp"
+    },
+    {
+      "id": 8,
+      "name": "Filippo Baietta",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 9,
+      "photo": "/img/players/6-baietta-filippo-laterale.webp"
+    },
+    {
+      "id": 9,
+      "name": "Luca Cirasola",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 10,
+      "photo": "/img/players/7-cirasola-luca-laterale.webp"
+    },
+    {
+      "id": 10,
+      "name": "Mattia Cuman",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 27,
+      "photo": "/img/players/8-cuman-mattia-laterale.webp"
+    },
+    {
+      "id": 11,
+      "name": "Luca Frattolin",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 23,
+      "photo": "/img/players/noplayer.webp"
+    },
+    {
+      "id": 12,
+      "name": "Federico Maciocia",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 17,
+      "photo": "/img/players/11-maciocia-federico-laterale.webp"
+    },
+    {
+      "id": 13,
+      "name": "Mattia Vaia",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 11,
+      "photo": "/img/players/12-vaia-mattia-laterale.webp"
+    },
+    {
+      "id": 14,
+      "name": "Alessandro Zanetti",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 19,
+      "photo": "/img/players/13-zanetti-alessandro-laterale.webp"
+    },
+    {
+      "id": 15,
+      "name": "Diego Conti",
+      "role": "Punta",
+      "team": "Prima squadra",
+      "number": 20,
+      "photo": "/img/players/14-conti-diego-pivot.webp"
+    },
+    {
+      "id": 16,
+      "name": "Andrea Martinelli",
+      "role": "Punta",
+      "team": "Prima squadra",
+      "number": 21,
+      "photo": "/img/players/16-martinelli-andrea-universale.webp"
+    },
+    {
+      "id": 17,
+      "name": "Cesare Vettorazzi",
+      "role": "Punta",
+      "team": "Prima squadra",
+      "number": 22,
+      "photo": "/img/players/15-vettorazzi-cesare-pivot.webp"
+    },
+    {
+      "id": 19,
+      "name": "Paolo Bigonzi",
+      "role": "Portiere",
+      "team": "Under 21",
+      "number": 30,
+      "photo": "/img/players/1-bigonzi-paolo-portiere.webp"
+    },
+    {
+      "id": 20,
+      "name": "Giulio Tognolli",
+      "role": "Portiere",
+      "team": "Under 21",
+      "number": 31,
+      "photo": "/img/players/2-toniolli-giulio-portiere.webp"
+    },
+    {
+      "id": 21,
+      "name": "Lorenzo Zantorello",
+      "role": "Portiere",
+      "team": "Under 21",
+      "number": 32,
+      "photo": "/img/players/3-zarantonello-lorenzo-portiere.webp"
+    },
+    {
+      "id": 22,
+      "name": "Alex Gasperi",
+      "role": "Centrale",
+      "team": "Under 21",
+      "number": 34,
+      "photo": "/img/players/noplayer.webp"
+    },
+    {
+      "id": 23,
+      "name": "Matteo Guidetti",
+      "role": "Centrale",
+      "team": "Under 21",
+      "number": 35,
+      "photo": "/img/players/4-guidetti-matteo-centrale.webp"
+    },
+    {
+      "id": 24,
+      "name": "Matteo Materia",
+      "role": "Centrale",
+      "team": "Under 21",
+      "number": 36,
+      "photo": "/img/players/5-materia-matteo-centrale.webp"
+    },
+    {
+      "id": 25,
+      "name": "Riccardo Toniolli",
+      "role": "Centrale",
+      "team": "Under 21",
+      "number": 37,
+      "photo": "/img/players/6-toniolli-riccardo-centrale.webp"
+    },
+    {
+      "id": 26,
+      "name": "Alessandro Betti",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 38,
+      "photo": "/img/players/7-betti-alessandro-laterale.webp"
+    },
+    {
+      "id": 27,
+      "name": "Samuele Buda",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 39,
+      "photo": "/img/players/noplayer.webp"
+    },
+    {
+      "id": 28,
+      "name": "Federico Caldonazzi",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 40,
+      "photo": "/img/players/8-caldonazzi-federico-laterale.webp"
+    },
+    {
+      "id": 29,
+      "name": "Joao Pedro Caccia Neff",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 41,
+      "photo": "/img/players/12-caccia-neff-joao-pedro-laterale.webp"
+    },
+    {
+      "id": 30,
+      "name": "Afrian Gavril Dancus",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 42,
+      "photo": "/img/players/9-dancus-adrian-gavril-laterale.webp"
+    },
+    {
+      "id": 31,
+      "name": "Mirko Annunziato Tondo",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 44,
+      "photo": "/img/players/10-tondo-mirko-a-laterale.webp"
+    },
+    {
+      "id": 32,
+      "name": "Daniele Zampedri",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 45,
+      "photo": "/img/players/11-zampedri-daniele-laterale.webp"
+    },
+    {
+      "id": 33,
+      "name": "Michele Ceola",
+      "role": "Punta",
+      "team": "Under 21",
+      "number": 46,
+      "photo": "/img/players/13-ceola-michele-pivot.webp"
+    },
+    {
+      "id": 34,
+      "name": "Damiano Loperfido",
+      "role": "Punta",
+      "team": "Under 21",
+      "number": 47,
+      "photo": "/img/players/14-loperfido-damiano-pivot.webp"
+    },
+    {
+      "id": 35,
+      "name": "Luca Scala",
+      "role": "Punta",
+      "team": "Under 21",
+      "number": 48,
+      "photo": "/img/players/15-scala-luca-universale.webp"
+    }
+  ]
+}

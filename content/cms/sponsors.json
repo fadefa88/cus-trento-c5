@@ -1,0 +1,46 @@
+{
+  "sponsors": [
+    {
+      "id": 1,
+      "name": "UniTrento Sport",
+      "tier": "Main Partner",
+      "logo": "UT",
+      "url": "#"
+    },
+    {
+      "id": 2,
+      "name": "Sanbàpolis Arena",
+      "tier": "Venue Partner",
+      "logo": "SB",
+      "url": "#"
+    },
+    {
+      "id": 3,
+      "name": "Trentino Energia",
+      "tier": "Gold Sponsor",
+      "logo": "TE",
+      "url": "#"
+    },
+    {
+      "id": 4,
+      "name": "Dolomiti Lab",
+      "tier": "Silver Sponsor",
+      "logo": "DL",
+      "url": "#"
+    },
+    {
+      "id": 5,
+      "name": "Caffè Trento",
+      "tier": "Community Partner",
+      "logo": "CT",
+      "url": "#"
+    },
+    {
+      "id": 6,
+      "name": "Studio Fisio 5",
+      "tier": "Medical Partner",
+      "logo": "F5",
+      "url": "#"
+    }
+  ]
+}

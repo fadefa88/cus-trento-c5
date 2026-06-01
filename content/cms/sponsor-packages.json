@@ -1,0 +1,50 @@
+{
+  "sponsorPackages": [
+    {
+      "id": 1,
+      "name": "Main Partner",
+      "price": "Da definire",
+      "visibility": [
+        "Logo maglia gara",
+        "Hero sponsor in home",
+        "Post social dedicati",
+        "Presenza su backdrop interviste"
+      ],
+      "cta": "Richiedi proposta Main Partner"
+    },
+    {
+      "id": 2,
+      "name": "Gold Sponsor",
+      "price": "Da definire",
+      "visibility": [
+        "Logo in pagina sponsor",
+        "Citazione nei matchday post",
+        "Banner digitale",
+        "Inviti eventi club"
+      ],
+      "cta": "Richiedi pacchetto Gold"
+    },
+    {
+      "id": 3,
+      "name": "Silver Sponsor",
+      "price": "Da definire",
+      "visibility": [
+        "Logo sito",
+        "Presenza gallery partner",
+        "Citazione periodica social"
+      ],
+      "cta": "Richiedi pacchetto Silver"
+    },
+    {
+      "id": 4,
+      "name": "Community Partner",
+      "price": "Da definire",
+      "visibility": [
+        "Presenza sito",
+        "Attività territoriali",
+        "Iniziative studenti"
+      ],
+      "cta": "Diventa partner community"
+    }
+  ]
+}
