@@ -665,6 +665,19 @@ function normalizeSearchValue(value){
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 }
+function getUrlNewsQuery(){
+  try{return new URLSearchParams(location.search).get("q") || "";}catch(e){return "";}
+}
+function setUrlNewsQuery(q){
+  try{
+    const url = new URL(location.href);
+    const value = String(q || "").trim();
+    if(value) url.searchParams.set("q", value);
+    else url.searchParams.delete("q");
+    url.hash = "news";
+    history.replaceState(null, "", url.pathname + url.search + url.hash);
+  }catch(e){}
+}
 function cleanImportedHtmlText(value){
   return String(value || "")
     .replace(/<script[\s\S]*?<\/script>/gi," ")
@@ -807,6 +820,8 @@ function newsCards(items){
 function news(){
   const cats=["Tutte",...new Set((state.news||[]).flatMap(newsTags))];
   view.newsCategory=view.newsCategory||"Tutte";
+  const urlQ=getUrlNewsQuery();
+  if(urlQ && view.newsQuery !== urlQ) view.newsQuery=urlQ;
   view.newsQuery=view.newsQuery||"";
   const escapedQuery=safe(view.newsQuery);
   const searchBox=`<form class="search news-search" id="newsSearchForm" role="search" aria-label="Cerca nelle news">
@@ -825,7 +840,7 @@ function bindNewsSearch(){
     form.addEventListener("submit", submitNewsSearch);
   }
   if(input){
-    input.addEventListener("input", ()=>setNewsSearch(input.value));
+    input.addEventListener("input", ()=>setNewsSearch(input.value, false));
     input.addEventListener("keydown", event=>{
       if(event.key==="Enter") submitNewsSearch(event);
     });
@@ -835,13 +850,14 @@ function submitNewsSearch(event){
   if(event && event.preventDefault) event.preventDefault();
   if(event && event.stopPropagation) event.stopPropagation();
   const input=$("#newsSearchInput");
-  setNewsSearch(input ? input.value : view.newsQuery);
+  setNewsSearch(input ? input.value : view.newsQuery, true);
   return false;
 }
 function setNewsCategory(cat){view.newsCategory=cat;view.newsPage=1;renderNewsList();}
-function setNewsSearch(q){
+function setNewsSearch(q, updateUrl=false){
   view.newsQuery=String(q||"");
   view.newsPage=1;
+  if(updateUrl) setUrlNewsQuery(view.newsQuery);
   renderNewsList();
 }
 function goNewsPage(page){view.newsPage=page;renderNewsList();}
@@ -866,7 +882,7 @@ function renderNewsList(){
     info.innerHTML=(q||cat!=="Tutte")?`<span>${items.length} risultati${cat!=="Tutte"?` · categoria ${safe(cat)}`:""}${q?` · ricerca “${safe(q)}”`:""}</span><button class="pill" onclick="clearNewsSearch()">Reset</button>`:"";
   }
 }
-function clearNewsSearch(){view.newsQuery="";view.newsCategory="Tutte";view.newsPage=1;news();}
+function clearNewsSearch(){view.newsQuery="";view.newsCategory="Tutte";view.newsPage=1;setUrlNewsQuery("");news();}
 function searchNews(q){setNewsSearch(q);}
 window.searchNews=q=>searchNews(q);
 window.setNewsSearch=q=>setNewsSearch(q);
