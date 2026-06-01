@@ -657,17 +657,27 @@ function newsTags(n){
 function newsHasTag(n,tag){
   return newsTags(n).includes(tag);
 }
+function normalizeSearchValue(value){
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
 function newsSearchText(n){
-  return [
-    n.title,
-    n.excerpt,
-    n.author,
-    n.category,
-    n.date,
-    Array.isArray(n.body)?n.body.join(" "):n.body,
-    n.bodyHtml?String(n.bodyHtml).replace(/<[^>]+>/g," "):"",
-    newsTags(n).join(" ")
-  ].filter(Boolean).join(" ").toLowerCase();
+  return normalizeSearchValue([
+    n && n.title,
+    n && n.excerpt,
+    n && n.author,
+    n && n.category,
+    n && n.date,
+    n && n.sourceName,
+    n && n.sourceUrl,
+    n && Array.isArray(n.body) ? n.body.join(" ") : n && n.body,
+    n && n.bodyHtml ? String(n.bodyHtml).replace(/<[^>]+>/g," ") : "",
+    newsTags(n || {}).join(" ")
+  ].filter(Boolean).join(" "));
 }
 function articleShareUrl(n){
   const base=location.origin+location.pathname;
@@ -717,15 +727,45 @@ function news(){
   const cats=["Tutte",...new Set((state.news||[]).flatMap(newsTags))];
   view.newsCategory=view.newsCategory||"Tutte";
   view.newsQuery=view.newsQuery||"";
-  shell("Media center","News, match report e storie dal club",`<div class="toolbar">${cats.map(c=>`<button class="pill newsf ${view.newsCategory===c?"active":""}" onclick="setNewsCategory('${String(c).replace(/'/g,"\\'")}')">${safe(c)}</button>`).join("")}</div><div class="news-results-info" id="newsResultsInfo"></div><div class="grid grid-3" id="newsGrid"></div><div id="newsPager"></div>`,`<div class="search news-search">⌕ <input value="${safe(view.newsQuery)}" oninput="setNewsSearch(this.value)" placeholder="Cerca news per titolo, testo, autore..." aria-label="Cerca news"></div>`,"News, articoli e match report CUS Trento C5.");
+  const escapedQuery=safe(view.newsQuery);
+  const searchBox=`<form class="search news-search" id="newsSearchForm" onsubmit="submitNewsSearch(event)" role="search" aria-label="Cerca nelle news">
+    <span aria-hidden="true">⌕</span>
+    <input id="newsSearchInput" name="q" value="${escapedQuery}" oninput="setNewsSearch(this.value)" placeholder="Cerca news per titolo, testo, autore..." aria-label="Cerca news" autocomplete="off">
+    <button class="news-search-button" type="submit">Cerca</button>
+  </form>`;
+  shell("Media center","News, match report e storie dal club",`<div class="toolbar">${cats.map(c=>`<button class="pill newsf ${view.newsCategory===c?"active":""}" onclick="setNewsCategory('${String(c).replace(/'/g,"\\'")}')">${safe(c)}</button>`).join("")}</div><div class="news-results-info" id="newsResultsInfo"></div><div class="grid grid-3" id="newsGrid"></div><div id="newsPager"></div>`,searchBox,"News, articoli e match report CUS Trento C5.");
+  bindNewsSearch();
   renderNewsList();
 }
+function bindNewsSearch(){
+  const form=$("#newsSearchForm");
+  const input=$("#newsSearchInput");
+  if(form){
+    form.addEventListener("submit", submitNewsSearch);
+  }
+  if(input){
+    input.addEventListener("keydown", event=>{
+      if(event.key==="Enter"){
+        submitNewsSearch(event);
+      }
+    });
+  }
+}
+function submitNewsSearch(event){
+  if(event && event.preventDefault) event.preventDefault();
+  if(event && event.stopPropagation) event.stopPropagation();
+  const input=$("#newsSearchInput");
+  setNewsSearch(input ? input.value : view.newsQuery);
+  return false;
+}
+function setNewsCategory(cat){view.newsCategory=cat;view.newsPage=1;renderNewsList();}
+function setNewsSearch(q){view.newsQuery=String(q||"");view.newsPage=1;renderNewsList();}
 function setNewsCategory(cat){view.newsCategory=cat;view.newsPage=1;renderNewsList();}
 function setNewsSearch(q){view.newsQuery=String(q||"");view.newsPage=1;renderNewsList();}
 function goNewsPage(page){view.newsPage=page;renderNewsList();}
 function filteredNewsItems(){
   const cat=view.newsCategory||"Tutte";
-  const q=String(view.newsQuery||"").trim().toLowerCase();
+  const q=normalizeSearchValue(view.newsQuery||"");
   let items=cat==="Tutte"?(state.news||[]):(state.news||[]).filter(n=>newsHasTag(n,cat));
   if(q)items=items.filter(n=>newsSearchText(n).includes(q));
   return items;
@@ -747,6 +787,8 @@ function clearNewsSearch(){view.newsQuery="";view.newsCategory="Tutte";view.news
 function searchNews(q){setNewsSearch(q);}
 window.searchNews=q=>searchNews(q);
 window.setNewsSearch=q=>setNewsSearch(q);
+window.submitNewsSearch=event=>submitNewsSearch(event);
+window.clearNewsSearch=()=>clearNewsSearch();
 window.copyNewsLink=id=>copyNewsLink(id);
 window.nativeShareNews=id=>nativeShareNews(id);
 
