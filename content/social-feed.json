@@ -1,0 +1,49 @@
+{
+  "updatedAt": "",
+  "posts": [
+    {
+      "id": "instagram-placeholder-1",
+      "platform": "Instagram",
+      "username": "@custrentoc5",
+      "url": "https://www.instagram.com/custrentoc5/",
+      "caption": "Ultimo post Instagram in aggiornamento automatico.",
+      "date": "",
+      "thumbnail": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+      "source": "placeholder",
+      "placeholder": true
+    },
+    {
+      "id": "instagram-placeholder-2",
+      "platform": "Instagram",
+      "username": "@custrentoc5",
+      "url": "https://www.instagram.com/custrentoc5/",
+      "caption": "Secondo post Instagram in aggiornamento automatico.",
+      "date": "",
+      "thumbnail": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+      "source": "placeholder",
+      "placeholder": true
+    },
+    {
+      "id": "tiktok-placeholder-1",
+      "platform": "TikTok",
+      "username": "@custrentoc5",
+      "url": "",
+      "caption": "TikTok in aggiornamento.",
+      "date": "",
+      "thumbnail": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+      "source": "placeholder",
+      "placeholder": true
+    },
+    {
+      "id": "tiktok-placeholder-2",
+      "platform": "TikTok",
+      "username": "@custrentoc5",
+      "url": "",
+      "caption": "TikTok in aggiornamento.",
+      "date": "",
+      "thumbnail": "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png",
+      "source": "placeholder",
+      "placeholder": true
+    }
+  ]
+}
