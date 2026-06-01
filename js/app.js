@@ -71,6 +71,11 @@ function deepClone(obj){return JSON.parse(JSON.stringify(obj || {}));}
 function toNumber(v){const x=Number(v);return Number.isFinite(x)?x:0;}
 function currentSeasonOf(data){return (data.automation && data.automation.currentSeason) || "2026/2027";}
 function normText(v){return String(v||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");}
+function normalizeCmsStatus(value){const t=normText(value);if(!t||t==="dagiocare"||t==="scheduled"||t==="toplay")return "Da giocare";if(t==="terminata"||t==="finita"||t==="finished"||t==="played")return "Terminata";return value||"Da giocare";}
+function normalizeCmsCompetition(value){const t=normText(value);if(t==="coppa")return "Coppa";if(t==="playoff")return "Playoff";return value||"Campionato";}
+function normalizeCmsMatch(match){if(!match||typeof match!=="object")return match;const out={...match};out.status=normalizeCmsStatus(out.status);if(out.competition!==undefined)out.competition=normalizeCmsCompetition(out.competition);if(out.lineup&&typeof out.lineup==="object"){out.lineup={...out.lineup};["startingFive","bench","suspended","injured"].forEach(k=>{out.lineup[k]=Array.isArray(out.lineup[k])?out.lineup[k].map(String).filter(Boolean):[];});}["scorerEvents","yellowCardEvents","redCardEvents","goalkeeperEvents"].forEach(k=>{if(Array.isArray(out[k]))out[k]=out[k].map(ev=>{const clean={...(ev||{})};if(clean.playerId!==undefined&&clean.playerId!==null)clean.playerId=String(clean.playerId);["goals","cards","goalsAgainst","minutes","appearances"].forEach(n=>{if(clean[n]!==undefined&&clean[n]!==null&&clean[n]!=="")clean[n]=Number(clean[n]);});return clean;});});return out;}
+function unwrapPublishedData(payload){if(payload&&typeof payload.raw==="string"){try{return JSON.parse(payload.raw);}catch(e){console.warn("data.json contiene raw ma non è JSON valido",e);}}if(payload&&payload.path==="content/data.json"&&payload.data&&typeof payload.data==="object")return payload.data;return payload||{};}
+function normalizePublishedData(payload){const out={...unwrapPublishedData(payload)};if(Array.isArray(out.fixtures))out.fixtures=out.fixtures.map(normalizeCmsMatch);if(Array.isArray(out.u21Fixtures))out.u21Fixtures=out.u21Fixtures.map(normalizeCmsMatch);if(out.cup&&typeof out.cup==="object"){out.cup={...out.cup};if(Array.isArray(out.cup.fixtures))out.cup.fixtures=out.cup.fixtures.map(normalizeCmsMatch);}if(out.u21Cup&&typeof out.u21Cup==="object"){out.u21Cup={...out.u21Cup};if(Array.isArray(out.u21Cup.fixtures))out.u21Cup.fixtures=out.u21Cup.fixtures.map(normalizeCmsMatch);}return out;}
 function competitionKeyFromMatch(match, sourceType){const raw=normText(sourceType||match.competition||match.round||"");return raw.includes("coppa")?"coppa":"campionato";}
 function scoreParts(score){const parts=String(score||"").match(/\d+/g);if(!parts||parts.length<2)return null;return [parseInt(parts[0],10),parseInt(parts[1],10)];}
 function isTerminatedMatch(m){return normText(m.status)==="terminata" && !!scoreParts(m.score);}
@@ -397,14 +402,14 @@ function nextFixture(list){
     .sort((a,b)=>_d(a.date)-_d(b.date));
   if(future.length) return future[0];
   // riserva: primo con stato 'Da giocare', altrimenti il primo della lista
-  return (list||[]).find(f=>f.status==='Da giocare') || (list||[])[0] || {};
+  return (list||[]).find(f=>normText(f.status)==='dagiocare') || (list||[])[0] || {};
 }
 function lastResult(list){
   const now=Date.now();
-  const past=(list||[]).filter(f=>_d(f.date)!==null && _d(f.date)<now && (f.score||f.status==='Terminata'))
+  const past=(list||[]).filter(f=>_d(f.date)!==null && _d(f.date)<now && (f.score||normText(f.status)==='terminata'))
     .sort((a,b)=>_d(b.date)-_d(a.date));
   if(past.length) return past[0];
-  return [...(list||[])].reverse().find(f=>f.status==='Terminata') || {};
+  return [...(list||[])].reverse().find(f=>normText(f.status)==='terminata') || {};
 }
 function latestNews(list){
   const pinned=(list||[]).find(n=>n.pinned);
@@ -712,7 +717,7 @@ function news(){
   const cats=["Tutte",...new Set((state.news||[]).flatMap(newsTags))];
   view.newsCategory=view.newsCategory||"Tutte";
   view.newsQuery=view.newsQuery||"";
-  shell("Media center","News, match report e storie dal club",`<div class="toolbar">${cats.map(c=>`<button class="pill newsf ${view.newsCategory===c?"active":""}" onclick="setNewsCategory('${String(c).replace(/'/g,"\\'")}')">${safe(c)}</button>`).join("")}</div><div class="news-results-info" id="newsResultsInfo"></div><div class="grid grid-3" id="newsGrid"></div><div id="newsPager"></div>`,`<form class="search news-search" role="search" onsubmit="return submitNewsSearch(event)"><span aria-hidden="true">⌕</span><input id="newsSearchInput" type="search" value="${safe(view.newsQuery)}" oninput="setNewsSearch(this.value)" onkeydown="if(event.key==='Enter'){submitNewsSearch(event)}" placeholder="Cerca news per titolo, testo, autore..." aria-label="Cerca news"><button class="search-submit" type="submit">Cerca</button></form>`,"News, articoli e match report CUS Trento C5.");
+  shell("Media center","News, match report e storie dal club",`<div class="toolbar">${cats.map(c=>`<button class="pill newsf ${view.newsCategory===c?"active":""}" onclick="setNewsCategory('${String(c).replace(/'/g,"\\'")}')">${safe(c)}</button>`).join("")}</div><div class="news-results-info" id="newsResultsInfo"></div><div class="grid grid-3" id="newsGrid"></div><div id="newsPager"></div>`,`<div class="search news-search">⌕ <input value="${safe(view.newsQuery)}" oninput="setNewsSearch(this.value)" placeholder="Cerca news per titolo, testo, autore..." aria-label="Cerca news"></div>`,"News, articoli e match report CUS Trento C5.");
   renderNewsList();
 }
 function setNewsCategory(cat){view.newsCategory=cat;view.newsPage=1;renderNewsList();}
@@ -739,20 +744,9 @@ function renderNewsList(){
   }
 }
 function clearNewsSearch(){view.newsQuery="";view.newsCategory="Tutte";view.newsPage=1;news();}
-function submitNewsSearch(event){
-  if(event&&typeof event.preventDefault==="function")event.preventDefault();
-  const input=$("#newsSearchInput");
-  if(input)view.newsQuery=String(input.value||"").trim();
-  view.newsPage=1;
-  renderNewsList();
-  const grid=$("#newsGrid");
-  if(grid&&view.newsQuery)grid.scrollIntoView({behavior:"smooth",block:"start"});
-  return false;
-}
-function searchNews(q){view.newsQuery=String(q||"");view.newsPage=1;if(current!=="news")route("news");else renderNewsList();}
+function searchNews(q){setNewsSearch(q);}
 window.searchNews=q=>searchNews(q);
 window.setNewsSearch=q=>setNewsSearch(q);
-window.submitNewsSearch=e=>submitNewsSearch(e);
 window.copyNewsLink=id=>copyNewsLink(id);
 window.nativeShareNews=id=>nativeShareNews(id);
 
@@ -834,7 +828,7 @@ function calendarSource(){
 }
 function matchCalendarFilter(f, filter){
   if(filter==="Tutte") return true;
-  if(filter==="Da giocare"||filter==="Terminata") return f.status===filter;
+  if(filter==="Da giocare"||filter==="Terminata") return normText(f.status)===normText(filter);
   if(filter==="Campionato") return f._calendarType==="Campionato" || ["Serie C1","Under 21","Campionato"].includes(f.competition);
   if(filter==="Coppa") return f._calendarType==="Coppa" || f.competition==="Coppa";
   if(filter==="Playoff") return f._calendarType==="Playoff" || f.competition==="Playoff";
@@ -867,7 +861,7 @@ function cupFixture(f,compact=false){
 function coppa(){
   const cupData=(view.cup==="u21"?state.u21Cup:state.cup)||{};
   const rounds=Array.isArray(cupData.fixtures)?cupData.fixtures:[];
-  const next=rounds.find(x=>x.status==="Da giocare")||rounds[0]||null;
+  const next=rounds.find(x=>normText(x.status)==="dagiocare")||rounds[0]||null;
   const team=view.cup==="u21"?"Under 21":"Prima squadra";
   const road = rounds.length
     ? rounds.map(r=>`<div class="stage-card ${(r.round||"").includes("Quarti")?"active":""} clickable" onclick="route('match-${r.id}')"><div class="stage-label">${r.round||"Coppa"}</div><div style="font-weight:1000;margin:8px 0 6px">${r.home||"CUS Trento"}</div><div class="score">${r.score||"VS"}</div><div style="font-weight:1000;margin:6px 0 8px">${r.away||"Avversario"}</div><div class="muted">${fmt(r.date)} · ${r.time||"--:--"}</div></div>`).join("")
@@ -1249,7 +1243,7 @@ async function bootData(){
     if(!res.ok) throw new Error(`content/data.json non caricato: HTTP ${res.status}`);
 
     const raw = await res.text();
-    const published = JSON.parse(raw);
+    const published = normalizePublishedData(JSON.parse(raw));
     const importedArchiveNews = await loadImportedNewsArchive();
     const latestSocialFeed = await loadSocialFeed();
 
