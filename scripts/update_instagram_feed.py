@@ -37,6 +37,7 @@ IMAGE_HEADERS = {
 
 INSTAGRAM_URL_RE = re.compile(r"https?:\\/\\/(?:www\\.)?instagram\\.com\\/(?:p|reel|tv)\\/[A-Za-z0-9_-]+[^\\s\"'<>)]*", re.I)
 IMAGE_URL_RE = re.compile(r"https?:\\/\\/[^\\s\"'<>)]*?(?:\\.jpg|\\.jpeg|\\.png|\\.webp)(?:\\?[^\\s\"'<>)]*)?", re.I)
+TIKTOK_URL_RE = re.compile(r"https?:\/\/(?:www\.)?tiktok\.com\/[^\s\"'<>)]*", re.I)
 
 EXTRACT_POSTS_JS = r"""
 (() => {
