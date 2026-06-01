@@ -17,7 +17,7 @@ collections:
   files:
   - name: news
     label: News
-    file: content/data.json
+    file: content/cms/news.json
     fields:
     - label: News
       name: news
@@ -84,7 +84,7 @@ collections:
   files:
   - name: roster
     label: Rosa giocatori
-    file: content/data.json
+    file: content/cms/roster.json
     fields:
     - label: Rosa
       name: roster
@@ -137,8 +137,8 @@ collections:
         name: photo
         widget: string
         required: false
-      hint: 'Le statistiche non si modificano qui: presenze, gol, ammonizioni, espulsioni e gol subiti sono calcolati automaticamente
-        dai match terminati.'
+      hint: 'Le statistiche non si modificano qui: presenze, gol, ammonizioni, espulsioni
+        e gol subiti sono calcolati automaticamente dai match terminati.'
 - name: fixtures
   label: Calendario Prima squadra
   delete: false
@@ -147,7 +147,7 @@ collections:
   files:
   - name: fixtures
     label: Calendario Prima squadra
-    file: content/data.json
+    file: content/cms/fixtures.json
     fields:
     - label: Partite Prima squadra
       name: fixtures
@@ -253,7 +253,8 @@ collections:
             value: '17'
           - label: '#24 Fabbri'
             value: '18'
-          hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
+          hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore
+            è duplicato o presente anche in panchina.
         - label: Panchina / Convocati
           name: bench
           widget: select
@@ -387,7 +388,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goals}} gol'
-        hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è convocato.
+        hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca
+          il salvataggio se il marcatore non è convocato.
         fields:
         - label: Giocatore
           name: playerId
@@ -441,7 +443,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.cards}} ammonizione/i'
-        hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
+        hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati
+          alimentano automaticamente le schede giocatore.
         fields:
         - label: Giocatore
           name: playerId
@@ -495,7 +498,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.cards}} espulsione/i'
-        hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
+        hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati
+          alimentano automaticamente le schede giocatore.
         fields:
         - label: Giocatore
           name: playerId
@@ -549,8 +553,9 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
-          i gol subiti al portiere nel quintetto titolare.
+        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere.
+          Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
+          titolare.
         fields:
         - label: Portiere
           name: playerId
@@ -618,7 +623,7 @@ collections:
   files:
   - name: u21Fixtures
     label: Calendario Under 21
-    file: content/data.json
+    file: content/cms/u21-fixtures.json
     fields:
     - label: Partite Under 21
       name: u21Fixtures
@@ -719,7 +724,8 @@ collections:
             value: '35'
           - label: '#49 Lazzarini'
             value: '36'
-          hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
+          hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore
+            è duplicato o presente anche in panchina.
         - label: Panchina / Convocati
           name: bench
           widget: select
@@ -853,7 +859,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goals}} gol'
-        hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è convocato.
+        hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca
+          il salvataggio se il marcatore non è convocato.
         fields:
         - label: Giocatore
           name: playerId
@@ -907,7 +914,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.cards}} ammonizione/i'
-        hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
+        hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati
+          alimentano automaticamente le schede giocatore.
         fields:
         - label: Giocatore
           name: playerId
@@ -961,7 +969,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.cards}} espulsione/i'
-        hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
+        hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati
+          alimentano automaticamente le schede giocatore.
         fields:
         - label: Giocatore
           name: playerId
@@ -1015,8 +1024,9 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
-          i gol subiti al portiere nel quintetto titolare.
+        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere.
+          Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
+          titolare.
         fields:
         - label: Portiere
           name: playerId
@@ -1084,7 +1094,7 @@ collections:
   files:
   - name: cup
     label: Coppa Prima squadra
-    file: content/data.json
+    file: content/cms/cup.json
     fields:
     - label: Coppa
       name: cup
@@ -1146,8 +1156,8 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.goals}} gol'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è
-            convocato.
+          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca
+            il salvataggio se il marcatore non è convocato.
           fields:
           - label: Giocatore
             name: playerId
@@ -1201,7 +1211,8 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.cards}} ammonizione/i'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
+          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati
+            alimentano automaticamente le schede giocatore.
           fields:
           - label: Giocatore
             name: playerId
@@ -1255,7 +1266,8 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.cards}} espulsione/i'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
+          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati
+            alimentano automaticamente le schede giocatore.
           fields:
           - label: Giocatore
             name: playerId
@@ -1309,8 +1321,9 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-          hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
-            i gol subiti al portiere nel quintetto titolare.
+          hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere.
+            Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
+            titolare.
           fields:
           - label: Portiere
             name: playerId
@@ -1378,7 +1391,7 @@ collections:
   files:
   - name: u21Cup
     label: Coppa Under 21
-    file: content/data.json
+    file: content/cms/u21-cup.json
     fields:
     - label: Coppa U21
       name: u21Cup
@@ -1440,8 +1453,8 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.goals}} gol'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è
-            convocato.
+          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca
+            il salvataggio se il marcatore non è convocato.
           fields:
           - label: Giocatore
             name: playerId
@@ -1495,7 +1508,8 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.cards}} ammonizione/i'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
+          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati
+            alimentano automaticamente le schede giocatore.
           fields:
           - label: Giocatore
             name: playerId
@@ -1549,7 +1563,8 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.cards}} espulsione/i'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
+          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati
+            alimentano automaticamente le schede giocatore.
           fields:
           - label: Giocatore
             name: playerId
@@ -1603,8 +1618,9 @@ collections:
           required: false
           collapsed: true
           summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-          hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
-            i gol subiti al portiere nel quintetto titolare.
+          hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere.
+            Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
+            titolare.
           fields:
           - label: Portiere
             name: playerId
@@ -1672,7 +1688,7 @@ collections:
   files:
   - name: galleryAlbums
     label: Gallery (album)
-    file: content/data.json
+    file: content/cms/gallery-albums.json
     fields:
     - label: Album
       name: galleryAlbums
@@ -1720,7 +1736,7 @@ collections:
   files:
   - name: sponsors
     label: Sponsor
-    file: content/data.json
+    file: content/cms/sponsors.json
     fields:
     - label: Sponsor
       name: sponsors
@@ -1753,7 +1769,7 @@ collections:
   files:
   - name: sponsorPackages
     label: Pacchetti sponsor
-    file: content/data.json
+    file: content/cms/sponsor-packages.json
     fields:
     - label: Pacchetti
       name: sponsorPackages
@@ -1789,7 +1805,7 @@ collections:
   files:
   - name: staff
     label: Staff
-    file: content/data.json
+    file: content/cms/staff.json
     fields:
     - label: Staff
       name: staff
@@ -1829,7 +1845,7 @@ collections:
   files:
   - name: videos
     label: Video
-    file: content/data.json
+    file: content/cms/videos.json
     fields:
     - label: Video
       name: videos
@@ -1862,7 +1878,7 @@ collections:
   files:
   - name: clubHistory
     label: Club overview / Storia
-    file: content/data.json
+    file: content/cms/club-history.json
     fields:
     - label: Storia club
       name: clubHistory
