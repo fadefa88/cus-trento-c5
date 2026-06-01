@@ -15,7 +15,7 @@ import requests
 
 
 DEFAULT_INSTAGRAM_FEED_URL = "https://rss.app/feeds/v1.1/ZARGBanc4ELDomJR.json"
-DEFAULT_TIKTOK_FEED_URL = "https://rss.app/feeds/v1.1/Xo03hvSH8G9qLSfy.json"
+DEFAULT_TIKTOK_FEED_URL = "https://rss-bridge.sans-nuage.fr/?action=display&bridge=TikTokBridge&context=By+user&username=%40custrentoc5&format=Json"
 DEFAULT_THUMBNAIL = "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png"
 
 
