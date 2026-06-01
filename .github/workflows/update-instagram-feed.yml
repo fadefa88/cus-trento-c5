@@ -1,15 +1,27 @@
-name: Update social feed
+name: Update Instagram feed from widgets
 
 on:
   workflow_dispatch:
+    inputs:
+      source:
+        description: "Instagram widget source to scrape"
+        required: false
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - both
+          - elfsight
+          - embedsocial
   schedule:
-    - cron: "17 * * * *"
+    # Every 24 hours. Uses Elfsight + EmbedSocial as data sources. Only Elfsight and EmbedSocial are used.
+    - cron: "23 5 * * *"
 
 permissions:
   contents: write
 
 jobs:
-  update-social-feed:
+  update-instagram-feed:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,15 +39,21 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install requests playwright
+          python -m playwright install --with-deps chromium
 
-      - name: Update Instagram and TikTok feed from RSS.app
+      - name: Update Instagram feed from Elfsight and EmbedSocial
         run: |
+          SOURCE="${{ github.event.inputs.source }}"
+          if [ -z "$SOURCE" ]; then
+            SOURCE="auto"
+          fi
+
           python scripts/update_instagram_feed.py \
-            --instagram-feed-url "https://rss.app/feeds/v1.1/ZARGBanc4ELDomJR.json" \
-            --tiktok-feed-url "https://rss-bridge.sans-nuage.fr/?action=display&bridge=TikTokBridge&context=By+user&username=%40custrentoc5&format=Json" \
-            --instagram-limit 4 \
-            --tiktok-limit 4 \
+            --source "$SOURCE" \
+            --elfsight-app-id "017a8b39-9a1b-46d1-b742-cb533321bea1" \
+            --embedsocial-ref "9abb7ef43c2b80e9cc04e6d7b00fb4d4ebd3e83b" \
+            --limit 12 \
             --feed content/social-feed.json
 
       - name: Validate JSON
@@ -53,8 +71,20 @@ jobs:
           fi
 
           git add content/social-feed.json img/social
-          git commit -m "Update social feed"
+          git commit -m "Update Instagram feed"
 
           BRANCH="${GITHUB_REF_NAME:-main}"
-          git pull --rebase origin "$BRANCH"
-          git push origin HEAD:"$BRANCH"
+
+          for attempt in 1 2 3; do
+            echo "Push attempt $attempt..."
+            git fetch origin "$BRANCH"
+            git rebase "origin/$BRANCH"
+            if git push origin HEAD:"$BRANCH"; then
+              echo "Instagram feed update pushed."
+              exit 0
+            fi
+            sleep 3
+          done
+
+          echo "Push failed after 3 attempts."
+          exit 1
