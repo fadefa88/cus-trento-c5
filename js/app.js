@@ -411,8 +411,26 @@ function latestNews(list){
   if(pinned) return pinned;
   return [...(list||[])].sort((a,b)=>(_d(b.date)||0)-(_d(a.date)||0))[0] || {};
 }
-function route(id){location.hash=id;current=id;window.scrollTo(0,0);render();}
-function toggleMobile(){$("#mobileMenu").classList.toggle("hidden");renderNav();}
+function closeMobileMenu(){
+  const menu = $("#mobileMenu");
+  if(menu) menu.classList.add("hidden");
+  document.body.classList.remove("mobile-menu-open");
+}
+function route(id){
+  closeMobileMenu();
+  location.hash=id;
+  current=id;
+  window.scrollTo(0,0);
+  render();
+}
+function toggleMobile(){
+  const menu = $("#mobileMenu");
+  if(!menu) return;
+  const willOpen = menu.classList.contains("hidden");
+  menu.classList.toggle("hidden");
+  document.body.classList.toggle("mobile-menu-open", willOpen);
+  renderNav();
+}
 window.addEventListener("hashchange",()=>{current=location.hash.replace("#","")||"home";render();});
 function setSEO(title,desc,img){document.title=title+" | CUS Trento C5";$("#metaDescription").setAttribute("content",desc);$("#ogTitle").setAttribute("content",title);$("#ogDescription").setAttribute("content",desc);if(img)$("#ogImage").setAttribute("content",img);$("#canonical").setAttribute("href",location.href.split("#")[0]+"#"+current);}
 function active(id){return current===id||current.startsWith(id+"-");}
@@ -421,10 +439,26 @@ function renderNav(){
     if(g.items.length===1){const [id,label]=g.items[0];return `<div class="nav-group nav-single"><button class="nav-main ${active(id)?'active':''}" onclick="route('${id}')">${g.label}</button></div>`;}
     return `<div class="nav-group"><button class="nav-main ${g.items.some(i=>active(i[0]))?'active':''}">${g.label}</button><div class="dropdown">${g.items.map(([id,label])=>`<button class="${active(id)?'active':''}" onclick="route('${id}')">${label}</button>`).join("")}</div></div>`;
   }).join("");
-  $("#mobileMenu").innerHTML=groups.map(g=>{
-    if(g.items.length===1){const [id,label]=g.items[0];return `<button onclick="route('${id}')">${g.label}</button>`;}
-    return `<details><summary>${g.label}</summary>${g.items.map(([id,label])=>`<button onclick="route('${id}')">${label}</button>`).join("")}</details>`;
-  }).join("");
+  const quick = [["fixtures","Calendario"],["standings","Classifica"],["squad","Rosa"],["contacts","Contatti"]];
+  $("#mobileMenu").innerHTML=`
+    <div class="mobile-menu-panel">
+      <div class="mobile-menu-head">
+        <div>
+          <span>Menu</span>
+          <strong>CUS Trento C5</strong>
+        </div>
+        <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Chiudi menu">×</button>
+      </div>
+      <div class="mobile-quick">
+        ${quick.map(([id,label])=>`<button class="${active(id)?'active':''}" onclick="route('${id}')">${label}</button>`).join("")}
+      </div>
+      <div class="mobile-menu-sections">
+        ${groups.map(g=>{
+          if(g.items.length===1){const [id,label]=g.items[0];return `<button class="mobile-section single ${active(id)?'active':''}" onclick="route('${id}')"><span>${g.label}</span><b>Apri</b></button>`;}
+          return `<details class="mobile-section" ${g.items.some(i=>active(i[0]))?'open':''}><summary><span>${g.label}</span><b>${g.items.length}</b></summary><div>${g.items.map(([id,label])=>`<button class="${active(id)?'active':''}" onclick="route('${id}')">${label}</button>`).join("")}</div></details>`;
+        }).join("")}
+      </div>
+    </div>`;
 }
 function shell(eyebrow,title,body,right="",desc=""){setSEO(title,desc||`${title} — CUS Trento C5`);app.innerHTML=`<section class="section"><div class="container"><div class="head"><div><span class="eyebrow">${eyebrow}</span><h1 class="title">${title}</h1></div>${right}</div>${body}</div></section>${footer()}`;}
 function footer(){return `<footer class="footer"><div class="container"><div><div class="brand" style="color:#fff">${brandMark()}<div>CUS Trento C5<small>Futsal universitario</small></div></div><p>Sito ufficiale CUS Trento Calcio a 5: news, rosa, calendario, classifica, storia, gallery e contenuti della stagione.</p></div><div><b>Navigazione</b><a href="#news">News</a><a href="#fixtures">Calendario</a><a href="#staff">Staff</a><a href="#matchday">Matchday</a></div><div><b>Club</b><a href="#club">Club overview</a><a href="#records">Hall of fame</a><a href="#contacts">Contatti</a><a href="#privacy">Privacy policy</a></div></div></footer>`;}
