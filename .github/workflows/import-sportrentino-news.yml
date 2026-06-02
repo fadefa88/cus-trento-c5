@@ -62,18 +62,19 @@ jobs:
         run: |
           python -m json.tool content/data.json > /tmp/data.validated.json
           python -m json.tool content/news.imported.json > /tmp/news-imported.validated.json
+          python -m json.tool content/news.index.json > /tmp/news-index.validated.json
 
       - name: Commit imported news
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          if git diff --quiet content/data.json content/news.imported.json; then
+          if git diff --quiet content/data.json content/news.imported.json content/news.index.json; then
             echo "No new SporTrentino news to commit."
             exit 0
           fi
 
-          git add content/data.json content/news.imported.json
+          git add content/data.json content/news.imported.json content/news.index.json
           git commit -m "Import SporTrentino CUS news"
 
           for attempt in 1 2 3; do
