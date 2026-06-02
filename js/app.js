@@ -1143,7 +1143,20 @@ function galleryAlbum(id){const g=(state.galleryAlbums||[]).find(x=>String(x.id)
 function setVideoSeason(season){view.videoSeason=season;view.videoPage=1;videos();}
 function setVideoCategory(cat){view.videoCategory=cat;view.videoPage=1;videos();}
 function videos(){shell("Video","Highlights, interviste e contenuti social video",`${mediaFilters('video')}<div class="grid grid-3" id="videoGrid"></div><div id="videoPager"></div>`,"","Video e highlights CUS Trento C5.");renderVideoList();}
-function videoCards(items){return items.map((v,i)=>`<article class="card clickable" onclick="openVideoLightbox(${(state.videos||[]).findIndex(x=>x===v)})"><div style="position:relative"><img loading="lazy" class="video-thumb" src="${v.thumb}" alt="${v.title}"><div class="play">▶</div></div><div class="card-pad"><span class="badge">${v.category}</span><h2 style="margin-top:12px">${v.title}</h2></div></article>`).join("");}
+function videoCards(items){return items.map((v,i)=>`<article class="card clickable" onclick="openVideoLightbox(${(state.videos||[]).findIndex(x=>x===v)})">function youtubeThumb(url){
+  const embed = youtubeEmbedUrl(url || "");
+  const match = embed.match(/\/embed\/([^?]+)/);
+  if (!match) return "";
+  return `https://img.youtube.com/vi/${decodeURIComponent(match[1])}/hqdefault.jpg`;
+}
+
+function videoThumb(v){
+  return v.thumb || youtubeThumb(v.url) || "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png";
+}
+
+function videoCards(items){
+  return items.map((v,i)=>`<article class="card clickable" onclick="openVideoLightbox(${(state.videos||[]).findIndex(x=>x===v)})"><div style="position:relative"><img loading="lazy" class="video-thumb" src="${videoThumb(v)}" alt="${v.title}"><div class="play">▶</div></div><div class="card-pad"><span class="badge">${v.category||"Video"}</span><h2 style="margin-top:12px">${v.title}</h2></div></article>`).join("");
+}
 function goVideoPage(page){view.videoPage=page;renderVideoList();}
 function renderVideoList(){const items=(state.videos||[]).filter(v=>mediaMatches(v,view.videoSeason||"2025/26",view.videoCategory||"Tutte"));const pg=paginate(items,view.videoPage,6);view.videoPage=pg.page;const grid=$("#videoGrid"),pager=$("#videoPager");if(grid)grid.innerHTML=videoCards(pg.items)||"<div class='card card-pad'><p class='muted'>Nessun video per questi filtri.</p></div>";if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goVideoPage");}
 function social(){shell("Social wall","Ultimi post Instagram e TikTok",`<div class="social-page-intro"></div>${socialGrid(4)}${socialFollowActions('social-wall-follow')}`,"","Social wall CUS Trento C5.");}
