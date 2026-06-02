@@ -1268,37 +1268,77 @@ function privacy(){shell("Privacy Policy","Informativa sul trattamento dei dati 
   </ul>
   <p>Questo sito (<b>custrentocalcioa5.it</b>) e' dedicato alla sezione Calcio a 5 del CUS Trento. Per il trattamento dati a livello dell'ente si rimanda anche all'informativa ufficiale del CUS Trento, indicata in fondo alla pagina.</p>
 
-  <h2>Quali dati trattiamo</h2>
+  <h2>Quali dati raccogliamo</h2>
+  <p>Questo sito è prevalentemente statico e non prevede registrazione utenti, area personale pubblica, newsletter o profilazione degli utenti.</p>
+  <p>I dati personali possono essere trattati nei seguenti casi:</p>
+
+  <h2>Gestione delle richieste inviate tramite il sito</h2>
+  <p>Quando invii una richiesta tramite il modulo di contatto, trattiamo i dati che decidi di inserire, ad esempio nome, indirizzo email, telefono, oggetto e contenuto del messaggio. Questi dati vengono utilizzati esclusivamente per rispondere alla tua richiesta.</p>
+ <h2>Gestione organizzativa dell’attività sportiva</h2>
+  <p>Per valutare richieste collegate alla partecipazione sportiva, ai contatti con il club o alle attività della sezione Calcio a 5.<br>
+Base giuridica: riscontro a una richiesta dell’interessato e, ove applicabile, legittimo interesse dell’associazione alla gestione delle proprie attività sportive.</p>
+ <h2>Funzionamento tecnico e sicurezza del sito</h2>
+  <p>Per garantire il corretto funzionamento del sito, la sicurezza tecnica e la prevenzione di abusi.<br>
+Base giuridica: legittimo interesse del titolare.</p>
+
+ <h2>Memorizzazione della scelta cookie</h2>
+  <p>Per ricordare la preferenza espressa dall’utente sui contenuti non necessari.
+Base giuridica: legittimo interesse al corretto funzionamento del sito e, ove necessario, consenso dell’utente per i servizi non tecnici.</p>
+<hr>
+ <h2>Cookie e strumenti simili</h2>
+  <p>l sito utilizza solo strumenti tecnici necessari al funzionamento e alla memorizzazione delle preferenze dell’utente.<br>
+Alcuni contenuti di terze parti, come mappe o contenuti esterni, possono essere caricati solo dopo l’accettazione da parte dell’utente tramite il banner cookie o le preferenze disponibili sul sito.<br>
+Per maggiori dettagli sui cookie, sugli strumenti tecnici e sui servizi di terze parti eventualmente utilizzati, consulta la <a href="#" onclick="route('cookies');return false;">Cookie Policy</a> del sito.</p>
+  <hr>
+
+  <h2>Servizi di terze parti</h2>
+  <p>Il sito può includere link, contenuti o collegamenti verso servizi esterni, tra cui, a titolo esemplificativo:</p>
   <ul>
-    <li><b>Dati inviati tramite modulo contatti</b>: nome, email, telefono se inserito, motivo della richiesta e testo del messaggio.</li>
-    <li><b>Dati tecnici di navigazione</b>: informazioni tecniche normalmente trattate dal server/hosting per erogare il sito, sicurezza e diagnostica.</li>
-    <li><b>Preferenza cookie</b>: una scelta salvata nel browser tramite localStorage per ricordare se hai accettato o rifiutato i contenuti esterni. Non viene usata per profilazione.</li>
+    <li>Google Maps, per la visualizzazione di mappe e indicazioni;</li>
+    <li>Instagram, TikTok o altri social network, per collegamenti ai profili ufficiali o contenuti social;</li>
+    <li>YouTube o altri servizi video, se presenti per contenuti multimediali;</li>
+    <li>provider di hosting e servizi tecnici necessari alla pubblicazione del sito.</li>
   </ul>
+  <p>Quando interagisci con servizi di terze parti, tali soggetti possono trattare dati secondo le rispettive informative privacy e cookie policy. Il CUS Trento Calcio a 5 non controlla direttamente i trattamenti effettuati da piattaforme esterne.</p>
+<hr>
+ <h2>Modalità di trattamento</h2>
+  <p>I dati sono trattati con strumenti informatici e, se necessario, organizzativi, adottando misure ragionevoli per proteggerli da accessi non autorizzati, perdita, uso improprio o divulgazione non autorizzata.<br>
+L’accesso ai dati è limitato ai soggetti autorizzati che ne abbiano necessità per gestire le richieste ricevute, le attività sportive o le comunicazioni con utenti, atleti, famiglie, sponsor e partner.</p>
 
-  <h2>Finalita' e base giuridica</h2>
+<hr>
+
+ <h2>Conservazione dei dati</h2>
+  <p>Le comunicazioni ricevute tramite email o modulo di contatto vengono conservate per il tempo necessario a gestire la richiesta.<br>
+Per richieste sportive, provini o candidature, i dati possono essere conservati per il periodo necessario alla valutazione e, se pertinente, per la durata della stagione sportiva di riferimento.<br>
+Per richieste sponsor o partnership, i dati possono essere conservati per il tempo necessario alla gestione del rapporto o della trattativa.<br>
+L’utente può chiedere in qualsiasi momento la cancellazione dei propri dati, salvo eventuali obblighi di conservazione previsti dalla legge o esigenze legittime di tutela del titolare.</p>
+<hr>
+<h2>Minori</h2>
+  <p>Se sei minorenne, puoi inviare dati tramite il sito solo con il consenso di chi esercita la responsabilità genitoriale.<br>
+Per richieste sportive, provini o contatti riguardanti minori, il CUS Trento Calcio a 5 può richiedere il coinvolgimento di un genitore, tutore o soggetto esercente la responsabilità genitoriale.</p>
+<hr>
+ <h2>I tuoi diritti</h2>
+  <p>Ai sensi del Regolamento UE 2016/679, puoi chiedere al titolare del trattamento:</p>
   <ul>
-    <li>Rispondere alle richieste inviate dal modulo contatti o via email.</li>
-    <li>Gestire comunicazioni sportive, organizzative, media o sponsor richieste dall'utente.</li>
-    <li>Garantire sicurezza, corretto funzionamento tecnico e prevenzione di abusi del modulo.</li>
-    <li>Ricordare la preferenza cookie per evitare di riproporre il banner a ogni visita.</li>
+    <li>accesso ai tuoi dati personali;</li>
+    <li>rettifica dei dati inesatti;</li>
+    <li>cancellazione dei dati;</li>
+    <li>limitazione del trattamento;</li>
+    <li>opposizione al trattamento;</li>
+    <li>portabilità dei dati, nei casi previsti dalla normativa;</li>
+    <li>revoca del consenso, quando il trattamento si basa sul consenso.</li>
   </ul>
+  <p>Puoi esercitare i tuoi diritti scrivendo a:</p>
+  <p><a href="mailto:custrentocalcio@gmail.com">custrentocalcio@gmail.com</a>
+    <p>Hai inoltre diritto di proporre reclamo al Garante per la protezione dei dati personali.</p>
+<hr>
 
-  <h2>Modulo contatti</h2>
-  <p>I dati inviati tramite il modulo vengono usati solo per rispondere alla richiesta. Non vengono usati per newsletter, marketing o profilazione. I dati sono conservati per il tempo necessario a gestire la richiesta e gli eventuali successivi adempimenti organizzativi.</p>
 
-  <h2>Cookie e contenuti esterni</h2>
-  <p>Il sito non usa cookie di profilazione propri e non carica strumenti di analytics. Alcuni contenuti esterni, come Google Maps e video YouTube, possono comportare il trattamento di dati da parte dei rispettivi fornitori. Per questo vengono caricati solo dopo consenso, oppure tramite apertura di un link esterno. Vedi la <a href="#" onclick="route('cookies');return false;">Cookie Policy</a>.</p>
-
-  <h2>Destinatari e fornitori tecnici</h2>
-  <p>I dati possono essere trattati da fornitori tecnici necessari al funzionamento del sito, come hosting, servizi email e piattaforme usate per pubblicazione/manutenzione. I contenuti social presenti nelle card Instagram/TikTok sono mostrati come immagini o link e non come widget di profilazione incorporati.</p>
-
-  <h2>Diritti dell'interessato</h2>
-  <p>In base al Regolamento UE 2016/679 (GDPR) puoi chiedere accesso, rettifica, cancellazione, limitazione, opposizione al trattamento e portabilita' dei dati, quando applicabile. Puoi scrivere a <a href="mailto:custrentocalcio@gmail.com">custrentocalcio@gmail.com</a>. Puoi inoltre proporre reclamo al Garante per la protezione dei dati personali.</p>
 
   <h2>Informativa ufficiale CUS Trento</h2>
   <p>Essendo questo un sito della sezione Calcio a 5, per il trattamento dati a livello dell'ente puoi consultare anche l'informativa ufficiale del CUS Trento: <a href="https://www.iubenda.com/privacy-policy/54750032" target="_blank" rel="noopener">Privacy Policy CUS Trento</a>.</p>
 
-  <p class="muted">Nota: questa pagina e' una base tecnica/informativa per il sito. Per validazione legale definitiva conviene farla verificare dal responsabile privacy dell'ente.</p>
+
 </div>`,"","Privacy policy del sito CUS Trento Calcio a 5.");}
 function cookies(){shell("Cookie Policy","Come questo sito usa cookie e servizi esterni",`
 <div class="card card-pad article-body">
