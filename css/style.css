@@ -1119,13 +1119,14 @@ body.menu-open{
 .footer .social-follow-btn.instagram,
 .footer .social-follow-btn.instagram span,
 .footer .social-follow-btn.instagram i{
-  color:#fff !important;
+  color:#fff !important; margin-left:5px;
 }
 .footer .social-follow-btn.tiktok{
   background:#fff !important;
   color:#09090b !important;
+  
 }
 .footer .social-follow-btn.tiktok span,
 .footer .social-follow-btn.tiktok i{
-  color:#09090b !important;
+  color:#09090b !important;margin-left:5px;
 }
