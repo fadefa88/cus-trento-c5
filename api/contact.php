@@ -4,6 +4,16 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'GET' && isset($_GET['health'])) {
+    echo json_encode([
+        'ok' => true,
+        'endpoint' => 'api/contact.php',
+        'php_mail_available' => function_exists('mail'),
+        'sendmail_path' => ini_get('sendmail_path') ?: '',
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    exit;
+}
+
 function respond(int $status, array $payload): void {
     http_response_code($status);
     echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -84,7 +94,7 @@ if (is_file($rateFile)) {
 }
 @file_put_contents($rateFile, (string)$now, LOCK_EX);
 
-$to = 'custrentocalcio@gmail.com';
+$to = getenv('CUS_CONTACT_TO') ?: 'custrentocalcio@gmail.com';
 $from = getenv('CUS_CONTACT_FROM') ?: 'no-reply@custrentocalcioa5.it';
 $subject = '[CUS Trento C5] Nuovo messaggio: ' . ($reason !== '' ? $reason : 'Contatto sito');
 
@@ -109,13 +119,32 @@ $headers[] = 'Content-Type: text/plain; charset=UTF-8';
 $headers[] = 'Content-Transfer-Encoding: 8bit';
 $headers[] = 'From: CUS Trento C5 <' . $from . '>';
 $headers[] = 'Sender: ' . $from;
-$headers[] = 'Return-Path: ' . $from;
 $headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
 $headers[] = 'X-Mailer: CUS Trento C5 contact form';
 
-$sent = @mail($to, $encodedSubject, $body, implode("\r\n", $headers), '-f' . $from);
+$headersString = implode("\r\n", $headers);
+
+$sent = false;
+if (function_exists('mail')) {
+    // Primo tentativo: con envelope sender. Alcuni hosting lo richiedono.
+    $sent = @mail($to, $encodedSubject, $body, $headersString, '-f' . $from);
+
+    // Secondo tentativo: senza parametro -f. Alcuni hosting condivisi lo bloccano.
+    if (!$sent) {
+        $sent = @mail($to, $encodedSubject, $body, $headersString);
+    }
+}
+
 if (!$sent) {
-    respond(500, ['ok' => false, 'message' => 'Il server non è riuscito a inviare il messaggio. Scrivi direttamente a custrentocalcio@gmail.com.']);
+    error_log('CUS contact form: mail() failed. To=' . $to . ' From=' . $from . ' Sendmail=' . (ini_get('sendmail_path') ?: ''));
+    respond(500, [
+        'ok' => false,
+        'message' => 'Il server non è riuscito a inviare il messaggio. Scrivi direttamente a ' . $to . '.',
+        'debug' => [
+            'php_mail_available' => function_exists('mail'),
+            'sendmail_path' => ini_get('sendmail_path') ?: '',
+        ],
+    ]);
 }
 
 respond(200, ['ok' => true, 'message' => 'Messaggio inviato correttamente. Ti risponderemo appena possibile.']);
