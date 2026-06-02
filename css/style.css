@@ -1107,6 +1107,8 @@ body.menu-open{
 .social-follow-btn i{font-size:17px;}
 .social-follow-btn.instagram{background:linear-gradient(135deg,#7f1d1d,#dc2626,#f97316);}
 .social-follow-btn.tiktok{background:#09090b;}
+.social-follow-btn.instagram.footer{background:linear-gradient(135deg,#7f1d1d,#dc2626,#f97316);color:white;}
+.social-follow-btn.tiktok.footer{color:#09090b;background:white;}
 .footer-follow{margin-top:18px;}
 .footer-follow .social-follow-btn{padding:11px 14px;font-size:13px;}
 .social-wall-follow{justify-content:center;margin-top:24px;}
