@@ -106,7 +106,8 @@ collections:
         - Portiere
         - Centrale
         - Laterale
-        - Punta
+        - Pivot
+        - Universale
       - label: Squadra
         name: team
         widget: select
