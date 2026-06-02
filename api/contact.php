@@ -84,7 +84,7 @@ if (is_file($rateFile)) {
 }
 @file_put_contents($rateFile, (string)$now, LOCK_EX);
 
-$to = 'custrentocalcio@gmail.com';
+$to = 'luca.defassi@gmail.com';
 $from = getenv('CUS_CONTACT_FROM') ?: 'no-reply@custrentocalcioa5.it';
 $subject = '[CUS Trento C5] Nuovo messaggio: ' . ($reason !== '' ? $reason : 'Contatto sito');
 
