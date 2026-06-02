@@ -7,19 +7,8 @@ const groups = [
   {label:"Club",items:[["club","Club overview"],["sponsor","Sponsor"],["records","Hall of fame"],["contacts","Contatti"]]}
 ];
 let state = applyAutomations(hydrate({}));  // fallback iniziale; appena arriva content/data.json, il CMS diventa sorgente primaria
-let current = initialRouteFromLocation();
-let view = {staff:"prima", calendar:"prima", calendarFilter:"Tutte", calendarPage:1, standings:"prima", cup:"prima", stats:"prima", statsCompetition:"totale", squadPage:1, squadTeam:"Prima squadra", newsPage:1, newsCategory:"Tutte", galleryPage:1, galleryCategory:"Tutte", gallerySeason:"Tutte", galleryType:"Tutte", videoPage:1, videoSeason:"Tutte", videoType:"Tutte", clubHistoryIndex:0};
-
-function initialRouteFromLocation(){
-  const hash = location.hash.replace("#","");
-  if(hash) return hash;
-  try{
-    const params = new URLSearchParams(location.search);
-    const article = params.get("article") || params.get("news");
-    if(article) return `article-${article}`;
-  }catch(e){}
-  return "home";
-}
+let current = location.hash.replace("#","") || "home";
+let view = {staff:"prima", calendar:"prima", calendarFilter:"Tutte", calendarPage:1, standings:"prima", cup:"prima", stats:"prima", statsCompetition:"totale", squadPage:1, squadTeam:"Prima squadra", newsPage:1, newsCategory:"Tutte", galleryPage:1, galleryCategory:"Tutte", videoPage:1, clubHistoryIndex:0};
 
 function teamSwitch(kind){
   const currentValue = view[kind] || "prima";
@@ -493,8 +482,7 @@ function renderNav(){
     </aside>`;
 }
 function shell(eyebrow,title,body,right="",desc=""){setSEO(title,desc||`${title} — CUS Trento C5`);app.innerHTML=`<section class="section"><div class="container"><div class="head"><div><span class="eyebrow">${eyebrow}</span><h1 class="title">${title}</h1></div>${right}</div>${body}</div></section>${footer()}`;}
-function socialFollowButtons(extraClass=""){return `<div class="social-follow-actions ${extraClass}"><a class="btn dark social-follow-btn instagram" href="https://www.instagram.com/custrentoc5/" target="_blank" rel="noopener noreferrer" aria-label="Segui CUS Trento C5 su Instagram"><i class="fa-brands fa-instagram"></i><span>Segui su Instagram</span></a><a class="btn dark social-follow-btn tiktok" href="https://www.tiktok.com/@custrentoc5" target="_blank" rel="noopener noreferrer" aria-label="Segui CUS Trento C5 su TikTok"><i class="fa-brands fa-tiktok"></i><span>Segui su TikTok</span></a></div>`;}
-function footer(){return `<footer class="footer"><div class="container"><div><div class="brand" style="color:#fff">${brandMark()}<div>CUS Trento C5<small>Futsal universitario</small></div></div><p>Sito ufficiale CUS Trento Calcio a 5: news, rosa, calendario, classifica, storia, gallery e contenuti della stagione.</p>${socialFollowButtons("footer-follow")}</div><div><b>Navigazione</b><a href="#news">News</a><a href="#fixtures">Calendario</a><a href="#staff">Staff</a><a href="#matchday">Matchday</a></div><div><b>Club</b><a href="#club">Club overview</a><a href="#records">Hall of fame</a><a href="#contacts">Contatti</a><a href="#privacy">Privacy policy</a></div></div></footer>`;}
+function footer(){return `<footer class="footer"><div class="container"><div><div class="brand" style="color:#fff">${brandMark()}<div>CUS Trento C5<small>Futsal universitario</small></div></div><p>Sito ufficiale CUS Trento Calcio a 5: news, rosa, calendario, classifica, storia, gallery e contenuti della stagione.</p></div><div><b>Navigazione</b><a href="#news">News</a><a href="#fixtures">Calendario</a><a href="#staff">Staff</a><a href="#matchday">Matchday</a></div><div><b>Club</b><a href="#club">Club overview</a><a href="#records">Hall of fame</a><a href="#contacts">Contatti</a><a href="#privacy">Privacy policy</a></div></div></footer>`;}
 function safe(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
 function fixtureRow(f){
   if(!f || !Object.keys(f).length){
@@ -660,7 +648,7 @@ function socialGrid(perPlatform=2){
   const items=socialFeedItems(perPlatform);
   return `<div class="social-feed-grid${perPlatform>=4?' social-feed-grid-large':''}">${items.map(socialCard).join("")}</div>`;
 }
-function homeSocialSection(){return `<section class="section social-home-section"><div class="container"><div class="head"><div><span class="eyebrow">Social wall</span><h2 class="title">Ultimi Post</h2></div><button class="btn soft" onclick="route('social')">Apri social wall</button></div>${socialGrid(2)}${socialFollowButtons('social-wall-follow')}</div></section>`;}
+function homeSocialSection(){return `<section class="section social-home-section"><div class="container"><div class="head"><div><span class="eyebrow">Social wall</span><h2 class="title">Ultimi Post</h2></div><button class="btn soft" onclick="route('social')">Apri social wall</button></div>${socialGrid(2)}</div></section>`;}
 function home(){setSEO("Home","CUS Trento C5: sito ufficiale con news, rosa, calendari e match center.");const next=nextFixture(state.fixtures);const last=lastResult(state.fixtures);const cus=findCusRow(state.standings);const top=[...state.roster].filter(p=>p.team==="Prima squadra").sort((a,b)=>(b.goals||0)-(a.goals||0))[0]||{};const pinned=latestNews(state.news);const cupNext=nextFixture(((state.cup||{}).fixtures)||[]);app.innerHTML=`<section class="hero"><div class="container hero-grid"><div><span class="tag">Serie C1</span><span class="tag ghost">Stagione 26/27</span><h1>More than a team. <span class="red">Trento</span> plays fast.</h1><p class="lead"><br><br></p><p class="lead"></p><div class="btns"><button class="btn" onclick="route('fixtures')">Prossima partita →</button><button class="btn light" onclick="route('squad')">Scopri la rosa</button><button class="btn ghost" onclick="route('matchday')">Info matchday</button></div></div><div><div class="match-card"><div class="kicker">Prossima partita</div><div class="match-teams"><div><div class="clubmark">${next.home&&next.home.includes("CUS")?"CUS":String(next.home||"").slice(0,2)}</div><b>${next.home||"CUS Trento"}</b></div><div><small>${next.date?fmt(next.date):"Da definire"}</small><div class="timebox">${next.time||"--:--"}</div></div><div><div class="clubmark">${next.away&&next.away.includes("CUS")?"CUS":String(next.away||"").slice(0,2)}</div><b>${next.away||"Avversario"}</b></div></div></div><div class="mini-grid"><div class="mini"><strong>#${cus.pos||"-"}</strong><span>Posizione<br>${cus.pts!=null?cus.pts+" pt":""}</span></div><div class="mini"><strong>${top.goals||0}</strong><span>Top scorer<br>${top.name||""}</span></div><div class="mini"><strong>${last.score||"-"}</strong><span>Ultimo risultato</span></div></div></div></div></section><section class="section"><div class="container grid grid-2"><article class="card feature clickable" onclick="route('article-${pinned.id}')"><img loading="lazy" decoding="async" src="${pinned.image}" alt="${pinned.title}"><div class="card-pad"><span class="badge">${pinned.category}</span><h2 style="margin-top:14px">${pinned.title}</h2><p class="muted">${pinned.excerpt}</p><button class="btn dark">Leggi articolo</button></div></article><article class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">Coppa</span><h2 style="font-size:34px;margin:0">${state.cup.title}</h2><p style="color:rgba(255,255,255,.75)">Stato: <b>${state.cup.status}</b></p>${cupFixture(cupNext,true)}<button class="btn ghost" style="margin-top:16px" onclick="route('coppa')">Vai alla Coppa</button></article></div></section><section class="section" style="padding-top:0"><div class="container grid grid-2"><div class="card card-pad home-stack"><h2>Calendario</h2>${(state.fixtures||[]).slice(0,3).map(fixtureRow).join("") || `<div class="fixture"><div class="fixture-top"><span>Calendario</span><span>Nuova stagione</span></div><div class="teams"><span>CUS Trento</span><span class="score">VS</span><span>Avversario</span></div><p class="muted">Inserisci le nuove partite dal CMS.</p></div>`}</div><div class="card card-pad"><h2>Classifica</h2>${homeStandingWidget(state.standings)}</div></div></section>${homeSocialSection()}${footer()}`;}
 function newsTags(n){
   const raw=[n&&n.category,...(Array.isArray(n&&n.tags)?n.tags:[])].filter(Boolean);
@@ -726,9 +714,7 @@ function newsSearchText(n){
 }
 function articleShareUrl(n){
   const base=location.origin+location.pathname;
-  const id=encodeURIComponent(n && n.id != null ? n.id : "");
-  // Facebook mobile gestisce male gli hash puri: lasciamo anche un parametro query leggibile.
-  return `${base}?article=${id}#article-${id}`;
+  return `${base}#article-${encodeURIComponent(n.id)}`;
 }
 function findNewsById(id){
   return (state.news||[]).find(x=>String(x.id)===String(id));
@@ -746,7 +732,7 @@ function newsShareButtons(n,compact=false){
   return `<div class="news-share ${compact?'compact':''}" onclick="event.stopPropagation()">
     <span class="share-label">Condividi</span>
     <a class="share-action share-whatsapp" href="https://wa.me/?text=${encTitle}%20${encUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su WhatsApp"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-whatsapp"></i></span><span>WhatsApp</span></a>
-    <a class="share-action share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encUrl}&quote=${encTitle}" target="_blank" rel="noopener noreferrer" ${stop} ${payload} data-news-share-action="facebook" onclick="openFacebookShareFromButton(this,event);return false;" aria-label="Condividi su Facebook"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-facebook-f"></i></span><span>Facebook</span></a>
+    <a class="share-action share-facebook" href="https://mbasic.facebook.com/sharer.php?u=${encUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su Facebook"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-facebook-f"></i></span><span>Facebook</span></a>
     <a class="share-action share-x" href="https://twitter.com/intent/tweet?text=${encTitle}&url=${encUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su X"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-x-twitter"></i></span><span>X</span></a>
     <a class="share-action share-telegram" href="https://t.me/share/url?url=${encUrl}&text=${encTitle}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su Telegram"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-telegram"></i></span><span>Telegram</span></a>
     <button class="share-action share-copy" type="button" data-news-share-action="copy" ${payload} onclick="copyNewsLinkFromButton(this,event);return false;" aria-label="Copia link della news"><span class="share-icon" aria-hidden="true"><i class="fa-solid fa-link"></i></span><span>Copia link</span></button>
@@ -819,16 +805,6 @@ async function copyNewsLink(input){
   if(copied)showShareToast('Link copiato negli appunti.');
   else prompt('Copia il link della news:',payload.url);
 }
-function facebookShareUrl(payload){
-  return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(payload.url)}&quote=${encodeURIComponent(payload.title||payload.text||'CUS Trento C5')}`;
-}
-function openFacebookShareFromButton(trigger,event){
-  if(event){event.preventDefault();event.stopPropagation();}
-  const payload=sharePayloadFromTrigger(trigger);
-  const url=facebookShareUrl(payload);
-  const opened=window.open(url,'_blank','noopener,noreferrer');
-  if(!opened) window.location.href=url;
-}
 function setupNewsShareHandlers(){
   if(window.__cusNewsShareHandlersBound)return;
   window.__cusNewsShareHandlersBound=true;
@@ -838,7 +814,7 @@ function setupNewsShareHandlers(){
     const action=trigger.getAttribute('data-news-share-action');
     // Anche i link esterni devono bloccare il click della card news sottostante.
     event.stopPropagation();
-    if(action==='external'||action==='facebook')return;
+    if(action==='external')return;
     event.preventDefault();
     const payload=sharePayloadFromTrigger(trigger);
     if(action==='copy')copyNewsLink(payload);
@@ -1002,7 +978,7 @@ function playerDetail(id){
     ["Luogo di nascita",playerBirthPlace(p)||"—"],
     ["Facoltà universitaria",playerFaculty(p)||"—"]
   ];
-  shell("Player profile",p.name,`<div class="breadcrumb"><button class="back-link" onclick="route('squad')"><span>←</span> Rosa</button><span>${p.role||''} · ${p.team||''}</span></div><div class="player-hero"><aside class="player-portrait"><span class="eyebrow" style="background:white;color:#09090b">${p.team||''}</span><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"><div class="player-detail-heading"><span class="player-detail-number">${p.number!=null&&p.number!==''?`#${p.number}`:'—'}</span><h2>${p.name||''}</h2></div><p style="color:rgba(255,255,255,.76);font-weight:900">${p.role||''}</p></aside><section class="grid"><div class="grid grid-4"><div class="stat-tile"><b>${total.appearances}</b><span>Presenze</span></div><div class="stat-tile"><b>${total.value}</b><span>${statLabel}</span></div><div class="stat-tile"><b>${total.yellow}</b><span>Ammonizioni</span></div><div class="stat-tile"><b>${total.red}</b><span>Espulsioni</span></div></div><div class="card card-pad"><h2>Dati giocatore</h2><div class="player-info-grid">${infoRows.map(([label,value])=>`<div class="player-info-box"><span>${label}</span><b>${value}</b></div>`).join("")}</div></div><div class="card card-pad table-wrap"><h2>Statistiche per competizione</h2><table class="table player-stat-table" style="box-shadow:none;margin-top:16px"><thead><tr><th>Competizione</th><th>Presenze</th><th>${statLabel}</th><th>Ammonizioni</th><th>Espulsioni</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.label}</td><td>${r.appearances}</td><td>${r.value}</td><td>${r.yellow}</td><td>${r.red}</td></tr>`).join("")}</tbody></table></div></section></div>`,"",p.photo);
+  shell("Player profile",p.name,`<div class="breadcrumb"><button class="back-link" onclick="route('squad')"><span>←</span> Rosa</button><span>${p.role||''} · ${p.team||''}</span></div><div class="player-hero"><aside class="player-portrait"><span class="eyebrow" style="background:white;color:#09090b">${p.team||''}</span><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"><h2 style="font-size:42px;line-height:.9;margin:22px 0 10px">${p.name||''}</h2><p style="color:rgba(255,255,255,.76);font-weight:900">${p.role||''}</p></aside><section class="grid"><div class="grid grid-4"><div class="stat-tile"><b>${total.appearances}</b><span>Presenze</span></div><div class="stat-tile"><b>${total.value}</b><span>${statLabel}</span></div><div class="stat-tile"><b>${total.yellow}</b><span>Ammonizioni</span></div><div class="stat-tile"><b>${total.red}</b><span>Espulsioni</span></div></div><div class="card card-pad"><h2>Dati giocatore</h2><div class="player-info-grid">${infoRows.map(([label,value])=>`<div class="player-info-box"><span>${label}</span><b>${value}</b></div>`).join("")}</div></div><div class="card card-pad table-wrap"><h2>Statistiche per competizione</h2><table class="table player-stat-table" style="box-shadow:none;margin-top:16px"><thead><tr><th>Competizione</th><th>Presenze</th><th>${statLabel}</th><th>Ammonizioni</th><th>Espulsioni</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.label}</td><td>${r.appearances}</td><td>${r.value}</td><td>${r.yellow}</td><td>${r.red}</td></tr>`).join("")}</tbody></table></div></section></div>`,"",p.photo);
 }
 function normalizeMatchForCalendar(f, type){return {...f, competition:type||f.competition||f.round, _calendarType:type||f.competition||f.round};}
 function calendarSource(){
@@ -1119,60 +1095,17 @@ function mapQueryForFixture(f){
 }
 function googleMapEmbed(query){return `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;}
 function matchday(){const next=nextFixture(state.fixtures);const mapQuery=mapQueryForFixture(next);shell("Matchday","Info campo, ingresso e come arrivare",`<div class="grid grid-2"><div class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">Next match</span><h2 style="font-size:42px">${next.home||"CUS Trento"} - ${next.away||"Avversario"}</h2><p>${next.date?fmt(next.date):"Data da definire"} · ${next.time||"--:--"} · ${next.venue||"Sanbàpolis"}</p><button class="btn ghost" onclick="route('match-${next.id||""}')">Apri match center</button></div><div class="mapbox"><div><h2 style="font-size:38px;margin:0">${next.venue||"Sanbàpolis"}</h2><p>${mapQuery}</p></div></div></div><div class="card card-pad" style="margin-top:22px"><h2>Mappa campo</h2><iframe class="google-map" loading="lazy" src="${googleMapEmbed(mapQuery)}" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>`,"","Informazioni matchday, campo, orari e accesso.");}
-const MEDIA_SEASONS=["Tutte","2025/26","2026/27"];
-const MEDIA_TYPES=["Tutte","Prima squadra","Under 21","Partite","Interviste"];
-function normalizeSeasonLabel(value){
-  const raw=String(value||"").trim();
-  const m=raw.match(/(20\d{2})\D+(20)?(\d{2})/);
-  if(m)return `${m[1]}/${m[3]}`;
-  return raw;
-}
-function seasonFromDate(date){
-  const d=new Date(date);
-  if(Number.isNaN(d.getTime()))return "";
-  const y=d.getFullYear();
-  const m=d.getMonth()+1;
-  const start=m>=7?y:y-1;
-  return `${start}/${String(start+1).slice(-2)}`;
-}
-function mediaSeason(item){return normalizeSeasonLabel(item.season||item.stagione||seasonFromDate(item.date)||"");}
-function mediaText(item){return normText([item.category,item.type,item.team,item.squad,item.title,item.description,item.tags&&item.tags.join?item.tags.join(" "):item.tags].filter(Boolean).join(" "));}
-function mediaType(item){
-  const t=mediaText(item);
-  if(t.includes("under21")||t.includes("u21"))return "Under 21";
-  if(t.includes("intervist")||t.includes("interview"))return "Interviste";
-  if(t.includes("partit")||t.includes("match")||t.includes("highlight")||t.includes("gara"))return "Partite";
-  if(t.includes("primasquadra")||t.includes("senior")||t.includes("seriec1"))return "Prima squadra";
-  return "Prima squadra";
-}
-function mediaMatchesFilters(item,season,type){
-  const itemSeason=mediaSeason(item);
-  const itemType=mediaType(item);
-  return (season==="Tutte"||itemSeason===season) && (type==="Tutte"||itemType===type);
-}
-function mediaFilterButton(kind,field,value,label){
-  const currentValue=view[`${kind}${field}`]||"Tutte";
-  return `<button class="pill ${currentValue===value?'active':''}" onclick="setMediaFilter('${kind}','${field}','${value}')">${safe(label||value)}</button>`;
-}
-function mediaFilters(kind){
-  return `<div class="media-filter-block"><div class="media-filter-label">Stagione</div><div class="toolbar media-toolbar">${MEDIA_SEASONS.map(s=>mediaFilterButton(kind,'Season',s,s)).join("")}</div><div class="media-filter-label">Categoria</div><div class="toolbar media-toolbar">${MEDIA_TYPES.map(t=>mediaFilterButton(kind,'Type',t,t)).join("")}</div></div>`;
-}
-function setMediaFilter(kind,field,value){
-  view[`${kind}${field}`]=value;
-  if(kind==="gallery"){view.galleryPage=1;gallery();return;}
-  if(kind==="video"){view.videoPage=1;videos();return;}
-}
-function gallery(){shell("Media gallery","Gallery fotografiche",`<p class="muted" style="max-width:760px;margin-top:-8px;margin-bottom:24px">Album cliccabili con foto in lightbox.</p>${mediaFilters('gallery')}<div class="grid grid-3" id="galleryGrid"></div><div id="galleryPager"></div>`,"","Gallery fotografiche CUS Trento C5.");renderGalleryList();}
-function setGalleryCategory(cat){setMediaFilter('gallery','Type',cat);}
+function gallery(){const albums=state.galleryAlbums||[];const cats=["Tutte",...new Set(albums.map(g=>g.category))];shell("Media gallery","Gallery fotografiche",`<p class="muted" style="max-width:760px;margin-top:-8px;margin-bottom:24px">Album cliccabili con foto in lightbox.</p><div class="toolbar">${cats.map(c=>`<button class="pill galf ${view.galleryCategory===c?"active":""}" onclick="setGalleryCategory('${c}')">${c}</button>`).join("")}</div><div class="grid grid-3" id="galleryGrid"></div><div id="galleryPager"></div>`,"","Gallery fotografiche CUS Trento C5.");renderGalleryList();}
+function setGalleryCategory(cat){view.galleryCategory=cat;view.galleryPage=1;gallery();}
 function goGalleryPage(page){view.galleryPage=page;renderGalleryList();}
-function renderGalleryList(){const albums=state.galleryAlbums||[];const season=view.gallerySeason||"Tutte";const type=view.galleryType||"Tutte";const items=albums.filter(g=>mediaMatchesFilters(g,season,type));const pg=paginate(items,view.galleryPage,6);view.galleryPage=pg.page;const grid=$("#galleryGrid"),pager=$("#galleryPager");if(grid)grid.innerHTML=galleryCards(pg.items)||`<div class='card card-pad'><h2>Nessuna gallery trovata</h2><p class='muted'>Prova a cambiare stagione o categoria.</p></div>`;if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goGalleryPage");}
-function galleryCards(items){return items.map(g=>`<article class="card gallery-card clickable" onclick="route('gallery-album-${g.id}')"><span class="album-count">${(g.photos||[]).length} foto</span><img loading="lazy" class="gallery-img" src="${g.cover}" alt="${g.title}"><div class="gallery-caption"><span class="badge">${mediaSeason(g)||'Stagione'}</span> <span class="badge">${mediaType(g)}</span><h2 style="margin-top:10px">${g.title}</h2><p>${fmt(g.date)}</p></div></article>`).join("");}
-function galleryAlbum(id){const g=(state.galleryAlbums||[]).find(x=>String(x.id)===String(id));if(!g){route("gallery");return;}shell("Gallery",g.title,`<div class="breadcrumb"><button class="back-link" onclick="route('gallery')"><span>←</span> Gallery</button><span>${mediaSeason(g)||'Stagione'} · ${mediaType(g)} · ${fmt(g.date)}</span></div><p class="muted" style="max-width:760px">${g.description||""}</p><div class="grid grid-3" style="margin-top:24px">${(g.photos||[]).map((src,i)=>`<article class="card clickable" onclick="openLightbox(${g.id},${i})"><img loading="lazy" class="gallery-img" src="${src}" alt="${g.title} foto ${i+1}"><div class="card-pad"><span class="badge">Foto ${i+1}</span><p class="muted">Clicca per aprire in lightbox</p></div></article>`).join("")}</div>`,"","Album fotografico CUS Trento C5.",g.cover);}
-function videos(){shell("Video","Highlights, interviste e contenuti social video",`${mediaFilters('video')}<div class="grid grid-3" id="videoGrid"></div><div id="videoPager"></div>`,"","Video e highlights CUS Trento C5.");renderVideoList();}
-function videoCards(items){return items.map(v=>`<article class="card clickable" onclick="openVideoLightbox(${(state.videos||[]).findIndex(x=>x===v)})"><div style="position:relative"><img loading="lazy" class="video-thumb" src="${v.thumb||SOCIAL_FALLBACK_THUMB}" alt="${v.title}"><div class="play">▶</div></div><div class="card-pad"><span class="badge">${mediaSeason(v)||'Stagione'}</span> <span class="badge">${mediaType(v)}</span><h2 style="margin-top:12px">${v.title}</h2></div></article>`).join("");}
+function renderGalleryList(){const albums=state.galleryAlbums||[];const cat=view.galleryCategory||"Tutte";const items=cat==="Tutte"?albums:albums.filter(g=>g.category===cat);const pg=paginate(items,view.galleryPage,6);view.galleryPage=pg.page;const grid=$("#galleryGrid"),pager=$("#galleryPager");if(grid)grid.innerHTML=galleryCards(pg.items);if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goGalleryPage");}
+function galleryCards(items){return items.map(g=>`<article class="card gallery-card clickable" onclick="route('gallery-album-${g.id}')"><span class="album-count">${(g.photos||[]).length} foto</span><img loading="lazy" class="gallery-img" src="${g.cover}" alt="${g.title}"><div class="gallery-caption"><span class="badge">${g.category}</span><h2 style="margin-top:10px">${g.title}</h2><p>${fmt(g.date)}</p></div></article>`).join("");}
+function galleryAlbum(id){const g=(state.galleryAlbums||[]).find(x=>String(x.id)===String(id));if(!g){route("gallery");return;}shell("Gallery",g.title,`<div class="breadcrumb"><button class="back-link" onclick="route('gallery')"><span>←</span> Gallery</button><span>${g.category} · ${fmt(g.date)}</span></div><p class="muted" style="max-width:760px">${g.description||""}</p><div class="grid grid-3" style="margin-top:24px">${(g.photos||[]).map((src,i)=>`<article class="card clickable" onclick="openLightbox(${g.id},${i})"><img loading="lazy" class="gallery-img" src="${src}" alt="${g.title} foto ${i+1}"><div class="card-pad"><span class="badge">Foto ${i+1}</span><p class="muted">Clicca per aprire in lightbox</p></div></article>`).join("")}</div>`,"","Album fotografico CUS Trento C5.",g.cover);}
+function videos(){shell("Video","Highlights, interviste e contenuti social video",`<div class="grid grid-3" id="videoGrid"></div><div id="videoPager"></div>`,"","Video e highlights CUS Trento C5.");renderVideoList();}
+function videoCards(items){return items.map((v,i)=>`<article class="card clickable" onclick="openVideoLightbox(${(state.videos||[]).findIndex(x=>x===v)})"><div style="position:relative"><img loading="lazy" class="video-thumb" src="${v.thumb}" alt="${v.title}"><div class="play">▶</div></div><div class="card-pad"><span class="badge">${v.category}</span><h2 style="margin-top:12px">${v.title}</h2></div></article>`).join("");}
 function goVideoPage(page){view.videoPage=page;renderVideoList();}
-function renderVideoList(){const season=view.videoSeason||"Tutte";const type=view.videoType||"Tutte";const items=(state.videos||[]).filter(v=>mediaMatchesFilters(v,season,type));const pg=paginate(items,view.videoPage,6);view.videoPage=pg.page;const grid=$("#videoGrid"),pager=$("#videoPager");if(grid)grid.innerHTML=videoCards(pg.items)||`<div class='card card-pad'><h2>Nessun video trovato</h2><p class='muted'>Prova a cambiare stagione o categoria.</p></div>`;if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goVideoPage");}
-function social(){shell("Social wall","Ultimi post Instagram e TikTok",`<div class="social-page-intro"></div>${socialGrid(4)}${socialFollowButtons('social-wall-follow')}`,"","Social wall CUS Trento C5.");}
+function renderVideoList(){const pg=paginate(state.videos||[],view.videoPage,6);view.videoPage=pg.page;const grid=$("#videoGrid"),pager=$("#videoPager");if(grid)grid.innerHTML=videoCards(pg.items);if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goVideoPage");}
+function social(){shell("Social wall","Ultimi post Instagram e TikTok",`<div class="social-page-intro"></div>${socialGrid(4)}`,"","Social wall CUS Trento C5.");}
 
 function tryout(){shell("Provini","Entra nel progetto CUS Trento C5",`<div class="grid grid-2"><div class="tryout-hero"><span class="eyebrow" style="background:white;color:#09090b">Tryout</span><h2 style="font-size:42px">Vuoi giocare con noi?</h2><p style="color:rgba(255,255,255,.74)">Compila la candidatura demo: ruolo, esperienza, università/corso e contatti. In produzione il form invierà la richiesta allo staff tecnico.</p><div class="grid grid-2" style="margin-top:22px">${["Prima squadra","Under 21","Portieri","Studenti UniTrento"].map(x=>`<div class="gk-box"><b>${x}</b><span>Area</span></div>`).join("")}</div></div><div class="lead-form"><h2>Modulo candidatura</h2><div class="form-grid" style="grid-template-columns:1fr 1fr"><label><span>Nome e cognome</span><input id="try_name"></label><label><span>Età</span><input id="try_age" type="number"></label><label><span>Ruolo</span><select id="try_role"><option>Portiere</option><option>Centrale</option><option>Laterale</option><option>Pivot</option><option>Universale</option></select></label><label><span>Università / corso</span><input id="try_university"></label><label><span>Telefono</span><input id="try_phone"></label><label><span>Email</span><input id="try_email" type="email"></label><label style="grid-column:1/-1"><span>Esperienza e note</span><textarea id="try_notes"></textarea></label></div><button class="btn dark" style="margin-top:14px" onclick="saveLead('tryout')">Invia candidatura demo</button></div></div><div class="grid grid-3" style="margin-top:24px">${["Valutazione tecnica","Allenamento di prova","Inserimento nel gruppo"].map((x,i)=>`<div class="card card-pad"><span class="badge">Step 0${i+1}</span><h2 style="margin-top:12px">${x}</h2><p class="muted">Workflow demo per gestire le richieste dei giocatori interessati.</p></div>`).join("")}</div>`,"","Modulo provini e candidature CUS Trento C5.");}
 
@@ -1364,27 +1297,20 @@ function saveLead(type){
 
 let lightboxState={albumId:null,index:0};
 function getLightboxAlbum(albumId){if(String(albumId)==="club-history"){return {id:"club-history",title:"Rose storiche CUS Trento",photos:((state.clubHistory&&state.clubHistory.images)||[]).map(x=>x.image)};}if(String(albumId)==="video"){return {id:"video",title:"Video CUS Trento",videos:state.videos||[]};}return (state.galleryAlbums||[]).find(x=>String(x.id)===String(albumId));}
-function youtubeVideoId(url){
-  const raw=String(url||"").trim();
-  if(!raw)return "";
+function youtubeEmbedUrl(url){
+  const raw=String(url||"");
+  let id="";
   try{
     const u=new URL(raw);
-    const host=u.hostname.replace(/^www\./,"");
-    if(host==="youtu.be") return u.pathname.replace(/^\//,"").split("/")[0];
-    if(host.includes("youtube.com")){
-      if(u.searchParams.get("v")) return u.searchParams.get("v");
-      const parts=u.pathname.split("/").filter(Boolean);
-      const idx=parts.findIndex(p=>["embed","shorts","live"].includes(p));
-      if(idx>=0 && parts[idx+1]) return parts[idx+1];
-    }
+    if(u.hostname.includes("youtu.be")) id=u.pathname.replace("/","");
+    else if(u.searchParams.get("v")) id=u.searchParams.get("v");
+    else if(u.pathname.includes("/embed/")) id=u.pathname.split("/embed/")[1].split("/")[0];
   }catch(e){}
-  return "";
+  return id?`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`:raw;
 }
-function youtubeEmbedUrl(url){const id=youtubeVideoId(url);return id?`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`:"";}
-function youtubeWatchUrl(url){const id=youtubeVideoId(url);return id?`https://www.youtube.com/watch?v=${id}`:"";}
 function openVideoLightbox(index){lightboxState={albumId:"video",index};renderLightbox();$("#lightbox").classList.add("show");}
 function openLightbox(albumId,index){const g=getLightboxAlbum(albumId);if(!g)return;if(g.photos&&!g.photos.length)return;if(g.videos&&!g.videos.length)return;lightboxState={albumId,index};renderLightbox();$("#lightbox").classList.add("show");}
-function renderLightbox(){const g=getLightboxAlbum(lightboxState.albumId);if(!g)return;const img=$("#lightboxImg"),frame=$("#lightboxFrame"),caption=$("#lightboxCaption");if(g.videos){const i=(lightboxState.index+g.videos.length)%g.videos.length;lightboxState.index=i;const v=g.videos[i]||{};const embed=youtubeEmbedUrl(v.url);if(embed){if(img)img.style.display="none";if(frame){frame.style.display="block";frame.src=embed;}if(caption)caption.textContent=`${v.title||"Video"} — ${i+1} di ${g.videos.length}`;return;}if(frame){frame.src="";frame.style.display="none";}if(img){img.style.display="block";img.src=v.thumb||SOCIAL_FALLBACK_THUMB;img.alt=v.title||"Video CUS Trento C5";}const watch=youtubeWatchUrl(v.url);if(caption)caption.innerHTML=`<div><b>${safe(v.title||"Video")}</b><br><span>Link YouTube non valido o non incorporabile. Inserisci nel CMS un URL video reale, per esempio watch?v=..., youtu.be/... o shorts/...</span>${watch?`<div class="lightbox-actions"><a class="btn ghost" href="${watch}" target="_blank" rel="noopener noreferrer">Apri su YouTube</a></div>`:""}</div>`;return;}const i=(lightboxState.index+g.photos.length)%g.photos.length;lightboxState.index=i;if(frame){frame.src="";frame.style.display="none";}if(img){img.style.display="block";img.src=g.photos[i];img.alt=`${g.title} foto ${i+1}`;}if(caption)caption.textContent=`${g.title} — foto ${i+1} di ${g.photos.length}`;}
+function renderLightbox(){const g=getLightboxAlbum(lightboxState.albumId);if(!g)return;const img=$("#lightboxImg"),frame=$("#lightboxFrame");if(g.videos){const i=(lightboxState.index+g.videos.length)%g.videos.length;lightboxState.index=i;const v=g.videos[i]||{};if(img)img.style.display="none";if(frame){frame.style.display="block";frame.src=youtubeEmbedUrl(v.url);}$("#lightboxCaption").textContent=`${v.title||"Video"} — ${i+1} di ${g.videos.length}`;return;}const i=(lightboxState.index+g.photos.length)%g.photos.length;lightboxState.index=i;if(frame){frame.src="";frame.style.display="none";}if(img){img.style.display="block";img.src=g.photos[i];img.alt=`${g.title} foto ${i+1}`;}$("#lightboxCaption").textContent=`${g.title} — foto ${i+1} di ${g.photos.length}`;}
 function moveLightbox(delta){const g=getLightboxAlbum(lightboxState.albumId);if(!g)return;const len=g.videos?g.videos.length:(g.photos?g.photos.length:0);if(!len)return;lightboxState.index=(lightboxState.index+delta+len)%len;renderLightbox();}
 function closeLightbox(){const frame=$("#lightboxFrame");if(frame)frame.src="";$("#lightbox").classList.remove("show");}
 function render(){renderNav();if(current.startsWith("gallery-album-"))galleryAlbum(current.replace("gallery-album-",""));else if(current.startsWith("article-"))articleDetail(current.replace("article-",""));else if(current.startsWith("player-"))playerDetail(current.replace("player-",""));else if(current.startsWith("match-"))matchDetail(current.replace("match-",""));else if(current==="news")news();else if(current==="squad")squad();else if(current==="fixtures")fixtures();else if(current==="coppa")coppa();else if(current==="u21")u21();else if(current==="standings")standings();else if(current==="stats")stats();else if(current==="staff")staff();else if(current==="matchday")matchday();else if(current==="gallery")gallery();else if(current==="video")videos();else if(current==="social")social();else if(current==="sponsor")sponsor();else if(current==="sponsor-lead")sponsorLead();else if(current==="historical-stats")historicalStatsPage();else if(current==="records")records();else if(current==="contacts")contacts();else if(current==="privacy")privacy();else if(current==="cookies")cookies();else if(current==="club")club();else home();}
