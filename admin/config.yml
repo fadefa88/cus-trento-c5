@@ -1713,6 +1713,7 @@ collections:
       - label: Categoria
         name: category
         widget: select
+        multiple: true
         options:
         - tutte
         - prima squadra
@@ -1878,6 +1879,7 @@ collections:
       - label: Stagione
         name: season
         widget: select
+        multiple: true
         options:
         - '2025/26'
         - '2026/27'
