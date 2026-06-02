@@ -84,7 +84,7 @@ if (is_file($rateFile)) {
 }
 @file_put_contents($rateFile, (string)$now, LOCK_EX);
 
-$to = 'luca.defassi@gmail.com';
+$to = 'custrentocalcio@gmail.com';
 $from = getenv('CUS_CONTACT_FROM') ?: 'no-reply@custrentocalcioa5.it';
 $subject = '[CUS Trento C5] Nuovo messaggio: ' . ($reason !== '' ? $reason : 'Contatto sito');
 
@@ -108,6 +108,8 @@ $headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-Type: text/plain; charset=UTF-8';
 $headers[] = 'Content-Transfer-Encoding: 8bit';
 $headers[] = 'From: CUS Trento C5 <' . $from . '>';
+$headers[] = 'Sender: ' . $from;
+$headers[] = 'Return-Path: ' . $from;
 $headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
 $headers[] = 'X-Mailer: CUS Trento C5 contact form';
 
