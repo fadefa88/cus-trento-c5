@@ -1703,9 +1703,24 @@ collections:
       - label: Titolo
         name: title
         widget: string
+      - label: Stagione
+        name: season
+        widget: select
+        options:
+        - '2025/26'
+        - '2026/27'
+        default: '2025/26'
       - label: Categoria
         name: category
-        widget: string
+        widget: select
+        options:
+        - tutte
+        - prima squadra
+        - under 21
+        - partite
+        - interviste
+        - vario
+        default: vario
       - label: Data
         name: date
         widget: datetime
@@ -1860,9 +1875,24 @@ collections:
       - label: Titolo
         name: title
         widget: string
+      - label: Stagione
+        name: season
+        widget: select
+        options:
+        - '2025/26'
+        - '2026/27'
+        default: '2025/26'
       - label: Categoria
         name: category
-        widget: string
+        widget: select
+        options:
+        - tutte
+        - prima squadra
+        - under 21
+        - partite
+        - interviste
+        - vario
+        default: vario
       - label: Anteprima (URL)
         name: thumb
         widget: string
