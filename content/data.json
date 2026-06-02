@@ -1426,7 +1426,10 @@
         "https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1400&q=80",
         "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80",
         "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80"
-      ]
+      ],
+      "season": "2025/26",
+      "team": "Prima squadra",
+      "type": "Partite"
     },
     {
       "id": 2,
@@ -1439,7 +1442,9 @@
         "https://images.unsplash.com/photo-1552318965-6e6be7484ada?auto=format&fit=crop&w=1400&q=80",
         "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1400&q=80",
         "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1400&q=80"
-      ]
+      ],
+      "season": "2025/26",
+      "team": "Prima squadra"
     },
     {
       "id": 3,
@@ -1452,7 +1457,9 @@
         "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
         "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=1400&q=80",
         "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1400&q=80"
-      ]
+      ],
+      "season": "2025/26",
+      "team": "Prima squadra"
     },
     {
       "id": 50,
@@ -1472,7 +1479,9 @@
         "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/814330A0-63DD-4B35-AFA9-64AFF265B7DC.jpg",
         "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2022-2023.jpg",
         "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/2025real.png"
-      ]
+      ],
+      "season": "2025/26",
+      "team": "Prima squadra"
     }
   ],
   "automation": {
