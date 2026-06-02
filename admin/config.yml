@@ -1710,18 +1710,19 @@ collections:
         - '2025/26'
         - '2026/27'
         default: '2025/26'
-      - label: Categoria
-        name: category
+      - label: Categorie
+        name: categories
         widget: select
         multiple: true
+        required: false
+        hint: Se non selezioni nessuna categoria, il contenuto viene considerato in "tutte".
         options:
-        - tutte
         - prima squadra
         - under 21
         - partite
         - interviste
         - vario
-        default: vario
+        default: []
       - label: Data
         name: date
         widget: datetime
@@ -1879,22 +1880,23 @@ collections:
       - label: Stagione
         name: season
         widget: select
-        multiple: true
         options:
         - '2025/26'
         - '2026/27'
         default: '2025/26'
-      - label: Categoria
-        name: category
+      - label: Categorie
+        name: categories
         widget: select
+        multiple: true
+        required: false
+        hint: Se non selezioni nessuna categoria, il contenuto viene considerato in "tutte".
         options:
-        - tutte
         - prima squadra
         - under 21
         - partite
         - interviste
         - vario
-        default: vario
+        default: []
       - label: Anteprima (URL)
         name: thumb
         widget: string
