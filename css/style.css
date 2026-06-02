@@ -1114,3 +1114,18 @@ body.menu-open{
 .social-wall-follow{justify-content:center;margin-top:24px;}
 .lightbox-actions{margin-top:14px;}
 @media(max-width:640px){.social-follow-actions{display:grid;grid-template-columns:1fr;width:100%;}.social-follow-btn{justify-content:center}.player-detail-heading{justify-content:flex-start}}
+
+/* Footer-only social follow button contrast fix */
+.footer .social-follow-btn.instagram,
+.footer .social-follow-btn.instagram span,
+.footer .social-follow-btn.instagram i{
+  color:#fff !important;
+}
+.footer .social-follow-btn.tiktok{
+  background:#fff !important;
+  color:#09090b !important;
+}
+.footer .social-follow-btn.tiktok span,
+.footer .social-follow-btn.tiktok i{
+  color:#09090b !important;
+}
