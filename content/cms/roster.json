@@ -52,14 +52,6 @@
       "photo": "/img/players/5-tesser-alvise-centrale.webp"
     },
     {
-      "id": 7,
-      "name": "Federico Addobbati",
-      "role": "Laterale",
-      "team": "Prima squadra",
-      "number": 8,
-      "photo": "/img/players/noplayer.webp"
-    },
-    {
       "id": 8,
       "name": "Filippo Baietta",
       "role": "Laterale",
@@ -82,14 +74,6 @@
       "team": "Prima squadra",
       "number": 27,
       "photo": "/img/players/8-cuman-mattia-laterale.webp"
-    },
-    {
-      "id": 11,
-      "name": "Luca Frattolin",
-      "role": "Laterale",
-      "team": "Prima squadra",
-      "number": 23,
-      "photo": "/img/players/noplayer.webp"
     },
     {
       "id": 12,
@@ -149,7 +133,7 @@
     },
     {
       "id": 20,
-      "name": "Giulio Tognolli",
+      "name": "Giulio Toniolli",
       "role": "Portiere",
       "team": "Under 21",
       "number": 31,
@@ -157,19 +141,11 @@
     },
     {
       "id": 21,
-      "name": "Lorenzo Zantorello",
+      "name": "Lorenzo Zarantonello",
       "role": "Portiere",
       "team": "Under 21",
       "number": 32,
       "photo": "/img/players/3-zarantonello-lorenzo-portiere.webp"
-    },
-    {
-      "id": 22,
-      "name": "Alex Gasperi",
-      "role": "Centrale",
-      "team": "Under 21",
-      "number": 34,
-      "photo": "/img/players/noplayer.webp"
     },
     {
       "id": 23,
@@ -204,14 +180,6 @@
       "photo": "/img/players/7-betti-alessandro-laterale.webp"
     },
     {
-      "id": 27,
-      "name": "Samuele Buda",
-      "role": "Laterale",
-      "team": "Under 21",
-      "number": 39,
-      "photo": "/img/players/noplayer.webp"
-    },
-    {
       "id": 28,
       "name": "Federico Caldonazzi",
       "role": "Laterale",
@@ -229,7 +197,7 @@
     },
     {
       "id": 30,
-      "name": "Afrian Gavril Dancus",
+      "name": "Adrian Gavril Dancus",
       "role": "Laterale",
       "team": "Under 21",
       "number": 42,
