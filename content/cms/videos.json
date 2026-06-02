@@ -2,11 +2,11 @@
   "videos": [
     {
       "id": 1,
-      "title": "Demo video embed YouTube",
-      "category": "vario",
+      "title": "Playoff Serie C1 CUS Trento - Palmanova",
+      "category": "partite",
       "season": "2025/26",
-      "thumb": "https://img.youtube.com/vi/jNQXAC9IVRw/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
+      "thumb": "",
+      "url": "https://www.youtube.com/watch?v=p8x1yPUNXhM"
     },
     {
       "id": 2,
