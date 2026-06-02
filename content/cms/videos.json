@@ -2,24 +2,27 @@
   "videos": [
     {
       "id": 1,
-      "title": "Highlights: CUS Trento vs Calcio Bleggio",
-      "category": "Highlights",
-      "thumb": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1400&q=80",
-      "url": "https://www.youtube.com"
+      "title": "Demo video embed YouTube",
+      "category": "vario",
+      "season": "2025/26",
+      "thumb": "https://img.youtube.com/vi/jNQXAC9IVRw/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
     },
     {
       "id": 2,
-      "title": "Intervista post partita: Diego Conti",
-      "category": "Interview",
-      "thumb": "https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=1400&q=80",
-      "url": "https://www.youtube.com"
+      "title": "Demo highlights YouTube",
+      "category": "partite",
+      "season": "2025/26",
+      "thumb": "https://img.youtube.com/vi/aqz-KE-bpKQ/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
     },
     {
       "id": 3,
-      "title": "Training cam: lavoro sui possessi",
-      "category": "Training",
-      "thumb": "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1400&q=80",
-      "url": "https://www.youtube.com"
+      "title": "Demo intervista YouTube",
+      "category": "interviste",
+      "season": "2026/27",
+      "thumb": "https://img.youtube.com/vi/ysz5S6PUM-U/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=ysz5S6PUM-U"
     }
   ]
 }
