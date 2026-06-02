@@ -13,7 +13,7 @@
 <link id="canonical" rel="canonical" href="./"/>
 <link rel="icon" href="https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-<link rel="stylesheet" href="css/style.css?v=cus-social-media-v1"/>
+<link rel="stylesheet" href="css/style.css?v=news-share-facebook-web-v1"/>
 </head>
 <body>
 <a class="skip" href="#app">Salta al contenuto</a>
@@ -52,6 +52,79 @@
     <div id="lightboxCaption" class="lightbox-caption"></div>
   </div>
 </div>
-<script src="js/app.js?v=cus-social-media-v1" defer></script>
+<script src="js/app.js?v=news-share-facebook-web-v1" defer></script>
+
+<script>
+(function(){
+  function closestShareButton(target){
+    return target && target.closest && target.closest('.share-copy,.share-native,[data-news-share-action="copy"],[data-news-share-action="native"]');
+  }
+  function getPayload(button){
+    var url = button && button.getAttribute('data-news-url');
+    var title = button && button.getAttribute('data-news-title');
+    if(!url){
+      var card = button && button.closest && button.closest('.news-card, article, .card');
+      var articleHash = card && card.getAttribute && card.getAttribute('onclick');
+      var match = articleHash && articleHash.match(/article-([^'\")]+)/);
+      url = match ? (location.origin + location.pathname + '#article-' + encodeURIComponent(match[1])) : location.href;
+    }
+    return {url:url, title:title || document.title || 'CUS Trento C5'};
+  }
+  function showShareToast(message){
+    var old=document.querySelector('.share-toast');
+    if(old) old.remove();
+    var toast=document.createElement('div');
+    toast.className='share-toast show';
+    toast.textContent=message;
+    document.body.appendChild(toast);
+    setTimeout(function(){ toast.classList.remove('show'); setTimeout(function(){ if(toast.parentNode) toast.remove(); },250); },2400);
+  }
+  async function copyTextHard(text){
+    if(navigator.clipboard && window.isSecureContext){
+      try{ await navigator.clipboard.writeText(text); return true; }catch(e){}
+    }
+    try{
+      var ta=document.createElement('textarea');
+      ta.value=text;
+      ta.setAttribute('readonly','');
+      ta.style.position='fixed';
+      ta.style.top='12px';
+      ta.style.left='12px';
+      ta.style.width='1px';
+      ta.style.height='1px';
+      ta.style.opacity='0';
+      ta.style.zIndex='2147483647';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      var ok=document.execCommand('copy');
+      ta.remove();
+      return !!ok;
+    }catch(e){ return false; }
+  }
+  async function copyOrPrompt(payload, nativeFallback){
+    var ok=await copyTextHard(payload.url);
+    if(ok){ showShareToast(nativeFallback ? 'Condivisione non supportata qui: link copiato.' : 'Link copiato negli appunti.'); return; }
+    window.prompt('Copia il link della news:', payload.url);
+  }
+  document.addEventListener('click', async function(event){
+    var button=closestShareButton(event.target);
+    if(!button) return;
+    var action=button.getAttribute('data-news-share-action') || (button.classList.contains('share-native') ? 'native' : 'copy');
+    if(action !== 'copy' && action !== 'native') return;
+    event.preventDefault();
+    event.stopPropagation();
+    if(event.stopImmediatePropagation) event.stopImmediatePropagation();
+    var payload=getPayload(button);
+    if(action === 'native' && navigator.share){
+      try{ await navigator.share({title:payload.title, text:payload.title, url:payload.url}); return; }
+      catch(e){ if(e && e.name === 'AbortError') return; }
+    }
+    await copyOrPrompt(payload, action === 'native');
+  }, true);
+})();
+</script>
+
 </body>
 </html>
