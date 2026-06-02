@@ -1127,19 +1127,42 @@ function googleMapEmbed(query){return `https://www.google.com/maps?q=${encodeURI
 function matchday(){const next=nextFixture(state.fixtures);const mapQuery=mapQueryForFixture(next);shell("Matchday","Info campo, ingresso e come arrivare",`<div class="grid grid-2"><div class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">Next match</span><h2 style="font-size:42px">${next.home||"CUS Trento"} - ${next.away||"Avversario"}</h2><p>${next.date?fmt(next.date):"Data da definire"} · ${next.time||"--:--"} · ${next.venue||"Sanbàpolis"}</p><button class="btn ghost" onclick="route('match-${next.id||""}')">Apri match center</button></div><div class="mapbox"><div><h2 style="font-size:38px;margin:0">${next.venue||"Sanbàpolis"}</h2><p>${mapQuery}</p></div></div></div><div class="card card-pad" style="margin-top:22px"><h2>Mappa campo</h2><iframe class="google-map" loading="lazy" src="${googleMapEmbed(mapQuery)}" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>`,"","Informazioni matchday, campo, orari e accesso.");}
 function gallery(){const albums=state.galleryAlbums||[];const cats=["Tutte",...new Set(albums.map(g=>g.category))];shell("Media gallery","Gallery fotografiche",`<p class="muted" style="max-width:760px;margin-top:-8px;margin-bottom:24px">Album cliccabili con foto in lightbox.</p><div class="toolbar">${cats.map(c=>`<button class="pill galf ${view.galleryCategory===c?"active":""}" onclick="setGalleryCategory('${c}')">${c}</button>`).join("")}</div><div class="grid grid-3" id="galleryGrid"></div><div id="galleryPager"></div>`,"","Gallery fotografiche CUS Trento C5.");renderGalleryList();}
 const MEDIA_SEASONS=["2025/26","2026/27"];
-const MEDIA_CATEGORIES=["Tutte","Prima squadra","Under 21","Partite","Interviste","Vario"];
+const MEDIA_CATEGORY_OPTIONS={
+  gallery:["Tutte","Prima squadra","Under 21","Partite","Interviste","Vario"],
+  video:["Tutte","Prima squadra","Under 21","Partite","Interviste","CNU","Vario"]
+};
+function mediaCategoriesFor(kind){return MEDIA_CATEGORY_OPTIONS[kind]||MEDIA_CATEGORY_OPTIONS.gallery;}
 function mediaSeasonOf(item){return String(item.season||item.stagione||"2025/26");}
-function mediaTeamOf(item){return normText(item.team||item.teamTag||item.squadra||"Prima squadra");}
-function mediaKindOf(item){const c=normText(item.category||item.type||"");if(c.includes("interview")||c.includes("intervist"))return "interviste";if(c.includes("match")||c.includes("partit")||c.includes("highlight"))return "partite";return "vario";}
-function mediaMatches(item,season,category){if(mediaSeasonOf(item)!==season)return false;const cat=normText(category||"Tutte");if(cat==="tutte")return true;if(cat==="prima squadra")return mediaTeamOf(item).includes("prima");if(cat==="under 21")return mediaTeamOf(item).includes("under")||mediaTeamOf(item).includes("u21");return mediaKindOf(item)===cat;}
-function mediaFilters(kind){const seasonKey=kind==="gallery"?"gallerySeason":"videoSeason";const catKey=kind==="gallery"?"galleryCategory":"videoCategory";const setSeason=kind==="gallery"?"setGallerySeason":"setVideoSeason";const setCat=kind==="gallery"?"setGalleryCategory":"setVideoCategory";return `<div class="media-filter-block"><div class="media-filter-label">Stagione</div><div class="toolbar media-toolbar">${MEDIA_SEASONS.map(x=>`<button class="pill ${view[seasonKey]===x?"active":""}" onclick="${setSeason}('${x}')">${x}</button>`).join("")}</div><div class="media-filter-label">Categoria</div><div class="toolbar media-toolbar">${MEDIA_CATEGORIES.map(x=>`<button class="pill ${view[catKey]===x?"active":""}" onclick="${setCat}('${x}')">${x}</button>`).join("")}</div></div>`;}
+function mediaCategoryLabels(item){
+  const raw=Array.isArray(item.categories)?item.categories:[];
+  const labels=raw.map(x=>String(x||"").trim()).filter(Boolean);
+  if(labels.length)return labels;
+  const legacy=String(item.category||item.type||"").trim();
+  if(!legacy)return ["Tutte"];
+  const c=normText(legacy);
+  if(c.includes("u21")||c.includes("under"))return ["under 21"];
+  if(c.includes("prima"))return ["prima squadra"];
+  if(c.includes("cnu"))return ["CNU"];
+  if(c.includes("interview")||c.includes("intervist"))return ["interviste"];
+  if(c.includes("match")||c.includes("partit")||c.includes("highlight"))return ["partite"];
+  return ["vario"];
+}
+function mediaCategoryKeys(item){return mediaCategoryLabels(item).map(normText);}
+function mediaCategoryBadges(item){return mediaCategoryLabels(item).filter(x=>normText(x)!=="tutte");}
+function mediaMatches(item,season,category){
+  if(mediaSeasonOf(item)!==season)return false;
+  const cat=normText(category||"Tutte");
+  if(cat==="tutte")return true;
+  return mediaCategoryKeys(item).includes(cat);
+}
+function mediaFilters(kind){const seasonKey=kind==="gallery"?"gallerySeason":"videoSeason";const catKey=kind==="gallery"?"galleryCategory":"videoCategory";const setSeason=kind==="gallery"?"setGallerySeason":"setVideoSeason";const setCat=kind==="gallery"?"setGalleryCategory":"setVideoCategory";return `<div class="media-filter-block"><div class="media-filter-label">Stagione</div><div class="toolbar media-toolbar">${MEDIA_SEASONS.map(x=>`<button class="pill ${view[seasonKey]===x?"active":""}" onclick="${setSeason}('${x}')">${x}</button>`).join("")}</div><div class="media-filter-label">Categoria</div><div class="toolbar media-toolbar">${mediaCategoriesFor(kind).map(x=>`<button class="pill ${view[catKey]===x?"active":""}" onclick="${setCat}('${x}')">${x}</button>`).join("")}</div></div>`;}
 function setGallerySeason(season){view.gallerySeason=season;view.galleryPage=1;gallery();}
 function setGalleryCategory(cat){view.galleryCategory=cat;view.galleryPage=1;gallery();}
 function goGalleryPage(page){view.galleryPage=page;renderGalleryList();}
 function renderGalleryList(){const items=(state.galleryAlbums||[]).filter(g=>mediaMatches(g,view.gallerySeason||"2025/26",view.galleryCategory||"Tutte"));const pg=paginate(items,view.galleryPage,6);view.galleryPage=pg.page;const grid=$("#galleryGrid"),pager=$("#galleryPager");if(grid)grid.innerHTML=galleryCards(pg.items)||"<div class='card card-pad'><p class='muted'>Nessun contenuto per questi filtri.</p></div>";if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goGalleryPage");}
-function galleryCards(items){return items.map(g=>`<article class="card gallery-card clickable" onclick="route('gallery-album-${g.id}')"><span class="album-count">${(g.photos||[]).length} foto</span><img loading="lazy" class="gallery-img" src="${g.cover}" alt="${g.title}"><div class="gallery-caption"><span class="badge">${g.category}</span><h2 style="margin-top:10px">${g.title}</h2><p>${fmt(g.date)}</p></div></article>`).join("");}
+function galleryCards(items){return items.map(g=>{const badges=mediaCategoryBadges(g);return `<article class="card gallery-card clickable" onclick="route('gallery-album-${g.id}')"><span class="album-count">${(g.photos||[]).length} foto</span><img loading="lazy" class="gallery-img" src="${g.cover}" alt="${g.title}"><div class="gallery-caption"><div class="badge-row">${badges.length?badges.map(c=>`<span class="badge">${c}</span>`).join(""):`<span class="badge">Tutte</span>`}</div><h2 style="margin-top:10px">${g.title}</h2><p>${fmt(g.date)}</p></div></article>`}).join("");}
 function gallery(){shell("Media gallery","Gallery fotografiche",`<p class="muted" style="max-width:760px;margin-top:-8px;margin-bottom:24px">Album cliccabili con foto in lightbox.</p>${mediaFilters('gallery')}<div class="grid grid-3" id="galleryGrid"></div><div id="galleryPager"></div>`,"","Gallery fotografiche CUS Trento C5.");renderGalleryList();}
-function galleryAlbum(id){const g=(state.galleryAlbums||[]).find(x=>String(x.id)===String(id));if(!g){route("gallery");return;}shell("Gallery",g.title,`<div class="breadcrumb"><button class="back-link" onclick="route('gallery')"><span>←</span> Gallery</button><span>${g.category} · ${fmt(g.date)}</span></div><p class="muted" style="max-width:760px">${g.description||""}</p><div class="grid grid-3" style="margin-top:24px">${(g.photos||[]).map((src,i)=>`<article class="card clickable" onclick="openLightbox(${g.id},${i})"><img loading="lazy" class="gallery-img" src="${src}" alt="${g.title} foto ${i+1}"><div class="card-pad"><span class="badge">Foto ${i+1}</span><p class="muted">Clicca per aprire in lightbox</p></div></article>`).join("")}</div>`,"","Album fotografico CUS Trento C5.",g.cover);}
+function galleryAlbum(id){const g=(state.galleryAlbums||[]).find(x=>String(x.id)===String(id));if(!g){route("gallery");return;}shell("Gallery",g.title,`<div class="breadcrumb"><button class="back-link" onclick="route('gallery')"><span>←</span> Gallery</button><span>${mediaCategoryBadges(g).join(", ")||"Tutte"} · ${fmt(g.date)}</span></div><p class="muted" style="max-width:760px">${g.description||""}</p><div class="grid grid-3" style="margin-top:24px">${(g.photos||[]).map((src,i)=>`<article class="card clickable" onclick="openLightbox(${g.id},${i})"><img loading="lazy" class="gallery-img" src="${src}" alt="${g.title} foto ${i+1}"><div class="card-pad"><span class="badge">Foto ${i+1}</span></div></article>`).join("")}</div>`,"","Album fotografico CUS Trento C5.",g.cover);}
 function setVideoSeason(season){view.videoSeason=season;view.videoPage=1;videos();}
 function setVideoCategory(cat){view.videoCategory=cat;view.videoPage=1;videos();}
 function videos(){shell("Video","Highlights, interviste e contenuti social video",`${mediaFilters('video')}<div class="grid grid-3" id="videoGrid"></div><div id="videoPager"></div>`,"","Video e highlights CUS Trento C5.");renderVideoList();}
@@ -1155,7 +1178,7 @@ function videoThumb(v){
 }
 
 function videoCards(items){
-  return items.map((v,i)=>`<article class="card clickable" onclick="openVideoLightbox(${(state.videos||[]).findIndex(x=>x===v)})"><div style="position:relative"><img loading="lazy" class="video-thumb" src="${videoThumb(v)}" alt="${v.title}"><div class="play">▶</div></div><div class="card-pad"><span class="badge">${v.category||"Video"}</span><h2 style="margin-top:12px">${v.title}</h2></div></article>`).join("");
+  return items.map((v,i)=>{const badges=mediaCategoryBadges(v);return `<article class="card clickable" onclick="openVideoLightbox(${(state.videos||[]).findIndex(x=>x===v)})"><div style="position:relative"><img loading="lazy" class="video-thumb" src="${videoThumb(v)}" alt="${v.title}"><div class="play">▶</div></div><div class="card-pad"><div class="badge-row">${badges.length?badges.map(c=>`<span class="badge">${c}</span>`).join(""):`<span class="badge">Tutte</span>`}</div><h2 style="margin-top:12px">${v.title}</h2></div></article>`}).join("");
 }
 function goVideoPage(page){view.videoPage=page;renderVideoList();}
 function renderVideoList(){const items=(state.videos||[]).filter(v=>mediaMatches(v,view.videoSeason||"2025/26",view.videoCategory||"Tutte"));const pg=paginate(items,view.videoPage,6);view.videoPage=pg.page;const grid=$("#videoGrid"),pager=$("#videoPager");if(grid)grid.innerHTML=videoCards(pg.items)||"<div class='card card-pad'><p class='muted'>Nessun video per questi filtri.</p></div>";if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goVideoPage");}
