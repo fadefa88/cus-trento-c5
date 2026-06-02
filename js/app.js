@@ -1143,7 +1143,7 @@ function galleryAlbum(id){const g=(state.galleryAlbums||[]).find(x=>String(x.id)
 function setVideoSeason(season){view.videoSeason=season;view.videoPage=1;videos();}
 function setVideoCategory(cat){view.videoCategory=cat;view.videoPage=1;videos();}
 function videos(){shell("Video","Highlights, interviste e contenuti social video",`${mediaFilters('video')}<div class="grid grid-3" id="videoGrid"></div><div id="videoPager"></div>`,"","Video e highlights CUS Trento C5.");renderVideoList();}
-function videoCards(items){return items.map((v,i)=>`<article class="card clickable" onclick="openVideoLightbox(${(state.videos||[]).findIndex(x=>x===v)})">function youtubeThumb(url){
+function youtubeThumb(url){
   const embed = youtubeEmbedUrl(url || "");
   const match = embed.match(/\/embed\/([^?]+)/);
   if (!match) return "";
