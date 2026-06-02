@@ -499,6 +499,23 @@ def sort_news(news: list[dict]) -> list[dict]:
     return sorted(news, key=lambda n: (n.get("date") or "", int(n.get("id") or 0)), reverse=True)
 
 
+def news_index_item(n: dict) -> dict:
+    keys = [
+        "id", "title", "category", "tags", "teamTag", "originalCategory", "date",
+        "author", "image", "images", "excerpt", "pinned", "sourceName", "sourceUrl",
+        "sourceId", "importedFrom", "importSource",
+    ]
+    return {key: n.get(key) for key in keys if key in n}
+
+
+def save_news_index(path: Path, news: list[dict]) -> None:
+    payload = {"news": [news_index_item(n) for n in sort_news(news)]}
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )
+
+
 def news_identity(n: dict) -> str:
     return str(
         n.get("sourceUrl")
@@ -528,6 +545,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", default="content/data.json", help="Path to CMS content/data.json. New imports are written here.")
     parser.add_argument("--imported-archive", default="content/news.imported.json", help="Read-only archive of historical imported news used only for deduplication.")
+    parser.add_argument("--news-index", default="content/news.index.json", help="Lightweight public news index used by the frontend for fast initial rendering.")
     parser.add_argument("--max-pages", type=int, default=1, help="Pages to scan. Use 186 only for a one-off mass import.")
     parser.add_argument("--sources", default="all", help="Comma-separated source names or 'all'.")
     parser.add_argument("--sleep", type=float, default=0.35, help="Seconds between article requests")
@@ -536,6 +554,7 @@ def main() -> int:
 
     data_path = Path(args.data)
     archive_path = Path(args.imported_archive)
+    news_index_path = Path(args.news_index)
     data = load_data(data_path)
     existing_news = data.get("news", [])
     archived_news = load_news_archive(archive_path)
@@ -634,6 +653,8 @@ def main() -> int:
     if imported:
         data["news"] = sort_news(imported + existing_news)
         save_data(data_path, data)
+
+    save_news_index(news_index_path, sort_news(data.get("news", []) + archived_news))
 
     print("-" * 70)
     print(f"Scanned links: {scanned_links}")
