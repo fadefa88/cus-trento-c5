@@ -1,0 +1,97 @@
+name: Optimize CMS uploaded images
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "img/uploads/**"
+      - "content/cms/news.json"
+      - "content/cms/roster.json"
+      - "content/cms/gallery-albums.json"
+      - "content/cms/sponsors.json"
+      - "content/cms/staff.json"
+      - "content/data.json"
+      - "content/data.generated.optional.json"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: optimize-cms-images-main
+  cancel-in-progress: false
+
+jobs:
+  optimize-images:
+    name: Convert CMS images to WebP and resize
+    runs-on: ubuntu-latest
+
+    # Avoid a commit loop when this same workflow pushes optimized files.
+    if: ${{ github.actor != 'github-actions[bot]' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pillow
+
+      - name: Optimize uploaded images
+        run: |
+          python scripts/optimize_cms_images.py
+
+      - name: Validate JSON
+        run: |
+          python -m json.tool content/data.json > /dev/null
+          python -m json.tool content/data.generated.optional.json > /dev/null
+          for file in content/cms/*.json; do
+            python -m json.tool "$file" > /dev/null
+          done
+
+      - name: Commit optimized images
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          if git diff --quiet; then
+            echo "No optimized CMS images to commit."
+            exit 0
+          fi
+
+          git add img/uploads content/cms content/data.json content/data.generated.optional.json
+          git commit -m "Optimize CMS uploaded images"
+
+          BRANCH="${GITHUB_REF_NAME:-main}"
+
+          for attempt in 1 2 3; do
+            echo "Push attempt $attempt/3"
+            git fetch origin "$BRANCH"
+
+            if git rebase "origin/$BRANCH"; then
+              if git push origin HEAD:"$BRANCH"; then
+                echo "Optimized images pushed."
+                exit 0
+              fi
+            else
+              echo "Rebase failed. Aborting."
+              git rebase --abort || true
+              exit 1
+            fi
+
+            echo "Push failed, retrying in 10 seconds..."
+            sleep 10
+          done
+
+          echo "Push failed after 3 attempts."
+          exit 1
