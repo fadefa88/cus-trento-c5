@@ -18,7 +18,7 @@ from playwright.sync_api import sync_playwright
 
 DEFAULT_ELFSIGHT_APP_ID = "017a8b39-9a1b-46d1-b742-cb533321bea1"
 DEFAULT_EMBEDSOCIAL_REF = "9abb7ef43c2b80e9cc04e6d7b00fb4d4ebd3e83b"
-DEFAULT_THUMBNAIL = "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png"
+DEFAULT_THUMBNAIL = "/img/placeholder.webp"
 DEFAULT_HANDLE = "@custrentoc5"
 DEFAULT_TIKTOK_HANDLE = "@custrentoc5"
 DEFAULT_TIKTOK_FEED_URL = "https://rss-bridge.sans-nuage.fr/?action=display&bridge=TikTokBridge&context=By+user&username=%40custrentoc5&format=Json"
