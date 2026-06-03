@@ -1776,7 +1776,7 @@ collections:
         name: logo
         widget: image
         required: false
-        hint: Carica il logo dello sponsor. Formati consigliati: PNG, WEBP o SVG con sfondo trasparente.
+        hint: "Carica il logo dello sponsor. Formati consigliati: PNG, WEBP o SVG con sfondo trasparente."
       - label: Link (URL)
         name: url
         widget: string
