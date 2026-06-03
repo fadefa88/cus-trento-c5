@@ -62,6 +62,65 @@
       ],
       "home": "Besenello",
       "competition": "Campionato"
+    },
+    {
+      "summary": "ciao sono sommario si può cancellare?",
+      "time": "21:30",
+      "away": "CUS Trento",
+      "date": "2026-06-03",
+      "lineup": {
+        "module": "3-1",
+        "startingFive": [
+          "3",
+          "36",
+          "10",
+          "17",
+          "16"
+        ],
+        "bench": [
+          "15",
+          "14",
+          "12",
+          "2",
+          "13",
+          "9",
+          "8"
+        ],
+        "suspended": [
+          "4"
+        ],
+        "injured": [
+          "1"
+        ]
+      },
+      "venue": "Lizzana",
+      "score": "1-5",
+      "status": "Terminata",
+      "scorerEvents": [
+        {
+          "goals": 5,
+          "playerId": "16"
+        }
+      ],
+      "redCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "5"
+        }
+      ],
+      "id": 2,
+      "yellowCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "16"
+        },
+        {
+          "cards": 1,
+          "playerId": "6"
+        }
+      ],
+      "home": "Lizzana",
+      "competition": "Coppa"
     }
   ]
 }
