@@ -229,6 +229,36 @@ class Optimizer:
                     changed = True
         return changed
 
+    def process_news_items(self, news_items: Any) -> bool:
+        changed = False
+        if not isinstance(news_items, list):
+            return changed
+
+        for article in news_items:
+            if not isinstance(article, dict):
+                continue
+
+            image = article.get("image")
+            if isinstance(image, str):
+                new_image = self.optimize_reference(image, "news")
+                if new_image != image:
+                    article["image"] = new_image
+                    changed = True
+
+            blocks = article.get("contentBlocks")
+            if isinstance(blocks, list):
+                for block in blocks:
+                    if not isinstance(block, dict):
+                        continue
+                    block_image = block.get("image")
+                    if isinstance(block_image, str):
+                        new_block_image = self.optimize_reference(block_image, "news")
+                        if new_block_image != block_image:
+                            block["image"] = new_block_image
+                            changed = True
+
+        return changed
+
     def process_gallery_albums(self, albums: Any) -> bool:
         changed = False
         if not isinstance(albums, list):
@@ -306,7 +336,7 @@ class Optimizer:
         if isinstance(data, dict):
             changed |= self.process_list_objects(data.get("roster"), "photo", "people")
             changed |= self.process_list_objects(data.get("staff"), "photo", "people")
-            changed |= self.process_list_objects(data.get("news"), "image", "news")
+            changed |= self.process_news_items(data.get("news"))
             changed |= self.process_list_objects(data.get("sponsors"), "logo", "sponsor")
             changed |= self.process_gallery_albums(data.get("galleryAlbums"))
 
