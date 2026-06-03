@@ -233,10 +233,6 @@ collections:
         - Coppa
         - Playoff
         default: Campionato
-      - label: Sommario
-        name: summary
-        widget: text
-        required: false
       - label: Formazione
         name: lineup
         widget: object
