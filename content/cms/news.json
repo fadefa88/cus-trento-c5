@@ -1,3 +1,22 @@
 {
-  "news": []
+  "news": [
+    {
+      "excerpt": "questo è il sommario",
+      "body": [
+        "paragrafo numero 1",
+        "paragrafo numero 2"
+      ],
+      "author": "Luca De Fassi",
+      "date": "2026-06-03",
+      "title": "articolo di prova",
+      "pinned": false,
+      "tags": [
+        "Prima squadra",
+        "Matchday"
+      ],
+      "id": 1,
+      "image": "/img/uploads/news-prova.jpg",
+      "category": "cicciopasticcio"
+    }
+  ]
 }
