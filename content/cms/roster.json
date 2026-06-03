@@ -242,6 +242,17 @@
       "team": "Under 21",
       "number": 48,
       "photo": "/img/players/15-scala-luca-universale.webp"
+    },
+    {
+      "faculty": "ciccio",
+      "birthPlace": "padova",
+      "number": 69,
+      "name": "ciccio pasticcio",
+      "birthDate": "1999-06-03",
+      "photo": "/img/uploads/kavin-de-bruyne.jpg",
+      "role": "Pivot",
+      "id": 36,
+      "team": "Prima squadra"
     }
   ]
 }
