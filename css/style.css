@@ -1130,3 +1130,9 @@ body.menu-open{
 .footer .social-follow-btn.tiktok i{
   color:#09090b !important;margin-left:5px;
 }
+
+/* Sponsor logos uploaded from CMS */
+.sponsor-card{display:flex;flex-direction:column}
+.sponsor-logo{overflow:hidden;padding:18px}
+.sponsor-logo img{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;display:block}
+.sponsor-logo span{display:block;font-size:30px;font-weight:1000;color:#b91c1c}
