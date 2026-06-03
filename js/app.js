@@ -1714,7 +1714,7 @@ async function bootData(){
     // Il testo completo degli articoli viene caricato dopo il primo render o quando l'utente apre le news.
     published.news = mergeCmsNewsWithImportedArchive([...(cmsOverrides.news || []), ...(basePublished.news || [])], importedNewsIndex);
     published.socialFeed = latestSocialFeed.length ? latestSocialFeed : (published.socialFeed || legacySocialToFeed(published.social || []));
-cus
+
     state = applyAutomations(hydrate(published));     // i dati pubblicati hanno priorita' e vengono incrementati dai match terminati
     dataLoaded = true;
 
