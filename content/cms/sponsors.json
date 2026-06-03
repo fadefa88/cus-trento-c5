@@ -4,21 +4,21 @@
       "id": 1,
       "name": "Ristorante Tentazioni",
       "tier": "test",
-      "logo": "/img/uploads/tentazioni.png",
-      "url": "https://www.tentazionitrento.it/it/ristorante"
+      "logo": "/img/uploads/tentazioni.webp",
+      "url": "https://www.tentazionitrento.it/it/"
     },
     {
       "id": 2,
       "name": "Pizzeria all'Angolo Trento",
       "tier": "test",
-      "logo": "/img/uploads/home_3.webp",
+      "logo": "/img/uploads/angolo.webp",
       "url": "https://pizzeriangolotrento.it/"
     },
     {
       "id": 3,
       "name": "Burger F*cktory",
       "tier": "test",
-      "logo": "/img/uploads/images.png",
+      "logo": "/img/uploads/burgerfktory.webp",
       "url": "https://burgerfcktory.com/"
     }
   ]
