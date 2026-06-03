@@ -1,3 +1,67 @@
 {
-  "fixtures": []
+  "fixtures": [
+    {
+      "summary": "ciao sono un sommario, possiamo cancellare?",
+      "time": "21:00",
+      "away": "CUS Trento",
+      "date": "2026-06-03",
+      "lineup": {
+        "module": "2-2",
+        "startingFive": [
+          "1",
+          "4",
+          "5",
+          "6",
+          "8"
+        ],
+        "bench": [
+          "3",
+          "9",
+          "13",
+          "2",
+          "12",
+          "14",
+          "36"
+        ],
+        "suspended": [
+          "10"
+        ],
+        "injured": [
+          "17"
+        ]
+      },
+      "venue": "Besenello",
+      "score": "6-6",
+      "status": "Terminata",
+      "scorerEvents": [
+        {
+          "goals": 2,
+          "playerId": "13"
+        },
+        {
+          "goals": 4,
+          "playerId": "36"
+        }
+      ],
+      "redCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "5"
+        }
+      ],
+      "id": 1,
+      "yellowCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "6"
+        },
+        {
+          "cards": 1,
+          "playerId": "1"
+        }
+      ],
+      "home": "Besenello",
+      "competition": "Campionato"
+    }
+  ]
 }
