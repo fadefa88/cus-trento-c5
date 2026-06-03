@@ -436,20 +436,41 @@ function openMobileMenu(){
   if(toggle)toggle.setAttribute("aria-expanded","true");
   document.body.classList.add("menu-open");
 }
+function scrollToPageTop(){
+  const doScroll=()=>{
+    try{window.scrollTo({top:0,left:0,behavior:"auto"});}
+    catch(e){window.scrollTo(0,0);}
+    if(document.documentElement)document.documentElement.scrollTop=0;
+    if(document.body)document.body.scrollTop=0;
+  };
+  doScroll();
+  requestAnimationFrame(doScroll);
+  setTimeout(doScroll,60);
+  setTimeout(doScroll,180);
+}
 function route(id){
   closeMobileMenu();
-  location.hash=id;
-  current=id;
-  if(id === "news" || String(id || "").startsWith("article-")) scheduleImportedNewsArchiveLoad(0);
-  window.scrollTo(0,0);
+  const target=String(id||"home");
+  if(location.hash!==`#${target}`){
+    location.hash=target;
+    return;
+  }
+  current=target;
+  if(target === "news" || target.startsWith("article-")) scheduleImportedNewsArchiveLoad(0);
   render();
+  scrollToPageTop();
 }
 function toggleMobile(){
   const menu=$("#mobileMenu");
   if(menu&&menu.classList.contains("open"))closeMobileMenu();
   else openMobileMenu();
 }
-window.addEventListener("hashchange",()=>{current=location.hash.replace("#","")||"home";if(current === "news" || String(current || "").startsWith("article-")) scheduleImportedNewsArchiveLoad(0);render();});
+window.addEventListener("hashchange",()=>{
+  current=location.hash.replace("#","")||"home";
+  if(current === "news" || String(current || "").startsWith("article-")) scheduleImportedNewsArchiveLoad(0);
+  render();
+  scrollToPageTop();
+});
 function setSEO(title,desc,img){document.title=title+" | CUS Trento C5";$("#metaDescription").setAttribute("content",desc);$("#ogTitle").setAttribute("content",title);$("#ogDescription").setAttribute("content",desc);if(img)$("#ogImage").setAttribute("content",img);$("#canonical").setAttribute("href",location.href.split("#")[0]+"#"+current);}
 function active(id){return current===id||current.startsWith(id+"-");}
 function renderNav(){
@@ -746,13 +767,12 @@ function newsShareButtons(n,compact=false){
   const safeTitle=safe(title);
   const fbUrl=safe(facebookShareUrl(url,title));
   const payload=`data-news-id="${newsId}" data-news-url="${safeUrl}" data-news-title="${safeTitle}"`;
-  const stop=`onclick="event.stopPropagation()"`;
   return `<div class="news-share ${compact?'compact':''}" onclick="event.stopPropagation()">
     <span class="share-label">Condividi</span>
-    <a class="share-action share-whatsapp" href="https://wa.me/?text=${encTitle}%20${encUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su WhatsApp"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-whatsapp"></i></span><span>WhatsApp</span></a>
-    <a class="share-action share-facebook" href="${fbUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su Facebook"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-facebook-f"></i></span><span>Facebook</span></a>
-    <a class="share-action share-x" href="https://twitter.com/intent/tweet?text=${encTitle}&url=${encUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su X"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-x-twitter"></i></span><span>X</span></a>
-    <a class="share-action share-telegram" href="https://t.me/share/url?url=${encUrl}&text=${encTitle}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su Telegram"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-telegram"></i></span><span>Telegram</span></a>
+    <a class="share-action share-whatsapp" href="https://wa.me/?text=${encTitle}%20${encUrl}" target="_blank" rel="noopener noreferrer" onclick="return stopShareLinkClick(event)" data-news-share-action="external" aria-label="Condividi su WhatsApp"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-whatsapp"></i></span><span>WhatsApp</span></a>
+    <a class="share-action share-facebook" href="${fbUrl}" target="_blank" rel="noopener noreferrer" onclick="return openFacebookShareLink(this,event)" data-news-share-action="facebook" ${payload} aria-label="Condividi su Facebook"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-facebook-f"></i></span><span>Facebook</span></a>
+    <a class="share-action share-x" href="https://twitter.com/intent/tweet?text=${encTitle}&url=${encUrl}" target="_blank" rel="noopener noreferrer" onclick="return stopShareLinkClick(event)" data-news-share-action="external" aria-label="Condividi su X"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-x-twitter"></i></span><span>X</span></a>
+    <a class="share-action share-telegram" href="https://t.me/share/url?url=${encUrl}&text=${encTitle}" target="_blank" rel="noopener noreferrer" onclick="return stopShareLinkClick(event)" data-news-share-action="external" aria-label="Condividi su Telegram"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-telegram"></i></span><span>Telegram</span></a>
     <button class="share-action share-copy" type="button" data-news-share-action="copy" ${payload} onclick="copyNewsLinkFromButton(this,event);return false;" aria-label="Copia link della news"><span class="share-icon" aria-hidden="true"><i class="fa-solid fa-link"></i></span><span>Copia link</span></button>
     <button class="share-action share-native" type="button" data-news-share-action="native" ${payload} onclick="nativeShareNewsFromButton(this,event);return false;" aria-label="Apri altre opzioni di condivisione"><span class="share-icon" aria-hidden="true"><i class="fa-solid fa-share-nodes"></i></span><span>Altro</span></button>
   </div>`;
@@ -823,22 +843,58 @@ async function copyNewsLink(input){
   if(copied)showShareToast('Link copiato negli appunti.');
   else prompt('Copia il link della news:',payload.url);
 }
-function setupNewsShareHandlers(){
-  if(window.__cusNewsShareHandlersBound)return;
-  window.__cusNewsShareHandlersBound=true;
-  document.addEventListener('click',event=>{
-    const trigger=event.target.closest('[data-news-share-action]');
-    if(!trigger)return;
-    const action=trigger.getAttribute('data-news-share-action');
-    // Anche i link esterni devono bloccare il click della card news sottostante.
+function stopShareLinkClick(event){
+  if(event && event.stopPropagation)event.stopPropagation();
+  return true;
+}
+window.stopShareLinkClick=stopShareLinkClick;
+function openFacebookShareLink(link,event){
+  if(event){
     event.stopPropagation();
-    if(action==='external')return;
+    if(event.stopImmediatePropagation)event.stopImmediatePropagation();
+  }
+  const payload=sharePayloadFromTrigger(link);
+  const shareUrl=facebookShareUrl(payload.url);
+  if(isProbablyMobile() && navigator.share){
+    if(event && event.preventDefault)event.preventDefault();
+    navigator.share({title:payload.title||"CUS Trento C5",text:payload.title||"News CUS Trento C5",url:payload.url})
+      .catch(err=>{
+        if(err && err.name==="AbortError")return;
+        // Fallback mobile: apri Facebook nello stesso tab solo se la share nativa fallisce davvero.
+        window.location.href=shareUrl;
+      });
+    return false;
+  }
+  // Desktop e mobile senza native share: lascia lavorare il normale link <a target="_blank">.
+  // Questo evita il doppio comportamento: nuova scheda + sovrascrittura della pagina corrente.
+  if(link)link.href=shareUrl;
+  return true;
+}
+window.openFacebookShareLink=openFacebookShareLink;
+function setupNewsShareHandlers(){
+  if(window.__cusNewsShareHandlersReady)return;
+  window.__cusNewsShareHandlersReady=true;
+  // Gestiamo globalmente solo Facebook, che ora funziona bene così.
+  // Copia link e Altro restano su onclick diretto del bottone: più stabile su mobile
+  // perché evita doppia gestione capture + inline dentro le card cliccabili.
+  document.addEventListener('click',function(event){
+    const trigger=event.target && event.target.closest ? event.target.closest('[data-news-share-action="facebook"]') : null;
+    if(!trigger)return;
     event.preventDefault();
+    event.stopPropagation();
+    if(event.stopImmediatePropagation)event.stopImmediatePropagation();
     const payload=sharePayloadFromTrigger(trigger);
-    if(action==='copy')copyNewsLink(payload);
-    if(action==='native')nativeShareNews(payload);
-    if(action==='facebook')shareFacebookNews(payload);
-  }, false);
+    const shareUrl=facebookShareUrl(payload.url);
+    if(isProbablyMobile() && navigator.share){
+      navigator.share({title:payload.title||"CUS Trento C5",text:payload.title||"News CUS Trento C5",url:payload.url})
+        .catch(err=>{
+          if(err && err.name==="AbortError")return;
+          window.location.href=shareUrl;
+        });
+    }else{
+      window.open(shareUrl,'_blank');
+    }
+  },true);
 }
 function newsCards(items){
   if(!items.length)return `<div class="card card-pad empty-news"><h2>Nessuna news trovata</h2><p class="muted">Prova a cambiare categoria o testo di ricerca.</p></div>`;
@@ -856,7 +912,8 @@ function news(){
     <input id="newsSearchInput" name="q" value="${escapedQuery}" placeholder="Cerca news per titolo, testo, autore..." aria-label="Cerca news" autocomplete="off">
     <button class="news-search-button" type="submit">Cerca</button>
   </form>`;
-  shell("Media center","News, match report e storie dal club",`<div class="toolbar">${cats.map(c=>`<button class="pill newsf ${view.newsCategory===c?"active":""}" onclick="setNewsCategory('${String(c).replace(/'/g,"\\'")}')">${safe(c)}</button>`).join("")}</div><div class="news-results-info" id="newsResultsInfo"></div><div class="grid grid-3" id="newsGrid"></div><div id="newsPager"></div>`,searchBox,"News, articoli e match report CUS Trento C5.");
+  const categoryButtons=cats.map(c=>`<button class="pill newsf ${view.newsCategory===c?"active":""}" data-news-category="${safe(c)}" onclick="setNewsCategoryFromButton(this)">${safe(c)}</button>`).join("");
+  shell("Media center","News, match report e storie dal club",`<div class="toolbar">${categoryButtons}</div><div class="news-results-info" id="newsResultsInfo"></div><div class="grid grid-3" id="newsGrid"></div><div id="newsPager"></div>`,searchBox,"News, articoli e match report CUS Trento C5.");
   bindNewsSearch();
   renderNewsList();
 }
@@ -872,6 +929,14 @@ function bindNewsSearch(){
       if(event.key==="Enter") submitNewsSearch(event);
     });
   }
+  bindNewsResetButtons();
+}
+function bindNewsResetButtons(){
+  document.querySelectorAll('[data-news-reset]').forEach(btn=>{
+    if(btn.dataset.newsResetBound) return;
+    btn.dataset.newsResetBound='1';
+    btn.addEventListener('click', clearNewsSearch);
+  });
 }
 function submitNewsSearch(event){
   if(event && event.preventDefault) event.preventDefault();
@@ -881,6 +946,16 @@ function submitNewsSearch(event){
   return false;
 }
 function setNewsCategory(cat){view.newsCategory=cat;view.newsPage=1;renderNewsList();}
+function setNewsCategoryFromButton(button){
+  setNewsCategory((button && button.getAttribute('data-news-category')) || (button && button.textContent) || 'Tutte');
+}
+window.setNewsCategoryFromButton=setNewsCategoryFromButton;
+function updateNewsCategoryButtons(){
+  document.querySelectorAll('.newsf').forEach(btn=>{
+    const label=(btn.getAttribute('data-news-category')||btn.textContent||'').trim();
+    btn.classList.toggle('active', label===(view.newsCategory||'Tutte'));
+  });
+}
 function setNewsSearch(q, updateUrl=false){
   view.newsQuery=String(q||"");
   view.newsPage=1;
@@ -903,22 +978,37 @@ function renderNewsList(){
   if(input && input.value!==String(view.newsQuery||"")) input.value=String(view.newsQuery||"");
   if(grid)grid.innerHTML=newsCards(pg.items);
   if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goNewsPage");
+  updateNewsCategoryButtons();
   if(info){
     const q=String(view.newsQuery||"").trim();
     const cat=view.newsCategory||"Tutte";
-    info.innerHTML=(q||cat!=="Tutte")?`<span>${items.length} risultati${cat!=="Tutte"?` · categoria ${safe(cat)}`:""}${q?` · ricerca “${safe(q)}”`:""}</span><button class="pill" type="button" onclick="return clearNewsSearch(event)">Reset</button>`:"";
+    info.innerHTML=(q||cat!=="Tutte")?`<span>${items.length} risultati${cat!=="Tutte"?` · categoria ${safe(cat)}`:""}${q?` · ricerca “${safe(q)}”`:""}</span><a class="pill" href="/#news">Reset</a>`:"";
   }
+  bindNewsResetButtons();
 }
 function clearNewsSearch(event){
   if(event && event.preventDefault)event.preventDefault();
   if(event && event.stopPropagation)event.stopPropagation();
+  if(event && event.stopImmediatePropagation)event.stopImmediatePropagation();
   view.newsQuery="";
   view.newsCategory="Tutte";
   view.newsPage=1;
   setUrlNewsQuery("");
   const input=$("#newsSearchInput");
-  if(input)input.value="";
+  if(input){
+    input.value="";
+    input.setAttribute("value","");
+  }
+  document.querySelectorAll('.newsf').forEach(btn=>{
+    const label=(btn.getAttribute('data-news-category')||btn.textContent||'').trim();
+    btn.classList.toggle('active', label==='Tutte');
+  });
   renderNewsList();
+  requestAnimationFrame(()=>{
+    const again=$("#newsSearchInput");
+    if(again){again.value="";again.setAttribute("value","");}
+    renderNewsList();
+  });
   return false;
 }
 function searchNews(q){setNewsSearch(q);}
@@ -926,6 +1016,7 @@ window.searchNews=q=>searchNews(q);
 window.setNewsSearch=q=>setNewsSearch(q);
 window.submitNewsSearch=event=>submitNewsSearch(event);
 window.clearNewsSearch=event=>clearNewsSearch(event);
+window.resetNewsFilters=event=>clearNewsSearch(event);
 function isProbablyMobile(){
   return /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent||'') || (navigator.maxTouchPoints||0)>1;
 }
@@ -937,26 +1028,91 @@ function facebookShareUrl(url,title=""){
 function shareFacebookNews(input){
   const payload=typeof input==='object' && input ? input : sharePayloadFromTrigger(document.querySelector(`[data-news-share-action="facebook"][data-news-id="${String(input||'').replace(/"/g,'\\"')}"]`));
   const webUrl=facebookShareUrl(payload.url);
-  // Su mobile il popup può essere bloccato o chiuso dall'app Facebook: stesso tab è più affidabile.
-  if(isProbablyMobile()){
-    window.location.href=webUrl;
+  if(isProbablyMobile() && navigator.share){
+    navigator.share({title:payload.title||"CUS Trento C5",text:payload.title||"News CUS Trento C5",url:payload.url})
+      .catch(err=>{
+        if(err && err.name==="AbortError")return;
+        window.location.href=webUrl;
+      });
     return;
   }
-  const win=window.open(webUrl,'_blank','noopener,noreferrer');
-  if(!win) window.location.href=webUrl;
+  window.open(webUrl,'_blank');
 }
 function shareFacebookNewsFromButton(button,event){
   if(event){event.preventDefault();event.stopPropagation();}
   shareFacebookNews(sharePayloadFromTrigger(button));
   return false;
 }
+function markShareButton(button,label,timeout=1800){
+  if(!button)return;
+  const text=button.querySelector('span:last-child');
+  if(!text)return;
+  const original=text.textContent;
+  text.textContent=label;
+  window.setTimeout(()=>{text.textContent=original;},timeout);
+}
+function fallbackCopyOrPrompt(url,button){
+  const copiedLegacy=(()=>{
+    try{
+      const area=document.createElement('textarea');
+      area.value=url;
+      area.setAttribute('readonly','');
+      area.style.position='fixed';
+      area.style.left='-9999px';
+      area.style.top='0';
+      document.body.appendChild(area);
+      area.focus();
+      area.select();
+      const ok=document.execCommand && document.execCommand('copy');
+      area.remove();
+      return !!ok;
+    }catch(e){return false;}
+  })();
+  if(copiedLegacy){
+    markShareButton(button,'Copiato');
+    showShareToast('Link copiato negli appunti.');
+    return false;
+  }
+  prompt('Copia il link della news:',url);
+  return false;
+}
 function copyNewsLinkFromButton(button,event){
-  if(event){event.preventDefault();event.stopPropagation();}
-  return copyNewsLink(sharePayloadFromTrigger(button));
+  if(event){
+    event.preventDefault();
+    event.stopPropagation();
+    if(event.stopImmediatePropagation)event.stopImmediatePropagation();
+  }
+  const payload=sharePayloadFromTrigger(button);
+  const url=payload.url || location.href;
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(url)
+      .then(()=>{
+        markShareButton(button,'Copiato');
+        showShareToast('Link copiato negli appunti.');
+      })
+      .catch(()=>fallbackCopyOrPrompt(url,button));
+  }else{
+    fallbackCopyOrPrompt(url,button);
+  }
+  return false;
 }
 function nativeShareNewsFromButton(button,event){
-  if(event){event.preventDefault();event.stopPropagation();}
-  return nativeShareNews(sharePayloadFromTrigger(button));
+  if(event){
+    event.preventDefault();
+    event.stopPropagation();
+    if(event.stopImmediatePropagation)event.stopImmediatePropagation();
+  }
+  const payload=sharePayloadFromTrigger(button);
+  const data={title:payload.title||'CUS Trento C5',text:payload.text||payload.title||'News CUS Trento C5',url:payload.url||location.href};
+  if(navigator.share){
+    navigator.share(data).catch(err=>{
+      if(err && err.name==='AbortError')return;
+      copyNewsLinkFromButton(button,event);
+    });
+  }else{
+    copyNewsLinkFromButton(button,event);
+  }
+  return false;
 }
 window.copyNewsLinkFromButton=copyNewsLinkFromButton;
 window.nativeShareNewsFromButton=nativeShareNewsFromButton;
@@ -1288,7 +1444,7 @@ function sponsor(){
   const sponsorCards=(state.sponsors||[]).map(s=>`<article class="card card-pad sponsor-card"><div class="sponsor-logo">${sponsorLogoHtml(s)}</div><h2 style="margin-top:8px">${s.name||"Sponsor"}</h2><a class="btn soft" href="${sponsorUrl(s.url)}" target="${sponsorUrl(s.url)==="#"?"_self":"_blank"}" rel="noopener noreferrer" style="margin-top:10px">Scopri →</a></article>`).join("") || `<article class="card card-pad"><p class="muted">Nessuno sponsor inserito.</p></article>`;
   shell("Partner","Sponsor, partner e community del progetto",`<div class="grid grid-3">${sponsorCards}</div><div class="section" style="padding-bottom:0"><span class="eyebrow">Pacchetti sponsor</span><h2 class="title" style="margin-bottom:24px">Visibilità commerciale</h2><div class="grid grid-4">${(state.sponsorPackages||[]).map((p,i)=>`<article class="package-card ${i===0?'featured':''}"><span class="badge">${p.price}</span><h2 style="margin-top:12px">${p.name}</h2><ul>${(p.visibility||[]).map(v=>`<li>${v}</li>`).join("")}</ul><button class="btn ${i===0?'ghost':'dark'}" onclick="route('sponsor-lead')">${p.cta}</button></article>`).join("")}</div></div><div class="newsletter" style="margin-top:24px"><span class="eyebrow" style="background:white;color:#09090b">Media kit</span><h2 style="font-size:38px">Richiedi brochure sponsor e proposta di visibilità.</h2><p style="color:rgba(255,255,255,.68)">Ideale per aziende locali, partner universitari e brand sportivi.</p><button class="btn ghost" onclick="route('sponsor-lead')">Richiedi media kit</button></div>`,"","Sponsor e partner CUS Trento C5.");
 }
-function sponsorLead(){shell("Sponsor lead","Richiedi media kit o proposta sponsor",`<div class="grid grid-2"><div class="lead-form"><h2>Richiesta commerciale</h2><div class="form-grid" style="grid-template-columns:1fr"><label><span>Azienda</span><input id="lead_company"></label><label><span>Referente</span><input id="lead_name"></label><label><span>Email</span><input id="lead_email" type="email"></label><label><span>Pacchetto di interesse</span><select id="lead_package">${(state.sponsorPackages||[]).map(p=>`<option>${p.name}</option>`).join("")}</select></label><label><span>Messaggio</span><textarea id="lead_msg"></textarea></label></div><button class="btn dark" style="margin-top:14px" onclick="saveLead('sponsor')">Invia richiesta demo</button></div><div class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">Perché sponsorizzare</span><h2 style="font-size:40px">Visibilità locale, universitaria e digitale.</h2><p style="color:rgba(255,255,255,.72)">Il pacchetto può includere logo sito, social content, matchday post, banner, backdrop e iniziative con studenti.</p></div></div>`,"","Lead form sponsor CUS Trento C5.");}
+function sponsorLead(){shell("Sponsor lead","Richiedi media kit o proposta sponsor",`<div class="grid grid-2"><div class="lead-form"><h2>Richiesta commerciale</h2><form id="sponsorLeadForm" class="contact-form" method="post" action="https://api.web3forms.com/submit" onsubmit="submitContact(event)"><input type="hidden" name="subject" value="Nuova richiesta sponsor dal sito CUS Trento C5"><input type="hidden" name="reason" value="Diventa sponsor"><input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><div class="form-grid" style="grid-template-columns:1fr"><label><span>Azienda</span><input name="company" id="lead_company" autocomplete="organization" required></label><label><span>Referente</span><input name="name" id="lead_name" autocomplete="name" required></label><label><span>Email</span><input name="email" id="lead_email" type="email" autocomplete="email" required></label><label><span>Telefono</span><input name="phone" id="lead_phone" type="tel" autocomplete="tel"></label><label><span>Pacchetto di interesse</span><select name="package" id="lead_package">${(state.sponsorPackages||[]).map(p=>`<option>${p.name}</option>`).join("")}</select></label><label><span>Messaggio</span><textarea name="message" id="lead_msg" required minlength="10"></textarea></label><label class="privacy-check"><input type="checkbox" name="privacy" required><span>Ho letto la <a href="#privacy" onclick="route('privacy');return false;">privacy policy</a> e autorizzo il trattamento dei dati per ricevere risposta.</span></label></div><div id="contactStatus" class="form-alert" aria-live="polite"></div><button id="contactSubmit" class="btn dark" type="submit" style="margin-top:14px">Invia richiesta</button></form></div><div class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">Perché sponsorizzare</span><h2 style="font-size:40px">Visibilità locale, universitaria e digitale.</h2><p style="color:rgba(255,255,255,.72)">Il pacchetto può includere logo sito, social content, matchday post, banner, backdrop e iniziative con studenti.</p></div></div>`,"","Lead form sponsor CUS Trento C5.");}
 function seasons(){shell("Archive","Archivio stagioni",`<div class="grid grid-3">${state.seasons.map(s=>`<article class="card card-pad"><span class="badge">${s.season}</span><h2 style="margin-top:12px">${s.competition}</h2><div class="metrics"><div class="metric"><b>${s.position}</b><small>Pos</small></div><div class="metric"><b>${s.gf}</b><small>GF</small></div><div class="metric"><b>${s.gs}</b><small>GS</small></div></div><p class="muted">${s.record}</p><p class="muted">${s.note}</p></article>`).join("")}</div>`,"","Archivio stagioni CUS Trento C5.");}
 function timeline(){shell("Timeline","Momenti chiave della stagione",`<div class="timeline">${state.timeline.map(t=>`<div class="card card-pad timeline-item"><div class="timeline-date">${t.date}</div><div><h2>${t.title}</h2><p class="muted">${t.text}</p></div></div>`).join("")}</div>`,"","Timeline stagione CUS Trento C5.");}
 function historicalStatsData(){
@@ -1508,7 +1664,11 @@ function isConfiguredContactKey(key){
 }
 function openContactMailto(payload){
   const subject="Richiesta dal sito CUS Trento C5 — "+(payload.reason||"Contatto");
+  const extra=[];
+  if(payload.company) extra.push("Azienda: "+payload.company);
+  if(payload.package) extra.push("Pacchetto: "+payload.package);
   const body=[
+    ...extra,
     "Nome: "+(payload.name||""),
     "Email: "+(payload.email||""),
     "Telefono: "+(payload.phone||"-"),
