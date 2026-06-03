@@ -58,9 +58,10 @@ collections:
       - label: Autore
         name: author
         widget: string
-      - label: Immagine (URL)
+      - label: Immagine
         name: image
-        widget: string
+        widget: image
+        choose_url: true
         required: false
       - label: Sommario
         name: excerpt
@@ -134,9 +135,10 @@ collections:
         name: faculty
         widget: string
         required: false
-      - label: Foto (URL)
+      - label: Foto
         name: photo
-        widget: string
+        widget: image
+        choose_url: true
         required: false
       hint: 'Le statistiche non si modificano qui: presenze, gol, ammonizioni, espulsioni
         e gol subiti sono calcolati automaticamente dai match terminati.'
@@ -1731,10 +1733,11 @@ collections:
         date_format: DD/MM/YYYY
         time_format: false
         picker_utc: false
-      - label: Copertina (URL)
+      - label: Copertina
         name: cover
-        widget: string
+        widget: image
         required: false
+        choose_url: true
       - label: Descrizione
         name: description
         widget: text
@@ -1745,7 +1748,8 @@ collections:
         field:
           label: Foto URL
           name: u
-          widget: string
+          widget: image
+          choose_url: true
 - name: sponsors
   label: Sponsor
   delete: false
@@ -1846,9 +1850,10 @@ collections:
         options:
         - Prima squadra
         - Under 21
-      - label: Foto (URL)
+      - label: Foto
         name: photo
-        widget: string
+        widget: image
+        choose_url: true
         required: false
       - label: Bio
         name: bio
@@ -1898,10 +1903,6 @@ collections:
         - CNU
         - vario
         default: []
-      - label: Anteprima (URL)
-        name: thumb
-        widget: string
-        required: false
       - label: Link video (URL)
         name: url
         widget: string
@@ -1936,6 +1937,7 @@ collections:
         - label: Stagione
           name: season
           widget: string
-        - label: Immagine URL
+        - label: Immagine
           name: image
-          widget: string
+          widget: image
+          choose_url: true
