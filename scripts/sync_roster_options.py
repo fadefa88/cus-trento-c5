@@ -23,8 +23,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ROSTER_PATH = ROOT / "content" / "cms" / "roster.json"
 DEFAULT_CONFIG_PATH = ROOT / "admin" / "config.yml"
 
-FIRST_TEAM_COLLECTIONS = {"fixtures", "cup"}
-U21_COLLECTIONS = {"u21Fixtures", "u21Cup"}
+FIRST_TEAM_COLLECTIONS = {"fixtures"}
+U21_COLLECTIONS = {"u21Fixtures"}
 LINEUP_FIELD_NAMES = {"startingFive", "bench", "suspended", "injured"}
 PLAYER_ID_FIELD_NAME = "playerId"
 GOALKEEPER_EVENT_NAME = "goalkeeperEvents"
