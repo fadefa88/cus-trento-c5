@@ -73,6 +73,39 @@ collections:
           label: Paragrafo
           name: p
           widget: text
+        required: false
+        hint: Campo semplice compatibile con le news esistenti. Per alternare testo e immagini usa i blocchi articolo sotto.
+      - label: Blocchi articolo (testo e immagini)
+        name: contentBlocks
+        widget: list
+        required: false
+        collapsed: true
+        summary: '{{fields.type}}'
+        hint: Usa questi blocchi per costruire articoli con immagini tra i paragrafi. Se lasci vuoto questo campo, il sito
+          usa il Corpo semplice sopra.
+        fields:
+        - label: Tipo blocco
+          name: type
+          widget: select
+          options:
+          - label: Paragrafo
+            value: paragraph
+          - label: Immagine
+            value: image
+          default: paragraph
+        - label: Testo paragrafo
+          name: text
+          widget: text
+          required: false
+        - label: Immagine
+          name: image
+          widget: image
+          choose_url: true
+          required: false
+        - label: Didascalia immagine
+          name: caption
+          widget: string
+          required: false
       - label: In evidenza
         name: pinned
         widget: boolean
@@ -209,11 +242,6 @@ collections:
         widget: object
         collapsed: false
         fields:
-        - label: Modulo
-          name: module
-          widget: string
-          required: false
-          default: 3-1
         - label: Quintetto titolare
           name: startingFive
           widget: select
@@ -250,8 +278,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#69 ciccio pasticcio'
-            value: '36'
           hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
         - label: Panchina / Convocati
           name: bench
@@ -289,8 +315,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#69 ciccio pasticcio'
-            value: '36'
           hint: Scegli solo giocatori non già presenti nel quintetto.
         - label: Squalificati
           name: suspended
@@ -328,8 +352,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#69 ciccio pasticcio'
-            value: '36'
         - label: Infortunati
           name: injured
           widget: select
@@ -366,8 +388,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#69 ciccio pasticcio'
-            value: '36'
       - label: Marcatori
         name: scorerEvents
         widget: list
@@ -410,8 +430,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#69 ciccio pasticcio'
-            value: '36'
         - label: Gol
           name: goals
           widget: number
@@ -460,8 +478,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#69 ciccio pasticcio'
-            value: '36'
         - label: Ammonizioni
           name: cards
           widget: number
@@ -510,8 +526,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#69 ciccio pasticcio'
-            value: '36'
         - label: Espulsioni
           name: cards
           widget: number
@@ -618,11 +632,6 @@ collections:
         widget: object
         collapsed: false
         fields:
-        - label: Modulo
-          name: module
-          widget: string
-          required: false
-          default: 3-1
         - label: Quintetto titolare
           name: startingFive
           widget: select
@@ -949,504 +958,6 @@ collections:
           value_type: int
           default: 1
           min: 0
-- name: cup
-  label: Coppa Prima squadra
-  delete: false
-  editor:
-    preview: false
-  files:
-  - name: cup
-    label: Coppa Prima squadra
-    file: content/cms/cup.json
-    fields:
-    - label: Coppa
-      name: cup
-      widget: object
-      fields:
-      - label: Titolo
-        name: title
-        widget: string
-      - label: Edizione
-        name: edition
-        widget: string
-      - label: Stato
-        name: status
-        widget: string
-      - label: Partite
-        name: fixtures
-        widget: list
-        fields:
-        - label: ID
-          name: id
-          widget: number
-          value_type: int
-        - label: Turno
-          name: round
-          widget: string
-        - label: Data
-          name: date
-          widget: datetime
-          format: YYYY-MM-DD
-          date_format: DD/MM/YYYY
-          time_format: false
-          picker_utc: false
-        - label: Ora
-          name: time
-          widget: string
-        - label: Casa
-          name: home
-          widget: string
-        - label: Trasferta
-          name: away
-          widget: string
-        - label: Campo
-          name: venue
-          widget: string
-        - label: Risultato
-          name: score
-          widget: string
-          required: false
-        - label: Stato
-          name: status
-          widget: select
-          options:
-          - Da giocare
-          - Terminata
-          default: Da giocare
-        - label: Marcatori
-          name: scorerEvents
-          widget: list
-          required: false
-          collapsed: true
-          summary: '{{fields.playerId}} — {{fields.goals}} gol'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è
-            convocato.
-          fields:
-          - label: Giocatore
-            name: playerId
-            widget: select
-            options:
-            - label: '#1 Safi Saif Edine'
-              value: '1'
-            - label: '#2 Filippo Bernard'
-              value: '3'
-            - label: '#5 Tommaso Boldrini'
-              value: '4'
-            - label: '#6 Davide Filippi'
-              value: '5'
-            - label: '#7 Alvise Tesser'
-              value: '6'
-            - label: '#9 Filippo Baietta'
-              value: '8'
-            - label: '#10 Luca Cirasola'
-              value: '9'
-            - label: '#11 Mattia Vaia'
-              value: '13'
-            - label: '#12 Lucca Baccaro Zeni'
-              value: '2'
-            - label: '#17 Federico Maciocia'
-              value: '12'
-            - label: '#19 Alessandro Zanetti'
-              value: '14'
-            - label: '#20 Diego Conti'
-              value: '15'
-            - label: '#21 Andrea Martinelli'
-              value: '16'
-            - label: '#22 Cesare Vettorazzi'
-              value: '17'
-            - label: '#27 Mattia Cuman'
-              value: '10'
-            - label: '#69 ciccio pasticcio'
-              value: '36'
-          - label: Gol
-            name: goals
-            widget: number
-            value_type: int
-            default: 1
-            min: 1
-        - label: Ammonizioni
-          name: yellowCardEvents
-          widget: list
-          required: false
-          collapsed: true
-          summary: '{{fields.playerId}} — {{fields.cards}} ammonizione/i'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
-          fields:
-          - label: Giocatore
-            name: playerId
-            widget: select
-            options:
-            - label: '#1 Safi Saif Edine'
-              value: '1'
-            - label: '#2 Filippo Bernard'
-              value: '3'
-            - label: '#5 Tommaso Boldrini'
-              value: '4'
-            - label: '#6 Davide Filippi'
-              value: '5'
-            - label: '#7 Alvise Tesser'
-              value: '6'
-            - label: '#9 Filippo Baietta'
-              value: '8'
-            - label: '#10 Luca Cirasola'
-              value: '9'
-            - label: '#11 Mattia Vaia'
-              value: '13'
-            - label: '#12 Lucca Baccaro Zeni'
-              value: '2'
-            - label: '#17 Federico Maciocia'
-              value: '12'
-            - label: '#19 Alessandro Zanetti'
-              value: '14'
-            - label: '#20 Diego Conti'
-              value: '15'
-            - label: '#21 Andrea Martinelli'
-              value: '16'
-            - label: '#22 Cesare Vettorazzi'
-              value: '17'
-            - label: '#27 Mattia Cuman'
-              value: '10'
-            - label: '#69 ciccio pasticcio'
-              value: '36'
-          - label: Ammonizioni
-            name: cards
-            widget: number
-            value_type: int
-            default: 1
-            min: 1
-        - label: Espulsioni
-          name: redCardEvents
-          widget: list
-          required: false
-          collapsed: true
-          summary: '{{fields.playerId}} — {{fields.cards}} espulsione/i'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
-          fields:
-          - label: Giocatore
-            name: playerId
-            widget: select
-            options:
-            - label: '#1 Safi Saif Edine'
-              value: '1'
-            - label: '#2 Filippo Bernard'
-              value: '3'
-            - label: '#5 Tommaso Boldrini'
-              value: '4'
-            - label: '#6 Davide Filippi'
-              value: '5'
-            - label: '#7 Alvise Tesser'
-              value: '6'
-            - label: '#9 Filippo Baietta'
-              value: '8'
-            - label: '#10 Luca Cirasola'
-              value: '9'
-            - label: '#11 Mattia Vaia'
-              value: '13'
-            - label: '#12 Lucca Baccaro Zeni'
-              value: '2'
-            - label: '#17 Federico Maciocia'
-              value: '12'
-            - label: '#19 Alessandro Zanetti'
-              value: '14'
-            - label: '#20 Diego Conti'
-              value: '15'
-            - label: '#21 Andrea Martinelli'
-              value: '16'
-            - label: '#22 Cesare Vettorazzi'
-              value: '17'
-            - label: '#27 Mattia Cuman'
-              value: '10'
-            - label: '#69 ciccio pasticcio'
-              value: '36'
-          - label: Espulsioni
-            name: cards
-            widget: number
-            value_type: int
-            default: 1
-            min: 1
-        - label: Gol subiti portiere
-          name: goalkeeperEvents
-          widget: list
-          required: false
-          collapsed: true
-          summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-          hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
-            i gol subiti al portiere nel quintetto titolare.
-          fields:
-          - label: Portiere
-            name: playerId
-            widget: select
-            options:
-            - label: '#1 Safi Saif Edine'
-              value: '1'
-            - label: '#2 Filippo Bernard'
-              value: '3'
-            - label: '#12 Lucca Baccaro Zeni'
-              value: '2'
-          - label: Gol subiti
-            name: goalsAgainst
-            widget: number
-            value_type: int
-            default: 0
-            min: 0
-          - label: Minuti
-            name: minutes
-            widget: number
-            value_type: int
-            default: 40
-            min: 0
-          - label: Presenza portiere
-            name: appearances
-            widget: number
-            value_type: int
-            default: 1
-            min: 0
-- name: u21Cup
-  label: Coppa Under 21
-  delete: false
-  editor:
-    preview: false
-  files:
-  - name: u21Cup
-    label: Coppa Under 21
-    file: content/cms/u21-cup.json
-    fields:
-    - label: Coppa U21
-      name: u21Cup
-      widget: object
-      fields:
-      - label: Titolo
-        name: title
-        widget: string
-      - label: Edizione
-        name: edition
-        widget: string
-      - label: Stato
-        name: status
-        widget: string
-      - label: Partite
-        name: fixtures
-        widget: list
-        fields:
-        - label: ID
-          name: id
-          widget: number
-          value_type: int
-        - label: Turno
-          name: round
-          widget: string
-        - label: Data
-          name: date
-          widget: datetime
-          format: YYYY-MM-DD
-          date_format: DD/MM/YYYY
-          time_format: false
-          picker_utc: false
-        - label: Ora
-          name: time
-          widget: string
-        - label: Casa
-          name: home
-          widget: string
-        - label: Trasferta
-          name: away
-          widget: string
-        - label: Campo
-          name: venue
-          widget: string
-        - label: Risultato
-          name: score
-          widget: string
-          required: false
-        - label: Stato
-          name: status
-          widget: select
-          options:
-          - Da giocare
-          - Terminata
-          default: Da giocare
-        - label: Marcatori
-          name: scorerEvents
-          widget: list
-          required: false
-          collapsed: true
-          summary: '{{fields.playerId}} — {{fields.goals}} gol'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è
-            convocato.
-          fields:
-          - label: Giocatore
-            name: playerId
-            widget: select
-            options:
-            - label: '#30 Paolo Bigonzi'
-              value: '19'
-            - label: '#31 Giulio Toniolli'
-              value: '20'
-            - label: '#32 Lorenzo Zarantonello'
-              value: '21'
-            - label: '#35 Matteo Guidetti'
-              value: '23'
-            - label: '#36 Matteo Materia'
-              value: '24'
-            - label: '#37 Riccardo Toniolli'
-              value: '25'
-            - label: '#38 Alessandro Betti'
-              value: '26'
-            - label: '#40 Federico Caldonazzi'
-              value: '28'
-            - label: '#41 Joao Pedro Caccia Neff'
-              value: '29'
-            - label: '#42 Adrian Gavril Dancus'
-              value: '30'
-            - label: '#44 Mirko Annunziato Tondo'
-              value: '31'
-            - label: '#45 Daniele Zampedri'
-              value: '32'
-            - label: '#46 Michele Ceola'
-              value: '33'
-            - label: '#47 Damiano Loperfido'
-              value: '34'
-            - label: '#48 Luca Scala'
-              value: '35'
-          - label: Gol
-            name: goals
-            widget: number
-            value_type: int
-            default: 1
-            min: 1
-        - label: Ammonizioni
-          name: yellowCardEvents
-          widget: list
-          required: false
-          collapsed: true
-          summary: '{{fields.playerId}} — {{fields.cards}} ammonizione/i'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
-          fields:
-          - label: Giocatore
-            name: playerId
-            widget: select
-            options:
-            - label: '#30 Paolo Bigonzi'
-              value: '19'
-            - label: '#31 Giulio Toniolli'
-              value: '20'
-            - label: '#32 Lorenzo Zarantonello'
-              value: '21'
-            - label: '#35 Matteo Guidetti'
-              value: '23'
-            - label: '#36 Matteo Materia'
-              value: '24'
-            - label: '#37 Riccardo Toniolli'
-              value: '25'
-            - label: '#38 Alessandro Betti'
-              value: '26'
-            - label: '#40 Federico Caldonazzi'
-              value: '28'
-            - label: '#41 Joao Pedro Caccia Neff'
-              value: '29'
-            - label: '#42 Adrian Gavril Dancus'
-              value: '30'
-            - label: '#44 Mirko Annunziato Tondo'
-              value: '31'
-            - label: '#45 Daniele Zampedri'
-              value: '32'
-            - label: '#46 Michele Ceola'
-              value: '33'
-            - label: '#47 Damiano Loperfido'
-              value: '34'
-            - label: '#48 Luca Scala'
-              value: '35'
-          - label: Ammonizioni
-            name: cards
-            widget: number
-            value_type: int
-            default: 1
-            min: 1
-        - label: Espulsioni
-          name: redCardEvents
-          widget: list
-          required: false
-          collapsed: true
-          summary: '{{fields.playerId}} — {{fields.cards}} espulsione/i'
-          hint: Scegli solo giocatori presenti in quintetto o panchina. Questi dati alimentano automaticamente le schede giocatore.
-          fields:
-          - label: Giocatore
-            name: playerId
-            widget: select
-            options:
-            - label: '#30 Paolo Bigonzi'
-              value: '19'
-            - label: '#31 Giulio Toniolli'
-              value: '20'
-            - label: '#32 Lorenzo Zarantonello'
-              value: '21'
-            - label: '#35 Matteo Guidetti'
-              value: '23'
-            - label: '#36 Matteo Materia'
-              value: '24'
-            - label: '#37 Riccardo Toniolli'
-              value: '25'
-            - label: '#38 Alessandro Betti'
-              value: '26'
-            - label: '#40 Federico Caldonazzi'
-              value: '28'
-            - label: '#41 Joao Pedro Caccia Neff'
-              value: '29'
-            - label: '#42 Adrian Gavril Dancus'
-              value: '30'
-            - label: '#44 Mirko Annunziato Tondo'
-              value: '31'
-            - label: '#45 Daniele Zampedri'
-              value: '32'
-            - label: '#46 Michele Ceola'
-              value: '33'
-            - label: '#47 Damiano Loperfido'
-              value: '34'
-            - label: '#48 Luca Scala'
-              value: '35'
-          - label: Espulsioni
-            name: cards
-            widget: number
-            value_type: int
-            default: 1
-            min: 1
-        - label: Gol subiti portiere
-          name: goalkeeperEvents
-          widget: list
-          required: false
-          collapsed: true
-          summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-          hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
-            i gol subiti al portiere nel quintetto titolare.
-          fields:
-          - label: Portiere
-            name: playerId
-            widget: select
-            options:
-            - label: '#30 Paolo Bigonzi'
-              value: '19'
-            - label: '#31 Giulio Toniolli'
-              value: '20'
-            - label: '#32 Lorenzo Zarantonello'
-              value: '21'
-          - label: Gol subiti
-            name: goalsAgainst
-            widget: number
-            value_type: int
-            default: 0
-            min: 0
-          - label: Minuti
-            name: minutes
-            widget: number
-            value_type: int
-            default: 40
-            min: 0
-          - label: Presenza portiere
-            name: appearances
-            widget: number
-            value_type: int
-            default: 1
-            min: 0
 - name: galleryAlbums
   label: Gallery (album)
   delete: false
@@ -1502,18 +1013,16 @@ collections:
         widget: image
         required: false
         choose_url: true
-      - label: Descrizione
-        name: description
-        widget: text
-        required: false
-      - label: Foto (URL, una per riga)
+      - label: Foto album
         name: photos
         widget: list
         field:
-          label: Foto URL
+          label: Foto
           name: u
           widget: image
           choose_url: true
+          required: false
+        required: false
 - name: sponsors
   label: Sponsor
   delete: false
