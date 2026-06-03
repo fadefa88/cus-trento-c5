@@ -38,7 +38,7 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 
 BASE = "https://calcioa5.sportrentino.it/"
 LIST_URL = BASE + "notizie.asp"
-DEFAULT_IMAGE = "https://custrentocalcioa5.it/oldsite/wp-content/uploads/2026/01/1.-CUS-Trento-C5-scaled.png"
+DEFAULT_IMAGE = "/img/placeholder.webp"
 
 # Fonte unica da scansionare.
 # Richiesta: usare SOLO la pagina 1 del feed generale SporTrentino calcio a 5.
