@@ -63,6 +63,22 @@
         "https://custrentocalcioa5.it/img/players/14-loperfido-damiano-pivot.webp",
         "https://custrentocalcioa5.it/img/players/15-scala-luca-universale.webp"
       ]
+    },
+    {
+      "season": "2026/27",
+      "categories": [
+        "partite",
+        "vario"
+      ],
+      "id": 3,
+      "title": "prova test",
+      "date": "2026-06-06",
+      "cover": "/img/uploads/1.png",
+      "description": "ciao sono la descrizione la teniamo?",
+      "photos": [
+        "/img/uploads/1.png",
+        "/img/uploads/2.jpeg"
+      ]
     }
   ]
 }
