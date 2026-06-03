@@ -2,233 +2,161 @@
 
 Official website project for **CUS Trento C5**, a futsal club based in Trento, Italy.
 
-The site is built as a lightweight static frontend with structured JSON content, automated data updates and a small server-side contact endpoint.
+The site is a lightweight static frontend with structured JSON content, Decap CMS editing, and GitHub Actions for deployment and recurring data updates.
 
-## Overview
-
-This repository contains the public website source code for CUS Trento C5.
-
-The website includes:
-
-* Home page
-* Club information
-* First team and Under 21 squad pages
-* Match calendar
-* League standings
-* Cup section
-* Player statistics
-* Historical statistics
-* News section
-* Gallery
-* Social feed
-* Resources
-* Contact form
-
-The frontend is mostly static and reads structured content from JSON files stored in the repository.
-
-## Project Structure
+## Main structure
 
 ```text
 .
 ├── index.html
-├── css/
-│   └── style.css
-├── js/
-│   └── app.js
+├── css/style.css
+├── js/app.js
+├── admin/
+│   ├── index.html
+│   ├── config.yml
+│   └── custom.js
 ├── content/
 │   ├── data.json
+│   ├── cms/
+│   │   ├── news.json
+│   │   ├── roster.json
+│   │   ├── fixtures.json
+│   │   ├── u21-fixtures.json
+│   │   ├── gallery-albums.json
+│   │   ├── sponsors.json
+│   │   ├── sponsor-packages.json
+│   │   ├── staff.json
+│   │   ├── videos.json
+│   │   └── club-history.json
+│   ├── news.index.json
 │   ├── news.imported.json
 │   └── social-feed.json
 ├── img/
+│   ├── uploads/
 │   └── social/
-├── admin/
-│   └── config.yml
-├── api/
-│   └── contact.php
 ├── scripts/
-│   ├── import_sportrentino_news.py
-│   ├── update_standings.py
-│   └── update_instagram_feed.py
-└── .github/
-    └── workflows/
+└── .github/workflows/
 ```
 
 ## Frontend
 
-The website is rendered client-side using:
+The public site is rendered client-side by `js/app.js`. It first loads `content/data.json` as the stable base, then overlays the editable files in `content/cms/*.json`.
 
-* `index.html`
-* `css/style.css`
-* `js/app.js`
-
-The JavaScript file loads the content from JSON files and renders the different sections of the website based on the current URL hash, for example:
+Routes are hash based, for example:
 
 ```text
 /#home
 /#squad
 /#calendar
 /#standings
+/#cup
+/#stats
 /#news
+/#gallery
 /#social
 /#contacts
 ```
 
-## Content Management
+## CMS
 
-Most editable content is stored in:
-
-```text
-content/data.json
-```
-
-This file contains the main website data, such as:
-
-* players
-* fixtures
-* standings
-* staff
-* sponsors
-* gallery albums
-* resources
-* historical statistics
-* manual news
-
-The CMS configuration is stored in:
+Decap CMS is configured in:
 
 ```text
 admin/config.yml
 ```
 
-The CMS is intended to make routine content updates easier without editing the JSON manually.
-
-## News System
-
-The news section is split into two sources:
+Editable content is stored in isolated JSON files under:
 
 ```text
-content/data.json
-content/news.imported.json
+content/cms/
 ```
 
-`content/data.json` contains manually created or newly managed news items.
+This protects `content/data.json` from being rewritten incorrectly by the CMS.
 
-`content/news.imported.json` contains imported historical news that are not intended to be edited manually in the CMS.
+## Images
 
-At runtime, the frontend merges both sources and displays them together in the news section.
-
-The news page also supports:
-
-* category filtering
-* text search
-* individual article pages
-* share buttons for common platforms
-* native sharing where supported by the browser
-
-## Standings Automation
-
-League standings are updated by a scheduled GitHub Actions workflow.
-
-The update process is handled by:
+CMS uploads go to:
 
 ```text
-scripts/update_standings.py
+img/uploads
+```
+
+The workflow below converts uploaded images to WebP and resizes them according to their usage:
+
+```text
+scripts/optimize_cms_images.py
+.github/workflows/optimize-cms-images.yml
+```
+
+Current profiles:
+
+* players and staff: 800×1000, cover crop, quality 82
+* news: max width 1600, quality 82
+* gallery: max width 1600, quality 80
+* sponsors: max width 300, quality 90
+
+## Roster dropdown sync
+
+The CMS match dropdowns are generated from `content/cms/roster.json` by:
+
+```text
+scripts/sync_roster_options.py
+.github/workflows/sync-roster-options.yml
+```
+
+When the roster changes, the workflow updates the player options in `admin/config.yml`.
+
+## News
+
+News uses two levels:
+
+```text
+content/cms/news.json       # manual CMS news
+content/news.index.json     # lightweight imported-news index
+content/news.imported.json  # full imported archive, loaded only when needed
+```
+
+Manual news can include text/image blocks through the CMS.
+
+## Standings and imports
+
+Scheduled workflows update external data:
+
+```text
 .github/workflows/update-standings.yml
+.github/workflows/import-sportrentino-news.yml
+.github/workflows/update-instagram-feed.yml
 ```
 
-The script reads the public league tables from the configured external source and updates:
+The scripts are in `scripts/`.
 
-```text
-content/data.json
-```
+## Contact form
 
-Specifically:
+The contact form is static and posts to Web3Forms from the frontend. The fallback recipient email is configured in `js/app.js`.
 
-* `standings` for the First Team
-* `u21Standings` for the Under 21 team
-
-The workflow only commits changes when the standings data has actually changed.
-
-## Social Feed
-
-The social feed is stored in:
-
-```text
-content/social-feed.json
-```
-
-The frontend uses this file to show social cards on the home page and on the dedicated social page.
-
-Images used by the social feed can be cached locally under:
-
-```text
-img/social/
-```
-
-This avoids depending directly on temporary third-party CDN image URLs.
-
-## Contact Form
-
-The contact page uses a server-side PHP endpoint:
-
-```text
-api/contact.php
-```
-
-The form is designed to send contact requests by email without requiring a database.
-
-The endpoint includes basic validation and anti-spam checks. Sensitive mail/server configuration should never be committed to the repository.
-
-## GitHub Actions
-
-The repository uses GitHub Actions for automated maintenance tasks, such as:
-
-* updating league standings
-* updating social feed data
-* deploying the website
-
-Workflow files are stored in:
-
-```text
-.github/workflows/
-```
-
-Secrets, tokens, server credentials and private deployment values must be configured only through **GitHub Secrets** and must not be committed to the repository.
+There is no PHP contact endpoint in this repository.
 
 ## Deployment
 
-The site is maintained through GitHub and deployed to the production hosting environment using automated workflows.
+Deployment is handled by:
 
-The repository intentionally does not expose sensitive deployment details, credentials or tokens.
+```text
+.github/workflows/deploy.yml
+```
 
-## Security Notes
+Sensitive values such as SSH credentials, tokens and deployment paths must be stored only in GitHub Secrets.
 
-This is a public repository. Do not commit:
+## Production checklist
 
-* passwords
-* API tokens
-* access tokens
-* private keys
-* server credentials
-* SMTP credentials
-* personal account secrets
-* raw production configuration containing sensitive values
+Before going live:
 
-Use GitHub Secrets for sensitive values required by workflows.
+* validate JSON files under `content/`
+* validate `admin/config.yml`
+* run `node --check js/app.js`
+* verify that required static assets are present in the repository or already present on the production host
+* verify that `/oldsite` references have been migrated before deleting `/oldsite`
+* verify GitHub Actions secrets: `GH_PAT`, `SSH_PRIVATE_KEY`, `SSH_HOST`, `SSH_PORT`, `SSH_USER`, `SSH_TARGET_DIR`
 
-## Development Notes
+## Security notes
 
-This project is intentionally lightweight.
-
-There is no full frontend framework and no database dependency for the public site. Most of the website is generated from structured JSON content and rendered in the browser.
-
-Before committing changes, check:
-
-* `content/data.json` is valid JSON
-* `content/social-feed.json` is valid JSON
-* workflow YAML files keep correct indentation
-* JavaScript has no syntax errors
-* sensitive values are not present in the codebase
-
-## License
-
-This repository contains the website source code and content for CUS Trento C5. Reuse of club assets, logos, images and editorial content may require permission from the club.
+This repository is public. Do not commit passwords, private keys, SMTP credentials, personal tokens or server credentials. Use GitHub Secrets for automation.
