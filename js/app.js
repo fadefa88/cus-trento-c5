@@ -729,9 +729,9 @@ function newsSearchText(n){
 }
 function articleShareUrl(n){
   const base=location.origin+location.pathname.replace(/\/index\.html$/,'/');
-  // Facebook mobile gestisce male gli URL SPA con solo #hash.
-  // Usiamo una query stabile e aggiungiamo comunque l'hash per il routing interno.
-  return `${base}?news=${encodeURIComponent(n.id)}#article-${encodeURIComponent(n.id)}`;
+  // Link stabile per condivisione social. Evitiamo #hash perché alcune app mobile,
+  // Facebook in particolare, lo ignorano o lo gestiscono male nel composer.
+  return `${base}?news=${encodeURIComponent(n.id)}`;
 }
 function findNewsById(id){
   return (state.news||[]).find(x=>String(x.id)===String(id));
@@ -744,12 +744,13 @@ function newsShareButtons(n,compact=false){
   const newsId=safe(String(n.id||""));
   const safeUrl=safe(url);
   const safeTitle=safe(title);
+  const fbUrl=safe(facebookShareUrl(url,title));
   const payload=`data-news-id="${newsId}" data-news-url="${safeUrl}" data-news-title="${safeTitle}"`;
   const stop=`onclick="event.stopPropagation()"`;
   return `<div class="news-share ${compact?'compact':''}" onclick="event.stopPropagation()">
     <span class="share-label">Condividi</span>
     <a class="share-action share-whatsapp" href="https://wa.me/?text=${encTitle}%20${encUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su WhatsApp"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-whatsapp"></i></span><span>WhatsApp</span></a>
-    <button class="share-action share-facebook" type="button" data-news-share-action="facebook" ${payload} onclick="shareFacebookNewsFromButton(this,event);return false;" aria-label="Condividi su Facebook"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-facebook-f"></i></span><span>Facebook</span></button>
+    <a class="share-action share-facebook" href="${fbUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su Facebook"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-facebook-f"></i></span><span>Facebook</span></a>
     <a class="share-action share-x" href="https://twitter.com/intent/tweet?text=${encTitle}&url=${encUrl}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su X"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-x-twitter"></i></span><span>X</span></a>
     <a class="share-action share-telegram" href="https://t.me/share/url?url=${encUrl}&text=${encTitle}" target="_blank" rel="noopener noreferrer" ${stop} data-news-share-action="external" aria-label="Condividi su Telegram"><span class="share-icon" aria-hidden="true"><i class="fa-brands fa-telegram"></i></span><span>Telegram</span></a>
     <button class="share-action share-copy" type="button" data-news-share-action="copy" ${payload} onclick="copyNewsLinkFromButton(this,event);return false;" aria-label="Copia link della news"><span class="share-icon" aria-hidden="true"><i class="fa-solid fa-link"></i></span><span>Copia link</span></button>
@@ -905,20 +906,33 @@ function renderNewsList(){
   if(info){
     const q=String(view.newsQuery||"").trim();
     const cat=view.newsCategory||"Tutte";
-    info.innerHTML=(q||cat!=="Tutte")?`<span>${items.length} risultati${cat!=="Tutte"?` · categoria ${safe(cat)}`:""}${q?` · ricerca “${safe(q)}”`:""}</span><button class="pill" onclick="clearNewsSearch()">Reset</button>`:"";
+    info.innerHTML=(q||cat!=="Tutte")?`<span>${items.length} risultati${cat!=="Tutte"?` · categoria ${safe(cat)}`:""}${q?` · ricerca “${safe(q)}”`:""}</span><button class="pill" type="button" onclick="return clearNewsSearch(event)">Reset</button>`:"";
   }
 }
-function clearNewsSearch(){view.newsQuery="";view.newsCategory="Tutte";view.newsPage=1;setUrlNewsQuery("");news();}
+function clearNewsSearch(event){
+  if(event && event.preventDefault)event.preventDefault();
+  if(event && event.stopPropagation)event.stopPropagation();
+  view.newsQuery="";
+  view.newsCategory="Tutte";
+  view.newsPage=1;
+  setUrlNewsQuery("");
+  const input=$("#newsSearchInput");
+  if(input)input.value="";
+  renderNewsList();
+  return false;
+}
 function searchNews(q){setNewsSearch(q);}
 window.searchNews=q=>searchNews(q);
 window.setNewsSearch=q=>setNewsSearch(q);
 window.submitNewsSearch=event=>submitNewsSearch(event);
-window.clearNewsSearch=()=>clearNewsSearch();
+window.clearNewsSearch=event=>clearNewsSearch(event);
 function isProbablyMobile(){
   return /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent||'') || (navigator.maxTouchPoints||0)>1;
 }
-function facebookShareUrl(url){
-  return `https://www.facebook.com/sharer.php?u=${encodeURIComponent(url)}`;
+function facebookShareUrl(url,title=""){
+  const params=new URLSearchParams({u:String(url||location.href)});
+  if(title)params.set("quote",String(title));
+  return `https://www.facebook.com/sharer/sharer.php?${params.toString()}`;
 }
 function shareFacebookNews(input){
   const payload=typeof input==='object' && input ? input : sharePayloadFromTrigger(document.querySelector(`[data-news-share-action="facebook"][data-news-id="${String(input||'').replace(/"/g,'\\"')}"]`));
