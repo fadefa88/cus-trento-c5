@@ -73,11 +73,11 @@
       "id": 3,
       "title": "prova test",
       "date": "2026-06-06",
-      "cover": "/img/uploads/1.png",
+      "cover": "/img/uploads/1.webp",
       "description": "ciao sono la descrizione la teniamo?",
       "photos": [
-        "/img/uploads/1.png",
-        "/img/uploads/2.jpeg"
+        "/img/uploads/1.webp",
+        "/img/uploads/2.webp"
       ]
     }
   ]
