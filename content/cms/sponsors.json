@@ -2,45 +2,24 @@
   "sponsors": [
     {
       "id": 1,
-      "name": "UniTrento Sport",
-      "tier": "Main Partner",
-      "logo": "UT",
-      "url": "#"
+      "name": "Ristorante Tentazioni",
+      "tier": "test",
+      "logo": "/img/uploads/tentazioni.png",
+      "url": "https://www.tentazionitrento.it/it/ristorante"
     },
     {
       "id": 2,
-      "name": "Sanbàpolis Arena",
-      "tier": "Venue Partner",
-      "logo": "SB",
-      "url": "#"
+      "name": "Pizzeria all'Angolo Trento",
+      "tier": "test",
+      "logo": "/img/uploads/home_3.webp",
+      "url": "https://pizzeriangolotrento.it/"
     },
     {
       "id": 3,
-      "name": "Trentino Energia",
-      "tier": "Gold Sponsor",
-      "logo": "TE",
-      "url": "#"
-    },
-    {
-      "id": 4,
-      "name": "Dolomiti Lab",
-      "tier": "Silver Sponsor",
-      "logo": "DL",
-      "url": "#"
-    },
-    {
-      "id": 5,
-      "name": "Caffè Trento",
-      "tier": "Community Partner",
-      "logo": "CT",
-      "url": "#"
-    },
-    {
-      "id": 6,
-      "name": "Studio Fisio 5",
-      "tier": "Medical Partner",
-      "logo": "F5",
-      "url": "#"
+      "name": "Burger F*cktory",
+      "tier": "test",
+      "logo": "/img/uploads/images.png",
+      "url": "https://burgerfcktory.com/"
     }
   ]
 }
