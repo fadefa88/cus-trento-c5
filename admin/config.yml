@@ -1772,9 +1772,11 @@ collections:
       - label: Livello
         name: tier
         widget: string
-      - label: Sigla logo
+      - label: Logo sponsor (immagine)
         name: logo
-        widget: string
+        widget: image
+        required: false
+        hint: Carica il logo dello sponsor. Formati consigliati: PNG, WEBP o SVG con sfondo trasparente.
       - label: Link (URL)
         name: url
         widget: string
