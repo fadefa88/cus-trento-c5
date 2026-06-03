@@ -1769,9 +1769,6 @@ collections:
       - label: Nome
         name: name
         widget: string
-      - label: Livello
-        name: tier
-        widget: string
       - label: Logo sponsor (immagine)
         name: logo
         widget: image
