@@ -1431,7 +1431,7 @@ function resetCookieConsent(){
 }
 
 const CONTACT_FORM_ENDPOINT="https://api.web3forms.com/submit";
-const CONTACT_FORM_ACCESS_KEY="INSERISCI_ACCESS_KEY_WEB3FORMS";
+const CONTACT_FORM_ACCESS_KEY="75c56aa3-61e6-4377-bee3-b341ec8da5f7";
 const CONTACT_FALLBACK_EMAIL="custrentocalcio@gmail.com";
 function isConfiguredContactKey(key){
   const raw=String(key||"").trim();
