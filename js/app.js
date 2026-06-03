@@ -1195,7 +1195,30 @@ function social(){shell("Social wall","Ultimi post Instagram e TikTok",`<div cla
 
 function tryout(){shell("Provini","Entra nel progetto CUS Trento C5",`<div class="grid grid-2"><div class="tryout-hero"><span class="eyebrow" style="background:white;color:#09090b">Tryout</span><h2 style="font-size:42px">Vuoi giocare con noi?</h2><p style="color:rgba(255,255,255,.74)">Compila la candidatura demo: ruolo, esperienza, università/corso e contatti. In produzione il form invierà la richiesta allo staff tecnico.</p><div class="grid grid-2" style="margin-top:22px">${["Prima squadra","Under 21","Portieri","Studenti UniTrento"].map(x=>`<div class="gk-box"><b>${x}</b><span>Area</span></div>`).join("")}</div></div><div class="lead-form"><h2>Modulo candidatura</h2><div class="form-grid" style="grid-template-columns:1fr 1fr"><label><span>Nome e cognome</span><input id="try_name"></label><label><span>Età</span><input id="try_age" type="number"></label><label><span>Ruolo</span><select id="try_role"><option>Portiere</option><option>Centrale</option><option>Laterale</option><option>Pivot</option><option>Universale</option></select></label><label><span>Università / corso</span><input id="try_university"></label><label><span>Telefono</span><input id="try_phone"></label><label><span>Email</span><input id="try_email" type="email"></label><label style="grid-column:1/-1"><span>Esperienza e note</span><textarea id="try_notes"></textarea></label></div><button class="btn dark" style="margin-top:14px" onclick="saveLead('tryout')">Invia candidatura demo</button></div></div><div class="grid grid-3" style="margin-top:24px">${["Valutazione tecnica","Allenamento di prova","Inserimento nel gruppo"].map((x,i)=>`<div class="card card-pad"><span class="badge">Step 0${i+1}</span><h2 style="margin-top:12px">${x}</h2><p class="muted">Workflow demo per gestire le richieste dei giocatori interessati.</p></div>`).join("")}</div>`,"","Modulo provini e candidature CUS Trento C5.");}
 
-function sponsor(){shell("Partner","Sponsor, partner e community del progetto",`<div class="grid grid-3">${state.sponsors.map(s=>`<article class="card card-pad"><div class="sponsor-logo">${s.logo}</div><div style="margin-top:18px" class="sponsor-tier">${s.tier}</div><h2 style="margin-top:8px">${s.name}</h2><p class="muted">Spazio sponsor configurabile: logo, descrizione, link e livello di partnership.</p><a class="btn soft" href="${s.url}" style="margin-top:10px">Scopri →</a></article>`).join("")}</div><div class="section" style="padding-bottom:0"><span class="eyebrow">Pacchetti sponsor</span><h2 class="title" style="margin-bottom:24px">Visibilità commerciale</h2><div class="grid grid-4">${(state.sponsorPackages||[]).map((p,i)=>`<article class="package-card ${i===0?'featured':''}"><span class="badge">${p.price}</span><h2 style="margin-top:12px">${p.name}</h2><ul>${p.visibility.map(v=>`<li>${v}</li>`).join("")}</ul><button class="btn ${i===0?'ghost':'dark'}" onclick="route('sponsor-lead')">${p.cta}</button></article>`).join("")}</div></div><div class="newsletter" style="margin-top:24px"><span class="eyebrow" style="background:white;color:#09090b">Media kit</span><h2 style="font-size:38px">Richiedi brochure sponsor e proposta di visibilità.</h2><p style="color:rgba(255,255,255,.68)">Ideale per aziende locali, partner universitari e brand sportivi.</p><button class="btn ghost" onclick="route('sponsor-lead')">Richiedi media kit</button></div>`,"","Sponsor e partner CUS Trento C5.");}
+function isSponsorImage(value){
+  const raw=String(value||"").trim();
+  if(!raw) return false;
+  if(raw.startsWith("/")) return true;
+  if(/^https?:\/\//i.test(raw)) return true;
+  return /\.(png|jpe?g|webp|svg|gif)(\?.*)?$/i.test(raw);
+}
+function sponsorLogoHtml(s){
+  const logo=String((s&&s.logo)||"").trim();
+  const name=String((s&&s.name)||"Sponsor").trim();
+  if(isSponsorImage(logo)){
+    return `<img loading="lazy" src="${logo}" alt="Logo ${name}">`;
+  }
+  const fallback=logo || name.split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join("") || "SP";
+  return `<span>${fallback}</span>`;
+}
+function sponsorUrl(url){
+  const raw=String(url||"").trim();
+  return raw || "#";
+}
+function sponsor(){
+  const sponsorCards=(state.sponsors||[]).map(s=>`<article class="card card-pad sponsor-card"><div class="sponsor-logo">${sponsorLogoHtml(s)}</div><div style="margin-top:18px" class="sponsor-tier">${s.tier||"Partner"}</div><h2 style="margin-top:8px">${s.name||"Sponsor"}</h2><p class="muted">Spazio sponsor configurabile da CMS: logo, nome, link e livello di partnership.</p><a class="btn soft" href="${sponsorUrl(s.url)}" target="${sponsorUrl(s.url)==="#"?"_self":"_blank"}" rel="noopener noreferrer" style="margin-top:10px">Scopri →</a></article>`).join("") || `<article class="card card-pad"><p class="muted">Nessuno sponsor inserito.</p></article>`;
+  shell("Partner","Sponsor, partner e community del progetto",`<div class="grid grid-3">${sponsorCards}</div><div class="section" style="padding-bottom:0"><span class="eyebrow">Pacchetti sponsor</span><h2 class="title" style="margin-bottom:24px">Visibilità commerciale</h2><div class="grid grid-4">${(state.sponsorPackages||[]).map((p,i)=>`<article class="package-card ${i===0?'featured':''}"><span class="badge">${p.price}</span><h2 style="margin-top:12px">${p.name}</h2><ul>${(p.visibility||[]).map(v=>`<li>${v}</li>`).join("")}</ul><button class="btn ${i===0?'ghost':'dark'}" onclick="route('sponsor-lead')">${p.cta}</button></article>`).join("")}</div></div><div class="newsletter" style="margin-top:24px"><span class="eyebrow" style="background:white;color:#09090b">Media kit</span><h2 style="font-size:38px">Richiedi brochure sponsor e proposta di visibilità.</h2><p style="color:rgba(255,255,255,.68)">Ideale per aziende locali, partner universitari e brand sportivi.</p><button class="btn ghost" onclick="route('sponsor-lead')">Richiedi media kit</button></div>`,"","Sponsor e partner CUS Trento C5.");
+}
 function sponsorLead(){shell("Sponsor lead","Richiedi media kit o proposta sponsor",`<div class="grid grid-2"><div class="lead-form"><h2>Richiesta commerciale</h2><div class="form-grid" style="grid-template-columns:1fr"><label><span>Azienda</span><input id="lead_company"></label><label><span>Referente</span><input id="lead_name"></label><label><span>Email</span><input id="lead_email" type="email"></label><label><span>Pacchetto di interesse</span><select id="lead_package">${(state.sponsorPackages||[]).map(p=>`<option>${p.name}</option>`).join("")}</select></label><label><span>Messaggio</span><textarea id="lead_msg"></textarea></label></div><button class="btn dark" style="margin-top:14px" onclick="saveLead('sponsor')">Invia richiesta demo</button></div><div class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">Perché sponsorizzare</span><h2 style="font-size:40px">Visibilità locale, universitaria e digitale.</h2><p style="color:rgba(255,255,255,.72)">Il pacchetto può includere logo sito, social content, matchday post, banner, backdrop e iniziative con studenti.</p></div></div>`,"","Lead form sponsor CUS Trento C5.");}
 function seasons(){shell("Archive","Archivio stagioni",`<div class="grid grid-3">${state.seasons.map(s=>`<article class="card card-pad"><span class="badge">${s.season}</span><h2 style="margin-top:12px">${s.competition}</h2><div class="metrics"><div class="metric"><b>${s.position}</b><small>Pos</small></div><div class="metric"><b>${s.gf}</b><small>GF</small></div><div class="metric"><b>${s.gs}</b><small>GS</small></div></div><p class="muted">${s.record}</p><p class="muted">${s.note}</p></article>`).join("")}</div>`,"","Archivio stagioni CUS Trento C5.");}
 function timeline(){shell("Timeline","Momenti chiave della stagione",`<div class="timeline">${state.timeline.map(t=>`<div class="card card-pad timeline-item"><div class="timeline-date">${t.date}</div><div><h2>${t.title}</h2><p class="muted">${t.text}</p></div></div>`).join("")}</div>`,"","Timeline stagione CUS Trento C5.");}
@@ -1254,7 +1277,7 @@ function historicalStatsPage(){
     <div class="card card-pad table-wrap" style="margin-top:24px"><h2>Statistiche per stagione</h2><table class="table" style="box-shadow:none;margin-top:16px"><thead><tr><th>Stagione</th><th>G</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead><tbody>${seasonStatsRows(hs.seasons)}</tbody></table></div>
   `,"","Statistiche storiche complete CUS Trento C5.");
 }
-function contacts(){shell("Contatti","Contatti e richieste",`<div class="grid grid-2"><div class="newsletter"><span class="eyebrow" style="background:white;color:#09090b">CUS Trento</span><h2 style="font-size:38px">Contatti ufficiali</h2><p style="color:rgba(255,255,255,.78);line-height:1.8"><b>Indirizzo</b><br>Via Inama 1, 38122 Trento (TN)<br><br><b>Telefono</b><br>0461.281855<br><br><b>Email</b><br><a href="mailto:custrentocalcio@gmail.com" style="color:white;text-decoration:underline">custrentocalcio@gmail.com</a><br><br><b>Orari segreteria</b><br>09.30 – 12.00 dal lunedì al venerdì<br>14.00 – 16.00 il martedì</p></div><div class="card card-pad"><h2>Scrivici</h2><p class="muted" style="margin-top:6px">Compila il modulo: il messaggio arriva direttamente nella casella ufficiale del CUS Trento C5.</p><form id="contactForm" class="contact-form" method="post" action="api/contact.php" onsubmit="submitContact(event)"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><div class="form-grid" style="grid-template-columns:1fr"><label><span>Nome e cognome</span><input name="name" autocomplete="name" required></label><label><span>Email</span><input name="email" type="email" autocomplete="email" required></label><label><span>Telefono</span><input name="phone" type="tel" autocomplete="tel"></label><label><span>Motivo</span><select name="reason" required><option>Informazioni generali</option><option>Diventa sponsor</option><option>Provino</option><option>Informazioni partita</option><option>Media</option></select></label><label><span>Messaggio</span><textarea name="message" required minlength="10"></textarea></label><label class="privacy-check"><input type="checkbox" name="privacy" required><span>Ho letto la <a href="#privacy" onclick="route('privacy');return false;">privacy policy</a> e autorizzo il trattamento dei dati per ricevere risposta.</span></label></div><div id="contactStatus" class="form-alert" aria-live="polite"></div><button id="contactSubmit" class="btn dark" type="submit" style="margin-top:14px">Invia richiesta</button></form></div></div>`,"","Contatti ufficiali CUS Trento C5.");}
+function contacts(){shell("Contatti","Contatti e richieste",`<div class="grid grid-2"><div class="newsletter"><span class="eyebrow" style="background:white;color:#09090b">CUS Trento</span><h2 style="font-size:38px">Contatti ufficiali</h2><p style="color:rgba(255,255,255,.78);line-height:1.8"><b>Indirizzo</b><br>Via Inama 1, 38122 Trento (TN)<br><br><b>Telefono</b><br>0461.281855<br><br><b>Email</b><br><a href="mailto:custrentocalcio@gmail.com" style="color:white;text-decoration:underline">custrentocalcio@gmail.com</a><br><br><b>Orari segreteria</b><br>09.30 – 12.00 dal lunedì al venerdì<br>14.00 – 16.00 il martedì</p></div><div class="card card-pad"><h2>Scrivici</h2><p class="muted" style="margin-top:6px">Compila il modulo: il messaggio arriva direttamente nella casella ufficiale del CUS Trento C5.</p><form id="contactForm" class="contact-form" method="post" action="https://api.web3forms.com/submit" onsubmit="submitContact(event)"><input type="hidden" name="access_key" value="INSERISCI_ACCESS_KEY_WEB3FORMS"><input type="hidden" name="subject" value="Nuovo messaggio dal sito CUS Trento C5"><input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><div class="form-grid" style="grid-template-columns:1fr"><label><span>Nome e cognome</span><input name="name" autocomplete="name" required></label><label><span>Email</span><input name="email" type="email" autocomplete="email" required></label><label><span>Telefono</span><input name="phone" type="tel" autocomplete="tel"></label><label><span>Motivo</span><select name="reason" required><option>Informazioni generali</option><option>Diventa sponsor</option><option>Provino</option><option>Informazioni partita</option><option>Media</option></select></label><label><span>Messaggio</span><textarea name="message" required minlength="10"></textarea></label><label class="privacy-check"><input type="checkbox" name="privacy" required><span>Ho letto la <a href="#privacy" onclick="route('privacy');return false;">privacy policy</a> e autorizzo il trattamento dei dati per ricevere risposta.</span></label></div><div id="contactStatus" class="form-alert" aria-live="polite"></div><button id="contactSubmit" class="btn dark" type="submit" style="margin-top:14px">Invia richiesta</button></form></div></div>`,"","Contatti ufficiali CUS Trento C5.");}
 function privacy(){shell("Privacy Policy","Informativa sul trattamento dei dati personali",`
 <div class="card card-pad article-body">
   <p class="muted">Ultimo aggiornamento: giugno 2026</p>
@@ -1407,6 +1430,26 @@ function resetCookieConsent(){
   if(current==="matchday")render();
 }
 
+const CONTACT_FORM_ENDPOINT="https://api.web3forms.com/submit";
+const CONTACT_FORM_ACCESS_KEY="INSERISCI_ACCESS_KEY_WEB3FORMS";
+const CONTACT_FALLBACK_EMAIL="custrentocalcio@gmail.com";
+function isConfiguredContactKey(key){
+  const raw=String(key||"").trim();
+  return raw && raw!=="INSERISCI_ACCESS_KEY_WEB3FORMS";
+}
+function openContactMailto(payload){
+  const subject="Richiesta dal sito CUS Trento C5 — "+(payload.reason||"Contatto");
+  const body=[
+    "Nome: "+(payload.name||""),
+    "Email: "+(payload.email||""),
+    "Telefono: "+(payload.phone||"-"),
+    "Motivo: "+(payload.reason||"-"),
+    "",
+    "Messaggio:",
+    payload.message||""
+  ].join("\n");
+  window.location.href="mailto:"+CONTACT_FALLBACK_EMAIL+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+}
 async function submitContact(event){
   event.preventDefault();
   const form=event.currentTarget;
@@ -1416,21 +1459,31 @@ async function submitContact(event){
   if(btn){btn.disabled=true;btn.textContent="Invio in corso...";}
   try{
     const payload=Object.fromEntries(new FormData(form).entries());
-    const res=await fetch(form.getAttribute("action")||"api/contact.php",{
+    payload.access_key=CONTACT_FORM_ACCESS_KEY;
+    payload.subject=payload.subject||"Nuovo messaggio dal sito CUS Trento C5";
+
+    if(!isConfiguredContactKey(CONTACT_FORM_ACCESS_KEY)){
+      openContactMailto(payload);
+      if(status){status.className="form-alert success";status.textContent="Configura la chiave Web3Forms per l’invio automatico. Intanto si apre il client email.";}
+      return;
+    }
+
+    const res=await fetch(CONTACT_FORM_ENDPOINT,{
       method:"POST",
       headers:{"Content-Type":"application/json","Accept":"application/json"},
       body:JSON.stringify(payload)
     });
-    const data=await res.json().catch(()=>({ok:false,message:"Risposta non valida dal server."}));
-    if(!res.ok||!data.ok) throw new Error(data.message||"Invio non riuscito. Riprova più tardi.");
+    const data=await res.json().catch(()=>({success:false,message:"Risposta non valida dal servizio di invio."}));
+    if(!res.ok||!(data.success||data.ok)) throw new Error(data.message||"Invio non riuscito. Riprova più tardi.");
     form.reset();
-    if(status){status.className="form-alert success";status.textContent=data.message||"Messaggio inviato correttamente.";}
+    if(status){status.className="form-alert success";status.textContent="Messaggio inviato correttamente. Ti risponderemo appena possibile.";}
   }catch(err){
-    if(status){status.className="form-alert error";status.textContent=err.message||"Invio non riuscito. Riprova più tardi.";}
+    if(status){status.className="form-alert error";status.textContent=(err&&err.message)||"Invio non riuscito. Riprova più tardi.";}
   }finally{
     if(btn){btn.disabled=false;btn.textContent="Invia richiesta";}
   }
 }
+
 
 function saveLead(type){
   const g=id=>{const el=$("#"+id);return el?el.value:"";};
