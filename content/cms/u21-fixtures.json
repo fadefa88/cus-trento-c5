@@ -61,6 +61,57 @@
       ],
       "home": "Aldeno",
       "competition": "Campionato"
+    },
+    {
+      "time": "22:00",
+      "away": "Pippo",
+      "date": "2026-06-11",
+      "lineup": {
+        "module": "2-2",
+        "startingFive": [
+          "19",
+          "23",
+          "35",
+          "34",
+          "33"
+        ],
+        "bench": [
+          "19",
+          "24",
+          "25",
+          "26",
+          "28",
+          "29"
+        ]
+      },
+      "venue": "Sanbàpolis",
+      "score": "5-9",
+      "status": "Terminata",
+      "scorerEvents": [
+        {
+          "goals": 3,
+          "playerId": "29"
+        },
+        {
+          "goals": 2,
+          "playerId": "35"
+        }
+      ],
+      "redCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "29"
+        }
+      ],
+      "id": 2,
+      "yellowCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "30"
+        }
+      ],
+      "home": "CUS Trento",
+      "competition": "Coppa"
     }
   ]
 }
