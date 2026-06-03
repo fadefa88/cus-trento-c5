@@ -1144,3 +1144,69 @@ body.menu-open{
 .match-person{display:block;line-height:1.35;}
 .match-person.empty{color:#a1a1aa;}
 .match-list-grid{align-items:start;}
+
+
+/* Production fix: news reset button and mobile cookie details */
+.news-search-reset{
+  border:0;
+  background:#f4f4f5;
+  color:#09090b;
+  border-radius:999px;
+  padding:9px 14px;
+  font-weight:1000;
+  cursor:pointer;
+}
+.news-search-reset:hover{background:#e4e4e7}
+.cookie-box{position:relative}
+.cookie-close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  width:38px;
+  height:38px;
+  border-radius:999px;
+  background:#f4f4f5;
+  color:#09090b;
+  font-size:22px;
+  line-height:1;
+  font-weight:1000;
+  display:grid;
+  place-items:center;
+}
+@media(max-width:700px){
+  .news-search{
+    border-radius:24px;
+    flex-wrap:wrap;
+    padding:10px;
+  }
+  .news-search span{display:none}
+  .news-search input{
+    flex:1 1 100%;
+    min-height:42px;
+    padding:8px 10px;
+  }
+  .news-search-button,.news-search-reset{
+    flex:1 1 calc(50% - 6px);
+    min-height:42px;
+  }
+  .cookie-modal{
+    align-items:flex-start;
+    justify-content:center;
+    padding:10px;
+    overflow-y:auto;
+  }
+  .cookie-box{
+    width:100%;
+    max-height:calc(100dvh - 20px);
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    border-radius:22px;
+    padding:18px 14px 14px;
+  }
+  .cookie-box h2{font-size:26px!important;padding-right:44px}
+  .cookie-options{gap:8px;margin:12px 0}
+  .cookie-option{padding:11px;border-radius:14px}
+  .cookie-option p{margin:5px 0 0;line-height:1.42}
+  .cookie-box .btns{display:grid;grid-template-columns:1fr;gap:8px}
+  .cookie-box .btns .btn{width:100%;justify-content:center;min-height:42px}
+}
