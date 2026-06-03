@@ -1033,7 +1033,7 @@ collections:
       name: sponsors
       widget: list
       label_singular: sponsor
-      summary: '{{fields.name}} ({{fields.tier}})'
+      summary: '{{fields.name}}'
       fields:
       - label: ID
         name: id
