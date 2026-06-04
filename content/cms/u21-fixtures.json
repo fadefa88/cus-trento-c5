@@ -1,3 +1,49 @@
 {
-  "u21Fixtures": []
+  "u21Fixtures": [
+    {
+      "time": "21:00",
+      "away": "CUS Trento",
+      "date": "2026-06-04",
+      "lineup": {
+        "startingFive": [
+          "19",
+          "20",
+          "21",
+          "23",
+          "24"
+        ],
+        "bench": [
+          "37",
+          "35",
+          "34",
+          "33",
+          "32"
+        ],
+        "suspended": [
+          "24"
+        ],
+        "injured": [
+          "25"
+        ]
+      },
+      "venue": "Lizzana",
+      "score": "11-3",
+      "status": "Terminata",
+      "scorerEvents": [
+        {
+          "goals": 3,
+          "playerId": "37"
+        }
+      ],
+      "id": 1,
+      "yellowCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "19"
+        }
+      ],
+      "home": "Lizzana",
+      "competition": "Campionato"
+    }
+  ]
 }
