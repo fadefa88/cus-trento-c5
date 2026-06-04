@@ -242,28 +242,6 @@
       "team": "Under 21",
       "number": 48,
       "photo": "/img/players/15-scala-luca-universale.webp"
-    },
-    {
-      "faculty": "padova",
-      "birthPlace": "padova",
-      "number": 99,
-      "name": "matto de matti",
-      "birthDate": "2026-06-04",
-      "photo": "/img/uploads/kavin-de-bruyne.webp",
-      "role": "Pivot",
-      "id": 36,
-      "team": "Prima squadra"
-    },
-    {
-      "faculty": "asd",
-      "birthPlace": "asdasd",
-      "number": 98,
-      "name": "mattino mattone",
-      "birthDate": "2026-06-04",
-      "photo": "/img/uploads/kavin-de-bruyne.webp",
-      "role": "Universale",
-      "id": 37,
-      "team": "Under 21"
     }
   ]
 }
