@@ -44,6 +44,43 @@
       ],
       "home": "Lizzana",
       "competition": "Campionato"
+    },
+    {
+      "time": "21:00",
+      "away": "pippo",
+      "date": "2026-06-04",
+      "lineup": {
+        "startingFive": [
+          "19",
+          "20",
+          "21",
+          "23",
+          "24"
+        ],
+        "bench": [
+          "37",
+          "35",
+          "34"
+        ],
+        "suspended": [
+          "23"
+        ],
+        "injured": [
+          "24"
+        ]
+      },
+      "venue": "Padova",
+      "score": "4-1",
+      "status": "Terminata",
+      "scorerEvents": [
+        {
+          "goals": 3,
+          "playerId": "34"
+        }
+      ],
+      "id": 2,
+      "home": "cus trento",
+      "competition": "Coppa"
     }
   ]
 }
