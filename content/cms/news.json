@@ -10,13 +10,13 @@
         "Under 21"
       ],
       "id": 1,
-      "image": "/img/uploads/news-prova.jpg",
+      "image": "/img/uploads/news-prova.webp",
       "category": "ciccio",
       "contentBlocks": [
         {
           "type": "paragraph",
           "text": "ciao testo ciao",
-          "image": "/img/uploads/news-prova.jpg",
+          "image": "/img/uploads/news-prova.webp",
           "caption": "didascalia immagine"
         },
         {
