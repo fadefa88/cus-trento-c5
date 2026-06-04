@@ -1,29 +1,3 @@
 {
-  "news": [
-    {
-      "excerpt": "ciao caro\n",
-      "author": "luca de fassi",
-      "date": "2026-06-04",
-      "title": "prova news 1",
-      "pinned": false,
-      "tags": [
-        "Under 21"
-      ],
-      "id": 1,
-      "image": "/img/uploads/news-prova.webp",
-      "category": "ciccio",
-      "contentBlocks": [
-        {
-          "type": "paragraph",
-          "text": "ciao testo ciao",
-          "image": "/img/uploads/news-prova.webp",
-          "caption": "didascalia immagine"
-        },
-        {
-          "type": "paragraph",
-          "text": "asdasdasd"
-        }
-      ]
-    }
-  ]
+  "news": []
 }
