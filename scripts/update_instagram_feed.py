@@ -178,6 +178,11 @@ EXTRACT_POSTS_JS = r"""
     ];
     for (const re of removals) t = t.replace(re, " ");
     t = clean(t);
+    const handlePattern = "@?custrentoc5";
+    const relativeTimePattern = "(?:\\d+\\s*(?:s|sec|secs|second|seconds|m|min|mins|minute|minutes|h|hr|hrs|hour|hours|d|day|days|w|week|weeks|mo|month|months|y|yr|yrs|year|years)\\s*(?:ago)?|\\d+\\s*(?:secondo|secondi|minuto|minuti|ora|ore|giorno|giorni|settimana|settimane|mese|mesi|anno|anni)\\s*fa|today|yesterday|oggi|ieri)";
+    t = clean(t.replace(new RegExp("^" + handlePattern + "\\s+" + relativeTimePattern + "\\s+(?:\\d+[\\d.,]*\\s*){0,6}(?:share|shares|condividi|condivisioni)?\\s*", "i"), " "));
+    t = clean(t.replace(new RegExp("^" + handlePattern + "\\s+" + relativeTimePattern + "\\s*", "i"), " "));
+    t = clean(t.replace(/^(?:\d+[\d.,]*\s+){1,4}(?:share|shares|condividi)\s+/i, " "));
     if (t.length > 500) t = t.slice(0, 497).trim() + "...";
     return t;
   };
@@ -325,6 +330,41 @@ def clean_text(value: Any) -> str:
     value = re.sub(r"\\u[0-9a-fA-F]{4}", " ", value)
     value = re.sub(r"\s+", " ", value).strip()
     return value
+
+
+def clean_instagram_caption(value: Any, handle: str = DEFAULT_HANDLE) -> str:
+    """Remove volatile widget chrome from Instagram captions.
+
+    Elfsight can expose card text like:
+    "custrentoc5 3 days ago 103 15 share Real caption...".
+    The relative age changes every day and would otherwise create pointless commits.
+    """
+    text = clean_text(value)
+    if not text:
+        return ""
+
+    handles = {
+        "custrentoc5",
+        str(handle or "").lower().lstrip("@"),
+        DEFAULT_HANDLE.lower().lstrip("@"),
+    }
+    handles = {re.escape(h) for h in handles if h}
+    handle_re = "(?:" + "|".join(sorted(handles)) + ")" if handles else r"custrentoc5"
+
+    relative_time_re = r"(?:\d+\s*(?:s|sec|secs|second|seconds|m|min|mins|minute|minutes|h|hr|hrs|hour|hours|d|day|days|w|week|weeks|mo|month|months|y|yr|yrs|year|years)\s*(?:ago)?|\d+\s*(?:secondo|secondi|minuto|minuti|ora|ore|giorno|giorni|settimana|settimane|mese|mesi|anno|anni)\s*fa|today|yesterday|oggi|ieri)"
+    metric_re = r"(?:\d+[\d.,]*\s*){0,6}"
+
+    patterns = [
+        rf"^@?{handle_re}\s+{relative_time_re}\s+{metric_re}(?:share|shares|condividi|condivisioni)?\s*",
+        rf"^@?{handle_re}\s+{relative_time_re}\s*",
+        rf"^@?{handle_re}\s+(?:share|shares|condividi)\s*",
+    ]
+    for pattern in patterns:
+        text = re.sub(pattern, "", text, flags=re.I).strip()
+
+    # Drop leftover leading engagement counters from widgets, but keep normal captions intact.
+    text = re.sub(r"^(?:\d+[\d.,]*\s+){1,4}(?:share|shares|condividi)\s+", "", text, flags=re.I).strip()
+    return clean_text(text)
 
 
 def normalize_instagram_url(url: str) -> str:
@@ -775,7 +815,7 @@ def normalize_item(raw: dict, repo_root: Path, existing_by_url: dict[str, dict],
         prefix="instagram",
     )
 
-    caption = clean_text(raw.get("caption") or raw.get("title") or existing.get("caption") or existing.get("text") or "Post Instagram CUS Trento C5")
+    caption = clean_instagram_caption(raw.get("caption") or raw.get("title") or "", handle) or clean_instagram_caption(existing.get("caption") or existing.get("text") or "", handle) or "Post Instagram CUS Trento C5"
     if not caption:
         caption = "Post Instagram CUS Trento C5"
     title = caption if len(caption) <= 120 else caption[:117].rstrip() + "..."
@@ -1047,6 +1087,21 @@ def merge_social_posts(existing: list[dict], imported_instagram: list[dict], imp
 
 
 
+
+
+def strip_volatile_social_fields(value: Any) -> Any:
+    """Return payload copy without fields that should not trigger commits by themselves."""
+    if isinstance(value, dict):
+        cleaned = {}
+        for key, child in value.items():
+            if key in {"updatedAt", "generatedAt", "sourceHits"}:
+                continue
+            cleaned[key] = strip_volatile_social_fields(child)
+        return cleaned
+    if isinstance(value, list):
+        return [strip_volatile_social_fields(child) for child in value]
+    return value
+
 def compact_post_for_report(item: dict) -> dict:
     platform = str(item.get("platform") or "")
     raw_url = str(item.get("url") or item.get("permalink") or "")
@@ -1223,14 +1278,6 @@ def main() -> int:
     print_post_summary("Imported Instagram posts", instagram_posts)
     print_post_summary("Imported TikTok posts", tiktok_posts)
 
-    report_path = repo_root / args.report
-    try:
-        report = build_import_report(old_posts, instagram_posts, tiktok_posts, new_posts, {**source_hits, "tiktok": len(tiktok_posts)})
-        save_json(report_path, report)
-        print(f"Import report written to: {args.report}")
-    except Exception as exc:
-        print(f"WARN: could not write import report: {exc}", flush=True)
-
     if output_as_list:
         new_payload = new_posts
     else:
@@ -1248,12 +1295,20 @@ def main() -> int:
         for old_key in ("items", "instagramFeedUrl", "po" + "wrUrl", "instagramSourceUrl"):
             new_payload.pop(old_key, None)
 
-    before = json.dumps(existing_payload, ensure_ascii=False, sort_keys=True)
-    after = json.dumps(new_payload, ensure_ascii=False, sort_keys=True)
+    before = json.dumps(strip_volatile_social_fields(existing_payload), ensure_ascii=False, sort_keys=True)
+    after = json.dumps(strip_volatile_social_fields(new_payload), ensure_ascii=False, sort_keys=True)
 
     if before == after:
-        print("No social feed changes.")
+        print("No social feed content changes.")
         return 0
+
+    report_path = repo_root / args.report
+    try:
+        report = build_import_report(old_posts, instagram_posts, tiktok_posts, new_posts, {**source_hits, "tiktok": len(tiktok_posts)})
+        save_json(report_path, report)
+        print(f"Import report written to: {args.report}")
+    except Exception as exc:
+        print(f"WARN: could not write import report: {exc}", flush=True)
 
     save_json(feed_path, new_payload)
     print(f"Total social feed posts now: {len(new_posts)}")
