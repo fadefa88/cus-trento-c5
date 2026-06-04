@@ -55,6 +55,14 @@
       "team": "Under 21",
       "photo": "/img/players/18-coppo-francesco-dirigente-u21.webp",
       "bio": "Dirigente Under 21."
+    },
+    {
+      "id": 8,
+      "name": "scott mctominay",
+      "role": "centrocampista",
+      "team": "Prima squadra",
+      "photo": "/img/uploads/gettyimages-1859835626-1-.jpg",
+      "bio": "asdasdasd"
     }
   ]
 }
