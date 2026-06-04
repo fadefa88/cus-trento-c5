@@ -274,8 +274,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#99 matto de matti'
-            value: '36'
           hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
         - label: Panchina / Convocati
           name: bench
@@ -313,8 +311,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#99 matto de matti'
-            value: '36'
           hint: Scegli solo giocatori non già presenti nel quintetto.
         - label: Squalificati
           name: suspended
@@ -352,8 +348,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#99 matto de matti'
-            value: '36'
         - label: Infortunati
           name: injured
           widget: select
@@ -390,8 +384,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#99 matto de matti'
-            value: '36'
       - label: Marcatori
         name: scorerEvents
         widget: list
@@ -434,8 +426,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#99 matto de matti'
-            value: '36'
         - label: Gol
           name: goals
           widget: number
@@ -484,8 +474,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#99 matto de matti'
-            value: '36'
         - label: Ammonizioni
           name: cards
           widget: number
@@ -534,8 +522,6 @@ collections:
             value: '17'
           - label: '#27 Mattia Cuman'
             value: '10'
-          - label: '#99 matto de matti'
-            value: '36'
         - label: Espulsioni
           name: cards
           widget: number
@@ -677,8 +663,6 @@ collections:
             value: '34'
           - label: '#48 Luca Scala'
             value: '35'
-          - label: '#98 mattino mattone'
-            value: '37'
           hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
         - label: Panchina / Convocati
           name: bench
@@ -716,8 +700,6 @@ collections:
             value: '34'
           - label: '#48 Luca Scala'
             value: '35'
-          - label: '#98 mattino mattone'
-            value: '37'
           hint: Scegli solo giocatori non già presenti nel quintetto.
         - label: Squalificati
           name: suspended
@@ -755,8 +737,6 @@ collections:
             value: '34'
           - label: '#48 Luca Scala'
             value: '35'
-          - label: '#98 mattino mattone'
-            value: '37'
         - label: Infortunati
           name: injured
           widget: select
@@ -793,8 +773,6 @@ collections:
             value: '34'
           - label: '#48 Luca Scala'
             value: '35'
-          - label: '#98 mattino mattone'
-            value: '37'
       - label: Marcatori
         name: scorerEvents
         widget: list
@@ -837,8 +815,6 @@ collections:
             value: '34'
           - label: '#48 Luca Scala'
             value: '35'
-          - label: '#98 mattino mattone'
-            value: '37'
         - label: Gol
           name: goals
           widget: number
@@ -887,8 +863,6 @@ collections:
             value: '34'
           - label: '#48 Luca Scala'
             value: '35'
-          - label: '#98 mattino mattone'
-            value: '37'
         - label: Ammonizioni
           name: cards
           widget: number
@@ -937,8 +911,6 @@ collections:
             value: '34'
           - label: '#48 Luca Scala'
             value: '35'
-          - label: '#98 mattino mattone'
-            value: '37'
         - label: Espulsioni
           name: cards
           widget: number
