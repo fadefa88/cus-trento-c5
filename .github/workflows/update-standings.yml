@@ -3,14 +3,20 @@ name: Update standings from SporTrentino
 on:
   workflow_dispatch:
   schedule:
-    - cron: "7 * * * *"
+    # Every 4 hours, off the exact hour to avoid scheduler congestion.
+    - cron: "17 */4 * * *"
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-standings-main
+  cancel-in-progress: true
+
 jobs:
   update-standings:
     runs-on: ubuntu-latest
+    timeout-minutes: 12
 
     steps:
       - name: Checkout repository
@@ -38,6 +44,7 @@ jobs:
           python -m json.tool content/data.json > /dev/null
 
       - name: Commit and push changes
+        shell: bash
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
@@ -51,5 +58,22 @@ jobs:
           git commit -m "Update SporTrentino standings"
 
           BRANCH="${GITHUB_REF_NAME:-main}"
-          git pull --rebase origin "$BRANCH"
-          git push origin HEAD:"$BRANCH"
+
+          for attempt in 1 2 3; do
+            echo "Push attempt $attempt/3"
+            git fetch origin "$BRANCH"
+            if git rebase "origin/$BRANCH"; then
+              if git push origin HEAD:"$BRANCH"; then
+                echo "Standings update pushed."
+                exit 0
+              fi
+            else
+              echo "Rebase failed. Aborting."
+              git rebase --abort || true
+              exit 1
+            fi
+            sleep $((attempt * 10))
+          done
+
+          echo "Push failed after 3 attempts."
+          exit 1

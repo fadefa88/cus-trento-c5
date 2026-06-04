@@ -17,8 +17,8 @@ on:
         default: "0.35"
 
   schedule:
-    # Ogni notte alle 03:30 UTC
-    - cron: "30 3 * * *"
+    # Every night, off the exact half-hour.
+    - cron: "37 3 * * *"
 
 permissions:
   contents: write
@@ -31,6 +31,7 @@ jobs:
   import-news:
     name: Import CUS Trento news from SporTrentino
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout repository

@@ -20,12 +20,13 @@ permissions:
 
 concurrency:
   group: optimize-cms-images-main
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   optimize-images:
     name: Convert CMS images to WebP and resize
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     # Avoid a commit loop when this same workflow pushes optimized files.
     if: ${{ github.actor != 'github-actions[bot]' }}

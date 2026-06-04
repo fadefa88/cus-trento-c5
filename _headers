@@ -1,0 +1,20 @@
+# Cloudflare Pages headers.
+# JSON content changes often and is fetched by the frontend with cache:no-cache.
+/content/*
+  Cache-Control: no-cache
+
+# Admin CMS should not be aggressively cached.
+/admin/*
+  Cache-Control: no-cache
+
+# JS/CSS filenames are not version-hashed, so keep browser cache conservative.
+/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
+/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Social images use hashed filenames; uploaded images are generally stable.
+/img/social/*
+  Cache-Control: public, max-age=31536000, immutable
+/img/uploads/*
+  Cache-Control: public, max-age=86400, must-revalidate
