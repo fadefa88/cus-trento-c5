@@ -180,8 +180,12 @@ EXTRACT_POSTS_JS = r"""
     t = clean(t);
     const handlePattern = "@?custrentoc5";
     const relativeTimePattern = "(?:\\d+\\s*(?:s|sec|secs|second|seconds|m|min|mins|minute|minutes|h|hr|hrs|hour|hours|d|day|days|w|week|weeks|mo|month|months|y|yr|yrs|year|years)\\s*(?:ago)?|\\d+\\s*(?:secondo|secondi|minuto|minuti|ora|ore|giorno|giorni|settimana|settimane|mese|mesi|anno|anni)\\s*fa|today|yesterday|oggi|ieri)";
-    t = clean(t.replace(new RegExp("^" + handlePattern + "\\s+" + relativeTimePattern + "\\s+(?:\\d+[\\d.,]*\\s*){0,6}(?:share|shares|condividi|condivisioni)?\\s*", "i"), " "));
-    t = clean(t.replace(new RegExp("^" + handlePattern + "\\s+" + relativeTimePattern + "\\s*", "i"), " "));
+    const monthPattern = "(?:jan|january|gen|gennaio|feb|february|febbraio|mar|march|marzo|apr|april|aprile|may|maggio|mag|jun|june|giu|giugno|jul|july|lug|luglio|aug|august|ago|agosto|sep|sept|september|set|settembre|oct|october|ott|ottobre|nov|november|novembre|dec|december|dic|dicembre)";
+    const absoluteDatePattern = "(?:(?:" + monthPattern + ")\\s+\\d{1,2}(?:,?\\s+\\d{2,4})?|\\d{1,2}\\s+(?:" + monthPattern + ")(?:\\s+\\d{2,4})?)";
+    const widgetMetricPattern = "(?:\\d+[\\d.,]*\\s*){0,8}";
+    t = clean(t.replace(new RegExp("^" + handlePattern + "\\s+(?:" + relativeTimePattern + "|" + absoluteDatePattern + ")\\s+" + widgetMetricPattern + "(?:share|shares|condividi|condivisioni)?\\s*", "i"), " "));
+    t = clean(t.replace(new RegExp("^" + handlePattern + "\\s+(?:" + relativeTimePattern + "|" + absoluteDatePattern + ")\\s*", "i"), " "));
+    t = clean(t.replace(new RegExp("^(?:" + absoluteDatePattern + ")\\s+(?:(?:\\d+[\\d.,]*\\s*){1,8}(?:share|shares|condividi|condivisioni)?|(?:share|shares|condividi|condivisioni))\\s*", "i"), " "));
     t = clean(t.replace(/^(?:\d+[\d.,]*\s+){1,4}(?:share|shares|condividi)\s+/i, " "));
     if (t.length > 500) t = t.slice(0, 497).trim() + "...";
     return t;
@@ -352,11 +356,14 @@ def clean_instagram_caption(value: Any, handle: str = DEFAULT_HANDLE) -> str:
     handle_re = "(?:" + "|".join(sorted(handles)) + ")" if handles else r"custrentoc5"
 
     relative_time_re = r"(?:\d+\s*(?:s|sec|secs|second|seconds|m|min|mins|minute|minutes|h|hr|hrs|hour|hours|d|day|days|w|week|weeks|mo|month|months|y|yr|yrs|year|years)\s*(?:ago)?|\d+\s*(?:secondo|secondi|minuto|minuti|ora|ore|giorno|giorni|settimana|settimane|mese|mesi|anno|anni)\s*fa|today|yesterday|oggi|ieri)"
-    metric_re = r"(?:\d+[\d.,]*\s*){0,6}"
+    month_re = r"(?:jan|january|gen|gennaio|feb|february|febbraio|mar|march|marzo|apr|april|aprile|may|maggio|mag|jun|june|giu|giugno|jul|july|lug|luglio|aug|august|ago|agosto|sep|sept|september|set|settembre|oct|october|ott|ottobre|nov|november|novembre|dec|december|dic|dicembre)"
+    absolute_date_re = rf"(?:(?:{month_re})\s+\d{{1,2}}(?:,?\s+\d{{2,4}})?|\d{{1,2}}\s+(?:{month_re})(?:\s+\d{{2,4}})?)"
+    metric_re = r"(?:\d+[\d.,]*\s*){0,8}"
 
     patterns = [
-        rf"^@?{handle_re}\s+{relative_time_re}\s+{metric_re}(?:share|shares|condividi|condivisioni)?\s*",
-        rf"^@?{handle_re}\s+{relative_time_re}\s*",
+        rf"^@?{handle_re}\s+(?:{relative_time_re}|{absolute_date_re})\s+{metric_re}(?:share|shares|condividi|condivisioni)?\s*",
+        rf"^@?{handle_re}\s+(?:{relative_time_re}|{absolute_date_re})\s*",
+        rf"^{absolute_date_re}\s+(?:(?:\d+[\d.,]*\s*){{1,8}}(?:share|shares|condividi|condivisioni)?|(?:share|shares|condividi|condivisioni))\s*",
         rf"^@?{handle_re}\s+(?:share|shares|condividi)\s*",
     ]
     for pattern in patterns:
