@@ -1,3 +1,23 @@
 {
-  "news": []
+  "news": [
+    {
+      "author": "setset",
+      "date": "2026-06-09",
+      "title": "test",
+      "pinned": false,
+      "tags": [
+        "Under 21"
+      ],
+      "id": 1,
+      "image": "/img/uploads/11-12.jpg",
+      "category": "setset",
+      "contentBlocks": [
+        {
+          "type": "image",
+          "text": "setset",
+          "image": "/img/uploads/16-17.jpg"
+        }
+      ]
+    }
+  ]
 }
