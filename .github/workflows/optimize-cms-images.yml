@@ -1,13 +1,7 @@
-name: Optimize CMS uploaded images and move to R2
+name: Optimize CMS uploaded images
 
 on:
   workflow_dispatch:
-    inputs:
-      process_all_current_uploads:
-        description: "Process ALL current img/uploads files too. Leave false to protect existing repository media."
-        required: false
-        type: boolean
-        default: false
   push:
     branches:
       - main
@@ -18,7 +12,6 @@ on:
       - "content/cms/gallery-albums.json"
       - "content/cms/sponsors.json"
       - "content/cms/staff.json"
-      - "content/cms/club-history.json"
       - "content/data.json"
       - "content/data.generated.optional.json"
 
@@ -26,16 +19,16 @@ permissions:
   contents: write
 
 concurrency:
-  group: optimize-cms-images-r2-main
+  group: optimize-cms-images-main
   cancel-in-progress: true
 
 jobs:
   optimize-images:
-    name: Convert new CMS images to WebP, upload to R2, update JSON
+    name: Convert CMS images to WebP and resize
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
-    # Avoid a commit loop when this same workflow pushes JSON rewrites/removes local uploads.
+    # Avoid a commit loop when this same workflow pushes optimized files.
     if: ${{ github.actor != 'github-actions[bot]' }}
 
     steps:
@@ -53,53 +46,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pillow boto3
+          pip install pillow
 
-      - name: Collect newly added CMS uploads
-        id: changed_uploads
-        shell: bash
+      - name: Optimize uploaded images
         run: |
-          set -euo pipefail
-          : > /tmp/new-cms-uploads.txt
-
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            if [[ "${{ inputs.process_all_current_uploads }}" == "true" ]]; then
-              git ls-files -- 'img/uploads' > /tmp/new-cms-uploads.txt
-            fi
-          else
-            BEFORE="${{ github.event.before }}"
-            AFTER="${{ github.sha }}"
-
-            if [[ -z "$BEFORE" || "$BEFORE" == "0000000000000000000000000000000000000000" ]]; then
-              git diff-tree --no-commit-id --name-only -r --diff-filter=A "$AFTER" -- 'img/uploads/**' > /tmp/new-cms-uploads.txt || true
-            else
-              git diff --name-only --diff-filter=A "$BEFORE" "$AFTER" -- 'img/uploads/**' > /tmp/new-cms-uploads.txt || true
-            fi
-          fi
-
-          echo "New CMS uploads detected:"
-          cat /tmp/new-cms-uploads.txt || true
-
-          if [[ -s /tmp/new-cms-uploads.txt ]]; then
-            echo "has_uploads=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_uploads=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Optimize uploads, send to R2 and rewrite JSON
-        if: steps.changed_uploads.outputs.has_uploads == 'true'
-        env:
-          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
-          R2_BUCKET: ${{ secrets.R2_BUCKET }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          R2_PUBLIC_BASE_URL: ${{ secrets.R2_PUBLIC_BASE_URL }}
-          R2_PREFIX: ${{ vars.R2_PREFIX || 'cms/uploads' }}
-        run: |
-          python scripts/upload_cms_images_to_r2.py --changed-files-list /tmp/new-cms-uploads.txt
+          python scripts/optimize_cms_images.py
 
       - name: Validate JSON
-        if: steps.changed_uploads.outputs.has_uploads == 'true'
         run: |
           python -m json.tool content/data.json > /dev/null
           python -m json.tool content/data.generated.optional.json > /dev/null
@@ -107,21 +60,18 @@ jobs:
             python -m json.tool "$file" > /dev/null
           done
 
-      - name: Commit R2 media references
-        if: steps.changed_uploads.outputs.has_uploads == 'true'
-        shell: bash
+      - name: Commit optimized images
         run: |
-          set -euo pipefail
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
           if git diff --quiet; then
-            echo "No CMS media references to commit."
+            echo "No optimized CMS images to commit."
             exit 0
           fi
 
-          git add -A img/uploads content/cms content/data.json content/data.generated.optional.json
-          git commit -m "Move CMS uploaded images to R2"
+          git add img/uploads content/cms content/data.json content/data.generated.optional.json
+          git commit -m "Optimize CMS uploaded images"
 
           BRANCH="${GITHUB_REF_NAME:-main}"
 
@@ -131,7 +81,7 @@ jobs:
 
             if git rebase "origin/$BRANCH"; then
               if git push origin HEAD:"$BRANCH"; then
-                echo "R2 media references pushed."
+                echo "Optimized images pushed."
                 exit 0
               fi
             else
