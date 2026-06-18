@@ -13,6 +13,10 @@ on:
           - both
           - elfsight
           - embedsocial
+  schedule:
+    # Every 24 hours. Imports Instagram from Elfsight/EmbedSocial and TikTok from RSS-Bridge JSON.
+    - cron: "23 5 * * *"
+
 permissions:
   contents: write
 
