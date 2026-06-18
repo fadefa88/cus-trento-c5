@@ -16,6 +16,10 @@ on:
         required: false
         default: "0.35"
 
+  schedule:
+    # Every night, off the exact half-hour.
+    - cron: "37 3 * * *"
+
 permissions:
   contents: write
 
