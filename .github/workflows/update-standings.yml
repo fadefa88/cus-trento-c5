@@ -2,6 +2,9 @@ name: Update standings from SporTrentino
 
 on:
   workflow_dispatch:
+  schedule:
+    # Every 4 hours, off the exact hour to avoid scheduler congestion.
+    - cron: "17 */4 * * *"
 
 permissions:
   contents: write
