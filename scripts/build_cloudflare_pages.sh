@@ -20,6 +20,19 @@ for path in \
   fi
 done
 
+# The legacy app.js still contains the former direct Web3Forms fallback.
+# In the deployed output, the protected Cloudflare Pages Function is authoritative.
+if [ -f "$OUT_DIR/js/app.js" ]; then
+  python3 - <<'PY'
+from pathlib import Path
+path = Path("_site/js/app.js")
+text = path.read_text(encoding="utf-8")
+text = text.replace('const CONTACT_FORM_ENDPOINT="https://api.web3forms.com/submit";', 'const CONTACT_FORM_ENDPOINT="/api/contact";')
+text = text.replace('const CONTACT_FORM_ACCESS_KEY="75c56aa3-61e6-4377-bee3-b341ec8da5f7";', 'const CONTACT_FORM_ACCESS_KEY="";')
+path.write_text(text, encoding="utf-8")
+PY
+fi
+
 # Add Cloudflare Pages response headers in the build output. Keeping this here
 # avoids relying on manual dashboard settings and keeps the deployed site safer.
 cat >> "$OUT_DIR/_headers" <<'EOF'
