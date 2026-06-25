@@ -32,10 +32,10 @@
 <section class="section seo-prerender"><div class="container"><div class="head"><div><span class="eyebrow">Stagione</span><h1 class="title">Coppa</h1></div></div><div class="grid"></div>
 <p class="muted" style="margin-top:24px">Questa pagina è prerenderizzata per SEO. Se il browser supporta JavaScript, verrà attivata automaticamente la versione interattiva.</p></div></section>
 </main>
-<div class="cookie" id="cookieBanner" role="dialog" aria-label="Consenso cookie">
-  <div class="grid"><div><b>Cookie e privacy</b><p style="color:rgba(255,255,255,.7);margin:6px 0 0">Usiamo solo strumenti tecnici necessari. I contenuti esterni, come Google Maps e video YouTube, vengono caricati solo con il tuo consenso. Dettagli nella Cookie Policy.</p></div><div class="btns" style="margin:0"><button class="btn light" onclick="rejectCookies()">Rifiuta non necessari</button><button class="btn ghost" onclick="acceptCookies('all')">Accetta tutto</button><button class="btn soft" onclick="openCookieDetails()">Dettagli</button></div></div>
+<div class="cookie" id="cookieBanner" role="dialog" aria-label="Consenso cookie" data-nosnippet>
+  <div class="grid"><div><b>Cookie e privacy</b><p style="color:rgba(255,255,255,.7);margin:6px 0 0">Gestisci le preferenze per i contenuti esterni del sito.</p></div><div class="btns" style="margin:0"><button class="btn light" onclick="rejectCookies()">Rifiuta non necessari</button><button class="btn ghost" onclick="acceptCookies('all')">Accetta tutto</button><button class="btn soft" onclick="openCookieDetails()">Dettagli</button></div></div>
 </div>
-<div class="cookie-modal" id="cookieModal" role="dialog" aria-label="Dettagli cookie">
+<div class="cookie-modal" id="cookieModal" role="dialog" aria-label="Dettagli cookie" data-nosnippet>
   <div class="cookie-box">
     <button class="cookie-close" type="button" onclick="closeCookieDetails()" aria-label="Chiudi preferenze cookie">×</button>
     <span class="eyebrow">Cookie settings</span>
@@ -60,6 +60,7 @@
   </div>
 </div>
 <script src="/js/app.js?v=cus-static-seo-v1" defer></script>
+<script src="/js/contact-security.js?v=turnstile-v1" defer></script>
 
 
 </body>
