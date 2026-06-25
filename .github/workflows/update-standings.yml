@@ -43,18 +43,24 @@ jobs:
         run: |
           python -m json.tool content/data.json > /dev/null
 
+      - name: Generate static SEO pages
+        run: |
+          python scripts/generate_static_pages.py
+          test -f sitemap.xml
+          test -f robots.txt
+
       - name: Commit and push changes
         shell: bash
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          if git diff --quiet content/data.json; then
-            echo "No standings changes to commit."
+          if [ -z "$(git status --porcelain -- content/data.json sitemap.xml robots.txt news squadra staff calendario classifica statistiche coppa matchday gallery video social club sponsor hall-of-fame contatti privacy cookies under-21)" ]; then
+            echo "No standings or SEO page changes to commit."
             exit 0
           fi
 
-          git add content/data.json
+          git add -A content/data.json sitemap.xml robots.txt news squadra staff calendario classifica statistiche coppa matchday gallery video social club sponsor hall-of-fame contatti privacy cookies under-21
           git commit -m "Update SporTrentino standings"
 
           BRANCH="${GITHUB_REF_NAME:-main}"

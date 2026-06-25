@@ -2,14 +2,19 @@
 set -euo pipefail
 
 # Cloudflare Pages build for this static site.
-# It copies only public website assets into _site, excluding GitHub Actions,
-# Python scripts, local tooling and documentation.
+# It regenerates SEO pages (clean paths + sitemap) from the JSON content and
+# copies only public website assets into _site.
+
+python3 scripts/generate_static_pages.py
 
 OUT_DIR="_site"
 rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
 
-for path in index.html css js img content admin _headers _redirects; do
+for path in \
+  index.html robots.txt sitemap.xml _headers _redirects \
+  css js img assets content admin \
+  news squadra staff calendario classifica statistiche coppa matchday gallery video social club sponsor hall-of-fame contatti privacy cookies under-21; do
   if [ -e "$path" ]; then
     cp -R "$path" "$OUT_DIR/"
   fi
