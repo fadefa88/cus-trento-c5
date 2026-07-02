@@ -127,7 +127,7 @@
       "number": 17,
       "name": "Filippo Baietta",
       "birthDate": "2004-02-28",
-      "photo": "/img/uploads/12.jpg",
+      "photo": "/img/uploads/12.webp",
       "role": "Laterale",
       "id": 12,
       "team": "Prima squadra"
@@ -138,7 +138,7 @@
       "number": 21,
       "name": "Federico Maciocia",
       "birthDate": "2003-06-30",
-      "photo": "/img/uploads/13.jpg",
+      "photo": "/img/uploads/13.webp",
       "role": "Laterale",
       "id": 13,
       "team": "Prima squadra"
@@ -149,7 +149,7 @@
       "number": 22,
       "name": "Alessandro Zanetti",
       "birthDate": "2002-05-18",
-      "photo": "/img/uploads/14.jpg",
+      "photo": "/img/uploads/14.webp",
       "role": "Laterale",
       "id": 14,
       "team": "Prima squadra"
@@ -160,7 +160,7 @@
       "number": 23,
       "name": "Luca Frattolin",
       "birthDate": "2002-11-25",
-      "photo": "/img/uploads/15.jpg",
+      "photo": "/img/uploads/15.webp",
       "role": "Laterale",
       "id": 15,
       "team": "Prima squadra"
@@ -171,7 +171,7 @@
       "number": 7,
       "name": "Damiano Loperfido",
       "birthDate": "2006-10-11",
-      "photo": "/img/uploads/16.jpg",
+      "photo": "/img/uploads/16.webp",
       "role": "Pivot",
       "id": 16,
       "team": "Prima squadra"
@@ -182,7 +182,7 @@
       "number": 9,
       "name": "Cesare Vettorazzi",
       "birthDate": "2002-04-26",
-      "photo": "/img/uploads/17.jpg",
+      "photo": "/img/uploads/17.webp",
       "role": "Pivot",
       "id": 17,
       "team": "Prima squadra"
@@ -193,7 +193,7 @@
       "number": 20,
       "name": "Diego Conti",
       "birthDate": "2002-10-03",
-      "photo": "/img/uploads/18.jpg",
+      "photo": "/img/uploads/18.webp",
       "role": "Pivot",
       "id": 18,
       "team": "Prima squadra"
@@ -204,7 +204,7 @@
       "number": 10,
       "name": "Andrea Martinelli",
       "birthDate": "2000-04-14",
-      "photo": "/img/uploads/19.jpg",
+      "photo": "/img/uploads/19.webp",
       "role": "Universale",
       "id": 19,
       "team": "Prima squadra"
