@@ -127,7 +127,7 @@
       "number": 17,
       "name": "Filippo Baietta",
       "birthDate": "2004-02-28",
-      "photo": "/img/uploads/12.webp",
+      "photo": "/img/uploads/12.jpg",
       "role": "Laterale",
       "id": 12,
       "team": "Prima squadra"
@@ -138,53 +138,83 @@
       "number": 21,
       "name": "Federico Maciocia",
       "birthDate": "2003-06-30",
-      "photo": "/img/uploads/13.webp",
+      "photo": "/img/uploads/13.jpg",
       "role": "Laterale",
       "id": 13,
       "team": "Prima squadra"
     },
     {
-      "id": 14,
-      "name": "Alessandro Zanetti",
-      "role": "Laterale",
-      "team": "Prima squadra",
-      "number": 19,
-      "photo": "/img/players/13-zanetti-alessandro-laterale.webp",
-      "birthDate": "2002-05-18"
-    },
-    {
-      "id": 15,
-      "name": "Diego Conti",
-      "role": "Pivot",
-      "team": "Prima squadra",
-      "number": 20,
-      "photo": "/img/players/14-conti-diego-pivot.webp",
-      "birthDate": "2002-10-03"
-    },
-    {
-      "id": 16,
-      "name": "Andrea Martinelli",
-      "role": "Universale",
-      "team": "Prima squadra",
-      "number": 21,
-      "photo": "/img/players/16-martinelli-andrea-universale.webp",
-      "birthDate": "2000-04-14"
-    },
-    {
-      "id": 17,
-      "name": "Cesare Vettorazzi",
-      "role": "Pivot",
-      "team": "Prima squadra",
+      "faculty": "Ingegneria Civile",
+      "birthPlace": "Trento",
       "number": 22,
-      "photo": "/img/players/15-vettorazzi-cesare-pivot.webp",
-      "birthDate": "2002-04-26"
+      "name": "Alessandro Zanetti",
+      "birthDate": "2002-05-18",
+      "photo": "/img/uploads/14.jpg",
+      "role": "Laterale",
+      "id": 14,
+      "team": "Prima squadra"
     },
     {
+      "faculty": "Economia e Management",
+      "birthPlace": "Pordenone",
+      "number": 23,
+      "name": "Luca Frattolin",
+      "birthDate": "2002-11-25",
+      "photo": "/img/uploads/15.jpg",
+      "role": "Laterale",
+      "id": 15,
+      "team": "Prima squadra"
+    },
+    {
+      "faculty": "Economia e Management",
+      "birthPlace": "Trento",
+      "number": 7,
+      "name": "Damiano Loperfido",
+      "birthDate": "2006-10-11",
+      "photo": "/img/uploads/16.jpg",
+      "role": "Pivot",
+      "id": 16,
+      "team": "Prima squadra"
+    },
+    {
+      "faculty": "Giurisprudenza",
+      "birthPlace": "Bassano del Grappa",
+      "number": 9,
+      "name": "Cesare Vettorazzi",
+      "birthDate": "2002-04-26",
+      "photo": "/img/uploads/17.jpg",
+      "role": "Pivot",
+      "id": 17,
+      "team": "Prima squadra"
+    },
+    {
+      "faculty": "Data Science",
+      "birthPlace": "Verona",
+      "number": 20,
+      "name": "Diego Conti",
+      "birthDate": "2002-10-03",
+      "photo": "/img/uploads/18.jpg",
+      "role": "Pivot",
+      "id": 18,
+      "team": "Prima squadra"
+    },
+    {
+      "faculty": "Data Science",
+      "birthPlace": "Verona",
+      "number": 10,
+      "name": "Andrea Martinelli",
+      "birthDate": "2000-04-14",
+      "photo": "/img/uploads/19.jpg",
+      "role": "Universale",
       "id": 19,
+      "team": "Prima squadra"
+    },
+    {
+      "id": 20,
       "name": "Paolo Bigonzi",
       "role": "Portiere",
       "team": "Under 21",
-      "number": 30,
+      "number": 99,
       "photo": "/img/players/1-bigonzi-paolo-portiere.webp"
     },
     {
@@ -274,14 +304,6 @@
       "team": "Under 21",
       "number": 46,
       "photo": "/img/players/13-ceola-michele-pivot.webp"
-    },
-    {
-      "id": 34,
-      "name": "Damiano Loperfido",
-      "role": "Punta",
-      "team": "Under 21",
-      "number": 47,
-      "photo": "/img/players/14-loperfido-damiano-pivot.webp"
     },
     {
       "id": 35,
