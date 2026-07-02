@@ -122,22 +122,26 @@
       "team": "Prima squadra"
     },
     {
-      "id": 8,
-      "name": "Filippo Baietta",
-      "role": "Laterale",
-      "team": "Prima squadra",
+      "faculty": "Ingegneria Informatica",
+      "birthPlace": "Verona",
       "number": 17,
-      "photo": "/img/players/6-baietta-filippo-laterale.webp",
-      "birthDate": "2004-02-28"
+      "name": "Filippo Baietta",
+      "birthDate": "2004-02-28",
+      "photo": "/img/uploads/12.jpg",
+      "role": "Laterale",
+      "id": 12,
+      "team": "Prima squadra"
     },
     {
-      "id": 12,
+      "faculty": "Studi Internazionali",
+      "birthPlace": "Monza",
+      "number": 21,
       "name": "Federico Maciocia",
+      "birthDate": "2003-06-30",
+      "photo": "/img/uploads/13.jpg",
       "role": "Laterale",
-      "team": "Prima squadra",
-      "number": 17,
-      "photo": "/img/players/11-maciocia-federico-laterale.webp",
-      "birthDate": "2003-06-30"
+      "id": 13,
+      "team": "Prima squadra"
     },
     {
       "id": 14,
