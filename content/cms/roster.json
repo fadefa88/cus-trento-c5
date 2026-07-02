@@ -6,7 +6,7 @@
       "number": 1,
       "name": "Safi Saif Edine",
       "birthDate": "2004-06-04",
-      "photo": "/img/uploads/1.jpg",
+      "photo": "/img/uploads/1.webp",
       "role": "Portiere",
       "id": 1,
       "team": "Prima squadra"
@@ -28,7 +28,7 @@
       "number": 70,
       "name": "Filippo Bernard",
       "birthDate": "2004-07-06",
-      "photo": "/img/uploads/3.jpg",
+      "photo": "/img/uploads/3.webp",
       "role": "Portiere",
       "id": 3,
       "team": "Prima squadra"
@@ -39,7 +39,7 @@
       "number": 4,
       "name": "Alvise Tesser",
       "birthDate": "2006-01-15",
-      "photo": "/img/uploads/4.jpg",
+      "photo": "/img/uploads/4.webp",
       "role": "Centrale",
       "id": 4,
       "team": "Prima squadra"
@@ -50,7 +50,7 @@
       "number": 5,
       "name": "Tommaso Boldrini",
       "birthDate": "2005-01-11",
-      "photo": "/img/uploads/5.jpg",
+      "photo": "/img/uploads/5.webp",
       "role": "Centrale",
       "id": 5,
       "team": "Prima squadra"
@@ -61,7 +61,7 @@
       "number": 27,
       "name": "Mattia Cuman",
       "birthDate": "2005-11-27",
-      "photo": "/img/uploads/6.jpg",
+      "photo": "/img/uploads/6.webp",
       "role": "Centrale",
       "id": 6,
       "team": "Prima squadra"
@@ -72,7 +72,7 @@
       "number": 3,
       "name": "Davide Filippi",
       "birthDate": "2005-04-10",
-      "photo": "/img/uploads/7.jpg",
+      "photo": "/img/uploads/7.webp",
       "role": "Laterale",
       "id": 7,
       "team": "Prima squadra"
@@ -83,7 +83,7 @@
       "number": 11,
       "name": "Mattia Vaia",
       "birthDate": "1998-10-01",
-      "photo": "/img/uploads/8.jpg",
+      "photo": "/img/uploads/8.webp",
       "role": "Laterale",
       "id": 8,
       "team": "Prima squadra"
@@ -94,7 +94,7 @@
       "number": 13,
       "name": "Federico Addobbati",
       "birthDate": "2004-03-14",
-      "photo": "/img/uploads/9.jpg",
+      "photo": "/img/uploads/9.webp",
       "role": "Laterale",
       "id": 9,
       "team": "Prima squadra"
@@ -105,7 +105,7 @@
       "number": 14,
       "name": "Luca Cirasola",
       "birthDate": "2002-01-10",
-      "photo": "/img/uploads/10.jpg",
+      "photo": "/img/uploads/10.webp",
       "role": "Laterale",
       "id": 10,
       "team": "Prima squadra"
@@ -116,7 +116,7 @@
       "number": 16,
       "name": "Daniele Zampedri",
       "birthDate": "2006-07-18",
-      "photo": "/img/uploads/11.jpg",
+      "photo": "/img/uploads/11.webp",
       "role": "Laterale",
       "id": 11,
       "team": "Prima squadra"
