@@ -1,24 +1,3 @@
 {
-  "news": [
-    {
-      "excerpt": "awdiawjdaipowdj",
-      "author": "Diego Cadamuro",
-      "date": "2026-07-02",
-      "title": "ciao pippo",
-      "pinned": true,
-      "tags": [
-        "Prima squadra"
-      ],
-      "id": 1,
-      "image": "/img/uploads/17-18.webp",
-      "contentBlocks": [
-        {
-          "type": "paragraph",
-          "text": "jdioajdaw",
-          "image": "/img/uploads/1.webp",
-          "caption": "didascalia"
-        }
-      ]
-    }
-  ]
+  "news": []
 }
