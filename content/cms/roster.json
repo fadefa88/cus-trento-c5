@@ -42,16 +42,6 @@
       "faculty": "Studi internazionali"
     },
     {
-      "id": 5,
-      "name": "Davide Filippi",
-      "role": "Laterale",
-      "team": "Prima squadra",
-      "number": 6,
-      "photo": "/img/players/10-filippi-davide-laterale.webp",
-      "birthDate": "2005-04-10",
-      "faculty": "Giurisprudenza"
-    },
-    {
       "id": 6,
       "name": "Alvise Tesser",
       "role": "Centrale",
@@ -60,6 +50,16 @@
       "photo": "/img/players/5-tesser-alvise-centrale.webp",
       "birthDate": "2006-01-15",
       "faculty": "Studi internazionali"
+    },
+    {
+      "id": 5,
+      "name": "Davide Filippi",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 3,
+      "photo": "/img/players/10-filippi-davide-laterale.webp",
+      "birthDate": "2005-04-10",
+      "faculty": "Giurisprudenza"
     },
     {
       "id": 8,
