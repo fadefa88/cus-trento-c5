@@ -7,11 +7,12 @@
       "team": "Prima squadra",
       "number": 1,
       "photo": "/img/players/3-safi-saif-edine-portiere.webp",
-      "birthDate": "2004-06-04"
+      "birthDate": "2004-06-04",
+      "faculty": "Ingegneria informatica"
     },
     {
-      "faculty": "Lettere",
-      "birthPlace": "Padova (PD)",
+      "faculty": "Cognitive Science ",
+      "birthPlace": "",
       "number": 12,
       "name": "Lucca Baccaro Zeni",
       "birthDate": "2000-08-11",
@@ -25,9 +26,10 @@
       "name": "Filippo Bernard",
       "role": "Portiere",
       "team": "Prima squadra",
-      "number": 2,
+      "number": 70,
       "photo": "/img/players/2-bernard-filippo-portiere.webp",
-      "birthDate": "2004-07-06"
+      "birthDate": "2004-07-06",
+      "faculty": "Ingegneria industriale"
     },
     {
       "id": 4,
@@ -36,7 +38,8 @@
       "team": "Prima squadra",
       "number": 5,
       "photo": "/img/players/4-boldrini-tommaso-centrale.webp",
-      "birthDate": "2005-01-11"
+      "birthDate": "2005-01-11",
+      "faculty": "Studi internazionali"
     },
     {
       "id": 5,
@@ -45,23 +48,25 @@
       "team": "Prima squadra",
       "number": 6,
       "photo": "/img/players/10-filippi-davide-laterale.webp",
-      "birthDate": "2005-04-10"
+      "birthDate": "2005-04-10",
+      "faculty": "Giurisprudenza"
     },
     {
       "id": 6,
       "name": "Alvise Tesser",
       "role": "Centrale",
       "team": "Prima squadra",
-      "number": 7,
+      "number": 4,
       "photo": "/img/players/5-tesser-alvise-centrale.webp",
-      "birthDate": "2006-01-15"
+      "birthDate": "2006-01-15",
+      "faculty": "Studi internazionali"
     },
     {
       "id": 8,
       "name": "Filippo Baietta",
       "role": "Laterale",
       "team": "Prima squadra",
-      "number": 9,
+      "number": 17,
       "photo": "/img/players/6-baietta-filippo-laterale.webp",
       "birthDate": "2004-02-28"
     },
@@ -70,7 +75,7 @@
       "name": "Luca Cirasola",
       "role": "Laterale",
       "team": "Prima squadra",
-      "number": 10,
+      "number": 14,
       "photo": "/img/players/7-cirasola-luca-laterale.webp",
       "birthDate": "2002-01-10"
     },
