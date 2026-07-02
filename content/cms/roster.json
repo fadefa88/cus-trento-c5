@@ -32,6 +32,16 @@
       "faculty": "Ingegneria industriale"
     },
     {
+      "id": 6,
+      "name": "Alvise Tesser",
+      "role": "Centrale",
+      "team": "Prima squadra",
+      "number": 4,
+      "photo": "/img/players/5-tesser-alvise-centrale.webp",
+      "birthDate": "2006-01-15",
+      "faculty": "Studi internazionali"
+    },
+    {
       "id": 4,
       "name": "Tommaso Boldrini",
       "role": "Centrale",
@@ -42,14 +52,14 @@
       "faculty": "Studi internazionali"
     },
     {
-      "id": 6,
-      "name": "Alvise Tesser",
+      "id": 10,
+      "name": "Mattia Cuman",
       "role": "Centrale",
       "team": "Prima squadra",
-      "number": 4,
-      "photo": "/img/players/5-tesser-alvise-centrale.webp",
-      "birthDate": "2006-01-15",
-      "faculty": "Studi internazionali"
+      "number": 27,
+      "photo": "/img/players/8-cuman-mattia-laterale.webp",
+      "birthDate": "2005-11-27",
+      "faculty": "Economia e management"
     },
     {
       "id": 5,
@@ -62,6 +72,25 @@
       "faculty": "Giurisprudenza"
     },
     {
+      "id": 9,
+      "name": "Luca Cirasola",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 14,
+      "photo": "/img/players/7-cirasola-luca-laterale.webp",
+      "birthDate": "2002-01-10",
+      "faculty": "Giurisprudenza"
+    },
+    {
+      "id": 32,
+      "name": "Daniele Zampedri",
+      "role": "Laterale",
+      "team": "Prima squadra",
+      "number": 16,
+      "photo": "/img/players/11-zampedri-daniele-laterale.webp",
+      "faculty": "Ingegneria informatica"
+    },
+    {
       "id": 8,
       "name": "Filippo Baietta",
       "role": "Laterale",
@@ -69,24 +98,6 @@
       "number": 17,
       "photo": "/img/players/6-baietta-filippo-laterale.webp",
       "birthDate": "2004-02-28"
-    },
-    {
-      "id": 9,
-      "name": "Luca Cirasola",
-      "role": "Laterale",
-      "team": "Prima squadra",
-      "number": 14,
-      "photo": "/img/players/7-cirasola-luca-laterale.webp",
-      "birthDate": "2002-01-10"
-    },
-    {
-      "id": 10,
-      "name": "Mattia Cuman",
-      "role": "Laterale",
-      "team": "Prima squadra",
-      "number": 27,
-      "photo": "/img/players/8-cuman-mattia-laterale.webp",
-      "birthDate": "2005-11-27"
     },
     {
       "id": 12,
@@ -229,14 +240,6 @@
       "team": "Under 21",
       "number": 44,
       "photo": "/img/players/10-tondo-mirko-a-laterale.webp"
-    },
-    {
-      "id": 32,
-      "name": "Daniele Zampedri",
-      "role": "Laterale",
-      "team": "Under 21",
-      "number": 45,
-      "photo": "/img/players/11-zampedri-daniele-laterale.webp"
     },
     {
       "id": 33,
