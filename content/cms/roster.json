@@ -1,18 +1,19 @@
 {
   "roster": [
     {
-      "id": 1,
-      "name": "Safi Saif Edine",
-      "role": "Portiere",
-      "team": "Prima squadra",
+      "faculty": "Ingegneria informatica",
+      "birthPlace": "Verona",
       "number": 1,
-      "photo": "/img/players/3-safi-saif-edine-portiere.webp",
+      "name": "Safi Saif Edine",
       "birthDate": "2004-06-04",
-      "faculty": "Ingegneria informatica"
+      "photo": "/img/uploads/1.jpg",
+      "role": "Portiere",
+      "id": 1,
+      "team": "Prima squadra"
     },
     {
       "faculty": "Cognitive Science ",
-      "birthPlace": "",
+      "birthPlace": "Brasile",
       "number": 12,
       "name": "Lucca Baccaro Zeni",
       "birthDate": "2000-08-11",
@@ -22,73 +23,103 @@
       "team": "Prima squadra"
     },
     {
-      "id": 3,
-      "name": "Filippo Bernard",
-      "role": "Portiere",
-      "team": "Prima squadra",
+      "faculty": "Ingegneria industriale",
+      "birthPlace": "Belluno",
       "number": 70,
-      "photo": "/img/players/2-bernard-filippo-portiere.webp",
+      "name": "Filippo Bernard",
       "birthDate": "2004-07-06",
-      "faculty": "Ingegneria industriale"
+      "photo": "/img/uploads/3.jpg",
+      "role": "Portiere",
+      "id": 3,
+      "team": "Prima squadra"
     },
     {
-      "id": 6,
-      "name": "Alvise Tesser",
-      "role": "Centrale",
-      "team": "Prima squadra",
+      "faculty": "Studi internazionali",
+      "birthPlace": "Treviso",
       "number": 4,
-      "photo": "/img/players/5-tesser-alvise-centrale.webp",
+      "name": "Alvise Tesser",
       "birthDate": "2006-01-15",
-      "faculty": "Studi internazionali"
-    },
-    {
+      "photo": "/img/uploads/4.jpg",
+      "role": "Centrale",
       "id": 4,
-      "name": "Tommaso Boldrini",
-      "role": "Centrale",
-      "team": "Prima squadra",
+      "team": "Prima squadra"
+    },
+    {
+      "faculty": "Studi internazionali",
+      "birthPlace": "Cremona",
       "number": 5,
-      "photo": "/img/players/4-boldrini-tommaso-centrale.webp",
+      "name": "Tommaso Boldrini",
       "birthDate": "2005-01-11",
-      "faculty": "Studi internazionali"
-    },
-    {
-      "id": 10,
-      "name": "Mattia Cuman",
+      "photo": "/img/uploads/5.jpg",
       "role": "Centrale",
-      "team": "Prima squadra",
-      "number": 27,
-      "photo": "/img/players/8-cuman-mattia-laterale.webp",
-      "birthDate": "2005-11-27",
-      "faculty": "Economia e management"
-    },
-    {
       "id": 5,
-      "name": "Davide Filippi",
-      "role": "Laterale",
-      "team": "Prima squadra",
+      "team": "Prima squadra"
+    },
+    {
+      "faculty": "Economia e Management",
+      "birthPlace": "Vicenza",
+      "number": 27,
+      "name": "Mattia Cuman",
+      "birthDate": "2005-11-27",
+      "photo": "/img/uploads/6.jpg",
+      "role": "Centrale",
+      "id": 6,
+      "team": "Prima squadra"
+    },
+    {
+      "faculty": "Giurisprudenza",
+      "birthPlace": "Brescia",
       "number": 3,
-      "photo": "/img/players/10-filippi-davide-laterale.webp",
+      "name": "Davide Filippi",
       "birthDate": "2005-04-10",
-      "faculty": "Giurisprudenza"
+      "photo": "/img/uploads/7.jpg",
+      "role": "Laterale",
+      "id": 7,
+      "team": "Prima squadra"
     },
     {
+      "faculty": "Filosofia",
+      "birthPlace": "Trento",
+      "number": 11,
+      "name": "Mattia Vaia",
+      "birthDate": "1998-10-01",
+      "photo": "/img/uploads/8.jpg",
+      "role": "Laterale",
+      "id": 8,
+      "team": "Prima squadra"
+    },
+    {
+      "faculty": "Giurisprudenza",
+      "birthPlace": "Udine",
+      "number": 13,
+      "name": "Federico Addobbati",
+      "birthDate": "2004-03-14",
+      "photo": "/img/uploads/9.jpg",
+      "role": "Laterale",
       "id": 9,
-      "name": "Luca Cirasola",
-      "role": "Laterale",
-      "team": "Prima squadra",
-      "number": 14,
-      "photo": "/img/players/7-cirasola-luca-laterale.webp",
-      "birthDate": "2002-01-10",
-      "faculty": "Giurisprudenza"
+      "team": "Prima squadra"
     },
     {
-      "id": 32,
-      "name": "Daniele Zampedri",
+      "faculty": "Giurisprudenza",
+      "birthPlace": "La Spezia",
+      "number": 14,
+      "name": "Luca Cirasola",
+      "birthDate": "2002-01-10",
+      "photo": "/img/uploads/10.jpg",
       "role": "Laterale",
-      "team": "Prima squadra",
+      "id": 10,
+      "team": "Prima squadra"
+    },
+    {
+      "faculty": "Ingegneria informatica",
+      "birthPlace": "Trento",
       "number": 16,
-      "photo": "/img/players/11-zampedri-daniele-laterale.webp",
-      "faculty": "Ingegneria informatica"
+      "name": "Daniele Zampedri",
+      "birthDate": "2006-07-18",
+      "photo": "/img/uploads/11.jpg",
+      "role": "Laterale",
+      "id": 11,
+      "team": "Prima squadra"
     },
     {
       "id": 8,
@@ -107,15 +138,6 @@
       "number": 17,
       "photo": "/img/players/11-maciocia-federico-laterale.webp",
       "birthDate": "2003-06-30"
-    },
-    {
-      "id": 13,
-      "name": "Mattia Vaia",
-      "role": "Laterale",
-      "team": "Prima squadra",
-      "number": 11,
-      "photo": "/img/players/12-vaia-mattia-laterale.webp",
-      "birthDate": "1998-10-01"
     },
     {
       "id": 14,
