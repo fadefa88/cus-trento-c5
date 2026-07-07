@@ -98,7 +98,7 @@
 
 /* v6: homepage hero content locked into the 1/3 gradient column; right match card removed. */
 .home-structure>.hero{min-height:720px;display:grid;align-items:center;background:#09090b;}
-.home-structure>.hero:before{width:34%;background:linear-gradient(180deg,var(--red) 0%,#7f1d1d 36%,#09090b 100%);}
+.home-structure>.hero:before{width:34%;background:black;}
 .home-structure>.hero:after{left:34%;width:66%;background:linear-gradient(90deg,rgba(9,9,11,.34) 0%,rgba(9,9,11,.06) 42%,rgba(9,9,11,.50) 100%),var(--cus-home-hero-image) center/cover no-repeat;}
 .home-structure>.hero .hero-grid{grid-template-columns:minmax(292px,34%) 1fr;gap:0;align-items:center;width:100%;padding-top:72px;padding-bottom:150px;}
 .home-structure>.hero .hero-grid>div:first-child{grid-column:1;max-width:none;min-width:0;padding-right:22px;}
