@@ -328,8 +328,8 @@
       <section class="cus-rework-section">
         <div class="container">
           <div class="cus-rework-grid two">
-            ${teamCard("Prima squadra","Serie C1","La prima squadra è il cuore agonistico del CUS Trento C5. Un gruppo che affronta la stagione con intensità, metodo e spirito di squadra, rappresentando il club nei principali appuntamenti del calcio a 5 regionale.",prima,futureMatchCount(s.fixtures),"/assets/foto-sito.webp","squad")}
-            ${teamCard("Under 21","Serie D","L’Under 21 è il percorso di crescita dedicato ai giovani giocatori del CUS Trento C5. Una squadra pensata per formare atleti pronti ad affrontare il futsal con serietà, continuità e responsabilità.",u21,futureMatchCount(s.u21Fixtures),"/assets/foto-sito.webp?auto=format&fit=crop&w=1200&q=80","squad")}
+            ${teamCard("Prima squadra","Serie C1","La prima squadra è il cuore agonistico del CUS Trento C5. Un gruppo che affronta la stagione con intensità, metodo e spirito di squadra, rappresentando il club nei principali appuntamenti del calcio a 5 regionale.",prima,futureMatchCount(s.fixtures),"/assets/foto-sito.webp?auto=format&fit=crop&w=1200&q=80","squad")}
+            ${teamCard("Under 21","Serie D","L’Under 21 è il percorso di crescita dedicato ai giovani giocatori del CUS Trento C5. Una squadra pensata per formare atleti pronti ad affrontare il futsal con serietà, continuità e responsabilità.",u21,futureMatchCount(s.u21Fixtures),"/assets/foto-squadra-u21.webp?auto=format&fit=crop&w=1200&q=80","squad")}
           </div>
         </div>
       </section>
