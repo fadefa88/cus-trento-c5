@@ -1491,16 +1491,12 @@ function staff(){
     return role.includes("dirigent") || role.includes("manager") || role.includes("responsabile") || role.includes("organizzativ");
   };
   const items=(state.staff||[]).filter(s=>group==="Dirigenza" ? isDirigenza(s) : !isDirigenza(s));
-  const collaborationCta = `<section class="cus-rework-section compact">
-        <div class="container">
-          <div class="cus-rework-band">
-            <div class="cus-rework-head" style="margin-bottom:0">
-              <div><h2>Vuoi collaborare con noi?</h2><p>Il CUS Trento C5 cresce anche fuori dal campo: comunicazione, eventi, foto, video, organizzazione e supporto matchday sono parte essenziale del progetto.<br>Se vuoi mettere le tue competenze al servizio di una realtà giovane, sportiva e universitaria, entra nel gruppo e contribuisci a raccontare, costruire e vivere il futsal del CUS Trento.</p></div>
-              <button class="cus-rework-action red" onclick="route('contacts')">Diventa collaboratore</button>
-            </div>
-          </div>
+  const collaborationCta = `<div class="cus-rework-band" style="margin-top:26px">
+        <div class="cus-rework-head" style="margin-bottom:0">
+          <div><h2>Vuoi collaborare con noi?</h2><p>Il CUS Trento C5 cresce anche fuori dal campo: comunicazione, eventi, foto, video, organizzazione e supporto matchday sono parte essenziale del progetto.<br>Se vuoi mettere le tue competenze al servizio di una realtà giovane, sportiva e universitaria, entra nel gruppo e contribuisci a raccontare, costruire e vivere il futsal del CUS Trento.</p></div>
+          <button class="cus-rework-action red" onclick="route('contacts')">Diventa collaboratore</button>
         </div>
-      </section>`;
+      </div>`;
   shell("Staff","Staff tecnico e dirigenza",`${teamSwitch("staff")}<div class="grid grid-4">${items.map(s=>`<article class="card"><img loading="lazy" class="staff-photo" src="${s.photo}" alt="${safe(s.name)}"><div class="card-pad"><span class="badge">${safe(s.role)}</span><h2 style="margin-top:12px">${safe(s.name)}</h2><p class="muted">${safe(s.bio)}</p></div></article>`).join("")}</div>${collaborationCta}`,"","Staff tecnico e dirigenza del CUS Trento C5.");
 }
 function mapQueryForFixture(f){
