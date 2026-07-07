@@ -33,12 +33,12 @@
 @media (max-width:820px){.home-upcoming-section{padding:28px 0 34px;}.home-upcoming-head{align-items:flex-start;}.home-upcoming-title{align-items:flex-start;flex-direction:column;gap:7px;}.home-upcoming-title span{display:none;}.home-upcoming-track{grid-auto-columns:min(82vw,360px);}.home-upcoming-nav button{width:42px;height:42px;}.home-upcoming-card{min-height:268px;}.home-upcoming-meta{grid-template-columns:auto auto 1fr;}.home-upcoming-meta em{display:none;}}
 @media (max-width:520px){.home-upcoming-head{flex-direction:column;}.home-upcoming-nav{width:100%;justify-content:flex-end;}.home-upcoming-track{grid-auto-columns:88vw;}.home-upcoming-meta{grid-template-columns:1fr auto;}.home-upcoming-mode{justify-content:flex-start;}.home-upcoming-meta>span:not(.home-upcoming-mode){grid-column:1/-1;}.home-upcoming-body{grid-template-columns:1fr;}.home-upcoming-time{justify-self:start;}.home-upcoming-team strong{font-size:21px;}}
 
-/* v3: sezione trasparente e sovrapposta alla hero */
-:root{--home-upcoming-overlap:210px;}
+/* v4: sezione trasparente sovrapposta: bordo hero circa a metà card */
+:root{--home-upcoming-overlap:205px;}
 .home-upcoming-section{background:transparent;color:#fff;padding:28px 0 46px;margin-top:calc(-1 * var(--home-upcoming-overlap));position:relative;z-index:6;overflow:visible;}
 .home-upcoming-section:before{content:"";position:absolute;left:0;right:0;top:var(--home-upcoming-overlap);bottom:0;background:transparent;pointer-events:none;z-index:-1;}
 .home-upcoming-head{position:relative;z-index:2;}
 .home-upcoming-shell{position:relative;z-index:2;}
 .home-upcoming-card{box-shadow:0 26px 70px rgba(0,0,0,.20);}
-@media (max-width:820px){:root{--home-upcoming-overlap:176px;}.home-upcoming-section{padding-top:22px;padding-bottom:38px;}}
-@media (max-width:520px){:root{--home-upcoming-overlap:150px;}.home-upcoming-section{padding-top:18px;}}
+@media (max-width:820px){:root{--home-upcoming-overlap:182px;}.home-upcoming-section{padding-top:22px;padding-bottom:38px;}}
+@media (max-width:520px){:root{--home-upcoming-overlap:156px;}.home-upcoming-section{padding-top:18px;}}

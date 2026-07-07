@@ -93,3 +93,13 @@
 .mobile-menu[data-cus-rework="true"] .cus-mobile-link{margin:8px 0;background:#fff;border:1px solid var(--line);font-weight:1000;text-transform:uppercase;letter-spacing:.08em;}
 @media (max-width:980px){.mobile-toggle{display:inline-flex}.nav-groups[data-cus-rework="true"]{display:none}.cus-rework-hero{min-height:360px}.cus-rework-hero .container{padding-top:44px;padding-bottom:44px}}
 @media (max-width:640px){.cus-rework-hero{min-height:320px}.cus-rework-title{font-size:clamp(38px,12vw,58px)}.cus-rework-lead{font-size:16px}.mobile-menu[data-cus-rework="true"]{left:8px;right:8px;top:78px;max-height:calc(100vh - 92px);border-radius:20px}}
+
+/* v4: hero SOLO homepage con split trasversale: 1/3 gradient verticale, 2/3 immagine. Cambia --cus-home-hero-image quando carichi la nuova immagine. */
+:root{--cus-home-hero-image:url('/assets/foto-sito.webp?auto=format&fit=crop&w=2200&q=80');}
+.home-structure>.hero{background:#09090b;isolation:isolate;overflow:hidden;}
+.home-structure>.hero:before{content:"";position:absolute;left:0;top:0;bottom:0;width:34%;height:auto;background:linear-gradient(180deg,var(--red) 0%,#5f1115 42%,#09090b 100%);opacity:1;z-index:0;}
+.home-structure>.hero:after{content:"";position:absolute;left:34%;right:0;top:0;bottom:0;width:66%;height:auto;background:linear-gradient(90deg,rgba(9,9,11,.78) 0%,rgba(9,9,11,.26) 24%,rgba(9,9,11,.54) 100%),var(--cus-home-hero-image) center/cover no-repeat;opacity:1;z-index:0;}
+.home-structure>.hero .hero-grid{position:relative;z-index:1;}
+.home-structure>.hero .hero-grid>div:first-child{max-width:620px;}
+@media (max-width:980px){.home-structure>.hero:before{width:42%;}.home-structure>.hero:after{left:42%;width:58%;}}
+@media (max-width:640px){.home-structure>.hero{min-height:660px}.home-structure>.hero:before{width:100%;height:42%;bottom:auto}.home-structure>.hero:after{left:0;top:42%;width:100%;height:58%}}

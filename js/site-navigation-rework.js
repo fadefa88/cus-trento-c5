@@ -1,5 +1,5 @@
 (function(){
-  const MENU_VERSION = "menu-rework-v2";
+  const MENU_VERSION = "menu-rework-v4";
   const baseUrl = "https://custrentocalcioa5.it";
   const oldRoute = typeof window.route === "function" ? window.route.bind(window) : null;
 
