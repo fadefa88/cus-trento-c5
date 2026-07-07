@@ -546,18 +546,49 @@
 
   function renderCnu(replace){
     const s = localState();
-    const cnu = s.cnu || {title:"Campionati Nazionali Universitari",status:"Competizione universitaria nazionale",edition:"2026"};
-    const fixtures = Array.isArray(s.cnuFixtures) ? s.cnuFixtures : [
-      {round:"Fase territoriale",date:"2026-03-15",time:"20:30",home:"CUS Trento",away:"CUS Verona",venue:"Sanbàpolis",status:"Da giocare"},
-      {round:"Finali nazionali",date:"2026-05-20",time:"TBC",home:"Da definire",away:"Da definire",venue:"Da definire",status:"In attesa"}
+    const intro = [
+      "I Campionati Nazionali Universitari sono il luogo in cui lo sport universitario si accende davvero: squadre da tutta Italia, atenei da rappresentare, partite da vivere e una maglia che pesa un po’ di più.",
+      "Per il CUS Trento C5 i CNU sono una delle esperienze più significative della stagione. Non si partecipa solo per giocare: si partecipa per portare in campo l’Università di Trento, il gruppo, il lavoro fatto durante l’anno e il senso di appartenenza a una community.",
+      "Ogni convocato rappresenta qualcosa di più del proprio ruolo: rappresenta Trento, il CUS e tutti gli studenti che vivono lo sport come parte del proprio percorso universitario.",
+      "La partecipazione è riservata agli studenti-atleti dell’Università di Trento che rispettano i requisiti previsti dal regolamento CNU. Lo staff valuta i profili in base a età, disponibilità, ruolo, livello sportivo e percorso all’interno del progetto."
     ];
-    const html = `${pageHero("CNU",cnu.title,"Una sezione dedicata ai Campionati Nazionali Universitari, competizione identitaria per il progetto CUS.")}
-      <section class="cus-rework-section">
-        <div class="container cus-rework-split">
-          <div class="cus-rework-band"><h2>${h(cnu.edition || "Stagione 2026")}</h2><p>${h(cnu.status || "Percorso in aggiornamento")}</p></div>
-          <div class="cus-rework-grid">
-            ${fixtures.map(match => `<article class="cus-rework-card cus-rework-card-pad"><span class="badge">${h(match.round || "CNU")}</span><h3>${h(match.home || "CUS Trento")} vs ${h(match.away || "Avversario")}</h3><p>${h(fmtDate(match.date))} · ${h(match.time || "TBC")} · ${h(match.venue || "Da definire")}</p></article>`).join("")}
-          </div>
+    const results = [
+      {phase:"Fasi qualificatorie",home:"CUS TRENTO",away:"CUS PIEMONTE ORIENTALE",score:"2-2",venue:"SANBÀPOLIS",time:"14:30",date:"2026-03-17"},
+      {phase:"Fasi qualificatorie",home:"CUS PIEMONTE ORIENTALE",away:"CUS TRENTO",score:"4-8",venue:"SANBÀPOLIS",time:"14:30",date:"2026-04-14"},
+      {phase:"Fasi finali",home:"CUS TRENTO",away:"CUS SALERNO",score:"5-5",venue:"PALA DAL LAGO (NOVARA)",time:"9:00",date:"2026-05-25"},
+      {phase:"Fasi finali",home:"CUS BARI",away:"CUS TRENTO",score:"6-2",venue:"PALA DAL LAGO (NOVARA)",time:"9:00",date:"2026-05-26"}
+    ];
+    const albums = Array.isArray(s.galleryAlbums) ? s.galleryAlbums : [];
+    const cnuAlbums = albums.filter(album => {
+      const values = [...(Array.isArray(album.categories) ? album.categories : []), album.category, album.title].map(x => String(x || "").toLowerCase());
+      return values.some(x => x.includes("cnu") || x.includes("campionati nazionali universitari"));
+    });
+    const cnuPhotos = cnuAlbums.flatMap(album => (album.photos || []).map((photo,idx) => ({photo,title:album.title || "CNU",idx}))).slice(0,8);
+    const resultCards = results.map(match => `<article class="cus-rework-card cus-rework-card-pad"><span class="badge">${h(match.phase)}</span><h3>${h(match.home)} vs ${h(match.away)}</h3><div class="cus-rework-metrics"><div class="cus-rework-metric"><b>${h(match.score)}</b><span>Risultato</span></div><div class="cus-rework-metric"><b>${h(match.time)}</b><span>Ora</span></div></div><p>${h(match.venue)} · ${h(fmtDate(match.date))}</p></article>`).join("");
+    const galleryHtml = cnuPhotos.length
+      ? `<div class="cus-rework-grid four">${cnuPhotos.map(item => `<article class="cus-rework-card"><div class="cus-rework-media"><img src="${h(item.photo)}" alt="${h(item.title)} CNU"></div></article>`).join("")}</div>`
+      : `<article class="cus-rework-card cus-rework-card-pad"><h3>Fotogallery in aggiornamento</h3><p>Per mostrare qui le immagini, crea o modifica un album nella Gallery del CMS e assegna la categoria CNU.</p></article>`;
+    const html = `${pageHero("CNU","Campionati Nazionali Universitari","Lo sport universitario nazionale, la maglia dell’Università di Trento e il percorso del CUS Trento C5.")}
+      <section class="cus-rework-section compact">
+        <div class="container">
+          <div class="cus-rework-band"><h2>Cosa sono i CNU</h2>${intro.map(p=>`<p>${h(p)}</p>`).join("")}</div>
+        </div>
+      </section>
+      <section class="cus-rework-section compact">
+        <div class="container">
+          <div class="cus-rework-head"><div><span class="cus-rework-kicker">CNU 2026</span><h2>Risultati</h2></div></div>
+          <div class="cus-rework-grid two">${resultCards}</div>
+        </div>
+      </section>
+      <section class="cus-rework-section compact">
+        <div class="container">
+          <div class="cus-rework-band"><h2>Migliori piazzamenti</h2><ul class="cus-rework-list"><li>Qualificazione fasi finali CNU 2023 — Camerino</li><li>Qualificazione fasi finali CNU 2026 — Novara</li></ul></div>
+        </div>
+      </section>
+      <section class="cus-rework-section compact">
+        <div class="container">
+          <div class="cus-rework-head"><div><span class="cus-rework-kicker">Fotogallery</span><h2>CNU in immagini</h2><p>Le foto vengono lette dagli album Gallery gestiti nel CMS con categoria CNU.</p></div></div>
+          ${galleryHtml}
         </div>
       </section>`;
     setApp(html,"cnu","CNU","Campionati Nazionali Universitari del CUS Trento C5.",replace);
@@ -566,7 +597,7 @@
   function renderSeasonArchive(replace){
     const s = localState();
     const rows = (s.historicalStats && Array.isArray(s.historicalStats.seasons) ? s.historicalStats.seasons : (s.seasons || []));
-    const html = `${pageHero("Archivio stagioni","Classifiche e stagioni passate","Archivio storico dei risultati stagionali, utile per dare continuità al racconto sportivo del club.")}
+    const html = `${pageHero("Archivio stagioni","Classifiche e stagioni passate","La storia del CUS Trento C5 raccontata stagione dopo stagione: risultati e statistiche che hanno segnato il percorso della prima squadra.")}
       <section class="cus-rework-section"><div class="container"><div class="table-wrap"><table class="cus-rework-table">
       <thead><tr><th>Stagione</th><th>Gare</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>Diff.</th></tr></thead>
       <tbody>${rows.map(r => `<tr><td>${h(r.season)}</td><td>${h(r.played || "-")}</td><td>${h(r.wins || "-")}</td><td>${h(r.draws || "-")}</td><td>${h(r.losses || "-")}</td><td>${h(r.goalsFor || "-")}</td><td>${h(r.goalsAgainst || "-")}</td><td>${h(r.goalDifference || r.note || "-")}</td></tr>`).join("")}</tbody>

@@ -231,7 +231,6 @@ collections:
         options:
         - Campionato
         - Coppa
-        - Playoff
         default: Campionato
       - label: Formazione
         name: lineup
@@ -621,7 +620,6 @@ collections:
         options:
         - Campionato
         - Coppa
-        - Playoff
         default: Campionato
       - label: Formazione
         name: lineup
@@ -995,6 +993,7 @@ collections:
         - under 21
         - partite
         - interviste
+        - CNU
         - vario
         default: []
       - label: Data
