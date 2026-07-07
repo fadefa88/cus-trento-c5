@@ -69,3 +69,29 @@
 .home-upcoming-foot{display:none;}
 @media (max-width:820px){.home-upcoming-title{gap:10px}.home-upcoming-card{min-height:264px}.home-upcoming-meta{grid-template-columns:auto auto}.home-upcoming-meta em{display:block}}
 @media (max-width:520px){.home-upcoming-title>span{display:inline-flex}.home-upcoming-track{grid-auto-columns:86vw}.home-upcoming-team strong{font-size:20px}.home-upcoming-time{justify-self:start}}
+
+/* v7: upcoming matches section full-bleed like the homepage hero. */
+.home-upcoming-section>.container{
+  max-width:none;
+  width:100%;
+  margin:0;
+  padding-left:clamp(22px,4.8vw,78px);
+  padding-right:clamp(22px,4.8vw,78px);
+  box-sizing:border-box;
+}
+.home-upcoming-track{
+  grid-auto-columns:calc((100% - 54px)/4);
+}
+.home-upcoming-side-left{left:clamp(-18px,-1.2vw,-8px);}
+.home-upcoming-side-right{right:clamp(-18px,-1.2vw,-8px);}
+@media (max-width:1180px){
+  .home-upcoming-track{grid-auto-columns:calc((100% - 36px)/3);}
+}
+@media (max-width:820px){
+  .home-upcoming-section>.container{padding-left:20px;padding-right:20px;}
+  .home-upcoming-track{grid-auto-columns:min(82vw,360px);}
+}
+@media (max-width:520px){
+  .home-upcoming-section>.container{padding-left:16px;padding-right:16px;}
+  .home-upcoming-track{grid-auto-columns:88vw;}
+}
