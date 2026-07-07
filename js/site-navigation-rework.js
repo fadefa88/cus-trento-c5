@@ -1,5 +1,5 @@
 (function(){
-  const MENU_VERSION = "menu-rework-v1";
+  const MENU_VERSION = "menu-rework-v2";
   const baseUrl = "https://custrentocalcioa5.it";
   const oldRoute = typeof window.route === "function" ? window.route.bind(window) : null;
 
@@ -40,6 +40,22 @@
   };
 
   const pathToRoute = {
+    "/":"home",
+    "/news/":"news",
+    "/squadra/":"squad",
+    "/staff/":"staff",
+    "/statistiche/":"stats",
+    "/calendario/":"fixtures",
+    "/classifica/":"standings",
+    "/coppa/":"coppa",
+    "/matchday/":"matchday",
+    "/gallery/":"gallery",
+    "/video/":"video",
+    "/social/":"social",
+    "/hall-of-fame/":"records",
+    "/contatti/":"contacts",
+    "/privacy/":"privacy",
+    "/cookies/":"cookies",
     "/squadre/":"teams-overview",
     "/gioca-con-noi/":"play-with-us",
     "/cnu/":"cnu",
@@ -99,6 +115,28 @@
       ["contacts","Contatti"]
     ]}
   ];
+
+  const existingRouteMeta = {
+    news:["Media","News","Tutte le notizie, gli aggiornamenti e i contenuti ufficiali del CUS Trento C5."],
+    squad:["Squadre","Rosa","Giocatori, ruoli e profili della rosa del CUS Trento C5."],
+    staff:["Squadre","Staff","Staff tecnico, dirigenti e figure operative del progetto CUS Trento C5."],
+    stats:["Squadre","Statistiche","Numeri, rendimento e dati tecnici della stagione."],
+    fixtures:["Stagione","Calendario","Tutte le partite della stagione, per Prima squadra e Under 21."],
+    standings:["Stagione","Classifica","Classifiche aggiornate dei campionati del CUS Trento C5."],
+    coppa:["Stagione","Coppa","Percorso, turni e partite di coppa del CUS Trento C5."],
+    matchday:["Stagione","Matchday","Informazioni utili per seguire le partite e vivere il giorno gara."],
+    gallery:["Media","Gallery","Album fotografici e contenuti visuali del club."],
+    video:["Media","Video","Highlights, interviste e contenuti video del CUS Trento C5."],
+    social:["Media","Social wall","Aggiornamenti social e contenuti dalla community CUS."],
+    records:["Club","Hall of Fame","Record, numeri storici e protagonisti del CUS Trento C5."],
+    contacts:["Club","Contatti","Contatti ufficiali, richieste informazioni e riferimenti del club."],
+    privacy:["Privacy","Privacy policy","Informazioni privacy e trattamento dati del sito."],
+    cookies:["Cookie","Cookie policy","Informazioni sull'utilizzo dei cookie e contenuti esterni."],
+    partner:["Partner","I nostri partner","Aziende, realtà e sponsor che sostengono il progetto CUS Trento C5."],
+    sponsor:["Partner","I nostri partner","Aziende, realtà e sponsor che sostengono il progetto CUS Trento C5."],
+    "club-project":["Club","Chi siamo / Il progetto","Identità, obiettivi e visione sportiva del CUS Trento C5."],
+    club:["Club","Chi siamo / Il progetto","Identità, obiettivi e visione sportiva del CUS Trento C5."]
+  };
 
   function h(value){
     return String(value ?? "").replace(/[&<>\"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[ch]));
@@ -185,12 +223,15 @@
       </div>`;
     }).join("");
 
-    mobile.innerHTML = menuGroups.map(group => {
+    mobile.dataset.cusRework = "true";
+    mobile.innerHTML = `<div class="cus-mobile-menu-head"><span>Menu</span><button type="button" onclick="cusCloseMobileMenu()" aria-label="Chiudi menu">×</button></div>` + menuGroups.map(group => {
+      const groupKey = topKey(group.label);
+      const isOpen = activeTop === groupKey;
       if(group.items.length === 1){
         const [id,label] = group.items[0];
-        return `<button onclick="cusMenuRoute('${id}');toggleMobile()">${h(label)}</button>`;
+        return `<button class="cus-mobile-link ${active===id ? "active" : ""}" onclick="cusMenuRoute('${id}');cusCloseMobileMenu()">${h(label)}</button>`;
       }
-      return `<details><summary>${h(group.label)}</summary>${group.items.map(([id,label]) => `<button onclick="cusMenuRoute('${id}');toggleMobile()">${h(label)}</button>`).join("")}</details>`;
+      return `<details ${isOpen ? "open" : ""}><summary>${h(group.label)}</summary>${group.items.map(([id,label]) => `<button class="${active===id ? "active" : ""}" onclick="cusMenuRoute('${id}');cusCloseMobileMenu()">${h(label)}</button>`).join("")}</details>`;
     }).join("");
   }
 
@@ -225,6 +266,57 @@
   function pageHero(kicker,title,lead){
     return `<section class="cus-rework-hero"><div class="container"><span class="cus-rework-kicker">${h(kicker)}</span><h1 class="cus-rework-title">${h(title)}</h1><p class="cus-rework-lead">${h(lead)}</p></div></section>`;
   }
+
+  function routeMeta(routeId){
+    const key = String(routeId || "");
+    if(key.startsWith("article-")) return ["News","Articolo","Dettaglio articolo e contenuto editoriale del CUS Trento C5."];
+    return existingRouteMeta[key] || ["CUS Trento C5","CUS Trento C5","Sito ufficiale del CUS Trento C5."];
+  }
+
+  function injectStandardHero(routeId){
+    const target = document.getElementById("app");
+    if(!target) return;
+    const id = String(routeId || routeFromLocation() || window.__cusActiveRoute || "home");
+    if(id === "home") return;
+    if(target.querySelector(".home-structure")) return;
+    if(target.querySelector(".cus-rework-page")) return;
+    const old = target.querySelector(":scope > .cus-rework-hero");
+    if(old) old.remove();
+    const meta = routeMeta(id);
+    target.insertAdjacentHTML("afterbegin", pageHero(meta[0], meta[1], meta[2]));
+  }
+
+  function afterOldRoute(routeId){
+    setTimeout(() => {
+      injectStandardHero(routeId);
+      renderCusMenu();
+    }, 0);
+    setTimeout(() => injectStandardHero(routeId), 160);
+  }
+
+  window.cusCloseMobileMenu = function(){
+    const mobile = document.getElementById("mobileMenu");
+    const toggle = document.querySelector(".mobile-toggle");
+    if(mobile){
+      mobile.classList.remove("open");
+      mobile.setAttribute("aria-hidden","true");
+    }
+    if(toggle) toggle.setAttribute("aria-expanded","false");
+  };
+
+  const nativeToggleMobile = typeof window.toggleMobile === "function" ? window.toggleMobile.bind(window) : null;
+  window.toggleMobile = function(){
+    const mobile = document.getElementById("mobileMenu");
+    const toggle = document.querySelector(".mobile-toggle");
+    if(mobile && mobile.dataset.cusRework === "true"){
+      const open = !mobile.classList.contains("open");
+      mobile.classList.toggle("open", open);
+      mobile.setAttribute("aria-hidden", open ? "false" : "true");
+      if(toggle) toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      return;
+    }
+    if(nativeToggleMobile) nativeToggleMobile();
+  };
 
   function metric(value,label){
     return `<div class="cus-rework-metric"><b>${h(value)}</b><span>${h(label)}</span></div>`;
@@ -504,6 +596,7 @@
     setTimeout(() => {
       history.replaceState({route:"partner"},"",pathByRoute.partner);
       seo("Partner","I nostri partner del CUS Trento C5.",pathByRoute.partner);
+      injectStandardHero("partner");
       renderCusMenu();
     }, 0);
   }
@@ -514,6 +607,7 @@
     setTimeout(() => {
       history.replaceState({route:"club-project"},"",pathByRoute["club-project"]);
       seo("Chi siamo / Il progetto","Il progetto sportivo e societario del CUS Trento C5.",pathByRoute["club-project"]);
+      injectStandardHero("club-project");
       renderCusMenu();
     }, 0);
   }
@@ -523,6 +617,9 @@
     if(path !== "/" && !path.endsWith("/")) path += "/";
     if(path.startsWith("/eventi/") && path !== "/eventi/"){
       return "event-detail:" + path.split("/").filter(Boolean).slice(1).join("/");
+    }
+    if(path.startsWith("/news/") && path !== "/news/"){
+      return "article-" + path.split("/").filter(Boolean).slice(1).join("/");
     }
     const route = pathToRoute[path];
     if(route === "events" && location.hash){
@@ -552,34 +649,44 @@
     if(routeId === "collaborations") return renderCollaborations(replace);
   }
 
+  function normalizeAlias(routeId){
+    if(routeId === "sponsor") return "partner";
+    if(routeId === "club") return "club-project";
+    return routeId;
+  }
+
   window.cusMenuRoute = function(routeId){
+    routeId = normalizeAlias(routeId);
     if(isCustomRoute(routeId)) return renderCustom(routeId, false);
     window.__cusActiveRoute = routeId;
     if(oldRoute) oldRoute(routeId);
-    setTimeout(renderCusMenu, 0);
+    afterOldRoute(routeId);
   };
 
   window.route = function(routeId){
+    routeId = normalizeAlias(routeId);
     if(isCustomRoute(routeId)) return renderCustom(routeId, false);
     window.__cusActiveRoute = routeId || "home";
     if(oldRoute) oldRoute(routeId);
-    setTimeout(renderCusMenu, 0);
+    afterOldRoute(routeId || "home");
   };
 
   window.addEventListener("popstate", () => {
     const custom = routeFromLocation();
     if(custom && isCustomRoute(custom)) renderCustom(custom, true);
     else {
-      window.__cusActiveRoute = custom || "home";
-      if(oldRoute) oldRoute(custom || "home");
-      setTimeout(renderCusMenu, 0);
+      const routeId = custom || routeFromLocation() || "home";
+      window.__cusActiveRoute = routeId;
+      if(oldRoute) oldRoute(routeId);
+      afterOldRoute(routeId);
     }
   });
 
   function boot(){
     renderCusMenu();
-    const custom = routeFromLocation();
-    if(custom && isCustomRoute(custom)) renderCustom(custom, true);
+    const currentRoute = routeFromLocation();
+    if(currentRoute && isCustomRoute(currentRoute)) renderCustom(currentRoute, true);
+    else afterOldRoute(currentRoute || window.__cusActiveRoute || "home");
   }
 
   const navObserver = new MutationObserver(() => {
