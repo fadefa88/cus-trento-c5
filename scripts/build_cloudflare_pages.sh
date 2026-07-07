@@ -20,6 +20,17 @@ for path in \
   fi
 done
 
+# Safety cleanup: keep the header title only as "CUS Trento C5" across every
+# prerendered HTML page, even if a legacy generated file is still present.
+python3 - <<'PY'
+from pathlib import Path
+TAG = '<small>Uni.Team Futsal</small>'
+for path in Path('_site').rglob('*.html'):
+    text = path.read_text(encoding='utf-8')
+    if TAG in text:
+        path.write_text(text.replace(TAG, ''), encoding='utf-8')
+PY
+
 # The legacy app.js still contains the former direct Web3Forms fallback.
 # In the deployed output, the protected Cloudflare Pages Function is authoritative.
 if [ -f "$OUT_DIR/js/app.js" ]; then
