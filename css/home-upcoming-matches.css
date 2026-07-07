@@ -312,3 +312,13 @@
   .home-upcoming-track{grid-auto-columns:88vw!important;gap:12px!important;}
   .home-upcoming-card{min-height:0!important;}
 }
+
+
+/* v14: compact uppercase section title */
+.home-upcoming-title h2{
+  text-transform:uppercase!important;
+  font-size:clamp(14px,1.2vw,18px)!important;
+  line-height:1.05!important;
+  letter-spacing:.14em!important;
+  font-weight:1000!important;
+}
