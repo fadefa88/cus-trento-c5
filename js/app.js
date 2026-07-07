@@ -1257,63 +1257,65 @@ function players(list){
   return (list||[]).map(p=>`<article class="card player" onclick="route('player-${p.id}')"><div class="player-top"><div class="player-photo" style="background-image:url('${p.photo||''}')"></div><div class="num">${p.number||''}</div><div class="avatar"><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"></div></div><div class="card-pad"><span class="badge">${p.role||''}</span><p class="news-meta"></p><h2>${p.name||''}</h2>${playerMetricsCard(p)}<div class="click-hint">Scheda completa</div></div></article>`).join("");
 }
 function setSquadTeam(team){
-  const target=document.getElementById(team==="Under 21"?"squad-under-21":"squad-prima-squadra");
-  if(target) target.scrollIntoView({behavior:"smooth",block:"start"});
+  view.squadTeam=team;
+  view.squadVisible=8;
+  document.querySelectorAll(".squad-team-switch button").forEach(btn=>btn.classList.toggle("active",btn.dataset.team===team));
+  filterSquad();
 }
 function squad(){
   const roles=["Tutti","Portiere","Centrale","Laterale","Pivot","Universale"];
-  view.squadVisible=view.squadVisible||{prima:8,u21:8};
-  view.squadVisible.prima=8;
-  view.squadVisible.u21=8;
-  shell("Team","Rosa",`<div class="toolbar squad-role-toolbar">${roles.map(r=>`<button class="pill rolef ${r==="Tutti"?"active":""}">${r}</button>`).join("")}</div><div id="squadSections"></div>`,"","Rosa completa del CUS Trento C5 con Prima squadra e Under 21 nella stessa pagina.");
-  document.querySelectorAll(".rolef").forEach(btn=>btn.onclick=function(){document.querySelectorAll(".rolef").forEach(x=>x.classList.remove("active"));this.classList.add("active");view.squadVisible={prima:8,u21:8};filterSquad();});
+  view.squadTeam=view.squadTeam||"Prima squadra";
+  view.squadVisible=8;
+  shell("Team","Rosa",`<style>
+    .squad-infinite-loader{min-height:52px;display:flex;align-items:center;justify-content:center;gap:8px;margin:22px 0 4px;}
+    .squad-infinite-loader span{width:9px;height:9px;border-radius:999px;background:#09090b;opacity:.28;animation:squadDots 1s infinite ease-in-out;}
+    .squad-infinite-loader span:nth-child(2){animation-delay:.15s;}
+    .squad-infinite-loader span:nth-child(3){animation-delay:.3s;}
+    @keyframes squadDots{0%,80%,100%{transform:scale(.7);opacity:.24;}40%{transform:scale(1);opacity:.9;}}
+  </style><div class="team-switch squad-team-switch"><button data-team="Prima squadra" class="${view.squadTeam==='Prima squadra'?'active':''}" onclick="setSquadTeam('Prima squadra')">Prima squadra</button><button data-team="Under 21" class="${view.squadTeam==='Under 21'?'active':''}" onclick="setSquadTeam('Under 21')">Under 21</button></div><div class="toolbar">${roles.map(r=>`<button class="pill rolef ${r==="Tutti"?"active":""}">${r}</button>`).join("")}</div><div class="grid grid-4" id="squadGrid"></div><div id="squadInfiniteLoader"></div>` ,"","Rosa del CUS Trento C5 con profili giocatore e statistiche.");
+  document.querySelectorAll(".rolef").forEach(btn=>btn.onclick=function(){document.querySelectorAll(".rolef").forEach(x=>x.classList.remove("active"));this.classList.add("active");view.squadVisible=8;filterSquad();});
   filterSquad();
 }
-function getFilteredSquadByTeam(team){
+function getFilteredSquad(){
+  const team=view.squadTeam||"Prima squadra";
   const role=document.querySelector(".rolef.active")?.textContent||"Tutti";
   return (state.roster||[]).filter(p=>(p.team===team)&&(role==="Tutti"||p.role===role));
 }
-function getFilteredSquad(){
-  return getFilteredSquadByTeam(view.squadTeam||"Prima squadra");
-}
-function squadSection(teamKey,title,items){
-  const visible=Number(view.squadVisible&&view.squadVisible[teamKey])||8;
-  const shown=items.slice(0,visible);
-  const remaining=Math.max(0,items.length-visible);
-  const id=teamKey==="u21"?"squad-under-21":"squad-prima-squadra";
-  return `<section id="${id}" class="squad-full-section" style="margin-top:34px">
-    <div class="head" style="margin-bottom:18px"><div><span class="eyebrow">${safe(title)}</span><h2 class="title" style="font-size:clamp(34px,5vw,58px)">${safe(title)}</h2><p class="muted">${items.length} giocatori${remaining?` · ${remaining} ancora da mostrare`:""}</p></div></div>
-    <div class="grid grid-4">${players(shown)||"<div class='card card-pad'><p class='muted'>Nessun giocatore trovato.</p></div>"}</div>
-    ${remaining?`<div class="btns" style="justify-content:center;margin-top:24px"><button class="btn dark" data-squad-more="${teamKey}" onclick="loadMoreSquad('${teamKey}')">Mostra altri ${Math.min(4,remaining)}</button></div>`:""}
-  </section>`;
-}
-function loadMoreSquad(teamKey){
-  view.squadVisible=view.squadVisible||{prima:8,u21:8};
-  view.squadVisible[teamKey]=(Number(view.squadVisible[teamKey])||8)+4;
-  filterSquad();
+function goSquadPage(page){filterSquad();}
+function loadMoreSquad(){
+  if(window.__squadInfiniteLoading) return;
+  const filtered=getFilteredSquad();
+  const visible=Number(view.squadVisible)||8;
+  if(visible>=filtered.length) return;
+  window.__squadInfiniteLoading=true;
+  const loader=$("#squadInfiniteLoader");
+  if(loader) loader.classList.add("is-loading");
+  setTimeout(()=>{
+    view.squadVisible=(Number(view.squadVisible)||8)+8;
+    window.__squadInfiniteLoading=false;
+    filterSquad();
+  },260);
 }
 function setupSquadAutoLoad(){
   if(window.__squadAutoLoadObserver) window.__squadAutoLoadObserver.disconnect();
-  if(!("IntersectionObserver" in window)) return;
+  const loader=$("#squadInfiniteLoader");
+  if(!loader || !loader.dataset.hasMore || !("IntersectionObserver" in window)) return;
   window.__squadAutoLoadObserver=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        const teamKey=entry.target.getAttribute("data-squad-more");
-        if(teamKey){
-          window.__squadAutoLoadObserver.unobserve(entry.target);
-          loadMoreSquad(teamKey);
-        }
-      }
-    });
+    entries.forEach(entry=>{if(entry.isIntersecting) loadMoreSquad();});
   },{rootMargin:"220px 0px"});
-  document.querySelectorAll("[data-squad-more]").forEach(btn=>window.__squadAutoLoadObserver.observe(btn));
+  window.__squadAutoLoadObserver.observe(loader);
 }
-function goSquadPage(page){filterSquad();}
 function filterSquad(){
-  const prima=getFilteredSquadByTeam("Prima squadra");
-  const u21=getFilteredSquadByTeam("Under 21");
-  const target=$("#squadSections");
-  if(target) target.innerHTML=squadSection("prima","Prima squadra",prima)+squadSection("u21","Under 21",u21);
+  const filtered=getFilteredSquad();
+  const visible=Math.min(Number(view.squadVisible)||8,filtered.length);
+  const shown=filtered.slice(0,visible);
+  const remaining=Math.max(0,filtered.length-visible);
+  const grid=$("#squadGrid"),loader=$("#squadInfiniteLoader");
+  if(grid)grid.innerHTML=players(shown)||"<div class='card card-pad'><p class='muted'>Nessun giocatore trovato.</p></div>";
+  if(loader){
+    loader.dataset.hasMore=remaining>0?"true":"";
+    loader.innerHTML=remaining>0?`<div class="squad-infinite-loader" aria-label="Caricamento altri giocatori"><span></span><span></span><span></span></div>`:"";
+  }
   setupSquadAutoLoad();
 }
 function playerDetail(id){
