@@ -24,7 +24,7 @@ done
 # prerendered HTML page, even if a legacy generated file is still present.
 python3 - <<'PY'
 from pathlib import Path
-TAG = '<small>Uni.Team Futsal</small>'
+TAG = '<small>' + 'Uni.Team Futsal' + '</small>'
 for path in Path('_site').rglob('*.html'):
     text = path.read_text(encoding='utf-8')
     if TAG in text:
