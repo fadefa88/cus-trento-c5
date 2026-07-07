@@ -311,9 +311,33 @@
     return `<div class="cus-rework-metric"><b>${h(value)}</b><span>${h(label)}</span></div>`;
   }
 
-  function rosterCount(teamName){
+  function teamRoster(teamName){
     const s = localState();
-    return (s.roster || []).filter(p => String(p.team || "").toLowerCase().includes(String(teamName).toLowerCase())).length;
+    return (s.roster || []).filter(p => String(p.team || "").toLowerCase().includes(String(teamName).toLowerCase()));
+  }
+
+  function rosterCount(teamName){
+    return teamRoster(teamName).length;
+  }
+
+  function playerAgeYears(player){
+    const raw = player && (player.birthDate || player.dateOfBirth || player.dob || player.nascita);
+    if(raw){
+      const born = new Date(raw);
+      if(!Number.isNaN(born.getTime())){
+        const years = (new Date() - born) / (365.2425 * 24 * 60 * 60 * 1000);
+        if(Number.isFinite(years) && years > 0 && years < 90) return years;
+      }
+    }
+    const fallback = Number(player && player.age);
+    return Number.isFinite(fallback) && fallback > 0 && fallback < 90 ? fallback : null;
+  }
+
+  function averageRosterAge(teamName){
+    const ages = teamRoster(teamName).map(playerAgeYears).filter(value => value != null);
+    if(!ages.length) return "—";
+    const avg = ages.reduce((sum,value) => sum + value, 0) / ages.length;
+    return avg.toLocaleString("it-IT", {minimumFractionDigits:1, maximumFractionDigits:1});
   }
 
   function futureMatchCount(list){
@@ -324,12 +348,14 @@
     const s = localState();
     const prima = rosterCount("prima");
     const u21 = rosterCount("under");
+    const primaAge = averageRosterAge("prima");
+    const u21Age = averageRosterAge("under");
     const html = `${pageHero("Squadre","Le nostre squadre","CUS Trento C5 è un progetto sportivo costruito su più livelli: dalla competizione federale alla crescita dei giovani, fino alla rappresentanza universitaria. Ogni squadra porta in campo la stessa identità: impegno, appartenenza e voglia di rappresentare il CUS Trento dentro e fuori dal campo.")}
       <section class="cus-rework-section">
         <div class="container">
           <div class="cus-rework-grid two">
-            ${teamCard("Prima squadra","Serie C1","La prima squadra è il cuore agonistico del CUS Trento C5. Un gruppo che affronta la stagione con intensità, metodo e spirito di squadra, rappresentando il club nei principali appuntamenti del calcio a 5 regionale.",prima,futureMatchCount(s.fixtures),"/assets/foto-sito.webp?auto=format&fit=crop&w=1200&q=90","squad")}
-            ${teamCard("Under 21","Serie D","L’Under 21 è il percorso di crescita dedicato ai giovani giocatori del CUS Trento C5. Una squadra pensata per formare atleti pronti ad affrontare il futsal con serietà, continuità e responsabilità.",u21,futureMatchCount(s.u21Fixtures),"/img/players/foto-squadra-u21.webp?auto=format&fit=crop&w=1200&q=90","squad")}
+            ${teamCard("Prima squadra","La prima squadra è il cuore agonistico del CUS Trento C5. Un gruppo che affronta la stagione con intensità, metodo e spirito di squadra, rappresentando il club nei principali appuntamenti del calcio a 5 regionale.",prima,primaAge,"SERIE C1","/assets/foto-sito.webp?auto=format&fit=crop&w=1200&q=90","squad")}
+            ${teamCard("Under 21","L’Under 21 è il percorso di crescita dedicato ai giovani giocatori del CUS Trento C5. Una squadra pensata per formare atleti pronti ad affrontare il futsal con serietà, continuità e responsabilità.",u21,u21Age,"SERIE D","/img/players/foto-squadra-u21.webp?auto=format&fit=crop&w=1200&q=90","squad")}
           </div>
         </div>
       </section>
@@ -347,17 +373,16 @@
     setApp(html,"teams-overview","Squadre","Prima squadra e Under 21 del CUS Trento C5.",replace);
   }
 
-  function teamCard(title,competition,text,count,next,image,routeId){
+  function teamCard(title,text,count,averageAge,championship,image,routeId){
     return `<article class="cus-rework-card">
       <div class="cus-rework-media"><img src="${h(image)}" alt="${h(title)} CUS Trento C5" loading="lazy"></div>
       <div class="cus-rework-card-pad">
-        <span class="badge">${h(competition)}</span>
         <h3>${h(title)}</h3>
         <p>${h(text)}</p>
         <div class="cus-rework-metrics">
           ${metric(count || "—","Giocatori")}
-          ${metric(next || 0,"Gare future")}
-          ${metric("CUS","Progetto")}
+          ${metric(averageAge,"Età media")}
+          ${metric(championship,"campionato")}
         </div>
         <button class="cus-rework-action" onclick="route('${routeId}')">Apri rosa</button>
       </div>

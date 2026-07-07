@@ -1256,28 +1256,65 @@ function playerMetricsCard(p){
 function players(list){
   return (list||[]).map(p=>`<article class="card player" onclick="route('player-${p.id}')"><div class="player-top"><div class="player-photo" style="background-image:url('${p.photo||''}')"></div><div class="num">${p.number||''}</div><div class="avatar"><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"></div></div><div class="card-pad"><span class="badge">${p.role||''}</span><p class="news-meta"></p><h2>${p.name||''}</h2>${playerMetricsCard(p)}<div class="click-hint">Scheda completa</div></div></article>`).join("");
 }
-function setSquadTeam(team){view.squadTeam=team;view.squadPage=1;document.querySelectorAll(".squad-team-switch button").forEach(btn=>btn.classList.toggle("active",btn.dataset.team===team));filterSquad();}
+function setSquadTeam(team){
+  const target=document.getElementById(team==="Under 21"?"squad-under-21":"squad-prima-squadra");
+  if(target) target.scrollIntoView({behavior:"smooth",block:"start"});
+}
 function squad(){
   const roles=["Tutti","Portiere","Centrale","Laterale","Pivot","Universale"];
-  view.squadTeam=view.squadTeam||"Prima squadra";
-  view.squadPage=1;
-  shell("Team","Rosa",`<div class="team-switch squad-team-switch"><button data-team="Prima squadra" class="${view.squadTeam==='Prima squadra'?'active':''}" onclick="setSquadTeam('Prima squadra')">Prima squadra</button><button data-team="Under 21" class="${view.squadTeam==='Under 21'?'active':''}" onclick="setSquadTeam('Under 21')">Under 21</button></div><div class="toolbar">${roles.map(r=>`<button class="pill rolef ${r==="Tutti"?"active":""}">${r}</button>`).join("")}</div><div class="grid grid-4" id="squadGrid"></div><div id="squadPager"></div>`,"","Rosa del CUS Trento C5 con profili giocatore e statistiche.");
-  document.querySelectorAll(".rolef").forEach(btn=>btn.onclick=function(){document.querySelectorAll(".rolef").forEach(x=>x.classList.remove("active"));this.classList.add("active");view.squadPage=1;filterSquad();});
+  view.squadVisible=view.squadVisible||{prima:8,u21:8};
+  view.squadVisible.prima=8;
+  view.squadVisible.u21=8;
+  shell("Team","Rosa",`<div class="toolbar squad-role-toolbar">${roles.map(r=>`<button class="pill rolef ${r==="Tutti"?"active":""}">${r}</button>`).join("")}</div><div id="squadSections"></div>`,"","Rosa completa del CUS Trento C5 con Prima squadra e Under 21 nella stessa pagina.");
+  document.querySelectorAll(".rolef").forEach(btn=>btn.onclick=function(){document.querySelectorAll(".rolef").forEach(x=>x.classList.remove("active"));this.classList.add("active");view.squadVisible={prima:8,u21:8};filterSquad();});
   filterSquad();
 }
-function getFilteredSquad(){
-  const team=view.squadTeam||"Prima squadra";
+function getFilteredSquadByTeam(team){
   const role=document.querySelector(".rolef.active")?.textContent||"Tutti";
   return (state.roster||[]).filter(p=>(p.team===team)&&(role==="Tutti"||p.role===role));
 }
-function goSquadPage(page){view.squadPage=page;filterSquad();}
+function getFilteredSquad(){
+  return getFilteredSquadByTeam(view.squadTeam||"Prima squadra");
+}
+function squadSection(teamKey,title,items){
+  const visible=Number(view.squadVisible&&view.squadVisible[teamKey])||8;
+  const shown=items.slice(0,visible);
+  const remaining=Math.max(0,items.length-visible);
+  const id=teamKey==="u21"?"squad-under-21":"squad-prima-squadra";
+  return `<section id="${id}" class="squad-full-section" style="margin-top:34px">
+    <div class="head" style="margin-bottom:18px"><div><span class="eyebrow">${safe(title)}</span><h2 class="title" style="font-size:clamp(34px,5vw,58px)">${safe(title)}</h2><p class="muted">${items.length} giocatori${remaining?` · ${remaining} ancora da mostrare`:""}</p></div></div>
+    <div class="grid grid-4">${players(shown)||"<div class='card card-pad'><p class='muted'>Nessun giocatore trovato.</p></div>"}</div>
+    ${remaining?`<div class="btns" style="justify-content:center;margin-top:24px"><button class="btn dark" data-squad-more="${teamKey}" onclick="loadMoreSquad('${teamKey}')">Mostra altri ${Math.min(4,remaining)}</button></div>`:""}
+  </section>`;
+}
+function loadMoreSquad(teamKey){
+  view.squadVisible=view.squadVisible||{prima:8,u21:8};
+  view.squadVisible[teamKey]=(Number(view.squadVisible[teamKey])||8)+4;
+  filterSquad();
+}
+function setupSquadAutoLoad(){
+  if(window.__squadAutoLoadObserver) window.__squadAutoLoadObserver.disconnect();
+  if(!("IntersectionObserver" in window)) return;
+  window.__squadAutoLoadObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const teamKey=entry.target.getAttribute("data-squad-more");
+        if(teamKey){
+          window.__squadAutoLoadObserver.unobserve(entry.target);
+          loadMoreSquad(teamKey);
+        }
+      }
+    });
+  },{rootMargin:"220px 0px"});
+  document.querySelectorAll("[data-squad-more]").forEach(btn=>window.__squadAutoLoadObserver.observe(btn));
+}
+function goSquadPage(page){filterSquad();}
 function filterSquad(){
-  const filtered=getFilteredSquad();
-  const pg=paginate(filtered,view.squadPage,8);
-  view.squadPage=pg.page;
-  const grid=$("#squadGrid"),pager=$("#squadPager");
-  if(grid)grid.innerHTML=players(pg.items)||"<div class='card card-pad'><p class='muted'>Nessun giocatore trovato.</p></div>";
-  if(pager)pager.innerHTML=pagerHtml(pg.total,pg.page,"goSquadPage");
+  const prima=getFilteredSquadByTeam("Prima squadra");
+  const u21=getFilteredSquadByTeam("Under 21");
+  const target=$("#squadSections");
+  if(target) target.innerHTML=squadSection("prima","Prima squadra",prima)+squadSection("u21","Under 21",u21);
+  setupSquadAutoLoad();
 }
 function playerDetail(id){
   const p=(state.roster||[]).find(x=>String(x.id)===String(id));
