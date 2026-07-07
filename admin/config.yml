@@ -1113,12 +1113,12 @@ collections:
       - label: Ruolo
         name: role
         widget: string
-      - label: Squadra
+      - label: Gruppo staff
         name: team
         widget: select
         options:
-        - Prima squadra
-        - Under 21
+        - Staff tecnico
+        - Dirigenza
       - label: Foto
         name: photo
         widget: image

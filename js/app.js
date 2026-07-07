@@ -74,7 +74,10 @@ let current = location.hash.replace("#","") || (initialNewsParam ? `article-${in
 let view = {staff:"prima", calendar:"prima", calendarFilter:"Tutte", calendarPage:1, standings:"prima", cup:"prima", stats:"prima", statsCompetition:"totale", squadPage:1, squadTeam:"Prima squadra", newsPage:1, newsCategory:"Tutte", galleryPage:1, galleryCategory:"Tutte", gallerySeason:"2025/26", videoPage:1, videoCategory:"Tutte", videoSeason:"2025/26", clubHistoryIndex:0};
 
 function teamSwitch(kind){
-  const currentValue = view[kind] || "prima";
+  const currentValue = view[kind] || (kind==="staff" ? "tecnico" : "prima");
+  if(kind==="staff"){
+    return `<div class="team-switch"><button class="${currentValue==='tecnico'?'active':''}" onclick="setView('staff','tecnico')">Staff tecnico</button><button class="${currentValue==='dirigenza'?'active':''}" onclick="setView('staff','dirigenza')">Dirigenza</button></div>`;
+  }
   return `<div class="team-switch"><button class="${currentValue==='prima'?'active':''}" onclick="setView('${kind}','prima')">Prima squadra</button><button class="${currentValue==='u21'?'active':''}" onclick="setView('${kind}','u21')">Under 21</button></div>`;
 }
 function setView(kind,value){
@@ -1477,7 +1480,29 @@ function stats(){
   const matches=statsMatchesForScope(isU21,scope);const results=resultStatsFromMatches(matches);const scorers=topScorersFromMatches(matches,isU21);const keepers=goalkeeperAgainstFromMatches(matches,isU21);
   shell("Analytics",`Statistiche — ${teamTitle}`,`${teamSwitch("stats")}${statsCompetitionSwitch()}<div class="grid grid-4 stats-result-grid">${statTile("Giocate",results.played)}${statTile("Vinte",results.wins)}${statTile("Pari",results.draws)}${statTile("Perse",results.losses)}</div>${statsMetaStrip(results)}<div class="grid grid-2 stats-rankings-grid">${statsRankingCard(`Marcatori — ${compLabel}`,scorers,"Nessun marcatore inserito nei match terminati di questo filtro.")}${statsRankingCard(`Portieri: gol subiti — ${compLabel}`,keepers,"Nessun gol subito attribuito ai portieri nei match terminati di questo filtro.")}</div>` ,"","Statistiche calcolate da risultati, marcatori e gol subiti portieri inseriti nei singoli match.");
 }
-function staff(){const team=view.staff==="u21"?"Under 21":"Prima squadra";const items=state.staff.filter(s=>(s.team||"Prima squadra")===team);shell("Staff",`Staff tecnico — ${team}`,`${teamSwitch("staff")}<div class="grid grid-4">${items.map(s=>`<article class="card"><img loading="lazy" class="staff-photo" src="${s.photo}" alt="${s.name}"><div class="card-pad"><span class="badge">${s.role}</span><h2 style="margin-top:12px">${s.name}</h2><p class="muted">${s.bio}</p></div></article>`).join("")}</div>`,"","Staff tecnico CUS Trento C5.");}
+function staff(){
+  view.staff = view.staff === "dirigenza" ? "dirigenza" : "tecnico";
+  const group = view.staff === "dirigenza" ? "Dirigenza" : "Staff tecnico";
+  const isDirigenza = s => {
+    const raw = String(s.group || s.category || s.area || s.team || "").toLowerCase();
+    if(raw.includes("dirigenza")) return true;
+    if(raw.includes("staff tecnico")) return false;
+    const role = String(s.role || "").toLowerCase();
+    return role.includes("dirigent") || role.includes("manager") || role.includes("responsabile") || role.includes("organizzativ");
+  };
+  const items=(state.staff||[]).filter(s=>group==="Dirigenza" ? isDirigenza(s) : !isDirigenza(s));
+  const collaborationCta = `<section class="cus-rework-section compact">
+        <div class="container">
+          <div class="cus-rework-band">
+            <div class="cus-rework-head" style="margin-bottom:0">
+              <div><h2>Vuoi collaborare con noi?</h2><p>Il CUS Trento C5 cresce anche fuori dal campo: comunicazione, eventi, foto, video, organizzazione e supporto matchday sono parte essenziale del progetto.<br>Se vuoi mettere le tue competenze al servizio di una realtà giovane, sportiva e universitaria, entra nel gruppo e contribuisci a raccontare, costruire e vivere il futsal del CUS Trento.</p></div>
+              <button class="cus-rework-action red" onclick="route('contacts')">Diventa collaboratore</button>
+            </div>
+          </div>
+        </div>
+      </section>`;
+  shell("Staff","Staff tecnico e dirigenza",`${teamSwitch("staff")}<div class="grid grid-4">${items.map(s=>`<article class="card"><img loading="lazy" class="staff-photo" src="${s.photo}" alt="${safe(s.name)}"><div class="card-pad"><span class="badge">${safe(s.role)}</span><h2 style="margin-top:12px">${safe(s.name)}</h2><p class="muted">${safe(s.bio)}</p></div></article>`).join("")}</div>${collaborationCta}`,"","Staff tecnico e dirigenza del CUS Trento C5.");
+}
 function mapQueryForFixture(f){
   if(!f) return "Sanbàpolis Trento";
   const venue=String(f.venue||"").trim();
