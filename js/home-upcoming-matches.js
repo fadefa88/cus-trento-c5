@@ -39,21 +39,23 @@
     return String(value ?? "").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/\n/g," ");
   }
 
-  function currentTeamKey(){
-    try{
-      return view && view.homeTeam === "u21" ? "u21" : "prima";
-    }catch(e){
-      return "prima";
-    }
-  }
-
   function teamLabel(key){
     return key === "u21" ? "Under 21" : "Prima squadra";
   }
 
-  function rawFixturesForTeam(key){
+  function allRawFixtures(){
     const s = typeof state !== "undefined" ? state : {};
-    return key === "u21" ? (s.u21Fixtures || []) : (s.fixtures || []);
+    return [
+      ...(s.fixtures || []).map(match => ({match, key:"prima"})),
+      ...(s.u21Fixtures || []).map(match => ({match, key:"u21"}))
+    ];
+  }
+
+  function allDemoFixtures(){
+    return [
+      ...demoFixtures.prima.map(match => ({match, key:"prima"})),
+      ...demoFixtures.u21.map(match => ({match, key:"u21"}))
+    ];
   }
 
   function fixtureTimestamp(match){
@@ -76,6 +78,7 @@
     const away = match.away || "Avversario";
     return {
       id: match.id,
+      key,
       home,
       away,
       date: match.date || "",
@@ -87,17 +90,39 @@
     };
   }
 
-  function upcomingFixtures(){
-    const key = currentTeamKey();
-    const now = Date.now() - 86400000;
-    const cms = rawFixturesForTeam(key)
-      .filter(match => match && !isFinished(match))
-      .map(match => normalizeFixture(match, key, false))
-      .filter(match => !fixtureTimestamp(match) || fixtureTimestamp(match) >= now)
-      .sort((a,b) => (fixtureTimestamp(a) || Number.MAX_SAFE_INTEGER) - (fixtureTimestamp(b) || Number.MAX_SAFE_INTEGER));
+  function fixtureDayTimestamp(match){
+    if(!match || !match.date) return Number.MAX_SAFE_INTEGER;
+    const day = Date.parse(String(match.date).slice(0, 10));
+    return Number.isNaN(day) ? Number.MAX_SAFE_INTEGER : day;
+  }
 
-    const source = cms.length ? cms : demoFixtures[key].map(match => normalizeFixture(match, key, true));
-    return {key, fixtures: source.slice(0, 8), usingDemo: !cms.length};
+  function todayStartTimestamp(){
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today.getTime();
+  }
+
+  function upcomingFixtures(){
+    const todayStart = todayStartTimestamp();
+    const byDate = (a,b) => {
+      const ta = fixtureTimestamp(a) || Number.MAX_SAFE_INTEGER;
+      const tb = fixtureTimestamp(b) || Number.MAX_SAFE_INTEGER;
+      return ta - tb;
+    };
+
+    const cms = allRawFixtures()
+      .filter(item => item.match && !isFinished(item.match))
+      .map(item => normalizeFixture(item.match, item.key, false))
+      .filter(match => fixtureDayTimestamp(match) >= todayStart)
+      .sort(byDate);
+
+    const demo = allDemoFixtures()
+      .map(item => normalizeFixture(item.match, item.key, true))
+      .filter(match => fixtureDayTimestamp(match) >= todayStart)
+      .sort(byDate);
+
+    const source = cms.length ? cms : demo;
+    return {fixtures: source, usingDemo: !cms.length};
   }
 
   function teamMark(name){
@@ -143,39 +168,59 @@
     return `<section class="home-upcoming-section" aria-label="Prossime partite">
       <div class="container">
         <div class="home-upcoming-head">
-          <div class="home-upcoming-title"><h2>Prossime partite</h2><span>${h(teamLabel(data.key))}</span><button type="button" onclick="route('fixtures')">Vedi calendario</button>${note}</div>
+          <div class="home-upcoming-title"><h2>Prossime partite</h2><span>Prima squadra + Under 21</span><button type="button" onclick="route('fixtures')">Vedi calendario</button>${note}</div>
           <div class="home-upcoming-nav" aria-label="Scorri prossime partite">
-            <button type="button" onclick="homeUpcomingScroll(-1)" aria-label="Partite precedenti">‹</button>
-            <button type="button" onclick="homeUpcomingScroll(1)" aria-label="Partite successive">›</button>
+            <button class="home-upcoming-arrow home-upcoming-arrow-left" data-home-upcoming-dir="left" type="button" onclick="homeUpcomingScroll(-1)" aria-label="Partite precedenti">‹</button>
+            <button class="home-upcoming-arrow home-upcoming-arrow-right" data-home-upcoming-dir="right" type="button" onclick="homeUpcomingScroll(1)" aria-label="Partite successive">›</button>
           </div>
         </div>
         <div class="home-upcoming-shell">
-          <button class="home-upcoming-side home-upcoming-side-left" type="button" onclick="homeUpcomingScroll(-1)" aria-label="Partite precedenti">‹</button>
-          <div class="home-upcoming-track" id="homeUpcomingTrack">${data.fixtures.map(card).join("")}</div>
-          <button class="home-upcoming-side home-upcoming-side-right" type="button" onclick="homeUpcomingScroll(1)" aria-label="Partite successive">›</button>
+          <button class="home-upcoming-side home-upcoming-side-left" data-home-upcoming-dir="left" type="button" onclick="homeUpcomingScroll(-1)" aria-label="Partite precedenti">‹</button>
+          <div class="home-upcoming-track" id="homeUpcomingTrack">${data.fixtures.length ? data.fixtures.map(card).join("") : `<div class="home-upcoming-empty">Nessuna prossima partita presente nel calendario.</div>`}</div>
+          <button class="home-upcoming-side home-upcoming-side-right" data-home-upcoming-dir="right" type="button" onclick="homeUpcomingScroll(1)" aria-label="Partite successive">›</button>
         </div>
       </div>
     </section>`;
   }
 
 
-  function cleanHomeHero(){
-    const homeRoot = document.querySelector(".home-structure");
-    const hero = homeRoot && homeRoot.querySelector(".hero");
-    const grid = hero && hero.querySelector(".hero-grid");
-    if(!grid) return;
-    const rightPanel = Array.from(grid.children).find(node => node && node.querySelector && (node.querySelector(".match-card") || node.querySelector(".mini-grid")));
-    if(rightPanel) rightPanel.remove();
-  }
-
   function insertUpcomingMatches(){
-    cleanHomeHero();
     const homeRoot = document.querySelector(".home-structure");
     const hero = homeRoot && homeRoot.querySelector(".hero");
     const existing = homeRoot && homeRoot.querySelector(".home-upcoming-section");
     if(existing) existing.remove();
     if(!homeRoot || !hero) return;
     hero.insertAdjacentHTML("afterend", section());
+    bindUpcomingTrack();
+    setTimeout(updateUpcomingArrows, 0);
+  }
+
+  function upcomingTrack(){
+    return document.getElementById("homeUpcomingTrack");
+  }
+
+  function updateUpcomingArrows(){
+    const track = upcomingTrack();
+    const leftButtons = document.querySelectorAll('[data-home-upcoming-dir="left"]');
+    const rightButtons = document.querySelectorAll('[data-home-upcoming-dir="right"]');
+    if(!track){
+      leftButtons.forEach(button => button.classList.add("is-hidden"));
+      rightButtons.forEach(button => button.classList.add("is-hidden"));
+      return;
+    }
+    const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+    const atStart = track.scrollLeft <= 2;
+    const atEnd = maxScroll <= 2 || track.scrollLeft >= maxScroll - 2;
+    leftButtons.forEach(button => button.classList.toggle("is-hidden", atStart));
+    rightButtons.forEach(button => button.classList.toggle("is-hidden", atEnd));
+  }
+
+  function bindUpcomingTrack(){
+    const track = upcomingTrack();
+    if(!track || track.__homeUpcomingBound) return;
+    track.addEventListener("scroll", updateUpcomingArrows, {passive:true});
+    window.addEventListener("resize", updateUpcomingArrows);
+    track.__homeUpcomingBound = true;
   }
 
   function patchHome(){
@@ -190,12 +235,15 @@
   }
 
   window.homeUpcomingScroll = function(direction){
-    const track = document.getElementById("homeUpcomingTrack");
+    const track = upcomingTrack();
     if(!track) return;
     const card = track.querySelector(".home-upcoming-card");
     const gap = 18;
-    const step = card ? (card.getBoundingClientRect().width + gap) * 4 : track.clientWidth;
+    const visibleCards = window.matchMedia("(max-width: 820px)").matches ? 1 : (window.matchMedia("(max-width: 1180px)").matches ? 3 : 4);
+    const step = card ? (card.getBoundingClientRect().width + gap) * visibleCards : track.clientWidth;
     track.scrollBy({left: direction * step, behavior:"smooth"});
+    setTimeout(updateUpcomingArrows, 120);
+    setTimeout(updateUpcomingArrows, 420);
   };
 
   function boot(){
@@ -203,6 +251,7 @@
     insertUpcomingMatches();
     setTimeout(function(){patchHome();insertUpcomingMatches();}, 80);
     setTimeout(function(){patchHome();insertUpcomingMatches();}, 300);
+    setTimeout(updateUpcomingArrows, 520);
   }
 
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
