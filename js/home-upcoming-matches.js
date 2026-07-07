@@ -164,15 +164,11 @@
 
   function section(){
     const data = upcomingFixtures();
-    const note = data.usingDemo ? `<small class="home-upcoming-note">Dati demo finché il calendario CMS non contiene prossime gare.</small>` : "";
     return `<section class="home-upcoming-section" aria-label="Prossime partite">
       <div class="container">
         <div class="home-upcoming-head">
-          <div class="home-upcoming-title"><h2>Prossime partite</h2><span>Prima squadra + Under 21</span><button type="button" onclick="route('fixtures')">Vedi calendario</button>${note}</div>
-          <div class="home-upcoming-nav" aria-label="Scorri prossime partite">
-            <button class="home-upcoming-arrow home-upcoming-arrow-left" data-home-upcoming-dir="left" type="button" onclick="homeUpcomingScroll(-1)" aria-label="Partite precedenti">‹</button>
-            <button class="home-upcoming-arrow home-upcoming-arrow-right" data-home-upcoming-dir="right" type="button" onclick="homeUpcomingScroll(1)" aria-label="Partite successive">›</button>
-          </div>
+          <div class="home-upcoming-title"><h2>Prossime partite</h2>
+          
         </div>
         <div class="home-upcoming-shell">
           <button class="home-upcoming-side home-upcoming-side-left" data-home-upcoming-dir="left" type="button" onclick="homeUpcomingScroll(-1)" aria-label="Partite precedenti">‹</button>
