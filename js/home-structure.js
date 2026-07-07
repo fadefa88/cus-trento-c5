@@ -159,13 +159,24 @@
     </article>`;
   }
 
+  function newsStandingsCard(){
+    const s = typeof state !== "undefined" ? state : {};
+    const rows = s.standings || [];
+    const cus = findCus(rows);
+    return `<article class="card card-pad home-structure-news-standing-card">
+      <div class="home-structure-card-head"><span>Classifica</span><button onclick="route('standings')">Apri</button></div>
+      ${standingsRows(rows)}
+      <div class="home-structure-card-foot"><b>CUS Trento</b><span>#${h(cus.pos || "-")} · ${h(cus.pts ?? "-")} pt</span></div>
+    </article>`;
+  }
+
   function newsSection(){
     const items = latestThreeNews();
     while(items.length < 3) items.push(null);
     return `<section class="section home-structure-news-section">
       <div class="container">
         <div class="home-structure-section-head"><span>News</span><button class="btn soft small" onclick="route('news')">Tutte le news</button></div>
-        <div class="home-structure-news-grid">${items.map(newsCard).join("")}</div>
+        <div class="home-structure-news-grid">${items.map(newsCard).join("")}${newsStandingsCard()}</div>
       </div>
     </section>`;
   }
@@ -202,7 +213,7 @@
     const top = roster.filter(p => String(p.team || "") === "Prima squadra").sort((a,b) => (Number(b.goals) || 0) - (Number(a.goals) || 0))[0] || {};
     const leftMark = next && next.home && String(next.home).includes("CUS") ? "CUS" : String(next && next.home || "").slice(0,2);
     const rightMark = next && next.away && String(next.away).includes("CUS") ? "CUS" : String(next && next.away || "").slice(0,2);
-    return `<section class="hero"><div class="container hero-grid"><div><span class="tag">Serie C1</span><span class="tag ghost">Stagione 26/27</span><h1>CUS Trento C5</h1><p class="lead lead-strong">Il futsal universitario di Trento</p><p class="lead">Una squadra, una community, un progetto che unisce sport, università e territorio. Segui la stagione, vivi gli eventi e sostieni il futsal targato UniTrento.</p><div class="btns"><button class="btn" onclick="route('fixtures')">Prossima partita →</button><button class="btn light" onclick="route('squad')">Scopri la rosa</button><button class="btn ghost" onclick="route('matchday')">Info matchday</button></div></div></div></section>`;
+    return `<section class="hero"><div class="container hero-grid"><div><span class="tag">Serie C1</span><span class="tag ghost">Stagione 26/27</span><h1>CUS Trento C5</h1><p class="lead lead-strong">Il futsal universitario di Trento</p><p class="lead">Una squadra, una community, un progetto che unisce sport, università e territorio. Segui la stagione, vivi gli eventi e sostieni il futsal targato UniTrento.</p><div class="btns home-hero-actions"><button class="btn" onclick="route('play-with-us')"><i class="fa-solid fa-futbol" aria-hidden="true"></i><span>Gioca con noi</span></button><button class="btn light" onclick="route('become-partner')"><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Diventa sponsor</span></button><button class="btn ghost" onclick="route('events')"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i><span>Scopri gli eventi</span></button></div></div><div class="home-hero-socials" aria-label="Profili social CUS Trento C5"><a href="https://www.instagram.com/custrentoc5/" target="_blank" rel="noopener noreferrer" aria-label="Instagram CUS Trento C5"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a><button type="button" onclick="route('social')" aria-label="Facebook CUS Trento C5"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></button><a href="https://www.tiktok.com/@custrentoc5" target="_blank" rel="noopener noreferrer" aria-label="TikTok CUS Trento C5"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a><button type="button" onclick="route('video')" aria-label="YouTube CUS Trento C5"><i class="fa-brands fa-youtube" aria-hidden="true"></i></button></div></div></section>`;
   }
 
   function seasonSection(){
@@ -235,7 +246,7 @@
     if(typeof setSEO === "function") setSEO("Home", "CUS Trento C5: sito ufficiale con news, rosa, calendario, classifica, coppa e social wall.");
     const social = typeof homeSocialSection === "function" ? homeSocialSection() : "";
     const siteFooter = typeof footer === "function" ? footer() : "";
-    app.innerHTML = `<div class="home-structure">${heroSection()}${seasonSection()}${newsSection()}${social}${ctaSection()}</div>${siteFooter}`;
+    app.innerHTML = `<div class="home-structure">${heroSection()}${newsSection()}${social}${ctaSection()}</div>${siteFooter}`;
   };
 
   try{

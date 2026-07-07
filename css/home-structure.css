@@ -80,3 +80,38 @@
   .home-structure-cta-card{min-height:238px;}
   .home-structure-cta-card h3{font-size:25px;}
 }
+
+
+/* v17: home News row = 3 news + standings card; Stagione section removed from home render */
+.home-structure-news-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.home-structure-news-standing-card{
+  min-height:100%;
+  border-radius:26px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.home-structure-news-standing-card .home-structure-standing-list{
+  gap:8px;
+}
+.home-structure-news-standing-card .home-structure-standing-row{
+  padding:9px 10px;
+}
+.home-structure-news-standing-card .home-structure-standing-row b{
+  font-size:12px;
+}
+.home-structure-news-standing-card .home-structure-card-foot{
+  margin-top:auto;
+}
+@media (max-width:1180px){
+  .home-structure-news-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+@media (max-width:640px){
+  .home-structure-news-grid{
+    grid-template-columns:1fr;
+  }
+}
