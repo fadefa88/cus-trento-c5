@@ -390,29 +390,52 @@
   }
 
   function renderPlayWithUs(replace){
-    const s = localState();
-    const fields = Array.isArray(s.tryoutFields) ? s.tryoutFields : ["Nome e cognome","Età","Ruolo","Esperienza","Telefono","Email"];
-    const html = `${pageHero("Gioca con noi","Entra in squadra","Una call to action chiara per chi vuole provare ad allenarsi con il CUS Trento C5 o candidarsi per Prima squadra e Under 21.")}
+    const intro = "Hai voglia di metterti alla prova nel futsal, allenarti con continuità e giocare per la squadra dell’Università? Il CUS Trento C5 cerca giocatori motivati, pronti a crescere dentro un ambiente serio, giovane e universitario. Che tu sia uno studente, un atleta con esperienza o un giocatore che vuole rimettersi in gioco, qui puoi trovare spazio, gruppo e competizione.";
+    const faqs = [
+      ["Chi può candidarsi?","Possono candidarsi studenti universitari e studenti delle scuole superiori motivati a entrare nel progetto CUS Trento C5."],
+      ["Devo essere per forza uno studente universitario?","Il progetto sportivo è rivolto sia a studenti universitari sia a studenti delle scuole superiori."],
+      ["Serve esperienza nel calcio a 5?","L’esperienza nel futsal è utile, ma non obbligatoria. Valutiamo anche giocatori provenienti dal calcio a 11 o da altri percorsi sportivi."],
+      ["Come funziona la candidatura?","Compila il modulo con i tuoi dati, il ruolo, le esperienze precedenti e i contatti. Lo staff valuterà il profilo e, se in linea con il progetto, ti contatterà per un allenamento di prova."],
+      ["Quando si svolgono gli allenamenti?","Gli allenamenti si svolgono in orario serale, indicativamente il lunedì e il mercoledì. Giorni e orari possono variare in base alla stagione e alla squadra di riferimento. Le informazioni definitive verranno comunicate direttamente dallo staff."],
+      ["Cosa devo portare al primo allenamento?","Porta abbigliamento sportivo e scarpe adatte al campo indoor. Eventuali ulteriori indicazioni verranno comunicate dallo staff prima dell’allenamento."],
+      ["Posso scegliere tra prima squadra e Under 21?","L’inserimento nella prima squadra o nell’Under 21 viene valutato dallo staff in base a età, livello, esperienza e disponibilità agli allenamenti. L’obiettivo è trovare il percorso più adatto per ogni giocatore."],
+      ["Come vengo contattato?","Verrai contattato tramite il numero di telefono o l’email indicati nel modulo di candidatura."]
+    ];
+    const html = `${pageHero("Gioca con noi","Entra in squadra",intro)}
       <section class="cus-rework-section">
-        <div class="container cus-rework-split">
-          <div class="cus-rework-band">
-            <h2>Mandaci la tua candidatura</h2>
-            <p>Valutiamo profili con disponibilità ad allenarsi, spirito di gruppo e interesse per un progetto sportivo universitario e territoriale.</p>
-            <button class="cus-rework-action red" onclick="route('contacts')">Contattaci</button>
-          </div>
+        <div class="container">
           <div class="cus-rework-grid two">
-            <article class="cus-rework-card cus-rework-card-pad"><h3>Requisiti</h3><ul class="cus-rework-list">${["Disponibilità ad allenarsi con continuità","Esperienza futsal/calcio o forte motivazione","Rispetto del gruppo, dello staff e degli impegni","Apertura a prova tecnica e colloquio conoscitivo"].map(x=>`<li>${h(x)}</li>`).join("")}</ul></article>
-            <article class="cus-rework-card cus-rework-card-pad"><h3>Dati utili</h3><ul class="cus-rework-list">${fields.map(x=>`<li>${h(x)}</li>`).join("")}</ul></article>
+            <article class="cus-rework-card cus-rework-card-pad">
+              <span class="badge">Cosa cerchiamo</span>
+              <h2 style="margin-top:12px">Persone prima ancora che giocatori</h2>
+              <p>Cerchiamo persone prima ancora che giocatori: atleti affidabili, disponibili ad allenarsi con impegno e capaci di vivere il gruppo con rispetto. Non conta solo il livello tecnico. Conta la voglia di migliorare, la continuità, l’atteggiamento e la disponibilità a rappresentare i colori del CUS Trento e dell’Università degli Studi di Trento, dentro e fuori dal campo.</p>
+            </article>
+            <article class="cus-rework-card cus-rework-card-pad">
+              <span class="badge">Come funziona</span>
+              <h2 style="margin-top:12px">Candidatura e prova</h2>
+              <p>Invia la tua candidatura compilando il modulo con i tuoi dati e le informazioni sportive principali. Lo staff valuterà il profilo ricevuto e, se in linea con il progetto CUS Trento C5, ti contatterà per un allenamento di prova.</p>
+            </article>
           </div>
         </div>
       </section>
       <section class="cus-rework-section compact">
         <div class="container">
-          <div class="cus-rework-head"><div><h2>FAQ</h2><p>Risposte rapide prima di candidarti.</p></div></div>
-          <div class="cus-rework-grid three">
-            ${faq("Serve essere studenti universitari?","Il progetto nasce in ambito CUS, ma possono essere valutati anche profili del territorio in base a disponibilità e requisiti sportivi.")}
-            ${faq("Posso fare solo una prova?","Sì. La candidatura serve proprio a organizzare una prova tecnica o un primo confronto con lo staff.")}
-            ${faq("Prima squadra o Under 21?","La valutazione dipende da età, livello, ruolo e disponibilità. Lo staff indirizza il profilo nel gruppo più adatto.")}
+          <div class="cus-rework-band">
+            <div class="cus-rework-head" style="margin-bottom:0">
+              <div>
+                <h2>Invia la tua candidatura</h2>
+                <p>Nel modulo ti chiediamo di indicare nome, cognome, data di nascita, ruolo, esperienze sportive precedenti e un contatto telefonico.<br><br>Se sei uno studente universitario, inserisci anche il dipartimento, l’anno di corso e specifica se sei fuori sede o residente a Trento.<br><br>Se frequenti le scuole superiori, indica la scuola, che anno stai frequentando e le tue esperienze sportive nel territorio.</p>
+              </div>
+              <button class="cus-rework-action red" onclick="route('contacts')">INVIA LA TUA CANDIDATURA</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="cus-rework-section compact">
+        <div class="container">
+          <div class="cus-rework-head"><div><h2>FAQ</h2><p>Le risposte principali prima di candidarti.</p></div></div>
+          <div class="cus-rework-grid two">
+            ${faqs.map(item => faq(item[0],item[1])).join("")}
           </div>
         </div>
       </section>`;
