@@ -158,7 +158,18 @@
     </section>`;
   }
 
+
+  function cleanHomeHero(){
+    const homeRoot = document.querySelector(".home-structure");
+    const hero = homeRoot && homeRoot.querySelector(".hero");
+    const grid = hero && hero.querySelector(".hero-grid");
+    if(!grid) return;
+    const rightPanel = Array.from(grid.children).find(node => node && node.querySelector && (node.querySelector(".match-card") || node.querySelector(".mini-grid")));
+    if(rightPanel) rightPanel.remove();
+  }
+
   function insertUpcomingMatches(){
+    cleanHomeHero();
     const homeRoot = document.querySelector(".home-structure");
     const hero = homeRoot && homeRoot.querySelector(".hero");
     const existing = homeRoot && homeRoot.querySelector(".home-upcoming-section");
