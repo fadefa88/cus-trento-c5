@@ -1478,7 +1478,13 @@ function statsRankingCard(title,items,emptyText){return `<div class="card card-p
 function stats(){
   const isU21=view.stats==="u21";const scope=view.statsCompetition||"totale";const teamTitle=statsTeamLabel(isU21);const compLabel=statsCompetitionLabel();
   const matches=statsMatchesForScope(isU21,scope);const results=resultStatsFromMatches(matches);const scorers=topScorersFromMatches(matches,isU21);const keepers=goalkeeperAgainstFromMatches(matches,isU21);
-  shell("Analytics",`Statistiche — ${teamTitle}`,`${teamSwitch("stats")}${statsCompetitionSwitch()}<div class="grid grid-4 stats-result-grid">${statTile("Giocate",results.played)}${statTile("Vinte",results.wins)}${statTile("Pari",results.draws)}${statTile("Perse",results.losses)}</div>${statsMetaStrip(results)}<div class="grid grid-2 stats-rankings-grid">${statsRankingCard(`Marcatori — ${compLabel}`,scorers,"Nessun marcatore inserito nei match terminati di questo filtro.")}${statsRankingCard(`Portieri: gol subiti — ${compLabel}`,keepers,"Nessun gol subito attribuito ai portieri nei match terminati di questo filtro.")}</div>` ,"","Statistiche calcolate da risultati, marcatori e gol subiti portieri inseriti nei singoli match.");
+  const archiveCta = `<div class="cus-rework-band" style="margin-top:28px">
+    <div class="cus-rework-head" style="margin-bottom:0">
+      <div><h2>Numeri, record e protagonisti della nostra storia.</h2><p>Scopri l’archivio completo del CUS Trento C5: presenze, gol, classifiche e marcatori. Un modo semplice per ripercorrere il cammino della squadra attraverso i numeri che raccontano il campo.</p></div>
+      <button class="cus-rework-action red" onclick="route('records')">Vai all’archivio completo</button>
+    </div>
+  </div>`;
+  shell("Analytics",`Statistiche — ${teamTitle}`,`${teamSwitch("stats")}${statsCompetitionSwitch()}<div class="grid grid-4 stats-result-grid">${statTile("Giocate",results.played)}${statTile("Vinte",results.wins)}${statTile("Pari",results.draws)}${statTile("Perse",results.losses)}</div>${statsMetaStrip(results)}<div class="grid grid-2 stats-rankings-grid">${statsRankingCard(`Marcatori — ${compLabel}`,scorers,"Nessun marcatore inserito nei match terminati di questo filtro.")}${statsRankingCard(`Portieri: gol subiti — ${compLabel}`,keepers,"Nessun gol subito attribuito ai portieri nei match terminati di questo filtro.")}</div>${archiveCta}` ,"","Statistiche calcolate da risultati, marcatori e gol subiti portieri inseriti nei singoli match.");
 }
 function staff(){
   view.staff = view.staff === "dirigenza" ? "dirigenza" : "tecnico";
