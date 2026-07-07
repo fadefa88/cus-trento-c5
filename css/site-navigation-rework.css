@@ -169,7 +169,6 @@
   grid-column:2;
   width:min(560px,52vw);
   margin-left:auto;
-  margin-right:clamp(22px,4.8vw,78px);
   align-self:center;
 }
 .home-structure>.hero .match-card,
@@ -285,13 +284,11 @@ body .footer .container{
   font-size:clamp(46px,3vw,72px);
   line-height:.9;
   letter-spacing:-.075em;
-  max-width:420px;
   margin:14px 0 0;
 }
 .home-structure>.hero .lead{
   display:block;
   margin:0;
-  max-width:460px;
   color:rgba(255,255,255,.82);
 }
 .home-structure>.hero .lead-strong{
@@ -372,7 +369,6 @@ body .footer .container{
   width:auto!important;
   max-width:none!important;
   margin-left:auto!important;
-  margin-right:var(--cus-site-edge)!important;
   align-self:center!important;
 }
 .home-structure>.hero .home-hero-socials{
