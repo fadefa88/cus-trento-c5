@@ -1,0 +1,605 @@
+(function(){
+  const MENU_VERSION = "menu-rework-v1";
+  const baseUrl = "https://custrentocalcioa5.it";
+  const oldRoute = typeof window.route === "function" ? window.route.bind(window) : null;
+
+  const pathByRoute = {
+    "home":"/",
+    "teams-overview":"/squadre/",
+    "squad":"/squadra/",
+    "staff":"/staff/",
+    "stats":"/statistiche/",
+    "play-with-us":"/gioca-con-noi/",
+    "fixtures":"/calendario/",
+    "standings":"/classifica/",
+    "coppa":"/coppa/",
+    "cnu":"/cnu/",
+    "season-archive":"/archivio-stagioni/",
+    "matchday":"/matchday/",
+    "events":"/eventi/",
+    "events:upcoming":"/eventi/#prossimi-eventi",
+    "events:tournaments":"/eventi/#tornei",
+    "events:tryout":"/eventi/#open-day-tryout",
+    "events:partner":"/eventi/#eventi-partner",
+    "events:archive":"/eventi/#archivio-eventi",
+    "partner":"/partner/",
+    "become-partner":"/diventa-partner/",
+    "news":"/news/",
+    "gallery":"/gallery/",
+    "video":"/video/",
+    "social":"/social/",
+    "club-project":"/club/",
+    "club-history":"/storia/",
+    "venue":"/impianto/",
+    "values":"/valori/",
+    "collaborations":"/collaborazioni/",
+    "records":"/hall-of-fame/",
+    "contacts":"/contatti/",
+    "privacy":"/privacy/",
+    "cookies":"/cookies/"
+  };
+
+  const pathToRoute = {
+    "/squadre/":"teams-overview",
+    "/gioca-con-noi/":"play-with-us",
+    "/cnu/":"cnu",
+    "/archivio-stagioni/":"season-archive",
+    "/eventi/":"events",
+    "/partner/":"partner",
+    "/diventa-partner/":"become-partner",
+    "/club/":"club-project",
+    "/storia/":"club-history",
+    "/impianto/":"venue",
+    "/valori/":"values",
+    "/collaborazioni/":"collaborations",
+    "/sponsor/":"partner"
+  };
+
+  const menuGroups = [
+    {label:"Home",items:[["home","Home"]]},
+    {label:"Squadre",items:[
+      ["teams-overview","Squadre"],
+      ["squad","Rosa"],
+      ["staff","Staff"],
+      ["stats","Statistiche"],
+      ["play-with-us","Gioca con noi"]
+    ]},
+    {label:"Stagione",items:[
+      ["fixtures","Calendario"],
+      ["standings","Classifica"],
+      ["coppa","Coppa"],
+      ["cnu","CNU"],
+      ["season-archive","Archivio stagioni"],
+      ["matchday","Matchday"]
+    ]},
+    {label:"Eventi",items:[
+      ["events:upcoming","Prossimi eventi"],
+      ["events:tournaments","Tornei"],
+      ["events:tryout","Open day / Tryout"],
+      ["events:partner","Eventi partner"],
+      ["events:archive","Archivio eventi"]
+    ]},
+    {label:"Partner",items:[
+      ["partner","I nostri partner"],
+      ["become-partner","Diventa partner"]
+    ]},
+    {label:"Media",items:[
+      ["news","News"],
+      ["gallery","Gallery"],
+      ["video","Video"],
+      ["social","Social wall"]
+    ]},
+    {label:"Club",items:[
+      ["club-project","Chi siamo / Il progetto"],
+      ["club-history","Storia"],
+      ["venue","Impianto"],
+      ["values","Valori"],
+      ["collaborations","Collaborazioni"],
+      ["records","Hall of Fame"],
+      ["contacts","Contatti"]
+    ]}
+  ];
+
+  function h(value){
+    return String(value ?? "").replace(/[&<>\"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[ch]));
+  }
+
+  function norm(value){
+    return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"") || "pagina";
+  }
+
+  function localState(){
+    try{return state || {};}catch(e){return {};}
+  }
+
+  function siteFooter(){
+    try{return typeof footer === "function" ? footer() : "";}catch(e){return "";}
+  }
+
+  function seo(title, desc, path){
+    if(typeof setSEO === "function") setSEO(title, desc);
+    const canonical = document.getElementById("canonical");
+    if(canonical && path) canonical.href = baseUrl + path;
+    const ogTitle = document.getElementById("ogTitle");
+    const ogDescription = document.getElementById("ogDescription");
+    if(ogTitle) ogTitle.content = `CUS Trento C5 — ${title}`;
+    if(ogDescription) ogDescription.content = desc;
+  }
+
+  function fmtDate(value){
+    if(typeof fmt === "function") return fmt(value);
+    if(!value) return "Da definire";
+    const date = new Date(value);
+    if(Number.isNaN(date.getTime())) return String(value);
+    return new Intl.DateTimeFormat("it-IT",{day:"2-digit",month:"short",year:"numeric"}).format(date);
+  }
+
+  function monthDay(value){
+    const date = new Date(value);
+    if(Number.isNaN(date.getTime())) return {day:"--",month:"TBD"};
+    return {
+      day:new Intl.DateTimeFormat("it-IT",{day:"2-digit"}).format(date),
+      month:new Intl.DateTimeFormat("it-IT",{month:"short"}).format(date).replace(".","")
+    };
+  }
+
+  function isCustomRoute(routeId){
+    return [
+      "teams-overview","play-with-us","events","events:upcoming","events:tournaments","events:tryout",
+      "events:partner","events:archive","cnu","season-archive","partner","become-partner",
+      "club-project","club-history","venue","values","collaborations"
+    ].includes(String(routeId || "")) || String(routeId || "").startsWith("event-detail:");
+  }
+
+  function topActive(routeId){
+    const base = String(routeId || window.__cusActiveRoute || "home");
+    if(base.startsWith("events") || base.startsWith("event-detail")) return "events";
+    if(["teams-overview","squad","staff","stats","play-with-us"].includes(base)) return "teams";
+    if(["fixtures","standings","coppa","cnu","season-archive","matchday"].includes(base)) return "season";
+    if(["partner","become-partner"].includes(base)) return "partner";
+    if(["news","gallery","video","social"].includes(base)) return "media";
+    if(["club-project","club-history","venue","values","collaborations","records","contacts"].includes(base)) return "club";
+    return base === "home" ? "home" : "";
+  }
+
+  function renderCusMenu(){
+    const nav = document.getElementById("navGroups");
+    const mobile = document.getElementById("mobileMenu");
+    if(!nav || !mobile) return;
+    const active = window.__cusActiveRoute || routeFromLocation() || "home";
+    const activeTop = topActive(active);
+
+    nav.dataset.cusRework = "true";
+    nav.innerHTML = menuGroups.map(group => {
+      const groupKey = topKey(group.label);
+      if(group.items.length === 1){
+        const [id,label] = group.items[0];
+        return `<div class="nav-group"><button class="nav-main ${activeTop===groupKey ? "active" : ""}" onclick="cusMenuRoute('${id}')">${h(label)}</button></div>`;
+      }
+      const first = group.items[0][0];
+      return `<div class="nav-group">
+        <button class="nav-main ${activeTop===groupKey ? "active" : ""}" onclick="cusMenuRoute('${first}')">${h(group.label)}</button>
+        <div class="dropdown">
+          ${group.items.map(([id,label]) => `<button class="${active===id ? "active" : ""}" onclick="cusMenuRoute('${id}')">${h(label)}</button>`).join("")}
+        </div>
+      </div>`;
+    }).join("");
+
+    mobile.innerHTML = menuGroups.map(group => {
+      if(group.items.length === 1){
+        const [id,label] = group.items[0];
+        return `<button onclick="cusMenuRoute('${id}');toggleMobile()">${h(label)}</button>`;
+      }
+      return `<details><summary>${h(group.label)}</summary>${group.items.map(([id,label]) => `<button onclick="cusMenuRoute('${id}');toggleMobile()">${h(label)}</button>`).join("")}</details>`;
+    }).join("");
+  }
+
+  function topKey(label){
+    const key = String(label || "").toLowerCase();
+    if(key === "squadre") return "teams";
+    if(key === "stagione") return "season";
+    if(key === "eventi") return "events";
+    if(key === "partner") return "partner";
+    if(key === "media") return "media";
+    if(key === "club") return "club";
+    return "home";
+  }
+
+  function pushRoute(routeId, replace){
+    const path = pathByRoute[routeId] || "/"+norm(routeId)+"/";
+    if(replace) history.replaceState({route:routeId},"",path);
+    else history.pushState({route:routeId},"",path);
+  }
+
+  function setApp(html, routeId, title, desc, replace){
+    const target = document.getElementById("app");
+    if(!target) return;
+    window.__cusActiveRoute = routeId;
+    seo(title, desc, (pathByRoute[routeId] || location.pathname));
+    if(!replace) pushRoute(routeId, false);
+    target.innerHTML = `<div class="cus-rework-page">${html}</div>${siteFooter()}`;
+    renderCusMenu();
+    window.scrollTo({top:0,behavior:"instant"});
+  }
+
+  function pageHero(kicker,title,lead){
+    return `<section class="cus-rework-hero"><div class="container"><span class="cus-rework-kicker">${h(kicker)}</span><h1 class="cus-rework-title">${h(title)}</h1><p class="cus-rework-lead">${h(lead)}</p></div></section>`;
+  }
+
+  function metric(value,label){
+    return `<div class="cus-rework-metric"><b>${h(value)}</b><span>${h(label)}</span></div>`;
+  }
+
+  function rosterCount(teamName){
+    const s = localState();
+    return (s.roster || []).filter(p => String(p.team || "").toLowerCase().includes(String(teamName).toLowerCase())).length;
+  }
+
+  function futureMatchCount(list){
+    return (list || []).filter(m => !m.score && String(m.status || "").toLowerCase() !== "terminata").length;
+  }
+
+  function renderTeamsOverview(replace){
+    const s = localState();
+    const prima = rosterCount("prima");
+    const u21 = rosterCount("under");
+    const html = `${pageHero("Squadre","Prima squadra e Under 21","Due gruppi collegati da un unico progetto tecnico: futsal universitario, identità CUS e crescita dei giocatori.")}
+      <section class="cus-rework-section">
+        <div class="container">
+          <div class="cus-rework-grid two">
+            ${teamCard("Prima squadra","Serie C1","Il gruppo senior rappresenta il CUS Trento C5 nel massimo campionato regionale, con focus su competitività, identità e sviluppo del progetto.",prima,futureMatchCount(s.fixtures),"/assets/team.jpg","squad")}
+            ${teamCard("Under 21","Campionato Under 21","Il settore U21 è il ponte tra università, territorio e prima squadra: formazione, minutaggio e crescita tecnica.",u21,futureMatchCount(s.u21Fixtures),"/assets/foto-sito.webp?auto=format&fit=crop&w=1200&q=80","squad")}
+          </div>
+        </div>
+      </section>
+      <section class="cus-rework-section compact">
+        <div class="container">
+          <div class="cus-rework-band">
+            <div class="cus-rework-head" style="margin-bottom:0">
+              <div><h2>Vuoi entrare nel progetto?</h2><p>Cerchiamo giocatori motivati, studenti e profili del territorio interessati ad allenarsi con continuità.</p></div>
+              <button class="cus-rework-action red" onclick="cusMenuRoute('play-with-us')">Gioca con noi</button>
+            </div>
+          </div>
+        </div>
+      </section>`;
+    setApp(html,"teams-overview","Squadre","Prima squadra e Under 21 del CUS Trento C5.",replace);
+  }
+
+  function teamCard(title,competition,text,count,next,image,routeId){
+    return `<article class="cus-rework-card">
+      <div class="cus-rework-media"><img src="${h(image)}" alt="${h(title)} CUS Trento C5" loading="lazy"></div>
+      <div class="cus-rework-card-pad">
+        <span class="badge">${h(competition)}</span>
+        <h3>${h(title)}</h3>
+        <p>${h(text)}</p>
+        <div class="cus-rework-metrics">
+          ${metric(count || "—","Giocatori")}
+          ${metric(next || 0,"Gare future")}
+          ${metric("CUS","Progetto")}
+        </div>
+        <button class="cus-rework-action" onclick="route('${routeId}')">Apri rosa</button>
+      </div>
+    </article>`;
+  }
+
+  function renderPlayWithUs(replace){
+    const s = localState();
+    const fields = Array.isArray(s.tryoutFields) ? s.tryoutFields : ["Nome e cognome","Età","Ruolo","Esperienza","Telefono","Email"];
+    const html = `${pageHero("Gioca con noi","Entra in squadra","Una call to action chiara per chi vuole provare ad allenarsi con il CUS Trento C5 o candidarsi per Prima squadra e Under 21.")}
+      <section class="cus-rework-section">
+        <div class="container cus-rework-split">
+          <div class="cus-rework-band">
+            <h2>Mandaci la tua candidatura</h2>
+            <p>Valutiamo profili con disponibilità ad allenarsi, spirito di gruppo e interesse per un progetto sportivo universitario e territoriale.</p>
+            <button class="cus-rework-action red" onclick="route('contacts')">Contattaci</button>
+          </div>
+          <div class="cus-rework-grid two">
+            <article class="cus-rework-card cus-rework-card-pad"><h3>Requisiti</h3><ul class="cus-rework-list">${["Disponibilità ad allenarsi con continuità","Esperienza futsal/calcio o forte motivazione","Rispetto del gruppo, dello staff e degli impegni","Apertura a prova tecnica e colloquio conoscitivo"].map(x=>`<li>${h(x)}</li>`).join("")}</ul></article>
+            <article class="cus-rework-card cus-rework-card-pad"><h3>Dati utili</h3><ul class="cus-rework-list">${fields.map(x=>`<li>${h(x)}</li>`).join("")}</ul></article>
+          </div>
+        </div>
+      </section>
+      <section class="cus-rework-section compact">
+        <div class="container">
+          <div class="cus-rework-head"><div><h2>FAQ</h2><p>Risposte rapide prima di candidarti.</p></div></div>
+          <div class="cus-rework-grid three">
+            ${faq("Serve essere studenti universitari?","Il progetto nasce in ambito CUS, ma possono essere valutati anche profili del territorio in base a disponibilità e requisiti sportivi.")}
+            ${faq("Posso fare solo una prova?","Sì. La candidatura serve proprio a organizzare una prova tecnica o un primo confronto con lo staff.")}
+            ${faq("Prima squadra o Under 21?","La valutazione dipende da età, livello, ruolo e disponibilità. Lo staff indirizza il profilo nel gruppo più adatto.")}
+          </div>
+        </div>
+      </section>`;
+    setApp(html,"play-with-us","Gioca con noi","Candidati per entrare nel CUS Trento C5.",replace);
+  }
+
+  function faq(q,a){return `<article class="cus-rework-card cus-rework-card-pad"><h3>${h(q)}</h3><p>${h(a)}</p></article>`;}
+
+  const fallbackEvents = [
+    {id:"open-day-1",title:"Open day CUS Trento C5",type:"Open day / Tryout",date:"2026-09-08",time:"20:30",venue:"Sanbàpolis",summary:"Serata di prova aperta a nuovi giocatori interessati a Prima squadra e Under 21.",section:"tryout"},
+    {id:"torneo-studenti",title:"Torneo studenti UniTrento",type:"Torneo",date:"2026-09-21",time:"18:00",venue:"Sanbàpolis",summary:"Torneo promozionale aperto alla community universitaria.",section:"tournaments"},
+    {id:"partner-night",title:"Partner Night",type:"Evento partner",date:"2026-10-03",time:"19:30",venue:"Sanbàpolis",summary:"Incontro con sponsor, aziende e realtà del territorio.",section:"partner"},
+    {id:"matchday-community",title:"Community Matchday",type:"Prossimo evento",date:"2026-10-17",time:"20:45",venue:"Sanbàpolis",summary:"Matchday con attività per studenti, famiglie e tifosi.",section:"upcoming"},
+    {id:"tryout-u21",title:"Tryout Under 21",type:"Open day / Tryout",date:"2026-11-04",time:"19:00",venue:"Sanbàpolis",summary:"Sessione dedicata ai profili giovani per il gruppo Under 21.",section:"tryout"},
+    {id:"futsal-campus",title:"Futsal Campus",type:"Torneo",date:"2026-12-12",time:"15:00",venue:"Palestra CUS",summary:"Evento tecnico e mini torneo dedicato alla community CUS.",section:"tournaments"}
+  ];
+
+  function allEvents(){
+    const s = localState();
+    const cmsEvents = Array.isArray(s.events) ? s.events : [];
+    return cmsEvents.length ? cmsEvents : fallbackEvents;
+  }
+
+  function renderEvents(routeId, replace){
+    const section = String(routeId || "events").split(":")[1] || "upcoming";
+    const html = `${pageHero("Eventi","Eventi CUS Trento C5","Prossimi eventi, tornei, open day, tryout, attività partner e archivio in un'unica pagina organizzata per sezioni.")}
+      <section class="cus-rework-section">
+        <div class="container">
+          <div class="cus-rework-event-tabs">
+            ${eventTab("events:upcoming","Prossimi eventi",section==="upcoming")}
+            ${eventTab("events:tournaments","Tornei",section==="tournaments")}
+            ${eventTab("events:tryout","Open day / Tryout",section==="tryout")}
+            ${eventTab("events:partner","Eventi partner",section==="partner")}
+            ${eventTab("events:archive","Archivio eventi",section==="archive")}
+          </div>
+          ${eventsBlock("prossimi-eventi","Prossimi eventi","upcoming")}
+          ${eventsBlock("tornei","Tornei","tournaments")}
+          ${eventsBlock("open-day-tryout","Open day / Tryout","tryout")}
+          ${eventsBlock("eventi-partner","Eventi partner","partner")}
+          ${eventsBlock("archivio-eventi","Eventi passati / Archivio","archive")}
+        </div>
+      </section>`;
+    setApp(html,routeId || "events","Eventi","Eventi, tornei e open day del CUS Trento C5.",replace);
+    setTimeout(() => {
+      const targetId = section === "tournaments" ? "tornei" : section === "tryout" ? "open-day-tryout" : section === "partner" ? "eventi-partner" : section === "archive" ? "archivio-eventi" : "prossimi-eventi";
+      const el = document.getElementById(targetId);
+      if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
+    }, 80);
+  }
+
+  function eventTab(id,label,active){return `<button class="${active ? "active" : ""}" onclick="cusMenuRoute('${id}')">${h(label)}</button>`;}
+
+  function eventsBlock(anchor,title,section){
+    let items = allEvents().filter(ev => {
+      const evSection = ev.section || sectionFromType(ev.type);
+      if(section === "archive") return ev.archive || new Date(ev.date) < new Date();
+      if(ev.archive) return false;
+      return evSection === section || (section === "upcoming" && !["tournaments","tryout","partner"].includes(evSection));
+    });
+    if(!items.length && section !== "archive") items = allEvents().filter(ev => !ev.archive).slice(0,3);
+    return `<div id="${h(anchor)}" class="cus-rework-anchor" style="margin-bottom:42px">
+      <div class="cus-rework-head"><div><h2>${h(title)}</h2><p>Card evento cliccabile con rimando alla scheda di dettaglio.</p></div></div>
+      <div class="cus-rework-grid three">${items.length ? items.map(eventCard).join("") : `<article class="cus-rework-card cus-rework-card-pad"><h3>Nessun evento</h3><p>Aggiungi gli eventi dal CMS quando la collection sarà disponibile.</p></article>`}</div>
+    </div>`;
+  }
+
+  function sectionFromType(type){
+    const t = String(type || "").toLowerCase();
+    if(t.includes("torneo")) return "tournaments";
+    if(t.includes("tryout") || t.includes("open")) return "tryout";
+    if(t.includes("partner")) return "partner";
+    return "upcoming";
+  }
+
+  function eventCard(ev){
+    const d = monthDay(ev.date);
+    return `<article class="cus-rework-card cus-event-card clickable" onclick="cusMenuRoute('event-detail:${h(ev.id || norm(ev.title))}')">
+      <div class="cus-event-top"><div class="cus-event-date"><div><b>${h(d.day)}</b><span>${h(d.month)}</span></div></div><span class="cus-event-type">${h(ev.type || "Evento")}</span></div>
+      <div class="cus-rework-card-pad">
+        <h3>${h(ev.title || "Evento CUS")}</h3>
+        <p>${h(ev.summary || ev.description || "Informazioni evento in aggiornamento.")}</p>
+        <small>${h(fmtDate(ev.date))} · ${h(ev.time || "Orario TBC")} · ${h(ev.venue || "Luogo da definire")}</small>
+        <button>Info evento</button>
+      </div>
+    </article>`;
+  }
+
+  function renderEventDetail(routeId, replace){
+    const id = String(routeId).replace(/^event-detail:/,"");
+    const ev = allEvents().find(x => String(x.id || norm(x.title)) === id) || allEvents()[0];
+    if(!ev){renderEvents("events:upcoming", replace);return;}
+    const d = monthDay(ev.date);
+    const path = `/eventi/${norm(ev.title || ev.id)}/`;
+    window.__cusActiveRoute = routeId;
+    if(!replace) history.pushState({route:routeId},"",path);
+    seo(ev.title || "Evento","Dettaglio evento CUS Trento C5.",path);
+    const html = `${pageHero(ev.type || "Evento",ev.title || "Evento CUS",ev.summary || ev.description || "Scheda evento in aggiornamento.")}
+      <section class="cus-rework-section">
+        <div class="container cus-rework-split">
+          <div class="cus-rework-band"><h2>${h(d.day)} ${h(d.month)}</h2><p>${h(fmtDate(ev.date))} · ${h(ev.time || "Orario TBC")}<br>${h(ev.venue || "Luogo da definire")}</p><button class="cus-rework-action red" onclick="route('contacts')">Chiedi informazioni</button></div>
+          <article class="cus-rework-card cus-rework-card-pad"><h3>Tutte le info</h3><p>${h(ev.details || ev.description || ev.summary || "Dettagli in aggiornamento.")}</p><button class="cus-rework-action" onclick="cusMenuRoute('events:upcoming')">Torna agli eventi</button></article>
+        </div>
+      </section>`;
+    document.getElementById("app").innerHTML = `<div class="cus-rework-page">${html}</div>${siteFooter()}`;
+    renderCusMenu();
+    window.scrollTo({top:0,behavior:"instant"});
+  }
+
+  function renderCnu(replace){
+    const s = localState();
+    const cnu = s.cnu || {title:"Campionati Nazionali Universitari",status:"Competizione universitaria nazionale",edition:"2026"};
+    const fixtures = Array.isArray(s.cnuFixtures) ? s.cnuFixtures : [
+      {round:"Fase territoriale",date:"2026-03-15",time:"20:30",home:"CUS Trento",away:"CUS Verona",venue:"Sanbàpolis",status:"Da giocare"},
+      {round:"Finali nazionali",date:"2026-05-20",time:"TBC",home:"Da definire",away:"Da definire",venue:"Da definire",status:"In attesa"}
+    ];
+    const html = `${pageHero("CNU",cnu.title,"Una sezione dedicata ai Campionati Nazionali Universitari, competizione identitaria per il progetto CUS.")}
+      <section class="cus-rework-section">
+        <div class="container cus-rework-split">
+          <div class="cus-rework-band"><h2>${h(cnu.edition || "Stagione 2026")}</h2><p>${h(cnu.status || "Percorso in aggiornamento")}</p></div>
+          <div class="cus-rework-grid">
+            ${fixtures.map(match => `<article class="cus-rework-card cus-rework-card-pad"><span class="badge">${h(match.round || "CNU")}</span><h3>${h(match.home || "CUS Trento")} vs ${h(match.away || "Avversario")}</h3><p>${h(fmtDate(match.date))} · ${h(match.time || "TBC")} · ${h(match.venue || "Da definire")}</p></article>`).join("")}
+          </div>
+        </div>
+      </section>`;
+    setApp(html,"cnu","CNU","Campionati Nazionali Universitari del CUS Trento C5.",replace);
+  }
+
+  function renderSeasonArchive(replace){
+    const s = localState();
+    const rows = (s.historicalStats && Array.isArray(s.historicalStats.seasons) ? s.historicalStats.seasons : (s.seasons || []));
+    const html = `${pageHero("Archivio stagioni","Classifiche e stagioni passate","Archivio storico dei risultati stagionali, utile per dare continuità al racconto sportivo del club.")}
+      <section class="cus-rework-section"><div class="container"><div class="table-wrap"><table class="cus-rework-table">
+      <thead><tr><th>Stagione</th><th>Gare</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>Diff.</th></tr></thead>
+      <tbody>${rows.map(r => `<tr><td>${h(r.season)}</td><td>${h(r.played || "-")}</td><td>${h(r.wins || "-")}</td><td>${h(r.draws || "-")}</td><td>${h(r.losses || "-")}</td><td>${h(r.goalsFor || "-")}</td><td>${h(r.goalsAgainst || "-")}</td><td>${h(r.goalDifference || r.note || "-")}</td></tr>`).join("")}</tbody>
+      </table></div></div></section>`;
+    setApp(html,"season-archive","Archivio stagioni","Archivio storico stagioni CUS Trento C5.",replace);
+  }
+
+  function renderBecomePartner(replace){
+    const s = localState();
+    const packs = Array.isArray(s.sponsorPackages) ? s.sponsorPackages : [];
+    const html = `${pageHero("Diventa partner","Costruiamo valore insieme","Pacchetti, visibilità e contatti per aziende e realtà del territorio che vogliono sostenere il CUS Trento C5.")}
+      <section class="cus-rework-section">
+        <div class="container">
+          <div class="cus-rework-grid four">
+            ${packs.map(p => `<article class="cus-rework-card cus-rework-card-pad"><span class="badge">${h(p.price || "Su richiesta")}</span><h3>${h(p.name)}</h3><ul class="cus-rework-list">${(p.visibility || []).map(v=>`<li>${h(v)}</li>`).join("")}</ul><button class="cus-rework-action" onclick="route('contacts')">${h(p.cta || "Richiedi informazioni")}</button></article>`).join("") || `<article class="cus-rework-card cus-rework-card-pad"><h3>Pacchetti partner</h3><p>Configura i pacchetti sponsor dal CMS o contattaci per una proposta personalizzata.</p><button class="cus-rework-action" onclick="route('contacts')">Contatti</button></article>`}
+          </div>
+        </div>
+      </section>`;
+    setApp(html,"become-partner","Diventa partner","Pacchetti partner e sponsorship CUS Trento C5.",replace);
+  }
+
+  function renderClubHistory(replace){
+    const s = localState();
+    const history = s.clubHistory || {};
+    const html = `${pageHero("Storia",history.title || "La nostra storia","Le tappe principali del CUS Trento C5: nascita, crescita, promozioni e identità universitaria.")}
+      <section class="cus-rework-section"><div class="container cus-rework-split">
+        <article class="cus-rework-card cus-rework-card-pad">${(history.paragraphs || ["Storia in aggiornamento."]).map(p=>`<p style="margin-bottom:16px">${h(p)}</p>`).join("")}</article>
+        <div class="cus-rework-grid">${(history.images || []).slice(-4).reverse().map(img=>`<article class="cus-rework-card"><div class="cus-rework-media"><img src="${h(img.image || "/img/placeholder.webp")}" alt="${h(img.season || "Stagione")}"></div><div class="cus-rework-card-pad"><h3>${h(img.season || "Stagione")}</h3></div></article>`).join("")}</div>
+      </div></section>`;
+    setApp(html,"club-history","Storia","Storia del CUS Trento C5.",replace);
+  }
+
+  function renderVenue(replace){
+    const html = `${pageHero("Impianto","Sanbàpolis","La casa del CUS Trento C5: il punto di riferimento per partite, allenamenti, eventi e attività della community.")}
+      <section class="cus-rework-section"><div class="container cus-rework-split">
+        <div class="cus-rework-card"><div class="cus-rework-media"><img src="/assets/foto-sito.webp?auto=format&fit=crop&w=1400&q=80" alt="Sanbàpolis CUS Trento C5"></div></div>
+        <article class="cus-rework-card cus-rework-card-pad"><h3>Informazioni impianto</h3><p>Sanbàpolis ospita matchday, allenamenti e iniziative del club. La pagina può essere arricchita con indirizzo, parcheggi, accessibilità, mappe e info per il pubblico.</p><button class="cus-rework-action" onclick="route('matchday')">Info matchday</button></article>
+      </div></section>`;
+    setApp(html,"venue","Impianto","Impianto e casa del CUS Trento C5.",replace);
+  }
+
+  function renderValues(replace){
+    const values = [
+      ["Identità universitaria","Un progetto sportivo legato alla community CUS e al territorio trentino."],
+      ["Crescita","Spazio a giovani, studenti e profili motivati a migliorare."],
+      ["Responsabilità","Rispetto, impegno e affidabilità dentro e fuori dal campo."],
+      ["Community","Partite, eventi e iniziative aperte a tifosi, famiglie, aziende e studenti."]
+    ];
+    const html = `${pageHero("Valori","Il modo in cui giochiamo","I principi che guidano squadra, staff e progetto sportivo.")}
+      <section class="cus-rework-section"><div class="container"><div class="cus-rework-grid four">${values.map(v=>`<article class="cus-rework-card cus-rework-card-pad"><h3>${h(v[0])}</h3><p>${h(v[1])}</p></article>`).join("")}</div></div></section>`;
+    setApp(html,"values","Valori","Valori del CUS Trento C5.",replace);
+  }
+
+  function renderCollaborations(replace){
+    const html = `${pageHero("Collaborazioni","Rete sportiva e territoriale","Una pagina per valorizzare collaborazioni con università, partner, realtà sportive, istituzioni e community locali.")}
+      <section class="cus-rework-section"><div class="container"><div class="cus-rework-grid three">
+        ${["Università e CUS","Partner territoriali","Community e iniziative"].map((x,i)=>`<article class="cus-rework-card cus-rework-card-pad"><h3>${h(x)}</h3><p>${h(["Collaborazioni collegate al mondo universitario e allo sport CUS.","Relazioni con aziende e professionisti che sostengono il progetto.","Attività, eventi e progetti aperti a studenti, famiglie e territorio."][i])}</p></article>`).join("")}
+      </div></div></section>`;
+    setApp(html,"collaborations","Collaborazioni","Collaborazioni del CUS Trento C5.",replace);
+  }
+
+  function renderPartnerExact(replace){
+    window.__cusActiveRoute = "partner";
+    if(oldRoute) oldRoute("sponsor");
+    setTimeout(() => {
+      history.replaceState({route:"partner"},"",pathByRoute.partner);
+      seo("Partner","I nostri partner del CUS Trento C5.",pathByRoute.partner);
+      renderCusMenu();
+    }, 0);
+  }
+
+  function renderClubProject(replace){
+    window.__cusActiveRoute = "club-project";
+    if(oldRoute) oldRoute("club");
+    setTimeout(() => {
+      history.replaceState({route:"club-project"},"",pathByRoute["club-project"]);
+      seo("Chi siamo / Il progetto","Il progetto sportivo e societario del CUS Trento C5.",pathByRoute["club-project"]);
+      renderCusMenu();
+    }, 0);
+  }
+
+  function routeFromLocation(){
+    let path = location.pathname.replace(/\/+/g,"/");
+    if(path !== "/" && !path.endsWith("/")) path += "/";
+    if(path.startsWith("/eventi/") && path !== "/eventi/"){
+      return "event-detail:" + path.split("/").filter(Boolean).slice(1).join("/");
+    }
+    const route = pathToRoute[path];
+    if(route === "events" && location.hash){
+      const hash = location.hash.replace("#","");
+      if(hash === "tornei") return "events:tournaments";
+      if(hash === "open-day-tryout") return "events:tryout";
+      if(hash === "eventi-partner") return "events:partner";
+      if(hash === "archivio-eventi") return "events:archive";
+      return "events:upcoming";
+    }
+    return route || null;
+  }
+
+  function renderCustom(routeId, replace){
+    if(routeId === "teams-overview") return renderTeamsOverview(replace);
+    if(routeId === "play-with-us") return renderPlayWithUs(replace);
+    if(String(routeId).startsWith("events")) return renderEvents(routeId, replace);
+    if(String(routeId).startsWith("event-detail:")) return renderEventDetail(routeId, replace);
+    if(routeId === "cnu") return renderCnu(replace);
+    if(routeId === "season-archive") return renderSeasonArchive(replace);
+    if(routeId === "partner") return renderPartnerExact(replace);
+    if(routeId === "become-partner") return renderBecomePartner(replace);
+    if(routeId === "club-project") return renderClubProject(replace);
+    if(routeId === "club-history") return renderClubHistory(replace);
+    if(routeId === "venue") return renderVenue(replace);
+    if(routeId === "values") return renderValues(replace);
+    if(routeId === "collaborations") return renderCollaborations(replace);
+  }
+
+  window.cusMenuRoute = function(routeId){
+    if(isCustomRoute(routeId)) return renderCustom(routeId, false);
+    window.__cusActiveRoute = routeId;
+    if(oldRoute) oldRoute(routeId);
+    setTimeout(renderCusMenu, 0);
+  };
+
+  window.route = function(routeId){
+    if(isCustomRoute(routeId)) return renderCustom(routeId, false);
+    window.__cusActiveRoute = routeId || "home";
+    if(oldRoute) oldRoute(routeId);
+    setTimeout(renderCusMenu, 0);
+  };
+
+  window.addEventListener("popstate", () => {
+    const custom = routeFromLocation();
+    if(custom && isCustomRoute(custom)) renderCustom(custom, true);
+    else {
+      window.__cusActiveRoute = custom || "home";
+      if(oldRoute) oldRoute(custom || "home");
+      setTimeout(renderCusMenu, 0);
+    }
+  });
+
+  function boot(){
+    renderCusMenu();
+    const custom = routeFromLocation();
+    if(custom && isCustomRoute(custom)) renderCustom(custom, true);
+  }
+
+  const navObserver = new MutationObserver(() => {
+    const nav = document.getElementById("navGroups");
+    if(nav && nav.dataset.cusRework !== "true") renderCusMenu();
+  });
+
+  function observeNav(){
+    const nav = document.getElementById("navGroups");
+    if(nav) navObserver.observe(nav,{childList:true,subtree:true});
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", () => {boot();observeNav();});
+  }else{
+    boot();observeNav();
+  }
+
+  setTimeout(boot,80);
+  setTimeout(boot,350);
+  setTimeout(boot,1000);
+  window.__cusMenuVersion = MENU_VERSION;
+})();
