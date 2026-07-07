@@ -328,8 +328,8 @@
       <section class="cus-rework-section">
         <div class="container">
           <div class="cus-rework-grid two">
-            ${teamCard("Prima squadra","Serie C1","La prima squadra è il cuore agonistico del CUS Trento C5. Un gruppo che affronta la stagione con intensità, metodo e spirito di squadra, rappresentando il club nei principali appuntamenti del calcio a 5 regionale.",prima,futureMatchCount(s.fixtures),"/assets/foto-sito.webp?auto=format&fit=crop&w=1200&q=80","squad")}
-            ${teamCard("Under 21","Serie D","L’Under 21 è il percorso di crescita dedicato ai giovani giocatori del CUS Trento C5. Una squadra pensata per formare atleti pronti ad affrontare il futsal con serietà, continuità e responsabilità.",u21,futureMatchCount(s.u21Fixtures),"/assets/foto-squadra-u21.webp?auto=format&fit=crop&w=1200&q=80","squad")}
+            ${teamCard("Prima squadra","Serie C1","La prima squadra è il cuore agonistico del CUS Trento C5. Un gruppo che affronta la stagione con intensità, metodo e spirito di squadra, rappresentando il club nei principali appuntamenti del calcio a 5 regionale.",prima,futureMatchCount(s.fixtures),"/assets/foto-sito.webp?auto=format&fit=crop&w=1200&q=90","squad")}
+            ${teamCard("Under 21","Serie D","L’Under 21 è il percorso di crescita dedicato ai giovani giocatori del CUS Trento C5. Una squadra pensata per formare atleti pronti ad affrontare il futsal con serietà, continuità e responsabilità.",u21,futureMatchCount(s.u21Fixtures),"/assets/foto-squadra-u21.webp?auto=format&fit=crop&w=1200&q=90","squad")}
           </div>
         </div>
       </section>
@@ -337,8 +337,9 @@
         <div class="container">
           <div class="cus-rework-band">
             <div class="cus-rework-head" style="margin-bottom:0">
-              <div><h2>Vuoi entrare nel progetto?</h2><p>Cerchiamo giocatori motivati, studenti e profili del territorio interessati ad allenarsi con continuità.</p></div>
-              <button class="cus-rework-action red" onclick="cusMenuRoute('play-with-us')">Gioca con noi</button>
+              <div><h2>Vuoi entrare in squadra?</h2><p>Hai voglia di metterti alla prova, allenarti con continuità e vivere il futsal in un ambiente serio, giovane e di squadra?<br>Il CUS Trento C5 cerca giocatori motivati, pronti a crescere, competere e rappresentare con orgoglio i colori del CUS Trento e dell’Università degli Studi di Trento, dentro e fuori dal campo.
+</p></div>
+              <button class="cus-rework-action red" onclick="cusMenuRoute('play-with-us')">Candidati come giocatore</button>
             </div>
           </div>
         </div>
