@@ -97,7 +97,7 @@
 @media (max-width:640px){.home-structure>.hero{min-height:660px}.home-structure>.hero:before{width:100%;height:42%;bottom:auto}.home-structure>.hero:after{left:0;top:42%;width:100%;height:58%}}
 
 /* v6: homepage hero content locked into the 1/3 gradient column; right match card removed. */
-.home-structure>.hero{min-height:850px;display:grid;align-items:center;background:#09090b;}
+.home-structure>.hero{min-height:720px;display:grid;align-items:center;background:#09090b;}
 .home-structure>.hero:before{width:34%;background:black;}
 .home-structure>.hero:after{left:34%;width:66%;background:linear-gradient(90deg,rgba(9,9,11,.34) 0%,rgba(9,9,11,.06) 42%,rgba(9,9,11,.50) 100%),var(--cus-home-hero-image) center/cover no-repeat;}
 .home-structure>.hero .hero-grid{grid-template-columns:minmax(292px,34%) 1fr;gap:0;align-items:center;width:100%;padding-top:72px;padding-bottom:150px;}
@@ -169,6 +169,7 @@
   grid-column:2;
   width:min(560px,52vw);
   margin-left:auto;
+  margin-right:clamp(22px,4.8vw,78px);
   align-self:center;
 }
 .home-structure>.hero .match-card,
@@ -284,11 +285,13 @@ body .footer .container{
   font-size:clamp(46px,3vw,72px);
   line-height:.9;
   letter-spacing:-.075em;
+  max-width:420px;
   margin:14px 0 0;
 }
 .home-structure>.hero .lead{
   display:block;
   margin:0;
+  max-width:460px;
   color:rgba(255,255,255,.82);
 }
 .home-structure>.hero .lead-strong{
@@ -369,6 +372,7 @@ body .footer .container{
   width:auto!important;
   max-width:none!important;
   margin-left:auto!important;
+  margin-right:var(--cus-site-edge)!important;
   align-self:center!important;
 }
 .home-structure>.hero .home-hero-socials{
@@ -509,5 +513,122 @@ body .footer .container{
   .home-structure>.hero .hero-grid>div:first-child{
     max-width:none!important;
     padding-right:0!important;
+  }
+}
+
+
+/* v18: mobile hero fixes.
+   Vertical mobile: social rail above Serie/Stagione, image starts at 42%.
+   Landscape/narrow-height mobile: CTA in row, hero 600px, image pushed wide/right. */
+@media (max-width:640px) and (orientation:portrait){
+  .home-structure>.hero{
+    min-height:820px!important;
+  }
+  .home-structure>.hero:before{
+    width:100%!important;
+    height:42%!important;
+  }
+  .home-structure>.hero:after{
+    left:0!important;
+    top:42%!important;
+    width:100%!important;
+    height:58%!important;
+  }
+  .home-structure>.hero .container.hero-grid{
+    padding-top:98px!important;
+    padding-bottom:150px!important;
+  }
+  .home-structure>.hero .home-hero-socials{
+    position:absolute!important;
+    left:var(--cus-site-edge,16px)!important;
+    right:auto!important;
+    top:56px!important;
+    display:flex!important;
+    flex-direction:row!important;
+    justify-content:flex-start!important;
+    align-items:center!important;
+    gap:8px!important;
+    margin:0!important;
+    z-index:5!important;
+  }
+  .home-structure>.hero .home-hero-socials a,
+  .home-structure>.hero .home-hero-socials button{
+    width:36px!important;
+    height:36px!important;
+    font-size:15px!important;
+  }
+  .home-structure>.hero .home-hero-actions{
+    flex-direction:row!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    gap:7px!important;
+    width:100%!important;
+    overflow-x:auto!important;
+    scrollbar-width:none!important;
+  }
+  .home-structure>.hero .home-hero-actions::-webkit-scrollbar{
+    display:none!important;
+  }
+  .home-structure>.hero .home-hero-actions .btn{
+    flex:0 0 auto!important;
+    width:auto!important;
+    padding:10px 11px!important;
+    font-size:10px!important;
+    white-space:nowrap!important;
+  }
+  .home-structure>.hero .home-hero-actions .btn i{
+    font-size:12px!important;
+  }
+}
+@media (max-width:900px) and (orientation:landscape), (max-width:900px) and (max-height:520px){
+  .home-structure>.hero{
+    min-height:600px!important;
+  }
+  .home-structure>.hero:before{
+    width:34%!important;
+    height:100%!important;
+  }
+  .home-structure>.hero:after{
+    left:15%!important;
+    top:0!important;
+    width:110%!important;
+    height:100%!important;
+  }
+  .home-structure>.hero .container.hero-grid{
+    display:grid!important;
+    grid-template-columns:minmax(0,62vw) minmax(0,38vw)!important;
+    padding-top:46px!important;
+    padding-bottom:118px!important;
+  }
+  .home-structure>.hero .hero-grid>div:first-child{
+    max-width:min(620px,calc(62vw - var(--cus-site-edge,20px) - 18px))!important;
+    padding-right:18px!important;
+  }
+  .home-structure>.hero .home-hero-actions{
+    flex-direction:row!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    gap:8px!important;
+    overflow-x:auto!important;
+    scrollbar-width:none!important;
+  }
+  .home-structure>.hero .home-hero-actions::-webkit-scrollbar{
+    display:none!important;
+  }
+  .home-structure>.hero .home-hero-actions .btn{
+    flex:0 0 auto!important;
+    width:auto!important;
+    padding:10px 12px!important;
+    font-size:10px!important;
+    white-space:nowrap!important;
+  }
+  .home-structure>.hero .home-hero-socials{
+    position:absolute!important;
+    right:var(--cus-site-edge,20px)!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    margin:0!important;
+    display:flex!important;
+    flex-direction:column!important;
   }
 }
