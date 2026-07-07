@@ -1,0 +1,199 @@
+(function(){
+  const demoFixtures = {
+    prima: [
+      {home:"Futsal Rovereto", away:"CUS Trento C5", date:"2026-09-19", time:"20:45", venue:"Palasport Rovereto", competition:"Serie C1"},
+      {home:"CUS Trento C5", away:"Bolzano Futsal", date:"2026-09-26", time:"21:00", venue:"Sanbàpolis", competition:"Serie C1"},
+      {home:"Olympia Rovereto", away:"CUS Trento C5", date:"2026-10-03", time:"20:30", venue:"Palestra Olympia", competition:"Serie C1"},
+      {home:"CUS Trento C5", away:"Virtus Trento", date:"2026-10-10", time:"21:00", venue:"Sanbàpolis", competition:"Serie C1"},
+      {home:"Bassa Atesina", away:"CUS Trento C5", date:"2026-10-17", time:"20:45", venue:"Palazzetto Egna", competition:"Serie C1"},
+      {home:"CUS Trento C5", away:"Mezzolombardo C5", date:"2026-10-24", time:"21:00", venue:"Sanbàpolis", competition:"Serie C1"},
+      {home:"Imperial Grumo", away:"CUS Trento C5", date:"2026-10-31", time:"20:30", venue:"Palestra Grumo", competition:"Serie C1"},
+      {home:"CUS Trento C5", away:"Fiavé 1945", date:"2026-11-07", time:"21:00", venue:"Sanbàpolis", competition:"Serie C1"}
+    ],
+    u21: [
+      {home:"CUS Trento U21", away:"Futsal Atesina U21", date:"2026-09-20", time:"18:00", venue:"Sanbàpolis", competition:"Under 21"},
+      {home:"Trento Giovani", away:"CUS Trento U21", date:"2026-09-27", time:"17:30", venue:"Palestra Comunale", competition:"Under 21"},
+      {home:"CUS Trento U21", away:"Rovereto U21", date:"2026-10-04", time:"18:00", venue:"Sanbàpolis", competition:"Under 21"},
+      {home:"Bolzano U21", away:"CUS Trento U21", date:"2026-10-11", time:"16:00", venue:"Palasport Bolzano", competition:"Under 21"},
+      {home:"CUS Trento U21", away:"Mezzolombardo U21", date:"2026-10-18", time:"18:00", venue:"Sanbàpolis", competition:"Under 21"},
+      {home:"Bassa Atesina U21", away:"CUS Trento U21", date:"2026-10-25", time:"17:00", venue:"Palazzetto Egna", competition:"Under 21"},
+      {home:"CUS Trento U21", away:"Olympia U21", date:"2026-11-01", time:"18:00", venue:"Sanbàpolis", competition:"Under 21"},
+      {home:"Virtus Trento U21", away:"CUS Trento U21", date:"2026-11-08", time:"17:30", venue:"Palestra Virtus", competition:"Under 21"}
+    ]
+  };
+
+  function h(value){
+    return String(value ?? "").replace(/[&<>\"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[ch]));
+  }
+
+  function norm(value){
+    return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function isCus(value){
+    const key = norm(value).replace(/[^a-z0-9]/g, "");
+    return key.includes("custrento");
+  }
+
+  function js(value){
+    return String(value ?? "").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/\n/g," ");
+  }
+
+  function currentTeamKey(){
+    try{
+      return view && view.homeTeam === "u21" ? "u21" : "prima";
+    }catch(e){
+      return "prima";
+    }
+  }
+
+  function teamLabel(key){
+    return key === "u21" ? "Under 21" : "Prima squadra";
+  }
+
+  function rawFixturesForTeam(key){
+    const s = typeof state !== "undefined" ? state : {};
+    return key === "u21" ? (s.u21Fixtures || []) : (s.fixtures || []);
+  }
+
+  function fixtureTimestamp(match){
+    if(!match || !match.date) return 0;
+    const rawTime = String(match.time || "00:00");
+    const safeTime = /^\d{1,2}:\d{2}/.test(rawTime) ? rawTime.slice(0,5) : "00:00";
+    const full = Date.parse(`${match.date}T${safeTime}:00`);
+    if(!Number.isNaN(full)) return full;
+    const dateOnly = Date.parse(match.date);
+    return Number.isNaN(dateOnly) ? 0 : dateOnly;
+  }
+
+  function isFinished(match){
+    const status = norm(match && match.status);
+    return !!(match && match.score) || status.includes("terminata") || status.includes("finale") || status.includes("giocata");
+  }
+
+  function normalizeFixture(match, key, demo){
+    const home = match.home || (key === "u21" ? "CUS Trento U21" : "CUS Trento C5");
+    const away = match.away || "Avversario";
+    return {
+      id: match.id,
+      home,
+      away,
+      date: match.date || "",
+      time: match.time || "TBC",
+      venue: match.venue || "Campo da definire",
+      competition: match.competition || match.round || (key === "u21" ? "Under 21" : "Serie C1"),
+      mode: isCus(home) ? "Casa" : "Trasferta",
+      demo: !!demo
+    };
+  }
+
+  function upcomingFixtures(){
+    const key = currentTeamKey();
+    const now = Date.now() - 86400000;
+    const cms = rawFixturesForTeam(key)
+      .filter(match => match && !isFinished(match))
+      .map(match => normalizeFixture(match, key, false))
+      .filter(match => !fixtureTimestamp(match) || fixtureTimestamp(match) >= now)
+      .sort((a,b) => (fixtureTimestamp(a) || Number.MAX_SAFE_INTEGER) - (fixtureTimestamp(b) || Number.MAX_SAFE_INTEGER));
+
+    const source = cms.length ? cms : demoFixtures[key].map(match => normalizeFixture(match, key, true));
+    return {key, fixtures: source.slice(0, 8), usingDemo: !cms.length};
+  }
+
+  function teamMark(name){
+    if(isCus(name)) return `<img src="/img/logo.webp" alt="CUS Trento C5">`;
+    const parts = String(name || "AV")
+      .replace(/c5|u21/ig, "")
+      .split(/\s+/)
+      .filter(Boolean);
+    const text = parts.length > 1 ? parts.slice(0,2).map(part => part[0]).join("") : (parts[0] || "AV").slice(0,3);
+    return `<span>${h(text.toUpperCase())}</span>`;
+  }
+
+  function fixtureDate(value){
+    const date = new Date(value);
+    if(Number.isNaN(date.getTime())) return "TBD";
+    return new Intl.DateTimeFormat("it-IT", {day:"numeric", month:"short"}).format(date).replace(".", "") + ".";
+  }
+
+  function card(match){
+    const modeClass = norm(match.mode).includes("casa") ? "home" : "away";
+    const click = match.id != null ? `route('match-${js(match.id)}')` : `route('fixtures')`;
+    return `<article class="home-upcoming-card" onclick="${click}" tabindex="0" role="button" aria-label="${h(match.home)} contro ${h(match.away)}">
+      <div class="home-upcoming-meta">
+        <span class="home-upcoming-mode ${modeClass}">${h(match.mode)}</span>
+        <b>${h(fixtureDate(match.date))}</b>
+        <span>${h(match.venue)}</span>
+        <em>${h(match.competition)}</em>
+      </div>
+      <div class="home-upcoming-body">
+        <div class="home-upcoming-teams">
+          <div class="home-upcoming-team"><i>${teamMark(match.home)}</i><strong>${h(match.home)}</strong></div>
+          <div class="home-upcoming-team"><i>${teamMark(match.away)}</i><strong>${h(match.away)}</strong></div>
+        </div>
+        <div class="home-upcoming-time">${h(match.time || "TBC")}</div>
+      </div>
+      <div class="home-upcoming-foot"></div>
+    </article>`;
+  }
+
+  function section(){
+    const data = upcomingFixtures();
+    const note = data.usingDemo ? `<small class="home-upcoming-note">Dati demo finché il calendario CMS non contiene prossime gare.</small>` : "";
+    return `<section class="home-upcoming-section" aria-label="Prossime partite">
+      <div class="container">
+        <div class="home-upcoming-head">
+          <div class="home-upcoming-title"><h2>Prossime partite</h2><span>${h(teamLabel(data.key))}</span><button type="button" onclick="route('fixtures')">Vedi calendario</button>${note}</div>
+          <div class="home-upcoming-nav" aria-label="Scorri prossime partite">
+            <button type="button" onclick="homeUpcomingScroll(-1)" aria-label="Partite precedenti">‹</button>
+            <button type="button" onclick="homeUpcomingScroll(1)" aria-label="Partite successive">›</button>
+          </div>
+        </div>
+        <div class="home-upcoming-shell">
+          <button class="home-upcoming-side home-upcoming-side-left" type="button" onclick="homeUpcomingScroll(-1)" aria-label="Partite precedenti">‹</button>
+          <div class="home-upcoming-track" id="homeUpcomingTrack">${data.fixtures.map(card).join("")}</div>
+          <button class="home-upcoming-side home-upcoming-side-right" type="button" onclick="homeUpcomingScroll(1)" aria-label="Partite successive">›</button>
+        </div>
+      </div>
+    </section>`;
+  }
+
+  function insertUpcomingMatches(){
+    const homeRoot = document.querySelector(".home-structure");
+    const hero = homeRoot && homeRoot.querySelector(".hero");
+    const existing = homeRoot && homeRoot.querySelector(".home-upcoming-section");
+    if(existing) existing.remove();
+    if(!homeRoot || !hero) return;
+    hero.insertAdjacentHTML("afterend", section());
+  }
+
+  function patchHome(){
+    if(typeof window.home !== "function" || window.home.__upcomingPatched) return;
+    const originalHome = window.home;
+    window.home = function(){
+      const result = originalHome.apply(this, arguments);
+      setTimeout(insertUpcomingMatches, 0);
+      return result;
+    };
+    window.home.__upcomingPatched = true;
+  }
+
+  window.homeUpcomingScroll = function(direction){
+    const track = document.getElementById("homeUpcomingTrack");
+    if(!track) return;
+    const card = track.querySelector(".home-upcoming-card");
+    const gap = 18;
+    const step = card ? (card.getBoundingClientRect().width + gap) * 4 : track.clientWidth;
+    track.scrollBy({left: direction * step, behavior:"smooth"});
+  };
+
+  function boot(){
+    patchHome();
+    insertUpcomingMatches();
+    setTimeout(function(){patchHome();insertUpcomingMatches();}, 80);
+    setTimeout(function(){patchHome();insertUpcomingMatches();}, 300);
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();
