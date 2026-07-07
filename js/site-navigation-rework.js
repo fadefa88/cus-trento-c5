@@ -264,7 +264,7 @@
   }
 
   function pageHero(kicker,title,lead){
-    return `<section class="cus-rework-hero"><div class="container"><span class="cus-rework-kicker">${h(kicker)}</span><h1 class="cus-rework-title">${h(title)}</h1><p class="cus-rework-lead">${h(lead)}</p></div></section>`;
+    return `<section class="cus-rework-section cus-rework-page-intro"><div class="container"><span class="cus-rework-kicker">${h(kicker)}</span><h1 class="cus-rework-title">${h(title)}</h1><p class="cus-rework-lead">${h(lead)}</p></div></section>`;
   }
 
   function routeMeta(routeId){
@@ -274,24 +274,13 @@
   }
 
   function injectStandardHero(routeId){
-    const target = document.getElementById("app");
-    if(!target) return;
-    const id = String(routeId || routeFromLocation() || window.__cusActiveRoute || "home");
-    if(id === "home") return;
-    if(target.querySelector(".home-structure")) return;
-    if(target.querySelector(".cus-rework-page")) return;
-    const old = target.querySelector(":scope > .cus-rework-hero");
-    if(old) old.remove();
-    const meta = routeMeta(id);
-    target.insertAdjacentHTML("afterbegin", pageHero(meta[0], meta[1], meta[2]));
+    return;
   }
 
   function afterOldRoute(routeId){
     setTimeout(() => {
-      injectStandardHero(routeId);
       renderCusMenu();
     }, 0);
-    setTimeout(() => injectStandardHero(routeId), 160);
   }
 
   window.cusCloseMobileMenu = function(){

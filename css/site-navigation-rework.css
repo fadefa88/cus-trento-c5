@@ -3,10 +3,11 @@
 .nav-groups[data-cus-rework="true"] .dropdown button{display:flex;justify-content:space-between;gap:14px;align-items:center}
 .nav-groups[data-cus-rework="true"] .dropdown button:after{content:"›";opacity:.4;font-weight:1000}
 .cus-rework-page{background:var(--bg)}
-.cus-rework-hero{position:relative;overflow:hidden;background:#09090b;color:#fff;padding:82px 0 58px}
-.cus-rework-hero:before{content:"";position:absolute;inset:0;background:url('/assets/foto-sito.webp?auto=format&fit=crop&w=1800&q=80') center/cover;opacity:.18}
-.cus-rework-hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 16% 18%,rgba(220,38,38,.42),transparent 34%),linear-gradient(115deg,rgba(9,9,11,.96),rgba(9,9,11,.78))}
-.cus-rework-hero .container{position:relative;z-index:1}
+.cus-rework-page-intro{padding:56px 0 18px;background:var(--bg)}
+.cus-rework-page-intro .container{max-width:1240px}
+.cus-rework-page-intro .cus-rework-kicker{background:#fee2e2;color:var(--red);box-shadow:none}
+.cus-rework-page-intro .cus-rework-title{color:var(--ink);font-size:clamp(42px,6vw,76px)}
+.cus-rework-page-intro .cus-rework-lead{color:var(--muted);max-width:820px}
 .cus-rework-kicker{display:inline-flex;align-items:center;border-radius:999px;background:#fff;color:#09090b;padding:8px 13px;font-size:11px;font-weight:1000;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px}
 .cus-rework-title{font-size:clamp(42px,7vw,86px);line-height:.88;letter-spacing:-.075em;margin:0;font-weight:1000;color:#fff}
 .cus-rework-lead{max-width:760px;color:rgba(255,255,255,.74);font-size:18px;line-height:1.65;margin:22px 0 0}
@@ -63,19 +64,12 @@
   .cus-rework-head{display:block}
 }
 @media (max-width:640px){
-  .cus-rework-hero{padding:58px 0 42px}
   .cus-rework-section{padding:38px 0}
   .cus-rework-metrics{grid-template-columns:1fr}
   .cus-rework-table{font-size:13px}
   .cus-rework-table th,.cus-rework-table td{padding:11px}
 }
 
-/* v2: menu mobile aggiornato e hero uniforme per tutte le pagine interne */
-:root{--cus-page-hero-image:url('/assets/foto-sito.webp?auto=format&fit=crop&w=2200&q=80');}
-.cus-rework-hero{min-height:420px;padding:0;display:grid;align-items:center;background:#09090b;isolation:isolate;}
-.cus-rework-hero:before{content:"";position:absolute;left:0;right:0;top:0;height:34%;background:linear-gradient(180deg,var(--red),#09090b);opacity:1;z-index:-2;}
-.cus-rework-hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:66%;background:linear-gradient(180deg,rgba(9,9,11,.16),rgba(9,9,11,.74)),var(--cus-page-hero-image) center/cover no-repeat;opacity:1;z-index:-3;}
-.cus-rework-hero .container{padding-top:54px;padding-bottom:54px;text-shadow:0 20px 48px rgba(0,0,0,.45);}
 .cus-rework-kicker{box-shadow:0 12px 32px rgba(0,0,0,.22);}
 .mobile-menu[data-cus-rework="true"]{display:none;position:fixed;z-index:70;left:12px;right:12px;top:86px;max-height:calc(100vh - 106px);overflow:auto;background:rgba(255,255,255,.98);border:1px solid var(--line);border-radius:24px;padding:12px;box-shadow:0 30px 90px rgba(9,9,11,.22);backdrop-filter:blur(18px);}
 .mobile-menu[data-cus-rework="true"].open{display:block;}
@@ -91,8 +85,6 @@
 .mobile-menu[data-cus-rework="true"] button{display:block;width:100%;text-align:left;background:#f4f4f5;border-radius:14px;padding:11px 12px;margin-top:7px;font-size:14px;font-weight:850;color:#3f3f46;}
 .mobile-menu[data-cus-rework="true"] button.active,.mobile-menu[data-cus-rework="true"] .cus-mobile-link.active{background:#09090b;color:#fff;}
 .mobile-menu[data-cus-rework="true"] .cus-mobile-link{margin:8px 0;background:#fff;border:1px solid var(--line);font-weight:1000;text-transform:uppercase;letter-spacing:.08em;}
-@media (max-width:980px){.mobile-toggle{display:inline-flex}.nav-groups[data-cus-rework="true"]{display:none}.cus-rework-hero{min-height:360px}.cus-rework-hero .container{padding-top:44px;padding-bottom:44px}}
-@media (max-width:640px){.cus-rework-hero{min-height:320px}.cus-rework-title{font-size:clamp(38px,12vw,58px)}.cus-rework-lead{font-size:16px}.mobile-menu[data-cus-rework="true"]{left:8px;right:8px;top:78px;max-height:calc(100vh - 92px);border-radius:20px}}
 
 /* v4: hero SOLO homepage con split trasversale: 1/3 gradient verticale, 2/3 immagine. Cambia --cus-home-hero-image quando carichi la nuova immagine. */
 :root{--cus-home-hero-image:url('/assets/foto-sito.webp?auto=format&fit=crop&w=2200&q=80');}
