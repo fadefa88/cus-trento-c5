@@ -167,8 +167,7 @@
     return `<section class="home-upcoming-section" aria-label="Prossime partite">
       <div class="container">
         <div class="home-upcoming-head">
-          <div class="home-upcoming-title"><h2>Prossime partite</h2>
-          
+          <div class="home-upcoming-title"><h2>Prossime partite</h2></div>
         </div>
         <div class="home-upcoming-shell">
           <button class="home-upcoming-side home-upcoming-side-left" data-home-upcoming-dir="left" type="button" onclick="homeUpcomingScroll(-1)" aria-label="Partite precedenti">‹</button>
