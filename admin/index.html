@@ -9,5 +9,59 @@
   <!-- carica Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script src="custom.js?v=auto-slug-v3"></script>
+  <script>
+    (function(){
+      function plain(value){ return value && typeof value.toJS === "function" ? value.toJS() : value; }
+      function get(target,key){ return target && typeof target.get === "function" ? target.get(key) : target && target[key]; }
+      function set(target,key,value){ return target && typeof target.set === "function" ? target.set(key,value) : Object.assign({}, target || {}, {[key]:value}); }
+      function emptyList(){
+        var immutable = window.Immutable || (window.CMS && window.CMS.Immutable);
+        return immutable && typeof immutable.List === "function" ? immutable.List() : [];
+      }
+      function emptyMap(){
+        var immutable = window.Immutable || (window.CMS && window.CMS.Immutable);
+        return immutable && typeof immutable.Map === "function" ? immutable.Map() : {};
+      }
+      function isDraftMatch(match){
+        var status = String(get(match,"status") || "").toLowerCase();
+        return !status || status.indexOf("giocare") !== -1 || status.indexOf("programm") !== -1;
+      }
+      function fixMatch(match){
+        if(!match || !isDraftMatch(match)) return match;
+        var lineup = get(match,"lineup") || emptyMap();
+        ["startingFive","bench","suspended","injured"].forEach(function(field){
+          var value = get(lineup,field);
+          if(value == null || value === "") lineup = set(lineup,field,emptyList());
+        });
+        return set(match,"lineup",lineup);
+      }
+      function fixList(list){
+        if(!list) return list;
+        if(Array.isArray(list)) return list.map(fixMatch);
+        if(typeof list.map === "function") return list.map(fixMatch);
+        return list;
+      }
+      function register(){
+        if(!window.CMS || typeof window.CMS.registerEventListener !== "function") return false;
+        window.CMS.registerEventListener({
+          name:"preSave",
+          handler:function(ctx){
+            var entry = ctx && ctx.entry;
+            var data = entry && typeof entry.getIn === "function" ? entry.getIn(["data"]) : entry && typeof entry.get === "function" ? entry.get("data") : entry && entry.data;
+            if(!data) return data;
+            var next = data;
+            ["fixtures","u21Fixtures"].forEach(function(key){
+              var current = get(next,key);
+              if(current) next = set(next,key,fixList(current));
+            });
+            return next;
+          }
+        });
+        return true;
+      }
+      if(!register()) document.addEventListener("DOMContentLoaded", register);
+      setTimeout(register,500);
+    })();
+  </script>
 </body>
 </html>
