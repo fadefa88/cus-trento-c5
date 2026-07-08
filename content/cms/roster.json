@@ -1,13 +1,13 @@
 {
   "roster": [
     {
-      "faculty": "Ingegneria informatica",
+      "faculty": "Ingegneria Informatica",
       "birthPlace": "Verona",
       "number": 1,
       "name": "Safi Saif Edine",
       "slug": "safi-saif-edine",
       "birthDate": "2004-06-04",
-      "photo": "/img/uploads/copia-di-foto-first-team.webp",
+      "photo": "/img/uploads/safi-id.jpg",
       "role": "Portiere",
       "id": "1",
       "team": "Prima squadra"
@@ -19,43 +19,58 @@
       "name": "Baccaro Zeni Lucca",
       "slug": "lucca-baccaro-zeni",
       "birthDate": "2000-08-11",
-      "photo": "/img/uploads/foto-first-team.webp",
+      "photo": "/img/uploads/baccaro-id.jpg",
       "role": "Portiere",
       "id": "2",
       "team": "Prima squadra"
     },
     {
-      "faculty": "Ingegneria industriale",
+      "faculty": "Ingegneria Industriale",
       "birthPlace": "Feltre (BL)",
       "number": 70,
       "name": "Bernard Filippo",
       "slug": "filippo-bernard",
       "birthDate": "2004-07-06",
-      "photo": "/img/uploads/3.webp",
+      "photo": "/img/uploads/bernard-id.jpg",
       "role": "Portiere",
       "id": "3",
       "team": "Prima squadra"
     },
     {
+      "faculty": "Studi Internazionali",
+      "birthPlace": "Montebelluna (TV)",
+      "number": 4,
+      "name": "Tesser Alvise",
+      "slug": "tesser-alvise",
+      "birthDate": "2006-01-15",
+      "photo": "/img/uploads/alvise.jpg",
+      "role": "Centrale",
+      "id": "tesser-alvise",
+      "team": "Prima squadra"
+    },
+    {
+      "faculty": "Studi Internazionali",
+      "birthPlace": "Casalmaggiore (CR)",
+      "number": 5,
+      "name": "Boldrini Tommaso",
+      "slug": "boldrini-tommaso",
+      "birthDate": "2005-01-11",
+      "photo": "/img/uploads/boldrini.jpg",
+      "role": "Centrale",
+      "id": "boldrini-tommaso",
+      "team": "Prima squadra"
+    },
+    {
       "faculty": "Economia e Management",
-      "birthPlace": "Vicenza",
+      "birthPlace": "Thiene (VI)",
       "number": 27,
       "name": "Mattia Cuman",
       "slug": "mattia-cuman",
       "birthDate": "2005-11-27",
-      "photo": "/img/uploads/6.webp",
+      "photo": "/img/uploads/cuman.jpg",
       "role": "Centrale",
       "id": "6",
       "team": "Prima squadra"
-    },
-    {
-      "id": "tesser-alvise",
-      "slug": "tesser-alvise",
-      "name": "Tesser Alvise",
-      "role": "Centrale",
-      "team": "Prima squadra",
-      "number": 4,
-      "photo": "/img/uploads/alvise.webp"
     },
     {
       "faculty": "Giurisprudenza",
@@ -76,7 +91,7 @@
       "name": "Mattia Vaia",
       "slug": "mattia-vaia",
       "birthDate": "1998-10-01",
-      "photo": "/img/uploads/vaia.webp",
+      "photo": "/img/uploads/vaia.jpg",
       "role": "Laterale",
       "id": "8",
       "team": "Prima squadra"
