@@ -31,7 +31,7 @@
       "name": "Bernard Filippo",
       "slug": "filippo-bernard",
       "birthDate": "2004-07-06",
-      "photo": "/img/uploads/bernard-id.webp",
+      "photo": "",
       "role": "Portiere",
       "id": "3",
       "team": "Prima squadra"
@@ -43,7 +43,7 @@
       "name": "Tesser Alvise",
       "slug": "tesser-alvise",
       "birthDate": "2006-01-15",
-      "photo": "/img/uploads/alvise.jpg",
+      "photo": "/img/uploads/alvise.webp",
       "role": "Centrale",
       "id": "tesser-alvise",
       "team": "Prima squadra"
