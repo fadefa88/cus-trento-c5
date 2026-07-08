@@ -9,55 +9,55 @@
       "birthDate": "2004-06-04",
       "photo": "/img/uploads/copia-di-foto-first-team.webp",
       "role": "Portiere",
-      "id": 1,
+      "id": "1",
       "team": "Prima squadra"
     },
     {
       "faculty": "Cognitive Science ",
       "birthPlace": "Brasile",
       "number": 12,
-      "name": "Lucca Baccaro Zeni",
+      "name": "Baccaro Zeni Lucca",
       "slug": "lucca-baccaro-zeni",
       "birthDate": "2000-08-11",
       "photo": "/img/uploads/foto-first-team.webp",
       "role": "Portiere",
-      "id": 2,
+      "id": "2",
       "team": "Prima squadra"
     },
     {
       "faculty": "Ingegneria industriale",
-      "birthPlace": "Belluno",
+      "birthPlace": "Feltre (BL)",
       "number": 70,
-      "name": "Filippo Bernard",
+      "name": "Bernard Filippo",
       "slug": "filippo-bernard",
       "birthDate": "2004-07-06",
       "photo": "/img/uploads/3.webp",
       "role": "Portiere",
-      "id": 3,
+      "id": "3",
       "team": "Prima squadra"
     },
     {
       "faculty": "Studi internazionali",
-      "birthPlace": "Treviso",
+      "birthPlace": "Montebelluna (TV)",
       "number": 4,
-      "name": "Alvise Tesser",
+      "name": "Tesser Alvise",
       "slug": "alvise-tesser",
       "birthDate": "2006-01-15",
-      "photo": "/img/uploads/4.webp",
+      "photo": "/img/uploads/4.jpg",
       "role": "Centrale",
-      "id": 4,
+      "id": "4",
       "team": "Prima squadra"
     },
     {
       "faculty": "Studi internazionali",
-      "birthPlace": "Cremona",
+      "birthPlace": "Casalmaggiore (CR)",
       "number": 5,
       "name": "Tommaso Boldrini",
       "slug": "tommaso-boldrini",
       "birthDate": "2005-01-11",
-      "photo": "/img/uploads/5.webp",
+      "photo": "/img/uploads/5.jpg",
       "role": "Centrale",
-      "id": 5,
+      "id": "5",
       "team": "Prima squadra"
     },
     {
@@ -69,7 +69,7 @@
       "birthDate": "2005-11-27",
       "photo": "/img/uploads/6.webp",
       "role": "Centrale",
-      "id": 6,
+      "id": "6",
       "team": "Prima squadra"
     },
     {
@@ -81,7 +81,7 @@
       "birthDate": "2005-04-10",
       "photo": "/img/uploads/7.webp",
       "role": "Laterale",
-      "id": 7,
+      "id": "7",
       "team": "Prima squadra"
     },
     {
@@ -93,7 +93,7 @@
       "birthDate": "1998-10-01",
       "photo": "/img/uploads/8.webp",
       "role": "Laterale",
-      "id": 8,
+      "id": "8",
       "team": "Prima squadra"
     },
     {
@@ -105,7 +105,7 @@
       "birthDate": "2004-03-14",
       "photo": "/img/uploads/9.webp",
       "role": "Laterale",
-      "id": 9,
+      "id": "9",
       "team": "Prima squadra"
     },
     {
@@ -117,7 +117,7 @@
       "birthDate": "2002-01-10",
       "photo": "/img/uploads/10.webp",
       "role": "Laterale",
-      "id": 10,
+      "id": "10",
       "team": "Prima squadra"
     },
     {
@@ -129,7 +129,7 @@
       "birthDate": "2006-07-18",
       "photo": "/img/uploads/11.webp",
       "role": "Laterale",
-      "id": 11,
+      "id": "11",
       "team": "Prima squadra"
     },
     {
@@ -141,7 +141,7 @@
       "birthDate": "2004-02-28",
       "photo": "/img/uploads/12.webp",
       "role": "Laterale",
-      "id": 12,
+      "id": "12",
       "team": "Prima squadra"
     },
     {
@@ -153,7 +153,7 @@
       "birthDate": "2003-06-30",
       "photo": "/img/uploads/13.webp",
       "role": "Laterale",
-      "id": 13,
+      "id": "13",
       "team": "Prima squadra"
     },
     {
@@ -165,7 +165,7 @@
       "birthDate": "2002-05-18",
       "photo": "/img/uploads/14.webp",
       "role": "Laterale",
-      "id": 14,
+      "id": "14",
       "team": "Prima squadra"
     },
     {
@@ -177,7 +177,7 @@
       "birthDate": "2002-11-25",
       "photo": "/img/uploads/15.webp",
       "role": "Laterale",
-      "id": 15,
+      "id": "15",
       "team": "Prima squadra"
     },
     {
@@ -189,7 +189,7 @@
       "birthDate": "2006-10-11",
       "photo": "/img/uploads/16.webp",
       "role": "Pivot",
-      "id": 16,
+      "id": "16",
       "team": "Prima squadra"
     },
     {
@@ -201,7 +201,7 @@
       "birthDate": "2002-04-26",
       "photo": "/img/uploads/17.webp",
       "role": "Pivot",
-      "id": 17,
+      "id": "17",
       "team": "Prima squadra"
     },
     {
@@ -213,7 +213,7 @@
       "birthDate": "2002-10-03",
       "photo": "/img/uploads/18.webp",
       "role": "Pivot",
-      "id": 18,
+      "id": "18",
       "team": "Prima squadra"
     },
     {
@@ -225,11 +225,11 @@
       "birthDate": "2000-04-14",
       "photo": "/img/uploads/19.webp",
       "role": "Universale",
-      "id": 19,
+      "id": "19",
       "team": "Prima squadra"
     },
     {
-      "id": 20,
+      "id": "20",
       "name": "Paolo Bigonzi",
       "role": "Portiere",
       "team": "Under 21",
@@ -247,7 +247,7 @@
       "slug": "giulio-toniolli"
     },
     {
-      "id": 21,
+      "id": "21",
       "name": "Lorenzo Zarantonello",
       "role": "Portiere",
       "team": "Under 21",
@@ -256,7 +256,7 @@
       "slug": "lorenzo-zarantonello"
     },
     {
-      "id": 23,
+      "id": "23",
       "name": "Matteo Guidetti",
       "role": "Centrale",
       "team": "Under 21",
@@ -265,7 +265,7 @@
       "slug": "matteo-guidetti"
     },
     {
-      "id": 24,
+      "id": "24",
       "name": "Matteo Materia",
       "role": "Centrale",
       "team": "Under 21",
@@ -274,7 +274,7 @@
       "slug": "matteo-materia"
     },
     {
-      "id": 25,
+      "id": "25",
       "name": "Riccardo Toniolli",
       "role": "Centrale",
       "team": "Under 21",
@@ -283,7 +283,7 @@
       "slug": "riccardo-toniolli"
     },
     {
-      "id": 26,
+      "id": "26",
       "name": "Alessandro Betti",
       "role": "Laterale",
       "team": "Under 21",
@@ -292,7 +292,7 @@
       "slug": "alessandro-betti"
     },
     {
-      "id": 28,
+      "id": "28",
       "name": "Federico Caldonazzi",
       "role": "Laterale",
       "team": "Under 21",
@@ -301,7 +301,7 @@
       "slug": "federico-caldonazzi"
     },
     {
-      "id": 29,
+      "id": "29",
       "name": "Joao Pedro Caccia Neff",
       "role": "Laterale",
       "team": "Under 21",
@@ -310,7 +310,7 @@
       "slug": "joao-pedro-caccia-neff"
     },
     {
-      "id": 30,
+      "id": "30",
       "name": "Adrian Gavril Dancus",
       "role": "Laterale",
       "team": "Under 21",
@@ -319,7 +319,7 @@
       "slug": "adrian-gavril-dancus"
     },
     {
-      "id": 31,
+      "id": "31",
       "name": "Mirko Annunziato Tondo",
       "role": "Laterale",
       "team": "Under 21",
@@ -328,7 +328,7 @@
       "slug": "mirko-annunziato-tondo"
     },
     {
-      "id": 33,
+      "id": "33",
       "name": "Michele Ceola",
       "role": "Punta",
       "team": "Under 21",
@@ -337,7 +337,7 @@
       "slug": "michele-ceola"
     },
     {
-      "id": 35,
+      "id": "35",
       "name": "Luca Scala",
       "role": "Punta",
       "team": "Under 21",
