@@ -98,7 +98,7 @@
       ["social","Social wall"]
     ]},
     {label:"Club",items:[
-      ["club-project","Chi siamo / Il progetto"],
+      ["club-project","Chi siamo"],
       ["venue","Impianto"],
       ["records","Hall of Fame"],
       ["contacts","Contatti"]
@@ -123,8 +123,8 @@
     cookies:["Cookie","Cookie policy","Informazioni sull'utilizzo dei cookie e contenuti esterni."],
     partner:["Partner","I nostri partner","Aziende, realtà e sponsor che sostengono il progetto CUS Trento C5."],
     sponsor:["Partner","I nostri partner","Aziende, realtà e sponsor che sostengono il progetto CUS Trento C5."],
-    "club-project":["Club","Chi siamo / Il progetto","Storia e progetto sportivo del CUS Trento C5."],
-    club:["Club","Chi siamo / Il progetto","Storia e progetto sportivo del CUS Trento C5."]
+    "club-project":["Club","Chi siamo","Storia e progetto sportivo del CUS Trento C5."],
+    club:["Club","Chi siamo","Storia e progetto sportivo del CUS Trento C5."]
   };
 
   function h(value){
@@ -597,7 +597,7 @@
     const resultCards = results.map(match => `<article class="cus-rework-card cus-rework-card-pad"><span class="badge">${h(match.phase)}</span><h3>${h(match.home)} vs ${h(match.away)}</h3><div class="cus-rework-metrics"><div class="cus-rework-metric"><b>${h(match.score)}</b><span>Risultato</span></div><div class="cus-rework-metric"><b>${h(match.time)}</b><span>Ora</span></div></div><p>${h(match.venue)} · ${h(fmtDate(match.date))}</p></article>`).join("");
     const galleryHtml = cnuPhotos.length
       ? `<div class="cus-rework-grid four">${cnuPhotos.map(item => `<article class="cus-rework-card"><div class="cus-rework-media"><img src="${h(item.photo)}" alt="${h(item.title)} CNU"></div></article>`).join("")}</div>`
-      : `<article class="cus-rework-card cus-rework-card-pad"><h3>Fotogallery in aggiornamento</h3><p>Per mostrare qui le immagini, crea o modifica un album nella Gallery del CMS e assegna la categoria CNU.</p></article>`;
+      : `<article class="cus-rework-card cus-rework-card-pad"><h3>Fotogallery in aggiornamento</h3></article>`;
     const html = `${pageHero("CNU","Campionati Nazionali Universitari","")}
       <section class="cus-rework-section compact">
         <div class="container">
@@ -617,7 +617,7 @@
       </section>
       <section class="cus-rework-section compact">
         <div class="container">
-          <div class="cus-rework-head"><div><span class="cus-rework-kicker">Fotogallery</span><h2>CNU in immagini</h2><p>Le foto vengono lette dagli album Gallery gestiti nel CMS con categoria CNU.</p></div></div>
+          <div class="cus-rework-head"><div><span class="cus-rework-kicker">Fotogallery</span></div></div>
           ${galleryHtml}
         </div>
       </section>`;
@@ -690,7 +690,7 @@
     if(oldRoute) oldRoute("club");
     setTimeout(() => {
       history.replaceState({route:"club-project"},"",pathByRoute["club-project"]);
-      seo("Chi siamo / Il progetto","Storia e progetto sportivo del CUS Trento C5.",pathByRoute["club-project"]);
+      seo("Chi siamo","Storia e progetto sportivo del CUS Trento C5.",pathByRoute["club-project"]);
       injectStandardHero("club-project");
       renderCusMenu();
     }, 0);

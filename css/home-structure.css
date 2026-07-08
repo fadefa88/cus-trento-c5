@@ -219,3 +219,16 @@
     min-height:238px!important;
   }
 }
+
+
+/* v50: home CTA cards with solid black background */
+.home-structure-cta-card{
+  background:#010102!important;
+}
+.home-structure-cta-card:before{
+  display:none!important;
+  background-image:none!important;
+}
+.home-structure-cta-card:after{
+  background:linear-gradient(180deg,rgba(1,1,2,.08),rgba(1,1,2,.58))!important;
+}

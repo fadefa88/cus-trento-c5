@@ -152,7 +152,7 @@ MAIN_PAGES = [
         "route": "club",
         "title": "Club CUS Trento C5",
         "description": "Storia e progetto sportivo del CUS Trento Calcio a 5.",
-        "heading": "Chi siamo / Il progetto",
+        "heading": "Chi siamo",
         "eyebrow": "Club",
     },
     {
