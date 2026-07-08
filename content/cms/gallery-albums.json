@@ -2,33 +2,14 @@
   "galleryAlbums": [
     {
       "photos": [
-        "https://custrentocalcioa5.it/assets/foto-sito.webp",
-        "https://custrentocalcioa5.it/img/players/3-safi-saif-edine-portiere.webp",
-        "https://custrentocalcioa5.it/img/players/1-baccaro-zeni-lucca-portiere.webp",
-        "https://custrentocalcioa5.it/img/players/2-bernard-filippo-portiere.webp",
-        "https://custrentocalcioa5.it/img/players/4-boldrini-tommaso-centrale.webp",
-        "https://custrentocalcioa5.it/img/players/10-filippi-davide-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/5-tesser-alvise-centrale.webp",
-        "https://custrentocalcioa5.it/img/players/6-baietta-filippo-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/7-cirasola-luca-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/8-cuman-mattia-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/11-maciocia-federico-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/12-vaia-mattia-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/13-zanetti-alessandro-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/14-conti-diego-pivot.webp",
-        "https://custrentocalcioa5.it/img/players/16-martinelli-andrea-universale.webp",
-        "https://custrentocalcioa5.it/img/players/15-vettorazzi-cesare-pivot.webp",
-        "https://custrentocalcioa5.it/img/players/17-piazza-emiliano-allenatore-prima-squadra.webp",
-        "https://custrentocalcioa5.it/img/players/18-gurabardhi-denis-vice-allenatore-prima-squadra.webp",
-        "https://custrentocalcioa5.it/img/players/20-cadamuro-diego-team-manager-prima-squadra.webp",
-        "https://custrentocalcioa5.it/img/players/19-jukni-stanis-dirigente-prima-squadra.webp"
+        "https://custrentocalcioa5.it/assets/foto-sito.webp"
       ],
       "season": "2025/26",
       "slug": "prima-squadra-2025-26-2025-09-01",
       "date": "2025-09-01",
       "cover": "https://custrentocalcioa5.it/assets/foto-sito.webp",
       "title": "Prima Squadra",
-      "id": 1,
+      "id": "1",
       "categories": [
         "prima squadra",
         "vario"
@@ -42,27 +23,12 @@
         "under 21",
         "vario"
       ],
-      "id": 2,
+      "id": "2",
       "title": "Under 21",
       "date": "2025-09-02",
       "cover": "https://custrentocalcioa5.it/img/players/foto-squadra-u21.webp",
       "photos": [
-        "https://custrentocalcioa5.it/img/players/foto-squadra-u21.webp",
-        "https://custrentocalcioa5.it/img/players/1-bigonzi-paolo-portiere.webp",
-        "https://custrentocalcioa5.it/img/players/2-toniolli-giulio-portiere.webp",
-        "https://custrentocalcioa5.it/img/players/3-zarantonello-lorenzo-portiere.webp",
-        "https://custrentocalcioa5.it/img/players/4-guidetti-matteo-centrale.webp",
-        "https://custrentocalcioa5.it/img/players/5-materia-matteo-centrale.webp",
-        "https://custrentocalcioa5.it/img/players/6-toniolli-riccardo-centrale.webp",
-        "https://custrentocalcioa5.it/img/players/7-betti-alessandro-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/8-caldonazzi-federico-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/12-caccia-neff-joao-pedro-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/9-dancus-adrian-gavril-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/10-tondo-mirko-a-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/11-zampedri-daniele-laterale.webp",
-        "https://custrentocalcioa5.it/img/players/13-ceola-michele-pivot.webp",
-        "https://custrentocalcioa5.it/img/players/14-loperfido-damiano-pivot.webp",
-        "https://custrentocalcioa5.it/img/players/15-scala-luca-universale.webp"
+        "https://custrentocalcioa5.it/img/players/foto-squadra-u21.webp"
       ],
       "slug": "under-21-2025-26-2025-09-02"
     }
