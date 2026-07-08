@@ -1,3 +1,0 @@
-Cloudflare redeploy trigger
-Timestamp UTC: 2026-06-25T10:57:00Z
-Reason: restore site after app.js rollback
