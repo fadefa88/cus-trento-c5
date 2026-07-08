@@ -145,3 +145,65 @@
     display:none;
   }
 }
+
+
+/* v43: equal height home cards, including news, standings, CTA and social cards */
+.home-structure{
+  --cus-home-card-height:430px;
+}
+.home-structure-news-grid,
+.home-structure-cta-grid,
+.home-structure .social-feed-grid{
+  align-items:stretch;
+}
+.home-structure-news-cell{
+  height:100%;
+}
+.home-structure-news-cell>.card,
+.home-structure-cta-card,
+.home-structure .social-feed-card{
+  height:100%;
+  min-height:var(--cus-home-card-height);
+}
+.home-structure-news-card{
+  display:flex;
+  flex-direction:column;
+}
+.home-structure-news-card .card-pad{
+  display:flex;
+  flex:1;
+  flex-direction:column;
+}
+.home-structure-news-card .card-pad .badge{
+  width:max-content;
+}
+.home-structure .social-feed-card{
+  display:flex;
+  flex-direction:column;
+}
+.home-structure .social-feed-card>a,
+.home-structure .social-feed-static{
+  display:flex;
+  flex:1;
+  flex-direction:column;
+  min-height:100%;
+}
+.home-structure .social-feed-body{
+  display:flex;
+  flex:1;
+  flex-direction:column;
+}
+.home-structure .social-feed-body small{
+  margin-top:auto;
+  padding-top:12px;
+}
+@media (max-width:1180px){
+  .home-structure{
+    --cus-home-card-height:410px;
+  }
+}
+@media (max-width:640px){
+  .home-structure{
+    --cus-home-card-height:380px;
+  }
+}
