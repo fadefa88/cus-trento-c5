@@ -1,70 +1,78 @@
 {
   "events": [
     {
-      "id": "open-day-1",
+      "details": "Serata di prova aperta a nuovi giocatori interessati a Prima squadra e Under 21.",
+      "summary": "Serata di prova aperta a nuovi giocatori interessati a Prima squadra e Under 21.",
+      "slug": "open-day-cus-trento-c5-2026-09-08",
+      "time": "20:30",
+      "date": "2026-09-08",
+      "venue": "Sanbàpolis",
       "title": "Open day CUS Trento C5",
       "type": "Selezione",
-      "date": "2026-09-08",
-      "time": "20:30",
-      "venue": "Sanbàpolis",
-      "summary": "Serata di prova aperta a nuovi giocatori interessati a Prima squadra e Under 21.",
-      "details": "Serata di prova aperta a nuovi giocatori interessati a Prima squadra e Under 21.",
-      "slug": "open-day-cus-trento-c5-2026-09-08"
+      "id": "open-day-1"
     },
     {
-      "id": "torneo-studenti",
+      "details": "Torneo promozionale aperto alla community universitaria.",
+      "summary": "Torneo promozionale aperto alla community universitaria.",
+      "slug": "torneo-studenti-unitrento-2026-09-21",
+      "time": "18:00",
+      "date": "2026-09-21",
+      "venue": "Sanbàpolis",
       "title": "Torneo studenti UniTrento",
       "type": "Torneo",
-      "date": "2026-09-21",
-      "time": "18:00",
-      "venue": "Sanbàpolis",
-      "summary": "Torneo promozionale aperto alla community universitaria.",
-      "details": "Torneo promozionale aperto alla community universitaria.",
-      "slug": "torneo-studenti-unitrento-2026-09-21"
+      "id": "torneo-studenti"
     },
     {
-      "id": "partner-night",
+      "details": "Incontro con sponsor, aziende e realtà del territorio.",
+      "summary": "Incontro con sponsor, aziende e realtà del territorio.",
+      "slug": "partner-night-2026-10-03",
+      "time": "19:30",
+      "date": "2026-10-03",
+      "venue": "Sanbàpolis",
       "title": "Partner Night",
       "type": "Selezione",
-      "date": "2026-10-03",
-      "time": "19:30",
-      "venue": "Sanbàpolis",
-      "summary": "Incontro con sponsor, aziende e realtà del territorio.",
-      "details": "Incontro con sponsor, aziende e realtà del territorio.",
-      "slug": "partner-night-2026-10-03"
+      "id": "partner-night"
     },
     {
-      "id": "matchday-community",
+      "details": "Matchday con attività per studenti, famiglie e tifosi.",
+      "summary": "Matchday con attività per studenti, famiglie e tifosi.",
+      "slug": "community-matchday-2026-10-17",
+      "time": "20:45",
+      "date": "2026-10-17",
+      "venue": "Sanbàpolis",
       "title": "Community Matchday",
       "type": "Selezione",
-      "date": "2026-10-17",
-      "time": "20:45",
-      "venue": "Sanbàpolis",
-      "summary": "Matchday con attività per studenti, famiglie e tifosi.",
-      "details": "Matchday con attività per studenti, famiglie e tifosi.",
-      "slug": "community-matchday-2026-10-17"
+      "id": "matchday-community"
     },
     {
-      "id": "tryout-u21",
+      "details": "Sessione dedicata ai profili giovani per il gruppo Under 21.",
+      "summary": "Sessione dedicata ai profili giovani per il gruppo Under 21.",
+      "slug": "tryout-under-21-2026-11-04",
+      "time": "19:00",
+      "date": "2026-11-04",
+      "venue": "Sanbàpolis",
       "title": "Tryout Under 21",
       "type": "Selezione",
-      "date": "2026-11-04",
-      "time": "19:00",
-      "venue": "Sanbàpolis",
-      "summary": "Sessione dedicata ai profili giovani per il gruppo Under 21.",
-      "details": "Sessione dedicata ai profili giovani per il gruppo Under 21.",
-      "slug": "tryout-under-21-2026-11-04"
+      "id": "tryout-u21"
     },
     {
-      "id": "futsal-campus",
+      "details": "Evento tecnico e mini torneo dedicato alla community CUS.",
+      "summary": "Evento tecnico e mini torneo dedicato alla community CUS.",
+      "slug": "futsal-campus-2026-12-12",
+      "time": "15:00",
+      "date": "2026-12-12",
+      "venue": "Palestra CUS",
       "title": "Futsal Campus",
       "type": "Torneo",
-      "date": "2026-12-12",
-      "time": "15:00",
-      "venue": "Palestra CUS",
-      "summary": "Evento tecnico e mini torneo dedicato alla community CUS.",
-      "details": "Evento tecnico e mini torneo dedicato alla community CUS.",
-      "slug": "futsal-campus-2026-12-12"
+      "id": "futsal-campus"
+    },
+    {
+      "id": "prova-2026-07-08",
+      "slug": "prova-2026-07-08",
+      "title": "prova",
+      "type": "Torneo",
+      "date": "2026-07-08",
+      "summary": "asdasd"
     }
   ]
 }
