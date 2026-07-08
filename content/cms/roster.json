@@ -7,7 +7,7 @@
       "name": "Safi Saif Edine",
       "slug": "safi-saif-edine",
       "birthDate": "2004-06-04",
-      "photo": "/img/uploads/safi-id.webp",
+      "photo": "/img/uploads/safi-id.png",
       "role": "Portiere",
       "id": "1",
       "team": "Prima squadra"
@@ -19,7 +19,7 @@
       "name": "Baccaro Zeni Lucca",
       "slug": "baccaro-zeni-lucca",
       "birthDate": "2000-08-11",
-      "photo": "/img/uploads/lucca.webp",
+      "photo": "/img/uploads/baccaro.png",
       "role": "Portiere",
       "id": "baccaro-zeni-lucca",
       "team": "Prima squadra"
@@ -31,7 +31,7 @@
       "name": "Bernard Filippo",
       "slug": "filippo-bernard",
       "birthDate": "2004-07-06",
-      "photo": "/img/uploads/bernard-id.webp",
+      "photo": "/img/uploads/bernard-id.png",
       "role": "Portiere",
       "id": "3",
       "team": "Prima squadra"
@@ -55,7 +55,7 @@
       "name": "Boldrini Tommaso",
       "slug": "boldrini-tommaso",
       "birthDate": "2005-01-11",
-      "photo": "/img/uploads/boldrini.webp",
+      "photo": "/img/uploads/boldrini.png",
       "role": "Centrale",
       "id": "boldrini-tommaso",
       "team": "Prima squadra"
@@ -67,7 +67,7 @@
       "name": "Cuman Mattia",
       "slug": "mattia-cuman",
       "birthDate": "2005-11-27",
-      "photo": "/img/uploads/mattia.webp",
+      "photo": "/img/uploads/cuman.png",
       "role": "Centrale",
       "id": "6",
       "team": "Prima squadra"
@@ -79,7 +79,7 @@
       "name": "Filippi Davide",
       "slug": "davide-filippi",
       "birthDate": "2005-04-10",
-      "photo": "/img/uploads/filippi.webp",
+      "photo": "/img/uploads/filippi.png",
       "role": "Laterale",
       "id": "7",
       "team": "Prima squadra"
@@ -91,7 +91,7 @@
       "name": "Vaia Mattia",
       "slug": "mattia-vaia",
       "birthDate": "1998-10-01",
-      "photo": "/img/uploads/vaia.webp",
+      "photo": "/img/uploads/vaia.png",
       "role": "Laterale",
       "id": "8",
       "team": "Prima squadra"
@@ -103,7 +103,7 @@
       "name": "Addobbati Federico ",
       "slug": "federico-addobbati",
       "birthDate": "2004-03-14",
-      "photo": "/img/uploads/addobbati.webp",
+      "photo": "/img/uploads/addobbati.png",
       "role": "Laterale",
       "id": "9",
       "team": "Prima squadra"
@@ -115,7 +115,7 @@
       "name": "Cirasola Luca",
       "slug": "luca-cirasola",
       "birthDate": "2002-01-10",
-      "photo": "/img/uploads/cirasola.webp",
+      "photo": "/img/uploads/cirasola.png",
       "role": "Laterale",
       "id": "10",
       "team": "Prima squadra"
@@ -127,7 +127,7 @@
       "name": "Zampedri Daniele",
       "slug": "daniele-zampedri",
       "birthDate": "2006-07-18",
-      "photo": "/img/uploads/zampedri.webp",
+      "photo": "/img/uploads/zampedri.png",
       "role": "Laterale",
       "id": "11",
       "team": "Prima squadra"
@@ -139,7 +139,7 @@
       "name": "Baietta Filippo",
       "slug": "filippo-baietta",
       "birthDate": "2004-02-28",
-      "photo": "/img/uploads/baietta.webp",
+      "photo": "/img/uploads/baietta.png",
       "role": "Laterale",
       "id": "12",
       "team": "Prima squadra"
@@ -151,7 +151,7 @@
       "name": "Maciocia Federico",
       "slug": "federico-maciocia",
       "birthDate": "2003-06-30",
-      "photo": "/img/uploads/maciocia.webp",
+      "photo": "/img/uploads/maciocia.png",
       "role": "Laterale",
       "id": "13",
       "team": "Prima squadra"
@@ -163,7 +163,7 @@
       "name": "Zanetti Alessandro",
       "slug": "alessandro-zanetti",
       "birthDate": "2002-05-18",
-      "photo": "/img/uploads/zanetti.webp",
+      "photo": "/img/uploads/zanetti.png",
       "role": "Laterale",
       "id": "14",
       "team": "Prima squadra"
@@ -175,7 +175,7 @@
       "name": "Frattolin Luca",
       "slug": "luca-frattolin",
       "birthDate": "2002-11-25",
-      "photo": "/img/uploads/frattolin.webp",
+      "photo": "/img/uploads/frattolin.png",
       "role": "Laterale",
       "id": "15",
       "team": "Prima squadra"
@@ -187,7 +187,7 @@
       "name": "Loperfido Damiano",
       "slug": "damiano-loperfido",
       "birthDate": "2006-10-11",
-      "photo": "/img/uploads/loperfido.webp",
+      "photo": "/img/uploads/loperfido.png",
       "role": "Pivot",
       "id": "16",
       "team": "Prima squadra"
@@ -199,7 +199,7 @@
       "name": "Vettorazzi Cesare",
       "slug": "cesare-vettorazzi",
       "birthDate": "2002-04-26",
-      "photo": "/img/uploads/vettorazzi.webp",
+      "photo": "/img/uploads/vettorazzi.png",
       "role": "Pivot",
       "id": "17",
       "team": "Prima squadra"
@@ -211,7 +211,7 @@
       "name": "Conti Diego",
       "slug": "diego-conti",
       "birthDate": "2002-10-03",
-      "photo": "/img/uploads/conti.webp",
+      "photo": "/img/uploads/conti.png",
       "role": "Pivot",
       "id": "18",
       "team": "Prima squadra"
@@ -223,7 +223,7 @@
       "name": "Martinelli Andrea",
       "slug": "andrea-martinelli",
       "birthDate": "2000-04-14",
-      "photo": "/img/uploads/martinelli.webp",
+      "photo": "/img/uploads/martinelli.png",
       "role": "Universale",
       "id": "19",
       "team": "Prima squadra"
@@ -235,29 +235,34 @@
       "name": "Zarantonello Lorenzo",
       "slug": "lorenzo-zarantonello",
       "birthDate": "2004-10-30",
-      "photo": "",
+      "photo": "/img/uploads/zarantonello.png",
       "role": "Portiere",
       "id": "21",
       "team": "Under 21"
     },
     {
-      "id": "20-2",
-      "name": "Toniolli Giulio",
-      "role": "Portiere",
-      "team": "Under 21",
+      "faculty": "Ingegneria Informatica",
+      "birthPlace": "Rovereto (TN)",
       "number": 31,
-      "photo": "/img/players/2-toniolli-giulio-portiere.webp",
-      "slug": "giulio-toniolli"
+      "name": "Toniolli Giulio",
+      "slug": "giulio-toniolli",
+      "birthDate": "2006-04-24",
+      "photo": "/img/uploads/toniolli.png",
+      "role": "Portiere",
+      "id": "20-2",
+      "team": "Under 21"
     },
     {
-      "id": "20",
-      "name": "Bigonzi Paolo",
-      "role": "Portiere",
-      "team": "Under 21",
+      "faculty": "Lettere Moderne",
+      "birthPlace": "Fano (PU)",
       "number": 99,
-      "photo": "/img/players/1-bigonzi-paolo-portiere.webp",
+      "name": "Bigonzi Paolo",
       "slug": "paolo-bigonzi",
-      "birthDate": "2004-01-30"
+      "birthDate": "2004-07-26",
+      "photo": "/img/uploads/bigonzi.png",
+      "role": "Portiere",
+      "id": "20",
+      "team": "Under 21"
     },
     {
       "id": "24",
