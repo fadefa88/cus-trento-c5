@@ -9,8 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
   group: sync-roster-options-${{ github.ref }}
@@ -36,18 +35,40 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip pyyaml
 
-      - name: Sync CMS player dropdowns from roster
-        run: python scripts/sync_roster_options.py
+      - name: Check CMS player dropdowns from roster
+        id: sync-check
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/sync_roster_options.py
 
-      - name: Create pull request if needed
-        uses: peter-evans/create-pull-request@v6
+          if git diff --quiet -- admin/config.yml; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Roster options already in sync."
+            exit 0
+          fi
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          git diff -- admin/config.yml > sync-roster-options.patch
+          echo "::warning::admin/config.yml is not in sync with content/cms/roster.json. The repository rules block GitHub Actions from pushing to main or creating a branch, so this workflow reports the diff without failing."
+
+          {
+            echo "## Sync roster options"
+            echo ""
+            echo "admin/config.yml needs to be synchronized with content/cms/roster.json."
+            echo ""
+            echo "This workflow no longer pushes or creates a branch because repository rules block both direct updates to main and new refs from GitHub Actions."
+            echo ""
+            echo "Apply the generated diff manually, or relax the repository rules to allow GitHub Actions to create the sync branch."
+            echo ""
+            echo '```diff'
+            cat sync-roster-options.patch
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload sync diff
+        if: steps.sync-check.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
         with:
-          commit-message: Sync roster options in CMS config
-          title: Sync roster options in CMS config
-          body: |
-            Aggiorna automaticamente i dropdown giocatori del CMS in base a content/cms/roster.json.
-
-            Il branch main è protetto, quindi il workflow non prova più a fare push diretto su main: apre questa pull request da revisionare e unire.
-          branch: chore/sync-roster-options
-          delete-branch: true
-          add-paths: admin/config.yml
+          name: sync-roster-options.patch
+          path: sync-roster-options.patch
