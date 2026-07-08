@@ -215,7 +215,8 @@
       "role": "Portiere",
       "team": "Under 21",
       "number": 99,
-      "photo": "/img/players/1-bigonzi-paolo-portiere.webp"
+      "photo": "/img/players/1-bigonzi-paolo-portiere.webp",
+      "birthDate": "2004-07-26"
     },
     {
       "id": 20,
@@ -223,7 +224,8 @@
       "role": "Portiere",
       "team": "Under 21",
       "number": 31,
-      "photo": "/img/players/2-toniolli-giulio-portiere.webp"
+      "photo": "/img/players/2-toniolli-giulio-portiere.webp",
+      "birthDate": "2006-04-24"
     },
     {
       "id": 21,
@@ -231,7 +233,8 @@
       "role": "Portiere",
       "team": "Under 21",
       "number": 32,
-      "photo": "/img/players/3-zarantonello-lorenzo-portiere.webp"
+      "photo": "/img/players/3-zarantonello-lorenzo-portiere.webp",
+      "birthDate": "2004-10-30"
     },
     {
       "id": 23,
@@ -239,7 +242,8 @@
       "role": "Centrale",
       "team": "Under 21",
       "number": 35,
-      "photo": "/img/players/4-guidetti-matteo-centrale.webp"
+      "photo": "/img/players/4-guidetti-matteo-centrale.webp",
+      "birthDate": "2002-10-20"
     },
     {
       "id": 24,
@@ -247,7 +251,8 @@
       "role": "Centrale",
       "team": "Under 21",
       "number": 36,
-      "photo": "/img/players/5-materia-matteo-centrale.webp"
+      "photo": "/img/players/5-materia-matteo-centrale.webp",
+      "birthDate": "2004-11-26"
     },
     {
       "id": 25,
@@ -255,7 +260,8 @@
       "role": "Centrale",
       "team": "Under 21",
       "number": 37,
-      "photo": "/img/players/6-toniolli-riccardo-centrale.webp"
+      "photo": "/img/players/6-toniolli-riccardo-centrale.webp",
+      "birthDate": "2005-09-13"
     },
     {
       "id": 26,
@@ -263,7 +269,8 @@
       "role": "Laterale",
       "team": "Under 21",
       "number": 38,
-      "photo": "/img/players/7-betti-alessandro-laterale.webp"
+      "photo": "/img/players/7-betti-alessandro-laterale.webp",
+      "birthDate": "2006-03-16"
     },
     {
       "id": 28,
@@ -271,7 +278,8 @@
       "role": "Laterale",
       "team": "Under 21",
       "number": 40,
-      "photo": "/img/players/8-caldonazzi-federico-laterale.webp"
+      "photo": "/img/players/8-caldonazzi-federico-laterale.webp",
+      "birthDate": "2005-07-04"
     },
     {
       "id": 29,
@@ -279,7 +287,8 @@
       "role": "Laterale",
       "team": "Under 21",
       "number": 41,
-      "photo": "/img/players/12-caccia-neff-joao-pedro-laterale.webp"
+      "photo": "/img/players/12-caccia-neff-joao-pedro-laterale.webp",
+      "birthDate": "2003-03-26"
     },
     {
       "id": 30,
@@ -287,7 +296,8 @@
       "role": "Laterale",
       "team": "Under 21",
       "number": 42,
-      "photo": "/img/players/9-dancus-adrian-gavril-laterale.webp"
+      "photo": "/img/players/9-dancus-adrian-gavril-laterale.webp",
+      "birthDate": "2005-09-09"
     },
     {
       "id": 31,
@@ -295,7 +305,8 @@
       "role": "Laterale",
       "team": "Under 21",
       "number": 44,
-      "photo": "/img/players/10-tondo-mirko-a-laterale.webp"
+      "photo": "/img/players/10-tondo-mirko-a-laterale.webp",
+      "birthDate": "2006-12-24"
     },
     {
       "id": 33,
@@ -303,7 +314,8 @@
       "role": "Punta",
       "team": "Under 21",
       "number": 46,
-      "photo": "/img/players/13-ceola-michele-pivot.webp"
+      "photo": "/img/players/13-ceola-michele-pivot.webp",
+      "birthDate": "2006-09-25"
     },
     {
       "id": 35,
@@ -311,7 +323,8 @@
       "role": "Punta",
       "team": "Under 21",
       "number": 48,
-      "photo": "/img/players/15-scala-luca-universale.webp"
+      "photo": "/img/players/15-scala-luca-universale.webp",
+      "birthDate": "2006-06-07"
     }
   ]
 }
