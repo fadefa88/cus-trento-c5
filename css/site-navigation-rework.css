@@ -630,3 +630,29 @@ body .footer .container{
     flex-direction:column!important;
   }
 }
+
+
+/* v32: mobile portrait hero CTA stack and social spacing */
+@media (max-width:640px) and (orientation:portrait){
+  .home-structure>.hero .home-hero-socials{
+    top:48px!important;
+  }
+  .home-structure>.hero .home-hero-actions{
+    flex-direction:column!important;
+    flex-wrap:nowrap!important;
+    align-items:flex-start!important;
+    justify-content:flex-start!important;
+    gap:8px!important;
+    width:auto!important;
+    max-width:100%!important;
+    overflow:visible!important;
+  }
+  .home-structure>.hero .home-hero-actions .btn{
+    width:min(230px,100%)!important;
+    flex:0 0 auto!important;
+    justify-content:flex-start!important;
+    padding:11px 14px!important;
+    font-size:11px!important;
+    white-space:nowrap!important;
+  }
+}

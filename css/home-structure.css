@@ -115,3 +115,19 @@
     grid-template-columns:1fr;
   }
 }
+
+
+/* v32: clickable eyebrow labels in home news/social/standings */
+.home-structure-section-head>.eyebrow,
+.home-structure-news-standing-card>.eyebrow{
+  background:var(--red);
+  color:#fff;
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  margin-bottom:0;
+  cursor:pointer;
+}
+.home-structure-news-standing-card>.eyebrow{
+  margin-bottom:4px;
+}
