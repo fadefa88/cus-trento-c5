@@ -1,20 +1,3 @@
 {
-  "u21Fixtures": [
-    {
-      "slug": "cus-trento-bleggio-2026-10-08",
-      "time": "21:00",
-      "away": "Bleggio",
-      "date": "2026-10-08",
-      "lineup": {
-        "startingFive": [
-          "21"
-        ]
-      },
-      "venue": "Sanbàpolis",
-      "status": "Da giocare",
-      "id": "cus-trento-bleggio-2026-10-08",
-      "home": "CUS Trento",
-      "competition": "Campionato"
-    }
-  ]
+  "u21Fixtures": []
 }
