@@ -280,7 +280,7 @@ collections:
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
-            value: '2'
+            value: baccaro-zeni-lucca
           - label: '#13 Addobbati Federico'
             value: '9'
           - label: '#14 Cirasola Luca'
@@ -325,7 +325,7 @@ collections:
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
-            value: '2'
+            value: baccaro-zeni-lucca
           - label: '#13 Addobbati Federico'
             value: '9'
           - label: '#14 Cirasola Luca'
@@ -370,7 +370,7 @@ collections:
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
-            value: '2'
+            value: baccaro-zeni-lucca
           - label: '#13 Addobbati Federico'
             value: '9'
           - label: '#14 Cirasola Luca'
@@ -414,7 +414,7 @@ collections:
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
-            value: '2'
+            value: baccaro-zeni-lucca
           - label: '#13 Addobbati Federico'
             value: '9'
           - label: '#14 Cirasola Luca'
@@ -464,7 +464,7 @@ collections:
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
-            value: '2'
+            value: baccaro-zeni-lucca
           - label: '#13 Addobbati Federico'
             value: '9'
           - label: '#14 Cirasola Luca'
@@ -520,7 +520,7 @@ collections:
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
-            value: '2'
+            value: baccaro-zeni-lucca
           - label: '#13 Addobbati Federico'
             value: '9'
           - label: '#14 Cirasola Luca'
@@ -576,7 +576,7 @@ collections:
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
-            value: '2'
+            value: baccaro-zeni-lucca
           - label: '#13 Addobbati Federico'
             value: '9'
           - label: '#14 Cirasola Luca'
@@ -619,7 +619,7 @@ collections:
           - label: '#1 Safi Saif Edine'
             value: '1'
           - label: '#12 Baccaro Zeni Lucca'
-            value: '2'
+            value: baccaro-zeni-lucca
           - label: '#70 Bernard Filippo'
             value: '3'
         - label: Gol subiti
@@ -727,14 +727,14 @@ collections:
             value: '28'
           - label: '#24 Michele Ceola'
             value: '33'
+          - label: '#25 Zarantonello Lorenzo'
+            value: '21'
           - label: '#28 Tondo Mirko'
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#31 Toniolli Giulio'
             value: 20-2
-          - label: '#32 Zarantonello Lorenzo'
-            value: '21'
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
           - label: '#99 Bigonzi Paolo'
@@ -760,14 +760,14 @@ collections:
             value: '28'
           - label: '#24 Michele Ceola'
             value: '33'
+          - label: '#25 Zarantonello Lorenzo'
+            value: '21'
           - label: '#28 Tondo Mirko'
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#31 Toniolli Giulio'
             value: 20-2
-          - label: '#32 Zarantonello Lorenzo'
-            value: '21'
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
           - label: '#99 Bigonzi Paolo'
@@ -793,14 +793,14 @@ collections:
             value: '28'
           - label: '#24 Michele Ceola'
             value: '33'
+          - label: '#25 Zarantonello Lorenzo'
+            value: '21'
           - label: '#28 Tondo Mirko'
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#31 Toniolli Giulio'
             value: 20-2
-          - label: '#32 Zarantonello Lorenzo'
-            value: '21'
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
           - label: '#99 Bigonzi Paolo'
@@ -825,14 +825,14 @@ collections:
             value: '28'
           - label: '#24 Michele Ceola'
             value: '33'
+          - label: '#25 Zarantonello Lorenzo'
+            value: '21'
           - label: '#28 Tondo Mirko'
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#31 Toniolli Giulio'
             value: 20-2
-          - label: '#32 Zarantonello Lorenzo'
-            value: '21'
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
           - label: '#99 Bigonzi Paolo'
@@ -863,14 +863,14 @@ collections:
             value: '28'
           - label: '#24 Michele Ceola'
             value: '33'
+          - label: '#25 Zarantonello Lorenzo'
+            value: '21'
           - label: '#28 Tondo Mirko'
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#31 Toniolli Giulio'
             value: 20-2
-          - label: '#32 Zarantonello Lorenzo'
-            value: '21'
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
           - label: '#99 Bigonzi Paolo'
@@ -907,14 +907,14 @@ collections:
             value: '28'
           - label: '#24 Michele Ceola'
             value: '33'
+          - label: '#25 Zarantonello Lorenzo'
+            value: '21'
           - label: '#28 Tondo Mirko'
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#31 Toniolli Giulio'
             value: 20-2
-          - label: '#32 Zarantonello Lorenzo'
-            value: '21'
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
           - label: '#99 Bigonzi Paolo'
@@ -951,14 +951,14 @@ collections:
             value: '28'
           - label: '#24 Michele Ceola'
             value: '33'
+          - label: '#25 Zarantonello Lorenzo'
+            value: '21'
           - label: '#28 Tondo Mirko'
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#31 Toniolli Giulio'
             value: 20-2
-          - label: '#32 Zarantonello Lorenzo'
-            value: '21'
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
           - label: '#99 Bigonzi Paolo'
@@ -982,10 +982,10 @@ collections:
           name: playerId
           widget: select
           options:
+          - label: '#25 Zarantonello Lorenzo'
+            value: '21'
           - label: '#31 Toniolli Giulio'
             value: 20-2
-          - label: '#32 Zarantonello Lorenzo'
-            value: '21'
           - label: '#99 Bigonzi Paolo'
             value: '20'
         - label: Gol subiti
