@@ -1,3 +1,17 @@
 {
-  "news": []
+  "news": [
+    {
+      "excerpt": "ads",
+      "author": "asd",
+      "slug": "asd-2026-07-08",
+      "date": "2026-07-08",
+      "title": "asd",
+      "pinned": false,
+      "tags": [
+        "Under 21"
+      ],
+      "id": "asd-2026-07-08",
+      "category": "asd"
+    }
+  ]
 }
