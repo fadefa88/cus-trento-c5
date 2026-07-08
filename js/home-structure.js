@@ -172,13 +172,15 @@
   function newsSection(){
     const items = latestThreeNews();
     while(items.length < 3) items.push(null);
+    const cells = [
+      `<div class="home-structure-news-cell"><span class="eyebrow home-structure-news-eyebrow" role="link" tabindex="0" onclick="route('news')" style="cursor:pointer">NEWS</span>${newsCard(items[0],0)}</div>`,
+      `<div class="home-structure-news-cell"><span class="home-structure-news-label-spacer" aria-hidden="true"></span>${newsCard(items[1],1)}</div>`,
+      `<div class="home-structure-news-cell"><span class="home-structure-news-label-spacer" aria-hidden="true"></span>${newsCard(items[2],2)}</div>`,
+      `<div class="home-structure-news-cell"><span class="eyebrow home-structure-standings-eyebrow" role="link" tabindex="0" onclick="route('standings')" style="cursor:pointer">CLASSIFICA</span>${newsStandingsCard()}</div>`
+    ];
     return `<section class="section home-structure-news-section">
       <div class="container">
-        <div class="home-structure-section-head home-structure-news-head-grid">
-          <span class="eyebrow home-structure-news-eyebrow" role="link" tabindex="0" onclick="route('news')" style="cursor:pointer">NEWS</span>
-          <span class="eyebrow home-structure-standings-eyebrow" role="link" tabindex="0" onclick="route('standings')" style="cursor:pointer">CLASSIFICA</span>
-        </div>
-        <div class="home-structure-news-grid">${items.map(newsCard).join("")}${newsStandingsCard()}</div>
+        <div class="home-structure-news-grid">${cells.join("")}</div>
       </div>
     </section>`;
   }
