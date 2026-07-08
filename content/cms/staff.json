@@ -62,6 +62,15 @@
       "photo": "/img/players/18-coppo-francesco-dirigente-u21.webp",
       "bio": "Dirigente Under 21.",
       "slug": "francesco-coppo-dirigente"
+    },
+    {
+      "id": "pippo-matto",
+      "slug": "pippo-matto",
+      "name": "pippo",
+      "role": "matto",
+      "team": "Dirigenza",
+      "photo": "/img/uploads/11.webp",
+      "bio": "aasdasd"
     }
   ]
 }
