@@ -117,22 +117,23 @@
 }
 
 
-/* v34: home news and standings eyebrow labels outside the cards */
-.home-structure-news-label-grid{
+/* v35: home news/classifica eyebrow in one 4-column section header */
+.home-structure-news-head-grid{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:22px;
+  align-items:center;
   margin-bottom:22px;
 }
-.home-structure-news-label{
+.home-structure-news-eyebrow{
   grid-column:1 / span 3;
-  margin-bottom:0;
+  justify-self:start;
 }
-.home-structure-standings-label{
+.home-structure-standings-eyebrow{
   grid-column:4;
-  margin-bottom:0;
+  justify-self:start;
 }
-.home-structure-section-head>.eyebrow{
+.home-structure-news-head-grid>.eyebrow{
   background:var(--red);
   color:#fff;
   display:inline-flex;
@@ -142,16 +143,16 @@
   cursor:pointer;
 }
 @media (max-width:1180px){
-  .home-structure-news-label-grid{
+  .home-structure-news-head-grid{
     grid-template-columns:repeat(2,minmax(0,1fr));
   }
-  .home-structure-news-label,
-  .home-structure-standings-label{
+  .home-structure-news-eyebrow,
+  .home-structure-standings-eyebrow{
     grid-column:auto;
   }
 }
 @media (max-width:640px){
-  .home-structure-news-label-grid{
+  .home-structure-news-head-grid{
     grid-template-columns:1fr;
     gap:12px;
   }

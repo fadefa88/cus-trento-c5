@@ -174,9 +174,9 @@
     while(items.length < 3) items.push(null);
     return `<section class="section home-structure-news-section">
       <div class="container">
-        <div class="home-structure-news-label-grid">
-          <div class="home-structure-section-head home-structure-news-label"><span class="eyebrow" role="link" tabindex="0" onclick="route('news')" style="cursor:pointer">NEWS</span></div>
-          <div class="home-structure-section-head home-structure-standings-label"><span class="eyebrow" role="link" tabindex="0" onclick="route('standings')" style="cursor:pointer">CLASSIFICA</span></div>
+        <div class="home-structure-section-head home-structure-news-head-grid">
+          <span class="eyebrow home-structure-news-eyebrow" role="link" tabindex="0" onclick="route('news')" style="cursor:pointer">NEWS</span>
+          <span class="eyebrow home-structure-standings-eyebrow" role="link" tabindex="0" onclick="route('standings')" style="cursor:pointer">CLASSIFICA</span>
         </div>
         <div class="home-structure-news-grid">${items.map(newsCard).join("")}${newsStandingsCard()}</div>
       </div>
