@@ -49,6 +49,15 @@
       "team": "Prima squadra"
     },
     {
+      "id": "tesser-alvise",
+      "slug": "tesser-alvise",
+      "name": "Tesser Alvise",
+      "role": "Centrale",
+      "team": "Prima squadra",
+      "number": 4,
+      "photo": "/img/uploads/alvise.jpg"
+    },
+    {
       "faculty": "Giurisprudenza",
       "birthPlace": "Brescia",
       "number": 3,
