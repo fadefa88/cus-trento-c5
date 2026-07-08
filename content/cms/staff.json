@@ -5,7 +5,7 @@
       "name": "Piazza  Emiliano",
       "role": "Allenatore",
       "team": "Staff tecnico",
-      "photo": "/img/uploads/mepo.png",
+      "photo": "/img/uploads/mepo.webp",
       "bio": "Allenatore Prima Squadra",
       "slug": "emiliano-piazza-allenatore"
     },
@@ -14,7 +14,7 @@
       "name": "Copellino Livia",
       "role": "Allenatrice",
       "team": "Staff tecnico",
-      "photo": "/img/uploads/livia.png",
+      "photo": "/img/uploads/livia.webp",
       "bio": "Allenatrice Under 21",
       "slug": "livia-copellino-allenatrice"
     },
@@ -23,7 +23,7 @@
       "name": "Gurabardhi Denis",
       "role": "Vice Allenatore",
       "team": "Staff tecnico",
-      "photo": "/img/uploads/denis.png",
+      "photo": "/img/uploads/denis.webp",
       "bio": "Vice allenatore Prima Squadra",
       "slug": "denis-gurabardhi-vice-allenatore"
     },
@@ -32,7 +32,7 @@
       "name": "De Gennaro Joshua",
       "role": "Direttore Generale CUS Trento C5",
       "team": "Dirigenza",
-      "photo": "/img/uploads/joshua.png",
+      "photo": "/img/uploads/joshua.webp",
       "bio": "Direttore Generale CUS Trento C5",
       "slug": "francesco-coppo-dirigente"
     },
@@ -41,7 +41,7 @@
       "name": "Jukni Stanis",
       "role": "Dirigente",
       "team": "Dirigenza",
-      "photo": "/img/uploads/stanis.png",
+      "photo": "/img/uploads/stanis.webp",
       "bio": "Dirigente Prima Squadra",
       "slug": "stanis-jukni-dirigente"
     },
@@ -50,7 +50,7 @@
       "name": "Cadamuro Diego",
       "role": "Team Manager",
       "team": "Dirigenza",
-      "photo": "/img/uploads/diego.png",
+      "photo": "/img/uploads/diego.webp",
       "bio": "Team Manager Prima Squadra",
       "slug": "diego-cadamuro-team-manager"
     },
@@ -59,7 +59,7 @@
       "name": "Lazzarini Duilio",
       "role": "Team Manager",
       "team": "Dirigenza",
-      "photo": "/img/uploads/duilio.png",
+      "photo": "/img/uploads/duilio.webp",
       "bio": "Team Manager Under 21",
       "slug": "duilio-lazzarini-team-manager"
     }
