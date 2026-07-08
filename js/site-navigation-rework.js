@@ -641,8 +641,16 @@
     const html = `${pageHero("Diventa partner","Costruiamo valore insieme","")}
       <section class="cus-rework-section">
         <div class="container">
+          <article class="cus-rework-card cus-rework-card-pad" style="margin-bottom:24px">
+            <span class="cus-rework-kicker">Partnership program</span>
+            <h2>Perché cerchiamo partner</h2>
+            <p>${h("Il CUS Trento C5 Partnership Program non è una semplice sponsorizzazione, ma un progetto di collaborazione tra sport, università, imprese e territorio. Diventare partner significa entrare in contatto con una community giovane e qualificata, composta da studenti-atleti, laureati e futuri professionisti, contribuendo alla loro crescita sportiva, personale e professionale. Attraverso visibilità digitale, networking universitario, employer branding e iniziative dedicate, le aziende non sostengono solo una squadra: partecipano a un ecosistema che crea valore concreto per i giovani, per il territorio e per il mondo del lavoro.")}</p>
+          </article>
+          <div class="cus-rework-head">
+            <div><span class="cus-rework-kicker">Pacchetti sponsor</span><h2>Visibilità commerciale</h2></div>
+          </div>
           <div class="cus-rework-grid four">
-            ${packs.map(p => `<article class="cus-rework-card cus-rework-card-pad"><span class="badge">${h(p.price || "Su richiesta")}</span><h3>${h(p.name)}</h3><ul class="cus-rework-list">${(p.visibility || []).map(v=>`<li>${h(v)}</li>`).join("")}</ul><button class="cus-rework-action" onclick="route('contacts')">${h(p.cta || "Richiedi informazioni")}</button></article>`).join("") || `<article class="cus-rework-card cus-rework-card-pad"><h3>Pacchetti partner</h3><p>Configura i pacchetti sponsor dal CMS o contattaci per una proposta personalizzata.</p><button class="cus-rework-action" onclick="route('contacts')">Contatti</button></article>`}
+            ${packs.map(p => `<article class="cus-rework-card cus-rework-card-pad"><span class="badge">${h(p.price || "Su richiesta")}</span><h3>${h(p.name)}</h3><ul class="cus-rework-list">${(p.visibility || []).map(v=>`<li>${h(v)}</li>`).join("")}</ul><button class="cus-rework-action" onclick="route('sponsor-lead')">${h(p.cta || "Richiedi informazioni")}</button></article>`).join("") || `<article class="cus-rework-card cus-rework-card-pad"><h3>Pacchetti partner</h3><p>Configura i pacchetti sponsor dal CMS o contattaci per una proposta personalizzata.</p><button class="cus-rework-action" onclick="route('contacts')">Contatti</button></article>`}
           </div>
         </div>
       </section>`;
