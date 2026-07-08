@@ -34,6 +34,7 @@ CMS_FILES = [
     "content/cms/staff.json",
     "content/cms/videos.json",
     "content/cms/club-history.json",
+    "content/cms/events.json",
 ]
 
 GENERATED_DIRS = [
@@ -150,9 +151,9 @@ MAIN_PAGES = [
         "path": "/club/",
         "route": "club",
         "title": "Club CUS Trento C5",
-        "description": "Storia, identità e progetto sportivo del CUS Trento Calcio a 5.",
-        "heading": "CUS Trento C5: storia e identità",
-        "eyebrow": "Identity",
+        "description": "Storia e progetto sportivo del CUS Trento Calcio a 5.",
+        "heading": "Chi siamo / Il progetto",
+        "eyebrow": "Club",
     },
     {
         "path": "/sponsor/",

@@ -19,8 +19,7 @@
     "events":"/eventi/",
     "events:upcoming":"/eventi/#prossimi-eventi",
     "events:tournaments":"/eventi/#tornei",
-    "events:tryout":"/eventi/#open-day-tryout",
-    "events:partner":"/eventi/#eventi-partner",
+    "events:selections":"/eventi/#selezioni",
     "events:archive":"/eventi/#archivio-eventi",
     "partner":"/partner/",
     "become-partner":"/diventa-partner/",
@@ -29,10 +28,7 @@
     "video":"/video/",
     "social":"/social/",
     "club-project":"/club/",
-    "club-history":"/storia/",
     "venue":"/impianto/",
-    "values":"/valori/",
-    "collaborations":"/collaborazioni/",
     "records":"/hall-of-fame/",
     "contacts":"/contatti/",
     "privacy":"/privacy/",
@@ -64,10 +60,7 @@
     "/partner/":"partner",
     "/diventa-partner/":"become-partner",
     "/club/":"club-project",
-    "/storia/":"club-history",
     "/impianto/":"venue",
-    "/valori/":"values",
-    "/collaborazioni/":"collaborations",
     "/sponsor/":"partner"
   };
 
@@ -91,8 +84,7 @@
     {label:"Eventi",items:[
       ["events:upcoming","Prossimi eventi"],
       ["events:tournaments","Tornei"],
-      ["events:tryout","Open day / Tryout"],
-      ["events:partner","Eventi partner"],
+      ["events:selections","Selezioni"],
       ["events:archive","Archivio eventi"]
     ]},
     {label:"Partner",items:[
@@ -107,10 +99,7 @@
     ]},
     {label:"Club",items:[
       ["club-project","Chi siamo / Il progetto"],
-      ["club-history","Storia"],
       ["venue","Impianto"],
-      ["values","Valori"],
-      ["collaborations","Collaborazioni"],
       ["records","Hall of Fame"],
       ["contacts","Contatti"]
     ]}
@@ -134,8 +123,8 @@
     cookies:["Cookie","Cookie policy","Informazioni sull'utilizzo dei cookie e contenuti esterni."],
     partner:["Partner","I nostri partner","Aziende, realtà e sponsor che sostengono il progetto CUS Trento C5."],
     sponsor:["Partner","I nostri partner","Aziende, realtà e sponsor che sostengono il progetto CUS Trento C5."],
-    "club-project":["Club","Chi siamo / Il progetto","Identità, obiettivi e visione sportiva del CUS Trento C5."],
-    club:["Club","Chi siamo / Il progetto","Identità, obiettivi e visione sportiva del CUS Trento C5."]
+    "club-project":["Club","Chi siamo / Il progetto","Storia e progetto sportivo del CUS Trento C5."],
+    club:["Club","Chi siamo / Il progetto","Storia e progetto sportivo del CUS Trento C5."]
   };
 
   function h(value){
@@ -183,9 +172,9 @@
 
   function isCustomRoute(routeId){
     return [
-      "teams-overview","play-with-us","events","events:upcoming","events:tournaments","events:tryout",
-      "events:partner","events:archive","cnu","season-archive","partner","become-partner",
-      "club-project","club-history","venue","values","collaborations"
+      "teams-overview","play-with-us","events","events:upcoming","events:tournaments",
+      "events:selections","events:archive","cnu","season-archive","partner","become-partner",
+      "club-project","venue"
     ].includes(String(routeId || "")) || String(routeId || "").startsWith("event-detail:");
   }
 
@@ -196,7 +185,7 @@
     if(["fixtures","standings","coppa","cnu","season-archive","matchday"].includes(base)) return "season";
     if(["partner","become-partner"].includes(base)) return "partner";
     if(["news","gallery","video","social"].includes(base)) return "media";
-    if(["club-project","club-history","venue","values","collaborations","records","contacts"].includes(base)) return "club";
+    if(["club-project","venue","records","contacts"].includes(base)) return "club";
     return base === "home" ? "home" : "";
   }
 
@@ -445,69 +434,110 @@
 
   function faq(q,a){return `<article class="cus-rework-card cus-rework-card-pad"><h3>${h(q)}</h3><p>${h(a)}</p></article>`;}
 
-  const fallbackEvents = [
-    {id:"open-day-1",title:"Open day CUS Trento C5",type:"Open day / Tryout",date:"2026-09-08",time:"20:30",venue:"Sanbàpolis",summary:"Serata di prova aperta a nuovi giocatori interessati a Prima squadra e Under 21.",section:"tryout"},
-    {id:"torneo-studenti",title:"Torneo studenti UniTrento",type:"Torneo",date:"2026-09-21",time:"18:00",venue:"Sanbàpolis",summary:"Torneo promozionale aperto alla community universitaria.",section:"tournaments"},
-    {id:"partner-night",title:"Partner Night",type:"Evento partner",date:"2026-10-03",time:"19:30",venue:"Sanbàpolis",summary:"Incontro con sponsor, aziende e realtà del territorio.",section:"partner"},
-    {id:"matchday-community",title:"Community Matchday",type:"Prossimo evento",date:"2026-10-17",time:"20:45",venue:"Sanbàpolis",summary:"Matchday con attività per studenti, famiglie e tifosi.",section:"upcoming"},
-    {id:"tryout-u21",title:"Tryout Under 21",type:"Open day / Tryout",date:"2026-11-04",time:"19:00",venue:"Sanbàpolis",summary:"Sessione dedicata ai profili giovani per il gruppo Under 21.",section:"tryout"},
-    {id:"futsal-campus",title:"Futsal Campus",type:"Torneo",date:"2026-12-12",time:"15:00",venue:"Palestra CUS",summary:"Evento tecnico e mini torneo dedicato alla community CUS.",section:"tournaments"}
-  ];
-
   function allEvents(){
     const s = localState();
     return Array.isArray(s.events) ? s.events : [];
   }
 
-  const eventSections = {
-    upcoming:{route:"events:upcoming",label:"Prossimi eventi",title:"Prossimi eventi"},
-    tournaments:{route:"events:tournaments",label:"Tornei",title:"Tornei"},
-    tryout:{route:"events:tryout",label:"Open day / Tryout",title:"Open day / Tryout"},
-    partner:{route:"events:partner",label:"Eventi partner",title:"Eventi partner"},
-    archive:{route:"events:archive",label:"Archivio eventi",title:"Eventi passati / Archivio"}
+  const eventStatusFilters = {
+    upcoming:{label:"Prossimi eventi",title:"Prossimi eventi"},
+    archive:{label:"Eventi conclusi",title:"Eventi conclusi"}
   };
 
-  function renderEvents(routeId, replace){
+  const eventCategoryFilters = {
+    all:{route:"events:upcoming",label:"Tutti",title:"Tutti"},
+    tournaments:{route:"events:tournaments",label:"Tornei",title:"Tornei"},
+    selections:{route:"events:selections",label:"Selezioni",title:"Selezioni"}
+  };
+
+  let currentEventStatus = "upcoming";
+  let currentEventCategory = "all";
+
+  function eventFilterFromRoute(routeId){
     const requested = String(routeId || "events").split(":")[1] || "upcoming";
-    const section = eventSections[requested] ? requested : "upcoming";
-    const meta = eventSections[section];
+    if(requested === "archive") return {status:"archive",category:"all",route:"events:archive"};
+    if(requested === "tournaments") return {status:"upcoming",category:"tournaments",route:"events:tournaments"};
+    if(requested === "selections") return {status:"upcoming",category:"selections",route:"events:selections"};
+    return {status:"upcoming",category:"all",route:"events:upcoming"};
+  }
+
+  function routeForEventFilter(status,category){
+    if(status === "archive") return "events:archive";
+    if(category === "tournaments") return "events:tournaments";
+    if(category === "selections") return "events:selections";
+    return "events:upcoming";
+  }
+
+  window.cusSetEventFilter = function(status,category){
+    const nextStatus = eventStatusFilters[status] ? status : "upcoming";
+    const nextCategory = eventCategoryFilters[category] ? category : "all";
+    renderEvents(routeForEventFilter(nextStatus,nextCategory), true, {status:nextStatus,category:nextCategory});
+  };
+
+  function renderEvents(routeId, replace, forcedFilter){
+    const filter = forcedFilter || eventFilterFromRoute(routeId);
+    const status = eventStatusFilters[filter.status] ? filter.status : "upcoming";
+    const category = eventCategoryFilters[filter.category] ? filter.category : "all";
+    currentEventStatus = status;
+    currentEventCategory = category;
+    const route = routeForEventFilter(status,category);
+    const title = eventPageTitle(status,category);
     const html = `${pageHero("Eventi","Eventi CUS Trento C5","")}
       <section class="cus-rework-section">
         <div class="container">
-          <div class="cus-rework-event-tabs" role="tablist" aria-label="Filtra eventi">
-            ${Object.keys(eventSections).map(key => eventTab(eventSections[key].route,eventSections[key].label,section===key)).join("")}
+          <div class="cus-rework-event-tabs" role="tablist" aria-label="Filtra eventi per stato">
+            ${Object.keys(eventStatusFilters).map(key => eventFilterButton(eventStatusFilters[key].label,status===key,`cusSetEventFilter('${key}','${category}')`)).join("")}
           </div>
-          ${eventsBlock(meta.title,section)}
+          <div class="cus-rework-event-tabs secondary" role="tablist" aria-label="Filtra eventi per tipologia">
+            ${Object.keys(eventCategoryFilters).map(key => eventFilterButton(eventCategoryFilters[key].label,category===key,`cusSetEventFilter('${status}','${key}')`)).join("")}
+          </div>
+          ${eventsBlock(title,status,category)}
         </div>
       </section>`;
-    setApp(html,meta.route,"Eventi","Eventi, tornei e open day del CUS Trento C5.",replace);
+    setApp(html,route,"Eventi","Eventi, tornei e selezioni del CUS Trento C5.",replace);
   }
 
-  function eventTab(id,label,active){return `<button type="button" role="tab" aria-selected="${active ? "true" : "false"}" class="${active ? "active" : ""}" onclick="cusMenuRoute('${id}')">${h(label)}</button>`;}
+  function eventPageTitle(status,category){
+    const statusLabel = eventStatusFilters[status] ? eventStatusFilters[status].title : eventStatusFilters.upcoming.title;
+    if(category === "all") return statusLabel;
+    const categoryLabel = eventCategoryFilters[category] ? eventCategoryFilters[category].title : "Eventi";
+    return `${statusLabel} — ${categoryLabel}`;
+  }
 
-  function eventsBlock(title,section){
-    const items = filteredEvents(section);
+  function eventFilterButton(label,active,action){
+    return `<button type="button" role="tab" aria-selected="${active ? "true" : "false"}" class="${active ? "active" : ""}" onclick="${action}">${h(label)}</button>`;
+  }
+
+  function eventsBlock(title,status,category){
+    const items = filteredEvents(status,category);
     return `<div class="cus-rework-anchor" style="margin-bottom:42px">
       <div class="cus-rework-head"><div><h2>${h(title)}</h2></div></div>
       <div class="cus-rework-grid three">${items.length ? items.map(eventCard).join("") : `<article class="cus-rework-card cus-rework-card-pad"><h3>Nessun evento</h3></article>`}</div>
     </div>`;
   }
 
-  function filteredEvents(section){
+  function filteredEvents(status,category){
     return allEvents().filter(ev => {
-      const evSection = ev.section || sectionFromType(ev.type);
-      if(section === "archive") return ev.archive || new Date(ev.date) < new Date();
-      if(ev.archive) return false;
-      return evSection === section || (section === "upcoming" && !["tournaments","tryout","partner"].includes(evSection));
+      const concluded = isConcludedEvent(ev);
+      const statusOk = status === "archive" ? concluded : !concluded;
+      const categoryOk = category === "all" || eventCategory(ev) === category;
+      return statusOk && categoryOk;
     });
   }
 
-  function sectionFromType(type){
-    const t = String(type || "").toLowerCase();
-    if(t.includes("torneo")) return "tournaments";
-    if(t.includes("tryout") || t.includes("open")) return "tryout";
-    if(t.includes("partner")) return "partner";
-    return "upcoming";
+  function isConcludedEvent(ev){
+    const date = new Date(ev && ev.date);
+    if(Number.isNaN(date.getTime())) return false;
+    const eventDate = new Date(date.getFullYear(),date.getMonth(),date.getDate());
+    const today = new Date();
+    const todayDate = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    return eventDate < todayDate;
+  }
+
+  function eventCategory(ev){
+    const raw = `${ev && ev.type || ""} ${ev && ev.section || ""}`.toLowerCase();
+    if(raw.includes("torneo") || raw.includes("tournament")) return "tournaments";
+    return "selections";
   }
 
   function eventCard(ev){
@@ -619,16 +649,6 @@
     setApp(html,"become-partner","Diventa partner","Pacchetti partner e sponsorship CUS Trento C5.",replace);
   }
 
-  function renderClubHistory(replace){
-    const s = localState();
-    const history = s.clubHistory || {};
-    const html = `${pageHero("Storia",history.title || "La nostra storia","")}
-      <section class="cus-rework-section"><div class="container cus-rework-split">
-        <article class="cus-rework-card cus-rework-card-pad">${(history.paragraphs || ["Storia in aggiornamento."]).map(p=>`<p style="margin-bottom:16px">${h(p)}</p>`).join("")}</article>
-        <div class="cus-rework-grid">${(history.images || []).slice(-4).reverse().map(img=>`<article class="cus-rework-card"><div class="cus-rework-media"><img src="${h(img.image || "/img/placeholder.webp")}" alt="${h(img.season || "Stagione")}"></div><div class="cus-rework-card-pad"><h3>${h(img.season || "Stagione")}</h3></div></article>`).join("")}</div>
-      </div></section>`;
-    setApp(html,"club-history","Storia","Storia del CUS Trento C5.",replace);
-  }
 
   function renderVenue(replace){
     const html = `${pageHero("Impianto","Sanbàpolis","")}
@@ -639,25 +659,7 @@
     setApp(html,"venue","Impianto","Impianto e casa del CUS Trento C5.",replace);
   }
 
-  function renderValues(replace){
-    const values = [
-      ["Identità universitaria","Un progetto sportivo legato alla community CUS e al territorio trentino."],
-      ["Crescita","Spazio a giovani, studenti e profili motivati a migliorare."],
-      ["Responsabilità","Rispetto, impegno e affidabilità dentro e fuori dal campo."],
-      ["Community","Partite, eventi e iniziative aperte a tifosi, famiglie, aziende e studenti."]
-    ];
-    const html = `${pageHero("Valori","Il modo in cui giochiamo","")}
-      <section class="cus-rework-section"><div class="container"><div class="cus-rework-grid four">${values.map(v=>`<article class="cus-rework-card cus-rework-card-pad"><h3>${h(v[0])}</h3><p>${h(v[1])}</p></article>`).join("")}</div></div></section>`;
-    setApp(html,"values","Valori","Valori del CUS Trento C5.",replace);
-  }
 
-  function renderCollaborations(replace){
-    const html = `${pageHero("Collaborazioni","Rete sportiva e territoriale","")}
-      <section class="cus-rework-section"><div class="container"><div class="cus-rework-grid three">
-        ${["Università e CUS","Partner territoriali","Community e iniziative"].map((x,i)=>`<article class="cus-rework-card cus-rework-card-pad"><h3>${h(x)}</h3><p>${h(["Collaborazioni collegate al mondo universitario e allo sport CUS.","Relazioni con aziende e professionisti che sostengono il progetto.","Attività, eventi e progetti aperti a studenti, famiglie e territorio."][i])}</p></article>`).join("")}
-      </div></div></section>`;
-    setApp(html,"collaborations","Collaborazioni","Collaborazioni del CUS Trento C5.",replace);
-  }
 
   function renderPartnerExact(replace){
     window.__cusActiveRoute = "partner";
@@ -675,7 +677,7 @@
     if(oldRoute) oldRoute("club");
     setTimeout(() => {
       history.replaceState({route:"club-project"},"",pathByRoute["club-project"]);
-      seo("Chi siamo / Il progetto","Il progetto sportivo e societario del CUS Trento C5.",pathByRoute["club-project"]);
+      seo("Chi siamo / Il progetto","Storia e progetto sportivo del CUS Trento C5.",pathByRoute["club-project"]);
       injectStandardHero("club-project");
       renderCusMenu();
     }, 0);
@@ -694,8 +696,7 @@
     if(route === "events" && location.hash){
       const hash = location.hash.replace("#","");
       if(hash === "tornei") return "events:tournaments";
-      if(hash === "open-day-tryout") return "events:tryout";
-      if(hash === "eventi-partner") return "events:partner";
+      if(hash === "selezioni") return "events:selections";
       if(hash === "archivio-eventi") return "events:archive";
       return "events:upcoming";
     }
@@ -712,10 +713,7 @@
     if(routeId === "partner") return renderPartnerExact(replace);
     if(routeId === "become-partner") return renderBecomePartner(replace);
     if(routeId === "club-project") return renderClubProject(replace);
-    if(routeId === "club-history") return renderClubHistory(replace);
     if(routeId === "venue") return renderVenue(replace);
-    if(routeId === "values") return renderValues(replace);
-    if(routeId === "collaborations") return renderCollaborations(replace);
   }
 
   function normalizeAlias(routeId){

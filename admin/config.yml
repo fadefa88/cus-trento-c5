@@ -1237,22 +1237,8 @@ collections:
         name: type
         widget: select
         options:
-        - Prossimo evento
         - Torneo
-        - Open day / Tryout
-        - Evento partner
-      - label: Sezione
-        name: section
-        widget: select
-        options:
-        - label: Prossimi eventi
-          value: upcoming
-        - label: Tornei
-          value: tournaments
-        - label: Open day / Tryout
-          value: tryout
-        - label: Eventi partner
-          value: partner
+        - Selezione
       - label: Data
         name: date
         widget: datetime
@@ -1274,9 +1260,4 @@ collections:
       - label: Dettagli
         name: details
         widget: text
-        required: false
-      - label: Archiviato
-        name: archive
-        widget: boolean
-        default: false
         required: false
