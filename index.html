@@ -3,30 +3,68 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Lavori in corso | CUS Trento C5</title>
-<meta name="description" content="Il sito ufficiale del CUS Trento C5 è momentaneamente in manutenzione."/>
-<meta name="robots" content="noindex,nofollow"/>
-<meta name="theme-color" content="#111827"/>
-<link rel="icon" href="/img/logo.webp"/>
-<style>
-  :root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#fff;background:#09090b;}
-  *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 20% 20%,rgba(185,28,28,.35),transparent 32%),linear-gradient(135deg,#09090b,#18181b 55%,#111827);}
-  main{width:min(720px,calc(100% - 32px));text-align:center;padding:48px 28px;border:1px solid rgba(255,255,255,.12);border-radius:28px;background:rgba(9,9,11,.68);box-shadow:0 28px 80px rgba(0,0,0,.38);backdrop-filter:blur(12px);}
-  img{width:92px;height:92px;object-fit:contain;margin-bottom:24px;filter:drop-shadow(0 16px 28px rgba(0,0,0,.45));}
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.1);color:#fca5a5;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;}
-  h1{font-size:clamp(42px,8vw,76px);line-height:.94;margin:22px 0 18px;letter-spacing:-.06em;}
-  p{max-width:560px;margin:0 auto;color:rgba(255,255,255,.72);font-size:18px;line-height:1.55;font-weight:650;}
-  .footer{margin-top:30px;color:rgba(255,255,255,.45);font-size:13px;font-weight:800;}
-</style>
+<title>CUS Trento C5 — Sito ufficiale</title>
+<meta id="metaDescription" name="description" content="Sito ufficiale del CUS Trento C5: news, match center, rosa, U21, coppa, staff, gallery e sponsor."/>
+<meta name="theme-color" content="#b91c1c"/>
+<meta property="og:type" content="website"/>
+<meta id="ogTitle" property="og:title" content="CUS Trento C5"/>
+<meta id="ogDescription" property="og:description" content="Futsal universitario trentino."/>
+<meta id="ogImage" property="og:image" content="https://custrentocalcioa5.it/img/uploads/bg.jpeg"/>
+<link id="canonical" rel="canonical" href="https://custrentocalcioa5.it/"/>
+<link rel="icon" href="https://custrentocalcioa5.it/img/logo.webp"/>
+<link rel="preload" as="image" href="https://custrentocalcioa5.it/img/uploads/bg.jpeg" fetchpriority="high"/>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/></noscript>
+<link rel="stylesheet" href="/css/style.css?v=cus-static-seo-v45"/>
+<link rel="stylesheet" href="/css/home-structure.css?v=home-structure-v51"/>
+<link rel="stylesheet" href="/css/home-upcoming-matches.css?v=home-upcoming-v18"/>
+<link rel="stylesheet" href="/css/site-navigation-rework.css?v=menu-rework-v50"/>
 </head>
 <body>
-<main>
-  <img src="/img/logo.webp" alt="CUS Trento C5">
-  <span class="eyebrow">CUS Trento C5</span>
-  <h1>Lavori in corso</h1>
-  <p>Il sito è momentaneamente in manutenzione. Torneremo online a breve con i contenuti aggiornati.</p>
-  <div class="footer">© 2026 LDF</div>
-</main>
+<a class="skip" href="#app">Salta al contenuto</a>
+<div class="nav">
+  <div class="container nav-inner">
+    <button class="brand" onclick="route('home')" aria-label="Vai alla home"><div class="crest crest-logo"><img src="https://custrentocalcioa5.it/img/logo.webp" alt="CUS Trento C5"></div><div>CUS Trento C5</div></button>
+    <nav class="nav-groups" id="navGroups" aria-label="Navigazione principale"></nav>
+    <button class="mobile-toggle" onclick="toggleMobile()" aria-label="Apri menu" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+  </div>
+</div>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true"></div>
+<main id="app"></main>
+<div class="cookie" id="cookieBanner" role="dialog" aria-label="Consenso cookie" data-nosnippet>
+  <div class="grid"><div><b>Cookie e privacy</b><p style="color:rgba(255,255,255,.7);margin:6px 0 0">Gestisci le preferenze per i contenuti esterni del sito.</p></div><div class="btns" style="margin:0"><button class="btn light" onclick="rejectCookies()">Rifiuta non necessari</button><button class="btn ghost" onclick="acceptCookies('all')">Accetta tutto</button><button class="btn soft" onclick="openCookieDetails()">Dettagli</button></div></div>
+</div>
+<div class="cookie-modal" id="cookieModal" role="dialog" aria-label="Dettagli cookie" data-nosnippet>
+  <div class="cookie-box">
+    <button class="cookie-close" type="button" onclick="closeCookieDetails()" aria-label="Chiudi preferenze cookie">×</button>
+    <span class="eyebrow">Cookie settings</span>
+    <h2 style="font-size:34px;margin:0 0 10px">Preferenze cookie</h2>
+    <p class="muted">Il sito non usa cookie di profilazione propri. Puoi accettare o rifiutare il caricamento di contenuti esterni che possono usare cookie o tecnologie simili.</p>
+    <div class="cookie-options">
+      <div class="cookie-option"><b>Necessari</b><p class="muted">Sempre attivi: funzionamento del sito, salvataggio della preferenza cookie e sicurezza del modulo contatti.</p></div>
+      <div class="cookie-option"><b>Contenuti esterni</b><p class="muted">Facoltativi: Google Maps e video YouTube incorporati. Se rifiuti, vedrai un riquadro sostitutivo con link esterno.</p></div>
+      <div class="cookie-option"><b>Analytics e marketing</b><p class="muted">Non attivi. Se verranno aggiunti, richiederanno consenso esplicito prima del caricamento.</p></div>
+    </div>
+    <div class="btns"><button class="btn light" onclick="rejectCookies();closeCookieDetails()">Rifiuta non necessari</button><button class="btn dark" onclick="acceptCookies('all');closeCookieDetails()">Accetta tutto</button><button class="btn soft" onclick="closeCookieDetails()">Chiudi</button><button class="btn danger" onclick="resetCookieConsent()">Reset consenso</button></div>
+  </div>
+</div>
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Gallery lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Chiudi">×</button>
+    <button class="lightbox-prev" onclick="moveLightbox(-1)" aria-label="Foto precedente">‹</button>
+    <img id="lightboxImg" class="lightbox-img" src="" alt="Foto gallery">
+    <iframe id="lightboxFrame" class="lightbox-frame" src="" title="Video player" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="display:none"></iframe>
+    <button class="lightbox-next" onclick="moveLightbox(1)" aria-label="Foto successiva">›</button>
+    <div id="lightboxCaption" class="lightbox-caption"></div>
+  </div>
+</div>
+<script src="/js/app.js?v=cus-static-seo-v53-slug-pages" defer></script>
+<script src="/js/home-structure.js?v=home-structure-v52-cta-copy" defer></script>
+<script src="/js/home-upcoming-matches.js?v=home-upcoming-v18" defer></script>
+<script src="/js/site-navigation-rework.js?v=menu-rework-v53-slug-pages" defer></script>
+<script src="/js/contact-security.js?v=turnstile-v3-image-retry" defer></script>
+
+
 </body>
 </html>
