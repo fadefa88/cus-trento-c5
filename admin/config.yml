@@ -715,11 +715,11 @@ collections:
           options:
           - label: '#6 Materia Matteo'
             value: '24'
-          - label: '#8 Alessandro Betti'
+          - label: '#8 Betti Alessandro'
             value: '26'
-          - label: '#15 Adrian Gavril Dancus'
+          - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Luca Scala'
+          - label: '#18 Scala Luca'
             value: '35'
           - label: '#19 Riccardo Toniolli'
             value: '25'
@@ -733,10 +733,10 @@ collections:
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#31 Toniolli Giulio'
-            value: 20-2
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
+          - label: '#90 Toniolli Giulio'
+            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
           hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
@@ -748,11 +748,11 @@ collections:
           options:
           - label: '#6 Materia Matteo'
             value: '24'
-          - label: '#8 Alessandro Betti'
+          - label: '#8 Betti Alessandro'
             value: '26'
-          - label: '#15 Adrian Gavril Dancus'
+          - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Luca Scala'
+          - label: '#18 Scala Luca'
             value: '35'
           - label: '#19 Riccardo Toniolli'
             value: '25'
@@ -766,10 +766,10 @@ collections:
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#31 Toniolli Giulio'
-            value: 20-2
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
+          - label: '#90 Toniolli Giulio'
+            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
           hint: Scegli solo giocatori non già presenti nel quintetto.
@@ -781,11 +781,11 @@ collections:
           options:
           - label: '#6 Materia Matteo'
             value: '24'
-          - label: '#8 Alessandro Betti'
+          - label: '#8 Betti Alessandro'
             value: '26'
-          - label: '#15 Adrian Gavril Dancus'
+          - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Luca Scala'
+          - label: '#18 Scala Luca'
             value: '35'
           - label: '#19 Riccardo Toniolli'
             value: '25'
@@ -799,10 +799,10 @@ collections:
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#31 Toniolli Giulio'
-            value: 20-2
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
+          - label: '#90 Toniolli Giulio'
+            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
         - label: Infortunati
@@ -813,11 +813,11 @@ collections:
           options:
           - label: '#6 Materia Matteo'
             value: '24'
-          - label: '#8 Alessandro Betti'
+          - label: '#8 Betti Alessandro'
             value: '26'
-          - label: '#15 Adrian Gavril Dancus'
+          - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Luca Scala'
+          - label: '#18 Scala Luca'
             value: '35'
           - label: '#19 Riccardo Toniolli'
             value: '25'
@@ -831,10 +831,10 @@ collections:
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#31 Toniolli Giulio'
-            value: 20-2
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
+          - label: '#90 Toniolli Giulio'
+            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
       - label: Marcatori
@@ -851,11 +851,11 @@ collections:
           options:
           - label: '#6 Materia Matteo'
             value: '24'
-          - label: '#8 Alessandro Betti'
+          - label: '#8 Betti Alessandro'
             value: '26'
-          - label: '#15 Adrian Gavril Dancus'
+          - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Luca Scala'
+          - label: '#18 Scala Luca'
             value: '35'
           - label: '#19 Riccardo Toniolli'
             value: '25'
@@ -869,10 +869,10 @@ collections:
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#31 Toniolli Giulio'
-            value: 20-2
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
+          - label: '#90 Toniolli Giulio'
+            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
         - label: Gol
@@ -895,11 +895,11 @@ collections:
           options:
           - label: '#6 Materia Matteo'
             value: '24'
-          - label: '#8 Alessandro Betti'
+          - label: '#8 Betti Alessandro'
             value: '26'
-          - label: '#15 Adrian Gavril Dancus'
+          - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Luca Scala'
+          - label: '#18 Scala Luca'
             value: '35'
           - label: '#19 Riccardo Toniolli'
             value: '25'
@@ -913,10 +913,10 @@ collections:
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#31 Toniolli Giulio'
-            value: 20-2
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
+          - label: '#90 Toniolli Giulio'
+            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
         - label: Ammonizioni
@@ -939,11 +939,11 @@ collections:
           options:
           - label: '#6 Materia Matteo'
             value: '24'
-          - label: '#8 Alessandro Betti'
+          - label: '#8 Betti Alessandro'
             value: '26'
-          - label: '#15 Adrian Gavril Dancus'
+          - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Luca Scala'
+          - label: '#18 Scala Luca'
             value: '35'
           - label: '#19 Riccardo Toniolli'
             value: '25'
@@ -957,10 +957,10 @@ collections:
             value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#31 Toniolli Giulio'
-            value: 20-2
           - label: '#45 Joao Pedro Caccia Neff'
             value: '29'
+          - label: '#90 Toniolli Giulio'
+            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
         - label: Espulsioni
@@ -984,7 +984,7 @@ collections:
           options:
           - label: '#25 Zarantonello Lorenzo'
             value: '21'
-          - label: '#31 Toniolli Giulio'
+          - label: '#90 Toniolli Giulio'
             value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
