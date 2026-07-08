@@ -42,6 +42,9 @@ GENERATED_DIRS = [
     "squadra",
     "staff",
     "calendario",
+    "eventi",
+    "partner",
+    "diventa-partner",
     "classifica",
     "statistiche",
     "coppa",
@@ -203,6 +206,70 @@ MAIN_PAGES = [
         "heading": "Under 21",
         "eyebrow": "Team",
     },
+    {
+        "path": "/squadre/",
+        "route": "teams-overview",
+        "title": "Squadre CUS Trento C5",
+        "description": "Prima squadra e Under 21 del CUS Trento C5.",
+        "heading": "Squadre",
+        "eyebrow": "Team",
+    },
+    {
+        "path": "/gioca-con-noi/",
+        "route": "play-with-us",
+        "title": "Gioca con noi CUS Trento C5",
+        "description": "Candidature e informazioni per giocare nel CUS Trento C5.",
+        "heading": "Gioca con noi",
+        "eyebrow": "Squadre",
+    },
+    {
+        "path": "/cnu/",
+        "route": "cnu",
+        "title": "CNU CUS Trento C5",
+        "description": "Campionati Nazionali Universitari del CUS Trento C5.",
+        "heading": "CNU",
+        "eyebrow": "Stagione",
+    },
+    {
+        "path": "/archivio-stagioni/",
+        "route": "season-archive",
+        "title": "Archivio stagioni CUS Trento C5",
+        "description": "Archivio storico delle stagioni del CUS Trento C5.",
+        "heading": "Archivio stagioni",
+        "eyebrow": "Stagione",
+    },
+    {
+        "path": "/eventi/",
+        "route": "events",
+        "title": "Eventi CUS Trento C5",
+        "description": "Eventi, tornei e selezioni del CUS Trento C5.",
+        "heading": "Eventi",
+        "eyebrow": "Eventi",
+    },
+    {
+        "path": "/partner/",
+        "route": "partner",
+        "title": "Partner CUS Trento C5",
+        "description": "Partner e sponsor del CUS Trento C5.",
+        "heading": "Partner",
+        "eyebrow": "Partner",
+    },
+    {
+        "path": "/diventa-partner/",
+        "route": "become-partner",
+        "title": "Diventa partner CUS Trento C5",
+        "description": "Pacchetti e opportunità per diventare partner del CUS Trento C5.",
+        "heading": "Diventa partner",
+        "eyebrow": "Partner",
+    },
+    {
+        "path": "/impianto/",
+        "route": "venue",
+        "title": "Palazzetto Sanbàpolis CUS Trento C5",
+        "description": "Impianto e casa del CUS Trento C5.",
+        "heading": "Palazzetto Sanbàpolis",
+        "eyebrow": "Club",
+    },
 ]
 
 
@@ -227,13 +294,103 @@ def slugify(value: Any, limit: int = 86) -> str:
     return text[:limit].strip("-") or "news"
 
 
-def news_slug(item: Dict[str, Any]) -> str:
+AUTO_OBJECT_FIELDS = {
+    "news": ["title", "date"],
+    "roster": ["name"],
+    "fixtures": ["home", "away", "date"],
+    "u21Fixtures": ["home", "away", "date"],
+    "galleryAlbums": ["title", "season", "date"],
+    "sponsors": ["name"],
+    "sponsorPackages": ["name"],
+    "staff": ["name", "role"],
+    "videos": ["title"],
+    "events": ["title", "date"],
+}
+
+ITEM_URL_BASES = {
+    "news": "/news/",
+    "roster": "/squadra/",
+    "fixtures": "/calendario/",
+    "u21Fixtures": "/under-21/calendario/",
+    "galleryAlbums": "/gallery/",
+    "sponsors": "/partner/",
+    "sponsorPackages": "/diventa-partner/",
+    "staff": "/staff/",
+    "videos": "/video/",
+    "events": "/eventi/",
+}
+
+
+def object_id_base(item: Dict[str, Any], fields: List[str]) -> str:
+    direct = " ".join(str(item.get(field) or "") for field in fields).strip()
+    return direct or str(item.get("name") or item.get("title") or item.get("home") or item.get("away") or item.get("date") or item.get("season") or "item")
+
+
+def unique_slug(base: Any, used: set[str], limit: int = 86) -> str:
+    root = slugify(base, limit)
+    candidate = root
+    counter = 2
+    while candidate in used:
+        candidate = f"{root}-{counter}"
+        counter += 1
+    used.add(candidate)
+    return candidate
+
+
+def ensure_object_ids_and_slugs(items: Any, fields: List[str]) -> Any:
+    if not isinstance(items, list):
+        return items
+    used_ids: set[str] = set()
+    used_slugs: set[str] = set()
+    normalized: List[Any] = []
+    for item in items:
+        if not isinstance(item, dict):
+            normalized.append(item)
+            continue
+        out = dict(item)
+        current_id = str(out.get("id") or "").strip()
+        if current_id and current_id not in used_ids:
+            used_ids.add(current_id)
+        else:
+            out["id"] = unique_slug(current_id or object_id_base(out, fields), used_ids, 72)
+
+        current_slug = str(out.get("slug") or "").strip()
+        out["slug"] = unique_slug(current_slug or object_id_base(out, fields), used_slugs, 86)
+        normalized.append(out)
+    return normalized
+
+
+def normalize_automatic_ids(data: Dict[str, Any]) -> Dict[str, Any]:
+    out = dict(data or {})
+    for key, fields in AUTO_OBJECT_FIELDS.items():
+        if isinstance(out.get(key), list):
+            out[key] = ensure_object_ids_and_slugs(out[key], fields)
+    if isinstance(out.get("clubHistory"), dict) and isinstance(out["clubHistory"].get("images"), list):
+        out["clubHistory"] = dict(out["clubHistory"])
+        out["clubHistory"]["images"] = ensure_object_ids_and_slugs(out["clubHistory"].get("images"), ["season"])
+    return out
+
+
+def item_slug(item: Dict[str, Any], key: str) -> str:
+    fields = AUTO_OBJECT_FIELDS.get(key, ["title", "name", "date"])
+    return slugify(item.get("slug") or object_id_base(item, fields))
+
+
+def item_url(key: str, item: Dict[str, Any]) -> str:
+    return f"{ITEM_URL_BASES[key]}{item_slug(item, key)}/"
+
+
+def legacy_news_slug(item: Dict[str, Any]) -> str:
     raw_id = item.get("id") or item.get("sourceId") or item.get("date") or "item"
     return f"{slugify(item.get('title') or 'news')}-{slugify(raw_id, 32)}"
 
 
+def news_slug(item: Dict[str, Any]) -> str:
+    return slugify(item.get("slug") or legacy_news_slug(item))
+
+
 def news_url(item: Dict[str, Any]) -> str:
-    return f"/news/{news_slug(item)}/"
+    return item_url("news", item)
 
 
 def canonical(path: str) -> str:
@@ -270,6 +427,8 @@ def load_site_data() -> Dict[str, Any]:
             for key, value in payload.items():
                 data[key] = value
 
+    data = normalize_automatic_ids(data)
+
     imported_index = read_json("content/news.index.json", {})
     imported_full = read_json("content/news.imported.json", {})
     index_news = imported_index.get("news", []) if isinstance(imported_index, dict) else imported_index if isinstance(imported_index, list) else []
@@ -296,6 +455,7 @@ def load_site_data() -> Dict[str, Any]:
             merged.append({**item, **full} if full else item)
 
     data["news"] = sorted(merged, key=lambda n: (str(n.get("date") or ""), int(n.get("id") or 0) if str(n.get("id") or "").isdigit() else 0), reverse=True)
+    data["news"] = ensure_object_ids_and_slugs(data["news"], AUTO_OBJECT_FIELDS["news"])
     return data
 
 
@@ -475,6 +635,91 @@ def generate_news_pages(data: Dict[str, Any], urls: List[Tuple[str, str]]) -> No
         urls.append((path, valid_date(item.get("date"))))
 
 
+def item_title(key: str, item: Dict[str, Any]) -> str:
+    if key in {"fixtures", "u21Fixtures"}:
+        return f"{item.get('home') or 'CUS Trento'} - {item.get('away') or 'Avversario'}"
+    return str(item.get("title") or item.get("name") or item.get("season") or "CUS Trento C5")
+
+
+def item_description(key: str, item: Dict[str, Any]) -> str:
+    values = [
+        item.get("excerpt"), item.get("summary"), item.get("description"), item.get("bio"),
+        item.get("role"), item.get("team"), item.get("type"), item.get("date"), item.get("venue")
+    ]
+    if key in {"fixtures", "u21Fixtures"}:
+        values = [item_title(key, item), item.get("competition"), item.get("round"), item.get("venue"), item.get("date")]
+    if key == "sponsorPackages":
+        values = [item.get("name"), item.get("price"), "Pacchetto partner CUS Trento C5"]
+    text = " · ".join(str(v) for v in values if v)
+    return text_excerpt(text or item_title(key, item), 156)
+
+
+def item_image(key: str, item: Dict[str, Any]) -> str | None:
+    return item.get("image") or item.get("photo") or item.get("cover") or item.get("thumb") or item.get("logo")
+
+
+def render_object_page(key: str, item: Dict[str, Any]) -> str:
+    title = item_title(key, item)
+    crumbs = {
+        "roster": ("/squadra/", "Rosa"),
+        "staff": ("/staff/", "Staff"),
+        "fixtures": ("/calendario/", "Calendario"),
+        "u21Fixtures": ("/calendario/", "Calendario"),
+        "galleryAlbums": ("/gallery/", "Gallery"),
+        "sponsors": ("/partner/", "Partner"),
+        "sponsorPackages": ("/diventa-partner/", "Diventa partner"),
+        "videos": ("/video/", "Video"),
+        "events": ("/eventi/", "Eventi"),
+    }.get(key, ("/", "CUS Trento C5"))
+    details: List[str] = []
+    for label, field in [
+        ("Ruolo", "role"), ("Squadra/Gruppo", "team"), ("Numero", "number"), ("Categoria", "category"),
+        ("Tipo", "type"), ("Data", "date"), ("Orario", "time"), ("Luogo", "venue"), ("Prezzo", "price"),
+    ]:
+        if item.get(field) not in (None, ""):
+            details.append(f'<div class="player-info-box"><span>{esc(label)}</span><b>{esc(item.get(field))}</b></div>')
+    body_bits: List[str] = []
+    if key == "galleryAlbums":
+        photos = item.get("photos") if isinstance(item.get("photos"), list) else []
+        body_bits.append('<div class="grid grid-3">' + "".join(
+            f'<article class="card"><img loading="lazy" class="gallery-img" src="{esc(photo if isinstance(photo, str) else photo.get("url") or photo.get("image") or photo.get("src") or "")}" alt="{esc(title)}"></article>'
+            for photo in photos[:24]
+        ) + '</div>')
+    elif key == "videos" and item.get("url"):
+        body_bits.append(f'<p><a class="btn dark" href="{esc(item.get("url"))}" target="_blank" rel="noopener noreferrer">Apri video</a></p>')
+    elif key == "sponsors" and item.get("url"):
+        body_bits.append(f'<p><a class="btn dark" href="{esc(item.get("url"))}" target="_blank" rel="noopener noreferrer">Visita sito partner</a></p>')
+    elif key == "sponsorPackages":
+        vis = item.get("visibility") if isinstance(item.get("visibility"), list) else []
+        if vis:
+            body_bits.append('<ul>' + ''.join(f'<li>{esc(v)}</li>' for v in vis) + '</ul>')
+    body_bits.append(f'<p>{esc(item.get("details") or item.get("description") or item.get("summary") or item.get("bio") or item.get("excerpt") or "Scheda in aggiornamento.")}</p>')
+    image = item_image(key, item)
+    image_html = f'<img class="article-hero" loading="eager" decoding="async" src="{esc(image)}" alt="{esc(title)}">' if image else ""
+    body = (
+        f'<div class="breadcrumb"><a class="back-link" href="{esc(crumbs[0])}"><span>←</span> {esc(crumbs[1])}</a><span>{esc(item.get("slug") or "")}</span></div>'
+        f'<div class="grid grid-2" style="margin-top:28px">'
+        f'<article class="card card-pad article-body imported-article">{image_html}{"".join(body_bits)}</article>'
+        f'<aside class="card card-pad"><h2>Dettagli</h2><div class="player-info-grid">{"".join(details) or "<p class=\"muted\">Dettagli in aggiornamento.</p>"}</div></aside>'
+        f'</div>'
+    )
+    return render_shell(crumbs[1], title, body)
+
+
+def generate_object_pages(data: Dict[str, Any], urls: List[Tuple[str, str]]) -> None:
+    for key in ["roster", "staff", "fixtures", "u21Fixtures", "galleryAlbums", "sponsors", "sponsorPackages", "videos", "events"]:
+        items = data.get(key, []) if isinstance(data.get(key), list) else []
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            path = item_url(key, item)
+            title = item_title(key, item)
+            description = item_description(key, item)
+            html_out = page_template(title, description, path, item_image(key, item), render_object_page(key, item))
+            write_page(path, html_out)
+            urls.append((path, valid_date(item.get("date"))))
+
+
 def write_robots() -> None:
     (ROOT / "robots.txt").write_text(
         f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n",
@@ -505,9 +750,10 @@ def main() -> None:
     urls: List[Tuple[str, str]] = []
     generate_main_pages(data, urls)
     generate_news_pages(data, urls)
+    generate_object_pages(data, urls)
     write_robots()
     write_sitemap(urls)
-    print(f"Generated {len(data.get('news', []))} news pages, {len(MAIN_PAGES)} main pages, sitemap.xml and robots.txt")
+    print(f"Generated {len(data.get('news', []))} news pages, object slug pages, {len(MAIN_PAGES)} main pages, sitemap.xml and robots.txt")
 
 
 if __name__ == "__main__":

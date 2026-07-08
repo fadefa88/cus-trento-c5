@@ -5,27 +5,31 @@
       "name": "Ristorante Tentazioni",
       "tier": "test",
       "logo": "/img/uploads/tentazioni.webp",
-      "url": "https://www.tentazionitrento.it/it/"
+      "url": "https://www.tentazionitrento.it/it/",
+      "slug": "ristorante-tentazioni"
     },
     {
       "id": 2,
       "name": "Pizzeria all'Angolo Trento",
       "tier": "test",
       "logo": "/img/uploads/angolo.webp",
-      "url": "https://pizzeriangolotrento.it/"
+      "url": "https://pizzeriangolotrento.it/",
+      "slug": "pizzeria-all-angolo-trento"
     },
     {
       "id": 3,
       "name": "Burger F*cktory",
       "tier": "test",
       "logo": "/img/uploads/burgerfktory.webp",
-      "url": "https://burgerfcktory.com/"
+      "url": "https://burgerfcktory.com/",
+      "slug": "burger-f-cktory"
     },
     {
       "id": 4,
       "name": "Auto Elettrica o Termica",
       "url": "https://elettricaotermica.it/auto-elettrica-o-benzina",
-      "logo": "/img/uploads/social-card.webp"
+      "logo": "/img/uploads/social-card.webp",
+      "slug": "auto-elettrica-o-termica"
     }
   ]
 }

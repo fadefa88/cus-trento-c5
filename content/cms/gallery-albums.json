@@ -33,7 +33,8 @@
         "vario"
       ],
       "description": "",
-      "category": "Matchday"
+      "category": "Matchday",
+      "slug": "prima-squadra-2025-26-2025-09-01"
     },
     {
       "season": "2025/26",
@@ -62,7 +63,8 @@
         "https://custrentocalcioa5.it/img/players/13-ceola-michele-pivot.webp",
         "https://custrentocalcioa5.it/img/players/14-loperfido-damiano-pivot.webp",
         "https://custrentocalcioa5.it/img/players/15-scala-luca-universale.webp"
-      ]
+      ],
+      "slug": "under-21-2025-26-2025-09-02"
     }
   ]
 }

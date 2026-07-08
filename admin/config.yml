@@ -25,10 +25,16 @@ collections:
       label_singular: articolo
       summary: '{{fields.title}}'
       fields:
-      - label: ID
+      - label: ID automatico
         name: id
-        widget: number
-        value_type: int
+        widget: hidden
+        default: ''
+        required: false
+      - label: Slug automatico
+        name: slug
+        widget: hidden
+        default: ''
+        required: false
       - label: Titolo
         name: title
         widget: string
@@ -51,10 +57,12 @@ collections:
       - label: Data
         name: date
         widget: datetime
+        required: true
         format: YYYY-MM-DD
         date_format: DD/MM/YYYY
         time_format: false
         picker_utc: false
+        hint: "Campo obbligatorio: la news non può essere salvata senza data."
       - label: Autore
         name: author
         widget: string
@@ -81,8 +89,7 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.type}}'
-        hint: Usa questi blocchi per costruire articoli con immagini tra i paragrafi. Se lasci vuoto questo campo, il sito
-          usa il Corpo semplice sopra.
+        hint: Usa questi blocchi per costruire articoli con immagini tra i paragrafi. Se lasci vuoto questo campo, il sito usa il Corpo semplice sopra.
         fields:
         - label: Tipo blocco
           name: type
@@ -126,10 +133,16 @@ collections:
       label_singular: giocatore
       summary: '#{{fields.number}} {{fields.name}} ({{fields.team}})'
       fields:
-      - label: ID
+      - label: ID automatico
         name: id
-        widget: number
-        value_type: int
+        widget: hidden
+        default: ''
+        required: false
+      - label: Slug automatico
+        name: slug
+        widget: hidden
+        default: ''
+        required: false
       - label: Nome
         name: name
         widget: string
@@ -173,8 +186,7 @@ collections:
         widget: image
         choose_url: true
         required: false
-      hint: 'Le statistiche non si modificano qui: presenze, gol, ammonizioni, espulsioni e gol subiti sono calcolati automaticamente
-        dai match terminati.'
+      hint: 'Le statistiche non si modificano qui: presenze, gol, ammonizioni, espulsioni e gol subiti sono calcolati automaticamente dai match terminati.'
 - name: fixtures
   label: Calendario Prima squadra
   delete: false
@@ -191,10 +203,16 @@ collections:
       label_singular: partita
       summary: '{{fields.date}} — {{fields.home}} vs {{fields.away}}'
       fields:
-      - label: ID
+      - label: ID automatico
         name: id
-        widget: number
-        value_type: int
+        widget: hidden
+        default: ''
+        required: false
+      - label: Slug automatico
+        name: slug
+        widget: hidden
+        default: ''
+        required: false
       - label: Data
         name: date
         widget: datetime
@@ -533,8 +551,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
-          i gol subiti al portiere nel quintetto titolare.
+        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
+          titolare.
         fields:
         - label: Portiere
           name: playerId
@@ -580,10 +598,16 @@ collections:
       label_singular: partita U21
       summary: '{{fields.date}} — {{fields.home}} vs {{fields.away}}'
       fields:
-      - label: ID
+      - label: ID automatico
         name: id
-        widget: number
-        value_type: int
+        widget: hidden
+        default: ''
+        required: false
+      - label: Slug automatico
+        name: slug
+        widget: hidden
+        default: ''
+        required: false
       - label: Data
         name: date
         widget: datetime
@@ -921,8 +945,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
-          i gol subiti al portiere nel quintetto titolare.
+        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
+          titolare.
         fields:
         - label: Portiere
           name: playerId
@@ -968,10 +992,16 @@ collections:
       label_singular: album
       summary: '{{fields.title}}'
       fields:
-      - label: ID
+      - label: ID automatico
         name: id
-        widget: number
-        value_type: int
+        widget: hidden
+        default: ''
+        required: false
+      - label: Slug automatico
+        name: slug
+        widget: hidden
+        default: ''
+        required: false
       - label: Titolo
         name: title
         widget: string
@@ -1034,10 +1064,16 @@ collections:
       label_singular: sponsor
       summary: '{{fields.name}}'
       fields:
-      - label: ID
+      - label: ID automatico
         name: id
-        widget: number
-        value_type: int
+        widget: hidden
+        default: ''
+        required: false
+      - label: Slug automatico
+        name: slug
+        widget: hidden
+        default: ''
+        required: false
       - label: Nome
         name: name
         widget: string
@@ -1066,10 +1102,16 @@ collections:
       label_singular: pacchetto
       summary: '{{fields.name}}'
       fields:
-      - label: ID
+      - label: ID automatico
         name: id
-        widget: number
-        value_type: int
+        widget: hidden
+        default: ''
+        required: false
+      - label: Slug automatico
+        name: slug
+        widget: hidden
+        default: ''
+        required: false
       - label: Nome
         name: name
         widget: string
@@ -1102,10 +1144,16 @@ collections:
       label_singular: membro
       summary: '{{fields.name}} — {{fields.role}}'
       fields:
-      - label: ID
+      - label: ID automatico
         name: id
-        widget: number
-        value_type: int
+        widget: hidden
+        default: ''
+        required: false
+      - label: Slug automatico
+        name: slug
+        widget: hidden
+        default: ''
+        required: false
       - label: Nome
         name: name
         widget: string
@@ -1143,10 +1191,16 @@ collections:
       label_singular: video
       summary: '{{fields.title}}'
       fields:
-      - label: ID
+      - label: ID automatico
         name: id
-        widget: number
-        value_type: int
+        widget: hidden
+        default: ''
+        required: false
+      - label: Slug automatico
+        name: slug
+        widget: hidden
+        default: ''
+        required: false
       - label: Titolo
         name: title
         widget: string
@@ -1202,6 +1256,16 @@ collections:
         name: images
         widget: list
         fields:
+        - label: ID automatico
+          name: id
+          widget: hidden
+          default: ''
+          required: false
+        - label: Slug automatico
+          name: slug
+          widget: hidden
+          default: ''
+          required: false
         - label: Stagione
           name: season
           widget: string
@@ -1209,7 +1273,6 @@ collections:
           name: image
           widget: image
           choose_url: true
-
 - name: events
   label: Eventi
   delete: false
@@ -1226,10 +1289,16 @@ collections:
       label_singular: evento
       summary: '{{fields.date}} — {{fields.title}}'
       fields:
-      - label: ID
+      - label: ID automatico
         name: id
-        widget: string
-        hint: Identificativo breve senza spazi, usato per la pagina dettaglio evento.
+        widget: hidden
+        default: ''
+        required: false
+      - label: Slug automatico
+        name: slug
+        widget: hidden
+        default: ''
+        required: false
       - label: Titolo
         name: title
         widget: string
