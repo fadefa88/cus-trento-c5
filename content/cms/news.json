@@ -1,3 +1,40 @@
 {
-  "news": []
+  "news": [
+    {
+      "excerpt": "È online il sito ufficiale del CUS Trento Calcio a 5, uno spazio pensato per raccontare la squadra, seguire la stagione e avvicinare ancora di più atleti, staff, tifosi e appassionati al progetto sportivo universitario.",
+      "body": [],
+      "author": "CUS Trento C5",
+      "date": "2026-07-08",
+      "title": "IL CUS TRENTO C5 TORNA ONLINE ",
+      "pinned": true,
+      "tags": [
+        "Club"
+      ],
+      "id": "",
+      "image": "/img/uploads/screenshot-2026-07-08-alle-19.11.32.png",
+      "contentBlocks": [
+        {
+          "type": "paragraph",
+          "text": "La creazione del sito nasce dall’esigenza di raccogliere in un unico punto tutte le informazioni legate al mondo CUS Trento C5. Non solo risultati e comunicazioni, ma anche notizie, calendario, classifica, rosa, coppa, storia, gallery e contenuti social. Un portale semplice da consultare, costruito per diventare il riferimento principale per chi vuole restare aggiornato sull’attività della squadra."
+        },
+        {
+          "type": "image",
+          "image": "/img/uploads/screenshot-2026-07-08-alle-19.14.02.png",
+          "caption": "Dati e statistiche delle due squadre"
+        },
+        {
+          "type": "paragraph",
+          "text": "Il nuovo sito rappresenta anche un passo importante nella comunicazione del club. Il calcio a 5 del CUS Trento è una realtà fatta di campo, allenamenti, partite e gruppo, ma anche di identità, memoria e partecipazione. Portare tutto questo online significa dare continuità al racconto della squadra e valorizzare il lavoro che ogni settimana viene svolto dentro e fuori dal parquet."
+        },
+        {
+          "type": "paragraph",
+          "text": "Particolare attenzione è stata dedicata all’organizzazione dei contenuti. Le news permettono di seguire il percorso sportivo della squadra, mentre le sezioni dedicate a calendario e classifica rendono più immediata la consultazione dell’andamento stagionale."
+        },
+        {
+          "type": "paragraph",
+          "text": "La rosa offre uno spazio riconoscibile agli atleti, la gallery conserva immagini e momenti significativi, e il social wall collega il sito alla comunicazione quotidiana sui canali digitali.\nIl portale è stato pensato anche con una logica di accessibilità e trasparenza. La navigazione è essenziale, i contenuti sono ordinati e la gestione della privacy è chiara: i contenuti esterni vengono caricati solo sulla base delle preferenze dell’utente, senza l’utilizzo di cookie di profilazione propri.\n\nCon custrentocalcioa5.it, il CUS Trento Calcio a 5 rafforza quindi la propria presenza online e mette a disposizione della comunità uno strumento moderno, utile e coerente con la crescita del progetto. Un sito che non è soltanto una vetrina, ma un punto d’incontro: per chi gioca, per chi segue la squadra, per chi vuole conoscerla e per chi continuerà a viverne la storia, partita dopo partita."
+        }
+      ]
+    }
+  ]
 }
