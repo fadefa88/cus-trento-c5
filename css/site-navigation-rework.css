@@ -656,3 +656,8 @@ body .footer .container{
     white-space:nowrap!important;
   }
 }
+
+/* v45: Impianto page equal 500px cards/media */
+.cus-venue-card{height:500px}
+.cus-venue-media{height:500px}
+@media(max-width:980px){.cus-venue-card{height:auto;min-height:500px}.cus-venue-media{height:500px}}
