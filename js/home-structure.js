@@ -164,7 +164,6 @@
     const rows = s.standings || [];
     const cus = findCus(rows);
     return `<article class="card card-pad home-structure-news-standing-card">
-      <span class="eyebrow" role="link" tabindex="0" onclick="route('standings')" style="cursor:pointer">CLASSIFICA</span>
       ${standingsRows(rows)}
       <div class="home-structure-card-foot"><b>CUS Trento</b><span>#${h(cus.pos || "-")} · ${h(cus.pts ?? "-")} pt</span></div>
     </article>`;
@@ -175,7 +174,10 @@
     while(items.length < 3) items.push(null);
     return `<section class="section home-structure-news-section">
       <div class="container">
-        <div class="home-structure-section-head"><span class="eyebrow" role="link" tabindex="0" onclick="route('news')" style="cursor:pointer">NEWS</span></div>
+        <div class="home-structure-news-label-grid">
+          <div class="home-structure-section-head home-structure-news-label"><span class="eyebrow" role="link" tabindex="0" onclick="route('news')" style="cursor:pointer">NEWS</span></div>
+          <div class="home-structure-section-head home-structure-standings-label"><span class="eyebrow" role="link" tabindex="0" onclick="route('standings')" style="cursor:pointer">CLASSIFICA</span></div>
+        </div>
         <div class="home-structure-news-grid">${items.map(newsCard).join("")}${newsStandingsCard()}</div>
       </div>
     </section>`;
