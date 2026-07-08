@@ -62,7 +62,7 @@ collections:
         date_format: DD/MM/YYYY
         time_format: false
         picker_utc: false
-        hint: "Campo obbligatorio: la news non può essere salvata senza data."
+        hint: 'Campo obbligatorio: la news non può essere salvata senza data.'
       - label: Autore
         name: author
         widget: string
@@ -89,7 +89,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.type}}'
-        hint: Usa questi blocchi per costruire articoli con immagini tra i paragrafi. Se lasci vuoto questo campo, il sito usa il Corpo semplice sopra.
+        hint: Usa questi blocchi per costruire articoli con immagini tra i paragrafi. Se lasci vuoto questo campo, il sito
+          usa il Corpo semplice sopra.
         fields:
         - label: Tipo blocco
           name: type
@@ -186,7 +187,8 @@ collections:
         widget: image
         choose_url: true
         required: false
-      hint: 'Le statistiche non si modificano qui: presenze, gol, ammonizioni, espulsioni e gol subiti sono calcolati automaticamente dai match terminati.'
+      hint: 'Le statistiche non si modificano qui: presenze, gol, ammonizioni, espulsioni e gol subiti sono calcolati automaticamente
+        dai match terminati.'
 - name: fixtures
   label: Calendario Prima squadra
   delete: false
@@ -263,34 +265,42 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Filippo Bernard'
-            value: '3'
-          - label: '#5 Tommaso Boldrini'
-            value: '4'
-          - label: '#6 Davide Filippi'
-            value: '5'
-          - label: '#7 Alvise Tesser'
-            value: '6'
-          - label: '#9 Filippo Baietta'
-            value: '8'
-          - label: '#10 Luca Cirasola'
-            value: '9'
-          - label: '#11 Mattia Vaia'
-            value: '13'
-          - label: '#12 Lucca Baccaro Zeni'
-            value: '2'
-          - label: '#17 Federico Maciocia'
-            value: '12'
-          - label: '#19 Alessandro Zanetti'
-            value: '14'
-          - label: '#20 Diego Conti'
-            value: '15'
-          - label: '#21 Andrea Martinelli'
+          - label: '#3 Filippi Davide'
+            value: '7'
+          - label: '#4 Tesser Alvise'
+            value: tesser-alvise
+          - label: '#5 Boldrini Tommaso'
+            value: boldrini-tommaso
+          - label: '#7 Damiano Loperfido'
             value: '16'
-          - label: '#22 Cesare Vettorazzi'
+          - label: '#9 Cesare Vettorazzi'
             value: '17'
-          - label: '#27 Mattia Cuman'
+          - label: '#10 Andrea Martinelli'
+            value: '19'
+          - label: '#11 Vaia Mattia'
+            value: '8'
+          - label: '#12 Baccaro Zeni Lucca'
+            value: '2'
+          - label: '#13 Addobbati Federico'
+            value: '9'
+          - label: '#14 Cirasola Luca'
             value: '10'
+          - label: '#16 Daniele Zampedri'
+            value: '11'
+          - label: '#17 Filippo Baietta'
+            value: '12'
+          - label: '#20 Diego Conti'
+            value: '18'
+          - label: '#21 Federico Maciocia'
+            value: '13'
+          - label: '#22 Alessandro Zanetti'
+            value: '14'
+          - label: '#23 Luca Frattolin'
+            value: '15'
+          - label: '#27 Cuman Mattia'
+            value: '6'
+          - label: '#70 Bernard Filippo'
+            value: '3'
           hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
         - label: Panchina / Convocati
           name: bench
@@ -300,34 +310,42 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Filippo Bernard'
-            value: '3'
-          - label: '#5 Tommaso Boldrini'
-            value: '4'
-          - label: '#6 Davide Filippi'
-            value: '5'
-          - label: '#7 Alvise Tesser'
-            value: '6'
-          - label: '#9 Filippo Baietta'
-            value: '8'
-          - label: '#10 Luca Cirasola'
-            value: '9'
-          - label: '#11 Mattia Vaia'
-            value: '13'
-          - label: '#12 Lucca Baccaro Zeni'
-            value: '2'
-          - label: '#17 Federico Maciocia'
-            value: '12'
-          - label: '#19 Alessandro Zanetti'
-            value: '14'
-          - label: '#20 Diego Conti'
-            value: '15'
-          - label: '#21 Andrea Martinelli'
+          - label: '#3 Filippi Davide'
+            value: '7'
+          - label: '#4 Tesser Alvise'
+            value: tesser-alvise
+          - label: '#5 Boldrini Tommaso'
+            value: boldrini-tommaso
+          - label: '#7 Damiano Loperfido'
             value: '16'
-          - label: '#22 Cesare Vettorazzi'
+          - label: '#9 Cesare Vettorazzi'
             value: '17'
-          - label: '#27 Mattia Cuman'
+          - label: '#10 Andrea Martinelli'
+            value: '19'
+          - label: '#11 Vaia Mattia'
+            value: '8'
+          - label: '#12 Baccaro Zeni Lucca'
+            value: '2'
+          - label: '#13 Addobbati Federico'
+            value: '9'
+          - label: '#14 Cirasola Luca'
             value: '10'
+          - label: '#16 Daniele Zampedri'
+            value: '11'
+          - label: '#17 Filippo Baietta'
+            value: '12'
+          - label: '#20 Diego Conti'
+            value: '18'
+          - label: '#21 Federico Maciocia'
+            value: '13'
+          - label: '#22 Alessandro Zanetti'
+            value: '14'
+          - label: '#23 Luca Frattolin'
+            value: '15'
+          - label: '#27 Cuman Mattia'
+            value: '6'
+          - label: '#70 Bernard Filippo'
+            value: '3'
           hint: Scegli solo giocatori non già presenti nel quintetto.
         - label: Squalificati
           name: suspended
@@ -337,34 +355,42 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Filippo Bernard'
-            value: '3'
-          - label: '#5 Tommaso Boldrini'
-            value: '4'
-          - label: '#6 Davide Filippi'
-            value: '5'
-          - label: '#7 Alvise Tesser'
-            value: '6'
-          - label: '#9 Filippo Baietta'
-            value: '8'
-          - label: '#10 Luca Cirasola'
-            value: '9'
-          - label: '#11 Mattia Vaia'
-            value: '13'
-          - label: '#12 Lucca Baccaro Zeni'
-            value: '2'
-          - label: '#17 Federico Maciocia'
-            value: '12'
-          - label: '#19 Alessandro Zanetti'
-            value: '14'
-          - label: '#20 Diego Conti'
-            value: '15'
-          - label: '#21 Andrea Martinelli'
+          - label: '#3 Filippi Davide'
+            value: '7'
+          - label: '#4 Tesser Alvise'
+            value: tesser-alvise
+          - label: '#5 Boldrini Tommaso'
+            value: boldrini-tommaso
+          - label: '#7 Damiano Loperfido'
             value: '16'
-          - label: '#22 Cesare Vettorazzi'
+          - label: '#9 Cesare Vettorazzi'
             value: '17'
-          - label: '#27 Mattia Cuman'
+          - label: '#10 Andrea Martinelli'
+            value: '19'
+          - label: '#11 Vaia Mattia'
+            value: '8'
+          - label: '#12 Baccaro Zeni Lucca'
+            value: '2'
+          - label: '#13 Addobbati Federico'
+            value: '9'
+          - label: '#14 Cirasola Luca'
             value: '10'
+          - label: '#16 Daniele Zampedri'
+            value: '11'
+          - label: '#17 Filippo Baietta'
+            value: '12'
+          - label: '#20 Diego Conti'
+            value: '18'
+          - label: '#21 Federico Maciocia'
+            value: '13'
+          - label: '#22 Alessandro Zanetti'
+            value: '14'
+          - label: '#23 Luca Frattolin'
+            value: '15'
+          - label: '#27 Cuman Mattia'
+            value: '6'
+          - label: '#70 Bernard Filippo'
+            value: '3'
         - label: Infortunati
           name: injured
           widget: select
@@ -373,34 +399,42 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Filippo Bernard'
-            value: '3'
-          - label: '#5 Tommaso Boldrini'
-            value: '4'
-          - label: '#6 Davide Filippi'
-            value: '5'
-          - label: '#7 Alvise Tesser'
-            value: '6'
-          - label: '#9 Filippo Baietta'
-            value: '8'
-          - label: '#10 Luca Cirasola'
-            value: '9'
-          - label: '#11 Mattia Vaia'
-            value: '13'
-          - label: '#12 Lucca Baccaro Zeni'
-            value: '2'
-          - label: '#17 Federico Maciocia'
-            value: '12'
-          - label: '#19 Alessandro Zanetti'
-            value: '14'
-          - label: '#20 Diego Conti'
-            value: '15'
-          - label: '#21 Andrea Martinelli'
+          - label: '#3 Filippi Davide'
+            value: '7'
+          - label: '#4 Tesser Alvise'
+            value: tesser-alvise
+          - label: '#5 Boldrini Tommaso'
+            value: boldrini-tommaso
+          - label: '#7 Damiano Loperfido'
             value: '16'
-          - label: '#22 Cesare Vettorazzi'
+          - label: '#9 Cesare Vettorazzi'
             value: '17'
-          - label: '#27 Mattia Cuman'
+          - label: '#10 Andrea Martinelli'
+            value: '19'
+          - label: '#11 Vaia Mattia'
+            value: '8'
+          - label: '#12 Baccaro Zeni Lucca'
+            value: '2'
+          - label: '#13 Addobbati Federico'
+            value: '9'
+          - label: '#14 Cirasola Luca'
             value: '10'
+          - label: '#16 Daniele Zampedri'
+            value: '11'
+          - label: '#17 Filippo Baietta'
+            value: '12'
+          - label: '#20 Diego Conti'
+            value: '18'
+          - label: '#21 Federico Maciocia'
+            value: '13'
+          - label: '#22 Alessandro Zanetti'
+            value: '14'
+          - label: '#23 Luca Frattolin'
+            value: '15'
+          - label: '#27 Cuman Mattia'
+            value: '6'
+          - label: '#70 Bernard Filippo'
+            value: '3'
       - label: Marcatori
         name: scorerEvents
         widget: list
@@ -415,34 +449,42 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Filippo Bernard'
-            value: '3'
-          - label: '#5 Tommaso Boldrini'
-            value: '4'
-          - label: '#6 Davide Filippi'
-            value: '5'
-          - label: '#7 Alvise Tesser'
-            value: '6'
-          - label: '#9 Filippo Baietta'
-            value: '8'
-          - label: '#10 Luca Cirasola'
-            value: '9'
-          - label: '#11 Mattia Vaia'
-            value: '13'
-          - label: '#12 Lucca Baccaro Zeni'
-            value: '2'
-          - label: '#17 Federico Maciocia'
-            value: '12'
-          - label: '#19 Alessandro Zanetti'
-            value: '14'
-          - label: '#20 Diego Conti'
-            value: '15'
-          - label: '#21 Andrea Martinelli'
+          - label: '#3 Filippi Davide'
+            value: '7'
+          - label: '#4 Tesser Alvise'
+            value: tesser-alvise
+          - label: '#5 Boldrini Tommaso'
+            value: boldrini-tommaso
+          - label: '#7 Damiano Loperfido'
             value: '16'
-          - label: '#22 Cesare Vettorazzi'
+          - label: '#9 Cesare Vettorazzi'
             value: '17'
-          - label: '#27 Mattia Cuman'
+          - label: '#10 Andrea Martinelli'
+            value: '19'
+          - label: '#11 Vaia Mattia'
+            value: '8'
+          - label: '#12 Baccaro Zeni Lucca'
+            value: '2'
+          - label: '#13 Addobbati Federico'
+            value: '9'
+          - label: '#14 Cirasola Luca'
             value: '10'
+          - label: '#16 Daniele Zampedri'
+            value: '11'
+          - label: '#17 Filippo Baietta'
+            value: '12'
+          - label: '#20 Diego Conti'
+            value: '18'
+          - label: '#21 Federico Maciocia'
+            value: '13'
+          - label: '#22 Alessandro Zanetti'
+            value: '14'
+          - label: '#23 Luca Frattolin'
+            value: '15'
+          - label: '#27 Cuman Mattia'
+            value: '6'
+          - label: '#70 Bernard Filippo'
+            value: '3'
         - label: Gol
           name: goals
           widget: number
@@ -463,34 +505,42 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Filippo Bernard'
-            value: '3'
-          - label: '#5 Tommaso Boldrini'
-            value: '4'
-          - label: '#6 Davide Filippi'
-            value: '5'
-          - label: '#7 Alvise Tesser'
-            value: '6'
-          - label: '#9 Filippo Baietta'
-            value: '8'
-          - label: '#10 Luca Cirasola'
-            value: '9'
-          - label: '#11 Mattia Vaia'
-            value: '13'
-          - label: '#12 Lucca Baccaro Zeni'
-            value: '2'
-          - label: '#17 Federico Maciocia'
-            value: '12'
-          - label: '#19 Alessandro Zanetti'
-            value: '14'
-          - label: '#20 Diego Conti'
-            value: '15'
-          - label: '#21 Andrea Martinelli'
+          - label: '#3 Filippi Davide'
+            value: '7'
+          - label: '#4 Tesser Alvise'
+            value: tesser-alvise
+          - label: '#5 Boldrini Tommaso'
+            value: boldrini-tommaso
+          - label: '#7 Damiano Loperfido'
             value: '16'
-          - label: '#22 Cesare Vettorazzi'
+          - label: '#9 Cesare Vettorazzi'
             value: '17'
-          - label: '#27 Mattia Cuman'
+          - label: '#10 Andrea Martinelli'
+            value: '19'
+          - label: '#11 Vaia Mattia'
+            value: '8'
+          - label: '#12 Baccaro Zeni Lucca'
+            value: '2'
+          - label: '#13 Addobbati Federico'
+            value: '9'
+          - label: '#14 Cirasola Luca'
             value: '10'
+          - label: '#16 Daniele Zampedri'
+            value: '11'
+          - label: '#17 Filippo Baietta'
+            value: '12'
+          - label: '#20 Diego Conti'
+            value: '18'
+          - label: '#21 Federico Maciocia'
+            value: '13'
+          - label: '#22 Alessandro Zanetti'
+            value: '14'
+          - label: '#23 Luca Frattolin'
+            value: '15'
+          - label: '#27 Cuman Mattia'
+            value: '6'
+          - label: '#70 Bernard Filippo'
+            value: '3'
         - label: Ammonizioni
           name: cards
           widget: number
@@ -511,34 +561,42 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Filippo Bernard'
-            value: '3'
-          - label: '#5 Tommaso Boldrini'
-            value: '4'
-          - label: '#6 Davide Filippi'
-            value: '5'
-          - label: '#7 Alvise Tesser'
-            value: '6'
-          - label: '#9 Filippo Baietta'
-            value: '8'
-          - label: '#10 Luca Cirasola'
-            value: '9'
-          - label: '#11 Mattia Vaia'
-            value: '13'
-          - label: '#12 Lucca Baccaro Zeni'
-            value: '2'
-          - label: '#17 Federico Maciocia'
-            value: '12'
-          - label: '#19 Alessandro Zanetti'
-            value: '14'
-          - label: '#20 Diego Conti'
-            value: '15'
-          - label: '#21 Andrea Martinelli'
+          - label: '#3 Filippi Davide'
+            value: '7'
+          - label: '#4 Tesser Alvise'
+            value: tesser-alvise
+          - label: '#5 Boldrini Tommaso'
+            value: boldrini-tommaso
+          - label: '#7 Damiano Loperfido'
             value: '16'
-          - label: '#22 Cesare Vettorazzi'
+          - label: '#9 Cesare Vettorazzi'
             value: '17'
-          - label: '#27 Mattia Cuman'
+          - label: '#10 Andrea Martinelli'
+            value: '19'
+          - label: '#11 Vaia Mattia'
+            value: '8'
+          - label: '#12 Baccaro Zeni Lucca'
+            value: '2'
+          - label: '#13 Addobbati Federico'
+            value: '9'
+          - label: '#14 Cirasola Luca'
             value: '10'
+          - label: '#16 Daniele Zampedri'
+            value: '11'
+          - label: '#17 Filippo Baietta'
+            value: '12'
+          - label: '#20 Diego Conti'
+            value: '18'
+          - label: '#21 Federico Maciocia'
+            value: '13'
+          - label: '#22 Alessandro Zanetti'
+            value: '14'
+          - label: '#23 Luca Frattolin'
+            value: '15'
+          - label: '#27 Cuman Mattia'
+            value: '6'
+          - label: '#70 Bernard Filippo'
+            value: '3'
         - label: Espulsioni
           name: cards
           widget: number
@@ -551,8 +609,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
-          titolare.
+        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
+          i gol subiti al portiere nel quintetto titolare.
         fields:
         - label: Portiere
           name: playerId
@@ -560,10 +618,10 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Filippo Bernard'
-            value: '3'
-          - label: '#12 Lucca Baccaro Zeni'
+          - label: '#12 Baccaro Zeni Lucca'
             value: '2'
+          - label: '#70 Bernard Filippo'
+            value: '3'
         - label: Gol subiti
           name: goalsAgainst
           widget: number
@@ -655,10 +713,8 @@ collections:
           widget: select
           multiple: true
           options:
-          - label: '#30 Paolo Bigonzi'
-            value: '19'
           - label: '#31 Giulio Toniolli'
-            value: '20'
+            value: 20-2
           - label: '#32 Lorenzo Zarantonello'
             value: '21'
           - label: '#35 Matteo Guidetti'
@@ -677,14 +733,12 @@ collections:
             value: '30'
           - label: '#44 Mirko Annunziato Tondo'
             value: '31'
-          - label: '#45 Daniele Zampedri'
-            value: '32'
           - label: '#46 Michele Ceola'
             value: '33'
-          - label: '#47 Damiano Loperfido'
-            value: '34'
           - label: '#48 Luca Scala'
             value: '35'
+          - label: '#99 Paolo Bigonzi'
+            value: '20'
           hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
         - label: Panchina / Convocati
           name: bench
@@ -692,10 +746,8 @@ collections:
           multiple: true
           required: false
           options:
-          - label: '#30 Paolo Bigonzi'
-            value: '19'
           - label: '#31 Giulio Toniolli'
-            value: '20'
+            value: 20-2
           - label: '#32 Lorenzo Zarantonello'
             value: '21'
           - label: '#35 Matteo Guidetti'
@@ -714,14 +766,12 @@ collections:
             value: '30'
           - label: '#44 Mirko Annunziato Tondo'
             value: '31'
-          - label: '#45 Daniele Zampedri'
-            value: '32'
           - label: '#46 Michele Ceola'
             value: '33'
-          - label: '#47 Damiano Loperfido'
-            value: '34'
           - label: '#48 Luca Scala'
             value: '35'
+          - label: '#99 Paolo Bigonzi'
+            value: '20'
           hint: Scegli solo giocatori non già presenti nel quintetto.
         - label: Squalificati
           name: suspended
@@ -729,10 +779,8 @@ collections:
           multiple: true
           required: false
           options:
-          - label: '#30 Paolo Bigonzi'
-            value: '19'
           - label: '#31 Giulio Toniolli'
-            value: '20'
+            value: 20-2
           - label: '#32 Lorenzo Zarantonello'
             value: '21'
           - label: '#35 Matteo Guidetti'
@@ -751,24 +799,20 @@ collections:
             value: '30'
           - label: '#44 Mirko Annunziato Tondo'
             value: '31'
-          - label: '#45 Daniele Zampedri'
-            value: '32'
           - label: '#46 Michele Ceola'
             value: '33'
-          - label: '#47 Damiano Loperfido'
-            value: '34'
           - label: '#48 Luca Scala'
             value: '35'
+          - label: '#99 Paolo Bigonzi'
+            value: '20'
         - label: Infortunati
           name: injured
           widget: select
           multiple: true
           required: false
           options:
-          - label: '#30 Paolo Bigonzi'
-            value: '19'
           - label: '#31 Giulio Toniolli'
-            value: '20'
+            value: 20-2
           - label: '#32 Lorenzo Zarantonello'
             value: '21'
           - label: '#35 Matteo Guidetti'
@@ -787,14 +831,12 @@ collections:
             value: '30'
           - label: '#44 Mirko Annunziato Tondo'
             value: '31'
-          - label: '#45 Daniele Zampedri'
-            value: '32'
           - label: '#46 Michele Ceola'
             value: '33'
-          - label: '#47 Damiano Loperfido'
-            value: '34'
           - label: '#48 Luca Scala'
             value: '35'
+          - label: '#99 Paolo Bigonzi'
+            value: '20'
       - label: Marcatori
         name: scorerEvents
         widget: list
@@ -807,10 +849,8 @@ collections:
           name: playerId
           widget: select
           options:
-          - label: '#30 Paolo Bigonzi'
-            value: '19'
           - label: '#31 Giulio Toniolli'
-            value: '20'
+            value: 20-2
           - label: '#32 Lorenzo Zarantonello'
             value: '21'
           - label: '#35 Matteo Guidetti'
@@ -829,14 +869,12 @@ collections:
             value: '30'
           - label: '#44 Mirko Annunziato Tondo'
             value: '31'
-          - label: '#45 Daniele Zampedri'
-            value: '32'
           - label: '#46 Michele Ceola'
             value: '33'
-          - label: '#47 Damiano Loperfido'
-            value: '34'
           - label: '#48 Luca Scala'
             value: '35'
+          - label: '#99 Paolo Bigonzi'
+            value: '20'
         - label: Gol
           name: goals
           widget: number
@@ -855,10 +893,8 @@ collections:
           name: playerId
           widget: select
           options:
-          - label: '#30 Paolo Bigonzi'
-            value: '19'
           - label: '#31 Giulio Toniolli'
-            value: '20'
+            value: 20-2
           - label: '#32 Lorenzo Zarantonello'
             value: '21'
           - label: '#35 Matteo Guidetti'
@@ -877,14 +913,12 @@ collections:
             value: '30'
           - label: '#44 Mirko Annunziato Tondo'
             value: '31'
-          - label: '#45 Daniele Zampedri'
-            value: '32'
           - label: '#46 Michele Ceola'
             value: '33'
-          - label: '#47 Damiano Loperfido'
-            value: '34'
           - label: '#48 Luca Scala'
             value: '35'
+          - label: '#99 Paolo Bigonzi'
+            value: '20'
         - label: Ammonizioni
           name: cards
           widget: number
@@ -903,10 +937,8 @@ collections:
           name: playerId
           widget: select
           options:
-          - label: '#30 Paolo Bigonzi'
-            value: '19'
           - label: '#31 Giulio Toniolli'
-            value: '20'
+            value: 20-2
           - label: '#32 Lorenzo Zarantonello'
             value: '21'
           - label: '#35 Matteo Guidetti'
@@ -925,14 +957,12 @@ collections:
             value: '30'
           - label: '#44 Mirko Annunziato Tondo'
             value: '31'
-          - label: '#45 Daniele Zampedri'
-            value: '32'
           - label: '#46 Michele Ceola'
             value: '33'
-          - label: '#47 Damiano Loperfido'
-            value: '34'
           - label: '#48 Luca Scala'
             value: '35'
+          - label: '#99 Paolo Bigonzi'
+            value: '20'
         - label: Espulsioni
           name: cards
           widget: number
@@ -945,19 +975,19 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goalsAgainst}} gol subiti'
-        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna i gol subiti al portiere nel quintetto
-          titolare.
+        hint: Usa questo campo se vuoi attribuire i gol subiti a uno specifico portiere. Se lo lasci vuoto, il sito assegna
+          i gol subiti al portiere nel quintetto titolare.
         fields:
         - label: Portiere
           name: playerId
           widget: select
           options:
-          - label: '#30 Paolo Bigonzi'
-            value: '19'
           - label: '#31 Giulio Toniolli'
-            value: '20'
+            value: 20-2
           - label: '#32 Lorenzo Zarantonello'
             value: '21'
+          - label: '#99 Paolo Bigonzi'
+            value: '20'
         - label: Gol subiti
           name: goalsAgainst
           widget: number
