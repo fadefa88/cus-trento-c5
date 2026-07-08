@@ -94,6 +94,30 @@
     }
   }
 
+  function isLocalUploadedImage(src) {
+    try {
+      const url = new URL(src, location.origin);
+      return url.origin === location.origin && url.pathname.startsWith("/img/uploads/") && !url.pathname.endsWith("/img/placeholder.webp");
+    } catch (e) {
+      return String(src || "").startsWith("/img/uploads/");
+    }
+  }
+
+  function installUploadedImageRetry() {
+    document.addEventListener("error", function(event) {
+      const img = event && event.target;
+      if (!img || !img.tagName || img.tagName.toLowerCase() !== "img") return;
+      const src = img.currentSrc || img.getAttribute("src") || "";
+      if (!isLocalUploadedImage(src)) return;
+      if (img.dataset && img.dataset.uploadRetry === "1") return;
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+      if (event.preventDefault) event.preventDefault();
+      if (img.dataset) img.dataset.uploadRetry = "1";
+      const separator = src.includes("?") ? "&" : "?";
+      img.src = src + separator + "v=" + Date.now();
+    }, true);
+  }
+
   window.submitContact = async function(event) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -122,6 +146,7 @@
     }
   };
 
+  installUploadedImageRetry();
   installPartnerOverride();
   refreshPartnerIfVisible();
   document.addEventListener("DOMContentLoaded", () => { prepareAll(); installPartnerOverride(); refreshPartnerIfVisible(); });
