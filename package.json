@@ -1,0 +1,10 @@
+{
+  "name": "cus-trento-c5",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static website for CUS Trento C5 with prerendered SEO pages.",
+  "scripts": {
+    "build": "bash scripts/build_cloudflare_pages.sh",
+    "generate:static": "python3 scripts/generate_static_pages.py"
+  }
+}

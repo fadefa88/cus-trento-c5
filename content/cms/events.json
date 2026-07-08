@@ -1,0 +1,73 @@
+{
+  "events": [
+    {
+      "id": "open-day-1",
+      "title": "Open day CUS Trento C5",
+      "type": "Selezione",
+      "date": "2026-09-08",
+      "time": "20:30",
+      "venue": "Sanbàpolis",
+      "summary": "Serata di prova aperta a nuovi giocatori interessati a Prima squadra e Under 21.",
+      "details": "Serata di prova aperta a nuovi giocatori interessati a Prima squadra e Under 21."
+    },
+    {
+      "id": "torneo-studenti",
+      "title": "Torneo studenti UniTrento",
+      "type": "Torneo",
+      "date": "2026-09-21",
+      "time": "18:00",
+      "venue": "Sanbàpolis",
+      "summary": "Torneo promozionale aperto alla community universitaria.",
+      "details": "Torneo promozionale aperto alla community universitaria."
+    },
+    {
+      "id": "partner-night",
+      "title": "Partner Night",
+      "type": "Selezione",
+      "date": "2026-10-03",
+      "time": "19:30",
+      "venue": "Sanbàpolis",
+      "summary": "Incontro con sponsor, aziende e realtà del territorio.",
+      "details": "Incontro con sponsor, aziende e realtà del territorio."
+    },
+    {
+      "id": "matchday-community",
+      "title": "Community Matchday",
+      "type": "Selezione",
+      "date": "2026-10-17",
+      "time": "20:45",
+      "venue": "Sanbàpolis",
+      "summary": "Matchday con attività per studenti, famiglie e tifosi.",
+      "details": "Matchday con attività per studenti, famiglie e tifosi."
+    },
+    {
+      "id": "tryout-u21",
+      "title": "Tryout Under 21",
+      "type": "Selezione",
+      "date": "2026-11-04",
+      "time": "19:00",
+      "venue": "Sanbàpolis",
+      "summary": "Sessione dedicata ai profili giovani per il gruppo Under 21.",
+      "details": "Sessione dedicata ai profili giovani per il gruppo Under 21."
+    },
+    {
+      "id": "futsal-campus",
+      "title": "Futsal Campus",
+      "type": "Torneo",
+      "date": "2026-12-12",
+      "time": "15:00",
+      "venue": "Palestra CUS",
+      "summary": "Evento tecnico e mini torneo dedicato alla community CUS.",
+      "details": "Evento tecnico e mini torneo dedicato alla community CUS."
+    },
+    {
+      "summary": "Il torneo degli universitari",
+      "venue": "",
+      "type": "Torneo",
+      "date": "2026-03-12",
+      "title": "CUS Trento Futsal League",
+      "id": "CUS Trento Futsal League",
+      "details": "La CUS Trento Futsal League è il torneo universitario di calcio a 5 organizzato dal CUS Trento C5 e dedicato alla community UniTn. Un’occasione per uscire dall’aula, lasciare da parte lo studio per qualche ora e vivere l’adrenalina del futsal in un contesto competitivo ma inclusivo.\n\n👥 Chi può partecipare\nIl torneo è aperto a tutti i tesserati UniTrento Sport / CUS Trento in possesso di tesseramento valido per la stagione sportiva in corso.\nPossono iscriversi:\nStudenti e studentesse UniTn\nDipendenti UniTn\nAlumni UniTn\nÈ consentita la presenza di utenti esterni fino ad un massimo di 4 giocatori per squadra, previa iscrizione al portale https://www.unitrentosport-custrento.it/it/prenota/.\n\n🗓️ Quando\n📅 Dal 12 marzo 2026 al 10 maggio 2026\n🕖 Tutti i giovedì, dalle 19:00 alle 22:00\nLe partite saranno calendarizzate dall’organizzazione e comunicate ai capitani prima dell’inizio del torneo. \n\n📍 Dove\nLe gare si disputeranno presso il Campo del Santissimo (Via Endrici, 22 – Trento). La sede di gioco potrebbe subire delle modifiche in caso di esigenze organizzative.\n⚽ Formula del torneo\nNumero squadre: minimo 8 – massimo 12.\nGiocatori per squadra: minimo 8 – massimo 14\nFormula: girone unico e fasi finali\nOgni squadra avrà un minimo garantito di 5 partite di girone. \nLe partite dureranno due tempi da 22 minuti ciascuno. Si adotterà il regolamento del futsal con alcune modifiche specifiche che verranno indicate prima dell’inizio del torneo.\nIl calendario e la formula dettagliata saranno definiti in base al numero di squadre iscritte.\n\n🏆 Montepremi\nIl montepremi della CUS Trento Futsal League è attualmente in fase di definizione.\nAlla prima squadra classificata un buono acquisto di 400 €  (non convertibili in denaro)\nUlteriori premi o riconoscimenti potranno essere comunicati prima dell’inizio della competizione, anche in base al numero di squadre iscritte e ad eventuali partner dell’evento.\n\n📝 Iscrizioni \n📌 Scadenza iscrizioni: 5 marzo 2026 (eventualemente prorogabile in caso del mancato raggiungimento del numero minimo di squadre)\nL’iscrizione deve essere effettuata dal capitano della squadra tramite compilazione del modulo di iscrizione indicando tutti i componenti della squadra \n modulo-iscrizione2026.docx\n\nQuesto modulo dovrà essere:\nconsegnato presso la segreteria CUS Trento\noppure inviato via mail a 📧 custn@unitn.it\nLa squadra sarà considerata iscritta solo al ricevimento del pagamento delle quote.\n\n💰 Quote di iscrizione (per giocatore)\n€15 – Studenti UniTn\n€20 – Dipendenti e Alumni UniTn\n€25 – Esterni\n\n💳 Modalità di pagamento\nBonifico bancario\nIntestato a: CUS Trento\nIBAN: IT 58 U 08304 01807 000007376261(indicare come causale: iscrizione torneo futsal league)\nInviare via mail:\nQuietanza di pagamento 📧 custn@unitn.it\nOppure\nPagamento diretto presso la segreteria CUS Trento (Via verdi, 8 - Trento)\n\nℹ️ Info\nc/o segreteria CUS Trento (Via verdi, 8 - Trento)\ntel. 0461/281856\nmail custn@unitn.it\nInstagram @custrentoleague"
+    }
+  ]
+}
