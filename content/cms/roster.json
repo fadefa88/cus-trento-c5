@@ -9,347 +9,341 @@
       "photo": "/img/uploads/copia-di-foto-first-team.webp",
       "role": "Portiere",
       "id": 1,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "safi-saif-edine"
     },
     {
       "faculty": "Cognitive Science ",
       "birthPlace": "Brasile",
       "number": 12,
-      "name": "Baccaro Zeni Lucca ",
+      "name": "Lucca Baccaro Zeni",
       "birthDate": "2000-08-11",
       "photo": "/img/uploads/foto-first-team.webp",
       "role": "Portiere",
       "id": 2,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "lucca-baccaro-zeni"
     },
     {
       "faculty": "Ingegneria industriale",
-      "birthPlace": "Feltre (BL)",
+      "birthPlace": "Belluno",
       "number": 70,
-      "name": "Bernard Filippo",
+      "name": "Filippo Bernard",
       "birthDate": "2004-07-06",
       "photo": "/img/uploads/3.webp",
       "role": "Portiere",
       "id": 3,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "filippo-bernard"
     },
     {
       "faculty": "Studi internazionali",
-      "birthPlace": "Montebelluna (TV)",
+      "birthPlace": "Treviso",
       "number": 4,
-      "name": "Tesser Alvise",
+      "name": "Alvise Tesser",
       "birthDate": "2006-01-15",
       "photo": "/img/uploads/4.webp",
       "role": "Centrale",
       "id": 4,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "alvise-tesser"
     },
     {
       "faculty": "Studi internazionali",
-      "birthPlace": "Casalmaggiore (CR)",
+      "birthPlace": "Cremona",
       "number": 5,
-      "name": "Boldrini Tommaso",
+      "name": "Tommaso Boldrini",
       "birthDate": "2005-01-11",
       "photo": "/img/uploads/5.webp",
       "role": "Centrale",
       "id": 5,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "tommaso-boldrini"
     },
     {
       "faculty": "Economia e Management",
-      "birthPlace": "Thiene (VI)",
+      "birthPlace": "Vicenza",
       "number": 27,
-      "name": "Cuman Mattia",
+      "name": "Mattia Cuman",
       "birthDate": "2005-11-27",
       "photo": "/img/uploads/6.webp",
       "role": "Centrale",
       "id": 6,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "mattia-cuman"
     },
     {
       "faculty": "Giurisprudenza",
       "birthPlace": "Brescia",
       "number": 3,
-      "name": "Filippi Davide",
+      "name": "Davide Filippi",
       "birthDate": "2005-04-10",
       "photo": "/img/uploads/7.webp",
       "role": "Laterale",
       "id": 7,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "davide-filippi"
     },
     {
       "faculty": "Filosofia",
-      "birthPlace": "Tione di Trento (TN)",
+      "birthPlace": "Trento",
       "number": 11,
-      "name": "Vaia Mattia",
+      "name": "Mattia Vaia",
       "birthDate": "1998-10-01",
       "photo": "/img/uploads/8.webp",
       "role": "Laterale",
       "id": 8,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "mattia-vaia"
     },
     {
       "faculty": "Giurisprudenza",
       "birthPlace": "Udine",
       "number": 13,
-      "name": "Addobbati Federico",
+      "name": "Federico Addobbati",
       "birthDate": "2004-03-14",
       "photo": "/img/uploads/9.webp",
       "role": "Laterale",
       "id": 9,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "federico-addobbati"
     },
     {
       "faculty": "Giurisprudenza",
       "birthPlace": "La Spezia",
       "number": 14,
-      "name": "Cirasola Luca",
+      "name": "Luca Cirasola",
       "birthDate": "2002-01-10",
       "photo": "/img/uploads/10.webp",
       "role": "Laterale",
       "id": 10,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "luca-cirasola"
     },
     {
       "faculty": "Ingegneria informatica",
       "birthPlace": "Trento",
       "number": 16,
-      "name": "Zampedri Daniele",
+      "name": "Daniele Zampedri",
       "birthDate": "2006-07-18",
       "photo": "/img/uploads/11.webp",
       "role": "Laterale",
       "id": 11,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "daniele-zampedri"
     },
     {
       "faculty": "Ingegneria Informatica",
       "birthPlace": "Verona",
       "number": 17,
-      "name": "Baietta Filippo",
+      "name": "Filippo Baietta",
       "birthDate": "2004-02-28",
       "photo": "/img/uploads/12.webp",
       "role": "Laterale",
       "id": 12,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "filippo-baietta"
     },
     {
       "faculty": "Studi Internazionali",
       "birthPlace": "Monza",
       "number": 21,
-      "name": "Maciocia Federico",
+      "name": "Federico Maciocia",
       "birthDate": "2003-06-30",
       "photo": "/img/uploads/13.webp",
       "role": "Laterale",
       "id": 13,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "federico-maciocia"
     },
     {
       "faculty": "Ingegneria Civile",
-      "birthPlace": "Brescia",
+      "birthPlace": "Trento",
       "number": 22,
-      "name": "Zanetti Alessandro",
+      "name": "Alessandro Zanetti",
       "birthDate": "2002-05-18",
       "photo": "/img/uploads/14.webp",
       "role": "Laterale",
       "id": 14,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "alessandro-zanetti"
     },
     {
       "faculty": "Economia e Management",
-      "birthPlace": "San Vito al Tagliamento (PN)",
+      "birthPlace": "Pordenone",
       "number": 23,
-      "name": "Frattolin Luca",
+      "name": "Luca Frattolin",
       "birthDate": "2002-11-25",
       "photo": "/img/uploads/15.webp",
       "role": "Laterale",
       "id": 15,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "luca-frattolin"
     },
     {
       "faculty": "Economia e Management",
       "birthPlace": "Trento",
       "number": 7,
-      "name": "Loperfido Damiano",
+      "name": "Damiano Loperfido",
       "birthDate": "2006-10-11",
       "photo": "/img/uploads/16.webp",
       "role": "Pivot",
       "id": 16,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "damiano-loperfido"
     },
     {
       "faculty": "Giurisprudenza",
-      "birthPlace": "Bassano del Grappa (VI)",
+      "birthPlace": "Bassano del Grappa",
       "number": 9,
-      "name": "Vettorazzi Cesare",
+      "name": "Cesare Vettorazzi",
       "birthDate": "2002-04-26",
       "photo": "/img/uploads/17.webp",
       "role": "Pivot",
       "id": 17,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "cesare-vettorazzi"
     },
     {
       "faculty": "Data Science",
       "birthPlace": "Verona",
-      "number": 32,
-      "name": "Conti Diego",
+      "number": 20,
+      "name": "Diego Conti",
       "birthDate": "2002-10-03",
       "photo": "/img/uploads/18.webp",
       "role": "Pivot",
       "id": 18,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "diego-conti"
     },
     {
       "faculty": "Data Science",
       "birthPlace": "Verona",
       "number": 10,
-      "name": "Martinelli Andrea",
+      "name": "Andrea Martinelli",
       "birthDate": "2000-04-14",
       "photo": "/img/uploads/19.webp",
       "role": "Universale",
       "id": 19,
-      "team": "Prima squadra"
+      "team": "Prima squadra",
+      "slug": "andrea-martinelli"
     },
     {
-      "faculty": "Informatica",
-      "birthPlace": "Vicenza",
-      "number": 25,
-      "name": "Zarantonello Lorenzo",
-      "birthDate": "2004-10-30",
-      "photo": "/img/uploads/3.webp",
-      "role": "Portiere",
       "id": 20,
-      "team": "Under 21"
-    },
-    {
-      "faculty": "Ingegneria Informatica",
-      "birthPlace": "Rovereto (TN)",
-      "number": 90,
-      "name": "Toniolli Giulio",
-      "birthDate": "2006-04-24",
-      "photo": "/img/uploads/2.webp",
+      "name": "Paolo Bigonzi",
       "role": "Portiere",
-      "id": 21,
-      "team": "Under 21"
-    },
-    {
-      "faculty": "Lettere Moderne",
-      "birthPlace": "Fano (PU)",
+      "team": "Under 21",
       "number": 99,
-      "name": "Bigonzi Paolo",
-      "birthDate": "2004-07-26",
-      "photo": "/img/uploads/1.webp",
+      "photo": "/img/players/1-bigonzi-paolo-portiere.webp",
+      "slug": "paolo-bigonzi"
+    },
+    {
+      "id": "20-2",
+      "name": "Giulio Toniolli",
       "role": "Portiere",
-      "id": 22,
-      "team": "Under 21"
+      "team": "Under 21",
+      "number": 31,
+      "photo": "/img/players/2-toniolli-giulio-portiere.webp",
+      "slug": "giulio-toniolli"
     },
     {
-      "faculty": "Matematica",
-      "birthPlace": "Barcellona Pozzo di Gotto (ME)",
-      "number": 6,
-      "name": "Materia Matteo",
-      "birthDate": "2004-11-26",
-      "photo": "/img/uploads/4.webp",
-      "role": "Centrale",
+      "id": 21,
+      "name": "Lorenzo Zarantonello",
+      "role": "Portiere",
+      "team": "Under 21",
+      "number": 32,
+      "photo": "/img/players/3-zarantonello-lorenzo-portiere.webp",
+      "slug": "lorenzo-zarantonello"
+    },
+    {
       "id": 23,
-      "team": "Under 21"
-    },
-    {
-      "faculty": "Ingegneria",
-      "birthPlace": "Trento",
-      "number": 19,
-      "name": "Toniolli Riccardo",
-      "birthDate": "2005-09-13",
-      "photo": "/img/uploads/5.webp",
+      "name": "Matteo Guidetti",
       "role": "Centrale",
+      "team": "Under 21",
+      "number": 35,
+      "photo": "/img/players/4-guidetti-matteo-centrale.webp",
+      "slug": "matteo-guidetti"
+    },
+    {
       "id": 24,
-      "team": "Under 21"
+      "name": "Matteo Materia",
+      "role": "Centrale",
+      "team": "Under 21",
+      "number": 36,
+      "photo": "/img/players/5-materia-matteo-centrale.webp",
+      "slug": "matteo-materia"
     },
     {
-      "faculty": "CEILS",
-      "birthPlace": "Brescia",
-      "number": 8,
-      "name": "Alessandro Betti",
-      "birthDate": "2006-03-16",
-      "photo": "/img/players/7-betti-alessandro-laterale.webp",
-      "role": "Laterale",
       "id": 25,
-      "team": "Under 21"
+      "name": "Riccardo Toniolli",
+      "role": "Centrale",
+      "team": "Under 21",
+      "number": 37,
+      "photo": "/img/players/6-toniolli-riccardo-centrale.webp",
+      "slug": "riccardo-toniolli"
     },
     {
-      "faculty": "Economia e Management",
-      "birthPlace": "Cles (TN)",
-      "number": 15,
-      "name": "Dancus Adrian Gavril",
-      "birthDate": "2005-09-09",
-      "photo": "/img/uploads/8.webp",
-      "role": "Laterale",
-      "id": 30,
-      "team": "Under 21"
-    },
-    {
-      "faculty": "Sociologia",
-      "birthPlace": "Seriate (BG)",
-      "number": 18,
-      "name": "Scala Luca",
-      "birthDate": "2006-06-07",
-      "photo": "/img/uploads/12.webp",
-      "role": "Laterale",
-      "id": 35,
-      "team": "Under 21"
-    },
-    {
-      "faculty": "Ingegneria Informatica",
-      "birthPlace": "Trento",
-      "number": 20,
-      "name": "Caldonazzi Federico",
-      "birthDate": "2005-07-04",
-      "photo": "/img/players/8-caldonazzi-federico-laterale.webp",
-      "role": "Laterale",
       "id": 26,
-      "team": "Under 21"
-    },
-    {
-      "faculty": "CEILS",
-      "birthPlace": "Tricase (LE)",
-      "number": 28,
-      "name": "Tondo Mirko",
-      "birthDate": "2006-12-24",
-      "photo": "/img/uploads/9.webp",
-      "role": "Laterale",
-      "id": 31,
-      "team": "Under 21"
-    },
-    {
-      "id": 34,
-      "name": "Buda Samuele",
+      "name": "Alessandro Betti",
       "role": "Laterale",
       "team": "Under 21",
-      "birthDate": "2026-03-14",
-      "birthPlace": "Vasto (CH)",
-      "faculty": "Matematica",
-      "number": 30
+      "number": 38,
+      "photo": "/img/players/7-betti-alessandro-laterale.webp",
+      "slug": "alessandro-betti"
     },
     {
-      "faculty": "Economia ",
-      "birthPlace": "Padova",
-      "number": 24,
-      "name": "Ceola Michele",
-      "birthDate": "2006-09-25",
-      "photo": "/img/uploads/11.webp",
-      "role": "Pivot",
-      "id": 33,
-      "team": "Under 21"
+      "id": 28,
+      "name": "Federico Caldonazzi",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 40,
+      "photo": "/img/players/8-caldonazzi-federico-laterale.webp",
+      "slug": "federico-caldonazzi"
     },
     {
-      "faculty": "Fisica",
-      "birthPlace": "Brasile",
-      "number": 45,
-      "name": "Caccia Neff Joao Pedro",
-      "birthDate": "2003-03-26",
+      "id": 29,
+      "name": "Joao Pedro Caccia Neff",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 41,
       "photo": "/img/players/12-caccia-neff-joao-pedro-laterale.webp",
-      "role": "Pivot",
-      "id": 27,
-      "team": "Under 21"
+      "slug": "joao-pedro-caccia-neff"
+    },
+    {
+      "id": 30,
+      "name": "Adrian Gavril Dancus",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 42,
+      "photo": "/img/players/9-dancus-adrian-gavril-laterale.webp",
+      "slug": "adrian-gavril-dancus"
+    },
+    {
+      "id": 31,
+      "name": "Mirko Annunziato Tondo",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 44,
+      "photo": "/img/players/10-tondo-mirko-a-laterale.webp",
+      "slug": "mirko-annunziato-tondo"
+    },
+    {
+      "id": 33,
+      "name": "Michele Ceola",
+      "role": "Punta",
+      "team": "Under 21",
+      "number": 46,
+      "photo": "/img/players/13-ceola-michele-pivot.webp",
+      "slug": "michele-ceola"
+    },
+    {
+      "id": 35,
+      "name": "Luca Scala",
+      "role": "Punta",
+      "team": "Under 21",
+      "number": 48,
+      "photo": "/img/players/15-scala-luca-universale.webp",
+      "slug": "luca-scala"
     }
   ]
 }

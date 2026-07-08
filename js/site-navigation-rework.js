@@ -135,6 +135,15 @@
     return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"") || "pagina";
   }
 
+  function objectSlug(item, fields){
+    const direct = (fields || []).map(field => item && item[field]).filter(Boolean).join(" ");
+    return norm((item && item.slug) || direct || (item && (item.title || item.name || item.home || item.away || item.date)) || "pagina");
+  }
+
+  function eventSlug(ev){
+    return objectSlug(ev,["title","date"]);
+  }
+
   function localState(){
     try{return state || {};}catch(e){return {};}
   }
@@ -542,7 +551,7 @@
 
   function eventCard(ev){
     const d = monthDay(ev.date);
-    return `<article class="cus-rework-card cus-event-card clickable" onclick="cusMenuRoute('event-detail:${h(ev.id || norm(ev.title))}')">
+    return `<article class="cus-rework-card cus-event-card clickable" onclick="cusMenuRoute('event-detail:${h(eventSlug(ev))}')">
       <div class="cus-event-top"><div class="cus-event-date"><div><b>${h(d.day)}</b><span>${h(d.month)}</span></div></div><span class="cus-event-type">${h(ev.type || "Evento")}</span></div>
       <div class="cus-rework-card-pad">
         <h3>${h(ev.title || "Evento CUS")}</h3>
@@ -555,10 +564,10 @@
 
   function renderEventDetail(routeId, replace){
     const id = String(routeId).replace(/^event-detail:/,"");
-    const ev = allEvents().find(x => String(x.id || norm(x.title)) === id) || allEvents()[0];
+    const ev = allEvents().find(x => String(x.id || "") === id || String(x.slug || "") === id || eventSlug(x) === id) || allEvents()[0];
     if(!ev){renderEvents("events:upcoming", replace);return;}
     const d = monthDay(ev.date);
-    const path = `/eventi/${norm(ev.title || ev.id)}/`;
+    const path = `/eventi/${eventSlug(ev)}/`;
     window.__cusActiveRoute = routeId;
     if(!replace) history.pushState({route:routeId},"",path);
     seo(ev.title || "Evento","Dettaglio evento CUS Trento C5.",path);
@@ -699,12 +708,21 @@
   function routeFromLocation(){
     let path = location.pathname.replace(/\/+/g,"/");
     if(path !== "/" && !path.endsWith("/")) path += "/";
+    const parts = path.split("/").filter(Boolean);
     if(path.startsWith("/eventi/") && path !== "/eventi/"){
-      return "event-detail:" + path.split("/").filter(Boolean).slice(1).join("/");
+      return "event-detail:" + parts.slice(1).join("/");
     }
     if(path.startsWith("/news/") && path !== "/news/"){
-      return "article-" + path.split("/").filter(Boolean).slice(1).join("/");
+      return "article-" + parts.slice(1).join("/");
     }
+    if(path.startsWith("/squadra/") && path !== "/squadra/") return "player-" + parts.slice(1).join("/");
+    if(path.startsWith("/staff/") && path !== "/staff/") return "staff-detail-" + parts.slice(1).join("/");
+    if(path.startsWith("/gallery/") && path !== "/gallery/") return "gallery-album-" + parts.slice(1).join("/");
+    if(path.startsWith("/video/") && path !== "/video/") return "video-detail-" + parts.slice(1).join("/");
+    if(path.startsWith("/partner/") && path !== "/partner/") return "sponsor-detail-" + parts.slice(1).join("/");
+    if(path.startsWith("/diventa-partner/") && path !== "/diventa-partner/") return "package-detail-" + parts.slice(1).join("/");
+    if(path.startsWith("/under-21/calendario/") && path !== "/under-21/calendario/") return "match-" + parts.slice(2).join("/");
+    if(path.startsWith("/calendario/") && path !== "/calendario/") return "match-" + parts.slice(1).join("/");
     const route = pathToRoute[path];
     if(route === "events" && location.hash){
       const hash = location.hash.replace("#","");
