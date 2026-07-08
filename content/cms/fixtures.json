@@ -1,14 +1,3 @@
 {
-  "fixtures": [
-    {
-      "status": "Da giocare",
-      "competition": "Campionato",
-      "id": 1,
-      "date": "2026-07-08",
-      "time": "21:00",
-      "home": "Cus Trento",
-      "away": "Goativar",
-      "venue": "Sanbapolis"
-    }
-  ]
+  "fixtures": []
 }
