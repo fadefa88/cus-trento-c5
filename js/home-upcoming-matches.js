@@ -116,13 +116,7 @@
       .filter(match => fixtureDayTimestamp(match) >= todayStart)
       .sort(byDate);
 
-    const demo = allDemoFixtures()
-      .map(item => normalizeFixture(item.match, item.key, true))
-      .filter(match => fixtureDayTimestamp(match) >= todayStart)
-      .sort(byDate);
-
-    const source = cms.length ? cms : demo;
-    return {fixtures: source, usingDemo: !cms.length};
+    return {fixtures: cms, usingDemo: false};
   }
 
   function teamMark(name){
@@ -164,6 +158,7 @@
 
   function section(){
     const data = upcomingFixtures();
+    if(!data.fixtures.length) return "";
     return `<section class="home-upcoming-section" aria-label="Prossime partite">
       <div class="container">
         <div class="home-upcoming-head">
@@ -185,7 +180,9 @@
     const existing = homeRoot && homeRoot.querySelector(".home-upcoming-section");
     if(existing) existing.remove();
     if(!homeRoot || !hero) return;
-    hero.insertAdjacentHTML("afterend", section());
+    const html = section();
+    if(!html) return;
+    hero.insertAdjacentHTML("afterend", html);
     bindUpcomingTrack();
     setTimeout(updateUpcomingArrows, 0);
   }

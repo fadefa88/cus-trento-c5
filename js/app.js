@@ -2071,7 +2071,8 @@ async function loadCmsDataOverrides(){
     '/content/cms/sponsor-packages.json',
     '/content/cms/staff.json',
     '/content/cms/videos.json',
-    '/content/cms/club-history.json'
+    '/content/cms/club-history.json',
+    '/content/cms/events.json'
   ];
 
   const merged = {};

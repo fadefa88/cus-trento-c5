@@ -1,0 +1,76 @@
+{
+  "events": [
+    {
+      "id": "open-day-1",
+      "title": "Open day CUS Trento C5",
+      "type": "Open day / Tryout",
+      "date": "2026-09-08",
+      "time": "20:30",
+      "venue": "Sanbàpolis",
+      "summary": "Serata di prova aperta a nuovi giocatori interessati a Prima squadra e Under 21.",
+      "details": "Serata di prova aperta a nuovi giocatori interessati a Prima squadra e Under 21.",
+      "section": "tryout",
+      "archive": false
+    },
+    {
+      "id": "torneo-studenti",
+      "title": "Torneo studenti UniTrento",
+      "type": "Torneo",
+      "date": "2026-09-21",
+      "time": "18:00",
+      "venue": "Sanbàpolis",
+      "summary": "Torneo promozionale aperto alla community universitaria.",
+      "details": "Torneo promozionale aperto alla community universitaria.",
+      "section": "tournaments",
+      "archive": false
+    },
+    {
+      "id": "partner-night",
+      "title": "Partner Night",
+      "type": "Evento partner",
+      "date": "2026-10-03",
+      "time": "19:30",
+      "venue": "Sanbàpolis",
+      "summary": "Incontro con sponsor, aziende e realtà del territorio.",
+      "details": "Incontro con sponsor, aziende e realtà del territorio.",
+      "section": "partner",
+      "archive": false
+    },
+    {
+      "id": "matchday-community",
+      "title": "Community Matchday",
+      "type": "Prossimo evento",
+      "date": "2026-10-17",
+      "time": "20:45",
+      "venue": "Sanbàpolis",
+      "summary": "Matchday con attività per studenti, famiglie e tifosi.",
+      "details": "Matchday con attività per studenti, famiglie e tifosi.",
+      "section": "upcoming",
+      "archive": false
+    },
+    {
+      "id": "tryout-u21",
+      "title": "Tryout Under 21",
+      "type": "Open day / Tryout",
+      "date": "2026-11-04",
+      "time": "19:00",
+      "venue": "Sanbàpolis",
+      "summary": "Sessione dedicata ai profili giovani per il gruppo Under 21.",
+      "details": "Sessione dedicata ai profili giovani per il gruppo Under 21.",
+      "section": "tryout",
+      "archive": false
+    },
+    {
+      "id": "futsal-campus",
+      "title": "Futsal Campus",
+      "type": "Torneo",
+      "date": "2026-12-12",
+      "time": "15:00",
+      "venue": "Palestra CUS",
+      "summary": "Evento tecnico e mini torneo dedicato alla community CUS.",
+      "details": "Evento tecnico e mini torneo dedicato alla community CUS.",
+      "section": "tournaments",
+      "archive": false
+    }
+  ]
+}

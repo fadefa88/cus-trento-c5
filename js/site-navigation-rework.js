@@ -455,8 +455,7 @@
 
   function allEvents(){
     const s = localState();
-    const cmsEvents = Array.isArray(s.events) ? s.events : [];
-    return cmsEvents.length ? cmsEvents : fallbackEvents;
+    return Array.isArray(s.events) ? s.events : [];
   }
 
   function renderEvents(routeId, replace){

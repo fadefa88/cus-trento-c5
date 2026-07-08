@@ -1209,3 +1209,74 @@ collections:
           name: image
           widget: image
           choose_url: true
+
+- name: events
+  label: Eventi
+  delete: false
+  editor:
+    preview: false
+  files:
+  - name: events
+    label: Eventi
+    file: content/cms/events.json
+    fields:
+    - label: Eventi
+      name: events
+      widget: list
+      label_singular: evento
+      summary: '{{fields.date}} — {{fields.title}}'
+      fields:
+      - label: ID
+        name: id
+        widget: string
+        hint: Identificativo breve senza spazi, usato per la pagina dettaglio evento.
+      - label: Titolo
+        name: title
+        widget: string
+      - label: Tipologia
+        name: type
+        widget: select
+        options:
+        - Prossimo evento
+        - Torneo
+        - Open day / Tryout
+        - Evento partner
+      - label: Sezione
+        name: section
+        widget: select
+        options:
+        - label: Prossimi eventi
+          value: upcoming
+        - label: Tornei
+          value: tournaments
+        - label: Open day / Tryout
+          value: tryout
+        - label: Eventi partner
+          value: partner
+      - label: Data
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        picker_utc: false
+      - label: Ora
+        name: time
+        widget: string
+        required: false
+      - label: Luogo
+        name: venue
+        widget: string
+        required: false
+      - label: Sommario
+        name: summary
+        widget: text
+      - label: Dettagli
+        name: details
+        widget: text
+        required: false
+      - label: Archiviato
+        name: archive
+        widget: boolean
+        default: false
+        required: false
