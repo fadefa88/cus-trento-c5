@@ -5,46 +5,53 @@
       "name": "Main Partner",
       "price": "Da definire",
       "visibility": [
-        "Logo maglia gara",
-        "Hero sponsor in home",
-        "Post social dedicati",
-        "Presenza su backdrop interviste"
+        "Naming Rights della sezione",
+        "Recruiting ed Employer Branding dedicato",
+        "Co-progettazione di eventi e iniziative",
+        "Massima visibilità su tutte le piattaforme",
+        "Presenza prioritaria nella comunicazione",
+        "Esclusività di settore"
       ],
       "cta": "Richiedi proposta Main Partner"
     },
     {
       "id": 2,
-      "name": "Gold Sponsor",
+      "name": "Gold Partner",
       "price": "Da definire",
       "visibility": [
-        "Logo in pagina sponsor",
-        "Citazione nei matchday post",
-        "Banner digitale",
-        "Inviti eventi club"
+        "Career Day e Recruiting Day condivisi",
+        "Workshop e incontri con gli studenti",
+        "Visibilità su tutte le piattaforme",
+        "Storytelling del partner",
+        "Promozione di offerte di tirocinio e lavoro"
       ],
       "cta": "Richiedi pacchetto Gold"
     },
     {
       "id": 3,
-      "name": "Silver Sponsor",
+      "name": "Supporting Partner",
       "price": "Da definire",
       "visibility": [
-        "Logo sito",
-        "Presenza gallery partner",
-        "Citazione periodica social"
+        "Presenza continuativa nella comunicazione",
+        "Partner eventi CUS Trento C5",
+        "Accesso alla community universitaria",
+        "Attivazione di iniziative rivolte alla community",
+        "Associazione a un progetto ad alto impatto sociale"
       ],
-      "cta": "Richiedi pacchetto Silver"
+      "cta": "Diventa Supporting Partner"
     },
     {
       "id": 4,
-      "name": "Community Partner",
+      "name": "Technical Partner",
       "price": "Da definire",
       "visibility": [
-        "Presenza sito",
-        "Attività territoriali",
-        "Iniziative studenti"
+        "Promozione mirata di prodotti, servizi e iniziative",
+        "Accesso alla community universitaria",
+        "Case history della collaborazione",
+        "Attivazione di convenzioni",
+        "Qualifica ufficiale di Technical Partner"
       ],
-      "cta": "Diventa partner community"
+      "cta": "Diventa Technical Partner"
     }
   ]
 }
