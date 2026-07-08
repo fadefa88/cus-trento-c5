@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: sync-roster-options-${{ github.ref }}
@@ -26,6 +26,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -35,40 +36,33 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip pyyaml
 
-      - name: Check CMS player dropdowns from roster
-        id: sync-check
+      - name: Sync CMS player dropdowns from roster
+        run: python scripts/sync_roster_options.py
+
+      - name: Commit and push synced roster options
         shell: bash
         run: |
           set -euo pipefail
-          python scripts/sync_roster_options.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           if git diff --quiet -- admin/config.yml; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Roster options already in sync."
             exit 0
           fi
 
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-          git diff -- admin/config.yml > sync-roster-options.patch
-          echo "::warning::admin/config.yml is not in sync with content/cms/roster.json. The repository rules block GitHub Actions from pushing to main or creating a branch, so this workflow reports the diff without failing."
+          git add admin/config.yml
+          git commit -m "Sync roster options in CMS config"
 
-          {
-            echo "## Sync roster options"
-            echo ""
-            echo "admin/config.yml needs to be synchronized with content/cms/roster.json."
-            echo ""
-            echo "This workflow no longer pushes or creates a branch because repository rules block both direct updates to main and new refs from GitHub Actions."
-            echo ""
-            echo "Apply the generated diff manually, or relax the repository rules to allow GitHub Actions to create the sync branch."
-            echo ""
-            echo '```diff'
-            cat sync-roster-options.patch
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main || true
+            if git push origin HEAD:main; then
+              echo "CMS roster options synced to main."
+              exit 0
+            fi
+            echo "Push failed, retrying ($attempt/3)..."
+            sleep 3
+          done
 
-      - name: Upload sync diff
-        if: steps.sync-check.outputs.changed == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: sync-roster-options.patch
-          path: sync-roster-options.patch
+          echo "Unable to push synced roster options after 3 attempts. Check repository rules for GitHub Actions write access to main."
+          exit 1
