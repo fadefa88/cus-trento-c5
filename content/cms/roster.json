@@ -55,7 +55,7 @@
       "role": "Centrale",
       "team": "Prima squadra",
       "number": 4,
-      "photo": "/img/uploads/alvise.jpg"
+      "photo": "/img/uploads/alvise.webp"
     },
     {
       "faculty": "Giurisprudenza",
@@ -76,7 +76,7 @@
       "name": "Mattia Vaia",
       "slug": "mattia-vaia",
       "birthDate": "1998-10-01",
-      "photo": "/img/uploads/vaia.jpg",
+      "photo": "/img/uploads/vaia.webp",
       "role": "Laterale",
       "id": "8",
       "team": "Prima squadra"
