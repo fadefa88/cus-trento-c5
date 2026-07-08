@@ -215,7 +215,7 @@
       "number": 25,
       "name": "Zarantonello Lorenzo",
       "birthDate": "2004-10-30",
-      "photo": "/img/uploads/3.png",
+      "photo": "/img/uploads/3.webp",
       "role": "Portiere",
       "id": 20,
       "team": "Under 21"
@@ -226,7 +226,7 @@
       "number": 90,
       "name": "Toniolli Giulio",
       "birthDate": "2006-04-24",
-      "photo": "/img/uploads/2.png",
+      "photo": "/img/uploads/2.webp",
       "role": "Portiere",
       "id": 21,
       "team": "Under 21"
@@ -237,7 +237,7 @@
       "number": 99,
       "name": "Bigonzi Paolo",
       "birthDate": "2004-07-26",
-      "photo": "/img/uploads/1.png",
+      "photo": "/img/uploads/1.webp",
       "role": "Portiere",
       "id": 22,
       "team": "Under 21"
@@ -248,7 +248,7 @@
       "number": 6,
       "name": "Materia Matteo",
       "birthDate": "2004-11-26",
-      "photo": "/img/uploads/4.png",
+      "photo": "/img/uploads/4.webp",
       "role": "Centrale",
       "id": 23,
       "team": "Under 21"
@@ -259,7 +259,7 @@
       "number": 19,
       "name": "Toniolli Riccardo",
       "birthDate": "2005-09-13",
-      "photo": "/img/uploads/5.png",
+      "photo": "/img/uploads/5.webp",
       "role": "Centrale",
       "id": 24,
       "team": "Under 21"
@@ -281,7 +281,7 @@
       "number": 15,
       "name": "Dancus Adrian Gavril",
       "birthDate": "2005-09-09",
-      "photo": "/img/uploads/8.png",
+      "photo": "/img/uploads/8.webp",
       "role": "Laterale",
       "id": 30,
       "team": "Under 21"
@@ -292,7 +292,7 @@
       "number": 18,
       "name": "Scala Luca",
       "birthDate": "2006-06-07",
-      "photo": "/img/uploads/12.png",
+      "photo": "/img/uploads/12.webp",
       "role": "Laterale",
       "id": 35,
       "team": "Under 21"
@@ -314,7 +314,7 @@
       "number": 28,
       "name": "Tondo Mirko",
       "birthDate": "2006-12-24",
-      "photo": "/img/uploads/9.png",
+      "photo": "/img/uploads/9.webp",
       "role": "Laterale",
       "id": 31,
       "team": "Under 21"
@@ -335,7 +335,7 @@
       "number": 24,
       "name": "Ceola Michele",
       "birthDate": "2006-09-25",
-      "photo": "/img/uploads/11.png",
+      "photo": "/img/uploads/11.webp",
       "role": "Pivot",
       "id": 33,
       "team": "Under 21"
