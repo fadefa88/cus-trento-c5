@@ -10,6 +10,16 @@
       "title": "OPEN DAY",
       "type": "Selezione",
       "id": "tryout-u21"
+    },
+    {
+      "id": "cus-trento-futsal-league-2026-03-12",
+      "slug": "cus-trento-futsal-league-2026-03-12",
+      "title": "CUS TRENTO FUTSAL LEAGUE",
+      "type": "Torneo",
+      "time": "18:00",
+      "date": "2026-03-12",
+      "venue": "Santissimo",
+      "summary": "Torneo universitario di calcio a 5."
     }
   ]
 }
