@@ -198,9 +198,9 @@
   function ctaSection(){
     return `<section class="section home-structure-cta-section">
       <div class="container home-structure-cta-grid">
-        ${ctaCard("play", "Vuoi giocare?", "Entra nel CUS Trento C5. Cerchiamo giocatori motivati per allenamenti, campionati e tornei universitari.", "Candidati ora", "contacts")}
+        ${ctaCard("play", "Vuoi giocare?", "Entra nel CUS Trento. Fai parte del progetto sportivo universitario che accompagnerà il tuo percorso accademico", "Candidati ora", "contacts")}
         ${ctaCard("partner", "Vuoi sponsorizzarci?", "Dai visibilità al tuo brand e sostieni un progetto sportivo giovane, universitario e radicato nel territorio.", "Scopri le opportunità", "sponsor")}
-        ${ctaCard("events", "Vuoi partecipare agli eventi?", "Partite, tornei e serate CUS. Scopri tutti gli appuntamenti aperti a studenti, tifosi, aziende e community.", "Vai agli eventi", "matchday")}
+        ${ctaCard("events", "Vuoi partecipare agli eventi?", "Partite, tornei e serate CUS. Scopri tutti gli appuntamenti aperti a studenti, tifosi e community.", "Vai agli eventi", "matchday")}
       </div>
     </section>`;
   }
