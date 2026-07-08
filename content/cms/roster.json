@@ -79,7 +79,7 @@
       "name": "Filippi Davide",
       "slug": "davide-filippi",
       "birthDate": "2005-04-10",
-      "photo": "/img/uploads/filippi.jpg",
+      "photo": "/img/uploads/filippi.webp",
       "role": "Laterale",
       "id": "7",
       "team": "Prima squadra"
@@ -91,7 +91,7 @@
       "name": "Vaia Mattia",
       "slug": "mattia-vaia",
       "birthDate": "1998-10-01",
-      "photo": "/img/uploads/vaia.jpg",
+      "photo": "/img/uploads/vaia.webp",
       "role": "Laterale",
       "id": "8",
       "team": "Prima squadra"
@@ -103,7 +103,7 @@
       "name": "Addobbati Federico ",
       "slug": "federico-addobbati",
       "birthDate": "2004-03-14",
-      "photo": "/img/uploads/addobbati.jpg",
+      "photo": "/img/uploads/addobbati.webp",
       "role": "Laterale",
       "id": "9",
       "team": "Prima squadra"
@@ -115,7 +115,7 @@
       "name": "Cirasola Luca",
       "slug": "luca-cirasola",
       "birthDate": "2002-01-10",
-      "photo": "/img/uploads/cirasola.jpg",
+      "photo": "/img/uploads/cirasola.webp",
       "role": "Laterale",
       "id": "10",
       "team": "Prima squadra"
@@ -127,7 +127,7 @@
       "name": "Daniele Zampedri",
       "slug": "daniele-zampedri",
       "birthDate": "2006-07-18",
-      "photo": "/img/uploads/zampedri.jpg",
+      "photo": "/img/uploads/zampedri.webp",
       "role": "Laterale",
       "id": "11",
       "team": "Prima squadra"
