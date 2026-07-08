@@ -1,67 +1,67 @@
 {
   "staff": [
     {
-      "id": 1,
-      "name": "Emiliano Piazza",
+      "id": "1",
+      "name": "Piazza  Emiliano",
       "role": "Allenatore",
       "team": "Staff tecnico",
-      "photo": "/img/players/17-piazza-emiliano-allenatore-prima-squadra.webp",
-      "bio": "Allenatore Prima Squadra.",
+      "photo": "/img/uploads/mepo.png",
+      "bio": "Allenatore Prima Squadra",
       "slug": "emiliano-piazza-allenatore"
     },
     {
-      "id": 2,
-      "name": "Denis Gurabardhi",
-      "role": "Vice Allenatore",
-      "team": "Staff tecnico",
-      "photo": "/img/players/18-gurabardhi-denis-vice-allenatore-prima-squadra.webp",
-      "bio": "Vice allenatore Prima Squadra.",
-      "slug": "denis-gurabardhi-vice-allenatore"
-    },
-    {
-      "id": 3,
-      "name": "Diego Cadamuro",
-      "role": "Team Manager",
-      "team": "Dirigenza",
-      "photo": "/img/players/20-cadamuro-diego-team-manager-prima-squadra.webp",
-      "bio": "Team Manager Prima Squadra.",
-      "slug": "diego-cadamuro-team-manager"
-    },
-    {
-      "id": 4,
-      "name": "Stanis Jukni",
-      "role": "Dirigente",
-      "team": "Dirigenza",
-      "photo": "/img/players/19-jukni-stanis-dirigente-prima-squadra.webp",
-      "bio": "Dirigente Prima Squadra.",
-      "slug": "stanis-jukni-dirigente"
-    },
-    {
-      "id": 5,
-      "name": "Livia Copellino",
+      "id": "5",
+      "name": "Copellino Livia",
       "role": "Allenatrice",
       "team": "Staff tecnico",
-      "photo": "/img/players/16-copellino-livia-allenatrice-u21.webp",
-      "bio": "Allenatrice Under 21.",
+      "photo": "/img/uploads/livia.png",
+      "bio": "Allenatrice Under 21",
       "slug": "livia-copellino-allenatrice"
     },
     {
-      "id": 6,
-      "name": "Duilio Lazzarini",
-      "role": "Team Manager",
-      "team": "Dirigenza",
-      "photo": "/img/players/17-lazzarini-duilio-team-manager-u21.webp",
-      "bio": "Team Manager Under 21.",
-      "slug": "duilio-lazzarini-team-manager"
+      "id": "2",
+      "name": "Gurabardhi Denis",
+      "role": "Vice Allenatore",
+      "team": "Staff tecnico",
+      "photo": "/img/uploads/denis.png",
+      "bio": "Vice allenatore Prima Squadra",
+      "slug": "denis-gurabardhi-vice-allenatore"
     },
     {
-      "id": 7,
-      "name": "Francesco Coppo",
+      "id": "7",
+      "name": "De Gennaro Joshua",
+      "role": "Direttore Generale CUS Trento C5",
+      "team": "Dirigenza",
+      "photo": "/img/uploads/joshua.png",
+      "bio": "Direttore Generale CUS Trento C5",
+      "slug": "francesco-coppo-dirigente"
+    },
+    {
+      "id": "4",
+      "name": "Jukni Stanis",
       "role": "Dirigente",
       "team": "Dirigenza",
-      "photo": "/img/players/18-coppo-francesco-dirigente-u21.webp",
-      "bio": "Dirigente Under 21.",
-      "slug": "francesco-coppo-dirigente"
+      "photo": "/img/uploads/stanis.png",
+      "bio": "Dirigente Prima Squadra",
+      "slug": "stanis-jukni-dirigente"
+    },
+    {
+      "id": "3",
+      "name": "Cadamuro Diego",
+      "role": "Team Manager",
+      "team": "Dirigenza",
+      "photo": "/img/uploads/diego.png",
+      "bio": "Team Manager Prima Squadra",
+      "slug": "diego-cadamuro-team-manager"
+    },
+    {
+      "id": "6",
+      "name": "Lazzarini Duilio",
+      "role": "Team Manager",
+      "team": "Dirigenza",
+      "photo": "/img/uploads/duilio.png",
+      "bio": "Team Manager Under 21",
+      "slug": "duilio-lazzarini-team-manager"
     }
   ]
 }
