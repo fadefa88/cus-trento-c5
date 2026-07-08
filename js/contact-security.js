@@ -54,6 +54,46 @@
     }
   }
 
+  function escapeHtml(value) {
+    return String(value ?? "").replace(/[&<>\"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[ch]));
+  }
+
+  function slugFor(item, collection) {
+    if (typeof window.objectSlug === "function") return window.objectSlug(item, collection);
+    const base = item && (item.slug || item.name || item.title || item.id) || "partner";
+    return String(base).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "partner";
+  }
+
+  function sponsorLogo(item) {
+    if (typeof window.sponsorLogoHtml === "function") return window.sponsorLogoHtml(item);
+    const logo = String((item && item.logo) || "").trim();
+    const name = String((item && item.name) || "Partner").trim();
+    if (logo && (/^https?:\/\//i.test(logo) || logo.startsWith("/") || /\.(png|jpe?g|webp|svg|gif)(\?.*)?$/i.test(logo))) {
+      return `<img loading="lazy" src="${escapeHtml(logo)}" alt="Logo ${escapeHtml(name)}">`;
+    }
+    const fallback = logo || name.split(/\s+/).filter(Boolean).slice(0,2).map(x => x[0]).join("") || "SP";
+    return `<span>${escapeHtml(fallback)}</span>`;
+  }
+
+  function installPartnerOverride() {
+    window.sponsor = function() {
+      const sponsors = Array.isArray(window.state && window.state.sponsors) ? window.state.sponsors : [];
+      const sponsorCards = sponsors.map(s => `<article class="card card-pad sponsor-card"><div class="sponsor-logo">${sponsorLogo(s)}</div><h2 style="margin-top:8px">${escapeHtml(s.name || "Sponsor")}</h2><button class="btn soft" onclick="route('sponsor-detail-${escapeHtml(slugFor(s, 'sponsors'))}')" style="margin-top:10px">Scopri →</button></article>`).join("") || `<article class="card card-pad"><p class="muted">Nessun partner inserito.</p></article>`;
+      if (typeof window.shell === "function") {
+        window.shell("Partner", "Sponsor, partner e community del progetto", `<div class="grid grid-4 sponsor-grid-four">${sponsorCards}</div><div class="newsletter" style="margin-top:24px"><h2 style="font-size:38px">Vuoi diventare Partner CUS Trento C5?</h2><button class="btn ghost" onclick="route('become-partner')">Scopri come</button></div>`, "", "Sponsor e partner CUS Trento C5.");
+      }
+    };
+  }
+
+  function refreshPartnerIfVisible() {
+    const path = location.pathname.replace(/\/+$/, "/");
+    if (path === "/partner/" || window.__cusActiveRoute === "partner") {
+      setTimeout(() => {
+        if (typeof window.route === "function") window.route("partner");
+      }, 60);
+    }
+  }
+
   window.submitContact = async function(event) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -82,7 +122,9 @@
     }
   };
 
-  document.addEventListener("DOMContentLoaded", prepareAll);
+  installPartnerOverride();
+  refreshPartnerIfVisible();
+  document.addEventListener("DOMContentLoaded", () => { prepareAll(); installPartnerOverride(); refreshPartnerIfVisible(); });
   const app = document.getElementById("app");
   if (app) new MutationObserver(prepareAll).observe(app, { childList: true, subtree: true });
 })();
