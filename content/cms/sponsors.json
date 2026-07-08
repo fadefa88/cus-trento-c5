@@ -30,6 +30,12 @@
       "url": "https://elettricaotermica.it/auto-elettrica-o-benzina",
       "logo": "/img/uploads/social-card.webp",
       "slug": "auto-elettrica-o-termica"
+    },
+    {
+      "id": "miao",
+      "slug": "miao",
+      "name": "miao",
+      "logo": "/img/uploads/15.webp"
     }
   ]
 }
