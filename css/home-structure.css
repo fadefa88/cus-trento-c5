@@ -207,3 +207,15 @@
     --cus-home-card-height:380px;
   }
 }
+
+
+/* v44: keep equal heights for home news/classifica/social, but restore original CTA dimensions */
+.home-structure-cta-card{
+  height:auto!important;
+  min-height:260px!important;
+}
+@media (max-width:640px){
+  .home-structure-cta-card{
+    min-height:238px!important;
+  }
+}

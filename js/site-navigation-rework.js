@@ -658,7 +658,7 @@
           <p>Il Palazzetto Sanbàpolis è la casa del CUS Trento C5: qui le nostre squadre si allenano e disputano le partite ufficiali, dentro uno degli spazi sportivi più riconoscibili della città universitaria di Trento. Situato nell’area dello Studentato San Bartolameo, Sanbàpolis è un centro polifunzionale dedicato a sport, cultura e vita universitaria. Il palazzetto, inaugurato nel 2013, può accogliere circa 600 spettatori ed è dotato di parcheggio sotterraneo e spazi accessibili.</p>
           <p>Sanbàpolis si trova in Via della Malpensada 88, 38123 Trento, nella zona sud della città: è raggiungibile in circa 10 minuti in auto dal centro storico, ed è collegato dai mezzi pubblici urbani. Le linee bus indicate per raggiungere il palazzetto sono 3, 4, 8, A.</p>
         </article>
-        <div class="cus-rework-card"><div class="cus-rework-media"><img src="/img/placeholder.webp" alt="Palazzetto Sanbàpolis CUS Trento C5"></div></div>
+        <div class="cus-rework-card"><div class="cus-rework-media"><img src="/img/uploads/sanbàpolis.webp" alt="Palazzetto Sanbàpolis CUS Trento C5"></div></div>
       </div></section>`;
     setApp(html,"venue","Impianto","Palazzetto Sanbàpolis, casa del CUS Trento C5.",replace);
   }

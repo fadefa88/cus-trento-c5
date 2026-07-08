@@ -1210,3 +1210,51 @@ body.menu-open{
   .cookie-box .btns{display:grid;grid-template-columns:1fr;gap:8px}
   .cookie-box .btns .btn{width:100%;justify-content:center;min-height:42px}
 }
+
+/* v39: forza 4 colonne partner su desktop */
+.sponsor-grid-four{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+@media(max-width:980px){.sponsor-grid-four{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:640px){.sponsor-grid-four{grid-template-columns:1fr!important}}
+
+
+/* v44: expanded footer menu */
+.footer.footer-expanded .container{
+  grid-template-columns:minmax(260px,1.35fr) repeat(auto-fit,minmax(130px,1fr));
+  align-items:start;
+  gap:28px;
+}
+.footer-expanded .footer-brand-col p{
+  max-width:360px;
+  margin:14px 0 0;
+}
+.footer-expanded .footer-copy{
+  margin-top:18px;
+  color:rgba(255,255,255,.72);
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+.footer-expanded .footer-menu-col b{
+  display:block;
+  margin-bottom:12px;
+  color:#fff;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.footer-expanded .footer-menu-col a{
+  margin:7px 0;
+}
+@media(max-width:980px){
+  .footer.footer-expanded .container{
+    grid-template-columns:1fr 1fr;
+  }
+  .footer-expanded .footer-brand-col{
+    grid-column:1/-1;
+  }
+}
+@media(max-width:620px){
+  .footer.footer-expanded .container{
+    grid-template-columns:1fr;
+  }
+}
