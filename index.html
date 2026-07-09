@@ -21,14 +21,40 @@
 <link rel="stylesheet" href="/css/home-upcoming-matches.css?v=home-upcoming-v18"/>
 <link rel="stylesheet" href="/css/site-navigation-rework.css?v=menu-rework-v50"/>
 <style>
-@media (max-width:640px){
+@media (max-width:640px) and (orientation:portrait){
+  .hero{
+    min-height:620px!important;
+    align-items:start!important;
+  }
+  .hero-grid{
+    align-items:start!important;
+    gap:14px!important;
+    padding-top:18px!important;
+    padding-bottom:24px!important;
+  }
+  .hero .tag{
+    margin-bottom:8px!important;
+  }
+  .hero h1{
+    margin-top:0!important;
+  }
+  .hero .lead{
+    margin-top:14px!important;
+    line-height:1.48!important;
+  }
+  .hero .lead + .lead{
+    margin-top:8px!important;
+  }
+  .home-hero-socials{
+    margin-top:10px!important;
+  }
   .home-hero-actions{
     flex-direction:column!important;
     align-items:flex-start!important;
     gap:9px!important;
     width:auto!important;
     max-width:230px!important;
-    margin-top:24px!important;
+    margin-top:16px!important;
   }
   .home-hero-actions .btn{
     width:auto!important;
