@@ -232,3 +232,25 @@
 .home-structure-cta-card:after{
   background:linear-gradient(180deg,rgba(1,1,2,.08),rgba(1,1,2,.58))!important;
 }
+
+/* v53: shorter hero buttons only on mobile portrait */
+@media (max-width:640px) and (orientation:portrait){
+  .hero .home-hero-actions{
+    align-items:flex-start!important;
+    gap:8px!important;
+    max-width:max-content;
+  }
+  .hero .home-hero-actions .btn{
+    width:auto!important;
+    min-width:0!important;
+    max-width:220px!important;
+    align-self:flex-start!important;
+    justify-content:flex-start!important;
+    padding:10px 14px!important;
+    font-size:12px!important;
+    line-height:1!important;
+  }
+  .hero .home-hero-actions .btn span{
+    white-space:nowrap;
+  }
+}
