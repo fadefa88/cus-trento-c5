@@ -76,12 +76,52 @@
   }
 
   function installPartnerOverride() {
-    window.sponsor = function() {
-      const sponsors = Array.isArray(window.state && window.state.sponsors) ? window.state.sponsors : [];
-      const sponsorCards = sponsors.map(s => `<article class="card card-pad sponsor-card"><div class="sponsor-logo">${sponsorLogo(s)}</div><h2 style="margin-top:8px">${escapeHtml(s.name || "Sponsor")}</h2><button class="btn soft" onclick="route('sponsor-detail-${escapeHtml(slugFor(s, 'sponsors'))}')" style="margin-top:10px">Scopri →</button></article>`).join("") || `<article class="card card-pad"><p class="muted">Nessun partner inserito.</p></article>`;
+    let cachedSponsors = null;
+    let loadingSponsors = null;
+
+    function sponsorsFromState() {
+      return Array.isArray(window.state && window.state.sponsors) ? window.state.sponsors : [];
+    }
+
+    function renderPartnerPage(sponsors) {
+      const items = Array.isArray(sponsors) ? sponsors : [];
+      const sponsorCards = items.map(s => `<article class="card card-pad sponsor-card"><div class="sponsor-logo">${sponsorLogo(s)}</div><h2 style="margin-top:8px">${escapeHtml(s.name || "Sponsor")}</h2><button class="btn soft" onclick="route('sponsor-detail-${escapeHtml(slugFor(s, 'sponsors'))}')" style="margin-top:10px">Scopri →</button></article>`).join("") || `<article class="card card-pad"><p class="muted">Nessun partner inserito.</p></article>`;
       if (typeof window.shell === "function") {
         window.shell("Partner", "Sponsor, partner e community del progetto", `<div class="grid grid-4 sponsor-grid-four">${sponsorCards}</div><div class="newsletter" style="margin-top:24px"><h2 style="font-size:38px">Vuoi diventare Partner CUS Trento C5?</h2><button class="btn ghost" onclick="route('become-partner')">Scopri come</button></div>`, "", "Sponsor e partner CUS Trento C5.");
       }
+    }
+
+    function loadSponsorsFromCms() {
+      if (cachedSponsors) return Promise.resolve(cachedSponsors);
+      if (loadingSponsors) return loadingSponsors;
+      loadingSponsors = fetch("/content/cms/sponsors.json", { cache: "no-store" })
+        .then(res => res.ok ? res.json() : Promise.reject(new Error("sponsors.json non disponibile")))
+        .then(data => {
+          cachedSponsors = Array.isArray(data && data.sponsors) ? data.sponsors : [];
+          return cachedSponsors;
+        })
+        .catch(() => {
+          cachedSponsors = [];
+          return cachedSponsors;
+        });
+      return loadingSponsors;
+    }
+
+    window.sponsor = function() {
+      const stateSponsors = sponsorsFromState();
+      if (stateSponsors.length) {
+        cachedSponsors = stateSponsors;
+        renderPartnerPage(stateSponsors);
+        return;
+      }
+      if (cachedSponsors && cachedSponsors.length) {
+        renderPartnerPage(cachedSponsors);
+        return;
+      }
+      if (typeof window.shell === "function") {
+        window.shell("Partner", "Sponsor, partner e community del progetto", `<article class="card card-pad"><p class="muted">Caricamento partner...</p></article>`, "", "Sponsor e partner CUS Trento C5.");
+      }
+      loadSponsorsFromCms().then(renderPartnerPage);
     };
   }
 
