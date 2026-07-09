@@ -122,7 +122,7 @@
     const paths = {
       home:"/", "teams-overview":"/squadre/", squad:"/squadra/", staff:"/staff/", stats:"/statistiche/", "play-with-us":"/gioca-con-noi/", fixtures:"/calendario/", standings:"/classifica/", coppa:"/coppa/", cnu:"/cnu/", "season-archive":"/archivio-stagioni/", matchday:"/matchday/", events:"/eventi/", "events:upcoming":"/eventi/#prossimi-eventi", "events:tournaments":"/eventi/#tornei", "events:selections":"/eventi/#selezioni", "events:archive":"/eventi/#archivio-eventi", partner:"/partner/", sponsor:"/partner/", "become-partner":"/diventa-partner/", news:"/news/", gallery:"/gallery/", video:"/video/", social:"/social/", "club-project":"/club/", club:"/club/", venue:"/impianto/", records:"/hall-of-fame/", contacts:"/contatti/", privacy:"/privacy/", cookies:"/cookies/"
     };
-    const css = `html{scroll-behavior:auto!important}.nav a,.home-structure a,.cus-rework-page a{text-decoration:none}.nav-main{display:inline-flex;align-items:center;border:0}.dropdown a{display:block;width:100%;text-align:left;border-radius:16px;padding:11px 13px;background:#fff;font-weight:850;color:#3f3f46}.dropdown a:hover,.dropdown a.active{background:#f4f4f5;color:var(--red)}.mobile-menu a{display:block;width:100%;text-align:left;background:#f4f4f5;border-radius:14px;padding:10px;margin-top:8px;font-weight:850;color:inherit}.mobile-menu a.active{background:#fee2e2;color:#b91c1c}.home-structure-card-head a{border-radius:999px;background:#f4f4f5;color:#18181b;padding:8px 12px;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.08em}.home-structure-card-cup .home-structure-card-head a{background:#fff;color:#09090b}.home-structure-cta-card a{display:inline-flex;align-items:center;justify-content:center;background:#ffd018;color:#111;border-radius:999px;padding:12px 17px;font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em}`;
+    const css = `html{scroll-behavior:auto!important}.nav a,.home-structure a,.cus-rework-page a{text-decoration:none}.nav-main{display:inline-flex;align-items:center;border:0}.dropdown a{display:block;width:100%;text-align:left;border-radius:16px;padding:11px 13px;background:#fff;font-weight:850;color:#3f3f46}.dropdown a:hover,.dropdown a.active{background:#f4f4f5;color:var(--red)}.mobile-menu a{display:block;width:100%;text-align:left;background:#f4f4f5;border-radius:14px;padding:10px;margin-top:8px;font-weight:850;color:inherit}.mobile-menu a.active{background:#fee2e2;color:#b91c1c}.home-structure-card-head a{border-radius:999px;background:#f4f4f5;color:#18181b;padding:8px 12px;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.08em}.home-structure-card-cup .home-structure-card-head a{background:#fff;color:#09090b}.home-structure-cta-card a{display:inline-flex;align-items:center;justify-content:center;background:#ffd018;color:#111;border-radius:999px;padding:12px 17px;font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em}@media (max-width:640px) and (orientation:portrait){.home-hero-actions{align-items:flex-start!important;max-width:230px!important}.home-hero-actions a.btn,.home-hero-actions .btn{display:inline-flex!important;flex:0 0 auto!important;width:fit-content!important;min-width:0!important;max-width:max-content!important;align-self:flex-start!important;justify-content:flex-start!important;padding:10px 13px!important;font-size:12px!important;line-height:1.1!important;white-space:nowrap!important}}`;
     const style = document.createElement("style");
     style.textContent = css;
     document.head.appendChild(style);
@@ -173,6 +173,14 @@
         a.href = href(routeId);
         a.innerHTML = button.innerHTML;
         a.dataset.cusRealLink = "1";
+        if (button.closest && button.closest(".home-hero-actions")) {
+          a.style.display = "inline-flex";
+          a.style.flex = "0 0 auto";
+          a.style.width = "fit-content";
+          a.style.minWidth = "0";
+          a.style.maxWidth = "max-content";
+          a.style.alignSelf = "flex-start";
+        }
         a.addEventListener("click", event => window.cusLinkRoute(event, routeId));
         button.replaceWith(a);
       });
