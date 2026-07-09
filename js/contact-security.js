@@ -118,6 +118,75 @@
     }, true);
   }
 
+  function installRealRouteLinks() {
+    const paths = {
+      home:"/", "teams-overview":"/squadre/", squad:"/squadra/", staff:"/staff/", stats:"/statistiche/", "play-with-us":"/gioca-con-noi/", fixtures:"/calendario/", standings:"/classifica/", coppa:"/coppa/", cnu:"/cnu/", "season-archive":"/archivio-stagioni/", matchday:"/matchday/", events:"/eventi/", "events:upcoming":"/eventi/#prossimi-eventi", "events:tournaments":"/eventi/#tornei", "events:selections":"/eventi/#selezioni", "events:archive":"/eventi/#archivio-eventi", partner:"/partner/", sponsor:"/partner/", "become-partner":"/diventa-partner/", news:"/news/", gallery:"/gallery/", video:"/video/", social:"/social/", "club-project":"/club/", club:"/club/", venue:"/impianto/", records:"/hall-of-fame/", contacts:"/contatti/", privacy:"/privacy/", cookies:"/cookies/"
+    };
+    const css = `html{scroll-behavior:auto!important}.nav a,.home-structure a,.cus-rework-page a{text-decoration:none}.nav-main{display:inline-flex;align-items:center;border:0}.dropdown a{display:block;width:100%;text-align:left;border-radius:16px;padding:11px 13px;background:#fff;font-weight:850;color:#3f3f46}.dropdown a:hover,.dropdown a.active{background:#f4f4f5;color:var(--red)}.mobile-menu a{display:block;width:100%;text-align:left;background:#f4f4f5;border-radius:14px;padding:10px;margin-top:8px;font-weight:850;color:inherit}.mobile-menu a.active{background:#fee2e2;color:#b91c1c}.home-structure-card-head a{border-radius:999px;background:#f4f4f5;color:#18181b;padding:8px 12px;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.08em}.home-structure-card-cup .home-structure-card-head a{background:#fff;color:#09090b}.home-structure-cta-card a{display:inline-flex;align-items:center;justify-content:center;background:#ffd018;color:#111;border-radius:999px;padding:12px 17px;font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em}`;
+    const style = document.createElement("style");
+    style.textContent = css;
+    document.head.appendChild(style);
+    function clean(value) { return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "pagina"; }
+    function alias(value) { if (value === "sponsor") return "partner"; if (value === "club") return "club-project"; return value || "home"; }
+    function href(routeId) {
+      const id = alias(routeId);
+      if (paths[id]) return paths[id];
+      if (id.startsWith("article-")) return "/news/" + clean(id.slice(8)) + "/";
+      if (id.startsWith("player-")) return "/squadra/" + clean(id.slice(7)) + "/";
+      if (id.startsWith("staff-detail-")) return "/staff/" + clean(id.slice(13)) + "/";
+      if (id.startsWith("gallery-album-")) return "/gallery/" + clean(id.slice(14)) + "/";
+      if (id.startsWith("video-detail-")) return "/video/" + clean(id.slice(13)) + "/";
+      if (id.startsWith("sponsor-detail-")) return "/partner/" + clean(id.slice(15)) + "/";
+      if (id.startsWith("package-detail-")) return "/diventa-partner/" + clean(id.slice(15)) + "/";
+      if (id.startsWith("event-detail:")) return "/eventi/" + clean(id.slice(13)) + "/";
+      if (id.startsWith("match-")) return "/calendario/" + clean(id.slice(6)) + "/";
+      return "/" + clean(id) + "/";
+    }
+    window.cusRouteHref = href;
+    const oldScrollTo = window.scrollTo.bind(window);
+    window.scrollTo = function(x, y) {
+      const isObj = x && typeof x === "object";
+      const top = isObj ? Number(x.top || 0) : Number(y || 0);
+      const left = isObj ? Number(x.left || 0) : Number(x || 0);
+      if (top === 0 && left === 0) return;
+      return oldScrollTo.apply(window, arguments);
+    };
+    window.cusLinkRoute = function(event, routeId) {
+      const id = alias(routeId);
+      if (event && (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)) return true;
+      if (event) event.preventDefault();
+      if (event && event.currentTarget && event.currentTarget.closest("#mobileMenu") && typeof window.cusCloseMobileMenu === "function") window.cusCloseMobileMenu();
+      if (typeof window.route === "function") window.route(id); else location.href = href(id);
+      return false;
+    };
+    function routeFrom(raw) {
+      const match = String(raw || "").match(/(?:cusMenuRoute|route)\(['\"]([^'\"]+)['\"]\)/);
+      return match ? match[1] : "";
+    }
+    function linkify() {
+      document.querySelectorAll("button[onclick]").forEach(button => {
+        if (button.dataset.cusRealLink === "1") return;
+        const routeId = routeFrom(button.getAttribute("onclick"));
+        if (!routeId) return;
+        const a = document.createElement("a");
+        Array.from(button.attributes || []).forEach(attr => { if (!["onclick", "type"].includes(attr.name)) a.setAttribute(attr.name, attr.value); });
+        a.href = href(routeId);
+        a.innerHTML = button.innerHTML;
+        a.dataset.cusRealLink = "1";
+        a.addEventListener("click", event => window.cusLinkRoute(event, routeId));
+        button.replaceWith(a);
+      });
+    }
+    linkify();
+    const app = document.getElementById("app");
+    if (app) new MutationObserver(linkify).observe(app, { childList: true, subtree: true });
+    const nav = document.querySelector(".nav");
+    if (nav) new MutationObserver(linkify).observe(nav, { childList: true, subtree: true });
+    const mobile = document.getElementById("mobileMenu");
+    if (mobile) new MutationObserver(linkify).observe(mobile, { childList: true, subtree: true });
+    setTimeout(linkify, 80); setTimeout(linkify, 350); setTimeout(linkify, 1000);
+  }
+
   window.submitContact = async function(event) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -149,7 +218,8 @@
   installUploadedImageRetry();
   installPartnerOverride();
   refreshPartnerIfVisible();
-  document.addEventListener("DOMContentLoaded", () => { prepareAll(); installPartnerOverride(); refreshPartnerIfVisible(); });
+  installRealRouteLinks();
+  document.addEventListener("DOMContentLoaded", () => { prepareAll(); installPartnerOverride(); refreshPartnerIfVisible(); installRealRouteLinks(); });
   const app = document.getElementById("app");
   if (app) new MutationObserver(prepareAll).observe(app, { childList: true, subtree: true });
 })();
