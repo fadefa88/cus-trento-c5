@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://calcioa5.custrento.it/sitemap.xml
+Sitemap: https://custrentocalcioa5.it/sitemap.xml
