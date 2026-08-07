@@ -96,8 +96,10 @@
   function standingsRows(rows){
     const list = (rows || []).slice().sort((a,b) => (Number(a.pos) || 999) - (Number(b.pos) || 999));
     const cus = findCus(list);
-    let display = list.slice(0,4);
-    if(cus.team && !display.some(row => isCus(row.team))) display = [...display.slice(0,3), cus];
+    const isMobilePortrait = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 640px) and (orientation: portrait)").matches;
+    const limit = isMobilePortrait ? 6 : 8;
+    let display = list.slice(0,limit);
+    if(cus.team && !display.some(row => isCus(row.team))) display = [...display.slice(0,limit - 1), cus];
     if(!display.length) return `<div class="home-structure-empty">Classifica da aggiornare.</div>`;
     return `<div class="home-structure-standing-list">${display.map(row => `<div class="home-structure-standing-row ${isCus(row.team) ? "is-cus" : ""}">
       <div><span>${h(row.pos || "-")}</span>${row.logo ? `<img src="${h(row.logo)}" alt="${h(row.team || "Squadra")}">` : ""}<b>${h(row.team || "Squadra")}</b></div>
