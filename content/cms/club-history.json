@@ -7,12 +7,6 @@
     ],
     "images": [
       {
-        "season": "2011/2012",
-        "image": "/img/uploads/11-12.webp",
-        "id": "2011-2012",
-        "slug": "2011-2012"
-      },
-      {
         "season": "2012/2013",
         "image": "/img/uploads/12-13.jpg",
         "id": "2012-2013",
