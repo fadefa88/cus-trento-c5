@@ -677,38 +677,14 @@
     },
     {
       "g": 20,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24251logo.png",
-      "gs": 60,
-      "n": 2,
-      "pts": 47,
-      "p": 3,
-      "pos": 2,
-      "v": 15,
-      "team": "ALTOPIANO PAGANELLA",
-      "gf": 123
-    },
-    {
-      "g": 20,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24254logo.png",
-      "gs": 55,
-      "n": 3,
-      "pts": 45,
-      "p": 3,
-      "pos": 3,
-      "v": 14,
-      "team": "LEVICO TERME",
-      "gf": 112
-    },
-    {
-      "g": 20,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24260logo.png",
+      "logo": "",
       "gs": 87,
       "n": 3,
       "pts": 33,
       "p": 7,
-      "pos": 4,
+      "pos": 5,
       "v": 10,
-      "team": "TNT MONTE PELLER",
+      "team": "0,00 4 TNT MONTE PELLER",
       "gf": 104
     },
     {
@@ -737,6 +713,18 @@
     },
     {
       "g": 20,
+      "logo": "",
+      "gs": 55,
+      "n": 3,
+      "pts": 45,
+      "p": 3,
+      "pos": 7,
+      "v": 14,
+      "team": "0,00 3 LEVICO TERME",
+      "gf": 112
+    },
+    {
+      "g": 20,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24252logo.png",
       "gs": 106,
       "n": 1,
@@ -760,28 +748,28 @@
       "gf": 94
     },
     {
-      "g": 20,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24261logo.png",
-      "gs": 90,
-      "n": 3,
+      "g": 21,
+      "logo": "",
+      "gs": 70,
+      "n": 6,
       "pts": 21,
-      "p": 11,
+      "p": 3,
       "pos": 9,
-      "v": 6,
-      "team": "CUS TRENTO UNDER 21",
-      "gf": 70
+      "v": 20,
+      "team": "CUS TRENTO UNDER",
+      "gf": 11
     },
     {
       "g": 20,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2025/24255logo.png",
-      "gs": 114,
+      "logo": "",
+      "gs": 60,
       "n": 2,
-      "pts": 14,
-      "p": 14,
+      "pts": 47,
+      "p": 3,
       "pos": 10,
-      "v": 4,
-      "team": "DX GENERATION",
-      "gf": 87
+      "v": 15,
+      "team": "0,00 2 ALTOPIANO PAGANELLA",
+      "gf": 123
     },
     {
       "g": 20,
@@ -794,6 +782,18 @@
       "v": 0,
       "team": "REAL FRADEO",
       "gf": 49
+    },
+    {
+      "g": 20,
+      "logo": "",
+      "gs": 114,
+      "n": 2,
+      "pts": 14,
+      "p": 14,
+      "pos": 46,
+      "v": 4,
+      "team": "-19 0,00 10 DX GENERATION",
+      "gf": 87
     }
   ],
   "news": [
