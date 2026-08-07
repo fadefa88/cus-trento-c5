@@ -1,6 +1,6 @@
 (function(){
   const MENU_VERSION = "menu-rework-v4";
-  const baseUrl = "https://custrentocalcioa5.it";
+  const baseUrl = "https://calcioa5.custrento.it";
   const oldRoute = typeof window.route === "function" ? window.route.bind(window) : null;
 
   const pathByRoute = {
@@ -353,7 +353,7 @@
       <section class="cus-rework-section">
         <div class="container">
           <div class="cus-rework-grid two">
-            ${teamCard("Prima squadra","La prima squadra è il cuore agonistico del CUS Trento C5. Un gruppo che affronta la stagione con intensità, metodo e spirito di squadra, rappresentando il club nei principali appuntamenti del calcio a 5 regionale.",prima,primaAge,"SERIE C1","/assets/foto-sito.webp?auto=format&fit=crop&w=1200&q=90","squad")}
+            ${teamCard("Prima squadra","La prima squadra è il cuore agonistico del CUS Trento C5. Un gruppo che affronta la stagione con intensità, metodo e spirito di squadra, rappresentando il club nei principali appuntamenti del calcio a 5 regionale.",prima,primaAge,"SERIE B - gir. B","/assets/foto-sito.webp?auto=format&fit=crop&w=1200&q=90","squad")}
             ${teamCard("Under 21","L’Under 21 è il percorso di crescita dedicato ai giovani giocatori del CUS Trento C5. Una squadra pensata per formare atleti pronti ad affrontare il futsal con serietà, continuità e responsabilità.",u21,u21Age,"SERIE D","/img/players/foto-squadra-u21.webp?auto=format&fit=crop&w=1200&q=90","squad")}
           </div>
         </div>
@@ -633,13 +633,21 @@
     setApp(html,"cnu","CNU","Campionati Nazionali Universitari del CUS Trento C5.",replace);
   }
 
+  function archiveCompetitionForSeason(season){
+    const map={"2011/2012":"Serie D","2012/2013":"Serie D","2013/2014":"Serie D","2014/2015":"Serie C2","2015/2016":"Serie D","2016/2017":"Serie D","2017/2018":"Serie C2","2018/2019":"Serie C2","2019/2020":"Serie C2","2020/2021":"Serie C2","2021/2022":"Serie C1","2022/2023":"Serie C1","2023/2024":"Serie C1","2024/2025":"Serie C1","2025/2026":"Serie C1","2026/2027":"Serie B - Gir. B"};
+    const key=String(season||"").replace(/\s/g,"");
+    if(map[key])return map[key];
+    const longKey=key.replace(/^(\d{4})\/(\d{2})$/,(m,a,b)=>`${a}/20${b}`);
+    return map[longKey]||"";
+  }
+
   function renderSeasonArchive(replace){
     const s = localState();
     const rows = (s.historicalStats && Array.isArray(s.historicalStats.seasons) ? s.historicalStats.seasons : (s.seasons || []));
     const html = `${pageHero("Archivio stagioni","Classifiche e stagioni passate","")}
       <section class="cus-rework-section"><div class="container"><div class="table-wrap"><table class="cus-rework-table">
-      <thead><tr><th>Stagione</th><th>Gare</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>Diff.</th></tr></thead>
-      <tbody>${rows.map(r => `<tr><td>${h(r.season)}</td><td>${h(r.played || "-")}</td><td>${h(r.wins || "-")}</td><td>${h(r.draws || "-")}</td><td>${h(r.losses || "-")}</td><td>${h(r.goalsFor || "-")}</td><td>${h(r.goalsAgainst || "-")}</td><td>${h(r.goalDifference || r.note || "-")}</td></tr>`).join("")}</tbody>
+      <thead><tr><th>Stagione</th><th>Campionato</th><th>Gare</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>Diff.</th></tr></thead>
+      <tbody>${rows.map(r => `<tr><td>${h(r.season)}</td><td>${h(r.competition || archiveCompetitionForSeason(r.season) || "-")}</td><td>${h(r.played || "-")}</td><td>${h(r.wins || "-")}</td><td>${h(r.draws || "-")}</td><td>${h(r.losses || "-")}</td><td>${h(r.goalsFor || "-")}</td><td>${h(r.goalsAgainst || "-")}</td><td>${h(r.goalDifference || r.note || "-")}</td></tr>`).join("")}</tbody>
       </table></div></div></section>`;
     setApp(html,"season-archive","Archivio stagioni","Archivio storico stagioni CUS Trento C5.",replace);
   }

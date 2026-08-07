@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Aggiorna automaticamente le classifiche CUS Trento C5 da SporTrentino.
+Aggiorna automaticamente le classifiche CUS Trento C5.
 
 Sorgenti:
-- Prima squadra / Serie C1: https://calcioa5.sportrentino.it/camp_classifica.asp?pf=422&f=3562
+- Prima squadra / Serie B Girone B: https://www.tuttocampo.it/Italia/CalcioA5SerieB/GironeBSerieB/Classifica
 - Under 21 / Serie D Girone B: https://calcioa5.sportrentino.it/camp_classifica.asp?pf=422&f=3565
 
 Scrive in content/data.json:
@@ -27,11 +27,15 @@ import requests
 from bs4 import BeautifulSoup, Tag
 
 SOURCES = {
-    "standings": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=422&f=3562",
-    "u21Standings": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=422&f=3565",
+    "standings": {
+        "url": "https://www.tuttocampo.it/Italia/CalcioA5SerieB/GironeBSerieB/Classifica",
+        "type": "tuttocampo",
+    },
+    "u21Standings": {
+        "url": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=422&f=3565",
+        "type": "sportrentino",
+    },
 }
-
-BASE_URL = "https://calcioa5.sportrentino.it/"
 
 
 def clean_text(value: str) -> str:
@@ -44,6 +48,10 @@ def to_int(value: str) -> int:
     return int(m.group(0)) if m else 0
 
 
+def is_number(value: str) -> bool:
+    return bool(re.fullmatch(r"-?\d+(?:[,.]\d+)?", clean_text(value)))
+
+
 def normalize_team_name(name: str) -> str:
     return clean_text(name).upper()
 
@@ -53,7 +61,9 @@ def fetch_html(url: str) -> str:
         url,
         timeout=30,
         headers={
-            "User-Agent": "CUS-Trento-C5-StandingsUpdater/1.0 (+https://custrentocalcioa5.it)"
+            "User-Agent": "Mozilla/5.0 (compatible; CUS-Trento-C5-StandingsUpdater/2.0; +https://calcioa5.custrento.it)",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "it-IT,it;q=0.9,en;q=0.8",
         },
     )
     response.raise_for_status()
@@ -62,56 +72,50 @@ def fetch_html(url: str) -> str:
     return response.text
 
 
-def looks_like_standings_row(values: list[str]) -> bool:
-    if len(values) < 9:
-        return False
-    if not re.fullmatch(r"\d+", values[0]):
-        return False
-    # Dopo la squadra devono esserci almeno: Pt, G, V, N, P, Gf, Gs.
-    nums = [v for v in values[2:] if re.fullmatch(r"-?\d+(?:[,.]\d+)?", v)]
-    return len(nums) >= 7
+def row_values(tr: Tag) -> list[str]:
+    cells = tr.find_all(["th", "td"])
+    if cells:
+        return [clean_text(c.get_text(" ", strip=True)) for c in cells if clean_text(c.get_text(" ", strip=True))]
+    return [clean_text(x) for x in tr.stripped_strings if clean_text(x)]
 
 
-def parse_row_from_tr(tr: Tag) -> dict[str, Any] | None:
-    raw_values = [clean_text(x) for x in tr.stripped_strings if clean_text(x)]
-    if not raw_values or not re.fullmatch(r"\d+", raw_values[0]):
-        return None
-
-    # Prende il nome squadra dal primo link utile nella riga.
-    team = ""
+def team_from_row(tr: Tag, values: list[str]) -> str:
+    ignored = {"ultima", "calendario", "classifica", "incroci", "organici", "marcatori", "statistiche"}
     for a in tr.find_all("a"):
         txt = clean_text(a.get_text(" ", strip=True))
-        href = a.get("href") or ""
-        if txt and not txt.lower() in {"ultima", "calendario", "classifica", "incroci", "organici", "marcatori"}:
-            team = txt
-            break
+        if txt and txt.lower() not in ignored and not is_number(txt):
+            return txt
+    for value in values[1:]:
+        if value and not is_number(value):
+            return value
+    return ""
 
-    if not team:
-        # Fallback: posizione, squadra, numeri...
-        # Cerca il primo token non numerico dopo la posizione.
-        for value in raw_values[1:]:
-            if not re.fullmatch(r"-?\d+(?:[,.]\d+)?", value):
-                team = value
-                break
 
+def parse_row_from_tr(tr: Tag, source_url: str) -> dict[str, Any] | None:
+    values = row_values(tr)
+    if not values or not is_number(values[0]):
+        return None
+
+    team = team_from_row(tr, values)
     if not team:
         return None
 
-    # I numeri dopo il nome squadra sono:
-    # Pt, G, V, N, P, Gf, Gs, poi dati casa/trasferta ecc.
     try:
-        team_index = raw_values.index(team)
+        team_index = values.index(team)
     except ValueError:
         team_index = 1
 
-    numeric_values = [v for v in raw_values[team_index + 1 :] if re.fullmatch(r"-?\d+(?:[,.]\d+)?", v)]
+    numeric_values = [v for v in values[team_index + 1 :] if is_number(v)]
+    if len(numeric_values) < 7:
+        # Alcune pagine possono mettere i punti prima della squadra: prendi tutti i numeri dopo la posizione.
+        numeric_values = [v for v in values[1:] if is_number(v)]
     if len(numeric_values) < 7:
         return None
 
     logo = ""
     img = tr.find("img")
     if img and img.get("src"):
-        logo = urljoin(BASE_URL, img.get("src") or "")
+        logo = urljoin(source_url, img.get("src") or "")
 
     return {
         "g": to_int(numeric_values[1]),
@@ -120,15 +124,14 @@ def parse_row_from_tr(tr: Tag) -> dict[str, Any] | None:
         "n": to_int(numeric_values[3]),
         "pts": to_int(numeric_values[0]),
         "p": to_int(numeric_values[4]),
-        "pos": to_int(raw_values[0]),
+        "pos": to_int(values[0]),
         "v": to_int(numeric_values[2]),
         "team": normalize_team_name(team),
         "gf": to_int(numeric_values[5]),
     }
 
 
-def parse_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]:
-    """Fallback quando il markup tabellare cambia o viene appiattito."""
+def parse_sportrentino_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]:
     text = clean_text(soup.get_text(" ", strip=True))
     start = text.find("Classifica Squadra Pt")
     end = text.find("Pt=Punti", start)
@@ -136,7 +139,6 @@ def parse_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]:
         return []
 
     chunk = text[start:end]
-    # Righe tipo: 1 Calcio Bleggio 60 26 20 0 6 185 114 ...
     pattern = re.compile(
         r"(?:^|\s)(\d{1,2})\s+(.+?)\s+"
         r"(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+"
@@ -145,9 +147,7 @@ def parse_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]:
     )
     rows: list[dict[str, Any]] = []
     for m in pattern.finditer(chunk):
-        team = clean_text(m.group(2))
-        # Evita di mangiare intestazioni residue.
-        team = re.sub(r"^.*?Gs\s+", "", team).strip()
+        team = clean_text(re.sub(r"^.*?Gs\s+", "", m.group(2)).strip())
         rows.append(
             {
                 "g": to_int(m.group(4)),
@@ -165,13 +165,46 @@ def parse_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]:
     return rows
 
 
-def parse_standings(html_text: str) -> list[dict[str, Any]]:
+def parse_tuttocampo_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]:
+    """Fallback generico per pagine Tuttocampo appiattite o con markup non tabellare."""
+    text = clean_text(soup.get_text(" ", strip=True))
+    if "Classifica" not in text:
+        return []
+    pattern = re.compile(
+        r"(?:^|\s)(\d{1,2})\s+([A-Za-zÀ-ÖØ-öø-ÿ0-9' .\-]+?)\s+"
+        r"(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)(?:\s+[-+]?\d+)?",
+        re.I,
+    )
+    rows: list[dict[str, Any]] = []
+    for m in pattern.finditer(text):
+        team = clean_text(m.group(2))
+        if len(team) < 2 or team.lower() in {"pos", "squadra", "punti"}:
+            continue
+        rows.append(
+            {
+                "g": to_int(m.group(4)),
+                "logo": "",
+                "gs": to_int(m.group(9)),
+                "n": to_int(m.group(6)),
+                "pts": to_int(m.group(3)),
+                "p": to_int(m.group(7)),
+                "pos": to_int(m.group(1)),
+                "v": to_int(m.group(5)),
+                "team": normalize_team_name(team),
+                "gf": to_int(m.group(8)),
+            }
+        )
+    # Evita falsi positivi lunghi dal testo pagina.
+    return [r for r in rows if r["pos"] > 0 and len(str(r["team"])) <= 60]
+
+
+def parse_standings(html_text: str, source_url: str, source_type: str) -> list[dict[str, Any]]:
     soup = BeautifulSoup(html_text, "html.parser")
     rows: list[dict[str, Any]] = []
     seen_positions: set[int] = set()
 
     for tr in soup.find_all("tr"):
-        parsed = parse_row_from_tr(tr)
+        parsed = parse_row_from_tr(tr, source_url)
         if not parsed:
             continue
         pos = int(parsed.get("pos") or 0)
@@ -181,11 +214,11 @@ def parse_standings(html_text: str) -> list[dict[str, Any]]:
         rows.append(parsed)
 
     if not rows:
-        rows = parse_rows_from_text(soup)
+        rows = parse_tuttocampo_rows_from_text(soup) if source_type == "tuttocampo" else parse_sportrentino_rows_from_text(soup)
 
     rows = sorted(rows, key=lambda item: int(item.get("pos") or 9999))
     if not rows:
-        raise ValueError("Nessuna riga classifica trovata nella pagina SporTrentino")
+        raise ValueError(f"Nessuna riga classifica trovata nella pagina {source_type}")
     return rows
 
 
@@ -202,10 +235,12 @@ def update_data(data_path: Path) -> bool:
     data = json.loads(data_path.read_text(encoding="utf-8"))
     changed = False
 
-    for key, url in SOURCES.items():
+    for key, source in SOURCES.items():
+        url = source["url"]
+        source_type = source["type"]
         print(f"Updating {key} from {url}", flush=True)
         html_text = fetch_html(url)
-        new_rows = parse_standings(html_text)
+        new_rows = parse_standings(html_text, url, source_type)
         new_rows = preserve_missing_logos(new_rows, data.get(key, []))
         print(f"  rows parsed: {len(new_rows)}", flush=True)
 

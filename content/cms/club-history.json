@@ -7,10 +7,10 @@
     ],
     "images": [
       {
-        "id": "2011-2012",
-        "slug": "2011-2012",
         "season": "2011/2012",
-        "image": "/img/uploads/11-12.jpg"
+        "image": "/img/uploads/11-12.webp",
+        "id": "2011-2012",
+        "slug": "2011-2012"
       },
       {
         "season": "2012/2013",
@@ -62,7 +62,7 @@
       },
       {
         "season": "2024/2025",
-        "image": "https://custrentocalcioa5.it/assets/team.webp",
+        "image": "https://calcioa5.custrento.it/assets/team.webp",
         "id": "2024-2025",
         "slug": "2024-2025"
       },

@@ -299,6 +299,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#70 Bernard Filippo'
+            value: '3'
           hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
         - label: Panchina / Convocati
           name: bench
@@ -342,6 +344,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#70 Bernard Filippo'
+            value: '3'
           hint: Scegli solo giocatori non già presenti nel quintetto.
         - label: Squalificati
           name: suspended
@@ -385,6 +389,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#70 Bernard Filippo'
+            value: '3'
         - label: Infortunati
           name: injured
           widget: select
@@ -427,6 +433,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#70 Bernard Filippo'
+            value: '3'
       - label: Marcatori
         name: scorerEvents
         widget: list
@@ -475,6 +483,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#70 Bernard Filippo'
+            value: '3'
         - label: Gol
           name: goals
           widget: number
@@ -529,6 +539,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#70 Bernard Filippo'
+            value: '3'
         - label: Ammonizioni
           name: cards
           widget: number
@@ -583,6 +595,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#70 Bernard Filippo'
+            value: '3'
         - label: Espulsioni
           name: cards
           widget: number
@@ -606,6 +620,8 @@ collections:
             value: '1'
           - label: '#12 Baccaro Zeni Lucca'
             value: baccaro-zeni-lucca
+          - label: '#70 Bernard Filippo'
+            value: '3'
         - label: Gol subiti
           name: goalsAgainst
           widget: number

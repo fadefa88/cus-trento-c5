@@ -315,7 +315,7 @@ def article_id_from_url(url: str) -> str:
 
 def fetch(session: requests.Session, url: str, timeout: int = 30) -> str:
     r = session.get(url, timeout=timeout, headers={
-        "User-Agent": "CUS-Trento-C5-NewsImporter/1.0 (+https://custrentocalcioa5.it)"
+        "User-Agent": "CUS-Trento-C5-NewsImporter/1.0 (+https://calcioa5.custrento.it)"
     })
     r.raise_for_status()
     # The site may not always declare encoding correctly.

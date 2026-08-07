@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
-SITE_URL = os.environ.get("SITE_URL", "https://custrentocalcioa5.it").rstrip("/")
+SITE_URL = os.environ.get("SITE_URL", "https://calcioa5.custrento.it").rstrip("/")
 TEMPLATE_PATH = ROOT / "index.html"
 TODAY = date.today().isoformat()
 
@@ -541,6 +541,29 @@ def render_simple_main(page: Dict[str, Any], data: Dict[str, Any]) -> str:
             for r in rows if isinstance(r, dict)
         )
         pieces.append(f'<div class="card card-pad table-wrap"><table class="table"><thead><tr><th>#</th><th>Squadra</th><th>Pt</th><th>G</th></tr></thead><tbody>{table}</tbody></table></div>')
+    elif route == "season-archive":
+        rows = []
+        hs = data.get("historicalStats") if isinstance(data.get("historicalStats"), dict) else {}
+        if isinstance(hs.get("seasons"), list):
+            rows = hs.get("seasons", [])
+        elif isinstance(data.get("seasons"), list):
+            rows = data.get("seasons", [])
+        def comp_for(season: Any) -> str:
+            mapping = {
+                "2011/2012":"Serie D", "2012/2013":"Serie D", "2013/2014":"Serie D", "2014/2015":"Serie C2", "2015/2016":"Serie D", "2016/2017":"Serie D", "2017/2018":"Serie C2", "2018/2019":"Serie C2", "2019/2020":"Serie C2", "2020/2021":"Serie C2", "2021/2022":"Serie C1", "2022/2023":"Serie C1", "2023/2024":"Serie C1", "2024/2025":"Serie C1", "2025/2026":"Serie C1", "2026/2027":"Serie B - Gir. B"
+            }
+            key = str(season or "").replace(" ", "")
+            if key in mapping:
+                return mapping[key]
+            match = re.match(r"^(\d{4})/(\d{2})$", key)
+            if match:
+                return mapping.get(f"{match.group(1)}/20{match.group(2)}", "")
+            return ""
+        table = "".join(
+            f'''<tr><td>{esc(r.get('season'))}</td><td>{esc(r.get('competition') or comp_for(r.get('season')) or '-')}</td><td>{esc(r.get('played') or '-')}</td><td>{esc(r.get('wins') or '-')}</td><td>{esc(r.get('draws') or '-')}</td><td>{esc(r.get('losses') or '-')}</td><td>{esc(r.get('goalsFor') or '-')}</td><td>{esc(r.get('goalsAgainst') or '-')}</td><td>{esc(r.get('goalDifference') if r.get('goalDifference') is not None else '-')}</td></tr>'''
+            for r in rows if isinstance(r, dict)
+        )
+        pieces.append(f'<div class="card card-pad table-wrap"><table class="table"><thead><tr><th>Stagione</th><th>Campionato</th><th>Gare</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>Diff.</th></tr></thead><tbody>{table}</tbody></table></div>')
     elif route == "gallery":
         albums = data.get("galleryAlbums", []) if isinstance(data.get("galleryAlbums"), list) else []
         pieces.append("<div class=\"grid grid-3\">" + "\n".join(

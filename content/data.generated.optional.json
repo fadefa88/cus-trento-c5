@@ -3551,7 +3551,7 @@
     },
     {
       "season": "2023/24",
-      "competition": "Serie C2",
+      "competition": "Serie C1",
       "position": "2°",
       "record": "15V 3N 4P",
       "gf": 88,
@@ -3818,7 +3818,8 @@
         "goalsForAvg": "4,76",
         "goalsAgainst": 67,
         "goalsAgainstAvg": "3,94",
-        "goalDifference": 14
+        "goalDifference": 14,
+        "competition": "Serie C1"
       },
       {
         "season": "2024/2025",
@@ -3830,7 +3831,8 @@
         "goalsForAvg": "2,92",
         "goalsAgainst": 143,
         "goalsAgainstAvg": "5,29",
-        "goalDifference": -64
+        "goalDifference": -64,
+        "competition": "Serie C1"
       },
       {
         "season": "2023/2024",
@@ -3842,7 +3844,8 @@
         "goalsForAvg": "3,34",
         "goalsAgainst": 150,
         "goalsAgainstAvg": "5,17",
-        "goalDifference": -53
+        "goalDifference": -53,
+        "competition": "Serie C1"
       },
       {
         "season": "2022/2023",
@@ -3854,7 +3857,8 @@
         "goalsForAvg": "4,37",
         "goalsAgainst": 150,
         "goalsAgainstAvg": "5,55",
-        "goalDifference": -32
+        "goalDifference": -32,
+        "competition": "Serie C1"
       },
       {
         "season": "2021/2022",
@@ -3866,7 +3870,8 @@
         "goalsForAvg": "3,45",
         "goalsAgainst": 71,
         "goalsAgainstAvg": "3,55",
-        "goalDifference": -2
+        "goalDifference": -2,
+        "competition": "Serie C1"
       },
       {
         "season": "2020/2021",
@@ -3878,7 +3883,8 @@
         "goalsForAvg": "1,33",
         "goalsAgainst": 5,
         "goalsAgainstAvg": "1,66",
-        "goalDifference": -1
+        "goalDifference": -1,
+        "competition": "Serie C2"
       },
       {
         "season": "2019/2020",
@@ -3890,7 +3896,8 @@
         "goalsForAvg": "2,52",
         "goalsAgainst": 82,
         "goalsAgainstAvg": "3,56",
-        "goalDifference": -24
+        "goalDifference": -24,
+        "competition": "Serie C2"
       },
       {
         "season": "2018/2019",
@@ -3902,7 +3909,8 @@
         "goalsForAvg": "4,83",
         "goalsAgainst": 138,
         "goalsAgainstAvg": "3,72",
-        "goalDifference": 41
+        "goalDifference": 41,
+        "competition": "Serie C2"
       },
       {
         "season": "2017/2018",
@@ -3914,7 +3922,8 @@
         "goalsForAvg": "4,14",
         "goalsAgainst": 144,
         "goalsAgainstAvg": "4,23",
-        "goalDifference": -3
+        "goalDifference": -3,
+        "competition": "Serie C2"
       },
       {
         "season": "2016/2017",
@@ -3926,7 +3935,8 @@
         "goalsForAvg": "5,61",
         "goalsAgainst": 91,
         "goalsAgainstAvg": "2,93",
-        "goalDifference": 83
+        "goalDifference": 83,
+        "competition": "Serie D"
       },
       {
         "season": "2015/2016",
@@ -3938,7 +3948,8 @@
         "goalsForAvg": "4,42",
         "goalsAgainst": 115,
         "goalsAgainstAvg": "3,48",
-        "goalDifference": 31
+        "goalDifference": 31,
+        "competition": "Serie D"
       },
       {
         "season": "2014/2015",
@@ -3950,7 +3961,8 @@
         "goalsForAvg": "2,91",
         "goalsAgainst": 133,
         "goalsAgainstAvg": "4,03",
-        "goalDifference": -37
+        "goalDifference": -37,
+        "competition": "Serie C2"
       },
       {
         "season": "2013/2014",
@@ -3962,7 +3974,8 @@
         "goalsForAvg": "4,08",
         "goalsAgainst": 82,
         "goalsAgainstAvg": "2,41",
-        "goalDifference": 57
+        "goalDifference": 57,
+        "competition": "Serie D"
       },
       {
         "season": "2012/2013",
@@ -3974,7 +3987,8 @@
         "goalsForAvg": "4,42",
         "goalsAgainst": 156,
         "goalsAgainstAvg": "6,5",
-        "goalDifference": -28
+        "goalDifference": -28,
+        "competition": "Serie D"
       },
       {
         "season": "2011/2012",
@@ -3986,7 +4000,8 @@
         "goalsForAvg": "4,73",
         "goalsAgainst": 161,
         "goalsAgainstAvg": "6,19",
-        "goalDifference": -38
+        "goalDifference": -38,
+        "competition": "Serie D"
       }
     ],
     "honors": [

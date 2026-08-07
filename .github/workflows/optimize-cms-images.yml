@@ -63,6 +63,8 @@ jobs:
           done
 
       - name: Generate static SEO pages
+        env:
+          SITE_URL: https://calcioa5.custrento.it
         run: |
           python scripts/generate_static_pages.py
           test -f sitemap.xml

@@ -26,7 +26,7 @@ from urllib.parse import urlparse
 from PIL import Image, ImageOps
 
 
-SITE_HOSTS = {"custrentocalcioa5.it", "www.custrentocalcioa5.it"}
+SITE_HOSTS = {"calcioa5.custrento.it", "www.calcioa5.custrento.it", "custrentocalcioa5.it", "www.custrentocalcioa5.it"}
 SUPPORTED_INPUT_EXTS = {".jpg", ".jpeg", ".png", ".webp"}
 SKIP_EXTS = {".svg", ".gif", ".avif"}
 
