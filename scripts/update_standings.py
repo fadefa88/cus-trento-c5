@@ -10,13 +10,18 @@ Scrive in content/data.json:
 - standings
 - u21Standings
 
-Non usa database. Lo script è pensato per GitHub Actions.
+Per Tuttocampo lo script prova prima con requests. Se la pagina risponde 403,
+usa Playwright/Chromium nel workflow GitHub Actions, renderizza la pagina come
+un browser reale, salva uno screenshot di debug e normalizza la classifica dal
+DOM/testo renderizzato.
 """
 
 from __future__ import annotations
 
 import argparse
+import html as html_lib
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -25,6 +30,7 @@ from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup, Tag
+from requests import HTTPError
 
 SOURCES = {
     "standings": {
@@ -36,6 +42,8 @@ SOURCES = {
         "type": "sportrentino",
     },
 }
+
+ARTIFACTS_DIR = Path(os.environ.get("STANDINGS_ARTIFACTS_DIR", "standings-artifacts"))
 
 
 def clean_text(value: str) -> str:
@@ -61,15 +69,93 @@ def fetch_html(url: str) -> str:
         url,
         timeout=30,
         headers={
-            "User-Agent": "Mozilla/5.0 (compatible; CUS-Trento-C5-StandingsUpdater/2.0; +https://calcioa5.custrento.it)",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
             "Accept-Language": "it-IT,it;q=0.9,en;q=0.8",
+            "Referer": "https://www.tuttocampo.it/",
+            "Cache-Control": "no-cache",
         },
     )
     response.raise_for_status()
     if not response.encoding or response.encoding.lower() == "iso-8859-1":
         response.encoding = response.apparent_encoding or "utf-8"
     return response.text
+
+
+def fetch_html_with_browser(url: str, source_type: str) -> str:
+    """Render a blocked/dynamic page with Chromium and return DOM plus visible text.
+
+    The screenshot is only a debug artifact. The parser reads the rendered DOM/text,
+    not OCR pixels, because OCR would be more fragile and noisy.
+    """
+    try:
+        from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
+        from playwright.sync_api import sync_playwright
+    except ImportError as exc:
+        raise RuntimeError(
+            "Playwright non installato. Nel workflow serve: pip install playwright && python -m playwright install --with-deps chromium"
+        ) from exc
+
+    ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
+    safe_type = re.sub(r"[^a-z0-9_-]+", "-", source_type.lower()).strip("-") or "standings"
+    screenshot_path = ARTIFACTS_DIR / f"{safe_type}-classifica.png"
+    html_path = ARTIFACTS_DIR / f"{safe_type}-rendered.html"
+    text_path = ARTIFACTS_DIR / f"{safe_type}-rendered.txt"
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
+        context = browser.new_context(
+            viewport={"width": 1440, "height": 1800},
+            locale="it-IT",
+            timezone_id="Europe/Rome",
+            user_agent=(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/121.0.0.0 Safari/537.36"
+            ),
+        )
+        page = context.new_page()
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=60000)
+            try:
+                page.wait_for_load_state("networkidle", timeout=15000)
+            except PlaywrightTimeoutError:
+                pass
+            for selector in [
+                "button:has-text('Accetta')",
+                "button:has-text('Accetto')",
+                "button:has-text('OK')",
+                "button:has-text('Consenti')",
+                "text=Accetta tutto",
+            ]:
+                try:
+                    locator = page.locator(selector).first
+                    if locator.is_visible(timeout=1200):
+                        locator.click(timeout=2500)
+                        break
+                except Exception:
+                    continue
+            page.wait_for_timeout(2500)
+            page.screenshot(path=str(screenshot_path), full_page=True)
+            rendered_html = page.content()
+            visible_text = page.locator("body").inner_text(timeout=10000)
+            html_path.write_text(rendered_html, encoding="utf-8")
+            text_path.write_text(visible_text, encoding="utf-8")
+            return rendered_html + "\n<!-- visible text fallback -->\n<pre>" + html_lib.escape(visible_text) + "</pre>"
+        finally:
+            context.close()
+            browser.close()
+
+
+def fetch_source_html(url: str, source_type: str) -> str:
+    try:
+        return fetch_html(url)
+    except HTTPError as exc:
+        status_code = exc.response.status_code if exc.response is not None else None
+        if source_type == "tuttocampo" and status_code == 403:
+            print("  requests blocked with 403; trying Chromium render + screenshot...", flush=True)
+            return fetch_html_with_browser(url, source_type)
+        raise
 
 
 def row_values(tr: Tag) -> list[str]:
@@ -170,16 +256,24 @@ def parse_tuttocampo_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]
     text = clean_text(soup.get_text(" ", strip=True))
     if "Classifica" not in text:
         return []
+
+    # Tenta prima il formato più probabile: posizione, squadra, punti, gare, vinte, nulle, perse, GF, GS.
     pattern = re.compile(
-        r"(?:^|\s)(\d{1,2})\s+([A-Za-zÀ-ÖØ-öø-ÿ0-9' .\-]+?)\s+"
+        r"(?:^|\s)(\d{1,2})\s+([A-Za-zÀ-ÖØ-öø-ÿ0-9' .\-&]+?)\s+"
         r"(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)(?:\s+[-+]?\d+)?",
         re.I,
     )
     rows: list[dict[str, Any]] = []
+    seen: set[int] = set()
+    bad_words = {"pos", "squadra", "punti", "classifica", "calendario", "marcatori", "statistiche"}
     for m in pattern.finditer(text):
+        pos = to_int(m.group(1))
         team = clean_text(m.group(2))
-        if len(team) < 2 or team.lower() in {"pos", "squadra", "punti"}:
+        if pos <= 0 or pos in seen:
             continue
+        if len(team) < 2 or team.lower() in bad_words or len(team) > 60:
+            continue
+        seen.add(pos)
         rows.append(
             {
                 "g": to_int(m.group(4)),
@@ -188,14 +282,13 @@ def parse_tuttocampo_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]
                 "n": to_int(m.group(6)),
                 "pts": to_int(m.group(3)),
                 "p": to_int(m.group(7)),
-                "pos": to_int(m.group(1)),
+                "pos": pos,
                 "v": to_int(m.group(5)),
                 "team": normalize_team_name(team),
                 "gf": to_int(m.group(8)),
             }
         )
-    # Evita falsi positivi lunghi dal testo pagina.
-    return [r for r in rows if r["pos"] > 0 and len(str(r["team"])) <= 60]
+    return rows
 
 
 def parse_standings(html_text: str, source_url: str, source_type: str) -> list[dict[str, Any]]:
@@ -239,7 +332,7 @@ def update_data(data_path: Path) -> bool:
         url = source["url"]
         source_type = source["type"]
         print(f"Updating {key} from {url}", flush=True)
-        html_text = fetch_html(url)
+        html_text = fetch_source_html(url, source_type)
         new_rows = parse_standings(html_text, url, source_type)
         new_rows = preserve_missing_logos(new_rows, data.get(key, []))
         print(f"  rows parsed: {len(new_rows)}", flush=True)
