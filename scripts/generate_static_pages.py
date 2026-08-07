@@ -537,7 +537,7 @@ def render_simple_main(page: Dict[str, Any], data: Dict[str, Any]) -> str:
     elif route == "standings":
         rows = data.get("standings", []) if isinstance(data.get("standings"), list) else []
         table = "".join(
-            f'''<tr><td>{esc(r.get('pos'))}</td><td>{esc(r.get('team'))}</td><td>{esc(r.get('pts'))}</td><td>{esc(r.get('g'))}</td></tr>'''
+            f'''<tr><td>{esc(r.get('pos'))}</td><td>{esc(r.get('team'))}</td><td>{esc(str(r.get('pts')) if r.get('pts') is not None else '')}</td><td>{esc(str(r.get('g')) if r.get('g') is not None else '')}</td></tr>'''
             for r in rows if isinstance(r, dict)
         )
         pieces.append(f'<div class="card card-pad table-wrap"><table class="table"><thead><tr><th>#</th><th>Squadra</th><th>Pt</th><th>G</th></tr></thead><tbody>{table}</tbody></table></div>')

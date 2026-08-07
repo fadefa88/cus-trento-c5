@@ -1,27 +1,23 @@
 #!/usr/bin/env python3
 """
-Aggiorna automaticamente le classifiche CUS Trento C5.
+Aggiorna automaticamente le classifiche CUS Trento C5 da SporTrentino.
 
-Sorgenti:
-- Prima squadra / Serie B Girone B: https://www.tuttocampo.it/Italia/CalcioA5SerieB/GironeBSerieB/Classifica
-- Under 21 / Serie D Girone B: https://calcioa5.sportrentino.it/camp_classifica.asp?pf=422&f=3565
+Configurazione attuale:
+- Prima squadra / Serie B 2026/27: classifica mantenuta manualmente in
+  content/data.json (non viene sovrascritta dallo scraper).
+- Under 21 / Serie D Girone B: aggiornata da SporTrentino.
 
 Scrive in content/data.json:
-- standings
 - u21Standings
 
-Per Tuttocampo lo script prova prima con requests. Se la pagina risponde 403,
-usa Playwright/Chromium nel workflow GitHub Actions, renderizza la pagina come
-un browser reale, salva uno screenshot di debug e normalizza la classifica dal
-DOM/testo renderizzato.
+Non usa browser/Playwright: lo scraping torna a usare requests + BeautifulSoup
+sulla pagina SporTrentino.
 """
 
 from __future__ import annotations
 
 import argparse
-import html as html_lib
 import json
-import os
 import re
 import sys
 from pathlib import Path
@@ -30,20 +26,12 @@ from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup, Tag
-from requests import HTTPError
 
 SOURCES = {
-    "standings": {
-        "url": "https://www.tuttocampo.it/Italia/CalcioA5SerieB/GironeBSerieB/Classifica",
-        "type": "tuttocampo",
-    },
-    "u21Standings": {
-        "url": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=422&f=3565",
-        "type": "sportrentino",
-    },
+    "u21Standings": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=422&f=3565",
 }
 
-ARTIFACTS_DIR = Path(os.environ.get("STANDINGS_ARTIFACTS_DIR", "standings-artifacts"))
+BASE_URL = "https://calcioa5.sportrentino.it/"
 
 
 def clean_text(value: str) -> str:
@@ -52,12 +40,8 @@ def clean_text(value: str) -> str:
 
 def to_int(value: str) -> int:
     value = clean_text(str(value)).replace(".", "").replace(",", ".")
-    m = re.search(r"-?\d+", value)
-    return int(m.group(0)) if m else 0
-
-
-def is_number(value: str) -> bool:
-    return bool(re.fullmatch(r"-?\d+(?:[,.]\d+)?", clean_text(value)))
+    match = re.search(r"-?\d+", value)
+    return int(match.group(0)) if match else 0
 
 
 def normalize_team_name(name: str) -> str:
@@ -69,11 +53,9 @@ def fetch_html(url: str) -> str:
         url,
         timeout=30,
         headers={
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            "Accept-Language": "it-IT,it;q=0.9,en;q=0.8",
-            "Referer": "https://www.tuttocampo.it/",
-            "Cache-Control": "no-cache",
+            "User-Agent": "CUS-Trento-C5-StandingsUpdater/1.0 (+https://calcioa5.custrento.it)",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "it-IT,it;q=0.9,en;q=0.7",
         },
     )
     response.raise_for_status()
@@ -82,95 +64,35 @@ def fetch_html(url: str) -> str:
     return response.text
 
 
-def fetch_html_with_browser(url: str, source_type: str) -> str:
-    """Render a blocked/dynamic page with Chromium and return DOM plus visible text.
-
-    The screenshot is only a debug artifact. The parser reads the rendered DOM/text,
-    not OCR pixels, because OCR would be more fragile and noisy.
-    """
-    try:
-        from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
-        from playwright.sync_api import sync_playwright
-    except ImportError as exc:
-        raise RuntimeError(
-            "Playwright non installato. Nel workflow serve: pip install playwright && python -m playwright install --with-deps chromium"
-        ) from exc
-
-    ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
-    safe_type = re.sub(r"[^a-z0-9_-]+", "-", source_type.lower()).strip("-") or "standings"
-    screenshot_path = ARTIFACTS_DIR / f"{safe_type}-classifica.png"
-    html_path = ARTIFACTS_DIR / f"{safe_type}-rendered.html"
-    text_path = ARTIFACTS_DIR / f"{safe_type}-rendered.txt"
-
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
-        context = browser.new_context(
-            viewport={"width": 1440, "height": 1800},
-            locale="it-IT",
-            timezone_id="Europe/Rome",
-            user_agent=(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/121.0.0.0 Safari/537.36"
-            ),
-        )
-        page = context.new_page()
-        try:
-            page.goto(url, wait_until="domcontentloaded", timeout=60000)
-            try:
-                page.wait_for_load_state("networkidle", timeout=15000)
-            except PlaywrightTimeoutError:
-                pass
-            for selector in [
-                "button:has-text('Accetta')",
-                "button:has-text('Accetto')",
-                "button:has-text('OK')",
-                "button:has-text('Consenti')",
-                "text=Accetta tutto",
-            ]:
-                try:
-                    locator = page.locator(selector).first
-                    if locator.is_visible(timeout=1200):
-                        locator.click(timeout=2500)
-                        break
-                except Exception:
-                    continue
-            page.wait_for_timeout(2500)
-            page.screenshot(path=str(screenshot_path), full_page=True)
-            rendered_html = page.content()
-            visible_text = page.locator("body").inner_text(timeout=10000)
-            html_path.write_text(rendered_html, encoding="utf-8")
-            text_path.write_text(visible_text, encoding="utf-8")
-            return rendered_html + "\n<!-- visible text fallback -->\n<pre>" + html_lib.escape(visible_text) + "</pre>"
-        finally:
-            context.close()
-            browser.close()
-
-
-def fetch_source_html(url: str, source_type: str) -> str:
-    try:
-        return fetch_html(url)
-    except HTTPError as exc:
-        status_code = exc.response.status_code if exc.response is not None else None
-        if source_type == "tuttocampo" and status_code == 403:
-            print("  requests blocked with 403; trying Chromium render + screenshot...", flush=True)
-            return fetch_html_with_browser(url, source_type)
-        raise
-
-
 def row_values(tr: Tag) -> list[str]:
     cells = tr.find_all(["th", "td"])
     if cells:
-        return [clean_text(c.get_text(" ", strip=True)) for c in cells if clean_text(c.get_text(" ", strip=True))]
-    return [clean_text(x) for x in tr.stripped_strings if clean_text(x)]
+        return [
+            clean_text(cell.get_text(" ", strip=True))
+            for cell in cells
+            if clean_text(cell.get_text(" ", strip=True))
+        ]
+    return [clean_text(value) for value in tr.stripped_strings if clean_text(value)]
+
+
+def is_number(value: str) -> bool:
+    return bool(re.fullmatch(r"-?\d+(?:[,.]\d+)?", clean_text(value)))
 
 
 def team_from_row(tr: Tag, values: list[str]) -> str:
-    ignored = {"ultima", "calendario", "classifica", "incroci", "organici", "marcatori", "statistiche"}
-    for a in tr.find_all("a"):
-        txt = clean_text(a.get_text(" ", strip=True))
-        if txt and txt.lower() not in ignored and not is_number(txt):
-            return txt
+    ignored = {
+        "ultima",
+        "calendario",
+        "classifica",
+        "incroci",
+        "organici",
+        "marcatori",
+        "statistiche",
+    }
+    for anchor in tr.find_all("a"):
+        text = clean_text(anchor.get_text(" ", strip=True))
+        if text and text.lower() not in ignored and not is_number(text):
+            return text
     for value in values[1:]:
         if value and not is_number(value):
             return value
@@ -179,7 +101,7 @@ def team_from_row(tr: Tag, values: list[str]) -> str:
 
 def parse_row_from_tr(tr: Tag, source_url: str) -> dict[str, Any] | None:
     values = row_values(tr)
-    if not values or not is_number(values[0]):
+    if not values or not re.fullmatch(r"\d+", values[0]):
         return None
 
     team = team_from_row(tr, values)
@@ -191,18 +113,18 @@ def parse_row_from_tr(tr: Tag, source_url: str) -> dict[str, Any] | None:
     except ValueError:
         team_index = 1
 
-    numeric_values = [v for v in values[team_index + 1 :] if is_number(v)]
+    numeric_values = [value for value in values[team_index + 1 :] if is_number(value)]
     if len(numeric_values) < 7:
-        # Alcune pagine possono mettere i punti prima della squadra: prendi tutti i numeri dopo la posizione.
-        numeric_values = [v for v in values[1:] if is_number(v)]
+        numeric_values = [value for value in values[1:] if is_number(value)]
     if len(numeric_values) < 7:
         return None
 
     logo = ""
-    img = tr.find("img")
-    if img and img.get("src"):
-        logo = urljoin(source_url, img.get("src") or "")
+    image = tr.find("img")
+    if image and image.get("src"):
+        logo = urljoin(source_url or BASE_URL, image.get("src") or "")
 
+    # SporTrentino: posizione, squadra, Pt, G, V, N, P, GF, GS, ...
     return {
         "g": to_int(numeric_values[1]),
         "logo": logo,
@@ -217,7 +139,8 @@ def parse_row_from_tr(tr: Tag, source_url: str) -> dict[str, Any] | None:
     }
 
 
-def parse_sportrentino_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]:
+def parse_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]:
+    """Fallback per il layout testuale della classifica SporTrentino."""
     text = clean_text(soup.get_text(" ", strip=True))
     start = text.find("Classifica Squadra Pt")
     end = text.find("Pt=Punti", start)
@@ -231,67 +154,28 @@ def parse_sportrentino_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any
         r"\d+\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+\s+\d+",
         re.I,
     )
+
     rows: list[dict[str, Any]] = []
-    for m in pattern.finditer(chunk):
-        team = clean_text(re.sub(r"^.*?Gs\s+", "", m.group(2)).strip())
+    for match in pattern.finditer(chunk):
+        team = clean_text(re.sub(r"^.*?Gs\s+", "", match.group(2)).strip())
         rows.append(
             {
-                "g": to_int(m.group(4)),
+                "g": to_int(match.group(4)),
                 "logo": "",
-                "gs": to_int(m.group(9)),
-                "n": to_int(m.group(6)),
-                "pts": to_int(m.group(3)),
-                "p": to_int(m.group(7)),
-                "pos": to_int(m.group(1)),
-                "v": to_int(m.group(5)),
+                "gs": to_int(match.group(9)),
+                "n": to_int(match.group(6)),
+                "pts": to_int(match.group(3)),
+                "p": to_int(match.group(7)),
+                "pos": to_int(match.group(1)),
+                "v": to_int(match.group(5)),
                 "team": normalize_team_name(team),
-                "gf": to_int(m.group(8)),
+                "gf": to_int(match.group(8)),
             }
         )
     return rows
 
 
-def parse_tuttocampo_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]:
-    """Fallback generico per pagine Tuttocampo appiattite o con markup non tabellare."""
-    text = clean_text(soup.get_text(" ", strip=True))
-    if "Classifica" not in text:
-        return []
-
-    # Tenta prima il formato più probabile: posizione, squadra, punti, gare, vinte, nulle, perse, GF, GS.
-    pattern = re.compile(
-        r"(?:^|\s)(\d{1,2})\s+([A-Za-zÀ-ÖØ-öø-ÿ0-9' .\-&]+?)\s+"
-        r"(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)(?:\s+[-+]?\d+)?",
-        re.I,
-    )
-    rows: list[dict[str, Any]] = []
-    seen: set[int] = set()
-    bad_words = {"pos", "squadra", "punti", "classifica", "calendario", "marcatori", "statistiche"}
-    for m in pattern.finditer(text):
-        pos = to_int(m.group(1))
-        team = clean_text(m.group(2))
-        if pos <= 0 or pos in seen:
-            continue
-        if len(team) < 2 or team.lower() in bad_words or len(team) > 60:
-            continue
-        seen.add(pos)
-        rows.append(
-            {
-                "g": to_int(m.group(4)),
-                "logo": "",
-                "gs": to_int(m.group(9)),
-                "n": to_int(m.group(6)),
-                "pts": to_int(m.group(3)),
-                "p": to_int(m.group(7)),
-                "pos": pos,
-                "v": to_int(m.group(5)),
-                "team": normalize_team_name(team),
-                "gf": to_int(m.group(8)),
-            }
-        )
-    return rows
-
-
-def parse_standings(html_text: str, source_url: str, source_type: str) -> list[dict[str, Any]]:
+def parse_standings(html_text: str, source_url: str) -> list[dict[str, Any]]:
     soup = BeautifulSoup(html_text, "html.parser")
     rows: list[dict[str, Any]] = []
     seen_positions: set[int] = set()
@@ -307,16 +191,20 @@ def parse_standings(html_text: str, source_url: str, source_type: str) -> list[d
         rows.append(parsed)
 
     if not rows:
-        rows = parse_tuttocampo_rows_from_text(soup) if source_type == "tuttocampo" else parse_sportrentino_rows_from_text(soup)
+        rows = parse_rows_from_text(soup)
 
     rows = sorted(rows, key=lambda item: int(item.get("pos") or 9999))
     if not rows:
-        raise ValueError(f"Nessuna riga classifica trovata nella pagina {source_type}")
+        raise ValueError("Nessuna riga classifica trovata nella pagina SporTrentino")
     return rows
 
 
-def preserve_missing_logos(new_rows: list[dict[str, Any]], old_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    old_by_team = {normalize_team_name(str(row.get("team", ""))): row for row in old_rows}
+def preserve_missing_logos(
+    new_rows: list[dict[str, Any]], old_rows: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    old_by_team = {
+        normalize_team_name(str(row.get("team", ""))): row for row in old_rows
+    }
     for row in new_rows:
         key = normalize_team_name(str(row.get("team", "")))
         if not row.get("logo") and key in old_by_team:
@@ -328,12 +216,12 @@ def update_data(data_path: Path) -> bool:
     data = json.loads(data_path.read_text(encoding="utf-8"))
     changed = False
 
-    for key, source in SOURCES.items():
-        url = source["url"]
-        source_type = source["type"]
+    print("Prima squadra: classifica manuale, non sovrascritta dallo scraper.", flush=True)
+
+    for key, url in SOURCES.items():
         print(f"Updating {key} from {url}", flush=True)
-        html_text = fetch_source_html(url, source_type)
-        new_rows = parse_standings(html_text, url, source_type)
+        html_text = fetch_html(url)
+        new_rows = parse_standings(html_text, url)
         new_rows = preserve_missing_logos(new_rows, data.get(key, []))
         print(f"  rows parsed: {len(new_rows)}", flush=True)
 
@@ -342,7 +230,9 @@ def update_data(data_path: Path) -> bool:
             changed = True
 
     if changed:
-        data_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        data_path.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
     return changed
 
 
