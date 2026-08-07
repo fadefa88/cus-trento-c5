@@ -4,7 +4,7 @@ backend:
   branch: main
   base_url: https://decap-github-oauth.luca-defassi.workers.dev
   auth_endpoint: auth
-  site_domain: https://custrentocalcioa5.it
+  site_domain: https://calcioa5.custrento.it
 locale: it
 media_folder: img/uploads
 public_folder: /img/uploads
