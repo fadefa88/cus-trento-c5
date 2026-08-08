@@ -3,7 +3,7 @@
     {
       "slug": "cus-trento-ac-trento-1921-2026-09-19",
       "time": "16:00",
-      "away": "AC Trento 1921",
+      "away": "Trento 1921",
       "date": "2026-09-19",
       "lineup": {
         "startingFive": [],
@@ -31,7 +31,7 @@
       "venue": "Gardolo",
       "status": "Da giocare",
       "id": "ac-trento-1921-cus-trento-2026-09-26",
-      "home": "AC Trento 1921",
+      "home": "Trento 1921",
       "competition": "Coppa"
     },
     {
@@ -83,6 +83,142 @@
       "status": "Da giocare",
       "id": "atletico-sestu-cus-trento-2026-10-17",
       "home": "Atletico Sestu",
+      "competition": "Campionato"
+    },
+    {
+      "slug": "cus-trento-canottieri-belluno-2026-10-24",
+      "time": "16:00",
+      "away": "Canottieri Belluno",
+      "date": "2026-10-24",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-canottieri-belluno-2026-10-24",
+      "home": "CUS Trento",
+      "competition": "Campionato"
+    },
+    {
+      "slug": "real-bubi-merano-cus-trento-2026-10-31",
+      "time": "16:00",
+      "away": "CUS Trento",
+      "date": "2026-10-31",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Palestrone School Village Merano",
+      "status": "Da giocare",
+      "id": "real-bubi-merano-cus-trento-2026-10-31",
+      "home": "Real Bubi Merano",
+      "competition": "Campionato"
+    },
+    {
+      "slug": "cus-trento-elmas-2026-11-07",
+      "time": "16:00",
+      "away": "Elmas",
+      "date": "2026-11-07",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-elmas-2026-11-07",
+      "home": "CUS Trento",
+      "competition": "Campionato"
+    },
+    {
+      "slug": "futsal-atesina-cus-trento-2026-11-14",
+      "time": "15:00",
+      "away": "CUS Trento",
+      "date": "2026-11-14",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Palasport di Laives",
+      "status": "Da giocare",
+      "id": "futsal-atesina-cus-trento-2026-11-14",
+      "home": "Futsal Atesina",
+      "competition": "Campionato"
+    },
+    {
+      "slug": "cus-trento-futsal-jesolo-2026-11-21",
+      "time": "16:00",
+      "away": "Futsal Jesolo",
+      "date": "2026-11-21",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-futsal-jesolo-2026-11-21",
+      "home": "CUS Trento",
+      "competition": "Campionato"
+    },
+    {
+      "slug": "futsal-conegliano-cus-trento-2026-11-28",
+      "time": "16:00",
+      "away": "CUS Trento",
+      "date": "2026-11-28",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Palastadio Conegliano",
+      "status": "Da giocare",
+      "id": "futsal-conegliano-cus-trento-2026-11-28",
+      "home": "Futsal Conegliano",
+      "competition": "Campionato"
+    },
+    {
+      "slug": "eagles-futsal-cus-trento-2026-12-05",
+      "time": "15:00",
+      "away": "CUS Trento",
+      "date": "2026-12-05",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "PalaGesteco Cividale del Friuli",
+      "status": "Da giocare",
+      "id": "eagles-futsal-cus-trento-2026-12-05",
+      "home": "Eagles Futsal",
+      "competition": "Campionato"
+    },
+    {
+      "slug": "cus-trento-trento-1921-2026-12-12",
+      "time": "16:00",
+      "away": "Trento 1921",
+      "date": "2026-12-12",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-trento-1921-2026-12-12",
+      "home": "CUS Trento",
       "competition": "Campionato"
     }
   ]
