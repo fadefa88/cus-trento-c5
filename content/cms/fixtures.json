@@ -16,6 +16,23 @@
       "id": "cus-trento-ac-trento-1921-2026-09-19",
       "home": "CUS Trento",
       "competition": "Coppa"
+    },
+    {
+      "slug": "ac-trento-1921-cus-trento-2026-09-26",
+      "time": "16:00",
+      "away": "CUS Trento",
+      "date": "2026-09-26",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Gardolo",
+      "status": "Da giocare",
+      "id": "ac-trento-1921-cus-trento-2026-09-26",
+      "home": "AC Trento 1921",
+      "competition": "Coppa"
     }
   ]
 }
