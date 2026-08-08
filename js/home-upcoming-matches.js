@@ -85,6 +85,7 @@
       time: match.time || "TBC",
       venue: match.venue || "Campo da definire",
       competition: match.competition || match.round || (key === "u21" ? "Under 21" : "Serie C1"),
+      opponentLogo: match.opponentLogo || "",
       mode: isCus(home) ? "Casa" : "Trasferta",
       demo: !!demo
     };
@@ -119,8 +120,10 @@
     return {fixtures: cms, usingDemo: false};
   }
 
-  function teamMark(name){
+  function teamMark(name, match){
     if(isCus(name)) return `<img src="/img/logo.webp" alt="CUS Trento C5">`;
+    const opponentLogo = match && match.opponentLogo ? String(match.opponentLogo) : "";
+    if(opponentLogo) return `<img src="${h(opponentLogo)}" alt="${h(name || "Avversaria")}">`;
     const parts = String(name || "AV")
       .replace(/c5|u21/ig, "")
       .split(/\s+/)
@@ -147,8 +150,8 @@
       </div>
       <div class="home-upcoming-body">
         <div class="home-upcoming-teams">
-          <div class="home-upcoming-team"><i>${teamMark(match.home)}</i><strong>${h(match.home)}</strong></div>
-          <div class="home-upcoming-team"><i>${teamMark(match.away)}</i><strong>${h(match.away)}</strong></div>
+          <div class="home-upcoming-team"><i>${teamMark(match.home, match)}</i><strong>${h(match.home)}</strong></div>
+          <div class="home-upcoming-team"><i>${teamMark(match.away, match)}</i><strong>${h(match.away)}</strong></div>
         </div>
         <div class="home-upcoming-time">${h(match.time || "TBC")}</div>
       </div>
