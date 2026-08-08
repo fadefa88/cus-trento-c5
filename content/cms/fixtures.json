@@ -67,6 +67,23 @@
       "id": "cus-trento-manzano-brn-1988-2026-10-10",
       "home": "CUS Trento",
       "competition": "Campionato"
+    },
+    {
+      "slug": "atletico-sestu-cus-trento-2026-10-17",
+      "time": "16:00",
+      "away": "CUS Trento",
+      "date": "2026-10-17",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Paladante Sestu",
+      "status": "Da giocare",
+      "id": "atletico-sestu-cus-trento-2026-10-17",
+      "home": "Atletico Sestu",
+      "competition": "Campionato"
     }
   ]
 }
