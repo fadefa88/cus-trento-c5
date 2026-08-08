@@ -50,6 +50,23 @@
       "id": "futsal-villorba-cus-trento-2026-10-03",
       "home": "Futsal Villorba",
       "competition": "Campionato"
+    },
+    {
+      "slug": "cus-trento-manzano-brn-1988-2026-10-10",
+      "time": "16:00",
+      "away": "Manzano BRN 1988",
+      "date": "2026-10-10",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-manzano-brn-1988-2026-10-10",
+      "home": "CUS Trento",
+      "competition": "Campionato"
     }
   ]
 }
