@@ -33,6 +33,23 @@
       "id": "ac-trento-1921-cus-trento-2026-09-26",
       "home": "AC Trento 1921",
       "competition": "Coppa"
+    },
+    {
+      "slug": "futsal-villorba-cus-trento-2026-10-03",
+      "time": "15:30",
+      "away": "CUS Trento",
+      "date": "2026-10-03",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Palateatro Villorba",
+      "status": "Da giocare",
+      "id": "futsal-villorba-cus-trento-2026-10-03",
+      "home": "Futsal Villorba",
+      "competition": "Campionato"
     }
   ]
 }
