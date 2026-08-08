@@ -6,8 +6,10 @@
   <title>CUS Trento C5 — Admin</title>
 </head>
 <body>
-  <!-- carica Decap CMS -->
+  <!-- carica Decap CMS in manual init per integrare campi runtime senza duplicare config.yml -->
+  <script>window.CMS_MANUAL_INIT = true;</script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
   <script src="custom.js?v=auto-slug-v3"></script>
   <script>
     (function(){
@@ -61,6 +63,59 @@
       }
       if(!register()) document.addEventListener("DOMContentLoaded", register);
       setTimeout(register,500);
+    })();
+  </script>
+  <script>
+    (function(){
+      function opponentLogoField(){
+        return {
+          label:"Logo avversaria",
+          name:"opponentLogo",
+          widget:"image",
+          choose_url:true,
+          required:false,
+          hint:"Carica il logo della squadra avversaria. Il logo CUS Trento resta automatico."
+        };
+      }
+
+      function addOpponentLogoField(config, collectionName){
+        var collections = config && config.collections;
+        if(!Array.isArray(collections)) return;
+        var collection = collections.find(function(item){ return item && item.name === collectionName; });
+        var file = collection && Array.isArray(collection.files) && collection.files[0];
+        var listField = file && Array.isArray(file.fields) && file.fields.find(function(field){ return field && field.name === collectionName; });
+        var fields = listField && Array.isArray(listField.fields) && listField.fields;
+        if(!fields || fields.some(function(field){ return field && field.name === "opponentLogo"; })) return;
+        var awayIndex = fields.findIndex(function(field){ return field && field.name === "away"; });
+        fields.splice(awayIndex >= 0 ? awayIndex + 1 : fields.length, 0, opponentLogoField());
+      }
+
+      function initCms(config){
+        addOpponentLogoField(config, "fixtures");
+        addOpponentLogoField(config, "u21Fixtures");
+        window.CMS.init({config:config});
+      }
+
+      function boot(){
+        if(!window.CMS || typeof window.CMS.init !== "function") return setTimeout(boot, 100);
+        if(!window.jsyaml || typeof window.jsyaml.load !== "function"){
+          console.warn("js-yaml non caricato: avvio CMS con config standard.");
+          window.CMS.init();
+          return;
+        }
+        fetch("config.yml", {cache:"no-store"})
+          .then(function(response){
+            if(!response.ok) throw new Error("Config CMS non caricabile: " + response.status);
+            return response.text();
+          })
+          .then(function(text){ initCms(window.jsyaml.load(text)); })
+          .catch(function(error){
+            console.error(error);
+            window.CMS.init();
+          });
+      }
+
+      boot();
     })();
   </script>
 </body>
