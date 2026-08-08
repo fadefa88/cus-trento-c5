@@ -92,6 +92,7 @@
 
       function initCms(config){
         addOpponentLogoField(config, "fixtures");
+        config.load_config_file = false;
         window.CMS.init({config:config});
       }
 
