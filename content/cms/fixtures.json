@@ -1,3 +1,21 @@
 {
-  "fixtures": []
+  "fixtures": [
+    {
+      "slug": "cus-trento-ac-trento-1921-2026-09-19",
+      "time": "16:00",
+      "away": "AC Trento 1921",
+      "date": "2026-09-19",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-ac-trento-1921-2026-09-19",
+      "home": "CUS Trento",
+      "competition": "Coppa"
+    }
+  ]
 }
