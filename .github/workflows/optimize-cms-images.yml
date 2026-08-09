@@ -76,13 +76,24 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          if [ -z "$(git status --porcelain -- img/uploads content/cms content/data.json content/data.generated.optional.json sitemap.xml robots.txt news squadra staff calendario classifica statistiche coppa matchday gallery video social club sponsor hall-of-fame contatti privacy cookies under-21)" ]; then
-            echo "No optimized CMS images or SEO pages to commit."
+          # The checkout is clean at job start. Stage every change produced by
+          # image optimization and static generation, including future new pages.
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No optimized CMS images or generated SEO changes to commit."
             exit 0
           fi
 
-          git add -A img/uploads content/cms content/data.json content/data.generated.optional.json sitemap.xml robots.txt news squadra staff calendario classifica statistiche coppa matchday gallery video social club sponsor hall-of-fame contatti privacy cookies under-21
+          echo "Changes to commit:"
+          git status --short
           git commit -m "Optimize CMS uploaded images"
+
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Working tree is not clean after the image optimization commit."
+            git status --short
+            exit 1
+          fi
 
           BRANCH="${GITHUB_REF_NAME:-main}"
 
