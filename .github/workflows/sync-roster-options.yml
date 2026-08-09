@@ -46,20 +46,36 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          if git diff --quiet -- admin/config.yml; then
+          git add admin/config.yml
+
+          if git diff --cached --quiet; then
             echo "Roster options already in sync."
             exit 0
           fi
 
-          git add admin/config.yml
           git commit -m "Sync roster options in CMS config"
 
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Working tree is not clean after the roster sync commit."
+            git status --short
+            exit 1
+          fi
+
           for attempt in 1 2 3; do
-            git pull --rebase origin main || true
-            if git push origin HEAD:main; then
-              echo "CMS roster options synced to main."
-              exit 0
+            echo "Push attempt $attempt/3"
+            git fetch origin main
+
+            if git rebase origin/main; then
+              if git push origin HEAD:main; then
+                echo "CMS roster options synced to main."
+                exit 0
+              fi
+            else
+              echo "Rebase failed. Aborting."
+              git rebase --abort || true
+              exit 1
             fi
+
             echo "Push failed, retrying ($attempt/3)..."
             sleep 3
           done
