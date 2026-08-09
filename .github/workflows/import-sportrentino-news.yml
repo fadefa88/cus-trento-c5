@@ -77,13 +77,27 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          if [ -z "$(git status --porcelain -- content/data.json content/news.imported.json content/news.index.json sitemap.xml robots.txt news squadra staff calendario classifica statistiche coppa matchday gallery video social club sponsor hall-of-fame contatti privacy cookies under-21)" ]; then
-            echo "No new SporTrentino news or SEO pages to commit."
+          # The runner starts from a clean checkout, so every repository change
+          # here was produced by the importer/static-page generator. Stage the
+          # complete generated diff instead of maintaining a fragile directory list.
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No new SporTrentino news or generated SEO changes to commit."
             exit 0
           fi
 
-          git add -A content/data.json content/news.imported.json content/news.index.json sitemap.xml robots.txt news squadra staff calendario classifica statistiche coppa matchday gallery video social club sponsor hall-of-fame contatti privacy cookies under-21
+          echo "Changes to commit:"
+          git status --short
           git commit -m "Import SporTrentino CUS news"
+
+          # A rebase requires a clean working tree. If a future generator starts
+          # writing something after staging/commit, fail here with a useful log.
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Working tree is not clean after the import commit."
+            git status --short
+            exit 1
+          fi
 
           for attempt in 1 2 3; do
             echo "Push attempt $attempt/3"
