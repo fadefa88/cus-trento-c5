@@ -16,6 +16,13 @@ on:
         required: false
         default: "0.35"
 
+  # Temporary one-shot validation trigger; removed after the test run.
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/import-sportrentino-news.yml"
+
   schedule:
     # Every night, off the exact half-hour.
     - cron: "37 3 * * *"
