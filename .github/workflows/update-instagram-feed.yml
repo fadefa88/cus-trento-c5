@@ -81,13 +81,24 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          if [ -z "$(git status --porcelain -- content/social-feed.json img/social sitemap.xml robots.txt news squadra staff calendario classifica statistiche coppa matchday gallery video social club sponsor hall-of-fame contatti privacy cookies under-21)" ]; then
-            echo "No social feed or SEO page changes to commit."
+          # The checkout is clean at job start. Stage every change produced by
+          # the social updater and static generator so new page directories are included.
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No social feed or generated SEO page changes to commit."
             exit 0
           fi
 
-          git add -A content/social-feed.json img/social sitemap.xml robots.txt news squadra staff calendario classifica statistiche coppa matchday gallery video social club sponsor hall-of-fame contatti privacy cookies under-21
+          echo "Changes to commit:"
+          git status --short
           git commit -m "Update social feed"
+
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Working tree is not clean after the social feed commit."
+            git status --short
+            exit 1
+          fi
 
           BRANCH="${GITHUB_REF_NAME:-main}"
 
