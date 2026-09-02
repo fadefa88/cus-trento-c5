@@ -28,7 +28,7 @@ import requests
 from bs4 import BeautifulSoup, Tag
 
 SOURCES = {
-    "u21Standings": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=422&f=3565",
+    "u21Standings": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=446&f=3668",
 }
 
 BASE_URL = "https://calcioa5.sportrentino.it/"
@@ -65,7 +65,10 @@ def fetch_html(url: str) -> str:
 
 
 def row_values(tr: Tag) -> list[str]:
-    cells = tr.find_all(["th", "td"])
+    # Il markup SporTrentino omette i tag di chiusura di celle e righe. Con
+    # html.parser le righe successive possono quindi risultare annidate: usare
+    # solo le celle figlie dirette evita di inglobare tutta la tabella corrente.
+    cells = tr.find_all(["th", "td"], recursive=False)
     if cells:
         return [
             clean_text(cell.get_text(" ", strip=True))
@@ -176,24 +179,31 @@ def parse_rows_from_text(soup: BeautifulSoup) -> list[dict[str, Any]]:
 
 
 def parse_standings(html_text: str, source_url: str) -> list[dict[str, Any]]:
-    soup = BeautifulSoup(html_text, "html.parser")
+    # SporTrentino usa HTML legacy con molti tag </td> e </tr> omessi. lxml
+    # ricostruisce correttamente le righe, mentre html.parser le annida.
+    soup = BeautifulSoup(html_text, "lxml")
     rows: list[dict[str, Any]] = []
-    seen_positions: set[int] = set()
 
-    for tr in soup.find_all("tr"):
+    standings_table = soup.select_one("table.st-classifica")
+    table_rows = standings_table.select("tbody tr") if standings_table else soup.find_all("tr")
+
+    for tr in table_rows:
         parsed = parse_row_from_tr(tr, source_url)
         if not parsed:
             continue
         pos = int(parsed.get("pos") or 0)
-        if pos <= 0 or pos in seen_positions:
+        if pos <= 0:
             continue
-        seen_positions.add(pos)
         rows.append(parsed)
 
     if not rows:
         rows = parse_rows_from_text(soup)
 
-    rows = sorted(rows, key=lambda item: int(item.get("pos") or 9999))
+    rows = sorted(
+        enumerate(rows),
+        key=lambda item: (int(item[1].get("pos") or 9999), item[0]),
+    )
+    rows = [row for _, row in rows]
     if not rows:
         raise ValueError("Nessuna riga classifica trovata nella pagina SporTrentino")
     return rows
@@ -220,8 +230,14 @@ def update_data(data_path: Path) -> bool:
 
     for key, url in SOURCES.items():
         print(f"Updating {key} from {url}", flush=True)
-        html_text = fetch_html(url)
-        new_rows = parse_standings(html_text, url)
+        try:
+            html_text = fetch_html(url)
+            new_rows = parse_standings(html_text, url)
+        except (requests.RequestException, ValueError) as exc:
+            print(f"WARNING: impossibile aggiornare {key}: {exc}", flush=True)
+            print(f"  Mantengo la classifica esistente in {data_path}.", flush=True)
+            continue
+
         new_rows = preserve_missing_logos(new_rows, data.get(key, []))
         print(f"  rows parsed: {len(new_rows)}", flush=True)
 
