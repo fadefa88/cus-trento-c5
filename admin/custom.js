@@ -149,10 +149,10 @@
 
     const names = invalid.slice(0, 5).map(({match, index}) => {
       const teams = [match.home, match.away].filter(Boolean).join(" vs ");
-      return teams || `Partita U21 #${index + 1}`;
+      return teams || `Partita U23 #${index + 1}`;
     }).join(", ");
     const extra = invalid.length > 5 ? ` e altre ${invalid.length - 5}` : "";
-    const message = `Per una partita U21 terminata devi selezionare esattamente 5 giocatori nel quintetto titolare. Controlla: ${names}${extra}.`;
+    const message = `Per una partita U23 terminata devi selezionare esattamente 5 giocatori nel quintetto titolare. Controlla: ${names}${extra}.`;
     if(typeof window !== "undefined" && typeof window.alert === "function") window.alert(message);
     throw new Error(message);
   }

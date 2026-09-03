@@ -74,7 +74,7 @@ MAIN_PAGES = [
         "path": "/squadra/",
         "route": "squad",
         "title": "Rosa CUS Trento C5",
-        "description": "Rosa della prima squadra e dell'Under 21 del CUS Trento Calcio a 5.",
+        "description": "Rosa della prima squadra e dell'Under 23 del CUS Trento Calcio a 5.",
         "heading": "Rosa",
         "eyebrow": "Team",
     },
@@ -210,7 +210,7 @@ MAIN_PAGES = [
         "path": "/squadre/",
         "route": "teams-overview",
         "title": "Squadre CUS Trento C5",
-        "description": "Prima squadra e Under 21 del CUS Trento C5.",
+        "description": "Prima squadra e Under 23 del CUS Trento C5.",
         "heading": "Squadre",
         "eyebrow": "Team",
     },
@@ -401,6 +401,12 @@ def esc(value: Any) -> str:
     return html.escape(str(value or ""), quote=True)
 
 
+def public_youth_text(value: Any) -> str:
+    text = str(value or "")
+    text = re.sub(r"\bunder\s*21\b", "Under 23", text, flags=re.I)
+    return re.sub(r"\bu21\b", "U23", text, flags=re.I)
+
+
 def text_excerpt(value: Any, max_len: int = 156) -> str:
     text = re.sub(r"<[^>]+>", " ", str(value or ""))
     text = html.unescape(text)
@@ -519,7 +525,7 @@ def render_simple_main(page: Dict[str, Any], data: Dict[str, Any]) -> str:
     elif route == "squad":
         roster = data.get("roster", []) if isinstance(data.get("roster"), list) else []
         pieces.append("<div class=\"grid grid-4\">" + "\n".join(
-            f'''<article class="card player"><div class="player-top"><div class="avatar"><img loading="lazy" decoding="async" src="{esc(p.get('photo') or '/img/placeholder.webp')}" alt="{esc(p.get('name'))}"></div></div><div class="card-pad"><span class="badge">{esc(p.get('role'))}</span><h2>{esc(p.get('name'))}</h2><p class="muted">{esc(p.get('team'))}</p></div></article>'''
+            f'''<article class="card player"><div class="player-top"><div class="avatar"><img loading="lazy" decoding="async" src="{esc(p.get('photo') or '/img/placeholder.webp')}" alt="{esc(p.get('name'))}"></div></div><div class="card-pad"><span class="badge">{esc(p.get('role'))}</span><h2>{esc(p.get('name'))}</h2><p class="muted">{esc(public_youth_text(p.get('team')))}</p></div></article>'''
             for p in roster[:24] if isinstance(p, dict)
         ) + "</div>")
     elif route == "staff":
@@ -628,7 +634,7 @@ def render_article(item: Dict[str, Any]) -> str:
     for tag in [item.get("category"), *tags]:
         if tag and tag not in tag_values:
             tag_values.append(tag)
-    tag_html = "".join(f'<span class="badge">{esc(tag)}</span>' for tag in tag_values)
+    tag_html = "".join(f'<span class="badge">{esc(public_youth_text(tag))}</span>' for tag in tag_values)
     body = f'''
     <div class="breadcrumb"><a class="back-link" href="/news/"><span>←</span> News</a><span>{esc(date_s)} · {esc(author)}</span></div>
     <div class="badge-row" style="margin:0 0 14px">{tag_html}</div>
@@ -673,7 +679,7 @@ def item_description(key: str, item: Dict[str, Any]) -> str:
         values = [item_title(key, item), item.get("competition"), item.get("round"), item.get("venue"), item.get("date")]
     if key == "sponsorPackages":
         values = [item.get("name"), item.get("price"), "Pacchetto partner CUS Trento C5"]
-    text = " · ".join(str(v) for v in values if v)
+    text = " · ".join(public_youth_text(v) for v in values if v)
     return text_excerpt(text or item_title(key, item), 156)
 
 
@@ -700,7 +706,7 @@ def render_object_page(key: str, item: Dict[str, Any]) -> str:
         ("Tipo", "type"), ("Data", "date"), ("Orario", "time"), ("Luogo", "venue"), ("Prezzo", "price"),
     ]:
         if item.get(field) not in (None, ""):
-            details.append(f'<div class="player-info-box"><span>{esc(label)}</span><b>{esc(item.get(field))}</b></div>')
+            details.append(f'<div class="player-info-box"><span>{esc(label)}</span><b>{esc(public_youth_text(item.get(field)))}</b></div>')
     body_bits: List[str] = []
     if key == "galleryAlbums":
         photos = item.get("photos") if isinstance(item.get("photos"), list) else []

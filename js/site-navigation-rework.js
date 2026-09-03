@@ -110,7 +110,7 @@
     squad:["Squadre","Rosa","Giocatori, ruoli e profili della rosa del CUS Trento C5."],
     staff:["Squadre","Staff","Staff tecnico, dirigenti e figure operative del progetto CUS Trento C5."],
     stats:["Squadre","Statistiche","Numeri, rendimento e dati tecnici della stagione."],
-    fixtures:["Stagione","Calendario","Tutte le partite della stagione, per Prima squadra e Under 21."],
+    fixtures:["Stagione","Calendario","Tutte le partite della stagione, per Prima squadra e Under 23."],
     standings:["Stagione","Classifica","Classifiche aggiornate dei campionati del CUS Trento C5."],
     coppa:["Stagione","Coppa","Percorso, turni e partite di coppa del CUS Trento C5."],
     matchday:["Stagione","Matchday","Informazioni utili per seguire le partite e vivere il giorno gara."],
@@ -369,7 +369,7 @@
           </div>
         </div>
       </section>`;
-    setApp(html,"teams-overview","Squadre","Prima squadra e Under 21 del CUS Trento C5.",replace);
+    setApp(html,"teams-overview","Squadre","Prima squadra e Under 23 del CUS Trento C5.",replace);
   }
 
   function teamCard(title,text,count,averageAge,championship,image,routeId){
@@ -397,7 +397,7 @@
       ["Come funziona la candidatura?","Compila il modulo con i tuoi dati, il ruolo, le esperienze precedenti e i contatti. Lo staff valuterà il profilo e, se in linea con il progetto, ti contatterà per un allenamento di prova."],
       ["Quando si svolgono gli allenamenti?","Gli allenamenti si svolgono in orario serale, indicativamente il lunedì e il mercoledì. Giorni e orari possono variare in base alla stagione e alla squadra di riferimento. Le informazioni definitive verranno comunicate direttamente dallo staff."],
       ["Cosa devo portare al primo allenamento?","Porta abbigliamento sportivo e scarpe adatte al campo indoor. Eventuali ulteriori indicazioni verranno comunicate dallo staff prima dell’allenamento."],
-      ["Posso scegliere tra prima squadra e Under 21?","L’inserimento nella prima squadra o nell’Under 21 viene valutato dallo staff in base a età, livello, esperienza e disponibilità agli allenamenti. L’obiettivo è trovare il percorso più adatto per ogni giocatore."],
+      ["Posso scegliere tra prima squadra e Under 23?","L’inserimento nella prima squadra o nell’Under 23 viene valutato dallo staff in base a età, livello, esperienza e disponibilità agli allenamenti. L’obiettivo è trovare il percorso più adatto per ogni giocatore."],
       ["Come vengo contattato?","Verrai contattato tramite il numero di telefono o l’email indicati nel modulo di candidatura."]
     ];
     const html = `${pageHero("Gioca con noi","Entra in squadra",intro)}

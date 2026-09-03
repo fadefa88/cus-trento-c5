@@ -49,10 +49,10 @@ collections:
         options:
         - SporTrentino
         - Prima squadra
-        - Under 21
+        - Under 23
         - Club
         - Matchday
-        - U21
+        - U23
         - Analytics
       - label: Data
         name: date
@@ -161,7 +161,8 @@ collections:
         widget: select
         options:
         - Prima squadra
-        - Under 21
+        - label: Under 23
+          value: Under 21
       - label: Numero
         name: number
         widget: number
@@ -625,19 +626,19 @@ collections:
           default: 1
           min: 0
 - name: u21Fixtures
-  label: Calendario Under 21
+  label: Calendario Under 23
   delete: false
   editor:
     preview: false
   files:
   - name: u21Fixtures
-    label: Calendario Under 21
+    label: Calendario Under 23
     file: content/cms/u21-fixtures.json
     fields:
-    - label: Partite Under 21
+    - label: Partite Under 23
       name: u21Fixtures
       widget: list
-      label_singular: partita U21
+      label_singular: partita U23
       summary: '{{fields.date}} — {{fields.home}} vs {{fields.away}}'
       fields:
       - label: ID automatico
@@ -1035,7 +1036,8 @@ collections:
         hint: Se non selezioni nessuna categoria, il contenuto viene considerato in "tutte".
         options:
         - prima squadra
-        - under 21
+        - label: Under 23
+          value: under 21
         - partite
         - interviste
         - CNU
@@ -1234,7 +1236,8 @@ collections:
         hint: Se non selezioni nessuna categoria, il contenuto viene considerato in "tutte".
         options:
         - prima squadra
-        - under 21
+        - label: Under 23
+          value: under 21
         - partite
         - interviste
         - CNU

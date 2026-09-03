@@ -53,14 +53,14 @@ LIST_SOURCES = [
 
 # Keyword richieste:
 # - Prima squadra: CUS Trento, C.U.S. Trento, oppure CUS come parola autonoma.
-#   Nota: se nel testo compare "CUS Trento U21", NON viene categorizzata Prima squadra.
-# - Under 21: SOLO "CUS Trento U21", case-insensitive.
+#   Nota: se nel testo compare "CUS Trento U21" o "CUS Trento U23", NON viene categorizzata Prima squadra.
+# - Under 23: "CUS Trento U21" oppure "CUS Trento U23", case-insensitive.
 FIRST_TEAM_PATTERNS = [
     re.compile(r"\bcus\s+trento\b", re.I),
     re.compile(r"\bc\.\s*u\.\s*s\.\s+trento\b", re.I),
     re.compile(r"(?<![a-z0-9])cus(?![a-z0-9])", re.I),
 ]
-U21_PATTERN = re.compile(r"\bcus\s+trento\s+u21\b", re.I)
+YOUTH_TEAM_PATTERN = re.compile(r"\bcus\s+trento\s+u(?:21|23)\b", re.I)
 
 
 MONTHS_IT = {
@@ -289,14 +289,14 @@ def parse_italian_date(text: str) -> str:
 def classify_cus_article(text: str) -> str | None:
     """
     Ritorna:
-    - "Under 21" se trova SOLO la keyword U21 richiesta: CUS Trento U21
-    - "Prima squadra" se trova keyword CUS/CUS Trento ma NON CUS Trento U21
+    - "Under 23" se trova CUS Trento U21 oppure CUS Trento U23
+    - "Prima squadra" se trova keyword CUS/CUS Trento ma non una delle due keyword giovanili
     - None se non è rilevante per CUS Trento
     """
     t = norm(text)
 
-    if U21_PATTERN.search(t):
-        return "Under 21"
+    if YOUTH_TEAM_PATTERN.search(t):
+        return "Under 23"
 
     if any(pattern.search(t) for pattern in FIRST_TEAM_PATTERNS):
         return "Prima squadra"
