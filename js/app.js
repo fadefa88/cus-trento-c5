@@ -666,8 +666,8 @@ function standingsRuleClass(row, rows, isU21=false, rowIndex=-1){
   }
   if(pos===1)return "promoted";
   if(pos>=2 && pos<=5)return "playoff";
-  if(pos===9)return "playout";
-  if(pos>=10 && pos<=12)return "relegated";
+  if(pos===10)return "playout";
+  if(pos>=11 && pos<=12)return "relegated";
   return "";
 }
 function standingsRuleLabel(row, rows, isU21=false, rowIndex=-1){
@@ -686,7 +686,7 @@ function standingsRuleLabel(row, rows, isU21=false, rowIndex=-1){
 function standingsLegend(isU21=false){
   const items=isU21
     ? [["promoted","1ª promossa in C2"],["playoff","2ª, 3ª, 4ª e 5ª ai playoff"]]
-    : [["promoted","1ª promossa in Serie A2"],["playoff","2ª, 3ª, 4ª e 5ª ai playoff"],["playout","9ª ai playout"],["relegated","10ª, 11ª e 12ª retrocedono"]];
+    : [["promoted","1ª promossa in Serie A2"],["playoff","2ª, 3ª, 4ª e 5ª ai playoff"],["playout","10ª ai playout"],["relegated","11ª e 12ª retrocedono"]];
   return `<div class="standings-legend"></div>`;
 }
 function tableRows(rows,cus="CUS Trento",isU21=false){
