@@ -649,8 +649,8 @@ function fixtureRow(f){
   const onclick = slug ? ` onclick="route('match-${slug}')"` : "";
   return `<div class="fixture clickable"${onclick}><div class="fixture-top"><span>${fmt(f.date)} · ${f.time||"--:--"}</span><span>${f.status||"Da giocare"}</span></div><div class="teams"><span>${f.home||"CUS Trento"}</span><span class="score">${f.score||"VS"}</span><span>${f.away||"Avversario"}</span></div><p class="muted">${f.venue||"Campo da definire"} · ${f.competition||f.round||"Campionato"}</p></div>`;
 }
-function standingsRuleClass(row, rows, isU21=false){
-  const pos=Number(row&&row.pos)||0;
+function standingsRuleClass(row, rows, isU21=false, rowIndex=-1){
+  const pos=isU21 && rowIndex>=0 ? rowIndex+1 : Number(row&&row.pos)||0;
   const total=(rows||[]).length;
   if(!pos)return "";
   if(isU21){
@@ -664,8 +664,8 @@ function standingsRuleClass(row, rows, isU21=false){
   if(pos>=10 && pos<=12)return "relegated";
   return "";
 }
-function standingsRuleLabel(row, rows, isU21=false){
-  const cls=standingsRuleClass(row,rows,isU21);
+function standingsRuleLabel(row, rows, isU21=false, rowIndex=-1){
+  const cls=standingsRuleClass(row,rows,isU21,rowIndex);
   if(!cls)return "";
   if(isU21){
     if(cls==="promoted")return "Promozione in C2";
@@ -685,12 +685,13 @@ function standingsLegend(isU21=false){
 }
 function tableRows(rows,cus="CUS Trento",isU21=false){
   const list=(rows||[]).slice().sort((a,b)=>(Number(a.pos)||999)-(Number(b.pos)||999));
-  return list.map(s=>{
+  return list.map((s,rowIndex)=>{
     const highlight = isCusTeam(s.team) || teamKey(s.team).includes(teamKey(cus));
-    const ruleClass=standingsRuleClass(s,list,isU21);
-    const label=standingsRuleLabel(s,list,isU21);
+    const displayPos=isU21 ? rowIndex+1 : s.pos;
+    const ruleClass=standingsRuleClass(s,list,isU21,rowIndex);
+    const label=standingsRuleLabel(s,list,isU21,rowIndex);
     const dr=(Number(s.gf)||0)-(Number(s.gs)||0);
-    return `<tr class="${[highlight?'cus':'',ruleClass?`standing-${ruleClass}`:''].filter(Boolean).join(' ')}"><td>${s.pos}</td><td><span style="display:flex;align-items:center;gap:10px">${s.logo?`<img src="${s.logo}" alt="${s.team}" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:#fff">`:""}<span>${s.team}${label?`<small class="standing-status ${ruleClass}">${label}</small>`:""}</span></span></td><td>${s.pts}</td><td>${s.g}</td><td>${s.v}</td><td>${s.n}</td><td>${s.p}</td><td>${s.gf}</td><td>${s.gs}</td><td>${dr>0?'+':''}${dr}</td></tr>`;
+    return `<tr class="${[highlight?'cus':'',ruleClass?`standing-${ruleClass}`:''].filter(Boolean).join(' ')}"><td>${displayPos}</td><td><span style="display:flex;align-items:center;gap:10px">${s.logo?`<img src="${s.logo}" alt="${s.team}" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:#fff">`:""}<span>${s.team}${label?`<small class="standing-status ${ruleClass}">${label}</small>`:""}</span></span></td><td>${s.pts}</td><td>${s.g}</td><td>${s.v}</td><td>${s.n}</td><td>${s.p}</td><td>${s.gf}</td><td>${s.gs}</td><td>${dr>0?'+':''}${dr}</td></tr>`;
   }).join("");
 }
 function standingMini(s){return `<div class="list-row home-standing-row ${isCusTeam(s.team)?'cus-row':''}"><div><b>${s.pos}. ${s.team}</b><div class="muted">DR ${s.gf-s.gs>0?'+':''}${s.gf-s.gs}</div></div><b>${s.pts}</b></div>`;}
