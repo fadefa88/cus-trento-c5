@@ -32,6 +32,7 @@ SOURCES = {
 }
 
 BASE_URL = "https://calcioa5.sportrentino.it/"
+CUS_TRENTO_U23_LOGO = "https://calcioa5.custrento.it/img/standings/serie-b-2026-27/cus-trento.webp"
 
 
 def clean_text(value: str) -> str:
@@ -222,6 +223,13 @@ def preserve_missing_logos(
     return new_rows
 
 
+def force_cus_trento_u23_logo(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    for row in rows:
+        if normalize_team_name(str(row.get("team", ""))).startswith("CUS TRENTO"):
+            row["logo"] = CUS_TRENTO_U23_LOGO
+    return rows
+
+
 def update_data(data_path: Path) -> bool:
     data = json.loads(data_path.read_text(encoding="utf-8"))
     changed = False
@@ -239,6 +247,8 @@ def update_data(data_path: Path) -> bool:
             continue
 
         new_rows = preserve_missing_logos(new_rows, data.get(key, []))
+        if key == "u21Standings":
+            new_rows = force_cus_trento_u23_logo(new_rows)
         print(f"  rows parsed: {len(new_rows)}", flush=True)
 
         if data.get(key) != new_rows:

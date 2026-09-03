@@ -689,6 +689,7 @@ function standingsLegend(isU21=false){
     : [["promoted","1ª promossa in Serie A2"],["playoff","2ª, 3ª, 4ª e 5ª ai playoff"],["playout","10ª ai playout"],["relegated","11ª e 12ª retrocedono"]];
   return `<div class="standings-legend"></div>`;
 }
+const CUS_TRENTO_U23_STANDINGS_LOGO="https://calcioa5.custrento.it/img/standings/serie-b-2026-27/cus-trento.webp";
 function tableRows(rows,cus="CUS Trento",isU21=false){
   const list=(rows||[]).slice().sort((a,b)=>(Number(a.pos)||999)-(Number(b.pos)||999));
   return list.map((s,rowIndex)=>{
@@ -696,8 +697,9 @@ function tableRows(rows,cus="CUS Trento",isU21=false){
     const displayPos=isU21 ? rowIndex+1 : s.pos;
     const ruleClass=standingsRuleClass(s,list,isU21,rowIndex);
     const label=standingsRuleLabel(s,list,isU21,rowIndex);
+    const logo=isU21 && isCusTeam(s.team) ? CUS_TRENTO_U23_STANDINGS_LOGO : s.logo;
     const dr=(Number(s.gf)||0)-(Number(s.gs)||0);
-    return `<tr class="${[highlight?'cus':'',ruleClass?`standing-${ruleClass}`:''].filter(Boolean).join(' ')}"><td>${displayPos}</td><td><span style="display:flex;align-items:center;gap:10px">${s.logo?`<img src="${s.logo}" alt="${publicYouthText(s.team)}" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:#fff">`:""}<span>${publicYouthText(s.team)}${label?`<small class="standing-status ${ruleClass}">${label}</small>`:""}</span></span></td><td>${s.pts}</td><td>${s.g}</td><td>${s.v}</td><td>${s.n}</td><td>${s.p}</td><td>${s.gf}</td><td>${s.gs}</td><td>${dr>0?'+':''}${dr}</td></tr>`;
+    return `<tr class="${[highlight?'cus':'',ruleClass?`standing-${ruleClass}`:''].filter(Boolean).join(' ')}"><td>${displayPos}</td><td><span style="display:flex;align-items:center;gap:10px">${logo?`<img src="${logo}" alt="${publicYouthText(s.team)}" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:#fff">`:""}<span>${publicYouthText(s.team)}${label?`<small class="standing-status ${ruleClass}">${label}</small>`:""}</span></span></td><td>${s.pts}</td><td>${s.g}</td><td>${s.v}</td><td>${s.n}</td><td>${s.p}</td><td>${s.gf}</td><td>${s.gs}</td><td>${dr>0?'+':''}${dr}</td></tr>`;
   }).join("");
 }
 function standingMini(s){return `<div class="list-row home-standing-row ${isCusTeam(s.team)?'cus-row':''}"><div><b>${s.pos}. ${s.team}</b><div class="muted">DR ${s.gf-s.gs>0?'+':''}${s.gf-s.gs}</div></div><b>${s.pts}</b></div>`;}
