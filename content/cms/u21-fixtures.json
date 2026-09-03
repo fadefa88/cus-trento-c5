@@ -33,7 +33,7 @@
       "venue": "Palazzetto Noriglio",
       "status": "Da giocare",
       "id": "san-floriano-2025-a-s-d-cus-trento-u23-2026-11-27",
-      "home": "SAN FLORIANO 2025 A.S.D. ",
+      "home": "San Floriano 2025",
       "competition": "Coppa"
     },
     {
@@ -51,7 +51,7 @@
       "venue": "Sanbàpolis",
       "status": "Da giocare",
       "id": "cus-trento-cembra-futsal-2026-12-04",
-      "home": "CUS Trento",
+      "home": "CUS Trento U23",
       "competition": "Coppa"
     },
     {
@@ -69,8 +69,170 @@
       "venue": "Sanbàpolis",
       "status": "Da giocare",
       "id": "cus-trento-tnt-monte-peller-2026-12-18",
-      "home": "CUS Trento",
+      "home": "CUS Trento U23",
       "competition": "Coppa"
+    },
+    {
+      "opponentLogo": "/img/uploads/san-floriano.png",
+      "slug": "cus-trento-u23-san-floriano-2025-2026-09-25",
+      "time": "21:00",
+      "away": "San Floriano 2025",
+      "date": "2026-09-25",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-u23-san-floriano-2025-2026-09-25",
+      "home": "CUS Trento U23",
+      "competition": "Campionato"
+    },
+    {
+      "opponentLogo": "/img/uploads/bleggio.png",
+      "slug": "calcio-bleggio-cus-trento-u23-2026-10-02",
+      "time": "21:00",
+      "away": "CUS Trento U23",
+      "date": "2026-10-02",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Fiavé Palazzetto",
+      "status": "Da giocare",
+      "id": "calcio-bleggio-cus-trento-u23-2026-10-02",
+      "home": "Calcio Bleggio",
+      "competition": "Campionato"
+    },
+    {
+      "opponentLogo": "/img/uploads/lagarina.png",
+      "slug": "lagarina-futsal-cus-trento-u23-2026-10-09",
+      "time": "21:15",
+      "away": "CUS Trento U23",
+      "date": "2026-10-09",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Palazzetto dello Sport \"Angelo Marchetti\"",
+      "status": "Da giocare",
+      "id": "lagarina-futsal-cus-trento-u23-2026-10-09",
+      "home": "Lagarina Futsal",
+      "competition": "Campionato"
+    },
+    {
+      "opponentLogo": "/img/uploads/alta-giudicarie.png",
+      "slug": "cus-trento-u23-alta-giudicarie-2026-10-16",
+      "time": "21:00",
+      "away": "Alta Giudicarie",
+      "date": "2026-10-16",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-u23-alta-giudicarie-2026-10-16",
+      "home": "CUS Trento U23",
+      "competition": "Campionato"
+    },
+    {
+      "opponentLogo": "/img/uploads/ledrense.png",
+      "slug": "ledrense-cus-trento-u23-2026-10-23",
+      "time": "21:00",
+      "away": "CUS Trento U23",
+      "date": "2026-10-23",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Palazzetto Tiarno di Sotto",
+      "status": "Da giocare",
+      "id": "ledrense-cus-trento-u23-2026-10-23",
+      "home": "Ledrense",
+      "competition": "Campionato"
+    },
+    {
+      "opponentLogo": "/img/uploads/settaurense.png",
+      "slug": "cus-trento-u23-settaurense-1934-2026-10-30",
+      "time": "21:00",
+      "away": "Settaurense 1934",
+      "date": "2026-10-30",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-u23-settaurense-1934-2026-10-30",
+      "home": "CUS Trento U23",
+      "competition": "Campionato"
+    },
+    {
+      "opponentLogo": "/img/uploads/athesis.png",
+      "slug": "athesis-calcio-cus-trento-u23-2026-11-06",
+      "time": "21:00",
+      "away": "CUS Trento U23",
+      "date": "2026-11-06",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Palazzetto Besenello",
+      "status": "Da giocare",
+      "id": "athesis-calcio-cus-trento-u23-2026-11-06",
+      "home": "Athesis Calcio",
+      "competition": "Campionato"
+    },
+    {
+      "opponentLogo": "/img/uploads/san-giuseppe.png",
+      "slug": "cus-trento-u23-san-giuseppe-2026-11-13",
+      "time": "21:00",
+      "away": "San Giuseppe",
+      "date": "2026-11-13",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-u23-san-giuseppe-2026-11-13",
+      "home": "CUS Trento U23",
+      "competition": "Campionato"
+    },
+    {
+      "opponentLogo": "/img/uploads/nomi.png",
+      "slug": "nomi-cus-trento-u23-2026-11-20",
+      "time": "21:00",
+      "away": "CUS Trento U23",
+      "date": "2026-11-20",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Nomi Palazzetto",
+      "status": "Da giocare",
+      "id": "nomi-cus-trento-u23-2026-11-20",
+      "home": "Nomi",
+      "competition": "Campionato"
     }
   ]
 }
