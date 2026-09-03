@@ -1,3 +1,80 @@
 {
-  "u21Fixtures": []
+  "u21Fixtures": [
+    {
+      "slug": "san-giuseppe-cus-trento-u23-2026-09-18",
+      "time": "21:15",
+      "away": "CUS Trento U23",
+      "date": "2026-09-18",
+      "lineup": {
+        "startingFive": [
+          "24"
+        ],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Palazzetto dello Sport \"Angelo Marchetti\"",
+      "status": "Da giocare",
+      "id": "san-giuseppe-cus-trento-u23-2026-09-18",
+      "home": "San Giuseppe",
+      "competition": "Coppa"
+    },
+    {
+      "slug": "san-floriano-2025-a-s-d-cus-trento-u23-2026-11-27",
+      "time": "21:00",
+      "away": "CUS Trento U23",
+      "date": "2026-11-27",
+      "lineup": {
+        "startingFive": [
+          "24"
+        ],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Palazzetto Noriglio",
+      "status": "Da giocare",
+      "id": "san-floriano-2025-a-s-d-cus-trento-u23-2026-11-27",
+      "home": "SAN FLORIANO 2025 A.S.D. ",
+      "competition": "Coppa"
+    },
+    {
+      "slug": "cus-trento-cembra-futsal-2026-12-04",
+      "time": "21:00",
+      "away": "Cembra Futsal",
+      "date": "2026-12-04",
+      "lineup": {
+        "startingFive": [
+          "24"
+        ],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-cembra-futsal-2026-12-04",
+      "home": "CUS Trento",
+      "competition": "Coppa"
+    },
+    {
+      "slug": "cus-trento-tnt-monte-peller-2026-12-18",
+      "time": "21:00",
+      "away": "TNT Monte Peller",
+      "date": "2026-12-18",
+      "lineup": {
+        "startingFive": [
+          "24"
+        ],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-tnt-monte-peller-2026-12-18",
+      "home": "CUS Trento",
+      "competition": "Coppa"
+    }
+  ]
 }
