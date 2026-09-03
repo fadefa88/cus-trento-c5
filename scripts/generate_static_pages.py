@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE_URL = os.environ.get("SITE_URL", "https://calcioa5.custrento.it").rstrip("/")
 TEMPLATE_PATH = ROOT / "index.html"
 TODAY = date.today().isoformat()
+HIDDEN_NEWS_TITLES = {"Serie C1: ecco il calendario, si parte venerdì 25 settembre"}
 
 CMS_FILES = [
     "content/cms/news.json",
@@ -521,7 +522,8 @@ def render_simple_main(page: Dict[str, Any], data: Dict[str, Any]) -> str:
     pieces: List[str] = []
     if route == "news":
         pieces.append("<p class=\"muted\">Le ultime notizie pubblicate dal club e importate dall'archivio SporTrentino.</p>")
-        pieces.append(render_news_teasers(data.get("news", [])))
+        visible_news = [item for item in data.get("news", []) if str(item.get("title") or "").strip() not in HIDDEN_NEWS_TITLES]
+        pieces.append(render_news_teasers(visible_news))
     elif route == "squad":
         roster = data.get("roster", []) if isinstance(data.get("roster"), list) else []
         pieces.append("<div class=\"grid grid-4\">" + "\n".join(
