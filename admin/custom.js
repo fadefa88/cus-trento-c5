@@ -132,10 +132,36 @@
     throw new Error(message);
   }
 
+  function validateU21StartingFive(raw){
+    if(!raw || !Array.isArray(raw.u21Fixtures)) return;
+
+    const invalid = raw.u21Fixtures
+      .map((match, index) => ({match, index}))
+      .filter(({match}) => {
+        if(!match || typeof match !== "object") return false;
+        const status = String(match.status || "").trim().toLowerCase();
+        if(status !== "terminata") return false;
+        const startingFive = match.lineup && match.lineup.startingFive;
+        return !Array.isArray(startingFive) || startingFive.length !== 5;
+      });
+
+    if(!invalid.length) return;
+
+    const names = invalid.slice(0, 5).map(({match, index}) => {
+      const teams = [match.home, match.away].filter(Boolean).join(" vs ");
+      return teams || `Partita U21 #${index + 1}`;
+    }).join(", ");
+    const extra = invalid.length > 5 ? ` e altre ${invalid.length - 5}` : "";
+    const message = `Per una partita U21 terminata devi selezionare esattamente 5 giocatori nel quintetto titolare. Controlla: ${names}${extra}.`;
+    if(typeof window !== "undefined" && typeof window.alert === "function") window.alert(message);
+    throw new Error(message);
+  }
+
   function addAutomaticIdsAndSlugs(data){
     if(!data) return data;
     const raw = toPlain(data) || {};
     validateNewsDates(raw);
+    validateU21StartingFive(raw);
 
     let nextData = data;
 

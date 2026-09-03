@@ -696,6 +696,7 @@ collections:
           name: startingFive
           widget: select
           multiple: true
+          required: false
           options:
           - label: '#6 Materia Matteo'
             value: '24'
