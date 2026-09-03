@@ -1,6 +1,7 @@
 {
   "u21Fixtures": [
     {
+      "opponentLogo": "/img/uploads/san-giuseppe.png",
       "slug": "san-giuseppe-cus-trento-u23-2026-09-18",
       "time": "21:15",
       "away": "CUS Trento U23",
@@ -18,6 +19,7 @@
       "competition": "Coppa"
     },
     {
+      "opponentLogo": "/img/uploads/san-floriano.png",
       "slug": "san-floriano-2025-a-s-d-cus-trento-u23-2026-11-27",
       "time": "21:00",
       "away": "CUS Trento U23",
@@ -35,6 +37,7 @@
       "competition": "Coppa"
     },
     {
+      "opponentLogo": "/img/uploads/cembra-futsal.png",
       "slug": "cus-trento-cembra-futsal-2026-12-04",
       "time": "21:00",
       "away": "Cembra Futsal",
@@ -52,6 +55,7 @@
       "competition": "Coppa"
     },
     {
+      "opponentLogo": "/img/uploads/tnt-monte-peller.png",
       "slug": "cus-trento-tnt-monte-peller-2026-12-18",
       "time": "21:00",
       "away": "TNT Monte Peller",
