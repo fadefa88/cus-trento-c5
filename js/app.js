@@ -1793,7 +1793,7 @@ Base giuridica: legittimo interesse al corretto funzionamento del sito e, ove ne
 <hr>
  <h2>Cookie e strumenti simili</h2>
   <p>l sito utilizza solo strumenti tecnici necessari al funzionamento e alla memorizzazione delle preferenze dell’utente.<br>
-Alcuni contenuti di terze parti, come mappe o contenuti esterni, possono essere caricati solo dopo l’accettazione da parte dell’utente tramite il banner cookie o le preferenze disponibili sul sito.<br>
+Alcuni contenuti di terze parti, come mappe o contenuti esterni, possono essere caricati solo dopo l’accettazione da parte dell’utente tramite le preferenze disponibili sul sito.<br>
 Per maggiori dettagli sui cookie, sugli strumenti tecnici e sui servizi di terze parti eventualmente utilizzati, consulta la <a href="/cookies/" onclick="route('cookies');return false;">Cookie Policy</a> del sito.</p>
   <hr>
 
@@ -1872,7 +1872,7 @@ function cookies(){shell("Cookie Policy","Come questo sito usa cookie e servizi 
   </ul>
 
   <h2>Come gestire la scelta</h2>
-  <p>Puoi accettare tutti i contenuti esterni, rifiutare quelli non necessari oppure resettare la scelta e rivedere il banner.</p>
+  <p>Puoi accettare tutti i contenuti esterni, rifiutare quelli non necessari oppure resettare la scelta da questa pagina.</p>
   <div class="btns" style="margin-top:14px">
     <button class="btn light" onclick="rejectCookies()">Rifiuta non necessari</button>
     <button class="btn dark" onclick="acceptCookies('all')">Accetta tutto</button>
@@ -1905,15 +1905,12 @@ function getCookieChoice(){
   return localStorage.getItem("cus_cookie_ok")?"all":"";
 }
 function hasThirdPartyConsent(){return getCookieChoice()==="all";}
-function showCookie(){const banner=$("#cookieBanner");if(banner&&!getCookieChoice())banner.classList.add("show");}
 function openCookieDetails(){const modal=$("#cookieModal");if(modal)modal.classList.add("show");}
 function closeCookieDetails(){const modal=$("#cookieModal");if(modal)modal.classList.remove("show");}
 function acceptCookies(choice="all"){
   const normalized=choice==="necessary"?"necessary":"all";
   localStorage.setItem("cus_cookie_choice",normalized);
   localStorage.setItem("cus_cookie_ok","yes");
-  const banner=$("#cookieBanner");
-  if(banner)banner.classList.remove("show");
   closeCookieDetails();
   if(current==="matchday")render();
 }
@@ -1921,7 +1918,6 @@ function rejectCookies(){acceptCookies("necessary");}
 function resetCookieConsent(){
   localStorage.removeItem("cus_cookie_choice");
   localStorage.removeItem("cus_cookie_ok");
-  showCookie();
   closeCookieDetails();
   if(current==="matchday")render();
 }
@@ -2238,7 +2234,6 @@ async function bootData(){
     `);
   }
 
-  showCookie();
 }
 setupNewsShareHandlers();
 bootData();
