@@ -19,10 +19,11 @@
       "name": "Gold Partner",
       "price": "Da definire",
       "visibility": [
-        "Logo in pagina sponsor",
-        "Citazione nei matchday post",
-        "Banner digitale",
-        "Inviti eventi club"
+        "Logo su maglia gara ufficiale (back)",
+        "Incontri azienda–studenti",
+        "Contenuti social \"Presenta la tua azienda\"",
+        "Promozione di opportunità di lavoro, stage e recruiting",
+        "Presenza nelle principali iniziative ed eventi del CUS Trento C5"
       ],
       "cta": "Richiedi pacchetto Gold",
       "slug": "gold-sponsor"
@@ -32,9 +33,10 @@
       "name": "Silver Partner",
       "price": "Da definire",
       "visibility": [
-        "Logo sito",
-        "Presenza gallery partner",
-        "Citazione periodica social"
+        "Logo sui pantaloncini gara",
+        "Possibilità di allestire uno stand al palazzetto in occasione di partite o eventi concordati",
+        "Presenza banner dedicato durante partite casalinghe",
+        "Contenuti social dedicati durante la stagione"
       ],
       "cta": "Richiedi pacchetto Silver",
       "slug": "silver-sponsor"
@@ -44,9 +46,11 @@
       "name": "Community Partner",
       "price": "Da definire",
       "visibility": [
-        "Presenza sito",
-        "Attività territoriali",
-        "Iniziative studenti"
+        "Accesso alla community universitaria",
+        "Possibilità di realizzare promozioni, convenzioni o attività rivolte alla community",
+        "Tag e menzioni social durante la stagione",
+        "Logo nella sezione Partner del sito",
+        "Banner condiviso durante partite casalinghe"
       ],
       "cta": "Diventa partner community",
       "slug": "community-partner"
