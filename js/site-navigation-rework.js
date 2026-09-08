@@ -282,7 +282,40 @@
     }, 0);
   }
 
+  let mobileScrollLock = null;
+  function lockMobilePage(){
+    if(mobileScrollLock) return;
+    const body = document.body;
+    mobileScrollLock = {x:window.scrollX, y:window.scrollY, position:body.style.position, top:body.style.top, width:body.style.width};
+    body.style.position = "fixed";
+    body.style.top = `-${mobileScrollLock.y}px`;
+    body.style.width = "100%";
+    document.documentElement.classList.add("menu-open");
+    body.classList.add("menu-open");
+  }
+  function unlockMobilePage(){
+    if(!mobileScrollLock) return;
+    const saved = mobileScrollLock;
+    mobileScrollLock = null;
+    const body = document.body;
+    body.style.position = saved.position;
+    body.style.top = saved.top;
+    body.style.width = saved.width;
+    document.documentElement.classList.remove("menu-open");
+    body.classList.remove("menu-open");
+    window.scrollTo({left:saved.x, top:saved.y, behavior:"instant"});
+  }
+  const nativeCloseMobile = window.closeMobileMenu;
+  window.closeMobileMenu = function(){
+    unlockMobilePage();
+    if(typeof nativeCloseMobile === "function") nativeCloseMobile();
+  };
+  window.addEventListener("resize", () => {
+    if(window.innerWidth > 1120) window.cusCloseMobileMenu();
+  });
+
   window.cusCloseMobileMenu = function(){
+    unlockMobilePage();
     const mobile = document.getElementById("mobileMenu");
     const toggle = document.querySelector(".mobile-toggle");
     if(mobile){
@@ -298,6 +331,8 @@
     const toggle = document.querySelector(".mobile-toggle");
     if(mobile && mobile.dataset.cusRework === "true"){
       const open = !mobile.classList.contains("open");
+      if(open) lockMobilePage();
+      else unlockMobilePage();
       mobile.classList.toggle("open", open);
       mobile.setAttribute("aria-hidden", open ? "false" : "true");
       if(toggle) toggle.setAttribute("aria-expanded", open ? "true" : "false");
@@ -762,6 +797,7 @@
   }
 
   window.cusMenuRoute = function(routeId){
+    window.cusCloseMobileMenu();
     routeId = normalizeAlias(routeId);
     if(isCustomRoute(routeId)) return renderCustom(routeId, false);
     window.__cusActiveRoute = routeId;
@@ -770,6 +806,7 @@
   };
 
   window.route = function(routeId){
+    window.cusCloseMobileMenu();
     routeId = normalizeAlias(routeId);
     if(isCustomRoute(routeId)) return renderCustom(routeId, false);
     window.__cusActiveRoute = routeId || "home";
@@ -778,6 +815,7 @@
   };
 
   window.addEventListener("popstate", () => {
+    window.cusCloseMobileMenu();
     const custom = routeFromLocation();
     if(custom && isCustomRoute(custom)) renderCustom(custom, true);
     else {

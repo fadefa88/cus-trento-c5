@@ -73,6 +73,16 @@
 .cus-rework-kicker{box-shadow:0 12px 32px rgba(0,0,0,.22);}
 .mobile-menu[data-cus-rework="true"]{display:none;position:fixed;z-index:70;left:12px;right:12px;top:86px;max-height:calc(100vh - 106px);overflow:auto;background:rgba(255,255,255,.98);border:1px solid var(--line);border-radius:24px;padding:12px;box-shadow:0 30px 90px rgba(9,9,11,.22);backdrop-filter:blur(18px);}
 .mobile-menu[data-cus-rework="true"].open{display:block;}
+/* This menu scrolls directly; the legacy overlay used an inner mobile-sheet. */
+#mobileMenu.mobile-menu[data-cus-rework="true"].open{
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  max-height:100vh;
+  max-height:100dvh;
+  overscroll-behavior-y:contain;
+  -webkit-overflow-scrolling:touch;
+}
+
 .cus-mobile-menu-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 4px 10px;border-bottom:1px solid var(--line);margin-bottom:10px;}
 .cus-mobile-menu-head span{font-size:12px;font-weight:1000;letter-spacing:.14em;text-transform:uppercase;color:var(--red);}
 .cus-mobile-menu-head button{width:38px;height:38px;border-radius:999px;background:#09090b;color:#fff;font-size:24px;line-height:1;}
