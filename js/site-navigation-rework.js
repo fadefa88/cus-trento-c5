@@ -661,7 +661,7 @@
           <article class="cus-rework-card cus-rework-card-pad" style="margin-bottom:24px">
             <span class="cus-rework-kicker">Partnership program</span>
             <h2>Perché cerchiamo partner</h2>
-            <p>${h("Il CUS Trento C5 Partnership Program non è una semplice sponsorizzazione, ma un progetto di collaborazione tra sport, università, imprese e territorio. Diventare partner significa entrare in contatto con una community giovane e qualificata, composta da studenti-atleti, laureati e futuri professionisti, contribuendo alla loro crescita sportiva, personale e professionale. Attraverso visibilità digitale, networking universitario, employer branding e iniziative dedicate, le aziende non sostengono solo una squadra: partecipano a un ecosistema che crea valore concreto per i giovani, per il territorio e per il mondo del lavoro.")}</p>
+            <p>${h("Il CUS Trento C5 Partnership Program non è una semplice sponsorizzazione, ma un progetto di collaborazione tra sport, mondo accademico, imprese e territorio. Diventare partner significa entrare in contatto con una community giovane e qualificata, composta da studenti-atleti, laureati e futuri professionisti, contribuendo alla loro crescita sportiva, personale e professionale. Attraverso visibilità digitale, networking con la comunità studentesca, employer branding e iniziative dedicate, le aziende non sostengono solo una squadra: partecipano a un ecosistema capace di creare valore concreto per i giovani, per il territorio e per il mondo del lavoro.")}</p>
           </article>
           <div class="section" style="padding:0">
             <span class="eyebrow">Pacchetti sponsor</span>
