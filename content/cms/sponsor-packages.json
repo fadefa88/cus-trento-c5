@@ -1,21 +1,22 @@
 {
   "sponsorPackages": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Main Partner",
       "price": "Da definire",
       "visibility": [
-        "Logo maglia gara",
-        "Hero sponsor in home",
-        "Post social dedicati",
-        "Presenza su backdrop interviste"
+        "Logo su maglia gara ufficiale (front)",
+        "Naming di eventi, iniziative o format del CUS Trento C5",
+        "Massima visibilità su sito, homepage e comunicazione ufficiale",
+        "Contenuti social dedicati e personalizzati",
+        "Possibilità di sviluppare un’attivazione esclusiva con squadra e community"
       ],
       "cta": "Richiedi proposta Main Partner",
       "slug": "main-partner"
     },
     {
-      "id": 2,
-      "name": "Gold Sponsor",
+      "id": "2",
+      "name": "Gold Partner",
       "price": "Da definire",
       "visibility": [
         "Logo in pagina sponsor",
@@ -27,8 +28,8 @@
       "slug": "gold-sponsor"
     },
     {
-      "id": 3,
-      "name": "Silver Sponsor",
+      "id": "3",
+      "name": "Silver Partner",
       "price": "Da definire",
       "visibility": [
         "Logo sito",
@@ -39,7 +40,7 @@
       "slug": "silver-sponsor"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Community Partner",
       "price": "Da definire",
       "visibility": [
