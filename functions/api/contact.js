@@ -61,10 +61,9 @@ export async function onRequestPost(context) {
     return jsonResponse({ success: false, message: "Richiesta non valida." }, 400);
   }
 
-  // Honeypot legacy: return a harmless success, but do not forward spam.
-  if (payload.botcheck || clean(payload.website, 200)) {
-    return jsonResponse({ success: true, ok: true, message: "Messaggio ricevuto." });
-  }
+  // Legacy hidden fields can be autofilled by legitimate visitors. Ignore them:
+  // server-verified Turnstile below remains mandatory for every submission.
+  // Report success only after Web3Forms has accepted the message.
 
   const token = clean(payload["cf-turnstile-response"], 4096);
   if (!token) {
