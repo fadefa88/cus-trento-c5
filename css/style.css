@@ -200,8 +200,24 @@
 }
 
 
-.player-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.player-info-box{border:1px solid var(--line);border-radius:10px;background:#fafafa;padding:16px}.player-info-box span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:#71717a;margin-bottom:8px}.player-info-box b{font-size:18px}.player-stat-table td:first-child{font-weight:800}
-@media(max-width:980px){.player-info-grid{grid-template-columns:1fr}}
+.player-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.player-info-box{border:0;border-left:1px solid var(--line);border-radius:0;background:transparent;padding:2px 16px}.player-info-box:first-child{border-left:0;padding-left:2px}.player-info-box span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:#71717a;margin-bottom:8px}.player-info-box b{font-size:18px}.player-stat-table td:first-child{font-weight:800}
+@media(max-width:980px){.player-info-grid{grid-template-columns:1fr;gap:0}.player-info-box{border-left:0;padding:14px 2px;border-top:1px solid var(--line)}.player-info-box:first-child{border-top:0;padding-top:2px}}
+
+/* less-ai round 3: player profile quick-stats read as an editorial
+   "at a glance" strip (media-guide style) instead of 4 separate
+   dashboard KPI tiles. Scoped to the player detail page only -
+   .stat-tile itself stays untouched for the Statistiche/U21 pages
+   where a boxed stat grid is the right call. */
+.player-quick-stats{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;}
+.player-quick-stats .stat-tile{background:transparent;border:0;border-right:1px solid var(--line);border-radius:0;box-shadow:none;padding:18px 16px;}
+.player-quick-stats .stat-tile:last-child{border-right:0;}
+.player-quick-stats .stat-tile b{font-size:32px;}
+@media(max-width:980px){
+  .player-quick-stats{grid-template-columns:repeat(2,1fr)!important;}
+  .player-quick-stats .stat-tile{border-right:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .player-quick-stats .stat-tile:nth-child(2n){border-right:0;}
+  .player-quick-stats .stat-tile:nth-last-child(-n+2){border-bottom:0;}
+}
 
 /* Stats page: match-driven dashboard */
 .stats-source-note{
