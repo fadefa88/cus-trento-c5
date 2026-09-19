@@ -266,36 +266,30 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
+          - label: '#2 Scala Luca'
+            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
-          - label: '#5 Boldrini Tommaso'
-            value: boldrini-tommaso
+          - label: '#7 Gobbetti Fabio'
+            value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#9 Vettorazzi Cesare'
-            value: '17'
+          - label: '#8 Ceola Michele'
+            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
+          - label: '#10 Sarcletti Paolo'
+            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
             value: baccaro-zeni-lucca
-          - label: '#13 Addobbati Federico'
-            value: '9'
           - label: '#14 Cirasola Luca'
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
-          - label: '#17 Baietta Filippo'
-            value: '12'
-          - label: '#21 Maciocia Federico'
-            value: '13'
-          - label: '#22 Zanetti Alessandro'
-            value: '14'
-          - label: '#23 Frattolin Luca'
-            value: '15'
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -309,36 +303,30 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
+          - label: '#2 Scala Luca'
+            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
-          - label: '#5 Boldrini Tommaso'
-            value: boldrini-tommaso
+          - label: '#7 Gobbetti Fabio'
+            value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#9 Vettorazzi Cesare'
-            value: '17'
+          - label: '#8 Ceola Michele'
+            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
+          - label: '#10 Sarcletti Paolo'
+            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
             value: baccaro-zeni-lucca
-          - label: '#13 Addobbati Federico'
-            value: '9'
           - label: '#14 Cirasola Luca'
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
-          - label: '#17 Baietta Filippo'
-            value: '12'
-          - label: '#21 Maciocia Federico'
-            value: '13'
-          - label: '#22 Zanetti Alessandro'
-            value: '14'
-          - label: '#23 Frattolin Luca'
-            value: '15'
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -352,36 +340,30 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
+          - label: '#2 Scala Luca'
+            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
-          - label: '#5 Boldrini Tommaso'
-            value: boldrini-tommaso
+          - label: '#7 Gobbetti Fabio'
+            value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#9 Vettorazzi Cesare'
-            value: '17'
+          - label: '#8 Ceola Michele'
+            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
+          - label: '#10 Sarcletti Paolo'
+            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
             value: baccaro-zeni-lucca
-          - label: '#13 Addobbati Federico'
-            value: '9'
           - label: '#14 Cirasola Luca'
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
-          - label: '#17 Baietta Filippo'
-            value: '12'
-          - label: '#21 Maciocia Federico'
-            value: '13'
-          - label: '#22 Zanetti Alessandro'
-            value: '14'
-          - label: '#23 Frattolin Luca'
-            value: '15'
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -394,36 +376,30 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
+          - label: '#2 Scala Luca'
+            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
-          - label: '#5 Boldrini Tommaso'
-            value: boldrini-tommaso
+          - label: '#7 Gobbetti Fabio'
+            value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#9 Vettorazzi Cesare'
-            value: '17'
+          - label: '#8 Ceola Michele'
+            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
+          - label: '#10 Sarcletti Paolo'
+            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
             value: baccaro-zeni-lucca
-          - label: '#13 Addobbati Federico'
-            value: '9'
           - label: '#14 Cirasola Luca'
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
-          - label: '#17 Baietta Filippo'
-            value: '12'
-          - label: '#21 Maciocia Federico'
-            value: '13'
-          - label: '#22 Zanetti Alessandro'
-            value: '14'
-          - label: '#23 Frattolin Luca'
-            value: '15'
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -442,36 +418,30 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
+          - label: '#2 Scala Luca'
+            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
-          - label: '#5 Boldrini Tommaso'
-            value: boldrini-tommaso
+          - label: '#7 Gobbetti Fabio'
+            value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#9 Vettorazzi Cesare'
-            value: '17'
+          - label: '#8 Ceola Michele'
+            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
+          - label: '#10 Sarcletti Paolo'
+            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
             value: baccaro-zeni-lucca
-          - label: '#13 Addobbati Federico'
-            value: '9'
           - label: '#14 Cirasola Luca'
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
-          - label: '#17 Baietta Filippo'
-            value: '12'
-          - label: '#21 Maciocia Federico'
-            value: '13'
-          - label: '#22 Zanetti Alessandro'
-            value: '14'
-          - label: '#23 Frattolin Luca'
-            value: '15'
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -496,36 +466,30 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
+          - label: '#2 Scala Luca'
+            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
-          - label: '#5 Boldrini Tommaso'
-            value: boldrini-tommaso
+          - label: '#7 Gobbetti Fabio'
+            value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#9 Vettorazzi Cesare'
-            value: '17'
+          - label: '#8 Ceola Michele'
+            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
+          - label: '#10 Sarcletti Paolo'
+            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
             value: baccaro-zeni-lucca
-          - label: '#13 Addobbati Federico'
-            value: '9'
           - label: '#14 Cirasola Luca'
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
-          - label: '#17 Baietta Filippo'
-            value: '12'
-          - label: '#21 Maciocia Federico'
-            value: '13'
-          - label: '#22 Zanetti Alessandro'
-            value: '14'
-          - label: '#23 Frattolin Luca'
-            value: '15'
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -550,36 +514,30 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
+          - label: '#2 Scala Luca'
+            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
-          - label: '#5 Boldrini Tommaso'
-            value: boldrini-tommaso
+          - label: '#7 Gobbetti Fabio'
+            value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#9 Vettorazzi Cesare'
-            value: '17'
+          - label: '#8 Ceola Michele'
+            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
+          - label: '#10 Sarcletti Paolo'
+            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
             value: baccaro-zeni-lucca
-          - label: '#13 Addobbati Federico'
-            value: '9'
           - label: '#14 Cirasola Luca'
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
-          - label: '#17 Baietta Filippo'
-            value: '12'
-          - label: '#21 Maciocia Federico'
-            value: '13'
-          - label: '#22 Zanetti Alessandro'
-            value: '14'
-          - label: '#23 Frattolin Luca'
-            value: '15'
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
