@@ -7,12 +7,26 @@
       "away": "Trento 1921",
       "date": "2026-09-19",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "ceola-michele",
+          "gobbetti-fabio",
+          "7",
+          "16"
+        ],
+        "bench": [
+          "19",
+          "1",
+          "sarcletti-paolo",
+          "scala-luca",
+          "tesser-alvise",
+          "8",
+          "11"
+        ],
         "suspended": [],
         "injured": []
       },
-      "venue": "Sanbàpolis",
+      "venue": "Gardolo Palazzetto",
       "status": "Da giocare",
       "id": "cus-trento-ac-trento-1921-2026-09-19",
       "home": "CUS Trento",
