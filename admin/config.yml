@@ -410,7 +410,7 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goals}} gol'
-        hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è convocato.
+        hint: Scegli un giocatore presente in quintetto o panchina, oppure Autogol. L'autogol compare nel tabellino e nelle statistiche stagionali, ma non viene attribuito a un giocatore né sommato allo storico marcatori.
         fields:
         - label: Giocatore
           name: playerId
@@ -446,6 +446,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: Autogol (avversario)
+            value: autogol
         - label: Gol
           name: goals
           widget: number
@@ -795,7 +797,7 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goals}} gol'
-        hint: Scegli solo giocatori presenti in quintetto o panchina. Il CMS blocca il salvataggio se il marcatore non è convocato.
+        hint: Scegli un giocatore presente in quintetto o panchina, oppure Autogol. L'autogol compare nel tabellino e nelle statistiche stagionali, ma non viene attribuito a un giocatore né sommato allo storico marcatori.
         fields:
         - label: Giocatore
           name: playerId
@@ -829,6 +831,8 @@ collections:
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
             value: '20'
+          - label: Autogol (avversario)
+            value: autogol
         - label: Gol
           name: goals
           widget: number

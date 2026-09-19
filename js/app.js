@@ -153,8 +153,11 @@ function hydrate(src = {}) {
 // ===== AUTOMAZIONI STAGIONE: incrementa i dati esistenti, non li azzera =====
 function deepClone(obj){return JSON.parse(JSON.stringify(obj || {}));}
 function toNumber(v){const x=Number(v);return Number.isFinite(x)?x:0;}
+const OWN_GOAL_ID="autogol";
+const OWN_GOAL_LABEL="Autogol";
 function currentSeasonOf(data){return (data.automation && data.automation.currentSeason) || "2026/2027";}
 function normText(v){return String(v||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");}
+function isOwnGoalScorer(value){const key=normText(value);return key==="autogol"||key==="owngoal";}
 function normalizeCmsStatus(value){const t=normText(value);if(!t||t==="dagiocare"||t==="scheduled"||t==="toplay")return "Da giocare";if(t==="terminata"||t==="finita"||t==="finished"||t==="played")return "Terminata";return value||"Da giocare";}
 function normalizeCmsCompetition(value){const t=normText(value);if(t==="coppa")return "Coppa";return value||"Campionato";}
 function normalizeCmsMatch(match){if(!match||typeof match!=="object")return match;const out={...match};out.status=normalizeCmsStatus(out.status);if(out.competition!==undefined)out.competition=normalizeCmsCompetition(out.competition);if(out.lineup&&typeof out.lineup==="object"){out.lineup={...out.lineup};["startingFive","bench","suspended","injured"].forEach(k=>{out.lineup[k]=Array.isArray(out.lineup[k])?out.lineup[k].map(String).filter(Boolean):[];});}["scorerEvents","yellowCardEvents","redCardEvents","goalkeeperEvents"].forEach(k=>{if(Array.isArray(out[k]))out[k]=out[k].map(ev=>{const clean={...(ev||{})};if(clean.playerId!==undefined&&clean.playerId!==null)clean.playerId=String(clean.playerId);["goals","cards","goalsAgainst","minutes","appearances"].forEach(n=>{if(clean[n]!==undefined&&clean[n]!==null&&clean[n]!=="")clean[n]=Number(clean[n]);});return clean;});});return out;}
@@ -182,7 +185,7 @@ function isCusMatchForStats(m,isU21){
   const hasU21=normText(m.home).includes("u21")||normText(m.away).includes("u21");
   return isU21?hasU21:!hasU21;
 }
-function playerDisplayNameById(roster,id){const p=(roster||[]).find(x=>String(x.id)===String(id));return p?p.name:String(id||"");}
+function playerDisplayNameById(roster,id){if(isOwnGoalScorer(id))return OWN_GOAL_LABEL;const p=(roster||[]).find(x=>String(x.id)===String(id));return p?p.name:String(id||"");}
 function resolvePlayerId(value, roster){
   if(value && typeof value==="object") value=value.playerId||value.id||value.g||value.name||value.player||value.value;
   if(value===0||value){
@@ -199,9 +202,9 @@ function isGoalkeeperPlayer(p){return !!p && (p.role==="Portiere"||!!p.goalkeepe
 function startingGoalkeeperId(match, roster){const l=match.lineup||{};for(const v of (l.startingFive||[])){const id=resolvePlayerId(v,roster);const p=(roster||[]).find(x=>String(x.id)===String(id));if(isGoalkeeperPlayer(p))return p.id;}return null;}
 function scorerEvents(match, roster){
   const events=[];
-  (match.scorerEvents||[]).forEach(e=>{const id=resolvePlayerId(e.playerId||e.player||e.name||e.id,e.playerId?roster:roster);const goals=Math.max(1,toNumber(e.goals||e.value||1));if(id!==null)events.push({playerId:id,goals});});
+  (match.scorerEvents||[]).forEach(e=>{const raw=e.playerId||e.player||e.name||e.id;const goals=Math.max(1,toNumber(e.goals||e.value||1));if(isOwnGoalScorer(raw)){events.push({playerId:OWN_GOAL_ID,goals,isOwnGoal:true});return;}const id=resolvePlayerId(raw,roster);if(id!==null)events.push({playerId:id,goals,isOwnGoal:false});});
   if(events.length)return events;
-  (match.scorers||[]).forEach(raw=>{const txt=String(raw||"");let goals=1;const m=txt.match(/(\d+)\s*$/);if(m)goals=parseInt(m[1],10);const cleaned=txt.replace(/\d+\s*$/," ").trim();const id=resolvePlayerId(cleaned,roster);if(id!==null)events.push({playerId:id,goals});});
+  (match.scorers||[]).forEach(raw=>{const txt=String(raw||"");let goals=1;const m=txt.match(/(\d+)\s*$/);if(m)goals=parseInt(m[1],10);const cleaned=txt.replace(/\d+\s*$/," ").trim();if(isOwnGoalScorer(cleaned)){events.push({playerId:OWN_GOAL_ID,goals,isOwnGoal:true});return;}const id=resolvePlayerId(cleaned,roster);if(id!==null)events.push({playerId:id,goals,isOwnGoal:false});});
   return events;
 }
 function scorerText(match){const events=scorerEvents(match,state.roster||[]);if(events.length){return events.map(e=>`${playerDisplayNameById(state.roster,e.playerId)}${e.goals>1?` ${e.goals}`:""}`).join(", ");}return (match.scorers||[]).join(", ")||"Da definire";}
@@ -438,6 +441,7 @@ function applyAutomations(baseData){
     });
 
     scorerEvents(match,out.roster).forEach(e=>{
+      if(e.isOwnGoal)return;
       const p=byId.get(String(e.playerId));if(!p)return;
       p.goals=toNumber(p.goals)+e.goals;
       p.competitions[comp].goals=toNumber(p.competitions[comp].goals)+e.goals;
@@ -1506,9 +1510,9 @@ function teamRosterForStats(isU21){return (state.roster||[]).filter(p=>isU21?p.t
 function statShortName(p){return (p&&p.name?String(p.name):"").split(" ").slice(0,2).join(" ")||"Giocatore";}
 function statRankingFromMap(map){return [...map.values()].sort((a,b)=>b.value-a.value||String(a.label).localeCompare(String(b.label)));}
 function topScorersFromMatches(matches,isU21){
-  const roster=teamRosterForStats(isU21);const allowed=new Set(roster.map(p=>String(p.id)));const byId=new Map((state.roster||[]).map(p=>[String(p.id),p]));const map=new Map();
+  const roster=teamRosterForStats(isU21);const allowed=new Set([...roster.map(p=>String(p.id)),OWN_GOAL_ID]);const byId=new Map((state.roster||[]).map(p=>[String(p.id),p]));const map=new Map();
   (matches||[]).forEach(m=>scorerEvents(m,state.roster||[]).forEach(e=>{
-    const key=String(e.playerId);if(!allowed.has(key))return;const p=byId.get(key);if(!map.has(key))map.set(key,{label:statShortName(p),value:0,fullName:p&&p.name});map.get(key).value+=toNumber(e.goals)||1;
+    const key=String(e.playerId);if(!allowed.has(key))return;const p=e.isOwnGoal?{name:OWN_GOAL_LABEL}:byId.get(key);if(!map.has(key))map.set(key,{label:statShortName(p),value:0,fullName:p&&p.name});map.get(key).value+=toNumber(e.goals)||1;
   }));
   return statRankingFromMap(map);
 }

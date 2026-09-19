@@ -27,8 +27,10 @@ FIRST_TEAM_COLLECTIONS = {"fixtures"}
 U21_COLLECTIONS = {"u21Fixtures"}
 LINEUP_FIELD_NAMES = {"startingFive", "bench", "suspended", "injured"}
 PLAYER_ID_FIELD_NAME = "playerId"
+SCORER_EVENT_NAME = "scorerEvents"
 GOALKEEPER_EVENT_NAME = "goalkeeperEvents"
 GOALKEEPER_ROLE = "Portiere"
+OWN_GOAL_OPTION = {"label": "Autogol (avversario)", "value": "autogol"}
 
 
 class NoAliasDumper(yaml.SafeDumper):
@@ -133,6 +135,12 @@ def is_goalkeeper_player_field(field: Dict[str, Any], ancestors: List[Dict[str, 
     return any(parent.get("name") == GOALKEEPER_EVENT_NAME for parent in ancestors)
 
 
+def is_scorer_player_field(field: Dict[str, Any], ancestors: List[Dict[str, Any]]) -> bool:
+    if field.get("name") != PLAYER_ID_FIELD_NAME:
+        return False
+    return any(parent.get("name") == SCORER_EVENT_NAME for parent in ancestors)
+
+
 def should_update_field(field: Dict[str, Any]) -> bool:
     if field.get("widget") != "select":
         return False
@@ -172,7 +180,12 @@ def sync_config(config_data: Dict[str, Any], options_by_team: Dict[str, Dict[str
             if not should_update_field(field):
                 continue
 
-            new_options = goalkeeper_options if is_goalkeeper_player_field(field, ancestors) else all_options
+            if is_goalkeeper_player_field(field, ancestors):
+                new_options = goalkeeper_options
+            elif is_scorer_player_field(field, ancestors):
+                new_options = [*all_options, OWN_GOAL_OPTION]
+            else:
+                new_options = all_options
             if field.get("options") != new_options:
                 field["options"] = copy.deepcopy(new_options)
                 changed += 1
