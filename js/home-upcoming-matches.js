@@ -266,6 +266,38 @@
     window.scorerListHtml.__zeroGoalPatched = true;
   }
 
+  function patchHistoricalPlayerNames(){
+    if(typeof window.historicalPlayerName !== "function" || window.historicalPlayerName.__surnamePatched) return;
+    const originalHistoricalPlayerName = window.historicalPlayerName;
+    const aliases = {
+      "ceolamichele":"Ceola",
+      "micheleceola":"Ceola",
+      "gobbettifabio":"Gobbetti",
+      "fabiogobbetti":"Gobbetti",
+      "filippidavide":"Filippi",
+      "davidefilippi":"Filippi",
+      "loperfidodamiano":"Loperfido",
+      "damianoloperfido":"Loperfido",
+      "martinelliandrea":"Martinelli A.",
+      "andreamartinelli":"Martinelli A.",
+      "sarclettipaolo":"Sarcletti",
+      "paolosarcletti":"Sarcletti",
+      "scalaluca":"Scala",
+      "lucascala":"Scala",
+      "tesseralvise":"Tesser",
+      "alvisetesser":"Tesser",
+      "vaiamattia":"Vaia Mattia",
+      "mattiavaia":"Vaia Mattia",
+      "zampedridaniele":"Zampedri",
+      "danielezampedri":"Zampedri"
+    };
+    window.historicalPlayerName = function(name){
+      const key = norm(name).replace(/[^a-z0-9]/g, "");
+      return aliases[key] || originalHistoricalPlayerName.apply(this, arguments);
+    };
+    window.historicalPlayerName.__surnamePatched = true;
+  }
+
   window.homeUpcomingScroll = function(direction){
     const track = upcomingTrack();
     if(!track) return;
@@ -279,14 +311,16 @@
   };
 
   function boot(){
+    patchHistoricalPlayerNames();
     patchZeroGoalScorers();
     patchHome();
     insertUpcomingMatches();
-    setTimeout(function(){patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 80);
-    setTimeout(function(){patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 300);
+    setTimeout(function(){patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 80);
+    setTimeout(function(){patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 300);
     setTimeout(updateUpcomingArrows, 520);
   }
 
+  patchHistoricalPlayerNames();
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();
