@@ -217,30 +217,6 @@
       "team": "Prima squadra"
     },
     {
-      "faculty": "Informatica",
-      "birthPlace": "Vicenza",
-      "number": 25,
-      "name": "Zarantonello Lorenzo",
-      "slug": "lorenzo-zarantonello",
-      "birthDate": "2004-10-30",
-      "photo": "/img/uploads/zarantonello.webp",
-      "role": "Portiere",
-      "id": "21",
-      "team": "Under 21"
-    },
-    {
-      "faculty": "Ingegneria Informatica",
-      "birthPlace": "Rovereto (TN)",
-      "number": 90,
-      "name": "Toniolli Giulio",
-      "slug": "giulio-toniolli",
-      "birthDate": "2006-04-24",
-      "photo": "/img/uploads/toniolli.webp",
-      "role": "Portiere",
-      "id": "20-2",
-      "team": "Under 21"
-    },
-    {
       "faculty": "Lettere Moderne",
       "birthPlace": "Fano (PU)",
       "number": 99,
@@ -262,18 +238,6 @@
       "photo": "/img/uploads/materia.webp",
       "role": "Centrale",
       "id": "24",
-      "team": "Under 21"
-    },
-    {
-      "faculty": "Ingegneria",
-      "birthPlace": "Trento",
-      "number": 19,
-      "name": "Riccardo Toniolli",
-      "slug": "riccardo-toniolli",
-      "birthDate": "2005-09-13",
-      "photo": "/img/uploads/riccardo.webp",
-      "role": "Centrale",
-      "id": "25",
       "team": "Under 21"
     },
     {
@@ -301,18 +265,6 @@
       "team": "Under 21"
     },
     {
-      "faculty": "Sociologia",
-      "birthPlace": "Seriate (BG)",
-      "number": 18,
-      "name": "Scala Luca",
-      "slug": "luca-scala",
-      "birthDate": "2006-06-07",
-      "photo": "/img/uploads/scala.webp",
-      "role": "Laterale",
-      "id": "35",
-      "team": "Under 21"
-    },
-    {
       "faculty": "Ingegneria Informatica",
       "birthPlace": "Trento",
       "number": 20,
@@ -322,18 +274,6 @@
       "photo": "/img/uploads/caldonazzi.webp",
       "role": "Laterale",
       "id": "28",
-      "team": "Under 21"
-    },
-    {
-      "faculty": "CEILS",
-      "birthPlace": "Tricase (LE)",
-      "number": 28,
-      "name": "Tondo Mirko",
-      "slug": "mirko-annunziato-tondo",
-      "birthDate": "2005-12-24",
-      "photo": "/img/uploads/tondo.webp",
-      "role": "Laterale",
-      "id": "31",
       "team": "Under 21"
     },
     {
@@ -348,28 +288,68 @@
       "team": "Under 21"
     },
     {
-      "faculty": "Economia",
-      "birthPlace": "Padova",
-      "number": 24,
-      "name": "Ceola Michele",
-      "slug": "michele-ceola",
-      "birthDate": "2006-09-25",
-      "photo": "/img/uploads/ceola.webp",
-      "role": "Pivot",
-      "id": "33",
-      "team": "Under 21"
+      "id": "harmeet-singh",
+      "slug": "harmeet-singh",
+      "name": "Harmeet Singh",
+      "role": "Portiere",
+      "team": "Under 21",
+      "number": 12
     },
     {
-      "faculty": "Fisica",
-      "birthPlace": "Brasile",
-      "number": 45,
-      "name": "Caccia Neff Joao Pedro",
-      "slug": "joao-pedro-caccia-neff",
-      "birthDate": "2003-03-26",
-      "photo": "/img/uploads/caccia.webp",
+      "id": "soriaso-tommaso",
+      "slug": "soriaso-tommaso",
+      "name": "Soriaso Tommaso",
+      "role": "Portiere",
+      "team": "Under 21",
+      "number": 12
+    },
+    {
+      "id": "battaglia-edoardo",
+      "slug": "battaglia-edoardo",
+      "name": "Battaglia Edoardo",
+      "role": "Centrale",
+      "team": "Under 21",
+      "number": 2
+    },
+    {
+      "id": "de-nardis-andrea",
+      "slug": "de-nardis-andrea",
+      "name": "De Nardis Andrea",
       "role": "Laterale",
-      "id": "29",
-      "team": "Under 21"
+      "team": "Under 21",
+      "number": 7
+    },
+    {
+      "id": "sgraffetto-lorenzo",
+      "slug": "sgraffetto-lorenzo",
+      "name": "Sgraffetto Lorenzo",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 6
+    },
+    {
+      "id": "grippa-michele",
+      "slug": "grippa-michele",
+      "name": "Grippa Michele",
+      "role": "Pivot",
+      "team": "Under 21",
+      "number": 11
+    },
+    {
+      "id": "medeghini-riccardo",
+      "slug": "medeghini-riccardo",
+      "name": "Medeghini Riccardo",
+      "role": "Pivot",
+      "team": "Under 21",
+      "number": 9
+    },
+    {
+      "id": "zanrosso-matteo",
+      "slug": "zanrosso-matteo",
+      "name": "Zanrosso Matteo",
+      "role": "Pivot",
+      "team": "Under 21",
+      "number": 16
     }
   ]
 }
