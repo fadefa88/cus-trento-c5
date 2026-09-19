@@ -250,6 +250,22 @@
     window.home.__upcomingPatched = true;
   }
 
+  function patchZeroGoalScorers(){
+    if(typeof window.scorerListHtml !== "function" || window.scorerListHtml.__zeroGoalPatched) return;
+    const originalScorerListHtml = window.scorerListHtml;
+    window.scorerListHtml = function(match){
+      const score = String(match && match.score || "").match(/\d+/g);
+      if(score && score.length >= 2){
+        const homeGoals = Number(score[0]);
+        const awayGoals = Number(score[1]);
+        const cusGoals = isCus(match && match.home) ? homeGoals : (isCus(match && match.away) ? awayGoals : null);
+        if(cusGoals === 0) return `<span class="match-person empty">Nessuno</span>`;
+      }
+      return originalScorerListHtml.apply(this, arguments);
+    };
+    window.scorerListHtml.__zeroGoalPatched = true;
+  }
+
   window.homeUpcomingScroll = function(direction){
     const track = upcomingTrack();
     if(!track) return;
@@ -263,10 +279,11 @@
   };
 
   function boot(){
+    patchZeroGoalScorers();
     patchHome();
     insertUpcomingMatches();
-    setTimeout(function(){patchHome();insertUpcomingMatches();}, 80);
-    setTimeout(function(){patchHome();insertUpcomingMatches();}, 300);
+    setTimeout(function(){patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 80);
+    setTimeout(function(){patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 300);
     setTimeout(updateUpcomingArrows, 520);
   }
 
