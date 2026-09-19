@@ -699,30 +699,32 @@ collections:
           multiple: true
           required: false
           options:
+          - label: '#2 Battaglia Edoardo'
+            value: battaglia-edoardo
           - label: '#6 Materia Matteo'
             value: '24'
+          - label: '#6 Sgraffetto Lorenzo'
+            value: sgraffetto-lorenzo
+          - label: '#7 De Nardis Andrea'
+            value: de-nardis-andrea
           - label: '#8 Betti Alessandro'
             value: '26'
+          - label: '#9 Medeghini Riccardo'
+            value: medeghini-riccardo
+          - label: '#11 Grippa Michele'
+            value: grippa-michele
+          - label: '#12 Harmeet Singh'
+            value: harmeet-singh
+          - label: '#12 Soriaso Tommaso'
+            value: soriaso-tommaso
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Scala Luca'
-            value: '35'
-          - label: '#19 Riccardo Toniolli'
-            value: '25'
+          - label: '#16 Zanrosso Matteo'
+            value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
-          - label: '#24 Ceola Michele'
-            value: '33'
-          - label: '#25 Zarantonello Lorenzo'
-            value: '21'
-          - label: '#28 Tondo Mirko'
-            value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#45 Caccia Neff Joao Pedro'
-            value: '29'
-          - label: '#90 Toniolli Giulio'
-            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
           hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
@@ -732,30 +734,32 @@ collections:
           multiple: true
           required: false
           options:
+          - label: '#2 Battaglia Edoardo'
+            value: battaglia-edoardo
           - label: '#6 Materia Matteo'
             value: '24'
+          - label: '#6 Sgraffetto Lorenzo'
+            value: sgraffetto-lorenzo
+          - label: '#7 De Nardis Andrea'
+            value: de-nardis-andrea
           - label: '#8 Betti Alessandro'
             value: '26'
+          - label: '#9 Medeghini Riccardo'
+            value: medeghini-riccardo
+          - label: '#11 Grippa Michele'
+            value: grippa-michele
+          - label: '#12 Harmeet Singh'
+            value: harmeet-singh
+          - label: '#12 Soriaso Tommaso'
+            value: soriaso-tommaso
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Scala Luca'
-            value: '35'
-          - label: '#19 Riccardo Toniolli'
-            value: '25'
+          - label: '#16 Zanrosso Matteo'
+            value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
-          - label: '#24 Ceola Michele'
-            value: '33'
-          - label: '#25 Zarantonello Lorenzo'
-            value: '21'
-          - label: '#28 Tondo Mirko'
-            value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#45 Caccia Neff Joao Pedro'
-            value: '29'
-          - label: '#90 Toniolli Giulio'
-            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
           hint: Scegli solo giocatori non già presenti nel quintetto.
@@ -765,30 +769,32 @@ collections:
           multiple: true
           required: false
           options:
+          - label: '#2 Battaglia Edoardo'
+            value: battaglia-edoardo
           - label: '#6 Materia Matteo'
             value: '24'
+          - label: '#6 Sgraffetto Lorenzo'
+            value: sgraffetto-lorenzo
+          - label: '#7 De Nardis Andrea'
+            value: de-nardis-andrea
           - label: '#8 Betti Alessandro'
             value: '26'
+          - label: '#9 Medeghini Riccardo'
+            value: medeghini-riccardo
+          - label: '#11 Grippa Michele'
+            value: grippa-michele
+          - label: '#12 Harmeet Singh'
+            value: harmeet-singh
+          - label: '#12 Soriaso Tommaso'
+            value: soriaso-tommaso
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Scala Luca'
-            value: '35'
-          - label: '#19 Riccardo Toniolli'
-            value: '25'
+          - label: '#16 Zanrosso Matteo'
+            value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
-          - label: '#24 Ceola Michele'
-            value: '33'
-          - label: '#25 Zarantonello Lorenzo'
-            value: '21'
-          - label: '#28 Tondo Mirko'
-            value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#45 Caccia Neff Joao Pedro'
-            value: '29'
-          - label: '#90 Toniolli Giulio'
-            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
         - label: Infortunati
@@ -797,30 +803,32 @@ collections:
           multiple: true
           required: false
           options:
+          - label: '#2 Battaglia Edoardo'
+            value: battaglia-edoardo
           - label: '#6 Materia Matteo'
             value: '24'
+          - label: '#6 Sgraffetto Lorenzo'
+            value: sgraffetto-lorenzo
+          - label: '#7 De Nardis Andrea'
+            value: de-nardis-andrea
           - label: '#8 Betti Alessandro'
             value: '26'
+          - label: '#9 Medeghini Riccardo'
+            value: medeghini-riccardo
+          - label: '#11 Grippa Michele'
+            value: grippa-michele
+          - label: '#12 Harmeet Singh'
+            value: harmeet-singh
+          - label: '#12 Soriaso Tommaso'
+            value: soriaso-tommaso
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Scala Luca'
-            value: '35'
-          - label: '#19 Riccardo Toniolli'
-            value: '25'
+          - label: '#16 Zanrosso Matteo'
+            value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
-          - label: '#24 Ceola Michele'
-            value: '33'
-          - label: '#25 Zarantonello Lorenzo'
-            value: '21'
-          - label: '#28 Tondo Mirko'
-            value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#45 Caccia Neff Joao Pedro'
-            value: '29'
-          - label: '#90 Toniolli Giulio'
-            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
       - label: Marcatori
@@ -835,30 +843,32 @@ collections:
           name: playerId
           widget: select
           options:
+          - label: '#2 Battaglia Edoardo'
+            value: battaglia-edoardo
           - label: '#6 Materia Matteo'
             value: '24'
+          - label: '#6 Sgraffetto Lorenzo'
+            value: sgraffetto-lorenzo
+          - label: '#7 De Nardis Andrea'
+            value: de-nardis-andrea
           - label: '#8 Betti Alessandro'
             value: '26'
+          - label: '#9 Medeghini Riccardo'
+            value: medeghini-riccardo
+          - label: '#11 Grippa Michele'
+            value: grippa-michele
+          - label: '#12 Harmeet Singh'
+            value: harmeet-singh
+          - label: '#12 Soriaso Tommaso'
+            value: soriaso-tommaso
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Scala Luca'
-            value: '35'
-          - label: '#19 Riccardo Toniolli'
-            value: '25'
+          - label: '#16 Zanrosso Matteo'
+            value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
-          - label: '#24 Ceola Michele'
-            value: '33'
-          - label: '#25 Zarantonello Lorenzo'
-            value: '21'
-          - label: '#28 Tondo Mirko'
-            value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#45 Caccia Neff Joao Pedro'
-            value: '29'
-          - label: '#90 Toniolli Giulio'
-            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
         - label: Gol
@@ -879,30 +889,32 @@ collections:
           name: playerId
           widget: select
           options:
+          - label: '#2 Battaglia Edoardo'
+            value: battaglia-edoardo
           - label: '#6 Materia Matteo'
             value: '24'
+          - label: '#6 Sgraffetto Lorenzo'
+            value: sgraffetto-lorenzo
+          - label: '#7 De Nardis Andrea'
+            value: de-nardis-andrea
           - label: '#8 Betti Alessandro'
             value: '26'
+          - label: '#9 Medeghini Riccardo'
+            value: medeghini-riccardo
+          - label: '#11 Grippa Michele'
+            value: grippa-michele
+          - label: '#12 Harmeet Singh'
+            value: harmeet-singh
+          - label: '#12 Soriaso Tommaso'
+            value: soriaso-tommaso
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Scala Luca'
-            value: '35'
-          - label: '#19 Riccardo Toniolli'
-            value: '25'
+          - label: '#16 Zanrosso Matteo'
+            value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
-          - label: '#24 Ceola Michele'
-            value: '33'
-          - label: '#25 Zarantonello Lorenzo'
-            value: '21'
-          - label: '#28 Tondo Mirko'
-            value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#45 Caccia Neff Joao Pedro'
-            value: '29'
-          - label: '#90 Toniolli Giulio'
-            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
         - label: Ammonizioni
@@ -923,30 +935,32 @@ collections:
           name: playerId
           widget: select
           options:
+          - label: '#2 Battaglia Edoardo'
+            value: battaglia-edoardo
           - label: '#6 Materia Matteo'
             value: '24'
+          - label: '#6 Sgraffetto Lorenzo'
+            value: sgraffetto-lorenzo
+          - label: '#7 De Nardis Andrea'
+            value: de-nardis-andrea
           - label: '#8 Betti Alessandro'
             value: '26'
+          - label: '#9 Medeghini Riccardo'
+            value: medeghini-riccardo
+          - label: '#11 Grippa Michele'
+            value: grippa-michele
+          - label: '#12 Harmeet Singh'
+            value: harmeet-singh
+          - label: '#12 Soriaso Tommaso'
+            value: soriaso-tommaso
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
-          - label: '#18 Scala Luca'
-            value: '35'
-          - label: '#19 Riccardo Toniolli'
-            value: '25'
+          - label: '#16 Zanrosso Matteo'
+            value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
-          - label: '#24 Ceola Michele'
-            value: '33'
-          - label: '#25 Zarantonello Lorenzo'
-            value: '21'
-          - label: '#28 Tondo Mirko'
-            value: '31'
           - label: '#30 Buda Samuele'
             value: buda-samuele
-          - label: '#45 Caccia Neff Joao Pedro'
-            value: '29'
-          - label: '#90 Toniolli Giulio'
-            value: 20-2
           - label: '#99 Bigonzi Paolo'
             value: '20'
         - label: Espulsioni
@@ -968,10 +982,10 @@ collections:
           name: playerId
           widget: select
           options:
-          - label: '#25 Zarantonello Lorenzo'
-            value: '21'
-          - label: '#90 Toniolli Giulio'
-            value: 20-2
+          - label: '#12 Harmeet Singh'
+            value: harmeet-singh
+          - label: '#12 Soriaso Tommaso'
+            value: soriaso-tommaso
           - label: '#99 Bigonzi Paolo'
             value: '20'
         - label: Gol subiti
