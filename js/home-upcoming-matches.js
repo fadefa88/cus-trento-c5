@@ -76,6 +76,7 @@
   function normalizeFixture(match, key, demo){
     const home = match.home || (key === "u21" ? "CUS Trento U21" : "CUS Trento C5");
     const away = match.away || "Avversario";
+    const finished = isFinished(match);
     return {
       id: match.id,
       key,
@@ -86,6 +87,9 @@
       venue: match.venue || "Campo da definire",
       competition: match.competition || match.round || (key === "u21" ? "Under 21" : "Serie C1"),
       opponentLogo: match.opponentLogo || "",
+      score: match.score || "",
+      status: match.status || "",
+      finished,
       mode: isCus(home) ? "Casa" : "Trasferta",
       demo: !!demo
     };
@@ -111,13 +115,22 @@
       return ta - tb;
     };
 
-    const cms = allRawFixtures()
+    const raw = allRawFixtures();
+    const cms = raw
       .filter(item => item.match && !isFinished(item.match))
       .map(item => normalizeFixture(item.match, item.key, false))
       .filter(match => fixtureDayTimestamp(match) >= todayStart)
       .sort(byDate);
 
-    return {fixtures: cms, usingDemo: false};
+    const latestFinished = raw
+      .filter(item => item.match && isFinished(item.match) && fixtureDayTimestamp(item.match) <= todayStart)
+      .sort((a,b) => fixtureTimestamp(b.match) - fixtureTimestamp(a.match))[0];
+
+    const nextFixtureDay = cms.length ? fixtureDayTimestamp(cms[0]) : Number.MAX_SAFE_INTEGER;
+    const keepLatestResult = !!latestFinished && (nextFixtureDay === Number.MAX_SAFE_INTEGER || todayStart < nextFixtureDay);
+    const latestResult = keepLatestResult ? normalizeFixture(latestFinished.match, latestFinished.key, false) : null;
+
+    return {fixtures: latestResult ? [latestResult, ...cms] : cms, usingDemo: false};
   }
 
   function teamMark(name, match){
@@ -139,11 +152,14 @@
   }
 
   function card(match){
-    const modeClass = norm(match.mode).includes("casa") ? "home" : "away";
+    const isResult = !!match.finished;
+    const modeClass = isResult ? "result" : (norm(match.mode).includes("casa") ? "home" : "away");
+    const badge = isResult ? "Ultimo risultato" : match.mode;
+    const centerValue = isResult ? (match.score || "-") : (match.time || "TBC");
     const click = match.id != null ? `route('match-${js(match.id)}')` : `route('fixtures')`;
     return `<article class="home-upcoming-card" onclick="${click}" tabindex="0" role="button" aria-label="${h(match.home)} contro ${h(match.away)}">
       <div class="home-upcoming-meta">
-        <span class="home-upcoming-mode ${modeClass}">${h(match.mode)}</span>
+        <span class="home-upcoming-mode ${modeClass}">${h(badge)}</span>
         <b>${h(fixtureDate(match.date))}</b>
         <span>${h(match.venue)}</span>
         <em>${h(match.competition)}</em>
@@ -153,7 +169,7 @@
           <div class="home-upcoming-team"><i>${teamMark(match.home, match)}</i><strong>${h(match.home)}</strong></div>
           <div class="home-upcoming-team"><i>${teamMark(match.away, match)}</i><strong>${h(match.away)}</strong></div>
         </div>
-        <div class="home-upcoming-time">${h(match.time || "TBC")}</div>
+        <div class="home-upcoming-time">${h(centerValue)}</div>
       </div>
       <div class="home-upcoming-foot"></div>
     </article>`;
