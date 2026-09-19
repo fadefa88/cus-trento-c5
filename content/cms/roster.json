@@ -37,18 +37,6 @@
       "team": "Prima squadra"
     },
     {
-      "faculty": "Studi Internazionali",
-      "birthPlace": "Casalmaggiore (CR)",
-      "number": 5,
-      "name": "Boldrini Tommaso",
-      "slug": "boldrini-tommaso",
-      "birthDate": "2005-01-11",
-      "photo": "/img/uploads/boldrini.webp",
-      "role": "Centrale",
-      "id": "boldrini-tommaso",
-      "team": "Prima squadra"
-    },
-    {
       "faculty": "Economia e Management",
       "birthPlace": "Thiene (VI)",
       "number": 27,
@@ -86,18 +74,6 @@
     },
     {
       "faculty": "Giurisprudenza",
-      "birthPlace": "Udine",
-      "number": 13,
-      "name": "Addobbati Federico ",
-      "slug": "federico-addobbati",
-      "birthDate": "2004-03-14",
-      "photo": "/img/uploads/addobbati.webp",
-      "role": "Laterale",
-      "id": "9",
-      "team": "Prima squadra"
-    },
-    {
-      "faculty": "Giurisprudenza",
       "birthPlace": "La Spezia",
       "number": 14,
       "name": "Cirasola Luca",
@@ -121,54 +97,6 @@
       "team": "Prima squadra"
     },
     {
-      "faculty": "Ingegneria Informatica",
-      "birthPlace": "Verona",
-      "number": 17,
-      "name": "Baietta Filippo",
-      "slug": "filippo-baietta",
-      "birthDate": "2004-02-28",
-      "photo": "/img/uploads/baietta.webp",
-      "role": "Laterale",
-      "id": "12",
-      "team": "Prima squadra"
-    },
-    {
-      "faculty": "Studi Internazionali",
-      "birthPlace": "Monza",
-      "number": 21,
-      "name": "Maciocia Federico",
-      "slug": "federico-maciocia",
-      "birthDate": "2003-06-30",
-      "photo": "/img/uploads/maciocia.webp",
-      "role": "Laterale",
-      "id": "13",
-      "team": "Prima squadra"
-    },
-    {
-      "faculty": "Ingegneria Civile",
-      "birthPlace": "Brescia",
-      "number": 22,
-      "name": "Zanetti Alessandro",
-      "slug": "alessandro-zanetti",
-      "birthDate": "2002-05-18",
-      "photo": "/img/uploads/zanetti.webp",
-      "role": "Laterale",
-      "id": "14",
-      "team": "Prima squadra"
-    },
-    {
-      "faculty": "Economia e Management",
-      "birthPlace": "San Vito al Tagliamento (PN)",
-      "number": 23,
-      "name": "Frattolin Luca",
-      "slug": "luca-frattolin",
-      "birthDate": "2002-11-25",
-      "photo": "/img/uploads/frattolin.webp",
-      "role": "Laterale",
-      "id": "15",
-      "team": "Prima squadra"
-    },
-    {
       "faculty": "Economia e Management",
       "birthPlace": "Trento",
       "number": 7,
@@ -178,18 +106,6 @@
       "photo": "/img/uploads/loperfido.webp",
       "role": "Pivot",
       "id": "16",
-      "team": "Prima squadra"
-    },
-    {
-      "faculty": "Giurisprudenza",
-      "birthPlace": "Bassano del Grappa",
-      "number": 9,
-      "name": "Vettorazzi Cesare",
-      "slug": "cesare-vettorazzi",
-      "birthDate": "2002-04-26",
-      "photo": "/img/uploads/vettorazzi.webp",
-      "role": "Pivot",
-      "id": "17",
       "team": "Prima squadra"
     },
     {
@@ -350,6 +266,40 @@
       "role": "Pivot",
       "team": "Under 21",
       "number": 16
+    },
+    {
+      "id": "scala-luca",
+      "slug": "scala-luca",
+      "name": "Scala Luca",
+      "role": "Centrale",
+      "team": "Prima squadra",
+      "number": 2,
+      "photo": "/img/uploads/scala.webp"
+    },
+    {
+      "id": "ceola-michele",
+      "slug": "ceola-michele",
+      "name": "Ceola Michele",
+      "role": "Pivot",
+      "team": "Prima squadra",
+      "number": 8,
+      "photo": "/img/uploads/ceola.webp"
+    },
+    {
+      "id": "gobbetti-fabio",
+      "slug": "gobbetti-fabio",
+      "name": "Gobbetti Fabio",
+      "role": "Pivot",
+      "team": "Prima squadra",
+      "number": 7
+    },
+    {
+      "id": "sarcletti-paolo",
+      "slug": "sarcletti-paolo",
+      "name": "Sarcletti Paolo",
+      "role": "Pivot",
+      "team": "Prima squadra",
+      "number": 10
     }
   ]
 }
