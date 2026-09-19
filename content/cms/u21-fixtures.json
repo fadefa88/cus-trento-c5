@@ -7,14 +7,31 @@
       "away": "CUS Trento U23",
       "date": "2026-09-18",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "20",
+          "battaglia-edoardo",
+          "buda-samuele",
+          "28",
+          "30"
+        ],
+        "bench": [
+          "grippa-michele",
+          "medeghini-riccardo",
+          "harmeet-singh",
+          "zanrosso-matteo"
+        ],
         "suspended": [],
         "injured": []
       },
       "venue": "Palazzetto dello Sport \"Angelo Marchetti\"",
       "status": "Da giocare",
       "id": "san-giuseppe-cus-trento-u23-2026-09-18",
+      "yellowCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "30"
+        }
+      ],
       "home": "San Giuseppe",
       "competition": "Coppa"
     },
