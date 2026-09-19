@@ -266,6 +266,16 @@
     window.scorerListHtml.__zeroGoalPatched = true;
   }
 
+  function patchHistoricalNameCapitalization(){
+    if(typeof window.titleCaseWords !== "function" || window.titleCaseWords.__deliaPatched) return;
+    const originalTitleCaseWords = window.titleCaseWords;
+    window.titleCaseWords = function(value){
+      const result = originalTitleCaseWords.apply(this, arguments);
+      return result === "D’elia" ? "D’Elia" : result;
+    };
+    window.titleCaseWords.__deliaPatched = true;
+  }
+
   function patchHistoricalPlayerNames(){
     if(typeof window.historicalPlayerName !== "function" || window.historicalPlayerName.__surnamePatched) return;
     const originalHistoricalPlayerName = window.historicalPlayerName;
@@ -311,15 +321,17 @@
   };
 
   function boot(){
+    patchHistoricalNameCapitalization();
     patchHistoricalPlayerNames();
     patchZeroGoalScorers();
     patchHome();
     insertUpcomingMatches();
-    setTimeout(function(){patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 80);
-    setTimeout(function(){patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 300);
+    setTimeout(function(){patchHistoricalNameCapitalization();patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 80);
+    setTimeout(function(){patchHistoricalNameCapitalization();patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 300);
     setTimeout(updateUpcomingArrows, 520);
   }
 
+  patchHistoricalNameCapitalization();
   patchHistoricalPlayerNames();
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
