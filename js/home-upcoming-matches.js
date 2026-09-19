@@ -97,8 +97,13 @@
 
   function fixtureDayTimestamp(match){
     if(!match || !match.date) return Number.MAX_SAFE_INTEGER;
-    const day = Date.parse(String(match.date).slice(0, 10));
-    return Number.isNaN(day) ? Number.MAX_SAFE_INTEGER : day;
+    const raw = String(match.date).slice(0, 10);
+    const parts = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(parts) return new Date(Number(parts[1]), Number(parts[2]) - 1, Number(parts[3])).getTime();
+    const date = new Date(raw);
+    if(Number.isNaN(date.getTime())) return Number.MAX_SAFE_INTEGER;
+    date.setHours(0, 0, 0, 0);
+    return date.getTime();
   }
 
   function todayStartTimestamp(){
