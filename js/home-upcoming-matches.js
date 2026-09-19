@@ -276,6 +276,18 @@
     window.titleCaseWords.__deliaPatched = true;
   }
 
+  function patchHistoricalRankingPositions(){
+    if(typeof window.rankingRows !== "function" || window.rankingRows.__ordinalPatched) return;
+    const originalRankingRows = window.rankingRows;
+    window.rankingRows = function(rows){
+      const html = String(originalRankingRows.apply(this, arguments));
+      return html.replace(/<tr><td>(\d+)<\/td>/g, function(match, position){
+        return `<tr><td>${position}°</td>`;
+      });
+    };
+    window.rankingRows.__ordinalPatched = true;
+  }
+
   function patchHistoricalPlayerNames(){
     if(typeof window.historicalPlayerName !== "function" || window.historicalPlayerName.__surnamePatched) return;
     const originalHistoricalPlayerName = window.historicalPlayerName;
@@ -322,16 +334,18 @@
 
   function boot(){
     patchHistoricalNameCapitalization();
+    patchHistoricalRankingPositions();
     patchHistoricalPlayerNames();
     patchZeroGoalScorers();
     patchHome();
     insertUpcomingMatches();
-    setTimeout(function(){patchHistoricalNameCapitalization();patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 80);
-    setTimeout(function(){patchHistoricalNameCapitalization();patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 300);
+    setTimeout(function(){patchHistoricalNameCapitalization();patchHistoricalRankingPositions();patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 80);
+    setTimeout(function(){patchHistoricalNameCapitalization();patchHistoricalRankingPositions();patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 300);
     setTimeout(updateUpcomingArrows, 520);
   }
 
   patchHistoricalNameCapitalization();
+  patchHistoricalRankingPositions();
   patchHistoricalPlayerNames();
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
