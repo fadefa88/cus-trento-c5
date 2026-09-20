@@ -47,7 +47,7 @@
       "opponentLogo": "/img/uploads/img_0908.png",
       "slug": "ac-trento-1921-cus-trento-2026-09-26",
       "time": "16:00",
-      "away": "CUS Trento",
+      "away": "Trento 1921",
       "date": "2026-09-26",
       "lineup": {
         "startingFive": [],
@@ -55,10 +55,10 @@
         "suspended": [],
         "injured": []
       },
-      "venue": "Gardolo",
+      "venue": "Gardolo Palazzetto",
       "status": "Da giocare",
       "id": "ac-trento-1921-cus-trento-2026-09-26",
-      "home": "Trento 1921",
+      "home": "CUS Trento",
       "competition": "Coppa"
     },
     {
