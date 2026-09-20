@@ -250,6 +250,50 @@
     window.home.__upcomingPatched = true;
   }
 
+  function currentMatchCenterFixture(){
+    const teamNodes = document.querySelectorAll(".match-teams > div");
+    if(teamNodes.length < 3) return null;
+    const homeName = String(teamNodes[0].querySelector("b")?.textContent || "").trim();
+    const awayName = String(teamNodes[2].querySelector("b")?.textContent || "").trim();
+    if(!homeName || !awayName) return null;
+    return allRawFixtures().map(item => item.match).find(match => String(match.home || "").trim() === homeName && String(match.away || "").trim() === awayName) || null;
+  }
+
+  function applyMatchCenterLogos(){
+    const match = currentMatchCenterFixture();
+    if(!match) return;
+    const teamNodes = document.querySelectorAll(".match-teams > div");
+    [
+      {node:teamNodes[0], name:match.home},
+      {node:teamNodes[2], name:match.away}
+    ].forEach(item => {
+      const mark = item.node && item.node.querySelector(".clubmark");
+      if(!mark) return;
+      mark.innerHTML = teamMark(item.name, match);
+      const img = mark.querySelector("img");
+      if(img){
+        mark.style.background = "white";
+        mark.style.padding = "8px";
+        mark.style.overflow = "hidden";
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.objectFit = "contain";
+        img.style.display = "block";
+      }
+    });
+  }
+
+  function patchMatchCenterLogos(){
+    if(typeof window.matchDetail !== "function" || window.matchDetail.__teamLogosPatched) return;
+    const originalMatchDetail = window.matchDetail;
+    window.matchDetail = function(){
+      const result = originalMatchDetail.apply(this, arguments);
+      setTimeout(applyMatchCenterLogos, 0);
+      return result;
+    };
+    window.matchDetail.__teamLogosPatched = true;
+  }
+
   function patchZeroGoalScorers(){
     if(typeof window.scorerListHtml !== "function" || window.scorerListHtml.__zeroGoalPatched) return;
     const originalScorerListHtml = window.scorerListHtml;
@@ -336,17 +380,20 @@
     patchHistoricalNameCapitalization();
     patchHistoricalRankingPositions();
     patchHistoricalPlayerNames();
+    patchMatchCenterLogos();
     patchZeroGoalScorers();
     patchHome();
+    applyMatchCenterLogos();
     insertUpcomingMatches();
-    setTimeout(function(){patchHistoricalNameCapitalization();patchHistoricalRankingPositions();patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 80);
-    setTimeout(function(){patchHistoricalNameCapitalization();patchHistoricalRankingPositions();patchHistoricalPlayerNames();patchZeroGoalScorers();patchHome();insertUpcomingMatches();}, 300);
+    setTimeout(function(){patchHistoricalNameCapitalization();patchHistoricalRankingPositions();patchHistoricalPlayerNames();patchMatchCenterLogos();patchZeroGoalScorers();patchHome();applyMatchCenterLogos();insertUpcomingMatches();}, 80);
+    setTimeout(function(){patchHistoricalNameCapitalization();patchHistoricalRankingPositions();patchHistoricalPlayerNames();patchMatchCenterLogos();patchZeroGoalScorers();patchHome();applyMatchCenterLogos();insertUpcomingMatches();}, 300);
     setTimeout(updateUpcomingArrows, 520);
   }
 
   patchHistoricalNameCapitalization();
   patchHistoricalRankingPositions();
   patchHistoricalPlayerNames();
+  patchMatchCenterLogos();
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();
