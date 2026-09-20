@@ -197,7 +197,6 @@
     </section>`;
   }
 
-
   function insertUpcomingMatches(){
     const homeRoot = document.querySelector(".home-structure");
     const hero = homeRoot && homeRoot.querySelector(".hero");
@@ -259,6 +258,39 @@
     return allRawFixtures().map(item => item.match).find(match => String(match.home || "").trim() === homeName && String(match.away || "").trim() === awayName) || null;
   }
 
+  function applyMatchCenterMobileWidth(){
+    const teams = document.querySelector(".match-teams");
+    const card = teams && teams.closest(".cup-highlight");
+    if(!teams || !card) return;
+    const grid = card.parentElement;
+    const mobile = window.matchMedia("(max-width: 720px)").matches;
+    if(mobile){
+      if(grid){
+        grid.style.width = "100%";
+        grid.style.maxWidth = "100%";
+        grid.style.minWidth = "0";
+      }
+      card.style.width = "100%";
+      card.style.maxWidth = "100%";
+      card.style.minWidth = "0";
+      card.style.marginLeft = "0";
+      card.style.marginRight = "0";
+      card.style.overflow = "hidden";
+      teams.style.width = "100%";
+      teams.style.maxWidth = "100%";
+      teams.style.minWidth = "0";
+      teams.querySelectorAll(":scope > div").forEach(node => {
+        node.style.minWidth = "0";
+        node.style.maxWidth = "100%";
+      });
+      teams.querySelectorAll("b").forEach(node => {
+        node.style.display = "block";
+        node.style.maxWidth = "100%";
+        node.style.overflowWrap = "anywhere";
+      });
+    }
+  }
+
   function applyMatchCenterLogos(){
     const match = currentMatchCenterFixture();
     if(!match) return;
@@ -281,6 +313,7 @@
         img.style.display = "block";
       }
     });
+    applyMatchCenterMobileWidth();
   }
 
   function patchMatchCenterLogos(){
@@ -394,6 +427,7 @@
   patchHistoricalRankingPositions();
   patchHistoricalPlayerNames();
   patchMatchCenterLogos();
+  window.addEventListener("resize", applyMatchCenterMobileWidth);
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();
