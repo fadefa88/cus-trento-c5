@@ -4,7 +4,7 @@
       "opponentLogo": "/img/uploads/img_0908.png",
       "slug": "cus-trento-ac-trento-1921-2026-09-19",
       "time": "16:00",
-      "away": "Trento 1921",
+      "away": "CUS Trento",
       "date": "2026-09-19",
       "lineup": {
         "startingFive": [
@@ -27,10 +27,20 @@
         "injured": []
       },
       "venue": "Gardolo Palazzetto",
-      "score": "0-4",
+      "score": "4-0",
       "status": "Terminata",
       "id": "cus-trento-ac-trento-1921-2026-09-19",
-      "home": "CUS Trento",
+      "yellowCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "scala-luca"
+        },
+        {
+          "cards": 1,
+          "playerId": "tesser-alvise"
+        }
+      ],
+      "home": "Trento 1921",
       "competition": "Coppa"
     },
     {
