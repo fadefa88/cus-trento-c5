@@ -40,14 +40,14 @@
           "playerId": "tesser-alvise"
         }
       ],
-      "home": "Trento 1921",
+      "home": "Trento",
       "competition": "Coppa"
     },
     {
       "opponentLogo": "/img/uploads/img_0908.png",
       "slug": "ac-trento-1921-cus-trento-2026-09-26",
       "time": "16:00",
-      "away": "Trento 1921",
+      "away": "Trento",
       "date": "2026-09-26",
       "lineup": {
         "startingFive": [],
@@ -245,7 +245,7 @@
       "opponentLogo": "/img/uploads/img_0908.png",
       "slug": "cus-trento-trento-1921-2026-12-12",
       "time": "16:00",
-      "away": "Trento 1921",
+      "away": "Trento",
       "date": "2026-12-12",
       "lineup": {
         "startingFive": [],
@@ -454,7 +454,7 @@
       "venue": "Palazzetto Trento Nord",
       "status": "Da giocare",
       "id": "trento-1921-cus-trento-2027-03-13",
-      "home": "Trento 1921",
+      "home": "Trento",
       "competition": "Campionato"
     }
   ]
