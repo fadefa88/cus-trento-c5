@@ -9,16 +9,16 @@
       "lineup": {
         "startingFive": [
           "20",
-          "battaglia-edoardo",
-          "buda-samuele",
+          "30",
           "28",
-          "30"
+          "buda-samuele",
+          "grippa-michele"
         ],
         "bench": [
-          "grippa-michele",
           "medeghini-riccardo",
           "harmeet-singh",
-          "zanrosso-matteo"
+          "zanrosso-matteo",
+          "battaglia-edoardo"
         ],
         "suspended": [],
         "injured": []
@@ -45,6 +45,20 @@
         {
           "cards": 1,
           "playerId": "30"
+        }
+      ],
+      "goalkeeperEvents": [
+        {
+          "goalsAgainst": 6,
+          "minutes": 40,
+          "appearances": 1,
+          "playerId": "20"
+        },
+        {
+          "goalsAgainst": 3,
+          "minutes": 40,
+          "appearances": 1,
+          "playerId": "harmeet-singh"
         }
       ],
       "home": "San Giuseppe",
