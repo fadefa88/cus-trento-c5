@@ -1,97 +1,125 @@
-name: Temporary site repair
+name: Sync CMS data
 
 on:
   push:
     branches:
       - main
     paths:
+      - content/cms/*.json
       - .github/workflows/sync-roster-options.yml
+      - scripts/sync_roster_options.py
+  workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: sync-cms-data-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  repair-site:
+  sync-cms-data:
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/setup-python@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -r requirements-sportrentino.txt
-      - name: Patch source files
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip pyyaml
+
+      - name: Sync CMS player dropdowns from roster
+        run: python scripts/sync_roster_options.py
+
+      - name: Merge CMS content into frontend data
         shell: bash
         run: |
           python - <<'PY'
+          import json
           from pathlib import Path
 
-          css_path=Path('css/style.css')
-          css=css_path.read_text(encoding='utf-8')
-          marker='/* v55: calendar nowrap */'
-          if marker not in css:
-              css += '''\n\n/* v55: calendar nowrap */\n.fixture .teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px}\n.fixture .teams>span:not(.score){min-width:0;white-space:nowrap}\n.fixture .teams>span:first-child{text-align:left}\n.fixture .teams>span:last-child{text-align:right}\n.fixture .teams>.score{white-space:nowrap;justify-self:center}\n@media(max-width:720px){.fixture .teams{gap:6px;font-size:13px}.fixture .teams>.score{padding:6px 10px;font-size:13px}}\n'''
-          css_path.write_text(css,encoding='utf-8')
+          root = Path('.')
+          data_path = root / 'content' / 'data.json'
+          data = json.loads(data_path.read_text(encoding='utf-8')) if data_path.exists() else {}
 
-          app_path=Path('js/app.js')
-          app=app_path.read_text(encoding='utf-8')
-          app=app.replace('<style>.head .title{display:none!important}</style>','<style>.head{display:none!important}#app>.section:first-child{padding-top:12px!important}@media(max-width:640px){#app>.section:first-child{padding-top:8px!important}}</style>',1)
-          app=app.replace('onclick="route(\'article-${newsSlug(pinned)}\')"','onclick="location.href=\'${newsPath(pinned)}\'"',1)
-          app=app.replace('onclick="route(\'article-${newsSlug(n)}\')"','onclick="location.href=\'${newsPath(n)}\'"',1)
-          app_path.write_text(app,encoding='utf-8')
+          cms_files = [
+              'news.json',
+              'roster.json',
+              'fixtures.json',
+              'u21-fixtures.json',
+              'gallery-albums.json',
+              'sponsors.json',
+              'sponsor-packages.json',
+              'staff.json',
+              'videos.json',
+              'club-history.json',
+              'events.json',
+          ]
 
-          importer_path=Path('scripts/import_sportrentino_news.py')
-          importer=importer_path.read_text(encoding='utf-8')
-          importer=importer.replace('    imported: list[dict] = []\n    scanned_links = 0','    imported: list[dict] = []\n    refreshed: list[dict] = []\n    scanned_links = 0',1)
-          importer=importer.replace('''                if link.url in existing_sources or source_id in existing_source_ids:\n                    continue\n\n                try:\n                    article = extract_article(session, link)''','''                known_exists = link.url in existing_sources or source_id in existing_source_ids\n                archive_has_full = any(\n                    (n.get("sourceUrl") == link.url or str(n.get("sourceId")) == source_id)\n                    and len(str(n.get("bodyHtml") or "")) >= 500\n                    for n in archived_news\n                )\n                repair_mode = known_exists and not archive_has_full\n                if known_exists and not repair_mode:\n                    continue\n\n                try:\n                    article = extract_article(session, link)''',1)
-          importer=importer.replace('''                if news_identity(article) in existing_identities:\n                    time.sleep(args.sleep)\n                    continue\n\n                article["importSource"] = source["name"]''','''                if repair_mode:\n                    refreshed.append(article)\n                    print(f"  REFRESH {article['date']} - {article['title']}", flush=True)\n                    time.sleep(args.sleep)\n                    continue\n\n                if news_identity(article) in existing_identities:\n                    time.sleep(args.sleep)\n                    continue\n\n                article["importSource"] = source["name"]''',1)
-          old='''    if imported:\n        data["news"] = sort_news(imported + existing_news)\n        save_data(data_path, data)\n\n    save_news_index(news_index_path, sort_news(data.get("news", []) + archived_news))'''
-          new='''    if imported:\n        data["news"] = sort_news(imported + existing_news)\n        save_data(data_path, data)\n\n    if imported or refreshed:\n        merged_archive = []\n        seen_archive = set()\n        for item in [*refreshed, *imported, *archived_news]:\n            key = news_identity(item)\n            if key in seen_archive:\n                continue\n            seen_archive.add(key)\n            merged_archive.append(item)\n        archive_payload = load_data(archive_path) if archive_path.exists() else []\n        if isinstance(archive_payload, dict):\n            archive_payload["news"] = sort_news(merged_archive)\n            save_data(archive_path, archive_payload)\n        else:\n            archive_path.write_text(json.dumps(sort_news(merged_archive), ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")\n        archived_news = sort_news(merged_archive)\n\n    save_news_index(news_index_path, sort_news(data.get("news", []) + archived_news))'''
-          if old not in importer:
-              raise SystemExit('Importer final block not found')
-          importer=importer.replace(old,new,1)
-          importer=importer.replace('Importer version: v9 - CMS data.json + read-only imported archive dedup','Importer version: v10 - durable imported archive and incomplete refresh')
-          importer_path.write_text(importer,encoding='utf-8')
+          for name in cms_files:
+              path = root / 'content' / 'cms' / name
+              if not path.exists():
+                  continue
+              payload = json.loads(path.read_text(encoding='utf-8'))
+              if isinstance(payload, dict):
+                  data.update(payload)
 
-          index_path=Path('index.html')
-          index=index_path.read_text(encoding='utf-8')
-          index=index.replace('/css/style.css?v=internal-spacing-v54','/css/style.css?v=calendar-nowrap-v55',1)
-          index=index.replace('/js/app.js?v=news-full-v69','/js/app.js?v=news-static-v70',1)
-          index_path.write_text(index,encoding='utf-8')
+          data_path.write_text(
+              json.dumps(data, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8',
+          )
           PY
-      - name: Refresh incomplete recent news
-        run: python -u scripts/import_sportrentino_news.py --max-pages 1 --sleep 0.10
-      - name: Regenerate static pages
-        run: python scripts/generate_static_pages.py
-      - name: Verify
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          sample=Path('news/calcio-bleggio-dominante-nell-anticipo-riparte-la-serie-d-2026-09-25/index.html').read_text(encoding='utf-8')
-          m=re.search(r'<article class="card card-pad article-body imported-article">([\s\S]*?)</article>',sample)
-          txt=re.sub(r'<[^>]+>',' ',m.group(1) if m else '')
-          txt=re.sub(r'\s+',' ',txt).strip()
-          print('Sample article chars:',len(txt))
-          if len(txt)<500: raise SystemExit('Sample news is still truncated')
-          app=Path('js/app.js').read_text(encoding='utf-8')
-          css=Path('css/style.css').read_text(encoding='utf-8')
-          if 'location.href=\'${newsPath(n)}\'' not in app: raise SystemExit('News still uses SPA routing')
-          if 'white-space:nowrap' not in css: raise SystemExit('Calendar nowrap missing')
-          if 'padding-top:12px!important' not in app: raise SystemExit('Player spacing missing')
-          print('Verification OK')
-          PY
-      - name: Commit and push
+
+      - name: Commit and push synced CMS data
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "Repair recent news content and calendar layout"
-          git push origin HEAD:main
+
+          git add admin/config.yml content/data.json
+
+          if git diff --cached --quiet; then
+            echo "CMS data already in sync."
+            exit 0
+          fi
+
+          git commit -m "Sync CMS data to frontend"
+
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Working tree is not clean after the CMS sync commit."
+            git status --short
+            exit 1
+          fi
+
+          for attempt in 1 2 3; do
+            echo "Push attempt $attempt/3"
+            git fetch origin main
+
+            if git rebase origin/main; then
+              if git push origin HEAD:main; then
+                echo "CMS data synced to main."
+                exit 0
+              fi
+            else
+              echo "Rebase failed. Aborting."
+              git rebase --abort || true
+              exit 1
+            fi
+
+            echo "Push failed, retrying ($attempt/3)..."
+            sleep 3
+          done
+
+          echo "Unable to push synced CMS data after 3 attempts. Check repository rules for GitHub Actions write access to main."
+          exit 1
