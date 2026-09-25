@@ -63,14 +63,8 @@ jobs:
 
           css_path = Path('css/style.css')
           css = css_path.read_text(encoding='utf-8')
-          old_css = '''/* Rosa: cognome pieno, nome 2pt più piccolo */
-.player .card-pad h2.player-card-name{font-size:30px!important;line-height:1;display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
-.player-card-surname{font-size:30px;font-weight:inherit}
-.player-card-given{font-size:27.333px;font-weight:inherit}'''
-          new_css = '''/* Rosa: cognome pieno, nome 2pt più piccolo */
-.player .card-pad h2.player-card-name{font-size:30px!important;line-height:1!important;display:inline-flex;align-items:baseline;gap:7px;flex-wrap:wrap}
-.player .card-pad h2.player-card-name > .player-card-surname{font-size:30px!important;line-height:1!important;font-weight:inherit}
-.player .card-pad h2.player-card-name > .player-card-given{font-size:27.333333px!important;line-height:1!important;font-weight:inherit}'''
+          old_css = '/* Rosa: cognome pieno, nome 2pt più piccolo */\n.player .card-pad h2.player-card-name{font-size:30px!important;line-height:1;display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}\n.player-card-surname{font-size:30px;font-weight:inherit}\n.player-card-given{font-size:27.333px;font-weight:inherit}'
+          new_css = '/* Rosa: cognome pieno, nome 2pt più piccolo */\n.player .card-pad h2.player-card-name{font-size:30px!important;line-height:1!important;display:inline-flex;align-items:baseline;gap:7px;flex-wrap:wrap}\n.player .card-pad h2.player-card-name > .player-card-surname{font-size:30px!important;line-height:1!important;font-weight:inherit}\n.player .card-pad h2.player-card-name > .player-card-given{font-size:27.333333px!important;line-height:1!important;font-weight:inherit}'
           if old_css not in css:
               raise SystemExit('Unable to locate roster card CSS in css/style.css')
           css = css.replace(old_css, new_css, 1)
@@ -78,27 +72,14 @@ jobs:
 
           gen_path = Path('scripts/generate_static_pages.py')
           gen = gen_path.read_text(encoding='utf-8')
-          helper_anchor = '''def public_youth_text(value: Any) -> str:
-    text = str(value or "")
-    text = re.sub(r"\\bunder\\s*21\\b", "Under 23", text, flags=re.I)
-    return re.sub(r"\\bu21\\b", "U23", text, flags=re.I)
-'''
-          helper = helper_anchor + '''\n\ndef roster_card_name_html(value: Any) -> str:
-    parts = str(value or "").strip().split()
-    if not parts:
-        return '<h2 class="player-card-name"></h2>'
-    surname_len = 2 if len(parts) >= 2 and parts[0].lower() == "baccaro" and parts[1].lower() == "zeni" else 1
-    surname = " ".join(parts[:surname_len])
-    given = " ".join(parts[surname_len:])
-    given_html = f' <span class="player-card-given">{esc(given)}</span>' if given else ""
-    return f'<h2 class="player-card-name"><span class="player-card-surname">{esc(surname)}</span>{given_html}</h2>'
-'''
+          helper_anchor = 'def public_youth_text(value: Any) -> str:\n    text = str(value or "")\n    text = re.sub(r"\\bunder\\s*21\\b", "Under 23", text, flags=re.I)\n    return re.sub(r"\\bu21\\b", "U23", text, flags=re.I)\n'
+          helper_extra = '\n\ndef roster_card_name_html(value: Any) -> str:\n    parts = str(value or "").strip().split()\n    if not parts:\n        return \'<h2 class="player-card-name"></h2>\'\n    surname_len = 2 if len(parts) >= 2 and parts[0].lower() == "baccaro" and parts[1].lower() == "zeni" else 1\n    surname = " ".join(parts[:surname_len])\n    given = " ".join(parts[surname_len:])\n    given_html = f\' <span class="player-card-given">{esc(given)}</span>\' if given else ""\n    return f\'<h2 class="player-card-name"><span class="player-card-surname">{esc(surname)}</span>{given_html}</h2>\'\n'
           if helper_anchor not in gen:
               raise SystemExit('Unable to locate public_youth_text in static generator')
           if 'def roster_card_name_html' not in gen:
-              gen = gen.replace(helper_anchor, helper, 1)
-          old_static = '''f\'\'\'<article class="card player"><div class="player-top"><div class="avatar"><img loading="lazy" decoding="async" src="{esc(p.get('photo') or '/img/placeholder.webp')}" alt="{esc(p.get('name'))}"></div></div><div class="card-pad"><span class="badge">{esc(p.get('role'))}</span><h2>{esc(p.get('name'))}</h2><p class="muted">{esc(public_youth_text(p.get('team')))}</p></div></article>\'\'\''''
-          new_static = '''f\'\'\'<article class="card player"><div class="player-top"><div class="avatar"><img loading="lazy" decoding="async" src="{esc(p.get('photo') or '/img/placeholder.webp')}" alt="{esc(p.get('name'))}"></div></div><div class="card-pad"><span class="badge">{esc(p.get('role'))}</span>{roster_card_name_html(p.get('name'))}<p class="muted">{esc(public_youth_text(p.get('team')))}</p></div></article>\'\'\''''
+              gen = gen.replace(helper_anchor, helper_anchor + helper_extra, 1)
+          old_static = 'f\'\'\'<article class="card player"><div class="player-top"><div class="avatar"><img loading="lazy" decoding="async" src="{esc(p.get(\'photo\') or \'/img/placeholder.webp\')}" alt="{esc(p.get(\'name\'))}"></div></div><div class="card-pad"><span class="badge">{esc(p.get(\'role\'))}</span><h2>{esc(p.get(\'name\'))}</h2><p class="muted">{esc(public_youth_text(p.get(\'team\')))}</p></div></article>\'\'\''
+          new_static = 'f\'\'\'<article class="card player"><div class="player-top"><div class="avatar"><img loading="lazy" decoding="async" src="{esc(p.get(\'photo\') or \'/img/placeholder.webp\')}" alt="{esc(p.get(\'name\'))}"></div></div><div class="card-pad"><span class="badge">{esc(p.get(\'role\'))}</span>{roster_card_name_html(p.get(\'name\'))}<p class="muted">{esc(public_youth_text(p.get(\'team\')))}</p></div></article>\'\'\''
           if old_static not in gen:
               raise SystemExit('Unable to locate static roster card markup')
           gen = gen.replace(old_static, new_static, 1)
@@ -126,14 +107,14 @@ jobs:
                   replaced += 1
           if replaced == 0:
               raise SystemExit('No prerendered roster names were updated in squadra/index.html')
-          squad = re.sub(r'/css/style\.css\?v=[^"\']+', '/css/style.css?v=roster-name-v49', squad, count=1)
-          squad = re.sub(r'/js/app\.js\?v=[^"\']+', '/js/app.js?v=roster-name-v66', squad, count=1)
+          squad = re.sub(r'/css/style\.css\?v=[^" ]+', '/css/style.css?v=roster-name-v49', squad, count=1)
+          squad = re.sub(r'/js/app\.js\?v=[^" ]+', '/js/app.js?v=roster-name-v66', squad, count=1)
           squad_path.write_text(squad, encoding='utf-8')
 
           index_path = Path('index.html')
           index = index_path.read_text(encoding='utf-8')
-          index = re.sub(r'/css/style\.css\?v=[^"\']+', '/css/style.css?v=roster-name-v49', index, count=1)
-          index = re.sub(r'/js/app\.js\?v=[^"\']+', '/js/app.js?v=roster-name-v66', index, count=1)
+          index = re.sub(r'/css/style\.css\?v=[^" ]+', '/css/style.css?v=roster-name-v49', index, count=1)
+          index = re.sub(r'/js/app\.js\?v=[^" ]+', '/js/app.js?v=roster-name-v66', index, count=1)
           index_path.write_text(index, encoding='utf-8')
           PY
 
