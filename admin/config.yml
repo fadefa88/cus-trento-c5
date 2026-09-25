@@ -410,7 +410,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goals}} gol'
-        hint: Scegli un giocatore presente in quintetto o panchina, oppure Autogol. L'autogol compare nel tabellino e nelle statistiche stagionali, ma non viene attribuito a un giocatore né sommato allo storico marcatori.
+        hint: Scegli un giocatore presente in quintetto o panchina, oppure Autogol. L'autogol compare nel tabellino e nelle
+          statistiche stagionali, ma non viene attribuito a un giocatore né sommato allo storico marcatori.
         fields:
         - label: Giocatore
           name: playerId
@@ -677,12 +678,16 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
+          - label: '#14 Niccolò Piovesan'
+            value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
           - label: '#16 Zanrosso Matteo'
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#22 Gobbetti Fabio'
+            value: gobbetti-fabio-2
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -712,12 +717,16 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
+          - label: '#14 Niccolò Piovesan'
+            value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
           - label: '#16 Zanrosso Matteo'
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#22 Gobbetti Fabio'
+            value: gobbetti-fabio-2
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -747,12 +756,16 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
+          - label: '#14 Niccolò Piovesan'
+            value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
           - label: '#16 Zanrosso Matteo'
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#22 Gobbetti Fabio'
+            value: gobbetti-fabio-2
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -781,12 +794,16 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
+          - label: '#14 Niccolò Piovesan'
+            value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
           - label: '#16 Zanrosso Matteo'
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#22 Gobbetti Fabio'
+            value: gobbetti-fabio-2
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -797,7 +814,8 @@ collections:
         required: false
         collapsed: true
         summary: '{{fields.playerId}} — {{fields.goals}} gol'
-        hint: Scegli un giocatore presente in quintetto o panchina, oppure Autogol. L'autogol compare nel tabellino e nelle statistiche stagionali, ma non viene attribuito a un giocatore né sommato allo storico marcatori.
+        hint: Scegli un giocatore presente in quintetto o panchina, oppure Autogol. L'autogol compare nel tabellino e nelle
+          statistiche stagionali, ma non viene attribuito a un giocatore né sommato allo storico marcatori.
         fields:
         - label: Giocatore
           name: playerId
@@ -821,12 +839,16 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
+          - label: '#14 Niccolò Piovesan'
+            value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
           - label: '#16 Zanrosso Matteo'
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#22 Gobbetti Fabio'
+            value: gobbetti-fabio-2
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -869,12 +891,16 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
+          - label: '#14 Niccolò Piovesan'
+            value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
           - label: '#16 Zanrosso Matteo'
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#22 Gobbetti Fabio'
+            value: gobbetti-fabio-2
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -915,12 +941,16 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
+          - label: '#14 Niccolò Piovesan'
+            value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
           - label: '#16 Zanrosso Matteo'
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#22 Gobbetti Fabio'
+            value: gobbetti-fabio-2
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
