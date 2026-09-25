@@ -664,28 +664,16 @@
   ],
   "u21Standings": [
     {
-      "g": 0,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25240logo.png",
-      "gs": 0,
+      "g": 1,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25249logo.png",
+      "gs": 4,
       "n": 0,
-      "pts": 0,
+      "pts": 3,
       "p": 0,
       "pos": 1,
-      "v": 0,
-      "team": "ALTA GIUDICARIE",
-      "gf": 0
-    },
-    {
-      "g": 0,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25248logo.png",
-      "gs": 0,
-      "n": 0,
-      "pts": 0,
-      "p": 0,
-      "pos": 1,
-      "v": 0,
-      "team": "SETTAURENSE",
-      "gf": 0
+      "v": 1,
+      "team": "CALCIO BLEGGIO",
+      "gf": 11
     },
     {
       "g": 0,
@@ -694,7 +682,7 @@
       "n": 0,
       "pts": 0,
       "p": 0,
-      "pos": 1,
+      "pos": 2,
       "v": 0,
       "team": "ATHESIS",
       "gf": 0
@@ -706,7 +694,7 @@
       "n": 0,
       "pts": 0,
       "p": 0,
-      "pos": 1,
+      "pos": 2,
       "v": 0,
       "team": "LEDRENSE",
       "gf": 0
@@ -718,7 +706,7 @@
       "n": 0,
       "pts": 0,
       "p": 0,
-      "pos": 1,
+      "pos": 2,
       "v": 0,
       "team": "NOMI",
       "gf": 0
@@ -730,7 +718,7 @@
       "n": 0,
       "pts": 0,
       "p": 0,
-      "pos": 1,
+      "pos": 2,
       "v": 0,
       "team": "LAGARINA",
       "gf": 0
@@ -742,7 +730,7 @@
       "n": 0,
       "pts": 0,
       "p": 0,
-      "pos": 1,
+      "pos": 2,
       "v": 0,
       "team": "SAN FLORIANO",
       "gf": 0
@@ -754,7 +742,7 @@
       "n": 0,
       "pts": 0,
       "p": 0,
-      "pos": 1,
+      "pos": 2,
       "v": 0,
       "team": "CUS TRENTO U23",
       "gf": 0
@@ -766,22 +754,34 @@
       "n": 0,
       "pts": 0,
       "p": 0,
-      "pos": 1,
+      "pos": 2,
       "v": 0,
       "team": "SAN GIUSEPPE",
       "gf": 0
     },
     {
       "g": 0,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25249logo.png",
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25240logo.png",
       "gs": 0,
       "n": 0,
       "pts": 0,
       "p": 0,
-      "pos": 1,
+      "pos": 2,
       "v": 0,
-      "team": "CALCIO BLEGGIO",
+      "team": "ALTA GIUDICARIE",
       "gf": 0
+    },
+    {
+      "g": 1,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25248logo.png",
+      "gs": 11,
+      "n": 0,
+      "pts": 0,
+      "p": 1,
+      "pos": 10,
+      "v": 0,
+      "team": "SETTAURENSE",
+      "gf": 4
     }
   ],
   "news": [
