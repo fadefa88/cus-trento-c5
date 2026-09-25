@@ -273,7 +273,7 @@
       "name": "Scala Luca",
       "role": "Centrale",
       "team": "Prima squadra",
-      "number": 2,
+      "number": 22,
       "photo": "/img/uploads/scala.webp"
     },
     {
@@ -282,7 +282,7 @@
       "name": "Ceola Michele",
       "role": "Pivot",
       "team": "Prima squadra",
-      "number": 8,
+      "number": 5,
       "photo": "/img/uploads/ceola.webp"
     },
     {
@@ -299,12 +299,12 @@
       "name": "Sarcletti Paolo",
       "role": "Pivot",
       "team": "Prima squadra",
-      "number": 10
+      "number": 17
     },
     {
       "id": "niccolo-piovesan",
       "slug": "niccolo-piovesan",
-      "name": "Niccolò Piovesan",
+      "name": "Piovesan Niccolò",
       "role": "Centrale",
       "team": "Under 21",
       "number": 14
