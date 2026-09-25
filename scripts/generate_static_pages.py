@@ -719,7 +719,10 @@ def render_object_page(key: str, item: Dict[str, Any]) -> str:
         f'<aside class="card card-pad"><h2>Dettagli</h2><div class="player-info-grid">{"".join(details) or "<p class=\"muted\">Dettagli in aggiornamento.</p>"}</div></aside>'
         f'</div>'
     )
-    return render_shell(crumbs[1], title, body)
+    rendered = render_shell(crumbs[1], title, body)
+    if key == "roster":
+        rendered = rendered.replace(f'<h1 class="title">{esc(title)}</h1>', "")
+    return rendered
 
 
 def generate_object_pages(data: Dict[str, Any], urls: List[Tuple[str, str]]) -> None:

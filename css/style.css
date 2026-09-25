@@ -1255,5 +1255,8 @@ body.menu-open{
 /* Rosa: cognome pieno, nome 2pt più piccolo */
 .player .card-pad h2.player-card-name{font-size:30px!important;line-height:1!important;display:inline-flex;align-items:baseline;gap:7px;flex-wrap:wrap}
 .player .card-pad h2.player-card-name > .player-card-surname{font-size:30px!important;line-height:1!important;font-weight:inherit}
-.player .card-pad h2.player-card-name > .player-card-given{font-size:27.333333px!important;line-height:1!important;font-weight:inherit}
+.player .card-pad h2.player-card-name > .player-card-given{font-size:27.333333px!important;line-height:1!important;font-weight:500!important}
 .scorer-balls{display:inline-flex;gap:2px;margin-left:4px;letter-spacing:1px;white-space:nowrap}
+
+.player-detail-heading h2.player-profile-name > .player-card-surname{font-size:inherit!important;line-height:inherit!important;font-weight:1000!important}
+.player-detail-heading h2.player-profile-name > .player-card-given{font-size:inherit!important;line-height:inherit!important;font-weight:500!important}
