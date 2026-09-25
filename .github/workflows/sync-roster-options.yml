@@ -80,6 +80,26 @@ jobs:
           )
           PY
 
+      - name: Include First Team scorers in U23 statistics
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('js/app.js')
+          text = path.read_text(encoding='utf-8')
+          old = 'const roster=teamRosterForStats(isU21);const allowed=new Set([...roster.map(p=>String(p.id)),OWN_GOAL_ID]);'
+          new = 'const roster=isU21?(state.roster||[]):teamRosterForStats(false);const allowed=new Set([...roster.map(p=>String(p.id)),OWN_GOAL_ID]);'
+
+          if new in text:
+              print('U23 scorer filtering already patched.')
+          elif old in text:
+              path.write_text(text.replace(old, new, 1), encoding='utf-8')
+              print('U23 scorer filtering patched.')
+          else:
+              raise SystemExit('Expected U23 scorer filter not found in js/app.js')
+          PY
+
       - name: Commit and push synced CMS data
         shell: bash
         run: |
@@ -87,7 +107,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add admin/config.yml content/data.json
+          git add admin/config.yml content/data.json js/app.js
 
           if git diff --cached --quiet; then
             echo "CMS data already in sync."
