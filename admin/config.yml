@@ -266,22 +266,18 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Scala Luca'
-            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
+          - label: '#5 Ceola Michele'
+            value: ceola-michele
           - label: '#7 Gobbetti Fabio'
             value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#8 Ceola Michele'
-            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
-          - label: '#10 Sarcletti Paolo'
-            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
@@ -290,6 +286,10 @@ collections:
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
+          - label: '#17 Sarcletti Paolo'
+            value: sarcletti-paolo
+          - label: '#22 Scala Luca'
+            value: scala-luca
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -303,22 +303,18 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Scala Luca'
-            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
+          - label: '#5 Ceola Michele'
+            value: ceola-michele
           - label: '#7 Gobbetti Fabio'
             value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#8 Ceola Michele'
-            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
-          - label: '#10 Sarcletti Paolo'
-            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
@@ -327,6 +323,10 @@ collections:
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
+          - label: '#17 Sarcletti Paolo'
+            value: sarcletti-paolo
+          - label: '#22 Scala Luca'
+            value: scala-luca
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -340,22 +340,18 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Scala Luca'
-            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
+          - label: '#5 Ceola Michele'
+            value: ceola-michele
           - label: '#7 Gobbetti Fabio'
             value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#8 Ceola Michele'
-            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
-          - label: '#10 Sarcletti Paolo'
-            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
@@ -364,6 +360,10 @@ collections:
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
+          - label: '#17 Sarcletti Paolo'
+            value: sarcletti-paolo
+          - label: '#22 Scala Luca'
+            value: scala-luca
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -376,22 +376,18 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Scala Luca'
-            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
+          - label: '#5 Ceola Michele'
+            value: ceola-michele
           - label: '#7 Gobbetti Fabio'
             value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#8 Ceola Michele'
-            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
-          - label: '#10 Sarcletti Paolo'
-            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
@@ -400,6 +396,10 @@ collections:
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
+          - label: '#17 Sarcletti Paolo'
+            value: sarcletti-paolo
+          - label: '#22 Scala Luca'
+            value: scala-luca
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -419,22 +419,18 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Scala Luca'
-            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
+          - label: '#5 Ceola Michele'
+            value: ceola-michele
           - label: '#7 Gobbetti Fabio'
             value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#8 Ceola Michele'
-            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
-          - label: '#10 Sarcletti Paolo'
-            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
@@ -443,6 +439,10 @@ collections:
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
+          - label: '#17 Sarcletti Paolo'
+            value: sarcletti-paolo
+          - label: '#22 Scala Luca'
+            value: scala-luca
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -469,22 +469,18 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Scala Luca'
-            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
+          - label: '#5 Ceola Michele'
+            value: ceola-michele
           - label: '#7 Gobbetti Fabio'
             value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#8 Ceola Michele'
-            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
-          - label: '#10 Sarcletti Paolo'
-            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
@@ -493,6 +489,10 @@ collections:
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
+          - label: '#17 Sarcletti Paolo'
+            value: sarcletti-paolo
+          - label: '#22 Scala Luca'
+            value: scala-luca
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -517,22 +517,18 @@ collections:
           options:
           - label: '#1 Safi Saif Edine'
             value: '1'
-          - label: '#2 Scala Luca'
-            value: scala-luca
           - label: '#3 Filippi Davide'
             value: '7'
           - label: '#4 Tesser Alvise'
             value: tesser-alvise
+          - label: '#5 Ceola Michele'
+            value: ceola-michele
           - label: '#7 Gobbetti Fabio'
             value: gobbetti-fabio
           - label: '#7 Loperfido Damiano'
             value: '16'
-          - label: '#8 Ceola Michele'
-            value: ceola-michele
           - label: '#10 Martinelli Andrea'
             value: '19'
-          - label: '#10 Sarcletti Paolo'
-            value: sarcletti-paolo
           - label: '#11 Vaia Mattia'
             value: '8'
           - label: '#12 Baccaro Zeni Lucca'
@@ -541,6 +537,10 @@ collections:
             value: '10'
           - label: '#16 Zampedri Daniele'
             value: '11'
+          - label: '#17 Sarcletti Paolo'
+            value: sarcletti-paolo
+          - label: '#22 Scala Luca'
+            value: scala-luca
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
@@ -678,7 +678,7 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
-          - label: '#14 Niccolò Piovesan'
+          - label: '#14 Piovesan Niccolò'
             value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
@@ -715,7 +715,7 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
-          - label: '#14 Niccolò Piovesan'
+          - label: '#14 Piovesan Niccolò'
             value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
@@ -752,7 +752,7 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
-          - label: '#14 Niccolò Piovesan'
+          - label: '#14 Piovesan Niccolò'
             value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
@@ -788,7 +788,7 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
-          - label: '#14 Niccolò Piovesan'
+          - label: '#14 Piovesan Niccolò'
             value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
@@ -831,7 +831,7 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
-          - label: '#14 Niccolò Piovesan'
+          - label: '#14 Piovesan Niccolò'
             value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
@@ -881,7 +881,7 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
-          - label: '#14 Niccolò Piovesan'
+          - label: '#14 Piovesan Niccolò'
             value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
@@ -929,7 +929,7 @@ collections:
             value: harmeet-singh
           - label: '#12 Soriaso Tommaso'
             value: soriaso-tommaso
-          - label: '#14 Niccolò Piovesan'
+          - label: '#14 Piovesan Niccolò'
             value: niccolo-piovesan
           - label: '#15 Dancus Adrian Gavril'
             value: '30'
