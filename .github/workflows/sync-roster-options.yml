@@ -38,6 +38,27 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip pyyaml
 
+      - name: Remove goalkeeper minutes field from CMS
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('admin/config.yml')
+          text = path.read_text(encoding='utf-8')
+          block = """        - label: Minuti
+          name: minutes
+          widget: number
+          value_type: int
+          default: 40
+          min: 0
+"""
+          count = text.count(block)
+          if count != 2:
+              raise SystemExit(f'Expected 2 goalkeeper minutes fields, found {count}')
+          path.write_text(text.replace(block, ''), encoding='utf-8')
+          PY
+
       - name: Sync CMS player dropdowns from roster
         run: python scripts/sync_roster_options.py
 
@@ -94,7 +115,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Sync CMS data to frontend"
+          git commit -m "Remove goalkeeper minutes field from CMS"
 
           if [ -n "$(git status --porcelain)" ]; then
             echo "::error::Working tree is not clean after the CMS sync commit."
