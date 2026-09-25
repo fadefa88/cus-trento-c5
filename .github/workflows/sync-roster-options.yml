@@ -1,125 +1,129 @@
-name: Sync CMS data
+name: Temporary news cleanup
 
 on:
   push:
     branches:
       - main
     paths:
-      - content/cms/*.json
       - .github/workflows/sync-roster-options.yml
-      - scripts/sync_roster_options.py
-  workflow_dispatch:
 
 permissions:
   contents: write
 
-concurrency:
-  group: sync-cms-data-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  sync-cms-data:
+  cleanup-news:
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
+    timeout-minutes: 20
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
-      - name: Install dependencies
-        run: python -m pip install --upgrade pip pyyaml
-
-      - name: Sync CMS player dropdowns from roster
-        run: python scripts/sync_roster_options.py
-
-      - name: Merge CMS content into frontend data
+      - run: pip install -r requirements-sportrentino.txt
+      - name: Improve article block deduplication
         shell: bash
         run: |
           python - <<'PY'
-          import json
           from pathlib import Path
-
-          root = Path('.')
-          data_path = root / 'content' / 'data.json'
-          data = json.loads(data_path.read_text(encoding='utf-8')) if data_path.exists() else {}
-
-          cms_files = [
-              'news.json',
-              'roster.json',
-              'fixtures.json',
-              'u21-fixtures.json',
-              'gallery-albums.json',
-              'sponsors.json',
-              'sponsor-packages.json',
-              'staff.json',
-              'videos.json',
-              'club-history.json',
-              'events.json',
-          ]
-
-          for name in cms_files:
-              path = root / 'content' / 'cms' / name
-              if not path.exists():
-                  continue
-              payload = json.loads(path.read_text(encoding='utf-8'))
-              if isinstance(payload, dict):
-                  data.update(payload)
-
-          data_path.write_text(
-              json.dumps(data, ensure_ascii=False, indent=2) + '\n',
-              encoding='utf-8',
-          )
+          path=Path('scripts/import_sportrentino_news.py')
+          text=path.read_text(encoding='utf-8')
+          old='''        if txt in seen_blocks:\n            continue\n\n        # Evita blocchi sidebar/menu.'''
+          new='''        if txt in seen_blocks:\n            continue\n\n        # HTML SporTrentino può essere malformato: un primo <p> può inglobare\n        # anche i paragrafi successivi. In quel caso find_all_next() li vede\n        # di nuovo singolarmente. Se il blocco corrente è già contenuto in un\n        # blocco precedente, non renderizzarlo una seconda volta.\n        if any(txt in previous for previous in seen_blocks):\n            continue\n\n        # Evita blocchi sidebar/menu.'''
+          if old not in text:
+              raise SystemExit('Dedup insertion point not found')
+          text=text.replace(old,new,1)
+          path.write_text(text,encoding='utf-8')
           PY
+      - name: Refresh current page-one CUS articles with clean bodies
+        shell: bash
+        run: |
+          python - <<'PY'
+          import importlib.util
+          import json
+          import time
+          from pathlib import Path
+          import requests
 
-      - name: Commit and push synced CMS data
+          spec=importlib.util.spec_from_file_location('imp','scripts/import_sportrentino_news.py')
+          imp=importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(imp)
+
+          archive_path=Path('content/news.imported.json')
+          payload=json.loads(archive_path.read_text(encoding='utf-8'))
+          archive=payload.get('news',[]) if isinstance(payload,dict) else payload
+          by_source={str(n.get('sourceUrl') or ''):n for n in archive if isinstance(n,dict) and n.get('sourceUrl')}
+          by_source_id={str(n.get('sourceId') or ''):n for n in archive if isinstance(n,dict) and n.get('sourceId') is not None}
+
+          session=requests.Session()
+          source=imp.LIST_SOURCES[0]
+          list_html=imp.fetch(session,imp.list_page_url(source,1))
+          links=imp.extract_article_links(list_html)
+          repaired=0
+          for link in links:
+              source_id=imp.article_id_from_url(link.url)
+              previous=by_source.get(link.url) or by_source_id.get(source_id)
+              if not previous:
+                  continue
+              article=imp.extract_article(session,link)
+              if not article:
+                  continue
+              article['id']=previous.get('id',article.get('id'))
+              if previous.get('slug'):
+                  article['slug']=previous['slug']
+              article['importSource']=previous.get('importSource',source['name'])
+              key=imp.news_identity(previous)
+              for i,item in enumerate(archive):
+                  if imp.news_identity(item)==key:
+                      archive[i]=article
+                      repaired+=1
+                      print('CLEANED',article.get('title'),'chars',len(str(article.get('bodyHtml') or '')))
+                      break
+              time.sleep(0.08)
+
+          if isinstance(payload,dict):
+              payload['news']=imp.sort_news(archive)
+              archive_path.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          else:
+              archive_path.write_text(json.dumps(imp.sort_news(archive),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          data=json.loads(Path('content/data.json').read_text(encoding='utf-8'))
+          imp.save_news_index(Path('content/news.index.json'),imp.sort_news(data.get('news',[])+archive))
+          print('Cleaned current archived articles:',repaired)
+          if repaired==0:
+              raise SystemExit('No current archived article was cleaned')
+          PY
+      - name: Regenerate and verify clean article
+        shell: bash
+        run: |
+          python scripts/generate_static_pages.py
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          path=Path('news/calcio-bleggio-dominante-nell-anticipo-riparte-la-serie-d-2026-09-25/index.html')
+          html=path.read_text(encoding='utf-8')
+          m=re.search(r'<article class="card card-pad article-body imported-article">([\s\S]*?)</article>',html)
+          body=m.group(1) if m else ''
+          text=re.sub(r'<[^>]+>',' ',body)
+          text=re.sub(r'\s+',' ',text).strip()
+          marker='CUS TRENTO U23 – SAN FLORIANO'
+          occurrences=text.count(marker)
+          print('Clean sample chars:',len(text),'marker occurrences:',occurrences)
+          if len(text)<1500:
+              raise SystemExit('Article became too short')
+          if occurrences!=1:
+              raise SystemExit(f'Article still contains duplicated nested blocks: {occurrences}')
+          print('Clean article verification OK')
+          PY
+      - name: Commit and push
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add admin/config.yml content/data.json
-
-          if git diff --cached --quiet; then
-            echo "CMS data already in sync."
-            exit 0
-          fi
-
-          git commit -m "Sync CMS data to frontend"
-
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "::error::Working tree is not clean after the CMS sync commit."
-            git status --short
-            exit 1
-          fi
-
-          for attempt in 1 2 3; do
-            echo "Push attempt $attempt/3"
-            git fetch origin main
-
-            if git rebase origin/main; then
-              if git push origin HEAD:main; then
-                echo "CMS data synced to main."
-                exit 0
-              fi
-            else
-              echo "Rebase failed. Aborting."
-              git rebase --abort || true
-              exit 1
-            fi
-
-            echo "Push failed, retrying ($attempt/3)..."
-            sleep 3
-          done
-
-          echo "Unable to push synced CMS data after 3 attempts. Check repository rules for GitHub Actions write access to main."
-          exit 1
+          git add -A
+          git commit -m "Clean duplicated SporTrentino article bodies"
+          git push origin HEAD:main
