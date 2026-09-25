@@ -576,7 +576,11 @@ def article_body_html(item: Dict[str, Any]) -> str:
     if item.get("image"):
         parts.append(f'<img class="article-hero" loading="eager" decoding="async" src="{esc(item.get("image"))}" alt="{esc(item.get("title"))}">')
 
-    if isinstance(item.get("contentBlocks"), list):
+    if item.get("bodyHtml"):
+        clean = re.sub(r"<script[\s\S]*?</script>", "", str(item["bodyHtml"]), flags=re.I)
+        clean = re.sub(r"<style[\s\S]*?</style>", "", clean, flags=re.I)
+        parts.append(clean)
+    elif isinstance(item.get("contentBlocks"), list):
         for block in item["contentBlocks"]:
             if not isinstance(block, dict):
                 continue
@@ -600,10 +604,6 @@ def article_body_html(item: Dict[str, Any]) -> str:
             text = para.strip()
             if text:
                 parts.append(f"<p>{esc(text)}</p>")
-    elif item.get("bodyHtml"):
-        clean = re.sub(r"<script[\s\S]*?</script>", "", str(item["bodyHtml"]), flags=re.I)
-        clean = re.sub(r"<style[\s\S]*?</style>", "", clean, flags=re.I)
-        parts.append(clean)
     else:
         parts.append(f'<p>{esc(item.get("excerpt") or "")}</p>')
 

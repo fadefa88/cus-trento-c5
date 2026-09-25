@@ -2090,6 +2090,7 @@ async function loadCmsDataOverrides(){
 async function bootData(){
   let dataLoaded = false;
   let loadError = null;
+  const preservePrerenderedArticle = String(current||"").startsWith("article-") && app && app.dataset.prerendered === "true";
 
   try{
     const res = await fetch('/content/data.json', {cache:'no-cache'});
@@ -2118,7 +2119,7 @@ async function bootData(){
     console.error("Errore caricamento content/data.json. Il sito sta usando i defaults interni di app.js.", e);
   }
 
-  render();
+  if(!preservePrerenderedArticle) render();
 
   if(!dataLoaded && app){
     app.insertAdjacentHTML("afterbegin", `
