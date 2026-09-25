@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
 <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/></noscript>
-<link rel="stylesheet" href="/css/style.css?v=internal-spacing-v54"/>
+<link rel="stylesheet" href="/css/style.css?v=calendar-nowrap-v55"/>
 <link rel="stylesheet" href="/css/home-structure.css?v=home-structure-v51"/>
 <link rel="stylesheet" href="/css/home-upcoming-matches.css?v=home-upcoming-v21-mobile-result"/>
 <link rel="stylesheet" href="/css/site-navigation-rework.css?v=internal-spacing-v60"/>
@@ -63,13 +63,13 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 </div>
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true"></div>
 <main id="app" data-prerendered="true">
-<section class="section seo-prerender"><div class="container"><div class="head"><div><span class="eyebrow">SporTrentino</span><h1 class="title">Serie D: gli anticipi a Stella Verde, Tridentum e Cus Trento</h1></div></div>
+<section class="section seo-prerender"><div class="container"><div class="head"><div><h1 class="title">Serie D: gli anticipi a Stella Verde, Tridentum e Cus Trento</h1></div></div>
     <div class="breadcrumb"><a class="back-link" href="/news/"><span>←</span> News</a><span>2012-01-20 · SporTrentino.it</span></div>
     <div class="badge-row" style="margin:0 0 14px"><span class="badge">SporTrentino</span><span class="badge">Prima squadra</span></div>
     <div class="grid grid" style="margin-top:28px"><article class="card card-pad article-body imported-article">
       <img class="article-hero" loading="eager" decoding="async" src="/img/placeholder.webp" alt="Serie D: gli anticipi a Stella Verde, Tridentum e Cus Trento">
-<p>Tempo di anticipi, ieri sera, in serie D. Nel girone A successo esterno della Stella Verde sulla Ledrense per 5-8, con i lagarini che avvicinano così la Ledrense in classifica. Vince in casa, 3-1, invece la Tridentum Daunex che supera il Carisolo. Nel girone C, invece, vittoria 11-6 del Cus Trento sull&#x27;Anaune. Tutti i risultati completi e le classifiche li trovate nella sezione “Campionati” - “Serie D” - “Girone A/B/C” - “Ultima”.</p>
-<p>Tutti i risultati completi e le classifiche li trovate nella sezione “Campionati” - “Serie D” - “Girone A/B/C” - “Ultima”.</p>
+<p>Tempo di anticipi, ieri sera, in serie D. Nel girone A successo esterno della Stella Verde sulla Ledrense per 5-8, con i lagarini che avvicinano così la Ledrense in classifica. Vince in casa, 3-1, invece la Tridentum Daunex che supera il Carisolo. Nel girone C, invece, vittoria 11-6 del Cus Trento sull'Anaune.<strong>Tutti i risultati completi e le classifiche li trovate nella sezione “Campionati” - “Serie D” - “Girone A/B/C” - “Ultima”. </strong></p>
+<p><strong>Tutti i risultati completi e le classifiche li trovate nella sezione “Campionati” - “Serie D” - “Girone A/B/C” - “Ultima”. </strong></p>
 <div class="source-box"><b>Fonte:</b> <a href="https://calcioa5.sportrentino.it/notizie.asp?n=40075&amp;l=0" target="_blank" rel="noopener noreferrer">SporTrentino.it</a></div>
     </article></div>
     </div></section>
@@ -98,14 +98,14 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     <div id="lightboxCaption" class="lightbox-caption"></div>
   </div>
 </div>
-<script src="/js/app.js?v=internal-shell-v68" defer></script>
+<script src="/js/app.js?v=news-static-v70" defer></script>
 <script src="/js/home-structure.js?v=home-news-v53" defer></script>
 <script src="/js/home-upcoming-matches.js?v=home-upcoming-v19-opponent-logo" defer></script>
 <script src="/js/site-navigation-rework.js?v=internal-layout-v60" defer></script>
 <script src="/js/contact-security.js?v=turnstile-v5-partner-cms" defer></script>
 <script>
 (function(){
-  const routePaths={home:"/","teams-overview":"/squadre/",squad:"/squadra/",staff:"/staff/",stats:"/statistiche/","play-with-us":"/gioca-con-noi/",fixtures:"/calendario/",standings:"/classifica/",coppa:"/coppa/",cnu:"/cnu/","season-archive":"/archivio-stagioni/",matchday:"/matchday/",events:"/eventi/","events:upcoming":"/eventi/#prossimi-eventi","events:tournaments":"/eventi/#tornei","events:selections":"/eventi/#selezioni","events:archive":"/eventi/#archivio-eventi",partner:"/partner/","become-partner":"/diventa-partner/",news:"/news/",gallery:"/gallery/",video:"/video/",social:"/social/","club-project":"/club/",venue:"/impianto/",records:"/hall-of-fame/",contacts:"/contatti/",privacy:"/privacy/",cookies:"/cookies/",sponsor:"/partner/",club:"/club/"};
+  const routePaths={home:"/","teams-overview":"/squadre/",squad:"/squadra/",staff:"/staff/",stats:"/statistiche/","play-with-us":"/gioca-con-noi/",fixtures:"/calendario/",standings:"/classifica/",coppa:"/coppa/",cnu:"/cnu/","season-archive":"/archivio-stagioni/",events:"/eventi/","events:upcoming":"/eventi/#prossimi-eventi","events:tournaments":"/eventi/#tornei","events:selections":"/eventi/#selezioni","events:archive":"/eventi/#archivio-eventi",partner:"/partner/","become-partner":"/diventa-partner/",news:"/news/",gallery:"/gallery/",video:"/video/",social:"/social/","club-project":"/club/",venue:"/impianto/",records:"/hall-of-fame/",contacts:"/contatti/",privacy:"/privacy/",cookies:"/cookies/",sponsor:"/partner/",club:"/club/"};
   const nativeScrollTo=window.scrollTo ? window.scrollTo.bind(window) : null;
   window.scrollTo=function(){
     const first=arguments[0];

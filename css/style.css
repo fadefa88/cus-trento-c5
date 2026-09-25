@@ -1271,3 +1271,12 @@ body.menu-open{
 #app > .section:first-child{padding-top:28px!important}
 #app > .section:first-child > .container > .head{margin-bottom:26px!important}
 @media(max-width:640px){#app > .section:first-child{padding-top:22px!important}}
+
+
+/* v55: calendar nowrap */
+.fixture .teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px}
+.fixture .teams>span:not(.score){min-width:0;white-space:nowrap}
+.fixture .teams>span:first-child{text-align:left}
+.fixture .teams>span:last-child{text-align:right}
+.fixture .teams>.score{white-space:nowrap;justify-self:center}
+@media(max-width:720px){.fixture .teams{gap:6px;font-size:13px}.fixture .teams>.score{padding:6px 10px;font-size:13px}}

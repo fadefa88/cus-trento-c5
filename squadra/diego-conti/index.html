@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
 <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/></noscript>
-<link rel="stylesheet" href="/css/style.css?v=internal-spacing-v54"/>
+<link rel="stylesheet" href="/css/style.css?v=calendar-nowrap-v55"/>
 <link rel="stylesheet" href="/css/home-structure.css?v=home-structure-v51"/>
 <link rel="stylesheet" href="/css/home-upcoming-matches.css?v=home-upcoming-v21-mobile-result"/>
 <link rel="stylesheet" href="/css/site-navigation-rework.css?v=internal-spacing-v60"/>
@@ -63,7 +63,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 </div>
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true"></div>
 <main id="app" data-prerendered="true">
-<section class="section seo-prerender"><div class="container"><div class="head"><div><span class="eyebrow">Rosa</span><h1 class="title">Conti Diego</h1></div></div><div class="breadcrumb"><a class="back-link" href="/squadra/"><span>←</span> Rosa</a><span>diego-conti</span></div><div class="grid grid-2" style="margin-top:28px"><article class="card card-pad article-body imported-article"><img class="article-hero" loading="eager" decoding="async" src="/img/uploads/conti.webp" alt="Conti Diego"><p>Scheda in aggiornamento.</p></article><aside class="card card-pad"><h2>Dettagli</h2><div class="player-info-grid"><div class="player-info-box"><span>Ruolo</span><b>Pivot</b></div><div class="player-info-box"><span>Squadra/Gruppo</span><b>Prima squadra</b></div><div class="player-info-box"><span>Numero</span><b>32</b></div></div></aside></div></div></section>
+<section class="section seo-prerender"><div class="container"><div class="head"><div></div></div><div class="breadcrumb"><a class="back-link" href="/squadra/"><span>←</span> Rosa</a><span>diego-conti</span></div><div class="grid grid-2" style="margin-top:28px"><article class="card card-pad article-body imported-article"><img class="article-hero" loading="eager" decoding="async" src="/img/uploads/conti.webp" alt="Conti Diego"><p>Scheda in aggiornamento.</p></article><aside class="card card-pad"><h2>Dettagli</h2><div class="player-info-grid"><div class="player-info-box"><span>Ruolo</span><b>Pivot</b></div><div class="player-info-box"><span>Squadra/Gruppo</span><b>Prima squadra</b></div><div class="player-info-box"><span>Numero</span><b>32</b></div></div></aside></div></div></section>
 </main>
 <div class="cookie-modal" id="cookieModal" role="dialog" aria-label="Dettagli cookie" data-nosnippet>
   <div class="cookie-box">
@@ -89,14 +89,14 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     <div id="lightboxCaption" class="lightbox-caption"></div>
   </div>
 </div>
-<script src="/js/app.js?v=internal-shell-v68" defer></script>
+<script src="/js/app.js?v=news-static-v70" defer></script>
 <script src="/js/home-structure.js?v=home-news-v53" defer></script>
 <script src="/js/home-upcoming-matches.js?v=home-upcoming-v19-opponent-logo" defer></script>
 <script src="/js/site-navigation-rework.js?v=internal-layout-v60" defer></script>
 <script src="/js/contact-security.js?v=turnstile-v5-partner-cms" defer></script>
 <script>
 (function(){
-  const routePaths={home:"/","teams-overview":"/squadre/",squad:"/squadra/",staff:"/staff/",stats:"/statistiche/","play-with-us":"/gioca-con-noi/",fixtures:"/calendario/",standings:"/classifica/",coppa:"/coppa/",cnu:"/cnu/","season-archive":"/archivio-stagioni/",matchday:"/matchday/",events:"/eventi/","events:upcoming":"/eventi/#prossimi-eventi","events:tournaments":"/eventi/#tornei","events:selections":"/eventi/#selezioni","events:archive":"/eventi/#archivio-eventi",partner:"/partner/","become-partner":"/diventa-partner/",news:"/news/",gallery:"/gallery/",video:"/video/",social:"/social/","club-project":"/club/",venue:"/impianto/",records:"/hall-of-fame/",contacts:"/contatti/",privacy:"/privacy/",cookies:"/cookies/",sponsor:"/partner/",club:"/club/"};
+  const routePaths={home:"/","teams-overview":"/squadre/",squad:"/squadra/",staff:"/staff/",stats:"/statistiche/","play-with-us":"/gioca-con-noi/",fixtures:"/calendario/",standings:"/classifica/",coppa:"/coppa/",cnu:"/cnu/","season-archive":"/archivio-stagioni/",events:"/eventi/","events:upcoming":"/eventi/#prossimi-eventi","events:tournaments":"/eventi/#tornei","events:selections":"/eventi/#selezioni","events:archive":"/eventi/#archivio-eventi",partner:"/partner/","become-partner":"/diventa-partner/",news:"/news/",gallery:"/gallery/",video:"/video/",social:"/social/","club-project":"/club/",venue:"/impianto/",records:"/hall-of-fame/",contacts:"/contatti/",privacy:"/privacy/",cookies:"/cookies/",sponsor:"/partner/",club:"/club/"};
   const nativeScrollTo=window.scrollTo ? window.scrollTo.bind(window) : null;
   window.scrollTo=function(){
     const first=arguments[0];

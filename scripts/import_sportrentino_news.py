@@ -566,12 +566,13 @@ def main() -> int:
     existing_identities = {news_identity(n) for n in all_known_news}
     existing_ids = {str(n.get("id")) for n in all_known_news if n.get("id") is not None}
 
-    print("Importer version: v9 - CMS data.json + read-only imported archive dedup", flush=True)
+    print("Importer version: v10 - durable imported archive and incomplete refresh", flush=True)
     print(f"CMS news currently: {len(existing_news)}", flush=True)
     print(f"Archived imported news: {len(archived_news)}", flush=True)
 
     session = requests.Session()
     imported: list[dict] = []
+    refreshed: list[dict] = []
     scanned_links = 0
 
     if args.sources.strip().lower() == "all":
@@ -609,7 +610,14 @@ def main() -> int:
                     break
 
                 source_id = article_id_from_url(link.url)
-                if link.url in existing_sources or source_id in existing_source_ids:
+                known_exists = link.url in existing_sources or source_id in existing_source_ids
+                archive_has_full = any(
+                    (n.get("sourceUrl") == link.url or str(n.get("sourceId")) == source_id)
+                    and len(str(n.get("bodyHtml") or "")) >= 500
+                    for n in archived_news
+                )
+                repair_mode = known_exists and not archive_has_full
+                if known_exists and not repair_mode:
                     continue
 
                 try:
@@ -620,6 +628,12 @@ def main() -> int:
                     continue
 
                 if not article:
+                    time.sleep(args.sleep)
+                    continue
+
+                if repair_mode:
+                    refreshed.append(article)
+                    print(f"  REFRESH {article['date']} - {article['title']}", flush=True)
                     time.sleep(args.sleep)
                     continue
 
@@ -653,6 +667,23 @@ def main() -> int:
     if imported:
         data["news"] = sort_news(imported + existing_news)
         save_data(data_path, data)
+
+    if imported or refreshed:
+        merged_archive = []
+        seen_archive = set()
+        for item in [*refreshed, *imported, *archived_news]:
+            key = news_identity(item)
+            if key in seen_archive:
+                continue
+            seen_archive.add(key)
+            merged_archive.append(item)
+        archive_payload = load_data(archive_path) if archive_path.exists() else []
+        if isinstance(archive_payload, dict):
+            archive_payload["news"] = sort_news(merged_archive)
+            save_data(archive_path, archive_payload)
+        else:
+            archive_path.write_text(json.dumps(sort_news(merged_archive), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        archived_news = sort_news(merged_archive)
 
     save_news_index(news_index_path, sort_news(data.get("news", []) + archived_news))
 
