@@ -71,7 +71,15 @@
       "away": "CUS Trento U23",
       "date": "2026-11-27",
       "lineup": {
-        "startingFive": [],
+        "startingFive": [
+          "20",
+          "26",
+          "buda-samuele",
+          "28",
+          "grippa-michele",
+          "harmeet-singh",
+          "zanrosso-matteo"
+        ],
         "bench": [],
         "suspended": [],
         "injured": []
