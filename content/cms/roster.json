@@ -300,6 +300,22 @@
       "role": "Pivot",
       "team": "Prima squadra",
       "number": 10
+    },
+    {
+      "id": "niccolo-piovesan",
+      "slug": "niccolo-piovesan",
+      "name": "Niccolò Piovesan",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 14
+    },
+    {
+      "id": "gobbetti-fabio-2",
+      "slug": "gobbetti-fabio-2",
+      "name": "Gobbetti Fabio",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 22
     }
   ]
 }
