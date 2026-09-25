@@ -30,80 +30,39 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
-          # 1) Static generator: full imported HTML is authoritative for article pages.
           gen_path = Path('scripts/generate_static_pages.py')
           gen = gen_path.read_text(encoding='utf-8')
           fn_start = gen.index('def article_body_html(item: Dict[str, Any]) -> str:')
-          block_start = gen.index('    if isinstance(item.get("contentBlocks"), list):', fn_start)
-          block_end = gen.index('\n\n    if item.get("sourceUrl"):', block_start)
-          new_block = '''    if item.get("bodyHtml"):
-              clean = re.sub(r"<script[\\s\\S]*?</script>", "", str(item["bodyHtml"]), flags=re.I)
-              clean = re.sub(r"<style[\\s\\S]*?</style>", "", clean, flags=re.I)
-              parts.append(clean)
-          elif isinstance(item.get("contentBlocks"), list):
-              for block in item["contentBlocks"]:
-                  if not isinstance(block, dict):
-                      continue
-                  if block.get("type") == "image" and block.get("image"):
-                      parts.append(f'<figure class="imported-figure"><img loading="lazy" decoding="async" src="{esc(block.get("image"))}" alt="{esc(block.get("caption") or item.get("title"))}">{f"<figcaption>{esc(block.get('caption'))}</figcaption>" if block.get("caption") else ""}</figure>')
-                  elif block.get("text"):
-                      parts.append(f'<p>{esc(block.get("text"))}</p>')
-          elif isinstance(item.get("body"), list) and item.get("body"):
-              seen = set()
-              for para in item["body"]:
-                  text = re.sub(r"\\s+", " ", str(para or "")).strip()
-                  if not text:
-                      continue
-                  key = text[:280]
-                  if key in seen:
-                      continue
-                  seen.add(key)
-                  parts.append(f"<p>{esc(text)}</p>")
-          elif isinstance(item.get("body"), str) and item.get("body").strip():
-              for para in re.split(r"\\n{2,}", item["body"]):
-                  text = para.strip()
-                  if text:
-                      parts.append(f"<p>{esc(text)}</p>")
-          else:
-              parts.append(f'<p>{esc(item.get("excerpt") or "")}</p>')'''
-          gen = gen[:block_start] + new_block + gen[block_end:]
+          first_branch = '    if isinstance(item.get("contentBlocks"), list):'
+          first_pos = gen.index(first_branch, fn_start)
+          replacement = '    if item.get("bodyHtml"):\n        clean = re.sub(r"<script[\\s\\S]*?</script>", "", str(item["bodyHtml"]), flags=re.I)\n        clean = re.sub(r"<style[\\s\\S]*?</style>", "", clean, flags=re.I)\n        parts.append(clean)\n    elif isinstance(item.get("contentBlocks"), list):'
+          gen = gen[:first_pos] + gen[first_pos:].replace(first_branch, replacement, 1)
+          old_late = '    elif item.get("bodyHtml"):\n        clean = re.sub(r"<script[\\s\\S]*?</script>", "", str(item["bodyHtml"]), flags=re.I)\n        clean = re.sub(r"<style[\\s\\S]*?</style>", "", clean, flags=re.I)\n        parts.append(clean)\n'
+          if old_late not in gen:
+              raise SystemExit('Late bodyHtml branch not found')
+          gen = gen.replace(old_late, '', 1)
           gen_path.write_text(gen, encoding='utf-8')
 
-          # 2) Runtime: on a direct prerendered article, do not replace the full static
-          #    article with the lightweight news index while the full archive is loading.
           app_path = Path('js/app.js')
           app = app_path.read_text(encoding='utf-8')
-          boot_old = '''async function bootData(){
-            let dataLoaded = false;
-            let loadError = null;'''
-          boot_new = '''async function bootData(){
-            let dataLoaded = false;
-            let loadError = null;
-            const preservePrerenderedArticle = String(current||"").startsWith("article-") && app && app.dataset.prerendered === "true";'''
+          boot_old = 'async function bootData(){\n  let dataLoaded = false;\n  let loadError = null;'
+          boot_new = 'async function bootData(){\n  let dataLoaded = false;\n  let loadError = null;\n  const preservePrerenderedArticle = String(current||"").startsWith("article-") && app && app.dataset.prerendered === "true";'
           if boot_old not in app:
               raise SystemExit('bootData header not found')
           app = app.replace(boot_old, boot_new, 1)
-          render_old = '''
-            render();
-
-            if(!dataLoaded && app){'''
-          render_new = '''
-            if(!preservePrerenderedArticle) render();
-
-            if(!dataLoaded && app){'''
+          render_old = '\n  render();\n\n  if(!dataLoaded && app){'
+          render_new = '\n  if(!preservePrerenderedArticle) render();\n\n  if(!dataLoaded && app){'
           if render_old not in app:
               raise SystemExit('bootData final render not found')
           app = app.replace(render_old, render_new, 1)
           app_path.write_text(app, encoding='utf-8')
 
-          # 3) Bust app cache in the source template. Generated pages inherit this.
           index_path = Path('index.html')
           index = index_path.read_text(encoding='utf-8')
           old_version = '/js/app.js?v=internal-shell-v68'
           if old_version not in index:
               raise SystemExit('Expected app.js cache key not found in index.html')
-          index = index.replace(old_version, '/js/app.js?v=news-full-v69')
-          index_path.write_text(index, encoding='utf-8')
+          index_path.write_text(index.replace(old_version, '/js/app.js?v=news-full-v69'), encoding='utf-8')
           PY
 
       - name: Verify full article source is preferred
@@ -111,24 +70,23 @@ jobs:
         run: |
           python - <<'PY'
           import importlib.util
-          from pathlib import Path
 
           spec = importlib.util.spec_from_file_location('gen', 'scripts/generate_static_pages.py')
           gen = importlib.util.module_from_spec(spec)
           spec.loader.exec_module(gen)
           data = gen.load_site_data()
           candidates = [n for n in data.get('news', []) if isinstance(n, dict) and len(str(n.get('bodyHtml') or '')) > 500]
+          print('Articles with bodyHtml >500 chars:', len(candidates))
           if not candidates:
               raise SystemExit('No imported article with full bodyHtml found')
           item = candidates[0]
           rendered = gen.article_body_html(item)
-          clean = str(item['bodyHtml'])
-          if len(rendered) <= 500:
-              raise SystemExit('Rendered article is unexpectedly short')
-          # A full-body render must be materially larger than the compact excerpt.
+          print('Verified article:', item.get('title'))
+          print('excerpt chars:', len(str(item.get('excerpt') or '')), 'bodyHtml chars:', len(str(item.get('bodyHtml') or '')), 'rendered chars:', len(rendered))
           if len(rendered) <= len(str(item.get('excerpt') or '')) + 300:
               raise SystemExit('Rendered article still looks like an excerpt')
-          print('Verified full article:', item.get('title'), 'rendered chars:', len(rendered))
+          if str(item.get('bodyHtml') or '')[:120] not in rendered:
+              raise SystemExit('Full bodyHtml is not the preferred rendered source')
           PY
 
       - name: Commit and push
