@@ -43,16 +43,9 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-
           path = Path('admin/config.yml')
           text = path.read_text(encoding='utf-8')
-          block = """        - label: Minuti
-          name: minutes
-          widget: number
-          value_type: int
-          default: 40
-          min: 0
-"""
+          block = '        - label: Minuti\n          name: minutes\n          widget: number\n          value_type: int\n          default: 40\n          min: 0\n'
           count = text.count(block)
           if count != 2:
               raise SystemExit(f'Expected 2 goalkeeper minutes fields, found {count}')
@@ -68,25 +61,14 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-
           root = Path('.')
           data_path = root / 'content' / 'data.json'
           data = json.loads(data_path.read_text(encoding='utf-8')) if data_path.exists() else {}
-
           cms_files = [
-              'news.json',
-              'roster.json',
-              'fixtures.json',
-              'u21-fixtures.json',
-              'gallery-albums.json',
-              'sponsors.json',
-              'sponsor-packages.json',
-              'staff.json',
-              'videos.json',
-              'club-history.json',
-              'events.json',
+              'news.json', 'roster.json', 'fixtures.json', 'u21-fixtures.json',
+              'gallery-albums.json', 'sponsors.json', 'sponsor-packages.json',
+              'staff.json', 'videos.json', 'club-history.json', 'events.json',
           ]
-
           for name in cms_files:
               path = root / 'content' / 'cms' / name
               if not path.exists():
@@ -94,11 +76,7 @@ jobs:
               payload = json.loads(path.read_text(encoding='utf-8'))
               if isinstance(payload, dict):
                   data.update(payload)
-
-          data_path.write_text(
-              json.dumps(data, ensure_ascii=False, indent=2) + '\n',
-              encoding='utf-8',
-          )
+          data_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           PY
 
       - name: Commit and push synced CMS data
@@ -107,40 +85,29 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add admin/config.yml content/data.json
-
           if git diff --cached --quiet; then
             echo "CMS data already in sync."
             exit 0
           fi
-
           git commit -m "Remove goalkeeper minutes field from CMS"
-
           if [ -n "$(git status --porcelain)" ]; then
             echo "::error::Working tree is not clean after the CMS sync commit."
             git status --short
             exit 1
           fi
-
           for attempt in 1 2 3; do
             echo "Push attempt $attempt/3"
             git fetch origin main
-
             if git rebase origin/main; then
               if git push origin HEAD:main; then
                 echo "CMS data synced to main."
                 exit 0
               fi
             else
-              echo "Rebase failed. Aborting."
               git rebase --abort || true
               exit 1
             fi
-
-            echo "Push failed, retrying ($attempt/3)..."
             sleep 3
           done
-
-          echo "Unable to push synced CMS data after 3 attempts. Check repository rules for GitHub Actions write access to main."
           exit 1
