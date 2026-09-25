@@ -38,59 +38,6 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip pyyaml
 
-      - name: Apply roster stats isolation and goalkeeper presence fix
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path('js/app.js')
-          text = path.read_text(encoding='utf-8')
-
-          replacements = [
-              (
-                  'function isGoalkeeperPlayer(p){return !!p && (p.role==="Portiere"||!!p.goalkeeperStats);}',
-                  'function isGoalkeeperPlayer(p){return !!p && (p.role==="Portiere"||!!p.goalkeeperStats);}\nfunction playerMatchesMatchTeam(p,teamKey){const t=normText(p&&p.team);return teamKey==="u21"?(t==="under21"||t==="under23"):t==="primasquadra";}'
-              ),
-              (
-                  'const appearances=(ev&&typeof ev==="object"&&ev.appearances===0)?0:1;',
-                  'const appearances=toNumber(goalsAgainst)>0?1:((ev&&typeof ev==="object"&&ev.appearances===0)?0:1);'
-              ),
-              (
-                  'const isNonStartingGoalkeeper=isGoalkeeperPlayer(p)&&!startingIds.has(String(id));\n      if(!isNonStartingGoalkeeper){',
-                  'const isNonStartingGoalkeeper=isGoalkeeperPlayer(p)&&!startingIds.has(String(id));\n      if(playerMatchesMatchTeam(p,teamKey)&&!isNonStartingGoalkeeper){'
-              ),
-              (
-                  'if(p.history&&p.history[0])p.history[0].goals=toNumber(p.history[0].goals)+e.goals;\n      if(teamKey==="prima")addMap(goalMap,e.playerId,e.goals);',
-                  'if(p.history&&p.history[0])p.history[0].goals=toNumber(p.history[0].goals)+e.goals;\n      }\n      if(teamKey==="prima")addMap(goalMap,e.playerId,e.goals);'
-              ),
-              (
-                  'const p=byId.get(String(e.playerId));if(!p)return;\n      p.goals=toNumber(p.goals)+e.goals;',
-                  'const p=byId.get(String(e.playerId));if(!p)return;\n      if(playerMatchesMatchTeam(p,teamKey)){\n      p.goals=toNumber(p.goals)+e.goals;'
-              ),
-              (
-                  'yellowCardEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(p)addCards(p,comp,e.count,0);});',
-                  'yellowCardEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(p&&playerMatchesMatchTeam(p,teamKey))addCards(p,comp,e.count,0);});'
-              ),
-              (
-                  'redCardEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(p)addCards(p,comp,0,e.count);});',
-                  'redCardEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(p&&playerMatchesMatchTeam(p,teamKey))addCards(p,comp,0,e.count);});'
-              ),
-              (
-                  'const gk=byId.get(String(e.playerId));if(!gk||!gk.goalkeeperStats)return;\n      const gs=gk.goalkeeperStats;',
-                  'const gk=byId.get(String(e.playerId));if(!gk||!gk.goalkeeperStats||!playerMatchesMatchTeam(gk,teamKey))return;\n      const eventAppearance=toNumber(e.appearances)>0?1:0;\n      if(eventAppearance>0&&!startingIds.has(String(e.playerId))){\n        gk.appearances=toNumber(gk.appearances)+1;\n        gk.competitions[comp].appearances=toNumber(gk.competitions[comp].appearances)+1;\n        gk.competitions.totale.appearances=toNumber(gk.competitions.totale.appearances)+1;\n        if(gk.history&&gk.history[0])gk.history[0].appearances=toNumber(gk.history[0].appearances)+1;\n      }\n      const gs=gk.goalkeeperStats;'
-              ),
-          ]
-
-          for old, new in replacements:
-              count = text.count(old)
-              if count != 1:
-                  raise SystemExit(f'Expected exactly one occurrence, found {count}: {old[:90]}')
-              text = text.replace(old, new, 1)
-
-          path.write_text(text, encoding='utf-8')
-          PY
-
       - name: Sync CMS player dropdowns from roster
         run: python scripts/sync_roster_options.py
 
@@ -140,14 +87,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add admin/config.yml content/data.json js/app.js
+          git add admin/config.yml content/data.json
 
           if git diff --cached --quiet; then
             echo "CMS data already in sync."
             exit 0
           fi
 
-          git commit -m "Isolate roster stats by team and count active goalkeepers"
+          git commit -m "Sync CMS data to frontend"
 
           if [ -n "$(git status --porcelain)" ]; then
             echo "::error::Working tree is not clean after the CMS sync commit."
