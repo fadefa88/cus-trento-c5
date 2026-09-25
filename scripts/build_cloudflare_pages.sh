@@ -20,6 +20,50 @@ for path in \
   fi
 done
 
+# The interactive frontend loads content/data.json at runtime. The source
+# content/data.json is only a base dataset, while current editorial data lives
+# in content/cms/*.json. Publish the same merged dataset used by the static-page
+# generator so CMS edits immediately reach the frontend after each deployment.
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+content_dir = Path("_site/content")
+base_path = content_dir / "data.json"
+
+if base_path.exists():
+    data = json.loads(base_path.read_text(encoding="utf-8"))
+else:
+    data = {}
+
+cms_files = [
+    "news.json",
+    "roster.json",
+    "fixtures.json",
+    "u21-fixtures.json",
+    "gallery-albums.json",
+    "sponsors.json",
+    "sponsor-packages.json",
+    "staff.json",
+    "videos.json",
+    "club-history.json",
+    "events.json",
+]
+
+for name in cms_files:
+    path = content_dir / "cms" / name
+    if not path.exists():
+        continue
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if isinstance(payload, dict):
+        data.update(payload)
+
+base_path.write_text(
+    json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+    encoding="utf-8",
+)
+PY
+
 # Safety cleanup: keep the header title only as "CUS Trento C5" across every
 # prerendered HTML page, even if a legacy generated file is still present.
 python3 - <<'PY'
