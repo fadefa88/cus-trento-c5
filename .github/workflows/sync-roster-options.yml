@@ -38,54 +38,6 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip pyyaml
 
-      - name: Refine player name hierarchy
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          app_path = Path('js/app.js')
-          app = app_path.read_text(encoding='utf-8')
-          old_shell = 'shell("Player profile",p.name,`<div class="breadcrumb"'
-          new_shell = 'shell("Player profile",p.name,`<style>.head .title{display:none!important}</style><div class="breadcrumb"'
-          if old_shell not in app:
-              raise SystemExit('Player profile shell anchor not found')
-          app = app.replace(old_shell, new_shell, 1)
-          old_profile_name = '<h2>${p.name||\'\'}</h2>'
-          new_profile_name = '<h2 class="player-profile-name">${rosterCardNameHtml(p)}</h2>'
-          if old_profile_name not in app:
-              raise SystemExit('Player profile name anchor not found')
-          app = app.replace(old_profile_name, new_profile_name, 1)
-          app_path.write_text(app, encoding='utf-8')
-
-          css_path = Path('css/style.css')
-          css = css_path.read_text(encoding='utf-8')
-          old_given = '.player .card-pad h2.player-card-name > .player-card-given{font-size:27.333333px!important;line-height:1!important;font-weight:inherit}'
-          new_given = '.player .card-pad h2.player-card-name > .player-card-given{font-size:27.333333px!important;line-height:1!important;font-weight:500!important}'
-          if old_given not in css:
-              raise SystemExit('Roster given-name CSS anchor not found')
-          css = css.replace(old_given, new_given, 1)
-          profile_rules = '\n.player-detail-heading h2.player-profile-name > .player-card-surname{font-size:inherit!important;line-height:inherit!important;font-weight:1000!important}\n.player-detail-heading h2.player-profile-name > .player-card-given{font-size:inherit!important;line-height:inherit!important;font-weight:500!important}\n'
-          if '.player-detail-heading h2.player-profile-name > .player-card-given' not in css:
-              css += profile_rules
-          css_path.write_text(css, encoding='utf-8')
-
-          gen_path = Path('scripts/generate_static_pages.py')
-          gen = gen_path.read_text(encoding='utf-8')
-          old_return = '    return render_shell(crumbs[1], title, body)\n'
-          new_return = '    rendered = render_shell(crumbs[1], title, body)\n    if key == "roster":\n        rendered = rendered.replace(f\'<h1 class="title">{esc(title)}</h1>\', "")\n    return rendered\n'
-          if old_return not in gen:
-              raise SystemExit('Static roster detail return anchor not found')
-          gen = gen.replace(old_return, new_return, 1)
-          gen_path.write_text(gen, encoding='utf-8')
-
-          index_path = Path('index.html')
-          index = index_path.read_text(encoding='utf-8')
-          index = index.replace('/css/style.css?v=roster-name-v49', '/css/style.css?v=roster-name-v50', 1)
-          index = index.replace('/js/app.js?v=roster-name-v66', '/js/app.js?v=roster-name-v67', 1)
-          index_path.write_text(index, encoding='utf-8')
-          PY
-
       - name: Sync CMS player dropdowns from roster
         run: python scripts/sync_roster_options.py
 
@@ -135,14 +87,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add admin/config.yml content/data.json js/app.js css/style.css scripts/generate_static_pages.py index.html
+          git add admin/config.yml content/data.json
 
           if git diff --cached --quiet; then
             echo "CMS data already in sync."
             exit 0
           fi
 
-          git commit -m "Refine player name hierarchy and profile heading"
+          git commit -m "Sync CMS data to frontend"
 
           if [ -n "$(git status --porcelain)" ]; then
             echo "::error::Working tree is not clean after the CMS sync commit."
