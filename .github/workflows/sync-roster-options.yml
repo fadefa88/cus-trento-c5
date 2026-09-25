@@ -38,100 +38,6 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip pyyaml
 
-      - name: Apply requested historical and policy cleanup
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          import shutil
-
-          def read(path):
-              return Path(path).read_text(encoding='utf-8')
-
-          def write(path, text):
-              Path(path).write_text(text, encoding='utf-8')
-
-          # Show simply "Serie B" in the historical statistics and season archive sources.
-          for name in ('js/app.js', 'js/site-navigation-rework.js', 'scripts/generate_static_pages.py', 'content/data.json'):
-              path = Path(name)
-              if not path.exists():
-                  continue
-              text = path.read_text(encoding='utf-8')
-              text = text.replace('Serie B - Gir. B', 'Serie B')
-              text = text.replace('Serie B - Girone B', 'Serie B')
-              path.write_text(text, encoding='utf-8')
-
-          # Remove Privacy/Cookie pages and all frontend routes/links to them.
-          app_path = Path('js/app.js')
-          app = read(app_path)
-          app = app.replace('  privacy:"/privacy/",\n', '')
-          app = app.replace('  cookies:"/cookies/",\n', '')
-          app = app.replace('    {title:"Legal",links:[["/privacy/","Privacy policy"],["/cookies/","Cookie policy"]]}\n', '')
-          app = app.replace('else if(current==="privacy")privacy();else if(current==="cookies")cookies();', '')
-          app = re.sub(
-              r'function privacy\(\)\{.*?\nfunction moveClubHistory',
-              'function moveClubHistory',
-              app,
-              count=1,
-              flags=re.S,
-          )
-          app = re.sub(
-              r'<label class="privacy-check"><input type="checkbox" name="privacy" required><span>Ho letto la <a href="/privacy/" onclick="route\(\'privacy\'\);return false;">privacy policy</a> e autorizzo il trattamento dei dati per ricevere risposta\.</span></label>',
-              '<label class="privacy-check"><input type="checkbox" name="privacy" required><span>Autorizzo il trattamento dei dati inseriti esclusivamente per ricevere risposta alla richiesta.</span></label>',
-              app,
-          )
-          write(app_path, app)
-
-          nav_path = Path('js/site-navigation-rework.js')
-          nav = read(nav_path)
-          for snippet in [
-              '    "privacy":"/privacy/",\n',
-              '    "cookies":"/cookies/"\n',
-              '    "/privacy/":"privacy",\n',
-              '    "/cookies/":"cookies",\n',
-              '    privacy:["Privacy","Privacy policy","Informazioni privacy e trattamento dati del sito."],\n',
-              '    cookies:["Cookie","Cookie policy","Informazioni sull\'utilizzo dei cookie e contenuti esterni."],\n',
-          ]:
-              nav = nav.replace(snippet, '')
-          nav = nav.replace('    "contacts":"/contatti/",\n  };', '    "contacts":"/contatti/"\n  };')
-          write(nav_path, nav)
-
-          gen_path = Path('scripts/generate_static_pages.py')
-          gen = read(gen_path)
-          gen = gen.replace('    "privacy",\n', '')
-          gen = gen.replace('    "cookies",\n', '')
-          for route in ('privacy', 'cookies'):
-              gen = re.sub(
-                  rf'\n    \{{\n        "path": "/{route}/",.*?\n    \}},',
-                  '',
-                  gen,
-                  count=1,
-                  flags=re.S,
-              )
-          write(gen_path, gen)
-
-          # Remove already generated/committed policy pages if present.
-          for name in ('privacy', 'cookies', 'legal', 'legal-policy', 'cookie-policy'):
-              path = Path(name)
-              if path.is_dir():
-                  shutil.rmtree(path)
-              elif path.is_file():
-                  path.unlink()
-
-          for name in ('privacy.html', 'cookies.html', 'legal.html', 'legal-policy.html', 'cookie-policy.html'):
-              path = Path(name)
-              if path.exists():
-                  path.unlink()
-
-          # Verify no public route to the removed pages remains in main frontend sources.
-          for filename in ('js/app.js', 'js/site-navigation-rework.js', 'scripts/generate_static_pages.py'):
-              text = read(filename)
-              leftovers = [token for token in ('/privacy/', '/cookies/', 'route(\'privacy\')', 'route(\'cookies\')') if token in text]
-              if leftovers:
-                  raise SystemExit(f'{filename}: references still present: {leftovers}')
-          PY
-
       - name: Sync CMS player dropdowns from roster
         run: python scripts/sync_roster_options.py
 
@@ -181,14 +87,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add -A
+          git add admin/config.yml content/data.json
 
           if git diff --cached --quiet; then
             echo "CMS data already in sync."
             exit 0
           fi
 
-          git commit -m "Remove policy pages and simplify Serie B label"
+          git commit -m "Sync CMS data to frontend"
 
           if [ -n "$(git status --porcelain)" ]; then
             echo "::error::Working tree is not clean after the CMS sync commit."
