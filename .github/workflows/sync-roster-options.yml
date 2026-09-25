@@ -38,48 +38,6 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip pyyaml
 
-      - name: Apply compound surname and scorer icon fixes
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          app = Path('js/app.js')
-          text = app.read_text(encoding='utf-8')
-
-          old = 'function playerSurname(p){return (p&&p.name?String(p.name):"").trim().split(/\\s+/)[0]||"Giocatore";}'
-          new = 'function playerSurname(p){const name=(p&&p.name?String(p.name):"").trim();const parts=name.split(/\\s+/).filter(Boolean);if(parts.length>=2&&parts[0].toLowerCase()==="baccaro"&&parts[1].toLowerCase()==="zeni")return `${parts[0]} ${parts[1]}`;return parts[0]||"Giocatore";}'
-          if old not in text:
-              raise SystemExit('playerSurname target not found')
-          text = text.replace(old, new, 1)
-
-          old = 'if(events.length)return events.map(e=>`<span class="match-person">${safe(playerSurnameById(state.roster,e.playerId))}${e.goals>1?` ${e.goals}`:""}</span>`).join("");'
-          new = 'if(events.length)return events.map(e=>{const goals=Math.max(1,toNumber(e.goals)||1);return `<span class="match-person">${safe(playerSurnameById(state.roster,e.playerId))} <span class="scorer-balls" aria-label="${goals} gol">${"⚽".repeat(goals)}</span></span>`;}).join("");'
-          if old not in text:
-              raise SystemExit('scorer target not found')
-          text = text.replace(old, new, 1)
-          app.write_text(text, encoding='utf-8')
-
-          css = Path('css/style.css')
-          ctext = css.read_text(encoding='utf-8')
-          old_css = '/* Rosa: nomi ridotti di 2pt */\n.player .card-pad h2{font-size:calc(30px - 2pt)}\n.player-detail-heading h2{font-size:calc(42px - 2pt)}'
-          new_css = '/* Rosa: nomi card ridotti di 2pt */\n.player .card-pad h2{font-size:27.333px!important}\n.scorer-balls{display:inline-flex;gap:2px;margin-left:4px;letter-spacing:1px;white-space:nowrap}'
-          if old_css not in ctext:
-              raise SystemExit('roster CSS target not found')
-          css.write_text(ctext.replace(old_css, new_css, 1), encoding='utf-8')
-
-          index = Path('index.html')
-          itext = index.read_text(encoding='utf-8')
-          for old_v, new_v in [
-              ('/css/style.css?v=cus-static-seo-v46', '/css/style.css?v=cus-static-seo-v47'),
-              ('/js/app.js?v=no-cookie-banner-v63', '/js/app.js?v=no-cookie-banner-v64'),
-          ]:
-              if old_v not in itext:
-                  raise SystemExit(f'cache version target not found: {old_v}')
-              itext = itext.replace(old_v, new_v, 1)
-          index.write_text(itext, encoding='utf-8')
-          PY
-
       - name: Sync CMS player dropdowns from roster
         run: python scripts/sync_roster_options.py
 
@@ -129,14 +87,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add js/app.js css/style.css index.html admin/config.yml content/data.json
+          git add admin/config.yml content/data.json
 
           if git diff --cached --quiet; then
             echo "CMS data already in sync."
             exit 0
           fi
 
-          git commit -m "Fix compound surname and scorer goal icons"
+          git commit -m "Sync CMS data to frontend"
 
           if [ -n "$(git status --porcelain)" ]; then
             echo "::error::Working tree is not clean after the CMS sync commit."
