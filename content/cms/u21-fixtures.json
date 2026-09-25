@@ -76,11 +76,13 @@
           "26",
           "buda-samuele",
           "28",
-          "grippa-michele",
-          "harmeet-singh",
-          "zanrosso-matteo"
+          "grippa-michele"
         ],
-        "bench": [],
+        "bench": [
+          "harmeet-singh",
+          "zanrosso-matteo",
+          "8"
+        ],
         "suspended": [],
         "injured": []
       },
