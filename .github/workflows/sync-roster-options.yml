@@ -1,24 +1,18 @@
-name: Sync CMS data
+name: Temporary internal page layout cleanup
 
 on:
   push:
     branches:
       - main
     paths:
-      - content/cms/*.json
       - .github/workflows/sync-roster-options.yml
-      - scripts/sync_roster_options.py
   workflow_dispatch:
 
 permissions:
   contents: write
 
-concurrency:
-  group: sync-cms-data-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  sync-cms-data:
+  patch-ui:
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -30,96 +24,89 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install dependencies
-        run: python -m pip install --upgrade pip pyyaml
-
-      - name: Sync CMS player dropdowns from roster
-        run: python scripts/sync_roster_options.py
-
-      - name: Merge CMS content into frontend data
+      - name: Remove title kickers and unify internal spacing
         shell: bash
         run: |
           python - <<'PY'
-          import json
           from pathlib import Path
+          import re
 
-          root = Path('.')
-          data_path = root / 'content' / 'data.json'
-          data = json.loads(data_path.read_text(encoding='utf-8')) if data_path.exists() else {}
+          # Custom internal pages: remove the red kicker from the shared page hero.
+          nav_js_path = Path('js/site-navigation-rework.js')
+          nav_js = nav_js_path.read_text(encoding='utf-8')
+          old_hero = 'return `<section class="cus-rework-section cus-rework-page-intro"><div class="container"><span class="cus-rework-kicker">${h(kicker)}</span><h1 class="cus-rework-title">${h(title)}</h1>${leadHtml}</div></section>`;'
+          new_hero = 'return `<section class="cus-rework-section cus-rework-page-intro"><div class="container"><h1 class="cus-rework-title">${h(title)}</h1>${leadHtml}</div></section>`;'
+          if old_hero not in nav_js:
+              raise SystemExit('Shared pageHero markup not found')
+          nav_js = nav_js.replace(old_hero, new_hero, 1)
+          nav_js_path.write_text(nav_js, encoding='utf-8')
 
-          cms_files = [
-              'news.json',
-              'roster.json',
-              'fixtures.json',
-              'u21-fixtures.json',
-              'gallery-albums.json',
-              'sponsors.json',
-              'sponsor-packages.json',
-              'staff.json',
-              'videos.json',
-              'club-history.json',
-              'events.json',
-          ]
+          # Legacy/internal pages: remove eyebrow from the shared shell itself.
+          app_path = Path('js/app.js')
+          app = app_path.read_text(encoding='utf-8')
+          old_shell = 'function shell(eyebrow,title,body,right="",desc="",img=""){setSEO(title,desc||`${title} — CUS Trento C5`,img);app.innerHTML=`<section class="section"><div class="container"><div class="head"><div><span class="eyebrow">${eyebrow}</span><h1 class="title">${title}</h1></div>${right}</div>${body}</div></section>${footer()}`;}'
+          new_shell = 'function shell(eyebrow,title,body,right="",desc="",img=""){setSEO(title,desc||`${title} — CUS Trento C5`,img);app.innerHTML=`<section class="section"><div class="container"><div class="head"><div><h1 class="title">${title}</h1></div>${right}</div>${body}</div></section>${footer()}`;}'
+          if old_shell not in app:
+              raise SystemExit('Legacy shell markup not found')
+          app = app.replace(old_shell, new_shell, 1)
+          app_path.write_text(app, encoding='utf-8')
 
-          for name in cms_files:
-              path = root / 'content' / 'cms' / name
-              if not path.exists():
-                  continue
-              payload = json.loads(path.read_text(encoding='utf-8'))
-              if isinstance(payload, dict):
-                  data.update(payload)
+          # Future prerender builds must not recreate title pills.
+          gen_path = Path('scripts/generate_static_pages.py')
+          gen = gen_path.read_text(encoding='utf-8')
+          old_render = 'return f\'\'\'<section class="section seo-prerender"><div class="container"><div class="head"><div><span class="eyebrow">{esc(eyebrow)}</span><h1 class="title">{esc(heading)}</h1></div></div>{body}</div></section>\'\'\''
+          new_render = 'return f\'\'\'<section class="section seo-prerender"><div class="container"><div class="head"><div><h1 class="title">{esc(heading)}</h1></div></div>{body}</div></section>\'\'\''
+          if old_render not in gen:
+              raise SystemExit('Prerender shell markup not found')
+          gen = gen.replace(old_render, new_render, 1)
+          gen_path.write_text(gen, encoding='utf-8')
 
-          data_path.write_text(
-              json.dumps(data, ensure_ascii=False, indent=2) + '\n',
-              encoding='utf-8',
-          )
+          # Shared spacing for every internal legacy page. Home is not a .section first child.
+          style_path = Path('css/style.css')
+          style = style_path.read_text(encoding='utf-8')
+          marker = '/* Internal pages v54: uniform top spacing, home excluded */'
+          if marker not in style:
+              style += '\n\n' + marker + '\n#app > .section:first-child{padding-top:28px!important}\n#app > .section:first-child > .container > .head{margin-bottom:26px!important}\n@media(max-width:640px){#app > .section:first-child{padding-top:22px!important}}\n'
+          style_path.write_text(style, encoding='utf-8')
+
+          # Custom page spacing and a defensive fallback hiding only the page-intro kicker.
+          nav_css_path = Path('css/site-navigation-rework.css')
+          nav_css = nav_css_path.read_text(encoding='utf-8')
+          nav_marker = '/* Internal pages v10: unified intro spacing and no page title kicker */'
+          if nav_marker not in nav_css:
+              nav_css += '\n\n' + nav_marker + '\n.cus-rework-page > .cus-rework-page-intro{padding:28px 0 0!important}\n.cus-rework-page > .cus-rework-page-intro > .container > .cus-rework-kicker{display:none!important}\n.cus-rework-page > .cus-rework-page-intro + .cus-rework-section{padding-top:26px!important}\n@media(max-width:640px){.cus-rework-page > .cus-rework-page-intro{padding-top:22px!important}.cus-rework-page > .cus-rework-page-intro + .cus-rework-section{padding-top:22px!important}}\n'
+          nav_css_path.write_text(nav_css, encoding='utf-8')
+
+          # Make the mobile result text visibly smaller and force a single line.
+          upcoming_path = Path('css/home-upcoming-matches.css')
+          upcoming = upcoming_path.read_text(encoding='utf-8')
+          mobile_marker = '/* Mobile portrait v21: compact single-line team names */'
+          if mobile_marker not in upcoming:
+              upcoming += '\n\n' + mobile_marker + '\n@media(max-width:640px) and (orientation:portrait){\n  .home-upcoming-card .home-upcoming-team{grid-template-columns:32px minmax(0,1fr)!important;gap:8px!important}\n  .home-upcoming-card .home-upcoming-team i{width:32px!important;height:32px!important}\n  .home-upcoming-card .home-upcoming-team strong{font-size:16px!important;line-height:1!important;letter-spacing:-.025em!important;white-space:nowrap!important;display:block!important;overflow:hidden!important;text-overflow:ellipsis!important;-webkit-line-clamp:unset!important;-webkit-box-orient:initial!important}\n}\n'
+          upcoming_path.write_text(upcoming, encoding='utf-8')
+
+          # Bust caches in every existing prerendered HTML page without creating anything.
+          for path in Path('.').rglob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              updated = re.sub(r'/css/style\.css\?v=[^\"\']+', '/css/style.css?v=internal-spacing-v54', text)
+              updated = re.sub(r'/css/site-navigation-rework\.css\?v=[^\"\']+', '/css/site-navigation-rework.css?v=internal-spacing-v60', updated)
+              updated = re.sub(r'/css/home-upcoming-matches\.css\?v=[^\"\']+', '/css/home-upcoming-matches.css?v=home-upcoming-v21-mobile-result', updated)
+              updated = re.sub(r'/js/app\.js\?v=[^\"\']+', '/js/app.js?v=internal-shell-v68', updated)
+              updated = re.sub(r'/js/site-navigation-rework\.js\?v=[^\"\']+', '/js/site-navigation-rework.js?v=internal-layout-v60', updated)
+              if updated != text:
+                  path.write_text(updated, encoding='utf-8')
           PY
 
-      - name: Commit and push synced CMS data
+      - name: Commit and push
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add admin/config.yml content/data.json
-
+          git add -u
           if git diff --cached --quiet; then
-            echo "CMS data already in sync."
+            echo "No changes to commit."
             exit 0
           fi
-
-          git commit -m "Sync CMS data to frontend"
-
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "::error::Working tree is not clean after the CMS sync commit."
-            git status --short
-            exit 1
-          fi
-
-          for attempt in 1 2 3; do
-            echo "Push attempt $attempt/3"
-            git fetch origin main
-
-            if git rebase origin/main; then
-              if git push origin HEAD:main; then
-                echo "CMS data synced to main."
-                exit 0
-              fi
-            else
-              echo "Rebase failed. Aborting."
-              git rebase --abort || true
-              exit 1
-            fi
-
-            echo "Push failed, retrying ($attempt/3)..."
-            sleep 3
-          done
-
-          echo "Unable to push synced CMS data after 3 attempts. Check repository rules for GitHub Actions write access to main."
-          exit 1
+          git commit -m "Remove remaining page title pills and unify internal spacing"
+          git push origin HEAD:main
