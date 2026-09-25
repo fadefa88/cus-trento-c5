@@ -78,6 +78,69 @@
         };
       }
 
+      function collectionMatchFields(config, collectionName){
+        var collections = config && config.collections;
+        if(!Array.isArray(collections)) return null;
+        var collection = collections.find(function(item){ return item && item.name === collectionName; });
+        var file = collection && Array.isArray(collection.files) && collection.files[0];
+        var listField = file && Array.isArray(file.fields) && file.fields.find(function(field){ return field && field.name === collectionName; });
+        return listField && Array.isArray(listField.fields) ? listField.fields : null;
+      }
+
+      function namedField(fields, name){
+        return Array.isArray(fields) ? fields.find(function(field){ return field && field.name === name; }) : null;
+      }
+
+      function optionKey(option){
+        if(option && typeof option === "object") return String(option.value != null ? option.value : option.label || "");
+        return String(option == null ? "" : option);
+      }
+
+      function mergedOptions(primary, secondary){
+        var result = [];
+        var seen = Object.create(null);
+        [primary || [], secondary || []].forEach(function(options){
+          options.forEach(function(option){
+            var key = optionKey(option);
+            if(!key || seen[key]) return;
+            seen[key] = true;
+            result.push(option);
+          });
+        });
+        return result;
+      }
+
+      function mergeSelectOptions(firstField, u23Field){
+        if(!firstField || !u23Field) return;
+        var options = mergedOptions(firstField.options, u23Field.options);
+        firstField.options = options.slice();
+        u23Field.options = options.slice();
+      }
+
+      function eventPlayerField(matchFields, eventName){
+        var eventField = namedField(matchFields, eventName);
+        return eventField && Array.isArray(eventField.fields) ? namedField(eventField.fields, "playerId") : null;
+      }
+
+      function expandCrossTeamPlayerOptions(config){
+        var firstFields = collectionMatchFields(config, "fixtures");
+        var u23Fields = collectionMatchFields(config, "u21Fixtures");
+        if(!firstFields || !u23Fields) return;
+
+        var firstLineup = namedField(firstFields, "lineup");
+        var u23Lineup = namedField(u23Fields, "lineup");
+        var firstLineupFields = firstLineup && firstLineup.fields;
+        var u23LineupFields = u23Lineup && u23Lineup.fields;
+
+        ["startingFive","bench","suspended","injured"].forEach(function(name){
+          mergeSelectOptions(namedField(firstLineupFields, name), namedField(u23LineupFields, name));
+        });
+
+        ["scorerEvents","yellowCardEvents","redCardEvents","goalkeeperEvents"].forEach(function(name){
+          mergeSelectOptions(eventPlayerField(firstFields, name), eventPlayerField(u23Fields, name));
+        });
+      }
+
       function addOpponentLogoField(config, collectionName){
         var collections = config && config.collections;
         if(!Array.isArray(collections)) return;
@@ -91,6 +154,7 @@
       }
 
       function initCms(config){
+        expandCrossTeamPlayerOptions(config);
         addOpponentLogoField(config, "fixtures");
         addOpponentLogoField(config, "u21Fixtures");
         config.load_config_file = false;
