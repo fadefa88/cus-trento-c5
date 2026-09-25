@@ -1260,4 +1260,4 @@ body.menu-open{
 
 .player-detail-heading h2.player-profile-name{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:0!important;line-height:.86!important;margin:0!important}
 .player-detail-heading h2.player-profile-name > .player-card-surname{order:2;font-size:inherit!important;line-height:.86!important;font-weight:1000!important}
-.player-detail-heading h2.player-profile-name > .player-card-given{order:1;font-size:calc(1em - 3px)!important;line-height:.86!important;font-weight:500!important;margin-bottom:-1px}
+.player-detail-heading h2.player-profile-name > .player-card-given{order:1;font-size:calc(1em - 5px)!important;line-height:.86!important;font-weight:500!important;margin-bottom:-1px}
