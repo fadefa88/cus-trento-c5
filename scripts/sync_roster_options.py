@@ -25,7 +25,7 @@ DEFAULT_CONFIG_PATH = ROOT / "admin" / "config.yml"
 
 FIRST_TEAM_COLLECTIONS = {"fixtures"}
 U21_COLLECTIONS = {"u21Fixtures"}
-LINEUP_FIELD_NAMES = {"startingFive", "bench", "suspended", "injured"}
+LINEUP_FIELD_NAMES = {"startingFive", "bench"}
 PLAYER_ID_FIELD_NAME = "playerId"
 SCORER_EVENT_NAME = "scorerEvents"
 GOALKEEPER_EVENT_NAME = "goalkeeperEvents"
