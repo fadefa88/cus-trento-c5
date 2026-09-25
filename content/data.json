@@ -2192,8 +2192,43 @@
         "injured": []
       },
       "venue": "Sanbàpolis",
-      "status": "Da giocare",
+      "score": "4-3",
+      "status": "Terminata",
+      "scorerEvents": [
+        {
+          "goals": 2,
+          "playerId": "8"
+        },
+        {
+          "goals": 1,
+          "playerId": "grippa-michele"
+        },
+        {
+          "goals": 1,
+          "playerId": "gobbetti-fabio"
+        }
+      ],
       "id": "cus-trento-u23-san-floriano-2025-2026-09-25",
+      "yellowCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "gobbetti-fabio"
+        }
+      ],
+      "goalkeeperEvents": [
+        {
+          "goalsAgainst": 1,
+          "minutes": 40,
+          "appearances": 1,
+          "playerId": "harmeet-singh"
+        },
+        {
+          "goalsAgainst": 2,
+          "minutes": 40,
+          "appearances": 1,
+          "playerId": "20"
+        }
+      ],
       "home": "CUS Trento U23",
       "competition": "Campionato"
     },
