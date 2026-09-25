@@ -343,3 +343,18 @@
     width:100%!important;
   }
 }
+
+
+/* Mobile portrait: keep team names on one line in upcoming/results cards */
+@media (max-width:520px) and (orientation:portrait){
+  .home-upcoming-team strong{
+    font-size:18px!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+    display:block!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    -webkit-line-clamp:unset!important;
+    -webkit-box-orient:initial!important;
+  }
+}
