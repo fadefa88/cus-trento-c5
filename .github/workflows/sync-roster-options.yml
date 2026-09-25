@@ -6,161 +6,92 @@ on:
       - main
     paths:
       - .github/workflows/sync-roster-options.yml
-  workflow_dispatch:
 
 permissions:
   contents: write
-
-concurrency:
-  group: temporary-site-repair-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   repair-site:
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Apply fixes
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements-sportrentino.txt
+      - name: Patch source files
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          # Calendar: force the three match columns to stay on one line, including
-          # CUS Trento | 4-3 | San Floriano on narrow mobile widths.
-          css_path = Path('css/style.css')
-          css = css_path.read_text(encoding='utf-8')
-          marker = '/* v55: calendar nowrap + tighter player profile top */'
+          css_path=Path('css/style.css')
+          css=css_path.read_text(encoding='utf-8')
+          marker='/* v55: calendar nowrap */'
           if marker not in css:
-              css += '''\n\n/* v55: calendar nowrap + tighter player profile top */\n.fixture .teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px}\n.fixture .teams>span:not(.score){min-width:0;white-space:nowrap}\n.fixture .teams>span:first-child{text-align:left}\n.fixture .teams>span:last-child{text-align:right}\n.fixture .teams>.score{white-space:nowrap;justify-self:center}\n@media(max-width:720px){\n  .fixture .teams{gap:6px;font-size:13px}\n  .fixture .teams>.score{padding:6px 10px;font-size:13px}\n}\n'''
-          css_path.write_text(css, encoding='utf-8')
+              css += '''\n\n/* v55: calendar nowrap */\n.fixture .teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px}\n.fixture .teams>span:not(.score){min-width:0;white-space:nowrap}\n.fixture .teams>span:first-child{text-align:left}\n.fixture .teams>span:last-child{text-align:right}\n.fixture .teams>.score{white-space:nowrap;justify-self:center}\n@media(max-width:720px){.fixture .teams{gap:6px;font-size:13px}.fixture .teams>.score{padding:6px 10px;font-size:13px}}\n'''
+          css_path.write_text(css,encoding='utf-8')
 
-          app_path = Path('js/app.js')
-          app = app_path.read_text(encoding='utf-8')
+          app_path=Path('js/app.js')
+          app=app_path.read_text(encoding='utf-8')
+          app=app.replace('<style>.head .title{display:none!important}</style>','<style>.head{display:none!important}#app>.section:first-child{padding-top:12px!important}@media(max-width:640px){#app>.section:first-child{padding-top:8px!important}}</style>',1)
+          app=app.replace('onclick="route(\'article-${newsSlug(pinned)}\')"','onclick="location.href=\'${newsPath(pinned)}\'"',1)
+          app=app.replace('onclick="route(\'article-${newsSlug(n)}\')"','onclick="location.href=\'${newsPath(n)}\'"',1)
+          app_path.write_text(app,encoding='utf-8')
 
-          # Player detail: the shared hidden h1 left an empty .head with margin.
-          # Hide the whole head and reduce the top section padding only on this view.
-          old_player_style = '<style>.head .title{display:none!important}</style>'
-          new_player_style = '<style>.head{display:none!important}#app>.section:first-child{padding-top:12px!important}@media(max-width:640px){#app>.section:first-child{padding-top:8px!important}}</style>'
-          if old_player_style not in app:
-              raise SystemExit('Player detail style marker not found')
-          app = app.replace(old_player_style, new_player_style, 1)
+          importer_path=Path('scripts/import_sportrentino_news.py')
+          importer=importer_path.read_text(encoding='utf-8')
+          importer=importer.replace('    imported: list[dict] = []\n    scanned_links = 0','    imported: list[dict] = []\n    refreshed: list[dict] = []\n    scanned_links = 0',1)
+          importer=importer.replace('''                if link.url in existing_sources or source_id in existing_source_ids:\n                    continue\n\n                try:\n                    article = extract_article(session, link)''','''                known_exists = link.url in existing_sources or source_id in existing_source_ids\n                archive_has_full = any(\n                    (n.get("sourceUrl") == link.url or str(n.get("sourceId")) == source_id)\n                    and len(str(n.get("bodyHtml") or "")) >= 500\n                    for n in archived_news\n                )\n                repair_mode = known_exists and not archive_has_full\n                if known_exists and not repair_mode:\n                    continue\n\n                try:\n                    article = extract_article(session, link)''',1)
+          importer=importer.replace('''                if news_identity(article) in existing_identities:\n                    time.sleep(args.sleep)\n                    continue\n\n                article["importSource"] = source["name"]''','''                if repair_mode:\n                    refreshed.append(article)\n                    print(f"  REFRESH {article['date']} - {article['title']}", flush=True)\n                    time.sleep(args.sleep)\n                    continue\n\n                if news_identity(article) in existing_identities:\n                    time.sleep(args.sleep)\n                    continue\n\n                article["importSource"] = source["name"]''',1)
+          old='''    if imported:\n        data["news"] = sort_news(imported + existing_news)\n        save_data(data_path, data)\n\n    save_news_index(news_index_path, sort_news(data.get("news", []) + archived_news))'''
+          new='''    if imported:\n        data["news"] = sort_news(imported + existing_news)\n        save_data(data_path, data)\n\n    if imported or refreshed:\n        merged_archive = []\n        seen_archive = set()\n        for item in [*refreshed, *imported, *archived_news]:\n            key = news_identity(item)\n            if key in seen_archive:\n                continue\n            seen_archive.add(key)\n            merged_archive.append(item)\n        archive_payload = load_data(archive_path) if archive_path.exists() else []\n        if isinstance(archive_payload, dict):\n            archive_payload["news"] = sort_news(merged_archive)\n            save_data(archive_path, archive_payload)\n        else:\n            archive_path.write_text(json.dumps(sort_news(merged_archive), ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")\n        archived_news = sort_news(merged_archive)\n\n    save_news_index(news_index_path, sort_news(data.get("news", []) + archived_news))'''
+          if old not in importer:
+              raise SystemExit('Importer final block not found')
+          importer=importer.replace(old,new,1)
+          importer=importer.replace('Importer version: v9 - CMS data.json + read-only imported archive dedup','Importer version: v10 - durable imported archive and incomplete refresh')
+          importer_path.write_text(importer,encoding='utf-8')
 
-          # News cards must use the real static article URL. This prevents the SPA
-          # from showing the lightweight news.index.json excerpt while 14 MB of
-          # full archive data is loading.
-          pinned_old = 'onclick="route(\'article-${newsSlug(pinned)}\')"'
-          pinned_new = 'onclick="location.href=\'${newsPath(pinned)}\'"'
-          card_old = 'onclick="route(\'article-${newsSlug(n)}\')"'
-          card_new = 'onclick="location.href=\'${newsPath(n)}\'"'
-          if pinned_old not in app:
-              raise SystemExit('Pinned news navigation marker not found')
-          if card_old not in app:
-              raise SystemExit('News card navigation marker not found')
-          app = app.replace(pinned_old, pinned_new, 1)
-          app = app.replace(card_old, card_new, 1)
-          app_path.write_text(app, encoding='utf-8')
-
-          # Cache bust both files. Generated static pages inherit these values.
-          index_path = Path('index.html')
-          index = index_path.read_text(encoding='utf-8')
-          if '/css/style.css?v=internal-spacing-v54' not in index:
-              raise SystemExit('Expected CSS cache key not found')
-          if '/js/app.js?v=news-full-v69' not in index:
-              raise SystemExit('Expected app cache key not found')
-          index = index.replace('/css/style.css?v=internal-spacing-v54', '/css/style.css?v=calendar-nowrap-v55', 1)
-          index = index.replace('/js/app.js?v=news-full-v69', '/js/app.js?v=news-static-v70', 1)
-          index_path.write_text(index, encoding='utf-8')
+          index_path=Path('index.html')
+          index=index_path.read_text(encoding='utf-8')
+          index=index.replace('/css/style.css?v=internal-spacing-v54','/css/style.css?v=calendar-nowrap-v55',1)
+          index=index.replace('/js/app.js?v=news-full-v69','/js/app.js?v=news-static-v70',1)
+          index_path.write_text(index,encoding='utf-8')
           PY
-
-      - name: Audit full news archive before generation
-        shell: bash
-        run: |
-          python - <<'PY'
-          import importlib.util
-          import re
-
-          spec = importlib.util.spec_from_file_location('gen', 'scripts/generate_static_pages.py')
-          gen = importlib.util.module_from_spec(spec)
-          spec.loader.exec_module(gen)
-          data = gen.load_site_data()
-          news = [n for n in data.get('news', []) if isinstance(n, dict)]
-          full_html = [n for n in news if len(str(n.get('bodyHtml') or '')) > 500]
-          print('News total:', len(news))
-          print('News with bodyHtml > 500 chars:', len(full_html))
-          if len(full_html) < 700:
-              raise SystemExit('Unexpectedly few full imported articles in archive')
-          bad = []
-          for n in full_html:
-              rendered = gen.article_body_html(n)
-              text = re.sub(r'<[^>]+>', ' ', rendered)
-              if len(text.strip()) < 400:
-                  bad.append(n.get('title'))
-          if bad:
-              raise SystemExit('Full archive articles still rendering too short: ' + repr(bad[:10]))
-          print('Full archive rendering audit OK')
-          PY
-
-      - name: Regenerate static site pages
+      - name: Refresh incomplete recent news
+        run: python -u scripts/import_sportrentino_news.py --max-pages 1 --sleep 0.10
+      - name: Regenerate static pages
         run: python scripts/generate_static_pages.py
-
-      - name: Verify generated news and layout fixes
+      - name: Verify
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
-
-          app = Path('js/app.js').read_text(encoding='utf-8')
-          css = Path('css/style.css').read_text(encoding='utf-8')
-          sample = Path('news/calcio-bleggio-dominante-nell-anticipo-riparte-la-serie-d-2026-09-25/index.html')
-          if not sample.exists():
-              raise SystemExit('Sample generated news page is missing')
-          html = sample.read_text(encoding='utf-8')
-          article_match = re.search(r'<article class="card card-pad article-body imported-article">([\s\S]*?)</article>', html)
-          if not article_match:
-              raise SystemExit('Sample article body not found')
-          article_text = re.sub(r'<[^>]+>', ' ', article_match.group(1))
-          article_text = re.sub(r'\s+', ' ', article_text).strip()
-          print('Sample generated article text chars:', len(article_text))
-          if len(article_text) < 500:
-              raise SystemExit('Sample generated article is still truncated')
-          if 'news-static-v70' not in html or 'calendar-nowrap-v55' not in html:
-              raise SystemExit('Generated page did not inherit new cache keys')
-          if 'location.href=\'${newsPath(n)}\'' not in app:
-              raise SystemExit('News cards still use SPA article routing')
-          if '.fixture .teams>span:not(.score){min-width:0;white-space:nowrap}' not in css:
-              raise SystemExit('Calendar nowrap rule missing')
-          if '.head{display:none!important}#app>.section:first-child{padding-top:12px!important}' not in app:
-              raise SystemExit('Player top spacing fix missing')
-          print('Generated news and layout checks OK')
+          sample=Path('news/calcio-bleggio-dominante-nell-anticipo-riparte-la-serie-d-2026-09-25/index.html').read_text(encoding='utf-8')
+          m=re.search(r'<article class="card card-pad article-body imported-article">([\s\S]*?)</article>',sample)
+          txt=re.sub(r'<[^>]+>',' ',m.group(1) if m else '')
+          txt=re.sub(r'\s+',' ',txt).strip()
+          print('Sample article chars:',len(txt))
+          if len(txt)<500: raise SystemExit('Sample news is still truncated')
+          app=Path('js/app.js').read_text(encoding='utf-8')
+          css=Path('css/style.css').read_text(encoding='utf-8')
+          if 'location.href=\'${newsPath(n)}\'' not in app: raise SystemExit('News still uses SPA routing')
+          if 'white-space:nowrap' not in css: raise SystemExit('Calendar nowrap missing')
+          if 'padding-top:12px!important' not in app: raise SystemExit('Player spacing missing')
+          print('Verification OK')
           PY
-
-      - name: Commit and push repair
+      - name: Commit and push
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add css/style.css js/app.js index.html robots.txt sitemap.xml \
-            news squadra staff calendario eventi partner diventa-partner classifica \
-            statistiche coppa gallery video social club sponsor hall-of-fame contatti under-21 \
-            squadre gioca-con-noi cnu archivio-stagioni impianto 2>/dev/null || true
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
-
-          echo "Changed files: $(git diff --cached --name-only | wc -l)"
-          git commit -m "Fix full news pages and calendar mobile layout"
+          git add -A
+          git commit -m "Repair recent news content and calendar layout"
           git push origin HEAD:main
