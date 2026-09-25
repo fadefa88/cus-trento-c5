@@ -231,6 +231,13 @@ def extract_article_content(soup: BeautifulSoup, title: str) -> tuple[list[str],
         if txt in seen_blocks:
             continue
 
+        # HTML SporTrentino può essere malformato: un primo <p> può inglobare
+        # anche i paragrafi successivi. In quel caso find_all_next() li vede
+        # di nuovo singolarmente. Se il blocco corrente è già contenuto in un
+        # blocco precedente, non renderizzarlo una seconda volta.
+        if any(txt in previous for previous in seen_blocks):
+            continue
+
         # Evita blocchi sidebar/menu.
         low = norm(txt)
         if any(skip in low for skip in [
