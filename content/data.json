@@ -329,8 +329,22 @@
       "away": "Trento",
       "date": "2026-09-26",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "ceola-michele",
+          "10",
+          "18",
+          "7"
+        ],
+        "bench": [
+          "16",
+          "19",
+          "1",
+          "sarcletti-paolo",
+          "scala-luca",
+          "tesser-alvise",
+          "11"
+        ],
         "suspended": [],
         "injured": []
       },
