@@ -141,6 +141,65 @@
         });
       }
 
+      function playerTeamLabel(team){
+        return String(team || "").toLowerCase().indexOf("under") !== -1 ? "U23" : "Prima";
+      }
+
+      function playerOptions(roster, goalkeepersOnly){
+        return (Array.isArray(roster) ? roster : [])
+          .filter(function(player){
+            if(!player || player.id == null || !player.name) return false;
+            return !goalkeepersOnly || String(player.role || "").toLowerCase() === "portiere";
+          })
+          .slice()
+          .sort(function(a,b){
+            var teamA = playerTeamLabel(a.team) === "Prima" ? 0 : 1;
+            var teamB = playerTeamLabel(b.team) === "Prima" ? 0 : 1;
+            if(teamA !== teamB) return teamA - teamB;
+            var numberA = Number(a.number);
+            var numberB = Number(b.number);
+            if(Number.isFinite(numberA) && Number.isFinite(numberB) && numberA !== numberB) return numberA - numberB;
+            return String(a.name).localeCompare(String(b.name), "it");
+          })
+          .map(function(player){
+            var number = player.number != null && player.number !== "" ? "#" + player.number + " " : "";
+            return {
+              label:number + player.name + " · " + playerTeamLabel(player.team),
+              value:String(player.id)
+            };
+          });
+      }
+
+      function setOptions(field, options, ownGoal){
+        if(!field) return;
+        field.options = options.slice();
+        if(ownGoal) field.options.push({label:"Autogol (avversario)", value:"autogol"});
+      }
+
+      function applyRosterOptionsToMatchFields(matchFields, allPlayers, goalkeepers){
+        if(!matchFields) return;
+        var lineup = namedField(matchFields, "lineup");
+        var lineupFields = lineup && lineup.fields;
+        ["startingFive","bench","suspended","injured"].forEach(function(name){
+          setOptions(namedField(lineupFields, name), allPlayers, false);
+        });
+        setOptions(eventPlayerField(matchFields, "scorerEvents"), allPlayers, true);
+        setOptions(eventPlayerField(matchFields, "yellowCardEvents"), allPlayers, false);
+        setOptions(eventPlayerField(matchFields, "redCardEvents"), allPlayers, false);
+        setOptions(eventPlayerField(matchFields, "goalkeeperEvents"), goalkeepers, false);
+      }
+
+      function syncPlayerOptionsFromRoster(config, roster){
+        if(!Array.isArray(roster) || !roster.length){
+          expandCrossTeamPlayerOptions(config);
+          return;
+        }
+        var allPlayers = playerOptions(roster, false);
+        var goalkeepers = playerOptions(roster, true);
+        applyRosterOptionsToMatchFields(collectionMatchFields(config, "fixtures"), allPlayers, goalkeepers);
+        applyRosterOptionsToMatchFields(collectionMatchFields(config, "u21Fixtures"), allPlayers, goalkeepers);
+      }
+
       function addOpponentLogoField(config, collectionName){
         var collections = config && config.collections;
         if(!Array.isArray(collections)) return;
@@ -153,12 +212,25 @@
         fields.splice(awayIndex >= 0 ? awayIndex + 1 : fields.length, 0, opponentLogoField());
       }
 
-      function initCms(config){
-        expandCrossTeamPlayerOptions(config);
+      function initCms(config, roster){
+        syncPlayerOptionsFromRoster(config, roster);
         addOpponentLogoField(config, "fixtures");
         addOpponentLogoField(config, "u21Fixtures");
         config.load_config_file = false;
         window.CMS.init({config:config});
+      }
+
+      function loadRoster(){
+        return fetch("/content/cms/roster.json?cms=" + Date.now(), {cache:"no-store"})
+          .then(function(response){
+            if(!response.ok) throw new Error("Rosa CMS non caricabile: " + response.status);
+            return response.json();
+          })
+          .then(function(payload){ return payload && Array.isArray(payload.roster) ? payload.roster : []; })
+          .catch(function(error){
+            console.warn("Rosa dinamica non caricata: uso le opzioni presenti in config.yml.", error);
+            return [];
+          });
       }
 
       function boot(){
@@ -168,12 +240,14 @@
           window.CMS.init();
           return;
         }
-        fetch("config.yml", {cache:"no-store"})
-          .then(function(response){
+        Promise.all([
+          fetch("config.yml", {cache:"no-store"}).then(function(response){
             if(!response.ok) throw new Error("Config CMS non caricabile: " + response.status);
             return response.text();
-          })
-          .then(function(text){ initCms(window.jsyaml.load(text)); })
+          }),
+          loadRoster()
+        ])
+          .then(function(results){ initCms(window.jsyaml.load(results[0]), results[1]); })
           .catch(function(error){
             console.error(error);
             window.CMS.init();
