@@ -38,6 +38,71 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip pyyaml
 
+      - name: Apply surname-only labels and roster sizing
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          app_path = Path('js/app.js')
+          app = app_path.read_text(encoding='utf-8')
+
+          replacements = [
+              (
+                  'function statShortName(p){return (p&&p.name?String(p.name):"").split(" ").slice(0,2).join(" ")||"Giocatore";}',
+                  'function playerSurname(p){return (p&&p.name?String(p.name):"").trim().split(/\\s+/)[0]||"Giocatore";}\nfunction statShortName(p){return playerSurname(p);}\nfunction playerSurnameById(roster,id){const p=(roster||[]).find(x=>String(x.id)===String(id));return p?playerSurname(p):playerSurname({name:playerDisplayNameById(roster,id)});}'
+              ),
+              (
+                  'const rows=(values||[]).map(x=>playerDisplayNameById(state.roster,resolvePlayerId(x,state.roster)||x)).filter(Boolean);',
+                  'const rows=(values||[]).map(x=>playerSurnameById(state.roster,resolvePlayerId(x,state.roster)||x)).filter(Boolean);'
+              ),
+              (
+                  'if(events.length)return events.map(e=>`<span class="match-person">${safe(playerDisplayNameById(state.roster,e.playerId))}${e.goals>1?` ${e.goals}`:""}</span>`).join("");',
+                  'if(events.length)return events.map(e=>`<span class="match-person">${safe(playerSurnameById(state.roster,e.playerId))}${e.goals>1?` ${e.goals}`:""}</span>`).join("");'
+              ),
+              (
+                  'return legacy.length?legacy.map(x=>`<span class="match-person">${safe(x)}</span>`).join(""):`<span class="match-person empty">Da definire</span>`;',
+                  'return legacy.length?legacy.map(x=>`<span class="match-person">${safe(playerSurname({name:x}))}</span>`).join(""):`<span class="match-person empty">Da definire</span>`;'
+              ),
+              (
+                  'if(events.length)return events.map(e=>`<span class="match-person">${safe(playerDisplayNameById(state.roster,e.playerId))}${e.count>1?` ${e.count}`:""}</span>`).join("");',
+                  'if(events.length)return events.map(e=>`<span class="match-person">${safe(playerSurnameById(state.roster,e.playerId))}${e.count>1?` ${e.count}`:""}</span>`).join("");'
+              ),
+              (
+                  '${starters.slice(0,5).map((name,i)=>`<div class="spot ${spots[i]||"p4"}">${playerDisplayNameById(state.roster,resolvePlayerId(name,state.roster)||name)}</div>`).join("")}',
+                  '${starters.slice(0,5).map((name,i)=>`<div class="spot ${spots[i]||"p4"}">${playerSurnameById(state.roster,resolvePlayerId(name,state.roster)||name)}</div>`).join("")}'
+              ),
+          ]
+
+          for old, new in replacements:
+              count = app.count(old)
+              if count != 1:
+                  raise SystemExit(f'Expected exactly one app.js occurrence, found {count}: {old[:100]}')
+              app = app.replace(old, new, 1)
+
+          app_path.write_text(app, encoding='utf-8')
+
+          css_path = Path('css/style.css')
+          css = css_path.read_text(encoding='utf-8')
+          sizing = '\n/* Rosa: nomi ridotti di 2pt */\n.player .card-pad h2{font-size:calc(30px - 2pt)}\n.player-detail-heading h2{font-size:calc(42px - 2pt)}\n'
+          if sizing.strip() not in css:
+              css += sizing
+          css_path.write_text(css, encoding='utf-8')
+
+          index_path = Path('index.html')
+          index = index_path.read_text(encoding='utf-8')
+          index_replacements = [
+              ('/css/style.css?v=cus-static-seo-v45', '/css/style.css?v=cus-static-seo-v46'),
+              ('/js/app.js?v=no-cookie-banner-v62', '/js/app.js?v=no-cookie-banner-v63'),
+          ]
+          for old, new in index_replacements:
+              count = index.count(old)
+              if count != 1:
+                  raise SystemExit(f'Expected exactly one index.html occurrence, found {count}: {old}')
+              index = index.replace(old, new, 1)
+          index_path.write_text(index, encoding='utf-8')
+          PY
+
       - name: Sync CMS player dropdowns from roster
         run: python scripts/sync_roster_options.py
 
@@ -87,14 +152,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add admin/config.yml content/data.json
+          git add admin/config.yml content/data.json js/app.js css/style.css index.html
 
           if git diff --cached --quiet; then
             echo "CMS data already in sync."
             exit 0
           fi
 
-          git commit -m "Sync CMS data to frontend"
+          git commit -m "Use surnames in stats and match center"
 
           if [ -n "$(git status --porcelain)" ]; then
             echo "::error::Working tree is not clean after the CMS sync commit."
