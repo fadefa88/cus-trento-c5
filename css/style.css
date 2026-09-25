@@ -1252,6 +1252,6 @@ body.menu-open{
 @media(max-width:980px){.club-project-mini-gallery{max-width:100%}}
 .sponsor-logo{min-height:368px}
 
-/* Rosa: nomi ridotti di 2pt */
-.player .card-pad h2{font-size:calc(30px - 2pt)}
-.player-detail-heading h2{font-size:calc(42px - 2pt)}
+/* Rosa: nomi card ridotti di 2pt */
+.player .card-pad h2{font-size:27.333px!important}
+.scorer-balls{display:inline-flex;gap:2px;margin-left:4px;letter-spacing:1px;white-space:nowrap}

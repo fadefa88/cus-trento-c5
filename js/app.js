@@ -1448,7 +1448,7 @@ function matchPeopleList(values,emptyText="Da definire"){
 }
 function scorerListHtml(match){
   const events=scorerEvents(match,state.roster||[]);
-  if(events.length)return events.map(e=>`<span class="match-person">${safe(playerSurnameById(state.roster,e.playerId))}${e.goals>1?` ${e.goals}`:""}</span>`).join("");
+  if(events.length)return events.map(e=>{const goals=Math.max(1,toNumber(e.goals)||1);return `<span class="match-person">${safe(playerSurnameById(state.roster,e.playerId))} <span class="scorer-balls" aria-label="${goals} gol">${"⚽".repeat(goals)}</span></span>`;}).join("");
   const legacy=(match.scorers||[]).filter(Boolean);
   return legacy.length?legacy.map(x=>`<span class="match-person">${safe(playerSurname({name:x}))}</span>`).join(""):`<span class="match-person empty">Da definire</span>`;
 }
@@ -1513,7 +1513,7 @@ function resultStatsFromMatches(matches){
   return out;
 }
 function teamRosterForStats(isU21){return (state.roster||[]).filter(p=>isU21?p.team==="Under 21":p.team==="Prima squadra");}
-function playerSurname(p){return (p&&p.name?String(p.name):"").trim().split(/\s+/)[0]||"Giocatore";}
+function playerSurname(p){const name=(p&&p.name?String(p.name):"").trim();const parts=name.split(/\s+/).filter(Boolean);if(parts.length>=2&&parts[0].toLowerCase()==="baccaro"&&parts[1].toLowerCase()==="zeni")return `${parts[0]} ${parts[1]}`;return parts[0]||"Giocatore";}
 function statShortName(p){return playerSurname(p);}
 function playerSurnameById(roster,id){const p=(roster||[]).find(x=>String(x.id)===String(id));return p?playerSurname(p):playerSurname({name:playerDisplayNameById(roster,id)});}
 function statRankingFromMap(map){return [...map.values()].sort((a,b)=>b.value-a.value||String(a.label).localeCompare(String(b.label)));}
