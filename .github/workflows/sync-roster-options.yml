@@ -1,24 +1,18 @@
-name: Sync CMS data
+name: Temporary player profile name size
 
 on:
   push:
     branches:
       - main
     paths:
-      - content/cms/*.json
       - .github/workflows/sync-roster-options.yml
-      - scripts/sync_roster_options.py
   workflow_dispatch:
 
 permissions:
   contents: write
 
-concurrency:
-  group: sync-cms-data-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  sync-cms-data:
+  patch-profile-name:
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -30,96 +24,41 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install dependencies
-        run: python -m pip install --upgrade pip pyyaml
-
-      - name: Sync CMS player dropdowns from roster
-        run: python scripts/sync_roster_options.py
-
-      - name: Merge CMS content into frontend data
+      - name: Reduce player profile given name
         shell: bash
         run: |
           python - <<'PY'
-          import json
           from pathlib import Path
+          import re
 
-          root = Path('.')
-          data_path = root / 'content' / 'data.json'
-          data = json.loads(data_path.read_text(encoding='utf-8')) if data_path.exists() else {}
+          css_path = Path('css/style.css')
+          css = css_path.read_text(encoding='utf-8')
+          old = 'font-size:calc(1em - 3px)!important;line-height:.86!important;font-weight:500!important;margin-bottom:-1px'
+          new = 'font-size:calc(1em - 5px)!important;line-height:.86!important;font-weight:500!important;margin-bottom:-1px'
+          if old not in css:
+              raise SystemExit('Player profile given-name size anchor not found')
+          css_path.write_text(css.replace(old, new, 1), encoding='utf-8')
 
-          cms_files = [
-              'news.json',
-              'roster.json',
-              'fixtures.json',
-              'u21-fixtures.json',
-              'gallery-albums.json',
-              'sponsors.json',
-              'sponsor-packages.json',
-              'staff.json',
-              'videos.json',
-              'club-history.json',
-              'events.json',
-          ]
-
-          for name in cms_files:
-              path = root / 'content' / 'cms' / name
+          targets = [Path('index.html'), Path('squadra/index.html')]
+          targets.extend(sorted(Path('squadra').glob('*/index.html')))
+          for path in targets:
               if not path.exists():
                   continue
-              payload = json.loads(path.read_text(encoding='utf-8'))
-              if isinstance(payload, dict):
-                  data.update(payload)
-
-          data_path.write_text(
-              json.dumps(data, ensure_ascii=False, indent=2) + '\n',
-              encoding='utf-8',
-          )
+              text = path.read_text(encoding='utf-8')
+              text = re.sub(r'/css/style\.css\?v=[^\"\']+', '/css/style.css?v=profile-name-v52', text, count=1)
+              path.write_text(text, encoding='utf-8')
           PY
 
-      - name: Commit and push synced CMS data
+      - name: Commit and push
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add admin/config.yml content/data.json
-
+          git add css/style.css index.html squadra
           if git diff --cached --quiet; then
-            echo "CMS data already in sync."
+            echo "No changes to commit."
             exit 0
           fi
-
-          git commit -m "Sync CMS data to frontend"
-
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "::error::Working tree is not clean after the CMS sync commit."
-            git status --short
-            exit 1
-          fi
-
-          for attempt in 1 2 3; do
-            echo "Push attempt $attempt/3"
-            git fetch origin main
-
-            if git rebase origin/main; then
-              if git push origin HEAD:main; then
-                echo "CMS data synced to main."
-                exit 0
-              fi
-            else
-              echo "Rebase failed. Aborting."
-              git rebase --abort || true
-              exit 1
-            fi
-
-            echo "Push failed, retrying ($attempt/3)..."
-            sleep 3
-          done
-
-          echo "Unable to push synced CMS data after 3 attempts. Check repository rules for GitHub Actions write access to main."
-          exit 1
+          git commit -m "Reduce player profile given name by two pixels"
+          git push origin HEAD:main
