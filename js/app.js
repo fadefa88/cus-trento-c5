@@ -1510,7 +1510,7 @@ function teamRosterForStats(isU21){return (state.roster||[]).filter(p=>isU21?p.t
 function statShortName(p){return (p&&p.name?String(p.name):"").split(" ").slice(0,2).join(" ")||"Giocatore";}
 function statRankingFromMap(map){return [...map.values()].sort((a,b)=>b.value-a.value||String(a.label).localeCompare(String(b.label)));}
 function topScorersFromMatches(matches,isU21){
-  const roster=teamRosterForStats(isU21);const allowed=new Set([...roster.map(p=>String(p.id)),OWN_GOAL_ID]);const byId=new Map((state.roster||[]).map(p=>[String(p.id),p]));const map=new Map();
+  const roster=isU21?(state.roster||[]):teamRosterForStats(false);const allowed=new Set([...roster.map(p=>String(p.id)),OWN_GOAL_ID]);const byId=new Map((state.roster||[]).map(p=>[String(p.id),p]));const map=new Map();
   (matches||[]).forEach(m=>scorerEvents(m,state.roster||[]).forEach(e=>{
     const key=String(e.playerId);if(!allowed.has(key))return;const p=e.isOwnGoal?{name:OWN_GOAL_LABEL}:byId.get(key);if(!map.has(key))map.set(key,{label:statShortName(p),value:0,fullName:p&&p.name});map.get(key).value+=toNumber(e.goals)||1;
   }));
