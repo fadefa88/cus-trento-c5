@@ -1258,5 +1258,6 @@ body.menu-open{
 .player .card-pad h2.player-card-name > .player-card-given{font-size:27.333333px!important;line-height:1!important;font-weight:500!important}
 .scorer-balls{display:inline-flex;gap:2px;margin-left:4px;letter-spacing:1px;white-space:nowrap}
 
-.player-detail-heading h2.player-profile-name > .player-card-surname{font-size:inherit!important;line-height:inherit!important;font-weight:1000!important}
-.player-detail-heading h2.player-profile-name > .player-card-given{font-size:inherit!important;line-height:inherit!important;font-weight:500!important}
+.player-detail-heading h2.player-profile-name{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:0!important;line-height:.86!important;margin:0!important}
+.player-detail-heading h2.player-profile-name > .player-card-surname{order:2;font-size:inherit!important;line-height:.86!important;font-weight:1000!important}
+.player-detail-heading h2.player-profile-name > .player-card-given{order:1;font-size:calc(1em - 3px)!important;line-height:.86!important;font-weight:500!important;margin-bottom:-1px}
