@@ -38,56 +38,6 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip pyyaml
 
-      - name: Split surname and given name in roster cards
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          app = Path('js/app.js')
-          text = app.read_text(encoding='utf-8')
-          old = '''function players(list){
-            return (list||[]).map(p=>`<article class="card player" onclick="route('player-${objectSlug(p,'roster')}')"><div class="player-top"><div class="player-photo" style="background-image:url('${p.photo||''}')"></div><div class="num">${p.number||''}</div><div class="avatar"><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"></div></div><div class="card-pad"><span class="badge">${p.role||''}</span><p class="news-meta"></p><h2>${p.name||''}</h2>${playerMetricsCard(p)}<div class="click-hint">Scheda completa</div></div></article>`).join("");
-          }'''
-          new = '''function rosterCardNameHtml(p){
-            const parts=String(p&&p.name||"").trim().split(/\\s+/).filter(Boolean);
-            let surnameParts=parts.slice(0,1);
-            if(parts.length>=2&&parts[0].toLowerCase()==="baccaro"&&parts[1].toLowerCase()==="zeni")surnameParts=parts.slice(0,2);
-            const givenParts=parts.slice(surnameParts.length);
-            const surname=surnameParts.join(" ");
-            const given=givenParts.join(" ");
-            return `<span class="player-card-surname">${safe(surname)}</span>${given?` <span class="player-card-given">${safe(given)}</span>`:""}`;
-          }
-          function players(list){
-            return (list||[]).map(p=>`<article class="card player" onclick="route('player-${objectSlug(p,'roster')}')"><div class="player-top"><div class="player-photo" style="background-image:url('${p.photo||''}')"></div><div class="num">${p.number||''}</div><div class="avatar"><img loading="lazy" decoding="async" src="${p.photo||''}" alt="${p.name||'Giocatore'}"></div></div><div class="card-pad"><span class="badge">${p.role||''}</span><p class="news-meta"></p><h2 class="player-card-name">${rosterCardNameHtml(p)}</h2>${playerMetricsCard(p)}<div class="click-hint">Scheda completa</div></div></article>`).join("");
-          }'''
-          if old not in text:
-              raise SystemExit('players() target not found')
-          text = text.replace(old, new, 1)
-          app.write_text(text, encoding='utf-8')
-
-          css = Path('css/style.css')
-          c = css.read_text(encoding='utf-8')
-          old_css = '''/* Rosa: nomi card ridotti di 2pt */
-          .player .card-pad h2{font-size:27.333px!important}
-          .scorer-balls{display:inline-flex;gap:2px;margin-left:4px;letter-spacing:1px;white-space:nowrap}'''
-          new_css = '''/* Rosa: cognome pieno, nome 2pt più piccolo */
-          .player .card-pad h2.player-card-name{font-size:30px!important;line-height:1;display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
-          .player-card-surname{font-size:30px;font-weight:inherit}
-          .player-card-given{font-size:27.333px;font-weight:inherit}
-          .scorer-balls{display:inline-flex;gap:2px;margin-left:4px;letter-spacing:1px;white-space:nowrap}'''
-          if old_css not in c:
-              raise SystemExit('roster CSS target not found')
-          c = c.replace(old_css, new_css, 1)
-          css.write_text(c, encoding='utf-8')
-
-          index = Path('index.html')
-          h = index.read_text(encoding='utf-8')
-          h = h.replace('/css/style.css?v=cus-static-seo-v47', '/css/style.css?v=cus-static-seo-v48')
-          h = h.replace('/js/app.js?v=no-cookie-banner-v64', '/js/app.js?v=no-cookie-banner-v65')
-          index.write_text(h, encoding='utf-8')
-          PY
-
       - name: Sync CMS player dropdowns from roster
         run: python scripts/sync_roster_options.py
 
@@ -137,14 +87,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add admin/config.yml content/data.json js/app.js css/style.css index.html
+          git add admin/config.yml content/data.json
 
           if git diff --cached --quiet; then
             echo "CMS data already in sync."
             exit 0
           fi
 
-          git commit -m "Separate roster surname and given-name sizing"
+          git commit -m "Sync CMS data to frontend"
 
           if [ -n "$(git status --porcelain)" ]; then
             echo "::error::Working tree is not clean after the CMS sync commit."
