@@ -382,6 +382,17 @@ def public_youth_text(value: Any) -> str:
     return re.sub(r"\bu21\b", "U23", text, flags=re.I)
 
 
+def roster_card_name_html(value: Any) -> str:
+    parts = str(value or "").strip().split()
+    if not parts:
+        return '<h2 class="player-card-name"></h2>'
+    surname_len = 2 if len(parts) >= 2 and parts[0].lower() == "baccaro" and parts[1].lower() == "zeni" else 1
+    surname = " ".join(parts[:surname_len])
+    given = " ".join(parts[surname_len:])
+    given_html = f' <span class="player-card-given">{esc(given)}</span>' if given else ""
+    return f'<h2 class="player-card-name"><span class="player-card-surname">{esc(surname)}</span>{given_html}</h2>'
+
+
 def text_excerpt(value: Any, max_len: int = 156) -> str:
     text = re.sub(r"<[^>]+>", " ", str(value or ""))
     text = html.unescape(text)
@@ -501,7 +512,7 @@ def render_simple_main(page: Dict[str, Any], data: Dict[str, Any]) -> str:
     elif route == "squad":
         roster = data.get("roster", []) if isinstance(data.get("roster"), list) else []
         pieces.append("<div class=\"grid grid-4\">" + "\n".join(
-            f'''<article class="card player"><div class="player-top"><div class="avatar"><img loading="lazy" decoding="async" src="{esc(p.get('photo') or '/img/placeholder.webp')}" alt="{esc(p.get('name'))}"></div></div><div class="card-pad"><span class="badge">{esc(p.get('role'))}</span><h2>{esc(p.get('name'))}</h2><p class="muted">{esc(public_youth_text(p.get('team')))}</p></div></article>'''
+            f'''<article class="card player"><div class="player-top"><div class="avatar"><img loading="lazy" decoding="async" src="{esc(p.get('photo') or '/img/placeholder.webp')}" alt="{esc(p.get('name'))}"></div></div><div class="card-pad"><span class="badge">{esc(p.get('role'))}</span>{roster_card_name_html(p.get('name'))}<p class="muted">{esc(public_youth_text(p.get('team')))}</p></div></article>'''
             for p in roster[:24] if isinstance(p, dict)
         ) + "</div>")
     elif route == "staff":
