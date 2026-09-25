@@ -2120,20 +2120,8 @@
       "away": "CUS Trento U23",
       "date": "2026-11-27",
       "lineup": {
-        "startingFive": [
-          "20",
-          "26",
-          "buda-samuele",
-          "28",
-          "grippa-michele"
-        ],
-        "bench": [
-          "gobbetti-fabio",
-          "niccolo-piovesan",
-          "harmeet-singh",
-          "8",
-          "zanrosso-matteo"
-        ],
+        "startingFive": [],
+        "bench": [],
         "suspended": [],
         "injured": []
       },
@@ -2186,8 +2174,20 @@
       "away": "San Floriano 2025",
       "date": "2026-09-25",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "20",
+          "26",
+          "buda-samuele",
+          "28",
+          "grippa-michele"
+        ],
+        "bench": [
+          "gobbetti-fabio",
+          "niccolo-piovesan",
+          "harmeet-singh",
+          "8",
+          "zanrosso-matteo"
+        ],
         "suspended": [],
         "injured": []
       },
