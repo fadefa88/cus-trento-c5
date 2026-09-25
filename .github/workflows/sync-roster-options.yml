@@ -38,6 +38,83 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip pyyaml
 
+      - name: Apply match center and CMS cleanup
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          app_path = Path('js/app.js')
+          app = app_path.read_text(encoding='utf-8')
+
+          old_cards = '''  if(events.length)return events.map(e=>`<span class="match-person">${safe(playerSurnameById(state.roster,e.playerId))}${e.count>1?` ${e.count}`:""}</span>`).join("");'''
+          new_cards = '''  if(events.length)return events.map(e=>{const count=Math.max(1,toNumber(e.count)||1);const icon=type==="red"?"🟥":"🟨";return `<span class="match-person">${safe(playerSurnameById(state.roster,e.playerId))} <span aria-label="${count} ${type==="red"?"espulsione":"ammonizione"}">${icon.repeat(count)}</span></span>`;}).join("");'''
+          if app.count(old_cards) != 1:
+              raise SystemExit(f'Expected 1 card renderer, found {app.count(old_cards)}')
+          app = app.replace(old_cards, new_cards)
+
+          old_default = 'const lineup=f.lineup||{startingFive:[],bench:[],suspended:[],injured:[],tacticalNotes:[]};'
+          new_default = 'const lineup=f.lineup||{startingFive:[],bench:[],tacticalNotes:[]};'
+          if app.count(old_default) != 1:
+              raise SystemExit(f'Expected 1 lineup default, found {app.count(old_default)}')
+          app = app.replace(old_default, new_default)
+
+          if app.count('<h2>Convocati e note tattiche</h2>') != 1:
+              raise SystemExit('Expected Match Center heading not found exactly once')
+          app = app.replace('<h2>Convocati e note tattiche</h2>', '<h2>Convocati</h2>')
+
+          remove_blocks = [
+              '<div><b>Squalificati</b><p class="muted match-person-list">${matchPeopleList(lineup.suspended||[],"Nessuno")}</p></div>',
+              '<div><b>Infortunati</b><p class="muted match-person-list">${matchPeopleList(lineup.injured||[],"Nessuno")}</p></div>',
+          ]
+          for block in remove_blocks:
+              if app.count(block) != 1:
+                  raise SystemExit(f'Expected Match Center block not found exactly once: {block[:35]}')
+              app = app.replace(block, '')
+          app_path.write_text(app, encoding='utf-8')
+
+          config_path = Path('admin/config.yml')
+          config = config_path.read_text(encoding='utf-8')
+          pattern = re.compile(r'(?ms)^        - label: Squalificati\n.*?(?=^      - label: Marcatori\n)')
+          config, count = pattern.subn('', config)
+          if count != 2:
+              raise SystemExit(f'Expected 2 CMS suspended/injured blocks, removed {count}')
+          config_path.write_text(config, encoding='utf-8')
+
+          sync_path = Path('scripts/sync_roster_options.py')
+          sync = sync_path.read_text(encoding='utf-8')
+          old_set = 'LINEUP_FIELD_NAMES = {"startingFive", "bench", "suspended", "injured"}'
+          new_set = 'LINEUP_FIELD_NAMES = {"startingFive", "bench"}'
+          if sync.count(old_set) != 1:
+              raise SystemExit(f'Expected lineup field set once, found {sync.count(old_set)}')
+          sync_path.write_text(sync.replace(old_set, new_set), encoding='utf-8')
+
+          for json_path, key in [
+              (Path('content/cms/fixtures.json'), 'fixtures'),
+              (Path('content/cms/u21-fixtures.json'), 'u21Fixtures'),
+          ]:
+              data = json.loads(json_path.read_text(encoding='utf-8'))
+              changed = False
+              for match in data.get(key, []):
+                  lineup = match.get('lineup')
+                  if not isinstance(lineup, dict):
+                      continue
+                  for field in ('suspended', 'injured'):
+                      if field in lineup:
+                          lineup.pop(field, None)
+                          changed = True
+              if changed:
+                  json_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          index_path = Path('index.html')
+          index = index_path.read_text(encoding='utf-8')
+          if 'app.js?v=no-cookie-banner-v64' not in index:
+              raise SystemExit('Expected app.js v64 cache key not found')
+          index_path.write_text(index.replace('app.js?v=no-cookie-banner-v64', 'app.js?v=no-cookie-banner-v65'), encoding='utf-8')
+          PY
+
       - name: Sync CMS player dropdowns from roster
         run: python scripts/sync_roster_options.py
 
@@ -87,14 +164,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add admin/config.yml content/data.json
+          git add admin/config.yml content/cms/fixtures.json content/cms/u21-fixtures.json content/data.json js/app.js scripts/sync_roster_options.py index.html
 
           if git diff --cached --quiet; then
             echo "CMS data already in sync."
             exit 0
           fi
 
-          git commit -m "Sync CMS data to frontend"
+          git commit -m "Add card icons and simplify match center callups"
 
           if [ -n "$(git status --porcelain)" ]; then
             echo "::error::Working tree is not clean after the CMS sync commit."
