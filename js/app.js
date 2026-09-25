@@ -1442,19 +1442,19 @@ function renderCalendarList(){
 }
 function fixtures(){const team=view.calendar==="u21"?"Under 23":"Prima squadra";shell("Stagione","Calendario",`${teamSwitch("calendar")}<div class="toolbar">${["Tutte","Da giocare","Terminata","Campionato","Coppa"].map(f=>`<button class="pill fixf ${view.calendarFilter===f?"active":""}" onclick="setCalendarFilter('${f}')">${f}</button>`).join("")}</div><div class="grid" id="fixGrid"></div>`,"","Calendario e risultati CUS Trento C5.");renderCalendarList();}
 function matchPeopleList(values,emptyText="Da definire"){
-  const rows=(values||[]).map(x=>playerDisplayNameById(state.roster,resolvePlayerId(x,state.roster)||x)).filter(Boolean);
+  const rows=(values||[]).map(x=>playerSurnameById(state.roster,resolvePlayerId(x,state.roster)||x)).filter(Boolean);
   if(!rows.length)return `<span class="match-person empty">${safe(emptyText)}</span>`;
   return rows.map(name=>`<span class="match-person">${safe(name)}</span>`).join("");
 }
 function scorerListHtml(match){
   const events=scorerEvents(match,state.roster||[]);
-  if(events.length)return events.map(e=>`<span class="match-person">${safe(playerDisplayNameById(state.roster,e.playerId))}${e.goals>1?` ${e.goals}`:""}</span>`).join("");
+  if(events.length)return events.map(e=>`<span class="match-person">${safe(playerSurnameById(state.roster,e.playerId))}${e.goals>1?` ${e.goals}`:""}</span>`).join("");
   const legacy=(match.scorers||[]).filter(Boolean);
-  return legacy.length?legacy.map(x=>`<span class="match-person">${safe(x)}</span>`).join(""):`<span class="match-person empty">Da definire</span>`;
+  return legacy.length?legacy.map(x=>`<span class="match-person">${safe(playerSurname({name:x}))}</span>`).join(""):`<span class="match-person empty">Da definire</span>`;
 }
 function cardListHtml(match,type){
   const events=type==="red"?redCardEvents(match,state.roster||[]):yellowCardEvents(match,state.roster||[]);
-  if(events.length)return events.map(e=>`<span class="match-person">${safe(playerDisplayNameById(state.roster,e.playerId))}${e.count>1?` ${e.count}`:""}</span>`).join("");
+  if(events.length)return events.map(e=>`<span class="match-person">${safe(playerSurnameById(state.roster,e.playerId))}${e.count>1?` ${e.count}`:""}</span>`).join("");
   return `<span class="match-person empty">Nessuno</span>`;
 }
 function matchDetail(id){
@@ -1463,7 +1463,7 @@ function matchDetail(id){
   const lineup=f.lineup||{startingFive:[],bench:[],suspended:[],injured:[],tacticalNotes:[]};
   const starters=lineup.startingFive||[];
   const spots=["gk","p1","p2","p3","p4"];
-  shell("Match center",`${f.home} - ${f.away}`,`<div class="breadcrumb"><button class="back-link" onclick="route('fixtures')"><span>←</span> Calendario</button><span>${fmt(f.date)} · ${f.time} · ${f.venue}</span></div><div class="grid grid-2"><div class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">${f.competition||f.round||"Campionato"}</span><div class="match-teams"><div><div class="clubmark">${f.home.includes("CUS")?"CUS":f.home.slice(0,2)}</div><b>${f.home}</b></div><div><div class="timebox">${f.score||"VS"}</div><small>${f.status}</small></div><div><div class="clubmark">${f.away.includes("CUS")?"CUS":f.away.slice(0,2)}</div><b>${f.away}</b></div></div></div><div class="card card-pad"><h2>Tabellino</h2><div class="grid grid-3 match-list-grid" style="margin-top:18px"><div><b>Marcatori</b><p class="muted match-person-list">${scorerListHtml(f)}</p></div><div><b>Ammoniti</b><p class="muted match-person-list">${cardListHtml(f,"yellow")}</p></div><div><b>Espulsi</b><p class="muted match-person-list">${cardListHtml(f,"red")}</p></div></div></div></div><div class="grid grid-2" style="margin-top:22px"><div class="lineup-board"><span class="eyebrow" style="background:white;color:#09090b">Tattica</span><h2 style="font-size:34px;margin:0">Quintetto titolare</h2><div class="pitch">${starters.slice(0,5).map((name,i)=>`<div class="spot ${spots[i]||"p4"}">${playerDisplayNameById(state.roster,resolvePlayerId(name,state.roster)||name)}</div>`).join("")}</div></div><div class="card card-pad"><h2>Convocati e note tattiche</h2><div class="grid grid-2 match-list-grid" style="margin-top:18px"><div><b>Quintetto</b><p class="muted match-person-list">${matchPeopleList(starters)}</p></div><div><b>Panchina</b><p class="muted match-person-list">${matchPeopleList(lineup.bench||[])}</p></div><div><b>Squalificati</b><p class="muted match-person-list">${matchPeopleList(lineup.suspended||[],"Nessuno")}</p></div><div><b>Infortunati</b><p class="muted match-person-list">${matchPeopleList(lineup.injured||[],"Nessuno")}</p></div></div>${(lineup.tacticalNotes||[]).map(n=>`<p class="muted">• ${safe(n)}</p>`).join("")}</div></div>`,"");
+  shell("Match center",`${f.home} - ${f.away}`,`<div class="breadcrumb"><button class="back-link" onclick="route('fixtures')"><span>←</span> Calendario</button><span>${fmt(f.date)} · ${f.time} · ${f.venue}</span></div><div class="grid grid-2"><div class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">${f.competition||f.round||"Campionato"}</span><div class="match-teams"><div><div class="clubmark">${f.home.includes("CUS")?"CUS":f.home.slice(0,2)}</div><b>${f.home}</b></div><div><div class="timebox">${f.score||"VS"}</div><small>${f.status}</small></div><div><div class="clubmark">${f.away.includes("CUS")?"CUS":f.away.slice(0,2)}</div><b>${f.away}</b></div></div></div><div class="card card-pad"><h2>Tabellino</h2><div class="grid grid-3 match-list-grid" style="margin-top:18px"><div><b>Marcatori</b><p class="muted match-person-list">${scorerListHtml(f)}</p></div><div><b>Ammoniti</b><p class="muted match-person-list">${cardListHtml(f,"yellow")}</p></div><div><b>Espulsi</b><p class="muted match-person-list">${cardListHtml(f,"red")}</p></div></div></div></div><div class="grid grid-2" style="margin-top:22px"><div class="lineup-board"><span class="eyebrow" style="background:white;color:#09090b">Tattica</span><h2 style="font-size:34px;margin:0">Quintetto titolare</h2><div class="pitch">${starters.slice(0,5).map((name,i)=>`<div class="spot ${spots[i]||"p4"}">${playerSurnameById(state.roster,resolvePlayerId(name,state.roster)||name)}</div>`).join("")}</div></div><div class="card card-pad"><h2>Convocati e note tattiche</h2><div class="grid grid-2 match-list-grid" style="margin-top:18px"><div><b>Quintetto</b><p class="muted match-person-list">${matchPeopleList(starters)}</p></div><div><b>Panchina</b><p class="muted match-person-list">${matchPeopleList(lineup.bench||[])}</p></div><div><b>Squalificati</b><p class="muted match-person-list">${matchPeopleList(lineup.suspended||[],"Nessuno")}</p></div><div><b>Infortunati</b><p class="muted match-person-list">${matchPeopleList(lineup.injured||[],"Nessuno")}</p></div></div>${(lineup.tacticalNotes||[]).map(n=>`<p class="muted">• ${safe(n)}</p>`).join("")}</div></div>`,"");
 }
 function cupFixture(f,compact=false){
   if(!f || !Object.keys(f).length){
@@ -1513,7 +1513,9 @@ function resultStatsFromMatches(matches){
   return out;
 }
 function teamRosterForStats(isU21){return (state.roster||[]).filter(p=>isU21?p.team==="Under 21":p.team==="Prima squadra");}
-function statShortName(p){return (p&&p.name?String(p.name):"").split(" ").slice(0,2).join(" ")||"Giocatore";}
+function playerSurname(p){return (p&&p.name?String(p.name):"").trim().split(/\s+/)[0]||"Giocatore";}
+function statShortName(p){return playerSurname(p);}
+function playerSurnameById(roster,id){const p=(roster||[]).find(x=>String(x.id)===String(id));return p?playerSurname(p):playerSurname({name:playerDisplayNameById(roster,id)});}
 function statRankingFromMap(map){return [...map.values()].sort((a,b)=>b.value-a.value||String(a.label).localeCompare(String(b.label)));}
 function topScorersFromMatches(matches,isU21){
   const roster=isU21?(state.roster||[]):teamRosterForStats(false);const allowed=new Set([...roster.map(p=>String(p.id)),OWN_GOAL_ID]);const byId=new Map((state.roster||[]).map(p=>[String(p.id),p]));const map=new Map();
