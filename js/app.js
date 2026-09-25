@@ -196,6 +196,7 @@ function resolvePlayerId(value, roster){
 function lineupIds(match, roster){const l=match.lineup||{};const values=[...(l.startingFive||[]),...(l.bench||[])];const ids=[];values.forEach(v=>{const id=resolvePlayerId(v,roster);if(id!==null&&!ids.includes(id))ids.push(id);});return ids;}
 function startingLineupIds(match, roster){const l=match.lineup||{};const ids=[];(l.startingFive||[]).forEach(v=>{const id=resolvePlayerId(v,roster);if(id!==null&&!ids.includes(id))ids.push(id);});return ids;}
 function isGoalkeeperPlayer(p){return !!p && (p.role==="Portiere"||!!p.goalkeeperStats);}
+function playerMatchesMatchTeam(p,teamKey){const t=normText(p&&p.team);return teamKey==="u21"?(t==="under21"||t==="under23"):t==="primasquadra";}
 function startingGoalkeeperId(match, roster){const l=match.lineup||{};for(const v of (l.startingFive||[])){const id=resolvePlayerId(v,roster);const p=(roster||[]).find(x=>String(x.id)===String(id));if(isGoalkeeperPlayer(p))return p.id;}return null;}
 function scorerEvents(match, roster){
   const events=[];
@@ -239,7 +240,7 @@ function goalkeeperAgainstEvents(match, roster, againstGoals){
     if(id===null)return;
     const goalsAgainst=statCount(ev&&typeof ev==="object"?(ev.goalsAgainst||ev.against||ev.goals||ev.value):againstGoals, againstGoals);
     const minutes=toNumber(ev&&typeof ev==="object"?ev.minutes:0)||40;
-    const appearances=(ev&&typeof ev==="object"&&ev.appearances===0)?0:1;
+    const appearances=toNumber(goalsAgainst)>0?1:((ev&&typeof ev==="object"&&ev.appearances===0)?0:1);
     events.push({playerId:id,goalsAgainst,minutes,appearances});
   });
   if(events.length)return events;
@@ -427,7 +428,7 @@ function applyAutomations(baseData){
     lineupIds(match,out.roster).forEach(id=>{
       const p=byId.get(String(id));if(!p)return;
       const isNonStartingGoalkeeper=isGoalkeeperPlayer(p)&&!startingIds.has(String(id));
-      if(!isNonStartingGoalkeeper){
+      if(playerMatchesMatchTeam(p,teamKey)&&!isNonStartingGoalkeeper){
         p.appearances=toNumber(p.appearances)+1;
         p.competitions[comp].appearances=toNumber(p.competitions[comp].appearances)+1;
         p.competitions.totale.appearances=toNumber(p.competitions.totale.appearances)+1;
@@ -440,18 +441,27 @@ function applyAutomations(baseData){
     scorerEvents(match,out.roster).forEach(e=>{
       if(e.isOwnGoal)return;
       const p=byId.get(String(e.playerId));if(!p)return;
+      if(playerMatchesMatchTeam(p,teamKey)){
       p.goals=toNumber(p.goals)+e.goals;
       p.competitions[comp].goals=toNumber(p.competitions[comp].goals)+e.goals;
       p.competitions.totale.goals=toNumber(p.competitions.totale.goals)+e.goals;
       if(p.history&&p.history[0])p.history[0].goals=toNumber(p.history[0].goals)+e.goals;
+      }
       if(teamKey==="prima")addMap(goalMap,e.playerId,e.goals);
     });
 
-    yellowCardEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(p)addCards(p,comp,e.count,0);});
-    redCardEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(p)addCards(p,comp,0,e.count);});
+    yellowCardEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(p&&playerMatchesMatchTeam(p,teamKey))addCards(p,comp,e.count,0);});
+    redCardEvents(match,out.roster).forEach(e=>{const p=byId.get(String(e.playerId));if(p&&playerMatchesMatchTeam(p,teamKey))addCards(p,comp,0,e.count);});
 
     goalkeeperAgainstEvents(match,out.roster,gfga.againstGoals).forEach(e=>{
-      const gk=byId.get(String(e.playerId));if(!gk||!gk.goalkeeperStats)return;
+      const gk=byId.get(String(e.playerId));if(!gk||!gk.goalkeeperStats||!playerMatchesMatchTeam(gk,teamKey))return;
+      const eventAppearance=toNumber(e.appearances)>0?1:0;
+      if(eventAppearance>0&&!startingIds.has(String(e.playerId))){
+        gk.appearances=toNumber(gk.appearances)+1;
+        gk.competitions[comp].appearances=toNumber(gk.competitions[comp].appearances)+1;
+        gk.competitions.totale.appearances=toNumber(gk.competitions.totale.appearances)+1;
+        if(gk.history&&gk.history[0])gk.history[0].appearances=toNumber(gk.history[0].appearances)+1;
+      }
       const gs=gk.goalkeeperStats;
       [comp,"totale"].forEach(k=>{
         gs.byCompetition[k].appearances=toNumber(gs.byCompetition[k].appearances)+toNumber(e.appearances);
