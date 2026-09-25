@@ -38,66 +38,6 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip pyyaml
 
-      - name: Apply requested navigation cleanup
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          def patch(path, replacements):
-              p = Path(path)
-              text = p.read_text(encoding='utf-8')
-              original = text
-              for old, new in replacements:
-                  if old not in text:
-                      raise SystemExit(f'Pattern not found in {path}: {old[:120]!r}')
-                  text = text.replace(old, new)
-              if text == original:
-                  raise SystemExit(f'No changes applied to {path}')
-              p.write_text(text, encoding='utf-8')
-
-          patch('js/site-navigation-rework.js', [
-              ('    "matchday":"/matchday/",\n', ''),
-              ('    "/matchday/":"matchday",\n', ''),
-              ('      ["staff","Staff"],\n      ["stats","Statistiche"],\n      ["play-with-us","Gioca con noi"]', '      ["staff","Staff"],\n      ["play-with-us","Gioca con noi"]'),
-              ('      ["coppa","Coppa"],\n      ["cnu","CNU"],\n      ["season-archive","Archivio stagioni"],\n      ["matchday","Matchday"]', '      ["coppa","Coppa"],\n      ["stats","Statistiche"],\n      ["cnu","CNU"],\n      ["season-archive","Archivio stagioni"]'),
-              ('    stats:["Squadre","Statistiche","Numeri, rendimento e dati tecnici della stagione."],', '    stats:["Stagione","Statistiche","Numeri, rendimento e dati tecnici della stagione."],'),
-              ('    matchday:["Stagione","Matchday","Informazioni utili per seguire le partite e vivere il giorno gara."],\n', ''),
-              ('    if(["teams-overview","squad","staff","stats","play-with-us"].includes(base)) return "teams";\n    if(["fixtures","standings","coppa","cnu","season-archive","matchday"].includes(base)) return "season";', '    if(["teams-overview","squad","staff","play-with-us"].includes(base)) return "teams";\n    if(["fixtures","standings","coppa","stats","cnu","season-archive"].includes(base)) return "season";'),
-              ('<td>${h(r.played || "-")}</td><td>${h(r.wins || "-")}</td><td>${h(r.draws || "-")}</td><td>${h(r.losses || "-")}</td><td>${h(r.goalsFor || "-")}</td><td>${h(r.goalsAgainst || "-")}</td><td>${h(r.goalDifference || r.note || "-")}</td>', '<td>${h(r.played ?? "-")}</td><td>${h(r.wins ?? "-")}</td><td>${h(r.draws ?? "-")}</td><td>${h(r.losses ?? "-")}</td><td>${h(r.goalsFor ?? "-")}</td><td>${h(r.goalsAgainst ?? "-")}</td><td>${h(r.goalDifference ?? r.note ?? "-")}</td>'),
-          ])
-
-          patch('js/app.js', [
-              ('  {label:"Squadra",items:[["squad","Rosa"],["staff","Staff"],["stats","Statistiche"]]},\n  {label:"Stagione",items:[["fixtures","Calendario"],["standings","Classifica"],["coppa","Coppa"],["matchday","Matchday"]]},', '  {label:"Squadra",items:[["squad","Rosa"],["staff","Staff"]]},\n  {label:"Stagione",items:[["fixtures","Calendario"],["standings","Classifica"],["coppa","Coppa"],["stats","Statistiche"]]},'),
-              ('  matchday:"/matchday/",\n', ''),
-              ('    {title:"Squadre",links:[["/squadre/","Squadre"],["/squadra/","Rosa"],["/staff/","Staff"],["/statistiche/","Statistiche"],["/gioca-con-noi/","Gioca con noi"]]},\n    {title:"Stagione",links:[["/calendario/","Calendario"],["/classifica/","Classifica"],["/coppa/","Coppa"],["/cnu/","CNU"],["/archivio-stagioni/","Archivio stagioni"],["/matchday/","Matchday"]]},', '    {title:"Squadre",links:[["/squadre/","Squadre"],["/squadra/","Rosa"],["/staff/","Staff"],["/gioca-con-noi/","Gioca con noi"]]},\n    {title:"Stagione",links:[["/calendario/","Calendario"],["/classifica/","Classifica"],["/coppa/","Coppa"],["/statistiche/","Statistiche"],["/cnu/","CNU"],["/archivio-stagioni/","Archivio stagioni"]]},'),
-              ('<button class="btn light" onclick="route(\'squad\')">Scopri la rosa</button><button class="btn ghost" onclick="route(\'matchday\')">Info matchday</button>', '<button class="btn light" onclick="route(\'squad\')">Scopri la rosa</button>'),
-              ('else if(current==="staff")staff();else if(current==="matchday")matchday();else if(current==="gallery")gallery();', 'else if(current==="staff")staff();else if(current==="gallery")gallery();'),
-          ])
-
-          patch('scripts/generate_static_pages.py', [
-              ('    {\n        "path": "/matchday/",\n        "route": "matchday",\n        "title": "Matchday CUS Trento C5",\n        "description": "Informazioni utili per seguire le partite casalinghe del CUS Trento C5.",\n        "heading": "Matchday",\n        "eyebrow": "Info partita",\n    },\n', ''),
-          ])
-
-          patch('index.html', [
-              ('matchday:"/matchday/",', ''),
-              ('/js/app.js?v=no-cookie-banner-v61', '/js/app.js?v=no-cookie-banner-v62'),
-              ('/js/site-navigation-rework.js?v=menu-scroll-v57', '/js/site-navigation-rework.js?v=menu-scroll-v58'),
-          ])
-
-          patch('js/contact-security.js', [
-              (' matchday:"/matchday/",', ''),
-          ])
-
-          matchday = Path('matchday/index.html')
-          if matchday.exists():
-              matchday.unlink()
-              try:
-                  matchday.parent.rmdir()
-              except OSError:
-                  pass
-          PY
-
       - name: Sync CMS player dropdowns from roster
         run: python scripts/sync_roster_options.py
 
@@ -147,15 +87,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add admin/config.yml content/data.json js/app.js js/site-navigation-rework.js js/contact-security.js scripts/generate_static_pages.py index.html
-          git add -u matchday || true
+          git add admin/config.yml content/data.json
 
           if git diff --cached --quiet; then
             echo "CMS data already in sync."
             exit 0
           fi
 
-          git commit -m "Reorganize season navigation and remove matchday"
+          git commit -m "Sync CMS data to frontend"
 
           if [ -n "$(git status --porcelain)" ]; then
             echo "::error::Working tree is not clean after the CMS sync commit."
