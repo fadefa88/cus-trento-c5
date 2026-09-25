@@ -45,7 +45,6 @@ jobs:
           from pathlib import Path
           import re
           import shutil
-          import subprocess
 
           def read(path):
               return Path(path).read_text(encoding='utf-8')
@@ -53,19 +52,12 @@ jobs:
           def write(path, text):
               Path(path).write_text(text, encoding='utf-8')
 
-          # Show simply "Serie B" everywhere that the historical label was expanded.
-          try:
-              files = subprocess.check_output(
-                  ['git', 'grep', '-Il', 'Serie B - Gir. B'], text=True
-              ).splitlines()
-          except subprocess.CalledProcessError:
-              files = []
-          for name in files:
+          # Show simply "Serie B" in the historical statistics and season archive sources.
+          for name in ('js/app.js', 'js/site-navigation-rework.js', 'scripts/generate_static_pages.py', 'content/data.json'):
               path = Path(name)
-              try:
-                  text = path.read_text(encoding='utf-8')
-              except UnicodeDecodeError:
+              if not path.exists():
                   continue
+              text = path.read_text(encoding='utf-8')
               text = text.replace('Serie B - Gir. B', 'Serie B')
               text = text.replace('Serie B - Girone B', 'Serie B')
               path.write_text(text, encoding='utf-8')
@@ -102,7 +94,6 @@ jobs:
               '    cookies:["Cookie","Cookie policy","Informazioni sull\'utilizzo dei cookie e contenuti esterni."],\n',
           ]:
               nav = nav.replace(snippet, '')
-          # Fix a possible dangling comma around the last pathByRoute entry after removals.
           nav = nav.replace('    "contacts":"/contatti/",\n  };', '    "contacts":"/contatti/"\n  };')
           write(nav_path, nav)
 
@@ -120,7 +111,7 @@ jobs:
               )
           write(gen_path, gen)
 
-          # Remove the already generated/committed policy pages if present.
+          # Remove already generated/committed policy pages if present.
           for name in ('privacy', 'cookies', 'legal', 'legal-policy', 'cookie-policy'):
               path = Path(name)
               if path.is_dir():
@@ -133,7 +124,7 @@ jobs:
               if path.exists():
                   path.unlink()
 
-          # Verify no public route to the removed pages remains in the main frontend sources.
+          # Verify no public route to the removed pages remains in main frontend sources.
           for filename in ('js/app.js', 'js/site-navigation-rework.js', 'scripts/generate_static_pages.py'):
               text = read(filename)
               leftovers = [token for token in ('/privacy/', '/cookies/', 'route(\'privacy\')', 'route(\'cookies\')') if token in text]
