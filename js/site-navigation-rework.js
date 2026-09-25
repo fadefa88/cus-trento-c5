@@ -15,7 +15,6 @@
     "coppa":"/coppa/",
     "cnu":"/cnu/",
     "season-archive":"/archivio-stagioni/",
-    "matchday":"/matchday/",
     "events":"/eventi/",
     "events:upcoming":"/eventi/#prossimi-eventi",
     "events:tournaments":"/eventi/#tornei",
@@ -44,7 +43,6 @@
     "/calendario/":"fixtures",
     "/classifica/":"standings",
     "/coppa/":"coppa",
-    "/matchday/":"matchday",
     "/gallery/":"gallery",
     "/video/":"video",
     "/social/":"social",
@@ -70,16 +68,15 @@
       ["teams-overview","Squadre"],
       ["squad","Rosa"],
       ["staff","Staff"],
-      ["stats","Statistiche"],
       ["play-with-us","Gioca con noi"]
     ]},
     {label:"Stagione",items:[
       ["fixtures","Calendario"],
       ["standings","Classifica"],
       ["coppa","Coppa"],
+      ["stats","Statistiche"],
       ["cnu","CNU"],
-      ["season-archive","Archivio stagioni"],
-      ["matchday","Matchday"]
+      ["season-archive","Archivio stagioni"]
     ]},
     {label:"Eventi",items:[
       ["events:upcoming","Prossimi eventi"],
@@ -109,11 +106,10 @@
     news:["Media","News","Tutte le notizie, gli aggiornamenti e i contenuti ufficiali del CUS Trento C5."],
     squad:["Squadre","Rosa","Giocatori, ruoli e profili della rosa del CUS Trento C5."],
     staff:["Squadre","Staff","Staff tecnico, dirigenti e figure operative del progetto CUS Trento C5."],
-    stats:["Squadre","Statistiche","Numeri, rendimento e dati tecnici della stagione."],
+    stats:["Stagione","Statistiche","Numeri, rendimento e dati tecnici della stagione."],
     fixtures:["Stagione","Calendario","Tutte le partite della stagione, per Prima squadra e Under 23."],
     standings:["Stagione","Classifica","Classifiche aggiornate dei campionati del CUS Trento C5."],
     coppa:["Stagione","Coppa","Percorso, turni e partite di coppa del CUS Trento C5."],
-    matchday:["Stagione","Matchday","Informazioni utili per seguire le partite e vivere il giorno gara."],
     gallery:["Media","Gallery","Album fotografici e contenuti visuali del club."],
     video:["Media","Video","Highlights, interviste e contenuti video del CUS Trento C5."],
     social:["Media","Social wall","Aggiornamenti social e contenuti dalla community CUS."],
@@ -190,8 +186,8 @@
   function topActive(routeId){
     const base = String(routeId || window.__cusActiveRoute || "home");
     if(base.startsWith("events") || base.startsWith("event-detail")) return "events";
-    if(["teams-overview","squad","staff","stats","play-with-us"].includes(base)) return "teams";
-    if(["fixtures","standings","coppa","cnu","season-archive","matchday"].includes(base)) return "season";
+    if(["teams-overview","squad","staff","play-with-us"].includes(base)) return "teams";
+    if(["fixtures","standings","coppa","stats","cnu","season-archive"].includes(base)) return "season";
     if(["partner","become-partner"].includes(base)) return "partner";
     if(["news","gallery","video","social"].includes(base)) return "media";
     if(["club-project","venue","records","contacts"].includes(base)) return "club";
@@ -682,7 +678,7 @@
     const html = `${pageHero("Archivio stagioni","Classifiche e stagioni passate","")}
       <section class="cus-rework-section"><div class="container"><div class="table-wrap"><table class="cus-rework-table">
       <thead><tr><th>Stagione</th><th>Campionato</th><th>Gare</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>Diff.</th></tr></thead>
-      <tbody>${rows.map(r => `<tr><td>${h(r.season)}</td><td>${h(r.competition || archiveCompetitionForSeason(r.season) || "-")}</td><td>${h(r.played || "-")}</td><td>${h(r.wins || "-")}</td><td>${h(r.draws || "-")}</td><td>${h(r.losses || "-")}</td><td>${h(r.goalsFor || "-")}</td><td>${h(r.goalsAgainst || "-")}</td><td>${h(r.goalDifference || r.note || "-")}</td></tr>`).join("")}</tbody>
+      <tbody>${rows.map(r => `<tr><td>${h(r.season)}</td><td>${h(r.competition || archiveCompetitionForSeason(r.season) || "-")}</td><td>${h(r.played ?? "-")}</td><td>${h(r.wins ?? "-")}</td><td>${h(r.draws ?? "-")}</td><td>${h(r.losses ?? "-")}</td><td>${h(r.goalsFor ?? "-")}</td><td>${h(r.goalsAgainst ?? "-")}</td><td>${h(r.goalDifference ?? r.note ?? "-")}</td></tr>`).join("")}</tbody>
       </table></div></div></section>`;
     setApp(html,"season-archive","Archivio stagioni","Archivio storico stagioni CUS Trento C5.",replace);
   }

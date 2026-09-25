@@ -120,14 +120,6 @@ MAIN_PAGES = [
         "eyebrow": "Stagione",
     },
     {
-        "path": "/matchday/",
-        "route": "matchday",
-        "title": "Matchday CUS Trento C5",
-        "description": "Informazioni utili per seguire le partite casalinghe del CUS Trento C5.",
-        "heading": "Matchday",
-        "eyebrow": "Info partita",
-    },
-    {
         "path": "/gallery/",
         "route": "gallery",
         "title": "Gallery CUS Trento C5",
