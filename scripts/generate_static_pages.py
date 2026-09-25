@@ -484,7 +484,7 @@ def remove_generated_dirs() -> None:
 
 
 def render_shell(eyebrow: str, heading: str, body: str) -> str:
-    return f'''<section class="section seo-prerender"><div class="container"><div class="head"><div><span class="eyebrow">{esc(eyebrow)}</span><h1 class="title">{esc(heading)}</h1></div></div>{body}</div></section>'''
+    return f'''<section class="section seo-prerender"><div class="container"><div class="head"><div><h1 class="title">{esc(heading)}</h1></div></div>{body}</div></section>'''
 
 
 def render_news_teasers(news: List[Dict[str, Any]], limit: int = 36) -> str:

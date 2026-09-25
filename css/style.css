@@ -1265,3 +1265,9 @@ body.menu-open{
 
 /* Page title cleanup: hide shared eyebrow above main page title */
 .head .eyebrow{display:none!important}
+
+
+/* Internal pages v54: uniform top spacing, home excluded */
+#app > .section:first-child{padding-top:28px!important}
+#app > .section:first-child > .container > .head{margin-bottom:26px!important}
+@media(max-width:640px){#app > .section:first-child{padding-top:22px!important}}

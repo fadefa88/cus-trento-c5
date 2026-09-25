@@ -253,7 +253,7 @@
 
   function pageHero(kicker,title,lead){
     const leadHtml = lead ? `<p class="cus-rework-lead">${h(lead)}</p>` : "";
-    return `<section class="cus-rework-section cus-rework-page-intro"><div class="container"><span class="cus-rework-kicker">${h(kicker)}</span><h1 class="cus-rework-title">${h(title)}</h1>${leadHtml}</div></section>`;
+    return `<section class="cus-rework-section cus-rework-page-intro"><div class="container"><h1 class="cus-rework-title">${h(title)}</h1>${leadHtml}</div></section>`;
   }
 
   function routeMeta(routeId){

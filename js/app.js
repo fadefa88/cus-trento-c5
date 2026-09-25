@@ -641,7 +641,7 @@ function renderNav(){
       </div>
     </aside>`;
 }
-function shell(eyebrow,title,body,right="",desc="",img=""){setSEO(title,desc||`${title} — CUS Trento C5`,img);app.innerHTML=`<section class="section"><div class="container"><div class="head"><div><span class="eyebrow">${eyebrow}</span><h1 class="title">${title}</h1></div>${right}</div>${body}</div></section>${footer()}`;}
+function shell(eyebrow,title,body,right="",desc="",img=""){setSEO(title,desc||`${title} — CUS Trento C5`,img);app.innerHTML=`<section class="section"><div class="container"><div class="head"><div><h1 class="title">${title}</h1></div>${right}</div>${body}</div></section>${footer()}`;}
 function footer(){
   const year = new Date().getFullYear();
   const copyYear = year <= 2026 ? "2026" : `2026-${year}`;
