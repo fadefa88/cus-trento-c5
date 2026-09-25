@@ -23,8 +23,6 @@ const ROUTE_PATHS = {
   sponsor:"/sponsor/",
   records:"/hall-of-fame/",
   contacts:"/contatti/",
-  privacy:"/privacy/",
-  cookies:"/cookies/",
   u21:"/under-21/"
 };
 const PATH_ROUTES = Object.fromEntries(Object.entries(ROUTE_PATHS).map(([route,path])=>[path,route]));
@@ -644,7 +642,6 @@ function footer(){
     {title:"Partner",links:[["/partner/","I nostri partner"],["/diventa-partner/","Diventa partner"]]},
     {title:"Media",links:[["/news/","News"],["/gallery/","Gallery"],["/video/","Video"],["/social/","Social wall"]]},
     {title:"Club",links:[["/club/","Chi siamo"],["/impianto/","Impianto"],["/hall-of-fame/","Hall of Fame"],["/contatti/","Contatti"]]},
-    {title:"Legal",links:[["/privacy/","Privacy policy"],["/cookies/","Cookie policy"]]}
   ];
   return `<footer class="footer footer-expanded"><div class="container"><div class="footer-brand-col"><div class="brand" style="color:#fff">${brandMark()}<div>CUS Trento C5<small>Futsal universitario</small></div></div><p>Sito ufficiale del CUS Trento C5: il punto di riferimento per seguire calendario, risultati, rosa, news e attività del CUS Trento Calcio a 5.</p><a class="cus-parent-link cus-parent-link-footer" href="https://www.custrento.it/" target="_blank" rel="noopener noreferrer" aria-label="Visita il sito ufficiale del CUS Trento"><img src="https://www.custrento.it/wp-content/uploads/2021/04/CUS_TRENTO1.png" alt="CUS Trento"></a>${socialFollowActions('footer-follow')}<div class="footer-copy">© ${copyYear} LDF</div></div>${footerGroups.map(group=>`<nav class="footer-menu-col" aria-label="${group.title}"><b>${group.title}</b>${group.links.map(([href,label])=>`<a href="${href}">${label}</a>`).join("")}</nav>`).join("")}</div></footer>`;
 }
@@ -1684,7 +1681,7 @@ function sponsor(){
   const sponsorCards=(state.sponsors||[]).slice(0,4).map(s=>`<article class="card card-pad sponsor-card"><div class="sponsor-logo">${sponsorLogoHtml(s)}</div><h2 style="margin-top:8px">${s.name||"Sponsor"}</h2><button class="btn soft" onclick="route('sponsor-detail-${objectSlug(s,'sponsors')}')" style="margin-top:10px">Scopri →</button></article>`).join("") || `<article class="card card-pad"><p class="muted">Nessun partner inserito.</p></article>`;
   shell("Partner","Sponsor, partner e community del progetto",`<div class="grid grid-4 sponsor-grid-four">${sponsorCards}</div><div class="newsletter" style="margin-top:24px"><h2 style="font-size:38px">Vuoi diventare Partner CUS Trento C5?</h2><button class="btn ghost" onclick="route('become-partner')">Scopri come</button></div>`,"","Sponsor e partner CUS Trento C5.");
 }
-function sponsorLead(){shell("Sponsor lead","Richiedi media kit o proposta sponsor",`<div class="grid grid-2"><div class="lead-form"><h2>Richiesta commerciale</h2><form id="sponsorLeadForm" class="contact-form" method="post" action="https://api.web3forms.com/submit" onsubmit="submitContact(event)"><input type="hidden" name="subject" value="Nuova richiesta sponsor dal sito CUS Trento C5"><input type="hidden" name="reason" value="Diventa sponsor"><input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><div class="form-grid" style="grid-template-columns:1fr"><label><span>Azienda</span><input name="company" id="lead_company" autocomplete="organization" required></label><label><span>Referente</span><input name="name" id="lead_name" autocomplete="name" required></label><label><span>Email</span><input name="email" id="lead_email" type="email" autocomplete="email" required></label><label><span>Telefono</span><input name="phone" id="lead_phone" type="tel" autocomplete="tel"></label><label><span>Pacchetto di interesse</span><select name="package" id="lead_package">${(state.sponsorPackages||[]).map(p=>`<option>${p.name}</option>`).join("")}</select></label><label><span>Messaggio</span><textarea name="message" id="lead_msg" required minlength="10"></textarea></label><label class="privacy-check"><input type="checkbox" name="privacy" required><span>Ho letto la <a href="/privacy/" onclick="route('privacy');return false;">privacy policy</a> e autorizzo il trattamento dei dati per ricevere risposta.</span></label></div><div id="contactStatus" class="form-alert" aria-live="polite"></div><button id="contactSubmit" class="btn dark" type="submit" style="margin-top:14px">Invia richiesta</button></form></div><div class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">Perché sponsorizzare</span><h2 style="font-size:40px">Visibilità locale, universitaria e digitale.</h2><p style="color:rgba(255,255,255,.72)">Il pacchetto può includere logo sito, social content, matchday post, banner, backdrop e iniziative con studenti.</p></div></div>`,"","Lead form sponsor CUS Trento C5.");}
+function sponsorLead(){shell("Sponsor lead","Richiedi media kit o proposta sponsor",`<div class="grid grid-2"><div class="lead-form"><h2>Richiesta commerciale</h2><form id="sponsorLeadForm" class="contact-form" method="post" action="https://api.web3forms.com/submit" onsubmit="submitContact(event)"><input type="hidden" name="subject" value="Nuova richiesta sponsor dal sito CUS Trento C5"><input type="hidden" name="reason" value="Diventa sponsor"><input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><div class="form-grid" style="grid-template-columns:1fr"><label><span>Azienda</span><input name="company" id="lead_company" autocomplete="organization" required></label><label><span>Referente</span><input name="name" id="lead_name" autocomplete="name" required></label><label><span>Email</span><input name="email" id="lead_email" type="email" autocomplete="email" required></label><label><span>Telefono</span><input name="phone" id="lead_phone" type="tel" autocomplete="tel"></label><label><span>Pacchetto di interesse</span><select name="package" id="lead_package">${(state.sponsorPackages||[]).map(p=>`<option>${p.name}</option>`).join("")}</select></label><label><span>Messaggio</span><textarea name="message" id="lead_msg" required minlength="10"></textarea></label><label class="privacy-check"><input type="checkbox" name="privacy" required><span>Autorizzo il trattamento dei dati inseriti esclusivamente per ricevere risposta alla richiesta.</span></label></div><div id="contactStatus" class="form-alert" aria-live="polite"></div><button id="contactSubmit" class="btn dark" type="submit" style="margin-top:14px">Invia richiesta</button></form></div><div class="cup-highlight"><span class="eyebrow" style="background:white;color:#09090b">Perché sponsorizzare</span><h2 style="font-size:40px">Visibilità locale, universitaria e digitale.</h2><p style="color:rgba(255,255,255,.72)">Il pacchetto può includere logo sito, social content, matchday post, banner, backdrop e iniziative con studenti.</p></div></div>`,"","Lead form sponsor CUS Trento C5.");}
 function seasons(){shell("Archive","Archivio stagioni",`<div class="card card-pad table-wrap"><table class="table" style="box-shadow:none"><thead><tr><th>Stagione</th><th>Campionato</th><th>Posizione</th><th>Record</th><th>GF</th><th>GS</th><th>Note</th></tr></thead><tbody>${(state.seasons||[]).map(s=>`<tr><td>${s.season}</td><td>${s.competition||competitionForSeason(s.season)}</td><td>${s.position||"—"}</td><td>${s.record||"—"}</td><td>${s.gf||"—"}</td><td>${s.gs||"—"}</td><td>${s.note||""}</td></tr>`).join("")}</tbody></table></div>`,"","Archivio stagioni CUS Trento C5.");}
 function timeline(){shell("Timeline","Momenti chiave della stagione",`<div class="timeline">${state.timeline.map(t=>`<div class="card card-pad timeline-item"><div class="timeline-date">${t.date}</div><div><h2>${t.title}</h2><p class="muted">${t.text}</p></div></div>`).join("")}</div>`,"","Timeline stagione CUS Trento C5.");}
 function historicalStatsData(){
@@ -1697,10 +1694,10 @@ function historicalStatsData(){
 function numIt(v){return typeof v === "number" ? v.toLocaleString("it-IT") : (v ?? "");}
 function statDiff(v){return Number(v)>0?`+${v}`:`${v}`;}
 function competitionForSeason(season){
-  const map={"2011/2012":"Serie D","2012/2013":"Serie D","2013/2014":"Serie D","2014/2015":"Serie C2","2015/2016":"Serie D","2016/2017":"Serie D","2017/2018":"Serie C2","2018/2019":"Serie C2","2019/2020":"Serie C2","2020/2021":"Serie C2","2021/2022":"Serie C1","2022/2023":"Serie C1","2023/2024":"Serie C1","2024/2025":"Serie C1","2025/2026":"Serie C1","2026/2027":"Serie B - Gir. B"};
+  const map={"2011/2012":"Serie D","2012/2013":"Serie D","2013/2014":"Serie D","2014/2015":"Serie C2","2015/2016":"Serie D","2016/2017":"Serie D","2017/2018":"Serie C2","2018/2019":"Serie C2","2019/2020":"Serie C2","2020/2021":"Serie C2","2021/2022":"Serie C1","2022/2023":"Serie C1","2023/2024":"Serie C1","2024/2025":"Serie C1","2025/2026":"Serie C1","2026/2027":"Serie B"};
   const key=String(season||"").replace(/\s/g,"");
   if(map[key])return map[key];
-  if(key==="2026/27")return "Serie B - Gir. B";
+  if(key==="2026/27")return "Serie B";
   const short=key.replace(/^(\d{4})\/(\d{2})$/,(m,a,b)=>`${a}/20${b}`);
   return map[short]||"";
 }
@@ -1762,131 +1759,8 @@ function contacts(){shell("Contatti","Contatti e richieste",`
         <p><b>DIRETTORE GENERALE CUS TRENTO C5</b><br>Joshua De Gennaro<br><a href="tel:+393288996214" style="color:white;text-decoration:underline">+39 328 899 6214</a></p>
       </div>
     </div>
-    <div class="card card-pad"><h2>Scrivici</h2><p class="muted" style="margin-top:6px">Compila il modulo: il messaggio arriva direttamente nella casella ufficiale del CUS Trento C5.</p><form id="contactForm" class="contact-form" method="post" action="https://api.web3forms.com/submit" onsubmit="submitContact(event)"><input type="hidden" name="access_key" value="INSERISCI_ACCESS_KEY_WEB3FORMS"><input type="hidden" name="subject" value="Nuovo messaggio dal sito CUS Trento C5"><input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><div class="form-grid" style="grid-template-columns:1fr"><label><span>Nome e cognome</span><input name="name" autocomplete="name" required></label><label><span>Email</span><input name="email" type="email" autocomplete="email" required></label><label><span>Telefono</span><input name="phone" type="tel" autocomplete="tel"></label><label><span>Motivo</span><select name="reason" required><option>Informazioni generali</option><option>Diventa sponsor</option><option>Provino</option><option>Informazioni partita</option><option>Eventi</option><option>Diventa collaboratore</option><option>Media</option></select></label><label><span>Messaggio</span><textarea name="message" required minlength="10"></textarea></label><label class="privacy-check"><input type="checkbox" name="privacy" required><span>Ho letto la <a href="/privacy/" onclick="route('privacy');return false;">privacy policy</a> e autorizzo il trattamento dei dati per ricevere risposta.</span></label></div><div id="contactStatus" class="form-alert" aria-live="polite"></div><button id="contactSubmit" class="btn dark" type="submit" style="margin-top:14px">Invia richiesta</button></form></div>
+    <div class="card card-pad"><h2>Scrivici</h2><p class="muted" style="margin-top:6px">Compila il modulo: il messaggio arriva direttamente nella casella ufficiale del CUS Trento C5.</p><form id="contactForm" class="contact-form" method="post" action="https://api.web3forms.com/submit" onsubmit="submitContact(event)"><input type="hidden" name="access_key" value="INSERISCI_ACCESS_KEY_WEB3FORMS"><input type="hidden" name="subject" value="Nuovo messaggio dal sito CUS Trento C5"><input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field"><div class="form-grid" style="grid-template-columns:1fr"><label><span>Nome e cognome</span><input name="name" autocomplete="name" required></label><label><span>Email</span><input name="email" type="email" autocomplete="email" required></label><label><span>Telefono</span><input name="phone" type="tel" autocomplete="tel"></label><label><span>Motivo</span><select name="reason" required><option>Informazioni generali</option><option>Diventa sponsor</option><option>Provino</option><option>Informazioni partita</option><option>Eventi</option><option>Diventa collaboratore</option><option>Media</option></select></label><label><span>Messaggio</span><textarea name="message" required minlength="10"></textarea></label><label class="privacy-check"><input type="checkbox" name="privacy" required><span>Autorizzo il trattamento dei dati inseriti esclusivamente per ricevere risposta alla richiesta.</span></label></div><div id="contactStatus" class="form-alert" aria-live="polite"></div><button id="contactSubmit" class="btn dark" type="submit" style="margin-top:14px">Invia richiesta</button></form></div>
   </div>`,'','Contatti ufficiali CUS Trento C5.');}
-function privacy(){shell("Privacy Policy","Informativa sul trattamento dei dati personali",`
-<div class="card card-pad article-body">
-  <p class="muted">Ultimo aggiornamento: giugno 2026</p>
-
-  <h2>Titolare del trattamento</h2>
-  <p>Il titolare del trattamento dei dati personali raccolti tramite questo sito e' il <b>Centro Universitario Sportivo Trento - A.S.D.</b> (di seguito "CUS Trento").</p>
-  <ul>
-    <li>P.IVA: 00929160224 - C.F.: 80011170224</li>
-    <li>Email di contatto: <a href="mailto:custrentocalcio@gmail.com">custrentocalcio@gmail.com</a></li>
-    <li>Sito istituzionale: <a href="https://www.custrento.it" target="_blank" rel="noopener">www.custrento.it</a></li>
-  </ul>
-  <p>Questo sito (<b>calcioa5.custrento.it</b>) e' dedicato alla sezione Calcio a 5 del CUS Trento. Per il trattamento dati a livello dell'ente si rimanda anche all'informativa ufficiale del CUS Trento, indicata in fondo alla pagina.</p>
-
-  <h2>Quali dati raccogliamo</h2>
-  <p>Questo sito è prevalentemente statico e non prevede registrazione utenti, area personale pubblica, newsletter o profilazione degli utenti.</p>
-  <p>I dati personali possono essere trattati nei seguenti casi:</p>
-
-  <h2>Gestione delle richieste inviate tramite il sito</h2>
-  <p>Quando invii una richiesta tramite il modulo di contatto, trattiamo i dati che decidi di inserire, ad esempio nome, indirizzo email, telefono, oggetto e contenuto del messaggio. Questi dati vengono utilizzati esclusivamente per rispondere alla tua richiesta.</p>
- <h2>Gestione organizzativa dell’attività sportiva</h2>
-  <p>Per valutare richieste collegate alla partecipazione sportiva, ai contatti con il club o alle attività della sezione Calcio a 5.<br>
-Base giuridica: riscontro a una richiesta dell’interessato e, ove applicabile, legittimo interesse dell’associazione alla gestione delle proprie attività sportive.</p>
- <h2>Funzionamento tecnico e sicurezza del sito</h2>
-  <p>Per garantire il corretto funzionamento del sito, la sicurezza tecnica e la prevenzione di abusi.<br>
-Base giuridica: legittimo interesse del titolare.</p>
-
- <h2>Memorizzazione della scelta cookie</h2>
-  <p>Per ricordare la preferenza espressa dall’utente sui contenuti non necessari.
-Base giuridica: legittimo interesse al corretto funzionamento del sito e, ove necessario, consenso dell’utente per i servizi non tecnici.</p>
-<hr>
- <h2>Cookie e strumenti simili</h2>
-  <p>l sito utilizza solo strumenti tecnici necessari al funzionamento e alla memorizzazione delle preferenze dell’utente.<br>
-Alcuni contenuti di terze parti, come mappe o contenuti esterni, possono essere caricati solo dopo l’accettazione da parte dell’utente tramite le preferenze disponibili sul sito.<br>
-Per maggiori dettagli sui cookie, sugli strumenti tecnici e sui servizi di terze parti eventualmente utilizzati, consulta la <a href="/cookies/" onclick="route('cookies');return false;">Cookie Policy</a> del sito.</p>
-  <hr>
-
-  <h2>Servizi di terze parti</h2>
-  <p>Il sito può includere link, contenuti o collegamenti verso servizi esterni, tra cui, a titolo esemplificativo:</p>
-  <ul>
-    <li>Google Maps, per la visualizzazione di mappe e indicazioni;</li>
-    <li>Instagram, TikTok o altri social network, per collegamenti ai profili ufficiali o contenuti social;</li>
-    <li>YouTube o altri servizi video, se presenti per contenuti multimediali;</li>
-    <li>provider di hosting e servizi tecnici necessari alla pubblicazione del sito.</li>
-  </ul>
-  <p>Quando interagisci con servizi di terze parti, tali soggetti possono trattare dati secondo le rispettive informative privacy e cookie policy. Il CUS Trento Calcio a 5 non controlla direttamente i trattamenti effettuati da piattaforme esterne.</p>
-<hr>
- <h2>Modalità di trattamento</h2>
-  <p>I dati sono trattati con strumenti informatici e, se necessario, organizzativi, adottando misure ragionevoli per proteggerli da accessi non autorizzati, perdita, uso improprio o divulgazione non autorizzata.<br>
-L’accesso ai dati è limitato ai soggetti autorizzati che ne abbiano necessità per gestire le richieste ricevute, le attività sportive o le comunicazioni con utenti, atleti, famiglie, sponsor e partner.</p>
-
-<hr>
-
- <h2>Conservazione dei dati</h2>
-  <p>Le comunicazioni ricevute tramite email o modulo di contatto vengono conservate per il tempo necessario a gestire la richiesta.<br>
-Per richieste sportive, provini o candidature, i dati possono essere conservati per il periodo necessario alla valutazione e, se pertinente, per la durata della stagione sportiva di riferimento.<br>
-Per richieste sponsor o partnership, i dati possono essere conservati per il tempo necessario alla gestione del rapporto o della trattativa.<br>
-L’utente può chiedere in qualsiasi momento la cancellazione dei propri dati, salvo eventuali obblighi di conservazione previsti dalla legge o esigenze legittime di tutela del titolare.</p>
-<hr>
-<h2>Minori</h2>
-  <p>Se sei minorenne, puoi inviare dati tramite il sito solo con il consenso di chi esercita la responsabilità genitoriale.<br>
-Per richieste sportive, provini o contatti riguardanti minori, il CUS Trento Calcio a 5 può richiedere il coinvolgimento di un genitore, tutore o soggetto esercente la responsabilità genitoriale.</p>
-<hr>
- <h2>I tuoi diritti</h2>
-  <p>Ai sensi del Regolamento UE 2016/679, puoi chiedere al titolare del trattamento:</p>
-  <ul>
-    <li>accesso ai tuoi dati personali;</li>
-    <li>rettifica dei dati inesatti;</li>
-    <li>cancellazione dei dati;</li>
-    <li>limitazione del trattamento;</li>
-    <li>opposizione al trattamento;</li>
-    <li>portabilità dei dati, nei casi previsti dalla normativa;</li>
-    <li>revoca del consenso, quando il trattamento si basa sul consenso.</li>
-  </ul>
-  <p>Puoi esercitare i tuoi diritti scrivendo a:</p>
-  <p><a href="mailto:custrentocalcio@gmail.com">custrentocalcio@gmail.com</a>
-    <p>Hai inoltre diritto di proporre reclamo al Garante per la protezione dei dati personali.</p>
-<hr>
-
-
-
-  <h2>Informativa ufficiale CUS Trento</h2>
-  <p>Essendo questo un sito della sezione Calcio a 5, per il trattamento dati a livello dell'ente puoi consultare anche l'informativa ufficiale del CUS Trento: <a href="https://www.iubenda.com/privacy-policy/54750032" target="_blank" rel="noopener">Privacy Policy CUS Trento</a>.</p>
-
-
-</div>`,"","Privacy policy del sito CUS Trento Calcio a 5.");}
-function cookies(){shell("Cookie Policy","Come questo sito usa cookie e servizi esterni",`
-<div class="card card-pad article-body">
-  <p class="muted">Ultimo aggiornamento: giugno 2026</p>
-
-  <h2>Cosa sono cookie e tecnologie simili</h2>
-  <p>I cookie e le tecnologie simili permettono a un sito o a servizi esterni di salvare o leggere informazioni sul dispositivo dell'utente. I cookie tecnici servono al funzionamento del sito; cookie di profilazione, marketing o alcuni servizi di terze parti richiedono consenso preventivo.</p>
-
-  <h2>Cosa usa questo sito</h2>
-  <ul>
-    <li><b>cus_cookie_choice</b> (localStorage tecnico): ricorda se hai accettato tutti i contenuti esterni o se hai rifiutato quelli non necessari.</li>
-    <li><b>cus_cookie_ok</b> (localStorage tecnico legacy): mantenuto solo per compatibilita' con la versione precedente del banner.</li>
-  </ul>
-  <p>Queste preferenze restano nel tuo browser e non vengono usate per profilazione.</p>
-
-  <h2>Analytics e marketing</h2>
-  <p>Al momento il sito non carica Google Analytics, Meta Pixel, TikTok Pixel o altri strumenti di marketing/profilazione.</p>
-
-  <h2>Contenuti esterni facoltativi</h2>
-  <p>Alcune funzioni possono aprire o caricare servizi esterni:</p>
-  <ul>
-    <li><b>Google Maps</b>: la mappa incorporata viene bloccata finche' non accetti i contenuti esterni. In alternativa puoi aprire Google Maps in una nuova scheda.</li>
-    <li><b>YouTube</b>: i video sono gestiti con dominio privacy-enhanced <code>youtube-nocookie.com</code> e vengono caricati solo quando apri il player.</li>
-    <li><b>Instagram e TikTok</b>: le card social del sito sono immagini/link e non widget embed con tracciamento automatico.</li>
-  </ul>
-
-  <h2>Come gestire la scelta</h2>
-  <p>Puoi accettare tutti i contenuti esterni, rifiutare quelli non necessari oppure resettare la scelta da questa pagina.</p>
-  <div class="btns" style="margin-top:14px">
-    <button class="btn light" onclick="rejectCookies()">Rifiuta non necessari</button>
-    <button class="btn dark" onclick="acceptCookies('all')">Accetta tutto</button>
-    <button class="btn danger" onclick="resetCookieConsent()">Reset consenso</button>
-  </div>
-
-  <h2>Policy ufficiale CUS Trento</h2>
-  <p>Per la cookie policy dell'ente: <a href="https://www.iubenda.com/privacy-policy/54750032/cookie-policy" target="_blank" rel="noopener">Cookie Policy CUS Trento</a>.</p>
-
-  <p class="muted">Se in futuro verranno aggiunti analytics, pixel o embed social reali, andranno bloccati prima del consenso e questa pagina dovra' essere aggiornata.</p>
-</div>`,"","Cookie policy del sito CUS Trento Calcio a 5.");}
 function moveClubHistory(delta){const imgs=(state.clubHistory&&state.clubHistory.images)||[];if(!imgs.length)return;view.clubHistoryIndex=(view.clubHistoryIndex+delta+imgs.length)%imgs.length;club();}
 function club(){
   const clubHistoryData = (state.clubHistory && typeof state.clubHistory === "object") ? state.clubHistory : {};
@@ -2022,7 +1896,7 @@ function openLightbox(albumId,index){const g=getLightboxAlbum(albumId);if(!g)ret
 function renderLightbox(){const g=getLightboxAlbum(lightboxState.albumId);if(!g)return;const img=$("#lightboxImg"),frame=$("#lightboxFrame");if(g.videos){const i=(lightboxState.index+g.videos.length)%g.videos.length;lightboxState.index=i;const v=g.videos[i]||{};if(img)img.style.display="none";if(frame){frame.style.display="block";frame.src=youtubeEmbedUrl(v.url);}$("#lightboxCaption").textContent=`${v.title||"Video"} — ${i+1} di ${g.videos.length}`;return;}const i=(lightboxState.index+g.photos.length)%g.photos.length;lightboxState.index=i;if(frame){frame.src="";frame.style.display="none";}if(img){img.style.display="block";img.src=g.photos[i];img.alt=`${g.title} foto ${i+1}`;}$("#lightboxCaption").textContent=`${g.title} — foto ${i+1} di ${g.photos.length}`;}
 function moveLightbox(delta){const g=getLightboxAlbum(lightboxState.albumId);if(!g)return;const len=g.videos?g.videos.length:(g.photos?g.photos.length:0);if(!len)return;lightboxState.index=(lightboxState.index+delta+len)%len;renderLightbox();}
 function closeLightbox(){const frame=$("#lightboxFrame");if(frame)frame.src="";$("#lightbox").classList.remove("show");}
-function render(){renderNav();if(current.startsWith("gallery-album-"))galleryAlbum(current.replace("gallery-album-",""));else if(current.startsWith("article-"))articleDetail(current.replace("article-",""));else if(current.startsWith("player-"))playerDetail(current.replace("player-",""));else if(current.startsWith("match-"))matchDetail(current.replace("match-",""));else if(current.startsWith("staff-detail-"))staffDetail(current.replace("staff-detail-",""));else if(current.startsWith("sponsor-detail-"))sponsorDetail(current.replace("sponsor-detail-",""));else if(current.startsWith("package-detail-"))sponsorPackageDetail(current.replace("package-detail-",""));else if(current.startsWith("video-detail-"))videoDetail(current.replace("video-detail-",""));else if(current==="news")news();else if(current==="squad")squad();else if(current==="fixtures")fixtures();else if(current==="coppa")coppa();else if(current==="u21")u21();else if(current==="standings")standings();else if(current==="stats")stats();else if(current==="staff")staff();else if(current==="gallery")gallery();else if(current==="video")videos();else if(current==="social")social();else if(current==="sponsor")sponsor();else if(current==="sponsor-lead")sponsorLead();else if(current==="historical-stats")historicalStatsPage();else if(current==="records")records();else if(current==="contacts")contacts();else if(current==="privacy")privacy();else if(current==="cookies")cookies();else if(current==="club")club();else home();}
+function render(){renderNav();if(current.startsWith("gallery-album-"))galleryAlbum(current.replace("gallery-album-",""));else if(current.startsWith("article-"))articleDetail(current.replace("article-",""));else if(current.startsWith("player-"))playerDetail(current.replace("player-",""));else if(current.startsWith("match-"))matchDetail(current.replace("match-",""));else if(current.startsWith("staff-detail-"))staffDetail(current.replace("staff-detail-",""));else if(current.startsWith("sponsor-detail-"))sponsorDetail(current.replace("sponsor-detail-",""));else if(current.startsWith("package-detail-"))sponsorPackageDetail(current.replace("package-detail-",""));else if(current.startsWith("video-detail-"))videoDetail(current.replace("video-detail-",""));else if(current==="news")news();else if(current==="squad")squad();else if(current==="fixtures")fixtures();else if(current==="coppa")coppa();else if(current==="u21")u21();else if(current==="standings")standings();else if(current==="stats")stats();else if(current==="staff")staff();else if(current==="gallery")gallery();else if(current==="video")videos();else if(current==="social")social();else if(current==="sponsor")sponsor();else if(current==="sponsor-lead")sponsorLead();else if(current==="historical-stats")historicalStatsPage();else if(current==="records")records();else if(current==="contacts")contacts();else if(current==="club")club();else home();}
 // ===== CMS BOOT: carica i contenuti pubblicati da content/data.json + archivio news importate =====
 function newsKeyForMerge(n){
   return String(

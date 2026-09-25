@@ -29,9 +29,7 @@
     "club-project":"/club/",
     "venue":"/impianto/",
     "records":"/hall-of-fame/",
-    "contacts":"/contatti/",
-    "privacy":"/privacy/",
-    "cookies":"/cookies/"
+    "contacts":"/contatti/"
   };
 
   const pathToRoute = {
@@ -48,8 +46,6 @@
     "/social/":"social",
     "/hall-of-fame/":"records",
     "/contatti/":"contacts",
-    "/privacy/":"privacy",
-    "/cookies/":"cookies",
     "/squadre/":"teams-overview",
     "/gioca-con-noi/":"play-with-us",
     "/cnu/":"cnu",
@@ -115,8 +111,6 @@
     social:["Media","Social wall","Aggiornamenti social e contenuti dalla community CUS."],
     records:["Club","Hall of Fame","Record, numeri storici e protagonisti del CUS Trento C5."],
     contacts:["Club","Contatti","Contatti ufficiali, richieste informazioni e riferimenti del club."],
-    privacy:["Privacy","Privacy policy","Informazioni privacy e trattamento dati del sito."],
-    cookies:["Cookie","Cookie policy","Informazioni sull'utilizzo dei cookie e contenuti esterni."],
     partner:["Partner","I nostri partner","Aziende, realtà e sponsor che sostengono il progetto CUS Trento C5."],
     sponsor:["Partner","I nostri partner","Aziende, realtà e sponsor che sostengono il progetto CUS Trento C5."],
     "club-project":["Club","Chi siamo","Storia e progetto sportivo del CUS Trento C5."],
@@ -665,7 +659,7 @@
   }
 
   function archiveCompetitionForSeason(season){
-    const map={"2011/2012":"Serie D","2012/2013":"Serie D","2013/2014":"Serie D","2014/2015":"Serie C2","2015/2016":"Serie D","2016/2017":"Serie D","2017/2018":"Serie C2","2018/2019":"Serie C2","2019/2020":"Serie C2","2020/2021":"Serie C2","2021/2022":"Serie C1","2022/2023":"Serie C1","2023/2024":"Serie C1","2024/2025":"Serie C1","2025/2026":"Serie C1","2026/2027":"Serie B - Gir. B"};
+    const map={"2011/2012":"Serie D","2012/2013":"Serie D","2013/2014":"Serie D","2014/2015":"Serie C2","2015/2016":"Serie D","2016/2017":"Serie D","2017/2018":"Serie C2","2018/2019":"Serie C2","2019/2020":"Serie C2","2020/2021":"Serie C2","2021/2022":"Serie C1","2022/2023":"Serie C1","2023/2024":"Serie C1","2024/2025":"Serie C1","2025/2026":"Serie C1","2026/2027":"Serie B"};
     const key=String(season||"").replace(/\s/g,"");
     if(map[key])return map[key];
     const longKey=key.replace(/^(\d{4})\/(\d{2})$/,(m,a,b)=>`${a}/20${b}`);

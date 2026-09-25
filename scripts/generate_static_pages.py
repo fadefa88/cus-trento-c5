@@ -57,8 +57,6 @@ GENERATED_DIRS = [
     "sponsor",
     "hall-of-fame",
     "contatti",
-    "privacy",
-    "cookies",
     "under-21",
 ]
 
@@ -174,22 +172,6 @@ MAIN_PAGES = [
         "description": "Contatti ufficiali del CUS Trento Calcio a 5.",
         "heading": "Contatti",
         "eyebrow": "Club",
-    },
-    {
-        "path": "/privacy/",
-        "route": "privacy",
-        "title": "Privacy Policy CUS Trento C5",
-        "description": "Informativa privacy del sito CUS Trento Calcio a 5.",
-        "heading": "Privacy Policy",
-        "eyebrow": "Legal",
-    },
-    {
-        "path": "/cookies/",
-        "route": "cookies",
-        "title": "Cookie Policy CUS Trento C5",
-        "description": "Cookie policy del sito CUS Trento Calcio a 5.",
-        "heading": "Cookie Policy",
-        "eyebrow": "Legal",
     },
     {
         "path": "/under-21/",
@@ -550,7 +532,7 @@ def render_simple_main(page: Dict[str, Any], data: Dict[str, Any]) -> str:
             rows = data.get("seasons", [])
         def comp_for(season: Any) -> str:
             mapping = {
-                "2011/2012":"Serie D", "2012/2013":"Serie D", "2013/2014":"Serie D", "2014/2015":"Serie C2", "2015/2016":"Serie D", "2016/2017":"Serie D", "2017/2018":"Serie C2", "2018/2019":"Serie C2", "2019/2020":"Serie C2", "2020/2021":"Serie C2", "2021/2022":"Serie C1", "2022/2023":"Serie C1", "2023/2024":"Serie C1", "2024/2025":"Serie C1", "2025/2026":"Serie C1", "2026/2027":"Serie B - Gir. B"
+                "2011/2012":"Serie D", "2012/2013":"Serie D", "2013/2014":"Serie D", "2014/2015":"Serie C2", "2015/2016":"Serie D", "2016/2017":"Serie D", "2017/2018":"Serie C2", "2018/2019":"Serie C2", "2019/2020":"Serie C2", "2020/2021":"Serie C2", "2021/2022":"Serie C1", "2022/2023":"Serie C1", "2023/2024":"Serie C1", "2024/2025":"Serie C1", "2025/2026":"Serie C1", "2026/2027":"Serie B"
             }
             key = str(season or "").replace(" ", "")
             if key in mapping:
