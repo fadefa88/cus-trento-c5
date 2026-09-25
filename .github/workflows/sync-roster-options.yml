@@ -1,22 +1,24 @@
-name: Sync roster options
+name: Sync CMS data
 
 on:
   push:
     branches:
       - main
     paths:
-      - content/cms/roster.json
+      - content/cms/*.json
+      - .github/workflows/sync-roster-options.yml
+      - scripts/sync_roster_options.py
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: sync-roster-options-${{ github.ref }}
+  group: sync-cms-data-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  sync-roster-options:
+  sync-cms-data:
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -39,24 +41,63 @@ jobs:
       - name: Sync CMS player dropdowns from roster
         run: python scripts/sync_roster_options.py
 
-      - name: Commit and push synced roster options
+      - name: Merge CMS content into frontend data
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('.')
+          data_path = root / 'content' / 'data.json'
+          data = json.loads(data_path.read_text(encoding='utf-8')) if data_path.exists() else {}
+
+          cms_files = [
+              'news.json',
+              'roster.json',
+              'fixtures.json',
+              'u21-fixtures.json',
+              'gallery-albums.json',
+              'sponsors.json',
+              'sponsor-packages.json',
+              'staff.json',
+              'videos.json',
+              'club-history.json',
+              'events.json',
+          ]
+
+          for name in cms_files:
+              path = root / 'content' / 'cms' / name
+              if not path.exists():
+                  continue
+              payload = json.loads(path.read_text(encoding='utf-8'))
+              if isinstance(payload, dict):
+                  data.update(payload)
+
+          data_path.write_text(
+              json.dumps(data, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          PY
+
+      - name: Commit and push synced CMS data
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add admin/config.yml
+          git add admin/config.yml content/data.json
 
           if git diff --cached --quiet; then
-            echo "Roster options already in sync."
+            echo "CMS data already in sync."
             exit 0
           fi
 
-          git commit -m "Sync roster options in CMS config"
+          git commit -m "Sync CMS data to frontend"
 
           if [ -n "$(git status --porcelain)" ]; then
-            echo "::error::Working tree is not clean after the roster sync commit."
+            echo "::error::Working tree is not clean after the CMS sync commit."
             git status --short
             exit 1
           fi
@@ -67,7 +108,7 @@ jobs:
 
             if git rebase origin/main; then
               if git push origin HEAD:main; then
-                echo "CMS roster options synced to main."
+                echo "CMS data synced to main."
                 exit 0
               fi
             else
@@ -80,5 +121,5 @@ jobs:
             sleep 3
           done
 
-          echo "Unable to push synced roster options after 3 attempts. Check repository rules for GitHub Actions write access to main."
+          echo "Unable to push synced CMS data after 3 attempts. Check repository rules for GitHub Actions write access to main."
           exit 1
