@@ -2058,6 +2058,17 @@
       "title": "Rassegna Sportiva",
       "url": "https://www.youtube.com/watch?v=W6HQCiBuUzc&pp=ygUMImN1cyB0cmVudG8i",
       "slug": "rassegna-sportiva"
+    },
+    {
+      "id": "trento-cus-trento-12-1",
+      "slug": "trento-cus-trento-12-1",
+      "season": "2025/26",
+      "categories": [
+        "prima squadra",
+        "partite"
+      ],
+      "title": "Trento - CUS Trento 12-1",
+      "url": "https://www.youtube.com/live/brjyNjS7Srw?si=h1bXtc1auvzGpGbh"
     }
   ],
   "sponsors": [],
