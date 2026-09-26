@@ -85,6 +85,18 @@
           "playerId": "7"
         }
       ],
+      "goalkeeperEvents": [
+        {
+          "goalsAgainst": 6,
+          "appearances": 1,
+          "playerId": "1"
+        },
+        {
+          "goalsAgainst": 6,
+          "appearances": 1,
+          "playerId": "baccaro-zeni-lucca"
+        }
+      ],
       "home": "CUS Trento",
       "competition": "Coppa"
     },
