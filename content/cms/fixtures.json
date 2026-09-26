@@ -49,25 +49,41 @@
       "date": "2026-09-26",
       "lineup": {
         "startingFive": [
-          "baccaro-zeni-lucca",
           "ceola-michele",
           "10",
           "18",
-          "7"
+          "7",
+          "1"
         ],
         "bench": [
           "16",
           "19",
-          "1",
           "sarcletti-paolo",
           "scala-luca",
           "tesser-alvise",
-          "11"
+          "11",
+          "baccaro-zeni-lucca"
         ]
       },
       "venue": "Sanbàpolis",
-      "status": "Da giocare",
+      "status": "Terminata",
+      "scorerEvents": [
+        {
+          "goals": 1,
+          "playerId": "16"
+        }
+      ],
       "id": "ac-trento-1921-cus-trento-2026-09-26",
+      "yellowCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "11"
+        },
+        {
+          "cards": 1,
+          "playerId": "7"
+        }
+      ],
       "home": "CUS Trento",
       "competition": "Coppa"
     },
@@ -79,7 +95,9 @@
       "date": "2026-10-03",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Palateatro Villorba",
       "status": "Da giocare",
@@ -95,7 +113,9 @@
       "date": "2026-10-10",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -111,7 +131,9 @@
       "date": "2026-10-17",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Paladante Sestu",
       "status": "Da giocare",
@@ -127,7 +149,9 @@
       "date": "2026-10-24",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -143,7 +167,9 @@
       "date": "2026-10-31",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Palestrone School Village Merano",
       "status": "Da giocare",
@@ -159,7 +185,9 @@
       "date": "2026-11-07",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -175,7 +203,9 @@
       "date": "2026-11-14",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Palasport di Laives",
       "status": "Da giocare",
@@ -191,7 +221,9 @@
       "date": "2026-11-21",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -207,7 +239,9 @@
       "date": "2026-11-28",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Palastadio Conegliano",
       "status": "Da giocare",
@@ -223,7 +257,9 @@
       "date": "2026-12-05",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "PalaGesteco Cividale del Friuli",
       "status": "Da giocare",
@@ -239,7 +275,9 @@
       "date": "2026-12-12",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -255,7 +293,9 @@
       "date": "2026-12-19",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -271,7 +311,9 @@
       "date": "2027-01-09",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Palestra Comunale Manzano",
       "status": "Da giocare",
@@ -287,7 +329,9 @@
       "date": "2027-01-16",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -303,7 +347,9 @@
       "date": "2027-01-23",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Spes Arena Belluno",
       "status": "Da giocare",
@@ -319,7 +365,9 @@
       "date": "2027-01-30",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -335,7 +383,9 @@
       "date": "2027-02-06",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Palazzetto Roberto Melis Elmas",
       "status": "Da giocare",
@@ -351,7 +401,9 @@
       "date": "2027-02-13",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -367,7 +419,9 @@
       "date": "2027-03-20",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Pala Rodari Jesolo",
       "status": "Da giocare",
@@ -383,7 +437,9 @@
       "date": "2027-02-27",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -399,7 +455,9 @@
       "date": "2027-03-06",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -415,7 +473,9 @@
       "date": "2027-03-13",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Palazzetto Trento Nord",
       "status": "Da giocare",
