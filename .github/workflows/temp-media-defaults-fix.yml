@@ -22,7 +22,6 @@ jobs:
         run: |
           python <<'PY'
           from pathlib import Path
-          import re
 
           app_path = Path('js/app.js')
           app = app_path.read_text(encoding='utf-8')
@@ -38,22 +37,44 @@ jobs:
           config = config_path.read_text(encoding='utf-8')
 
           def set_media_default(text, collection):
-              pattern = re.compile(
-                  rf'(- name: {re.escape(collection)}\n  label: .*?\n.*?- label: Stagione\n\s+name: season\n\s+widget: select\n\s+options:\n\s+- 2025/26\n\s+- 2026/27\n\s+default: )2025/26',
-                  re.S,
-              )
-              updated, count = pattern.subn(r'\g<1>2026/27', text, count=1)
-              if count != 1:
-                  raise SystemExit(f'Could not update season default for {collection}: {count} matches')
-              return updated
+              marker = f'- name: {collection}\n'
+              start = text.find(marker)
+              if start < 0:
+                  raise SystemExit(f'Collection not found: {collection}')
+              end = text.find('\n- name: ', start + len(marker))
+              if end < 0:
+                  end = len(text)
+              section = text[start:end]
+              old_default = '        default: 2025/26'
+              if old_default not in section:
+                  if '        default: 2026/27' in section:
+                      return text
+                  raise SystemExit(f'Season default not found for {collection}')
+              section = section.replace(old_default, '        default: 2026/27', 1)
+              return text[:start] + section + text[end:]
 
-          config = set_media_default(config, 'gallery')
+          config = set_media_default(config, 'galleryAlbums')
           config = set_media_default(config, 'videos')
           config_path.write_text(config, encoding='utf-8')
           PY
 
       - name: Validate JavaScript
         run: node --check js/app.js
+
+      - name: Verify changes
+        shell: bash
+        run: |
+          grep -F 'u.pathname.includes("/live/")' js/app.js
+          python <<'PY'
+          from pathlib import Path
+          text=Path('admin/config.yml').read_text(encoding='utf-8')
+          for collection in ('galleryAlbums','videos'):
+              start=text.index(f'- name: {collection}\n')
+              end=text.find('\n- name: ', start+1)
+              section=text[start:end if end >= 0 else len(text)]
+              assert 'default: 2026/27' in section
+          print('Media defaults verified')
+          PY
 
       - name: Commit changes and remove temporary workflow
         shell: bash
