@@ -863,7 +863,7 @@ collections:
         options:
         - 2025/26
         - 2026/27
-        default: 2025/26
+        default: 2026/27
       - label: Categorie
         name: categories
         widget: select
@@ -1063,7 +1063,7 @@ collections:
         options:
         - 2025/26
         - 2026/27
-        default: 2025/26
+        default: 2026/27
       - label: Categorie
         name: categories
         widget: select

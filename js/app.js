@@ -1909,6 +1909,7 @@ function youtubeEmbedUrl(url){
       if(u.searchParams.get("v")) id=u.searchParams.get("v");
       else if(u.pathname.includes("/embed/")) id=u.pathname.split("/embed/")[1].split("/")[0];
       else if(u.pathname.includes("/shorts/")) id=u.pathname.split("/shorts/")[1].split("/")[0];
+      else if(u.pathname.includes("/live/")) id=u.pathname.split("/live/")[1].split("/")[0];
     }
   }catch(e){}
   return id?`https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?rel=0&playsinline=1`:"";
