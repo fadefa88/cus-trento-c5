@@ -3,8 +3,8 @@ name: Update standings
 on:
   workflow_dispatch:
   schedule:
-    # Every 4 hours, off the exact hour to avoid scheduler congestion.
-    - cron: "17 */4 * * *"
+    # Every hour at minute 17, staggered from news imports.
+    - cron: "17 * * * *"
 
 permissions:
   contents: write
