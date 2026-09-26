@@ -1,0 +1,66 @@
+name: Apply media defaults and YouTube live fix
+
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-media-defaults-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch media handling
+        shell: bash
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import re
+
+          app_path = Path('js/app.js')
+          app = app_path.read_text(encoding='utf-8')
+          old = '      else if(u.pathname.includes("/shorts/")) id=u.pathname.split("/shorts/")[1].split("/")[0];'
+          new = old + '\n      else if(u.pathname.includes("/live/")) id=u.pathname.split("/live/")[1].split("/")[0];'
+          if old not in app:
+              raise SystemExit('YouTube shorts parser anchor not found')
+          if 'u.pathname.includes("/live/")' not in app:
+              app = app.replace(old, new, 1)
+          app_path.write_text(app, encoding='utf-8')
+
+          config_path = Path('admin/config.yml')
+          config = config_path.read_text(encoding='utf-8')
+
+          def set_media_default(text, collection):
+              pattern = re.compile(
+                  rf'(- name: {re.escape(collection)}\n  label: .*?\n.*?- label: Stagione\n\s+name: season\n\s+widget: select\n\s+options:\n\s+- 2025/26\n\s+- 2026/27\n\s+default: )2025/26',
+                  re.S,
+              )
+              updated, count = pattern.subn(r'\g<1>2026/27', text, count=1)
+              if count != 1:
+                  raise SystemExit(f'Could not update season default for {collection}: {count} matches')
+              return updated
+
+          config = set_media_default(config, 'gallery')
+          config = set_media_default(config, 'videos')
+          config_path.write_text(config, encoding='utf-8')
+          PY
+
+      - name: Validate JavaScript
+        run: node --check js/app.js
+
+      - name: Commit changes and remove temporary workflow
+        shell: bash
+        run: |
+          rm .github/workflows/temp-media-defaults-fix.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add js/app.js admin/config.yml .github/workflows/temp-media-defaults-fix.yml
+          git commit -m 'Fix YouTube live URLs and current media defaults'
+          git push origin HEAD:main
