@@ -1,0 +1,48 @@
+name: Force media frontend cache refresh
+
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-media-cache-bust.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Bust app.js cache and verify generated media pages
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          text=p.read_text(encoding='utf-8')
+          old='/js/app.js?v=news-static-v70'
+          new='/js/app.js?v=media-live-v71'
+          if old not in text and new not in text:
+              raise SystemExit('app.js version anchor not found in index.html')
+          text=text.replace(old,new)
+          p.write_text(text,encoding='utf-8')
+          PY
+          python3 scripts/generate_static_pages.py
+          grep -F '/js/app.js?v=media-live-v71' video/index.html
+          grep -F '/js/app.js?v=media-live-v71' gallery/index.html
+          grep -F 'u.pathname.includes("/live/")' js/app.js
+
+      - name: Commit source change and remove temporary workflow
+        shell: bash
+        run: |
+          git checkout -- $(git ls-files '*.html' | grep -v '^index.html$') || true
+          rm .github/workflows/temp-media-cache-bust.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html .github/workflows/temp-media-cache-bust.yml
+          git commit -m 'Bust frontend cache for YouTube live support'
+          git push origin HEAD:main
