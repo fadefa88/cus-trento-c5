@@ -17,8 +17,8 @@ on:
         default: "0.35"
 
   schedule:
-    # Every night, off the exact half-hour.
-    - cron: "37 3 * * *"
+    # Every hour at minute 07, staggered from standings updates.
+    - cron: "7 * * * *"
 
 permissions:
   contents: write
