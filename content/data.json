@@ -2158,6 +2158,28 @@
       "venue": "Palazzetto dello Sport \"Angelo Marchetti\"",
       "score": "9-6",
       "status": "Terminata",
+      "opponentScorerEvents": [
+        {
+          "goals": 3,
+          "name": "Caputi"
+        },
+        {
+          "goals": 3,
+          "name": "Grifeo"
+        },
+        {
+          "goals": 1,
+          "name": "Tola"
+        },
+        {
+          "goals": 1,
+          "name": "Mortillaro"
+        },
+        {
+          "goals": 1,
+          "name": "Cerchia"
+        }
+      ],
       "scorerEvents": [
         {
           "goals": 3,
@@ -2204,7 +2226,9 @@
       "date": "2026-11-27",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Palazzetto Noriglio",
       "status": "Da giocare",
@@ -2220,7 +2244,9 @@
       "date": "2026-12-04",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -2236,7 +2262,9 @@
       "date": "2026-12-18",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -2269,6 +2297,16 @@
       "venue": "Sanbàpolis",
       "score": "4-3",
       "status": "Terminata",
+      "opponentScorerEvents": [
+        {
+          "goals": 2,
+          "name": "Valduga"
+        },
+        {
+          "goals": 1,
+          "name": "Dakhlaoui"
+        }
+      ],
       "scorerEvents": [
         {
           "goals": 2,
@@ -2315,7 +2353,9 @@
       "date": "2026-10-02",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Fiavé Palazzetto",
       "status": "Da giocare",
@@ -2331,7 +2371,9 @@
       "date": "2026-10-09",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Palazzetto dello Sport \"Angelo Marchetti\"",
       "status": "Da giocare",
@@ -2347,7 +2389,9 @@
       "date": "2026-10-16",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -2363,7 +2407,9 @@
       "date": "2026-10-23",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Palazzetto Tiarno di Sotto",
       "status": "Da giocare",
@@ -2379,7 +2425,9 @@
       "date": "2026-10-30",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -2395,7 +2443,9 @@
       "date": "2026-11-06",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Palazzetto Besenello",
       "status": "Da giocare",
@@ -2411,7 +2461,9 @@
       "date": "2026-11-13",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Sanbàpolis",
       "status": "Da giocare",
@@ -2427,7 +2479,9 @@
       "date": "2026-11-20",
       "lineup": {
         "startingFive": [],
-        "bench": []
+        "bench": [],
+        "suspended": [],
+        "injured": []
       },
       "venue": "Nomi Palazzetto",
       "status": "Da giocare",
