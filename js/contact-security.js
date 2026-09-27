@@ -263,3 +263,50 @@
   const app = document.getElementById("app");
   if (app) new MutationObserver(prepareAll).observe(app, { childList: true, subtree: true });
 })();
+
+/* Match center branding: loghi e denominazioni ufficiali Serie B / Serie D. */
+(() => {
+  const SERIE_B_LOGO = "https://calcioa5.custrento.it/img/uploads/firefly_removebackground.png";
+  const SERIE_D_LOGO = "https://calcioa5.custrento.it/img/uploads/firefly.png";
+
+  function applyMatchBranding() {
+    const hero = document.querySelector(".match-center-v57-hero");
+    if (!hero) return;
+
+    const competition = hero.querySelector(".match-center-v57-competition");
+    const mark = hero.querySelector(".match-center-v57-compmark");
+    const img = mark && mark.querySelector("img");
+    if (!competition || !mark || !img) return;
+
+    const raw = String(competition.textContent || "").trim();
+    const isSerieD = mark.classList.contains("is-youth") || /under\s*23|serie\s*d/i.test(raw);
+    const isCup = /coppa/i.test(raw);
+
+    const label = isSerieD
+      ? (isCup ? "Coppa Serie D" : "Serie D")
+      : (isCup ? "Coppa Serie B" : "Serie B - Girone B");
+    const logo = isSerieD ? SERIE_D_LOGO : SERIE_B_LOGO;
+
+    if (competition.textContent !== label) competition.textContent = label;
+    if (img.getAttribute("src") !== logo) img.setAttribute("src", logo);
+    img.setAttribute("alt", isSerieD ? "Serie D Calcio a 5" : "Serie B Calcio a 5");
+    mark.setAttribute("aria-label", isSerieD ? "Serie D Calcio a 5" : "Serie B Calcio a 5");
+
+    img.style.setProperty("clip-path", "none", "important");
+    img.style.setProperty("transform", "none", "important");
+    img.style.setProperty("object-fit", "contain", "important");
+    img.style.setProperty("background", "transparent", "important");
+  }
+
+  function install() {
+    applyMatchBranding();
+    const app = document.getElementById("app");
+    if (app) new MutationObserver(applyMatchBranding).observe(app, { childList: true, subtree: true });
+    setTimeout(applyMatchBranding, 100);
+    setTimeout(applyMatchBranding, 400);
+    setTimeout(applyMatchBranding, 1000);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", install);
+  else install();
+})();
