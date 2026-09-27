@@ -43,7 +43,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .home-hero-socials{margin-top:10px!important;}
   .home-hero-actions{flex-direction:column!important;align-items:flex-start!important;gap:9px!important;width:auto!important;max-width:230px!important;margin-top:16px!important;}
   .home-hero-actions .btn{width:auto!important;max-width:max-content!important;min-width:0!important;justify-content:flex-start!important;padding:10px 13px!important;font-size:12px!important;line-height:1.1!important;white-space:nowrap!important;}
-  .home-hero-actions .btn i{font-size:12px!important;}
+  .hero .home-hero-actions .btn i{font-size:12px!important;}
 }
 </style>
 </head>
@@ -352,13 +352,13 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
         source.forEach(e=>{
           const raw=e&&(e.playerId||e.player||e.name||e.id);
           const goals=Math.max(1,Number(e&&e.goals||e&&e.value||1)||1);
-          const minute=e&&e.minute!==undefined&&e.minute!==null&&e.minute!==""?Number(e.minute):null;
+          const minute=e&&e.minute!==undefined&&e.minute!==null&&e.minute!==""?String(e.minute).trim():"";
           if(isOwnGoalScorer(raw)){
-            events.push({playerId:OWN_GOAL_ID,goals,isOwnGoal:true,minute:Number.isFinite(minute)?minute:null});
+            events.push({playerId:OWN_GOAL_ID,goals,isOwnGoal:true,minute});
             return;
           }
           const playerId=resolvePlayerId(raw,roster);
-          if(playerId!==null) events.push({playerId,goals,isOwnGoal:false,minute:Number.isFinite(minute)?minute:null});
+          if(playerId!==null) events.push({playerId,goals,isOwnGoal:false,minute});
         });
         if(events.length) return events;
       }
@@ -384,15 +384,22 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
       return fuzzy&&fuzzy.logo?fuzzy.logo:"/img/placeholder.webp";
     }
 
+    function goalTimeLabel(value){
+      const raw=value===undefined||value===null?"":String(value).trim();
+      if(!raw) return "";
+      return /^\d+$/.test(raw)?`${raw}'`:raw;
+    }
+
     function ownScorers(match,isYouth){
       if(normText(match.status)!==normText("Terminata")) return "";
       const events=scorerEvents(match,state.roster||[]);
       if(!events.length) return "";
       return events.map(event=>{
         const name=event.isOwnGoal?OWN_GOAL_LABEL:playerSurnameById(state.roster, event.playerId);
-        const minute=!isYouth&&Number.isFinite(Number(event.minute))?`<span>${Number(event.minute)}'</span>`:"";
+        const time=!isYouth?goalTimeLabel(event.minute):"";
+        const timeHtml=time?`<span>${safe(time)}</span>`:"";
         const multi=Number(event.goals)>1?`<small>×${Number(event.goals)}</small>`:"";
-        return `<div class="match-center-v57-scorer">${safe(name)}${minute}${multi}</div>`;
+        return `<div class="match-center-v57-scorer">${safe(name)}${timeHtml}${multi}</div>`;
       }).join("");
     }
 
@@ -403,8 +410,9 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
       return events.map(event=>{
         const name=String(event&&event.name||"").trim();
         if(!name) return "";
-        const minute=event.minute!==undefined&&event.minute!==null&&event.minute!==""&&Number.isFinite(Number(event.minute))?`<span>${Number(event.minute)}'</span>`:"";
-        return `<div class="match-center-v57-scorer">${safe(name)}${minute}</div>`;
+        const time=goalTimeLabel(event&&event.minute);
+        const timeHtml=time?`<span>${safe(time)}</span>`:"";
+        return `<div class="match-center-v57-scorer">${safe(name)}${timeHtml}</div>`;
       }).join("");
     }
 
@@ -412,7 +420,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
       if(isYouth){
         return `<div class="match-center-v57-compmark is-youth"><img src="${safe(clubLogo())}" alt="CUS Trento C5"></div>`;
       }
-      const serieBLogo="https://divisionecalcioa5.it/wp-content/uploads/2024/06/serie-B-logo-news-65.jpg";
+      const serieBLogo="https://calcioa5.custrento.it/img/uploads/img_2410.jpeg";
       return `<div class="match-center-v57-compmark is-division" aria-label="Serie B Calcio a 5"><img src="${safe(serieBLogo)}" alt="Serie B Calcio a 5"></div>`;
     }
 
@@ -481,6 +489,172 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",installMatchCenterV57);
   else installMatchCenterV57();
+})();
+</script>
+
+<style>
+/* v60: marcatori su una riga e logo Serie B scontornato via clip-path. */
+.match-center-v57-board,.match-center-v57-team,.match-center-v57-scorers{overflow:visible!important;}
+.match-center-v57-scorer{
+  white-space:nowrap!important;
+  width:max-content!important;
+  max-width:none!important;
+  overflow:visible!important;
+  justify-self:center!important;
+}
+.match-center-v57-compmark.is-division{overflow:visible!important;}
+.match-center-v57-compmark.is-division img{
+  object-fit:cover!important;
+  object-position:center!important;
+  clip-path:polygon(33% 8%,67% 8%,79% 14%,84% 28%,83% 62%,72% 82%,50% 96%,28% 82%,17% 62%,16% 28%,21% 14%);
+  transform:scale(1.08);
+  transform-origin:center;
+}
+</style>
+<script>
+(function(){
+  function installMatchCenterV60(){
+    if(typeof matchDetail!=="function" || typeof findObjectBySlug!=="function" || typeof shell!=="function"){
+      setTimeout(installMatchCenterV60,80);
+      return;
+    }
+    if(window.__cusMatchCenterV60Installed) return;
+    window.__cusMatchCenterV60Installed=true;
+
+    function isYouthMatch(match){
+      return (state.u21Fixtures||[]).some(item=>item===match || (item&&match&&String(item.id||"")===String(match.id||"")&&String(item.date||"")===String(match.date||"")));
+    }
+
+    function logoForTeam(name,match){
+      if(isCusTeam(name)) return clubLogo();
+      if(match&&match.opponentLogo) return match.opponentLogo;
+      const key=teamKey(name);
+      const rows=[...(state.standings||[]),...(state.u21Standings||[])];
+      const exact=rows.find(row=>row&&teamKey(row.team)===key&&row.logo);
+      if(exact) return exact.logo;
+      const fuzzy=rows.find(row=>{
+        if(!row||!row.logo) return false;
+        const rowKey=teamKey(row.team);
+        return rowKey&&key&&(rowKey.includes(key)||key.includes(rowKey));
+      });
+      return fuzzy&&fuzzy.logo?fuzzy.logo:"/img/placeholder.webp";
+    }
+
+    function goalTimeLabel(value){
+      const raw=value===undefined||value===null?"":String(value).trim().replace(/\s+/g," ");
+      if(!raw) return "";
+      if(/^0+(?:\s*['’′]\s*0*(?:["”″])?)?(?:\s*(?:pt|st))?$/i.test(raw)) return "";
+      return /^\d+$/.test(raw)?`${raw}'`:raw;
+    }
+
+    function goalTimes(event){
+      const source=event&&Array.isArray(event.goalTimes)?event.goalTimes:[];
+      const times=source.map(item=>goalTimeLabel(item&&typeof item==="object"?(item.time??item.value):item)).filter(Boolean);
+      if(times.length) return times;
+      const legacy=goalTimeLabel(event&&event.minute);
+      return legacy?[legacy]:[];
+    }
+
+    function scorerLine(name,event,isYouth){
+      const times=isYouth?[]:goalTimes(event);
+      const goals=Math.max(1,Number(event&&event.goals||1)||1,times.length||0);
+      const multi=goals>1?`<small>×${goals}</small>`:"";
+      const timeHtml=times.length?`<span>${times.map(time=>safe(time)).join(" · ")}</span>`:"";
+      return `<div class="match-center-v57-scorer">${safe(name)}${multi}${timeHtml}</div>`;
+    }
+
+    function ownScorers(match,isYouth){
+      if(normText(match.status)!==normText("Terminata")) return "";
+      const events=Array.isArray(match.scorerEvents)?match.scorerEvents:[];
+      return events.map(event=>{
+        const raw=event&&(event.playerId||event.player||event.name||event.id);
+        const ownGoal=isOwnGoalScorer(raw);
+        const resolved=ownGoal?null:resolvePlayerId(raw,state.roster||[]);
+        const name=ownGoal?OWN_GOAL_LABEL:playerSurnameById(state.roster,resolved||raw);
+        return scorerLine(name,event,isYouth);
+      }).join("");
+    }
+
+    function opponentScorers(match,isYouth){
+      if(normText(match.status)!==normText("Terminata") || isYouth) return "";
+      const events=Array.isArray(match.opponentScorerEvents)?match.opponentScorerEvents:[];
+      return events.map(event=>{
+        const name=String(event&&event.name||"").trim();
+        return name?scorerLine(name,event,false):"";
+      }).join("");
+    }
+
+    function competitionMark(type,isYouth){
+      if(isYouth){
+        return `<div class="match-center-v57-compmark is-youth"><img src="${safe(clubLogo())}" alt="CUS Trento C5"></div>`;
+      }
+      return `<div class="match-center-v57-compmark is-division" aria-label="Serie B Calcio a 5"><img src="https://calcioa5.custrento.it/img/uploads/img_2410.jpeg" alt="Serie B Calcio a 5"></div>`;
+    }
+
+    function scoreMarkup(match){
+      const raw=String(match.score||"").trim();
+      const parsed=raw.match(/^(\d+)\s*[-:]\s*(\d+)$/);
+      if(parsed) return `<div class="match-center-v57-score"><span>${safe(parsed[1])}</span><em>-</em><span>${safe(parsed[2])}</span></div>`;
+      return `<div class="match-center-v57-score is-vs">${safe(raw||"VS")}</div>`;
+    }
+
+    matchDetail=function(id){
+      const allMatches=[...(state.fixtures||[]),...(state.u21Fixtures||[])];
+      const f=findObjectBySlug(allMatches,"fixtures",id);
+      if(!f){route("fixtures");return;}
+
+      const isYouth=isYouthMatch(f);
+      const type=calendarTypeFromFixture(f);
+      const perspective=isCusTeam(f.home)?"HOME":"AWAY";
+      const competitionLabel=isYouth
+        ? (type==="Coppa"?"Coppa Under 23":"Under 23")
+        : (type==="Coppa"?"Coppa Serie B":"Serie B");
+      const homeScorers=isCusTeam(f.home)?ownScorers(f,isYouth):opponentScorers(f,isYouth);
+      const awayScorers=isCusTeam(f.away)?ownScorers(f,isYouth):opponentScorers(f,isYouth);
+
+      const lineup=f.lineup||{startingFive:[],bench:[],tacticalNotes:[]};
+      const starters=lineup.startingFive||[];
+      const callups=[...starters,...(lineup.bench||[])].filter((value,index,items)=>items.findIndex(x=>String(x)===String(value))===index);
+      const spots=["gk","p1","p2","p3","p4"];
+
+      shell("Match center",`${f.home} - ${f.away}`,
+        `<style>#app>.section:first-child>.container>.head{display:none!important}#app>.section:first-child{padding-top:24px}</style>
+        <div class="breadcrumb match-center-v57-breadcrumb"><button class="back-link" onclick="route('fixtures')"><span>←</span> Calendario</button></div>
+        <section class="match-center-v57-hero">
+          ${competitionMark(type,isYouth)}
+          <div class="match-center-v57-homeaway">${perspective}</div>
+          <div class="match-center-v57-competition">${safe(competitionLabel)}</div>
+          <div class="match-center-v57-venue">${safe(f.venue||"Campo da definire")}</div>
+          <div class="match-center-v57-board">
+            <div class="match-center-v57-team">
+              <img class="match-center-v57-logo" src="${safe(logoForTeam(f.home,f))}" alt="Logo ${safe(f.home)}">
+              <div class="match-center-v57-teamname">${safe(f.home)}</div>
+              <div class="match-center-v57-scorers">${homeScorers}</div>
+            </div>
+            <div class="match-center-v57-scorebox">
+              ${scoreMarkup(f)}
+              <div class="match-center-v57-status">${safe(normalizeCmsStatus(f.status||"Da giocare"))}</div>
+            </div>
+            <div class="match-center-v57-team">
+              <img class="match-center-v57-logo" src="${safe(logoForTeam(f.away,f))}" alt="Logo ${safe(f.away)}">
+              <div class="match-center-v57-teamname">${safe(f.away)}</div>
+              <div class="match-center-v57-scorers">${awayScorers}</div>
+            </div>
+          </div>
+        </section>
+        <div class="card card-pad match-center-v57-details"><h2>Tabellino</h2><div class="grid grid-2 match-list-grid" style="margin-top:18px"><div><b>Ammoniti</b><p class="muted match-person-list">${cardListHtml(f,"yellow")}</p></div><div><b>Espulsi</b><p class="muted match-person-list">${cardListHtml(f,"red")}</p></div></div></div>
+        <div class="grid grid-2" style="margin-top:22px"><div class="lineup-board"><span class="eyebrow" style="background:white;color:#09090b">Tattica</span><h2 style="font-size:34px;margin:0">Quintetto titolare</h2><div class="pitch">${starters.slice(0,5).map((name,i)=>`<div class="spot ${spots[i]||"p4"}">${playerSurnameById(state.roster,resolvePlayerId(name,state.roster)||name)}</div>`).join("")}</div></div><div class="card card-pad"><h2>Convocati</h2><p class="muted match-person-list" style="margin-top:18px">${matchPeopleList(callups)}</p>${(lineup.tacticalNotes||[]).map(n=>`<p class="muted">• ${safe(n)}</p>`).join("")}</div></div>`,"");
+    };
+
+    try{
+      if(typeof current==="string"&&current.startsWith("match-")&&typeof render==="function") render();
+    }catch(error){console.warn("Match center v60: render differito",error);}
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",installMatchCenterV60);
+  else installMatchCenterV60();
+  setTimeout(installMatchCenterV60,160);
+  setTimeout(installMatchCenterV60,600);
 })();
 </script>
 
