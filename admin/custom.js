@@ -203,3 +203,89 @@
   registerAutomaticIdsAndSlugs();
   console.info("CUS Trento C5 CMS loaded: ID e slug nascosti, generati automaticamente; salvataggio compatibile con Decap Immutable/JS.");
 })();
+
+/* Match center: minuti dei gol solo per la Prima squadra e marcatori avversari. */
+(function(){
+  if(!window.CMS || typeof window.CMS.init !== "function" || window.__cusMatchCenterSchemaWrapped) return;
+  window.__cusMatchCenterSchemaWrapped = true;
+
+  const originalInit = window.CMS.init;
+
+  function collectionMatchFields(config, collectionName){
+    const collections = config && config.collections;
+    if(!Array.isArray(collections)) return null;
+    const collection = collections.find(item => item && item.name === collectionName);
+    const file = collection && Array.isArray(collection.files) && collection.files[0];
+    const listField = file && Array.isArray(file.fields) && file.fields.find(field => field && field.name === collectionName);
+    return listField && Array.isArray(listField.fields) ? listField.fields : null;
+  }
+
+  function namedField(fields, name){
+    return Array.isArray(fields) ? fields.find(field => field && field.name === name) : null;
+  }
+
+  function addFirstTeamGoalMinute(config){
+    const fields = collectionMatchFields(config, "fixtures");
+    const scorers = namedField(fields, "scorerEvents");
+    if(!scorers || !Array.isArray(scorers.fields) || namedField(scorers.fields, "minute")) return;
+    scorers.fields.push({
+      label: "Minuto del gol",
+      name: "minute",
+      widget: "number",
+      value_type: "int",
+      required: false,
+      min: 1,
+      max: 60,
+      hint: "Valido solo per la Prima squadra. Se lo stesso giocatore segna più reti in minuti diversi, inserisci una voce Marcatori per ogni gol."
+    });
+    scorers.summary = "{{fields.playerId}} — {{fields.minute}}'";
+  }
+
+  function opponentScorerField(withMinute){
+    const fields = [
+      {label:"Marcatore avversario", name:"name", widget:"string"}
+    ];
+    if(withMinute){
+      fields.push({
+        label:"Minuto del gol",
+        name:"minute",
+        widget:"number",
+        value_type:"int",
+        required:false,
+        min:1,
+        max:60
+      });
+    }
+    return {
+      label:"Marcatori avversari",
+      name:"opponentScorerEvents",
+      widget:"list",
+      required:false,
+      collapsed:true,
+      summary:withMinute ? "{{fields.name}} — {{fields.minute}}'" : "{{fields.name}}",
+      hint:withMinute
+        ? "Inserisci una voce per ogni gol avversario, con il relativo minuto."
+        : "Inserisci i marcatori avversari. Nell'Under 23 il minuto del gol non è previsto.",
+      fields
+    };
+  }
+
+  function addOpponentScorers(config, collectionName, withMinute){
+    const fields = collectionMatchFields(config, collectionName);
+    if(!fields || namedField(fields, "opponentScorerEvents")) return;
+    const scorerIndex = fields.findIndex(field => field && field.name === "scorerEvents");
+    fields.splice(scorerIndex >= 0 ? scorerIndex + 1 : fields.length, 0, opponentScorerField(withMinute));
+  }
+
+  function augmentMatchSchema(options){
+    if(!options || !options.config) return;
+    addFirstTeamGoalMinute(options.config);
+    addOpponentScorers(options.config, "fixtures", true);
+    addOpponentScorers(options.config, "u21Fixtures", false);
+  }
+
+  window.CMS.init = function(options){
+    augmentMatchSchema(options);
+    return originalInit.apply(this, arguments);
+  };
+})();
