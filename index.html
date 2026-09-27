@@ -159,7 +159,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 </script>
 
 <style>
-/* v59: match center ispirato alla gerarchia AC Milan, con logo ufficiale Serie B. */
+/* v60: match center con logo Serie B e tempi gol nel formato referto futsal. */
 .match-center-v57-breadcrumb{margin-bottom:18px!important;}
 .match-center-v57-hero{
   position:relative;
@@ -321,13 +321,13 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
         source.forEach(e=>{
           const raw=e&&(e.playerId||e.player||e.name||e.id);
           const goals=Math.max(1,Number(e&&e.goals||e&&e.value||1)||1);
-          const minute=e&&e.minute!==undefined&&e.minute!==null&&e.minute!==""?Number(e.minute):null;
+          const minute=e&&e.minute!==undefined&&e.minute!==null&&e.minute!==""?String(e.minute).trim():"";
           if(isOwnGoalScorer(raw)){
-            events.push({playerId:OWN_GOAL_ID,goals,isOwnGoal:true,minute:Number.isFinite(minute)?minute:null});
+            events.push({playerId:OWN_GOAL_ID,goals,isOwnGoal:true,minute});
             return;
           }
           const playerId=resolvePlayerId(raw,roster);
-          if(playerId!==null) events.push({playerId,goals,isOwnGoal:false,minute:Number.isFinite(minute)?minute:null});
+          if(playerId!==null) events.push({playerId,goals,isOwnGoal:false,minute});
         });
         if(events.length) return events;
       }
@@ -353,15 +353,22 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
       return fuzzy&&fuzzy.logo?fuzzy.logo:"/img/placeholder.webp";
     }
 
+    function goalTimeLabel(value){
+      const raw=value===undefined||value===null?"":String(value).trim();
+      if(!raw) return "";
+      return /^\d+$/.test(raw)?`${raw}'`:raw;
+    }
+
     function ownScorers(match,isYouth){
       if(normText(match.status)!==normText("Terminata")) return "";
       const events=scorerEvents(match,state.roster||[]);
       if(!events.length) return "";
       return events.map(event=>{
         const name=event.isOwnGoal?OWN_GOAL_LABEL:playerSurnameById(state.roster, event.playerId);
-        const minute=!isYouth&&Number.isFinite(Number(event.minute))?`<span>${Number(event.minute)}'</span>`:"";
+        const time=!isYouth?goalTimeLabel(event.minute):"";
+        const timeHtml=time?`<span>${safe(time)}</span>`:"";
         const multi=Number(event.goals)>1?`<small>×${Number(event.goals)}</small>`:"";
-        return `<div class="match-center-v57-scorer">${safe(name)}${minute}${multi}</div>`;
+        return `<div class="match-center-v57-scorer">${safe(name)}${timeHtml}${multi}</div>`;
       }).join("");
     }
 
@@ -372,8 +379,9 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
       return events.map(event=>{
         const name=String(event&&event.name||"").trim();
         if(!name) return "";
-        const minute=event.minute!==undefined&&event.minute!==null&&event.minute!==""&&Number.isFinite(Number(event.minute))?`<span>${Number(event.minute)}'</span>`:"";
-        return `<div class="match-center-v57-scorer">${safe(name)}${minute}</div>`;
+        const time=goalTimeLabel(event&&event.minute);
+        const timeHtml=time?`<span>${safe(time)}</span>`:"";
+        return `<div class="match-center-v57-scorer">${safe(name)}${timeHtml}</div>`;
       }).join("");
     }
 
