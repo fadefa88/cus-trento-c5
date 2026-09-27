@@ -204,7 +204,7 @@
   console.info("CUS Trento C5 CMS loaded: ID e slug nascosti, generati automaticamente; salvataggio compatibile con Decap Immutable/JS.");
 })();
 
-/* Match center: minuti dei gol e marcatori avversari solo per la Prima squadra. */
+/* Match center: tempo esatto dei gol e marcatori avversari solo per la Prima squadra. */
 (function(){
   if(!window.CMS || typeof window.CMS.init !== "function" || window.__cusMatchCenterSchemaWrapped) return;
   window.__cusMatchCenterSchemaWrapped = true;
@@ -224,21 +224,28 @@
     return Array.isArray(fields) ? fields.find(field => field && field.name === name) : null;
   }
 
+  function goalTimeField(){
+    return {
+      label: "Tempo del gol",
+      name: "minute",
+      widget: "string",
+      required: false,
+      hint: "Inserisci il tempo nel formato del referto, ad esempio 13’12” pt oppure 15’27” st."
+    };
+  }
+
   function addFirstTeamGoalMinute(config){
     const fields = collectionMatchFields(config, "fixtures");
     const scorers = namedField(fields, "scorerEvents");
-    if(!scorers || !Array.isArray(scorers.fields) || namedField(scorers.fields, "minute")) return;
-    scorers.fields.push({
-      label: "Minuto del gol",
-      name: "minute",
-      widget: "number",
-      value_type: "int",
-      required: false,
-      min: 1,
-      max: 60,
-      hint: "Valido solo per la Prima squadra. Se lo stesso giocatore segna più reti in minuti diversi, inserisci una voce Marcatori per ogni gol."
-    });
-    scorers.summary = "{{fields.playerId}} — {{fields.minute}}'";
+    if(!scorers || !Array.isArray(scorers.fields)) return;
+    const existing = namedField(scorers.fields, "minute");
+    if(existing){
+      Object.assign(existing, goalTimeField());
+    }else{
+      scorers.fields.push(goalTimeField());
+    }
+    scorers.summary = "{{fields.playerId}} — {{fields.minute}}";
+    scorers.hint = "Scegli il marcatore e inserisci il tempo esatto del gol, ad esempio 13’12” pt o 15’27” st. Se lo stesso giocatore segna più reti, inserisci una voce per ogni gol.";
   }
 
   function opponentScorerField(){
@@ -248,26 +255,24 @@
       widget:"list",
       required:false,
       collapsed:true,
-      summary:"{{fields.name}} — {{fields.minute}}'",
-      hint:"Placeholder della singola partita della Prima squadra: nome e minuto vengono mostrati nel match center, ma non modificano statistiche, storico marcatori o dati giocatore.",
+      summary:"{{fields.name}} — {{fields.minute}}",
+      hint:"Placeholder della singola partita della Prima squadra: nome e tempo esatto vengono mostrati nel match center, ma non modificano statistiche, storico marcatori o dati giocatore.",
       fields:[
         {label:"Nome marcatore avversario", name:"name", widget:"string"},
-        {
-          label:"Minuto del gol",
-          name:"minute",
-          widget:"number",
-          value_type:"int",
-          required:false,
-          min:1,
-          max:60
-        }
+        goalTimeField()
       ]
     };
   }
 
   function addOpponentScorers(config){
     const fields = collectionMatchFields(config, "fixtures");
-    if(!fields || namedField(fields, "opponentScorerEvents")) return;
+    if(!fields) return;
+    const existing = namedField(fields, "opponentScorerEvents");
+    if(existing){
+      const replacement = opponentScorerField();
+      Object.assign(existing, replacement);
+      return;
+    }
     const scorerIndex = fields.findIndex(field => field && field.name === "scorerEvents");
     fields.splice(scorerIndex >= 0 ? scorerIndex + 1 : fields.length, 0, opponentScorerField());
   }
