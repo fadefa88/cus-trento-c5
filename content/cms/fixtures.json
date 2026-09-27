@@ -86,6 +86,27 @@
       "venue": "Sanbàpolis",
       "score": "1-12",
       "status": "Terminata",
+      "opponentScorerEvents": [
+        {
+          "name": "Melillo",
+          "minute": ""
+        },
+        {
+          "name": "Vivian Mir."
+        },
+        {
+          "name": "Bazzanella Man."
+        },
+        {
+          "name": "Bazzanella Mir."
+        },
+        {
+          "name": "Vivian Dav."
+        },
+        {
+          "name": "Barbareschi"
+        }
+      ],
       "scorerEvents": [
         {
           "goals": 1,
