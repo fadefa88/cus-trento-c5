@@ -30,19 +30,23 @@
       "opponentScorerEvents": [
         {
           "minute": "13’12” pt",
-          "name": "Melillo"
+          "name": "Melillo",
+          "goals": 1
         },
         {
           "name": "Bazzanella Man.",
-          "minute": "12’15” st"
+          "minute": "12’15” st",
+          "goals": 1
         },
         {
           "name": "Bazzanella Mir.",
-          "minute": "15’17” st"
+          "minute": "15’17” st",
+          "goals": 1
         },
         {
           "name": "Barbareschi",
-          "minute": "17’30” st"
+          "minute": "17’30” st",
+          "goals": 1
         }
       ],
       "id": "cus-trento-ac-trento-1921-2026-09-19",
@@ -89,22 +93,28 @@
       "opponentScorerEvents": [
         {
           "name": "Melillo",
-          "minute": ""
+          "minute": "",
+          "goals": 3
         },
         {
-          "name": "Vivian Mir."
+          "name": "Vivian Mir.",
+          "goals": 3
         },
         {
-          "name": "Bazzanella Man."
+          "name": "Bazzanella Man.",
+          "goals": 2
         },
         {
-          "name": "Bazzanella Mir."
+          "name": "Bazzanella Mir.",
+          "goals": 2
         },
         {
-          "name": "Vivian Dav."
+          "name": "Vivian Dav.",
+          "goals": 1
         },
         {
-          "name": "Barbareschi"
+          "name": "Barbareschi",
+          "goals": 1
         }
       ],
       "scorerEvents": [
