@@ -254,3 +254,13 @@
     white-space:nowrap;
   }
 }
+
+/* v54: single match result card full-bleed on mobile portrait */
+@media (max-width:720px) and (orientation:portrait){
+  #app .breadcrumb + .grid.grid-2 > .cup-highlight:first-child{
+    width:100vw;
+    max-width:none;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+  }
+}
