@@ -204,7 +204,7 @@
   console.info("CUS Trento C5 CMS loaded: ID e slug nascosti, generati automaticamente; salvataggio compatibile con Decap Immutable/JS.");
 })();
 
-/* Match center: tempo esatto dei gol e marcatori avversari solo per la Prima squadra. */
+/* Match center: reti e tempi esatti dei gol solo per la Prima squadra. */
 (function(){
   if(!window.CMS || typeof window.CMS.init !== "function" || window.__cusMatchCenterSchemaWrapped) return;
   window.__cusMatchCenterSchemaWrapped = true;
@@ -224,28 +224,69 @@
     return Array.isArray(fields) ? fields.find(field => field && field.name === name) : null;
   }
 
-  function goalTimeField(){
+  function singleGoalTimeField(){
     return {
-      label: "Tempo del gol",
+      label: "Tempo del gol (opzionale)",
       name: "minute",
       widget: "string",
       required: false,
-      hint: "Inserisci il tempo nel formato del referto, ad esempio 13’12” pt oppure 15’27” st."
+      hint: "Per una sola rete puoi scrivere direttamente il tempo, ad esempio 13’12” pt o 15’27” st. Lascia vuoto se non conosci il minuto."
     };
   }
 
-  function addFirstTeamGoalMinute(config){
+  function goalTimesField(){
+    return {
+      label: "Tempi dei gol (opzionale)",
+      name: "goalTimes",
+      widget: "list",
+      required: false,
+      collapsed: false,
+      summary: "{{fields.time}}",
+      hint: "Se il marcatore ha segnato più reti puoi inserire un tempo per ogni gol. Esempi: 13’12” pt, 15’27” st. Se non conosci i tempi lascia vuoto: verrà mostrato solo il nome e il numero di reti.",
+      fields:[
+        {
+          label: "Tempo",
+          name: "time",
+          widget: "string",
+          required: false,
+          hint: "Formato consigliato: 13’12” pt oppure 15’27” st."
+        }
+      ]
+    };
+  }
+
+  function goalsField(){
+    return {
+      label: "Reti",
+      name: "goals",
+      widget: "number",
+      value_type: "int",
+      default: 1,
+      min: 1,
+      required: true,
+      hint: "Numero totale di reti segnate da questo marcatore nella partita."
+    };
+  }
+
+  function addFirstTeamScorerFields(config){
     const fields = collectionMatchFields(config, "fixtures");
     const scorers = namedField(fields, "scorerEvents");
     if(!scorers || !Array.isArray(scorers.fields)) return;
-    const existing = namedField(scorers.fields, "minute");
-    if(existing){
-      Object.assign(existing, goalTimeField());
-    }else{
-      scorers.fields.push(goalTimeField());
-    }
-    scorers.summary = "{{fields.playerId}} — {{fields.minute}}";
-    scorers.hint = "Scegli il marcatore e inserisci il tempo esatto del gol, ad esempio 13’12” pt o 15’27” st. Se lo stesso giocatore segna più reti, inserisci una voce per ogni gol.";
+
+    const goals = namedField(scorers.fields, "goals");
+    if(goals) Object.assign(goals, goalsField());
+    else scorers.fields.push(goalsField());
+
+    const minute = namedField(scorers.fields, "minute");
+    if(minute) Object.assign(minute, singleGoalTimeField());
+    else scorers.fields.push(singleGoalTimeField());
+
+    const goalTimes = namedField(scorers.fields, "goalTimes");
+    if(goalTimes) Object.assign(goalTimes, goalTimesField());
+    else scorers.fields.push(goalTimesField());
+
+    scorers.summary = "{{fields.playerId}} — {{fields.goals}} gol";
+    scorers.hint = "Scegli il marcatore, indica quante reti ha segnato e, se vuoi, inserisci il tempo di ciascun gol. I tempi sono facoltativi e non cambiano le statistiche: il conteggio ufficiale resta il campo Reti.";
   }
 
   function opponentScorerField(){
@@ -255,11 +296,13 @@
       widget:"list",
       required:false,
       collapsed:true,
-      summary:"{{fields.name}} — {{fields.minute}}",
-      hint:"Placeholder della singola partita della Prima squadra: nome e tempo esatto vengono mostrati nel match center, ma non modificano statistiche, storico marcatori o dati giocatore.",
+      summary:"{{fields.name}} — {{fields.goals}} gol",
+      hint:"Placeholder della singola partita della Prima squadra: nome, numero di reti e tempi vengono mostrati solo nel match center e non modificano statistiche, storico marcatori o dati giocatore.",
       fields:[
         {label:"Nome marcatore avversario", name:"name", widget:"string"},
-        goalTimeField()
+        goalsField(),
+        singleGoalTimeField(),
+        goalTimesField()
       ]
     };
   }
@@ -269,8 +312,7 @@
     if(!fields) return;
     const existing = namedField(fields, "opponentScorerEvents");
     if(existing){
-      const replacement = opponentScorerField();
-      Object.assign(existing, replacement);
+      Object.assign(existing, opponentScorerField());
       return;
     }
     const scorerIndex = fields.findIndex(field => field && field.name === "scorerEvents");
@@ -279,7 +321,7 @@
 
   function augmentMatchSchema(options){
     if(!options || !options.config) return;
-    addFirstTeamGoalMinute(options.config);
+    addFirstTeamScorerFields(options.config);
     addOpponentScorers(options.config);
   }
 
