@@ -159,7 +159,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 </script>
 
 <style>
-/* v57: match center ispirato alla gerarchia AC Milan, con branding CUS/Divisione. */
+/* v58: match center ispirato alla gerarchia AC Milan, con logo Divisione reale. */
 .match-center-v57-breadcrumb{margin-bottom:18px!important;}
 .match-center-v57-hero{
   position:relative;
@@ -205,6 +205,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .match-center-v57-compmark b{font-size:17px;font-weight:1000;letter-spacing:-.03em;text-transform:uppercase;}
 .match-center-v57-compmark small{font-size:8px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.72);}
 .match-center-v57-compmark.is-youth img{width:78px;height:78px;object-fit:contain;background:transparent;}
+.match-center-v57-compmark.is-division img{width:104px;height:104px;object-fit:contain;object-position:center;background:transparent;border:0;border-radius:0;box-shadow:none;padding:0;}
 .match-center-v57-homeaway{
   display:inline-flex;
   align-items:center;
@@ -280,6 +281,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .match-center-v57-compmark{width:82px;min-height:82px;margin-bottom:10px;}
   .match-center-v57-compmark i{font-size:26px;}
   .match-center-v57-compmark b{font-size:14px;}
+  .match-center-v57-compmark.is-division img{width:82px;height:82px;}
   .match-center-v57-homeaway{margin-bottom:10px;padding:7px 12px;min-width:68px;}
   .match-center-v57-competition{font-size:12px;}
   .match-center-v57-venue{font-size:11px;margin-top:6px;}
@@ -365,11 +367,12 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 
     function opponentScorers(match,isYouth){
       if(normText(match.status)!==normText("Terminata")) return "";
+      if(isYouth) return "";
       const events=Array.isArray(match.opponentScorerEvents)?match.opponentScorerEvents:[];
       return events.map(event=>{
         const name=String(event&&event.name||"").trim();
         if(!name) return "";
-        const minute=!isYouth&&event.minute!==undefined&&event.minute!==null&&event.minute!==""&&Number.isFinite(Number(event.minute))?`<span>${Number(event.minute)}'</span>`:"";
+        const minute=event.minute!==undefined&&event.minute!==null&&event.minute!==""&&Number.isFinite(Number(event.minute))?`<span>${Number(event.minute)}'</span>`:"";
         return `<div class="match-center-v57-scorer">${safe(name)}${minute}</div>`;
       }).join("");
     }
@@ -378,8 +381,9 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
       if(isYouth){
         return `<div class="match-center-v57-compmark is-youth"><img src="${safe(clubLogo())}" alt="CUS Trento C5"></div>`;
       }
-      const main=type==="Coppa"?"COPPA":"SERIE B";
-      return `<div class="match-center-v57-compmark" aria-label="Divisione Calcio a 5"><span>Divisione</span><i class="fa-solid fa-futbol" aria-hidden="true"></i><b>${main}</b><small>Calcio a 5</small></div>`;
+      const sharedLogo="https://share.google/4kRvpjVZN783IVJda";
+      const fallbackLogo="https://www.roma1927futsal.it/images/logo_divisione.png";
+      return `<div class="match-center-v57-compmark is-division" aria-label="Divisione Calcio a 5"><img src="${safe(sharedLogo)}" alt="Divisione Calcio a 5" onerror="this.onerror=null;this.src='${safe(fallbackLogo)}'"></div>`;
     }
 
     function scoreMarkup(match){
