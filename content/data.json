@@ -308,20 +308,20 @@
       "status": "Terminata",
       "opponentScorerEvents": [
         {
-          "minute": 13,
+          "minute": "13’12” pt",
           "name": "Melillo"
         },
         {
           "name": "Bazzanella Man.",
-          "minute": 12
+          "minute": "12’15” st"
         },
         {
           "name": "Bazzanella Mir.",
-          "minute": 15
+          "minute": "15’17”"
         },
         {
           "name": "Barbareschi",
-          "minute": 17
+          "minute": "17’30”"
         }
       ],
       "id": "cus-trento-ac-trento-1921-2026-09-19",
