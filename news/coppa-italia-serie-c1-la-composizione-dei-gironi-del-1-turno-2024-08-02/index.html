@@ -175,6 +175,300 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 })();
 </script>
 
+<style>
+/* v59: match center ispirato alla gerarchia AC Milan, con logo ufficiale Serie B. */
+.match-center-v57-breadcrumb{margin-bottom:18px!important;}
+.match-center-v57-hero{
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  min-height:570px;
+  border-radius:34px;
+  padding:34px 34px 42px;
+  background:
+    radial-gradient(circle at 50% -8%,rgba(255,255,255,.11),transparent 31%),
+    radial-gradient(circle at 50% 112%,rgba(185,28,28,.40),transparent 39%),
+    linear-gradient(180deg,#09090b 0%,#130405 55%,#250607 100%);
+  color:#fff;
+  text-align:center;
+  box-shadow:0 26px 70px rgba(9,9,11,.18);
+  border:1px solid rgba(255,255,255,.08);
+}
+.match-center-v57-hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 0 42%,rgba(255,255,255,.028) 42% 58%,transparent 58% 100%);
+}
+.match-center-v57-hero>*{position:relative;z-index:1;}
+.match-center-v57-compmark{
+  width:104px;
+  min-height:104px;
+  margin:0 auto 14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  color:#fff;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  line-height:1;
+}
+.match-center-v57-compmark i{font-size:32px;margin:4px 0;color:#fff;}
+.match-center-v57-compmark span{font-size:8px;font-weight:1000;letter-spacing:.20em;text-transform:uppercase;color:rgba(255,255,255,.66);}
+.match-center-v57-compmark b{font-size:17px;font-weight:1000;letter-spacing:-.03em;text-transform:uppercase;}
+.match-center-v57-compmark small{font-size:8px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.72);}
+.match-center-v57-compmark.is-youth img{width:78px;height:78px;object-fit:contain;background:transparent;}
+.match-center-v57-compmark.is-division img{width:104px;height:104px;object-fit:contain;object-position:center;background:transparent;border:0;border-radius:0;box-shadow:none;padding:0;}
+.match-center-v57-homeaway{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:74px;
+  padding:8px 14px;
+  margin:0 auto 13px;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-size:10px;
+  font-weight:1000;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.match-center-v57-competition{font-size:14px;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;color:#fff;}
+.match-center-v57-venue{margin-top:8px;font-size:13px;font-weight:800;color:rgba(255,255,255,.64);}
+.match-center-v57-board{
+  width:min(900px,100%);
+  margin:38px auto 0;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(130px,180px) minmax(0,1fr);
+  gap:28px;
+  align-items:start;
+}
+.match-center-v57-team{min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.match-center-v57-logo{
+  width:112px;
+  height:112px;
+  object-fit:contain;
+  object-position:center;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+}
+.match-center-v57-teamname{
+  margin-top:15px;
+  max-width:250px;
+  font-size:22px;
+  line-height:1.04;
+  font-weight:1000;
+  letter-spacing:-.04em;
+  color:#fff;
+}
+.match-center-v57-scorebox{padding-top:26px;display:flex;flex-direction:column;align-items:center;}
+.match-center-v57-score{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  min-height:74px;
+  color:#fff;
+  font-size:68px;
+  line-height:.9;
+  font-weight:1000;
+  letter-spacing:-.07em;
+  white-space:nowrap;
+}
+.match-center-v57-score em{font-style:normal;font-size:.56em;font-weight:800;color:rgba(255,255,255,.72);letter-spacing:0;}
+.match-center-v57-score.is-vs{font-size:40px;letter-spacing:.04em;}
+.match-center-v57-status{margin-top:10px;font-size:10px;font-weight:1000;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.62);}
+.match-center-v57-scorers{width:100%;margin-top:18px;display:grid;gap:5px;min-height:22px;}
+.match-center-v57-scorer{font-size:12px;line-height:1.35;font-weight:850;color:rgba(255,255,255,.80);}
+.match-center-v57-scorer span{margin-left:5px;color:#fff;font-weight:1000;}
+.match-center-v57-scorer small{margin-left:4px;color:rgba(255,255,255,.60);font-size:10px;}
+.match-center-v57-details{margin-top:22px;}
+.match-center-v57-details .match-list-grid{grid-template-columns:repeat(2,1fr);}
+@media(max-width:720px){
+  .match-center-v57-hero{min-height:485px;padding:26px 14px 30px;border-radius:28px;}
+  .match-center-v57-compmark{width:82px;min-height:82px;margin-bottom:10px;}
+  .match-center-v57-compmark i{font-size:26px;}
+  .match-center-v57-compmark b{font-size:14px;}
+  .match-center-v57-compmark.is-division img{width:82px;height:82px;}
+  .match-center-v57-homeaway{margin-bottom:10px;padding:7px 12px;min-width:68px;}
+  .match-center-v57-competition{font-size:12px;}
+  .match-center-v57-venue{font-size:11px;margin-top:6px;}
+  .match-center-v57-board{margin-top:30px;grid-template-columns:minmax(0,1fr) 82px minmax(0,1fr);gap:8px;}
+  .match-center-v57-logo{width:70px;height:70px;}
+  .match-center-v57-teamname{margin-top:10px;font-size:14px;line-height:1.08;}
+  .match-center-v57-scorebox{padding-top:17px;}
+  .match-center-v57-score{font-size:39px;gap:7px;min-height:48px;}
+  .match-center-v57-score.is-vs{font-size:25px;}
+  .match-center-v57-status{font-size:8px;margin-top:7px;letter-spacing:.11em;}
+  .match-center-v57-scorers{margin-top:13px;gap:4px;}
+  .match-center-v57-scorer{font-size:10px;}
+  .match-center-v57-details .match-list-grid{grid-template-columns:1fr;}
+}
+@media(max-width:390px){
+  .match-center-v57-board{grid-template-columns:minmax(0,1fr) 72px minmax(0,1fr);gap:5px;}
+  .match-center-v57-logo{width:62px;height:62px;}
+  .match-center-v57-teamname{font-size:12px;}
+  .match-center-v57-score{font-size:34px;}
+}
+</style>
+<script>
+(function(){
+  function installMatchCenterV57(){
+    if(typeof matchDetail!=="function" || typeof scorerEvents!=="function"){
+      setTimeout(installMatchCenterV57,80);
+      return;
+    }
+    if(window.__cusMatchCenterV57Installed) return;
+    window.__cusMatchCenterV57Installed=true;
+
+    const originalScorerEvents=scorerEvents;
+    scorerEvents=function(match,roster){
+      const source=match&&Array.isArray(match.scorerEvents)?match.scorerEvents:[];
+      if(source.length){
+        const events=[];
+        source.forEach(e=>{
+          const raw=e&&(e.playerId||e.player||e.name||e.id);
+          const goals=Math.max(1,Number(e&&e.goals||e&&e.value||1)||1);
+          const minute=e&&e.minute!==undefined&&e.minute!==null&&e.minute!==""?Number(e.minute):null;
+          if(isOwnGoalScorer(raw)){
+            events.push({playerId:OWN_GOAL_ID,goals,isOwnGoal:true,minute:Number.isFinite(minute)?minute:null});
+            return;
+          }
+          const playerId=resolvePlayerId(raw,roster);
+          if(playerId!==null) events.push({playerId,goals,isOwnGoal:false,minute:Number.isFinite(minute)?minute:null});
+        });
+        if(events.length) return events;
+      }
+      return originalScorerEvents(match,roster);
+    };
+
+    function isYouthMatch(match){
+      return (state.u21Fixtures||[]).some(item=>item===match || (item&&match&&String(item.id||"")===String(match.id||"")&&String(item.date||"")===String(match.date||"")));
+    }
+
+    function logoForTeam(name,match){
+      if(isCusTeam(name)) return clubLogo();
+      if(match&&match.opponentLogo) return match.opponentLogo;
+      const key=teamKey(name);
+      const rows=[...(state.standings||[]),...(state.u21Standings||[])];
+      const exact=rows.find(row=>row&&teamKey(row.team)===key&&row.logo);
+      if(exact) return exact.logo;
+      const fuzzy=rows.find(row=>{
+        if(!row||!row.logo) return false;
+        const rowKey=teamKey(row.team);
+        return rowKey&&key&&(rowKey.includes(key)||key.includes(rowKey));
+      });
+      return fuzzy&&fuzzy.logo?fuzzy.logo:"/img/placeholder.webp";
+    }
+
+    function ownScorers(match,isYouth){
+      if(normText(match.status)!==normText("Terminata")) return "";
+      const events=scorerEvents(match,state.roster||[]);
+      if(!events.length) return "";
+      return events.map(event=>{
+        const name=event.isOwnGoal?OWN_GOAL_LABEL:playerSurnameById(state.roster, event.playerId);
+        const minute=!isYouth&&Number.isFinite(Number(event.minute))?`<span>${Number(event.minute)}'</span>`:"";
+        const multi=Number(event.goals)>1?`<small>×${Number(event.goals)}</small>`:"";
+        return `<div class="match-center-v57-scorer">${safe(name)}${minute}${multi}</div>`;
+      }).join("");
+    }
+
+    function opponentScorers(match,isYouth){
+      if(normText(match.status)!==normText("Terminata")) return "";
+      if(isYouth) return "";
+      const events=Array.isArray(match.opponentScorerEvents)?match.opponentScorerEvents:[];
+      return events.map(event=>{
+        const name=String(event&&event.name||"").trim();
+        if(!name) return "";
+        const minute=event.minute!==undefined&&event.minute!==null&&event.minute!==""&&Number.isFinite(Number(event.minute))?`<span>${Number(event.minute)}'</span>`:"";
+        return `<div class="match-center-v57-scorer">${safe(name)}${minute}</div>`;
+      }).join("");
+    }
+
+    function competitionMark(type,isYouth){
+      if(isYouth){
+        return `<div class="match-center-v57-compmark is-youth"><img src="${safe(clubLogo())}" alt="CUS Trento C5"></div>`;
+      }
+      const serieBLogo="https://divisionecalcioa5.it/wp-content/uploads/2024/06/serie-B-logo-news-65.jpg";
+      return `<div class="match-center-v57-compmark is-division" aria-label="Serie B Calcio a 5"><img src="${safe(serieBLogo)}" alt="Serie B Calcio a 5"></div>`;
+    }
+
+    function scoreMarkup(match){
+      const raw=String(match.score||"").trim();
+      const parsed=raw.match(/^(\d+)\s*[-:]\s*(\d+)$/);
+      if(parsed) return `<div class="match-center-v57-score"><span>${safe(parsed[1])}</span><em>-</em><span>${safe(parsed[2])}</span></div>`;
+      return `<div class="match-center-v57-score is-vs">${safe(raw||"VS")}</div>`;
+    }
+
+    matchDetail=function(id){
+      const allMatches=[...(state.fixtures||[]),...(state.u21Fixtures||[])];
+      const f=findObjectBySlug(allMatches,"fixtures",id);
+      if(!f){route("fixtures");return;}
+
+      const isYouth=isYouthMatch(f);
+      const type=calendarTypeFromFixture(f);
+      const cusAtHome=isCusTeam(f.home);
+      const perspective=cusAtHome?"HOME":"AWAY";
+      const competitionLabel=isYouth
+        ? (type==="Coppa"?"Coppa Under 23":"Under 23")
+        : (type==="Coppa"?"Coppa Serie B":"Serie B");
+      const homeIsCus=isCusTeam(f.home);
+      const awayIsCus=isCusTeam(f.away);
+      const homeScorers=homeIsCus?ownScorers(f,isYouth):opponentScorers(f,isYouth);
+      const awayScorers=awayIsCus?ownScorers(f,isYouth):opponentScorers(f,isYouth);
+
+      const lineup=f.lineup||{startingFive:[],bench:[],tacticalNotes:[]};
+      const starters=lineup.startingFive||[];
+      const callups=[...starters,...(lineup.bench||[])].filter((value,index,items)=>items.findIndex(x=>String(x)===String(value))===index);
+      const spots=["gk","p1","p2","p3","p4"];
+
+      shell("Match center",`${f.home} - ${f.away}`,
+        `<style>#app>.section:first-child>.container>.head{display:none!important}#app>.section:first-child{padding-top:24px}</style>
+        <div class="breadcrumb match-center-v57-breadcrumb"><button class="back-link" onclick="route('fixtures')"><span>←</span> Calendario</button></div>
+        <section class="match-center-v57-hero">
+          ${competitionMark(type,isYouth)}
+          <div class="match-center-v57-homeaway">${perspective}</div>
+          <div class="match-center-v57-competition">${safe(competitionLabel)}</div>
+          <div class="match-center-v57-venue">${safe(f.venue||"Campo da definire")}</div>
+          <div class="match-center-v57-board">
+            <div class="match-center-v57-team">
+              <img class="match-center-v57-logo" src="${safe(logoForTeam(f.home,f))}" alt="Logo ${safe(f.home)}">
+              <div class="match-center-v57-teamname">${safe(f.home)}</div>
+              <div class="match-center-v57-scorers">${homeScorers}</div>
+            </div>
+            <div class="match-center-v57-scorebox">
+              ${scoreMarkup(f)}
+              <div class="match-center-v57-status">${safe(normalizeCmsStatus(f.status||"Da giocare"))}</div>
+            </div>
+            <div class="match-center-v57-team">
+              <img class="match-center-v57-logo" src="${safe(logoForTeam(f.away,f))}" alt="Logo ${safe(f.away)}">
+              <div class="match-center-v57-teamname">${safe(f.away)}</div>
+              <div class="match-center-v57-scorers">${awayScorers}</div>
+            </div>
+          </div>
+        </section>
+        <div class="card card-pad match-center-v57-details"><h2>Tabellino</h2><div class="grid grid-2 match-list-grid" style="margin-top:18px"><div><b>Ammoniti</b><p class="muted match-person-list">${cardListHtml(f,"yellow")}</p></div><div><b>Espulsi</b><p class="muted match-person-list">${cardListHtml(f,"red")}</p></div></div></div>
+        <div class="grid grid-2" style="margin-top:22px"><div class="lineup-board"><span class="eyebrow" style="background:white;color:#09090b">Tattica</span><h2 style="font-size:34px;margin:0">Quintetto titolare</h2><div class="pitch">${starters.slice(0,5).map((name,i)=>`<div class="spot ${spots[i]||"p4"}">${playerSurnameById(state.roster,resolvePlayerId(name,state.roster)||name)}</div>`).join("")}</div></div><div class="card card-pad"><h2>Convocati</h2><p class="muted match-person-list" style="margin-top:18px">${matchPeopleList(callups)}</p>${(lineup.tacticalNotes||[]).map(n=>`<p class="muted">• ${safe(n)}</p>`).join("")}</div></div>`,"");
+    };
+
+    try{
+      if(typeof current==="string"&&current.startsWith("match-")&&typeof render==="function") render();
+    }catch(error){console.warn("Match center v57: render differito",error);}
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",installMatchCenterV57);
+  else installMatchCenterV57();
+})();
+</script>
 
 </body>
 </html>
