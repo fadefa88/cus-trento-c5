@@ -159,7 +159,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 </script>
 
 <style>
-/* v58: match center ispirato alla gerarchia AC Milan, con logo Divisione reale. */
+/* v59: match center ispirato alla gerarchia AC Milan, con logo ufficiale Serie B. */
 .match-center-v57-breadcrumb{margin-bottom:18px!important;}
 .match-center-v57-hero{
   position:relative;
@@ -381,9 +381,8 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
       if(isYouth){
         return `<div class="match-center-v57-compmark is-youth"><img src="${safe(clubLogo())}" alt="CUS Trento C5"></div>`;
       }
-      const sharedLogo="https://share.google/4kRvpjVZN783IVJda";
-      const fallbackLogo="https://www.roma1927futsal.it/images/logo_divisione.png";
-      return `<div class="match-center-v57-compmark is-division" aria-label="Divisione Calcio a 5"><img src="${safe(sharedLogo)}" alt="Divisione Calcio a 5" onerror="this.onerror=null;this.src='${safe(fallbackLogo)}'"></div>`;
+      const serieBLogo="https://divisionecalcioa5.it/wp-content/uploads/2024/06/serie-B-logo-news-65.jpg";
+      return `<div class="match-center-v57-compmark is-division" aria-label="Serie B Calcio a 5"><img src="${safe(serieBLogo)}" alt="Serie B Calcio a 5"></div>`;
     }
 
     function scoreMarkup(match){
