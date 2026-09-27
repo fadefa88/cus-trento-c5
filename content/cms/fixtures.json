@@ -27,6 +27,24 @@
       "venue": "Gardolo Palazzetto",
       "score": "4-0",
       "status": "Terminata",
+      "opponentScorerEvents": [
+        {
+          "minute": 13,
+          "name": "Melillo"
+        },
+        {
+          "name": "Bazzanella Man.",
+          "minute": 12
+        },
+        {
+          "name": "Bazzanella Mir.",
+          "minute": 15
+        },
+        {
+          "name": "Barbareschi",
+          "minute": 17
+        }
+      ],
       "id": "cus-trento-ac-trento-1921-2026-09-19",
       "yellowCardEvents": [
         {
