@@ -212,10 +212,31 @@
         fields.splice(awayIndex >= 0 ? awayIndex + 1 : fields.length, 0, opponentLogoField());
       }
 
+      function addU23OpponentScorers(config){
+        var fields = collectionMatchFields(config, "u21Fixtures");
+        if(!fields || namedField(fields, "opponentScorerEvents")) return;
+        var field = {
+          label:"Marcatori avversari (solo visualizzazione)",
+          name:"opponentScorerEvents",
+          widget:"list",
+          required:false,
+          collapsed:true,
+          summary:"{{fields.name}} — {{fields.goals}} gol",
+          hint:"Solo per la singola partita Under 23: inserisci nome e numero di gol del marcatore avversario. Non vengono richiesti i minuti e questi dati non modificano statistiche, storico marcatori o dati giocatore.",
+          fields:[
+            {label:"Nome marcatore avversario", name:"name", widget:"string"},
+            {label:"Reti", name:"goals", widget:"number", value_type:"int", default:1, min:1, required:true}
+          ]
+        };
+        var scorerIndex = fields.findIndex(function(item){ return item && item.name === "scorerEvents"; });
+        fields.splice(scorerIndex >= 0 ? scorerIndex + 1 : fields.length, 0, field);
+      }
+
       function initCms(config, roster){
         syncPlayerOptionsFromRoster(config, roster);
         addOpponentLogoField(config, "fixtures");
         addOpponentLogoField(config, "u21Fixtures");
+        addU23OpponentScorers(config);
         config.load_config_file = false;
         window.CMS.init({config:config});
       }
