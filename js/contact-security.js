@@ -298,7 +298,7 @@
       .match-squad-v61{margin-top:22px!important;padding:28px 26px 32px!important;background:#fff!important;color:#09090b!important;overflow:hidden;}
       .match-squad-v61 h2{margin:0 0 26px;font-size:34px;line-height:1;font-weight:1000;letter-spacing:-.05em;color:#09090b;}
       .match-squad-v61-grid{display:grid;grid-template-columns:minmax(0,1fr);row-gap:26px;}
-      .match-squad-v61-player{display:grid;grid-template-columns:54px minmax(0,1fr);align-items:center;gap:12px;min-width:0;}
+      .match-squad-v61-player{display:grid;grid-template-columns:54px minmax(0,1fr) 92px;align-items:center;gap:12px;min-width:0;min-height:92px;}
       .match-squad-v61-number{font-size:46px;line-height:.9;font-weight:1000;letter-spacing:-.06em;color:#09090b;text-align:left;font-family:Impact,"Arial Narrow",Arial,sans-serif;}
       .match-squad-v61-copy{min-width:0;display:flex;flex-direction:column;justify-content:center;}
       .match-squad-v61-first{font-size:13px;line-height:1.05;font-weight:500;color:#18181b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -309,15 +309,18 @@
       .match-squad-v61-red{background:#dc2626;}
       .match-squad-v61-goal{display:inline-flex;align-items:center;gap:4px;font-size:14px;line-height:1;color:#09090b;font-weight:1000;}
       .match-squad-v61-goal i{font-size:13px;color:#09090b;}
+      .match-squad-v61-photo{width:92px;height:92px;border-radius:18px;overflow:hidden;justify-self:end;background:#f4f4f5;}
+      .match-squad-v61-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;}
       .match-squad-v61-empty{grid-column:1/-1;margin:0;color:#71717a;font-weight:700;}
       @media(max-width:520px){
         .match-squad-v61{padding:24px 16px 28px!important;}
         .match-squad-v61 h2{font-size:30px;margin-bottom:24px;}
         .match-squad-v61-grid{row-gap:23px;}
-        .match-squad-v61-player{grid-template-columns:42px minmax(0,1fr);gap:9px;}
+        .match-squad-v61-player{grid-template-columns:42px minmax(0,1fr) 72px;gap:9px;min-height:72px;}
         .match-squad-v61-number{font-size:37px;}
         .match-squad-v61-first{font-size:11px;}
         .match-squad-v61-last{font-size:18px;}
+        .match-squad-v61-photo{width:72px;height:72px;border-radius:14px;}
       }
     `;
     document.head.appendChild(style);
@@ -356,7 +359,8 @@
       const goalIcons = goals ? '<i class="fa-solid fa-futbol" aria-hidden="true"></i>'.repeat(goals) : '';
       const events = `${yellow ? '<span class="match-squad-v61-yellow" aria-label="Ammonito"></span>' : ''}${red ? '<span class="match-squad-v61-red" aria-label="Espulso"></span>' : ''}${goals ? `<span class="match-squad-v61-goal" aria-label="${goals} gol">${goalIcons}</span>` : ''}`;
       const eventRow = events ? `<div class="match-squad-v61-events">${events}</div>` : '';
-      return `<div class="match-squad-v61-player"><div class="match-squad-v61-number">${esc(player.number ?? "–")}</div><div class="match-squad-v61-copy"><div class="match-squad-v61-first">${esc(names.first)}</div><div class="match-squad-v61-last">${esc(names.last)}</div>${eventRow}</div></div>`;
+      const photo = String(player.photo || "").trim() || "/img/placeholder.webp";
+      return `<div class="match-squad-v61-player"><div class="match-squad-v61-number">${esc(player.number ?? "–")}</div><div class="match-squad-v61-copy"><div class="match-squad-v61-first">${esc(names.first)}</div><div class="match-squad-v61-last">${esc(names.last)}</div>${eventRow}</div><div class="match-squad-v61-photo"><img loading="lazy" decoding="async" src="${esc(photo)}" alt="${esc(player.name || "Giocatore")}" onerror="this.onerror=null;this.src='/img/placeholder.webp'"></div></div>`;
     }).join("") : '<p class="match-squad-v61-empty">Convocati non inseriti.</p>'}</div>`;
 
     hero.insertAdjacentElement("afterend",card);
