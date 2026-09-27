@@ -310,3 +310,73 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", install);
   else install();
 })();
+
+/* Match center Serie D: mostra i marcatori avversari senza minuti. */
+(() => {
+  function normalize(value) {
+    return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+  }
+
+  function html(value) {
+    return String(value ?? "").replace(/[&<>\"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[ch]));
+  }
+
+  function isCusTeamName(name) {
+    return normalize(name).includes("cus trento");
+  }
+
+  function u23Matches() {
+    try {
+      return typeof state !== "undefined" && Array.isArray(state.u21Fixtures) ? state.u21Fixtures : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function currentU23Match(teamNames) {
+    const home = normalize(teamNames[0]);
+    const away = normalize(teamNames[1]);
+    return u23Matches().find(match => normalize(match && match.home) === home && normalize(match && match.away) === away) || null;
+  }
+
+  function renderOpponentScorers() {
+    const hero = document.querySelector(".match-center-v57-hero");
+    if (!hero) return;
+    const competition = hero.querySelector(".match-center-v57-competition");
+    if (!competition || !/serie\s*d/i.test(String(competition.textContent || ""))) return;
+
+    const teams = Array.from(hero.querySelectorAll(".match-center-v57-team"));
+    if (teams.length < 2) return;
+    const names = teams.map(team => {
+      const node = team.querySelector(".match-center-v57-teamname");
+      return node ? node.textContent.trim() : "";
+    });
+    const match = currentU23Match(names);
+    if (!match || normalize(match.status) !== "terminata") return;
+
+    const opponentIndex = isCusTeamName(match.home) ? 1 : 0;
+    const target = teams[opponentIndex] && teams[opponentIndex].querySelector(".match-center-v57-scorers");
+    if (!target) return;
+
+    const events = Array.isArray(match.opponentScorerEvents) ? match.opponentScorerEvents : [];
+    target.innerHTML = events.map(event => {
+      const name = String(event && event.name || "").trim();
+      if (!name) return "";
+      const goals = Math.max(1, Number(event && event.goals || 1) || 1);
+      const multi = goals > 1 ? `<small>×${goals}</small>` : "";
+      return `<div class="match-center-v57-scorer">${html(name)}${multi}</div>`;
+    }).join("");
+  }
+
+  function install() {
+    renderOpponentScorers();
+    const app = document.getElementById("app");
+    if (app) new MutationObserver(renderOpponentScorers).observe(app, {childList:true, subtree:true});
+    setTimeout(renderOpponentScorers, 120);
+    setTimeout(renderOpponentScorers, 500);
+    setTimeout(renderOpponentScorers, 1200);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", install);
+  else install();
+})();
