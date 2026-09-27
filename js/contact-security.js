@@ -363,12 +363,13 @@
     const target = teams[opponentIndex]?.querySelector(".match-center-v57-scorers");
     if(!target) return;
     const events = Array.isArray(match.opponentScorerEvents) ? match.opponentScorerEvents : [];
-    target.innerHTML = events.map(event => {
+    const nextHtml = events.map(event => {
       const name = String(event && event.name || "").trim();
       if(!name) return "";
       const goals = Math.max(1,Number(event && event.goals || 1) || 1);
       return `<div class="match-center-v57-scorer">${esc(name)}${goals > 1 ? `<small>×${goals}</small>` : ""}</div>`;
     }).join("");
+    if(target.innerHTML !== nextHtml) target.innerHTML = nextHtml;
   }
 
   let scheduled = false;
