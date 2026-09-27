@@ -204,7 +204,7 @@
   console.info("CUS Trento C5 CMS loaded: ID e slug nascosti, generati automaticamente; salvataggio compatibile con Decap Immutable/JS.");
 })();
 
-/* Match center: minuti dei gol solo per la Prima squadra e marcatori avversari. */
+/* Match center: minuti dei gol e marcatori avversari solo per la Prima squadra. */
 (function(){
   if(!window.CMS || typeof window.CMS.init !== "function" || window.__cusMatchCenterSchemaWrapped) return;
   window.__cusMatchCenterSchemaWrapped = true;
@@ -241,47 +241,41 @@
     scorers.summary = "{{fields.playerId}} — {{fields.minute}}'";
   }
 
-  function opponentScorerField(withMinute){
-    const fields = [
-      {label:"Marcatore avversario", name:"name", widget:"string"}
-    ];
-    if(withMinute){
-      fields.push({
-        label:"Minuto del gol",
-        name:"minute",
-        widget:"number",
-        value_type:"int",
-        required:false,
-        min:1,
-        max:60
-      });
-    }
+  function opponentScorerField(){
     return {
-      label:"Marcatori avversari",
+      label:"Marcatori avversari (solo visualizzazione)",
       name:"opponentScorerEvents",
       widget:"list",
       required:false,
       collapsed:true,
-      summary:withMinute ? "{{fields.name}} — {{fields.minute}}'" : "{{fields.name}}",
-      hint:withMinute
-        ? "Inserisci una voce per ogni gol avversario, con il relativo minuto."
-        : "Inserisci i marcatori avversari. Nell'Under 23 il minuto del gol non è previsto.",
-      fields
+      summary:"{{fields.name}} — {{fields.minute}}'",
+      hint:"Placeholder della singola partita della Prima squadra: nome e minuto vengono mostrati nel match center, ma non modificano statistiche, storico marcatori o dati giocatore.",
+      fields:[
+        {label:"Nome marcatore avversario", name:"name", widget:"string"},
+        {
+          label:"Minuto del gol",
+          name:"minute",
+          widget:"number",
+          value_type:"int",
+          required:false,
+          min:1,
+          max:60
+        }
+      ]
     };
   }
 
-  function addOpponentScorers(config, collectionName, withMinute){
-    const fields = collectionMatchFields(config, collectionName);
+  function addOpponentScorers(config){
+    const fields = collectionMatchFields(config, "fixtures");
     if(!fields || namedField(fields, "opponentScorerEvents")) return;
     const scorerIndex = fields.findIndex(field => field && field.name === "scorerEvents");
-    fields.splice(scorerIndex >= 0 ? scorerIndex + 1 : fields.length, 0, opponentScorerField(withMinute));
+    fields.splice(scorerIndex >= 0 ? scorerIndex + 1 : fields.length, 0, opponentScorerField());
   }
 
   function augmentMatchSchema(options){
     if(!options || !options.config) return;
     addFirstTeamGoalMinute(options.config);
-    addOpponentScorers(options.config, "fixtures", true);
-    addOpponentScorers(options.config, "u21Fixtures", false);
+    addOpponentScorers(options.config);
   }
 
   window.CMS.init = function(options){
