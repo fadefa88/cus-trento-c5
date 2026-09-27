@@ -43,7 +43,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .home-hero-socials{margin-top:10px!important;}
   .home-hero-actions{flex-direction:column!important;align-items:flex-start!important;gap:9px!important;width:auto!important;max-width:230px!important;margin-top:16px!important;}
   .home-hero-actions .btn{width:auto!important;max-width:max-content!important;min-width:0!important;justify-content:flex-start!important;padding:10px 13px!important;font-size:12px!important;line-height:1.1!important;white-space:nowrap!important;}
-  .home-hero-actions .btn i{font-size:12px!important;}
+  .hero .home-hero-actions .btn i{font-size:12px!important;}
 }
 </style>
 </head>
@@ -159,7 +159,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 </script>
 
 <style>
-/* v60: match center con logo Serie B e tempi gol nel formato referto futsal. */
+/* v59: match center ispirato alla gerarchia AC Milan, con logo ufficiale Serie B. */
 .match-center-v57-breadcrumb{margin-bottom:18px!important;}
 .match-center-v57-hero{
   position:relative;
@@ -389,7 +389,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
       if(isYouth){
         return `<div class="match-center-v57-compmark is-youth"><img src="${safe(clubLogo())}" alt="CUS Trento C5"></div>`;
       }
-      const serieBLogo="https://divisionecalcioa5.it/wp-content/uploads/2024/06/serie-B-logo-news-65.jpg";
+      const serieBLogo="https://calcioa5.custrento.it/img/uploads/img_2410.jpeg";
       return `<div class="match-center-v57-compmark is-division" aria-label="Serie B Calcio a 5"><img src="${safe(serieBLogo)}" alt="Serie B Calcio a 5"></div>`;
     }
 
