@@ -277,7 +277,7 @@
   function personNameParts(full){
     const parts = String(full || "").trim().split(/\s+/).filter(Boolean);
     if(parts.length <= 1) return {first:"",last:parts[0] || ""};
-    const firstRaw = parts.shift();
+    const firstRaw = parts.pop();
     const first = firstRaw.charAt(0).toUpperCase() + firstRaw.slice(1).toLowerCase();
     return {first,last:parts.join(" ").toUpperCase()};
   }
@@ -289,22 +289,22 @@
     style.textContent = `
       .match-squad-v61{margin-top:22px!important;padding:28px 26px 32px!important;background:#fff!important;color:#09090b!important;overflow:hidden;}
       .match-squad-v61 h2{margin:0 0 26px;font-size:34px;line-height:1;font-weight:1000;letter-spacing:-.05em;color:#09090b;}
-      .match-squad-v61-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:34px;row-gap:26px;}
-      .match-squad-v61-player{display:grid;grid-template-columns:54px minmax(0,1fr);align-items:center;gap:12px;min-width:0;}
+      .match-squad-v61-grid{display:grid;grid-template-columns:minmax(0,1fr);row-gap:26px;}
+      .match-squad-v61-player{display:grid;grid-template-columns:54px minmax(0,1fr) auto;align-items:center;gap:12px;min-width:0;}
       .match-squad-v61-number{font-size:46px;line-height:.9;font-weight:1000;letter-spacing:-.06em;color:#09090b;text-align:left;font-family:Impact,"Arial Narrow",Arial,sans-serif;}
-      .match-squad-v61-copy{min-width:0;}
+      .match-squad-v61-copy{min-width:0;display:flex;flex-direction:column;justify-content:center;align-self:stretch;}
       .match-squad-v61-first{font-size:13px;line-height:1.05;font-weight:500;color:#18181b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
       .match-squad-v61-last{margin-top:2px;font-size:23px;line-height:.98;font-weight:1000;letter-spacing:-.025em;text-transform:uppercase;color:#09090b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:Impact,"Arial Narrow",Arial,sans-serif;}
-      .match-squad-v61-events{display:flex;align-items:center;gap:8px;min-height:18px;margin-top:7px;}
+      .match-squad-v61-events{display:flex;align-items:center;justify-content:flex-start;gap:7px;min-height:18px;margin-top:0;align-self:center;}
       .match-squad-v61-yellow{display:inline-block;width:11px;height:17px;border-radius:2px;background:#f4d94d;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);}
-      .match-squad-v61-goal{display:inline-flex;align-items:center;gap:3px;font-size:14px;line-height:1;color:#b91c1c;font-weight:1000;}
-      .match-squad-v61-goal i{font-size:13px;}
+      .match-squad-v61-goal{display:inline-flex;align-items:center;gap:4px;font-size:14px;line-height:1;color:#09090b;font-weight:1000;}
+      .match-squad-v61-goal i{font-size:13px;color:#09090b;}
       .match-squad-v61-empty{grid-column:1/-1;margin:0;color:#71717a;font-weight:700;}
       @media(max-width:520px){
         .match-squad-v61{padding:24px 16px 28px!important;}
         .match-squad-v61 h2{font-size:30px;margin-bottom:24px;}
-        .match-squad-v61-grid{column-gap:14px;row-gap:23px;}
-        .match-squad-v61-player{grid-template-columns:42px minmax(0,1fr);gap:9px;}
+        .match-squad-v61-grid{row-gap:23px;}
+        .match-squad-v61-player{grid-template-columns:42px minmax(0,1fr) auto;gap:9px;}
         .match-squad-v61-number{font-size:37px;}
         .match-squad-v61-first{font-size:11px;}
         .match-squad-v61-last{font-size:18px;}
@@ -342,8 +342,9 @@
       const names = personNameParts(player.name);
       const yellow = yellowForPlayer(match,player,roster);
       const goals = goalsForPlayer(match,player,roster);
-      const events = `${yellow ? '<span class="match-squad-v61-yellow" aria-label="Ammonito"></span>' : ''}${goals ? `<span class="match-squad-v61-goal" aria-label="${goals} gol"><i class="fa-solid fa-futbol" aria-hidden="true"></i>${goals > 1 ? `<b>×${goals}</b>` : ''}</span>` : ''}`;
-      return `<div class="match-squad-v61-player"><div class="match-squad-v61-number">${esc(player.number ?? "–")}</div><div class="match-squad-v61-copy"><div class="match-squad-v61-first">${esc(names.first)}</div><div class="match-squad-v61-last">${esc(names.last)}</div><div class="match-squad-v61-events">${events}</div></div></div>`;
+      const goalIcons = goals ? '<i class="fa-solid fa-futbol" aria-hidden="true"></i>'.repeat(goals) : '';
+      const events = `${yellow ? '<span class="match-squad-v61-yellow" aria-label="Ammonito"></span>' : ''}${goals ? `<span class="match-squad-v61-goal" aria-label="${goals} gol">${goalIcons}</span>` : ''}`;
+      return `<div class="match-squad-v61-player"><div class="match-squad-v61-number">${esc(player.number ?? "–")}</div><div class="match-squad-v61-copy"><div class="match-squad-v61-first">${esc(names.first)}</div><div class="match-squad-v61-last">${esc(names.last)}</div></div><div class="match-squad-v61-events">${events}</div></div>`;
     }).join("") : '<p class="match-squad-v61-empty">Convocati non inseriti.</p>'}</div>`;
 
     hero.insertAdjacentElement("afterend",card);
