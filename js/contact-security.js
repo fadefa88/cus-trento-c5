@@ -283,7 +283,9 @@
   }
 
   function personNameParts(full){
-    const parts = String(full || "").trim().split(/\s+/).filter(Boolean);
+    const raw = String(full || "").trim();
+    if(normalize(raw) === "dancus adrian gavril") return {first:"Adrian Gavril",last:"DANCUS"};
+    const parts = raw.split(/\s+/).filter(Boolean);
     if(parts.length <= 1) return {first:"",last:parts[0] || ""};
     const firstRaw = parts.pop();
     const first = firstRaw.charAt(0).toUpperCase() + firstRaw.slice(1).toLowerCase();
