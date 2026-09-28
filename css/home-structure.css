@@ -444,3 +444,9 @@
     font-size:9px;
   }
 }
+
+/* v57: sporty typography trial */
+html body{font-family:"Arial Narrow",Arial,sans-serif!important;}
+button,input,select,textarea{font-family:inherit!important;}
+h1,h2,h3,.title,.brand,.home-structure-card-head span,.home-structure-card-cup h3,.home-structure-news-card h3,.home-structure-cta-card h3,.timebox,.score,.num,.stat-tile b,.stats-big-tile b,.player-detail-heading h2,.player-detail-number,.match-center-v57-score,.match-center-v57-competition,.match-center-v57-teamname{font-family:Impact,"Arial Narrow",Arial,sans-serif!important;}
+.player-card-given,.player-profile-name>.player-card-given{font-family:"Arial Narrow",Arial,sans-serif!important;}
