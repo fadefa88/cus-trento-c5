@@ -81,7 +81,6 @@
   .home-structure-cta-card h3{font-size:25px;}
 }
 
-
 /* v17: home News row = 3 news + standings card; Stagione section removed from home render */
 .home-structure-news-grid{
   grid-template-columns:repeat(4,minmax(0,1fr));
@@ -116,7 +115,6 @@
   }
 }
 
-
 /* v36: news/classifica labels travel with their own cards */
 .home-structure-news-cell{
   min-width:0;
@@ -145,7 +143,6 @@
     display:none;
   }
 }
-
 
 /* v43: equal height home cards, including news, standings, CTA and social cards */
 .home-structure{
@@ -208,7 +205,6 @@
   }
 }
 
-
 /* v44: keep equal heights for home news/classifica/social, but restore original CTA dimensions */
 .home-structure-cta-card{
   height:auto!important;
@@ -219,7 +215,6 @@
     min-height:238px!important;
   }
 }
-
 
 /* v50: home CTA cards with solid black background */
 .home-structure-cta-card{
@@ -450,3 +445,8 @@ html body{font-family:"Arial Narrow",Arial,sans-serif!important;}
 button,input,select,textarea{font-family:inherit!important;}
 h1,h2,h3,.title,.brand,.home-structure-card-head span,.home-structure-card-cup h3,.home-structure-news-card h3,.home-structure-cta-card h3,.timebox,.score,.num,.stat-tile b,.stats-big-tile b,.player-detail-heading h2,.player-detail-number,.match-center-v57-score,.match-center-v57-competition,.match-center-v57-teamname{font-family:Impact,"Arial Narrow",Arial,sans-serif!important;}
 .player-card-given,.player-profile-name>.player-card-given{font-family:"Arial Narrow",Arial,sans-serif!important;}
+
+/* v58: typography tracking refinement */
+html body{letter-spacing:.012em!important;}
+h1,h2,h3,.title,.brand,.home-structure-card-head span,.home-structure-card-cup h3,.home-structure-news-card h3,.home-structure-cta-card h3,.timebox,.score,.num,.stat-tile b,.stats-big-tile b,.player-detail-heading h2,.player-detail-number,.match-center-v57-score,.match-center-v57-competition,.match-center-v57-teamname{letter-spacing:.012em!important;}
+.match-center-v57-score,.timebox,.score,.num,.stat-tile b,.stats-big-tile b,.player-detail-number{letter-spacing:.006em!important;}
