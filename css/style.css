@@ -15,7 +15,7 @@ h1,h2,h3,h4,h5,h6,.title,.brand,.crest span,
 .home-upcoming-title,.home-upcoming-mode,.home-upcoming-team i,.home-upcoming-team strong,.home-upcoming-time,
 .cus-rework-kicker,.cus-rework-metric b,.cus-rework-event-tabs button,.cus-event-date,.cus-event-type,.cus-rework-action,.cus-event-card button,.cus-mobile-menu-head,
 .home-structure-news-standing-card .home-structure-standing-list,.home-structure-news-standing-card .home-structure-card-foot,.home-structure-card-foot b,
-.home-upcoming-track,.social-feed-platform,.social-feed-meta b,.stats-meta-strip span,.stats-big-tile span,.bar-row,.click-hint,.table th,.table td,.fixture-top,.fixture,.cup-highlight,.footer-expanded .footer-copy,
+.home-upcoming-track,.social-feed-platform,.social-feed-meta b,.stats-meta-strip span,.stats-big-tile span,.bar-row,.click-hint,.metric b,.metric small,.table th,.table td,.fixture-top,.fixture,.cup-highlight,.footer-expanded .footer-copy,
 .match-center-v57-homeaway,.match-center-v57-competition,.match-center-v57-teamname,.match-center-v57-score,.match-center-v57-status,.match-squad-v61-number,.match-squad-v61-last{font-family:var(--font-display);font-weight:600;font-synthesis-weight:none}
 /* Base heading rules; card-specific h3 rules below keep their own sizes. */
 h1,h2,h3{text-transform:uppercase}
@@ -1264,8 +1264,8 @@ body.menu-open{
 .sponsor-logo{min-height:368px}
 
 /* Rosa: cognome pieno, nome 2pt più piccolo */
-.player .card-pad .player-card-id{display:flex;align-items:center;gap:12px;min-width:0}.player .card-pad .player-card-number{flex:0 0 auto;color:var(--red);font-size:64px;line-height:.8;letter-spacing:-.01em}.player .card-pad h2.player-card-name{min-width:0;margin:0;display:flex;flex-direction:column;gap:2px}
-.player .card-pad h2.player-card-name > .player-card-surname{font-size:30px;line-height:.95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player .card-pad .player-card-id{display:flex;align-items:center;gap:12px;min-width:0}.player .card-pad .player-card-number{flex:0 0 auto;color:var(--red);font-size:75px;line-height:.8;letter-spacing:-.01em}.player .card-pad h2.player-card-name{min-width:0;margin:0;display:flex;flex-direction:column;gap:2px}
+.player .card-pad h2.player-card-name > .player-card-surname{font-size:33px;line-height:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .player .card-pad h2.player-card-name > .player-card-given{order:-1;font-size:22.333333px;line-height:1;font-family:var(--font-body);font-weight:400;text-transform:capitalize;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .scorer-balls{display:inline-flex;gap:2px;margin-left:4px;letter-spacing:1px;white-space:nowrap}
 
