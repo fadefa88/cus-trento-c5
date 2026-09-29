@@ -168,6 +168,104 @@
     {
       "opponentLogo": "/img/uploads/img_0908.png",
       "slug": "ac-trento-1921-cus-trento-2026-09-26",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "1",
+          "surname": "Vivian",
+          "firstName": "Luca"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "12",
+          "surname": "Toniolli",
+          "firstName": "Giuliano"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "2",
+          "surname": "Bazzanella",
+          "firstName": "Manuel"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "8",
+          "surname": "Vivian",
+          "firstName": "Mirco"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "9",
+          "surname": "Melillo",
+          "firstName": "Antonio"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "4",
+          "surname": "Chemotti",
+          "firstName": "Nicolò"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "5",
+          "surname": "Saracino",
+          "firstName": "Giuseppe"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "Barbareschi",
+          "firstName": "Nicola"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Kagmierski",
+          "firstName": "Bruno"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Contreras",
+          "firstName": "Manuel"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "14",
+          "surname": "Bazzanella",
+          "firstName": "Mirko"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "17",
+          "surname": "Ungureanu",
+          "firstName": "Serghei"
+        }
+      ],
       "time": "15:00",
       "away": "Trento",
       "date": "2026-09-26",
