@@ -15,7 +15,7 @@ h1,h2,h3,h4,h5,h6,.title,.brand,.crest span,
 .home-upcoming-title,.home-upcoming-mode,.home-upcoming-team i,.home-upcoming-team strong,.home-upcoming-time,
 .cus-rework-kicker,.cus-rework-metric b,.cus-rework-event-tabs button,.cus-event-date,.cus-event-type,.cus-rework-action,.cus-event-card button,.cus-mobile-menu-head,
 .home-structure-news-standing-card .home-structure-standing-list,.home-structure-news-standing-card .home-structure-card-foot,.home-structure-card-foot b,
-.home-upcoming-track,.social-feed-platform,.social-feed-meta b,.stats-meta-strip span,.stats-big-tile span,.bar-row,.click-hint,.metric b,.metric small,.table th,.table td,.fixture-top,.fixture,.cup-highlight,.footer-expanded .footer-copy,
+.home-upcoming-track,.social-feed-platform,.social-feed-meta b,.stats-meta-strip span,.stats-big-tile span,.bar-row,.click-hint,.metric b,.metric small,.player-info-box span,.player-info-box b,.table th,.table td,.fixture-top,.fixture,.cup-highlight,.footer-expanded .footer-copy,
 .match-center-v57-homeaway,.match-center-v57-competition,.match-center-v57-teamname,.match-center-v57-score,.match-center-v57-status,.match-squad-v61-number,.match-squad-v61-last{font-family:var(--font-display);font-weight:600;font-synthesis-weight:none}
 /* Base heading rules; card-specific h3 rules below keep their own sizes. */
 h1,h2,h3{text-transform:uppercase}
@@ -75,7 +75,7 @@ button{cursor:pointer;border:0}button:focus-visible,a:focus-visible,input:focus-
 .home-standing-cus{background:linear-gradient(135deg,#09090b,#7f1d1d);color:#fff;border-color:transparent}
 .home-standing-cus small{color:rgba(255,255,255,.72)}
 .staff-photo{height:350px!important;width:100%;object-fit:cover}
-.back-link{display:inline-flex;align-items:center;gap:8px;background:#09090b;color:#fff;border-radius:999px;padding:10px 14px;box-shadow:0 12px 28px rgba(9,9,11,.12)}
+.back-link{display:inline-flex;align-items:center;gap:8px;background:#09090b;color:#fff;border-radius:999px;padding:10px 14px;font-size:15px;box-shadow:0 12px 28px rgba(9,9,11,.12)}
 .back-link span{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.14)}
 .breadcrumb{gap:12px;flex-wrap:wrap}
 .google-map{width:100%;height:440px;border:0;border-radius:24px;display:block}
@@ -221,7 +221,7 @@ button{cursor:pointer;border:0}button:focus-visible,a:focus-visible,input:focus-
 }
 
 
-.player-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.player-info-box{border:1px solid var(--line);border-radius:20px;background:#fafafa;padding:16px}.player-info-box span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:1000;color:#71717a;margin-bottom:8px}.player-info-box b{font-size:18px}
+.player-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.player-info-box{border:1px solid var(--line);border-radius:20px;background:#fafafa;padding:16px}.player-info-box span{display:block;font-size:16px;text-transform:uppercase;letter-spacing:.08em;color:#71717a;margin-bottom:8px}.player-info-box b{font-size:16px;letter-spacing:0em}
 @media(max-width:980px){.player-info-grid{grid-template-columns:1fr}}
 
 /* Stats page: match-driven dashboard */
