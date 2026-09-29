@@ -311,9 +311,9 @@ body .footer .container{
 }
 .home-structure>.hero .lead + .lead{
   margin-top:14px;
-  font-size:19px;
+  font-size:17px;
   line-height:1.55;
-  font-weight:760;
+  font-weight:400;
 }
 .home-structure>.hero .btns{
   margin-top:24px;
