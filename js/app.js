@@ -2136,7 +2136,12 @@ function matchSquadEventsHtml(yellow,red,goals){
   const events=`${yellow?'<span class="match-squad-v61-yellow" aria-label="Ammonito"></span>':''}${red?'<span class="match-squad-v61-red" aria-label="Espulso"></span>':''}${goals?`<span class="match-squad-v61-goal" aria-label="${goals} gol">${goalIcons}</span>`:''}`;
   return events?`<div class="match-squad-v61-events">${events}</div>`:'';
 }
-function matchOwnSquadRows(match){
+// Prima squadra columns: no photo, and the event icons sit under the name block (not under the number).
+function matchSquadCompactRow(number,nameHtml,eventsHtml){
+  const hasNumber=number!=null&&String(number).trim()!=="";
+  return `<div class="match-squad-v61-player is-compact"><div class="player-card-id">${hasNumber?`<span class="player-card-number">${safe(number)}</span>`:""}<div class="match-squad-v61-namecol"><div class="player-card-name">${nameHtml}</div>${eventsHtml}</div></div></div>`;
+}
+function matchOwnSquadRows(match,compact){
   const roster=Array.isArray(state.roster)?state.roster:[];
   const lineup=match.lineup||{};
   const refs=[...(Array.isArray(lineup.startingFive)?lineup.startingFive:[]),...(Array.isArray(lineup.bench)?lineup.bench:[])]
@@ -2146,6 +2151,7 @@ function matchOwnSquadRows(match){
     const yellow=matchPlayerHasCard(match.yellowCardEvents,player,roster);
     const red=matchPlayerHasCard(match.redCardEvents,player,roster);
     const goals=matchPlayerGoals(match,player,roster);
+    if(compact) return matchSquadCompactRow(player.number,rosterCardNameHtml(player),matchSquadEventsHtml(yellow,red,goals));
     const photo=String(player.photo||"").trim()||"/img/placeholder.webp";
     return `<div class="match-squad-v61-player"><div class="match-squad-v61-copy">${matchSquadIdHtml(player.number,rosterCardNameHtml(player))}${matchSquadEventsHtml(yellow,red,goals)}</div><div class="match-squad-v61-photo"><img loading="lazy" decoding="async" src="${safe(photo)}" alt="${safe(player.name||"Giocatore")}" onerror="this.onerror=null;this.src='/img/placeholder.webp'"></div></div>`;
   }).join("");
@@ -2163,18 +2169,18 @@ function matchOpponentSquadRows(match){
     const surname=String(p.surname).trim();
     const given=String(p.firstName||"").trim();
     const nameHtml=`<span class="player-card-surname">${safe(surname)}</span>${given?` <span class="player-card-given">${safe(given)}</span>`:""}`;
-    return `<div class="match-squad-v61-player is-opponent"><div class="match-squad-v61-copy">${matchSquadIdHtml(p.number,nameHtml)}${matchSquadEventsHtml(!!p.yellow,!!p.red,opponentGoalCount(p))}</div></div>`;
+    return matchSquadCompactRow(p.number,nameHtml,matchSquadEventsHtml(!!p.yellow,!!p.red,opponentGoalCount(p)));
   }).join("");
 }
 function matchSquadHtml(match){
   const empty='<p class="match-squad-v61-empty">Convocati non inseriti.</p>';
-  const own=matchOwnSquadRows(match);
-  if(isYouthMatch(match)) return `<section class="card card-pad match-squad-v61"><h2>Convocati</h2><div class="match-squad-v61-grid">${own||empty}</div></section>`;
+  if(isYouthMatch(match)) return `<section class="card card-pad match-squad-v61"><h2>Convocati</h2><div class="match-squad-v61-grid">${matchOwnSquadRows(match,false)||empty}</div></section>`;
+  const own=matchOwnSquadRows(match,true);
   const opponents=matchOpponentSquadRows(match);
-  const column=(team,rows)=>`<div class="match-squad-v61-col"><div class="match-squad-v61-team"><img src="${safe(matchTeamLogo(team,match))}" alt="" loading="lazy" decoding="async"><span>${safe(team||"")}</span></div><div class="match-squad-v61-grid">${rows||empty}</div></div>`;
+  const column=(team,rows,side)=>`<div class="match-squad-v61-col is-${side}"><div class="match-squad-v61-team"><img src="${safe(matchTeamLogo(team,match))}" alt="" loading="lazy" decoding="async"><span>${safe(team||"")}</span></div><div class="match-squad-v61-grid">${rows||empty}</div></div>`;
   const homeRows=isCusTeam(match.home)?own:opponents;
   const awayRows=isCusTeam(match.home)?opponents:own;
-  return `<section class="card card-pad match-squad-v61 is-split"><h2>Convocati</h2><div class="match-squad-v61-cols">${column(match.home,homeRows)}${column(match.away,awayRows)}</div></section>`;
+  return `<section class="card card-pad match-squad-v61 is-split"><h2>Convocati</h2><div class="match-squad-v61-cols">${column(match.home,homeRows,"home")}${column(match.away,awayRows,"away")}</div></section>`;
 }
 function matchDetail(id){
   const allMatches=[...(state.fixtures||[]),...(state.u21Fixtures||[])];
