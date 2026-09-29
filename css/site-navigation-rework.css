@@ -13,7 +13,7 @@
 .cus-rework-section.compact{padding-top:26px}
 .cus-rework-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:24px}
 .cus-rework-head h2{font-size:clamp(32px,4vw,56px);line-height:.94;letter-spacing:-.01em;margin:0;}
-.cus-rework-head p{margin:8px 0 0;color:var(--muted);font-weight:750;font-size:16px;line-height:1.55;max-width:680px}
+.cus-rework-head p{margin:8px 0 0;color:var(--muted);font-weight:400;font-size:16px;line-height:1.55;max-width:680px}
 .cus-rework-grid{display:grid;gap:22px}
 .cus-rework-grid.two{grid-template-columns:repeat(2,1fr)}
 .cus-rework-grid.three{grid-template-columns:repeat(3,1fr)}
