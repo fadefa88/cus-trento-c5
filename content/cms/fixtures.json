@@ -3,6 +3,108 @@
     {
       "opponentLogo": "/img/uploads/img_0908.png",
       "slug": "cus-trento-ac-trento-1921-2026-09-19",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "1",
+          "surname": "Vivian",
+          "firstName": "Luca"
+        },
+        {
+          "goals": 1,
+          "yellow": true,
+          "red": false,
+          "number": "10",
+          "surname": "Bazzanella",
+          "firstName": "Manuel",
+          "minute": "12’15” st"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "surname": "Chemotti",
+          "firstName": "Nicolò",
+          "number": "2"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "3",
+          "surname": "Saracino",
+          "firstName": "Giuseppe"
+        },
+        {
+          "goals": 1,
+          "yellow": false,
+          "red": false,
+          "surname": "Barbareschi",
+          "firstName": "Nicola",
+          "number": "4",
+          "minute": "17’30” st"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "5",
+          "surname": "Vivian",
+          "firstName": "Mirco"
+        },
+        {
+          "goals": 1,
+          "yellow": false,
+          "red": false,
+          "number": "6",
+          "surname": "Melillo",
+          "firstName": "Antonio",
+          "minute": "13’12” pt"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "Kagmierski",
+          "firstName": "Bruno"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "8",
+          "surname": "Contreras",
+          "firstName": "Manuel"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "9",
+          "surname": "Ungureanu",
+          "firstName": "Sergei"
+        },
+        {
+          "goals": 1,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Bazzanella",
+          "firstName": "Mirco",
+          "minute": "15’17” st"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "12",
+          "surname": "Toniolli",
+          "firstName": "Giulio"
+        }
+      ],
       "time": "16:00",
       "away": "CUS Trento",
       "date": "2026-09-19",
