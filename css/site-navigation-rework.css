@@ -7,7 +7,7 @@
 .cus-rework-page-intro .container{max-width:1240px}
 .cus-rework-page-intro .cus-rework-kicker{background:#fee2e2;color:var(--red);box-shadow:none}
 .cus-rework-page-intro .cus-rework-lead{color:var(--muted);max-width:820px}
-.cus-rework-kicker{display:inline-flex;align-items:center;border-radius:999px;background:#fff;color:#09090b;padding:8px 13px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px}
+.cus-rework-kicker{display:inline-flex;align-items:center;border-radius:999px;background:#fff;color:#09090b;padding:7px 12px;font-size:15px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
 .cus-rework-lead{max-width:760px;color:rgba(255,255,255,.74);font-size:18px;line-height:1.65;margin:22px 0 0}
 .cus-rework-section{padding:52px 0}
 .cus-rework-section.compact{padding-top:26px}
