@@ -273,7 +273,7 @@
       required:false,
       collapsed:true,
       summary:"#{{fields.number}} {{fields.surname}} {{fields.firstName}}",
-      hint:"Giocatori della squadra avversaria, mostrati nella colonna dei convocati del match center. Non modificano statistiche, storico marcatori o dati giocatore. Se inserisci qui i gol, il tabellino usa questi al posto dei Marcatori avversari.",
+      hint:"Giocatori della squadra avversaria, mostrati nella colonna dei convocati del match center. Non modificano statistiche, storico marcatori o dati giocatore. Le reti inserite qui vengono mostrate nel tabellino.",
       fields:[
         {label:"Numero", name:"number", widget:"string", required:false},
         {label:"Cognome", name:"surname", widget:"string"},
@@ -302,7 +302,6 @@
   function augmentMatchSchema(options){
     if(!options || !options.config) return;
     addFirstTeamScorerFields(options.config);
-    addOpponentScorers(options.config);
     addOpponentLineup(options.config);
   }
 
