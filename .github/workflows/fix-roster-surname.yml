@@ -1,0 +1,50 @@
+name: One-time roster surname fix
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/fix-roster-surname.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix-roster-surname:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fix clipped roster surnames
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('css/style.css')
+          text = path.read_text(encoding='utf-8')
+          old = '.player-card-name > .player-card-surname{font-size:33px;line-height:.75;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
+          new = '.player-card-name > .player-card-surname{font-size:33px;line-height:1;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
+          if old not in text:
+              raise SystemExit('Expected roster surname CSS rule not found; refusing to modify anything.')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+
+      - name: Remove one-time workflow and push fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/workflows/fix-roster-surname.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add css/style.css .github/workflows/fix-roster-surname.yml
+          git commit -m "fix: prevent roster surname clipping"
+          git push origin HEAD:main
