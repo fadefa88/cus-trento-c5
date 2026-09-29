@@ -265,10 +265,45 @@
     fields.splice(scorerIndex >= 0 ? scorerIndex + 1 : fields.length, 0, opponentScorerField());
   }
 
+  function opponentLineupField(){
+    return {
+      label:"Convocati avversari (solo visualizzazione)",
+      name:"opponentLineup",
+      widget:"list",
+      required:false,
+      collapsed:true,
+      summary:"#{{fields.number}} {{fields.surname}} {{fields.firstName}}",
+      hint:"Giocatori della squadra avversaria, mostrati nella colonna dei convocati del match center. Non modificano statistiche, storico marcatori o dati giocatore. Se inserisci qui i gol, il tabellino usa questi al posto dei Marcatori avversari.",
+      fields:[
+        {label:"Numero", name:"number", widget:"string", required:false},
+        {label:"Cognome", name:"surname", widget:"string"},
+        {label:"Nome", name:"firstName", widget:"string", required:false},
+        Object.assign(goalsField(), {default:0, min:0, required:false, hint:"Reti segnate in questa partita (0 se nessuna)."}),
+        singleGoalTimeField(),
+        goalTimesField(),
+        {label:"Ammonito", name:"yellow", widget:"boolean", default:false, required:false},
+        {label:"Espulso", name:"red", widget:"boolean", default:false, required:false}
+      ]
+    };
+  }
+
+  function addOpponentLineup(config){
+    const fields = collectionMatchFields(config, "fixtures");
+    if(!fields) return;
+    const existing = namedField(fields, "opponentLineup");
+    if(existing){
+      Object.assign(existing, opponentLineupField());
+      return;
+    }
+    const lineupIndex = fields.findIndex(field => field && field.name === "lineup");
+    fields.splice(lineupIndex >= 0 ? lineupIndex + 1 : fields.length, 0, opponentLineupField());
+  }
+
   function augmentMatchSchema(options){
     if(!options || !options.config) return;
     addFirstTeamScorerFields(options.config);
     addOpponentScorers(options.config);
+    addOpponentLineup(options.config);
   }
 
   window.CMS.init = function(options){

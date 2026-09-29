@@ -2077,8 +2077,11 @@ function matchOwnScorers(match,isYouth){
   }).join("");
 }
 // Marcatori avversari: solo visualizzazione, senza tempi per l'Under 23.
+// Se i convocati avversari hanno gol inseriti, il tabellino usa quelli al posto dell'elenco marcatori.
 function matchOpponentScorers(match,isYouth){
   if(normText(match.status)!==normText("Terminata")) return "";
+  const fromLineup=isYouth?[]:matchOpponentLineup(match).filter(p=>opponentGoalCount(p)>0);
+  if(fromLineup.length) return fromLineup.map(p=>matchScorerLine(String(p.surname).trim(),{...p,goals:opponentGoalCount(p)},false)).join("");
   const events=Array.isArray(match.opponentScorerEvents)?match.opponentScorerEvents:[];
   return events.map(event=>{
     const name=String(event&&event.name||"").trim();
@@ -2123,33 +2126,55 @@ function matchPlayerGoals(match,player,roster){
     return sum+Math.max(1,Number(event.goals||event.value||1)||1,times||0);
   },0);
 }
-function matchPersonNameParts(full){
-  const raw=String(full||"").trim();
-  if(normalizeSearchValue(raw)==="dancus adrian gavril") return {first:"Adrian Gavril",last:"DANCUS"};
-  const parts=raw.split(/\s+/).filter(Boolean);
-  if(parts.length<=1) return {first:"",last:parts[0]||""};
-  const firstRaw=parts.pop();
-  const first=firstRaw.charAt(0).toUpperCase()+firstRaw.slice(1).toLowerCase();
-  return {first,last:parts.join(" ").toUpperCase()};
+// Squad rows use the roster-card identity block: number, given name above SURNAME.
+function matchSquadIdHtml(number,nameHtml){
+  const hasNumber=number!=null&&String(number).trim()!=="";
+  return `<div class="player-card-id">${hasNumber?`<span class="player-card-number">${safe(number)}</span>`:""}<div class="player-card-name">${nameHtml}</div></div>`;
 }
-function matchSquadHtml(match){
+function matchSquadEventsHtml(yellow,red,goals){
+  const goalIcons=goals?'<i class="fa-solid fa-futbol" aria-hidden="true"></i>'.repeat(goals):'';
+  const events=`${yellow?'<span class="match-squad-v61-yellow" aria-label="Ammonito"></span>':''}${red?'<span class="match-squad-v61-red" aria-label="Espulso"></span>':''}${goals?`<span class="match-squad-v61-goal" aria-label="${goals} gol">${goalIcons}</span>`:''}`;
+  return events?`<div class="match-squad-v61-events">${events}</div>`:'';
+}
+function matchOwnSquadRows(match){
   const roster=Array.isArray(state.roster)?state.roster:[];
   const lineup=match.lineup||{};
   const refs=[...(Array.isArray(lineup.startingFive)?lineup.startingFive:[]),...(Array.isArray(lineup.bench)?lineup.bench:[])]
     .filter((value,index,arr)=>arr.findIndex(item=>String(item)===String(value))===index);
   const players=refs.map(ref=>matchPlayerFromRef(ref,roster)).filter(Boolean);
-  const rows=players.map(player=>{
-    const names=matchPersonNameParts(player.name);
+  return players.map(player=>{
     const yellow=matchPlayerHasCard(match.yellowCardEvents,player,roster);
     const red=matchPlayerHasCard(match.redCardEvents,player,roster);
     const goals=matchPlayerGoals(match,player,roster);
-    const goalIcons=goals?'<i class="fa-solid fa-futbol" aria-hidden="true"></i>'.repeat(goals):'';
-    const events=`${yellow?'<span class="match-squad-v61-yellow" aria-label="Ammonito"></span>':''}${red?'<span class="match-squad-v61-red" aria-label="Espulso"></span>':''}${goals?`<span class="match-squad-v61-goal" aria-label="${goals} gol">${goalIcons}</span>`:''}`;
-    const eventRow=events?`<div class="match-squad-v61-events">${events}</div>`:'';
     const photo=String(player.photo||"").trim()||"/img/placeholder.webp";
-    return `<div class="match-squad-v61-player"><div class="match-squad-v61-number">${safe(player.number ?? "–")}</div><div class="match-squad-v61-copy"><div class="match-squad-v61-first">${safe(names.first)}</div><div class="match-squad-v61-last">${safe(names.last)}</div>${eventRow}</div><div class="match-squad-v61-photo"><img loading="lazy" decoding="async" src="${safe(photo)}" alt="${safe(player.name||"Giocatore")}" onerror="this.onerror=null;this.src='/img/placeholder.webp'"></div></div>`;
+    return `<div class="match-squad-v61-player"><div class="match-squad-v61-copy">${matchSquadIdHtml(player.number,rosterCardNameHtml(player))}${matchSquadEventsHtml(yellow,red,goals)}</div><div class="match-squad-v61-photo"><img loading="lazy" decoding="async" src="${safe(photo)}" alt="${safe(player.name||"Giocatore")}" onerror="this.onerror=null;this.src='/img/placeholder.webp'"></div></div>`;
   }).join("");
-  return `<section class="card card-pad match-squad-v61"><h2>Convocati</h2><div class="match-squad-v61-grid">${rows||'<p class="match-squad-v61-empty">Convocati non inseriti.</p>'}</div></section>`;
+}
+// Opponent squad (Prima squadra only): typed in the CMS, display-only, never counted in any statistic.
+function matchOpponentLineup(match){
+  return (Array.isArray(match&&match.opponentLineup)?match.opponentLineup:[]).filter(p=>p&&String(p.surname||"").trim());
+}
+function opponentGoalCount(p){
+  const times=goalTimes(p);
+  return Math.max(Number(p&&p.goals)||0,times.length);
+}
+function matchOpponentSquadRows(match){
+  return matchOpponentLineup(match).map(p=>{
+    const surname=String(p.surname).trim();
+    const given=String(p.firstName||"").trim();
+    const nameHtml=`<span class="player-card-surname">${safe(surname)}</span>${given?` <span class="player-card-given">${safe(given)}</span>`:""}`;
+    return `<div class="match-squad-v61-player is-opponent"><div class="match-squad-v61-copy">${matchSquadIdHtml(p.number,nameHtml)}${matchSquadEventsHtml(!!p.yellow,!!p.red,opponentGoalCount(p))}</div></div>`;
+  }).join("");
+}
+function matchSquadHtml(match){
+  const empty='<p class="match-squad-v61-empty">Convocati non inseriti.</p>';
+  const own=matchOwnSquadRows(match);
+  if(isYouthMatch(match)) return `<section class="card card-pad match-squad-v61"><h2>Convocati</h2><div class="match-squad-v61-grid">${own||empty}</div></section>`;
+  const opponents=matchOpponentSquadRows(match);
+  const column=(team,rows)=>`<div class="match-squad-v61-col"><div class="match-squad-v61-team"><img src="${safe(matchTeamLogo(team,match))}" alt="" loading="lazy" decoding="async"><span>${safe(team||"")}</span></div><div class="match-squad-v61-grid">${rows||empty}</div></div>`;
+  const homeRows=isCusTeam(match.home)?own:opponents;
+  const awayRows=isCusTeam(match.home)?opponents:own;
+  return `<section class="card card-pad match-squad-v61 is-split"><h2>Convocati</h2><div class="match-squad-v61-cols">${column(match.home,homeRows)}${column(match.away,awayRows)}</div></section>`;
 }
 function matchDetail(id){
   const allMatches=[...(state.fixtures||[]),...(state.u21Fixtures||[])];
