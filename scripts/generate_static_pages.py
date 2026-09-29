@@ -329,8 +329,9 @@ def render_object_page(key: str, item: Dict[str, Any]) -> str:
     body_bits.append(f'<p>{esc(item.get("details") or item.get("description") or item.get("summary") or item.get("bio") or item.get("excerpt") or "Scheda in aggiornamento.")}</p>')
     image = item_image(key, item)
     image_html = f'<img class="article-hero" loading="eager" decoding="async" src="{esc(image)}" alt="{esc(title)}">' if image else ""
+    slug_label = "" if key == "roster" else f'<span>{esc(item.get("slug") or "")}</span>'
     body = (
-        f'<div class="breadcrumb"><a class="back-link" href="{esc(crumbs[0])}"><span>←</span> {esc(crumbs[1])}</a><span>{esc(item.get("slug") or "")}</span></div>'
+        f'<div class="breadcrumb"><a class="back-link" href="{esc(crumbs[0])}"><span>←</span> {esc(crumbs[1])}</a>{slug_label}</div>'
         f'<div class="grid grid-2" style="margin-top:28px">'
         f'<article class="card card-pad article-body imported-article">{image_html}{"".join(body_bits)}</article>'
         f'<aside class="card card-pad"><h2>Dettagli</h2><div class="player-info-grid">{"".join(details) or "<p class=\"muted\">Dettagli in aggiornamento.</p>"}</div></aside>'
