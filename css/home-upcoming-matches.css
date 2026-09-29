@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&display=swap');
+
 .home-upcoming-section{background:#09090b;color:#fff;padding:34px 0 40px;overflow:hidden;}
 .home-upcoming-head{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:16px;}
 .home-upcoming-title{display:flex;align-items:center;gap:18px;min-width:0;}
@@ -365,4 +367,25 @@
   .home-upcoming-card .home-upcoming-team{grid-template-columns:32px minmax(0,1fr)!important;gap:8px!important}
   .home-upcoming-card .home-upcoming-team i{width:32px!important;height:32px!important}
   .home-upcoming-card .home-upcoming-team strong{font-size:16px!important;line-height:1!important;letter-spacing:-.025em!important;white-space:nowrap!important;display:block!important;overflow:hidden!important;text-overflow:ellipsis!important;-webkit-line-clamp:unset!important;-webkit-box-orient:initial!important}
+}
+
+/* v22: site typography — Barlow Condensed Semibold for headings/navigation, Helvetica Neue for body copy. */
+:root{
+  --cus-font-display:'Barlow Condensed','Arial Narrow',Arial,sans-serif;
+  --cus-font-body:'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+html,body,button,input,select,textarea{
+  font-family:var(--cus-font-body);
+}
+h1,h2,h3,h4,h5,h6,
+.title,.cus-rework-title,.cus-rework-head h2,.home-upcoming-title h2,.player-detail-heading h2{
+  font-family:var(--cus-font-display);
+  font-weight:600!important;
+}
+.brand,.nav-main,.dropdown a,.dropdown button,
+.mobile-menu summary,.mobile-menu button,.mobile-menu a,
+.mobile-sheet-brand b,.mobile-quick button,.mobile-nav-group summary,.mobile-nav-item,
+.footer-menu-col b{
+  font-family:var(--cus-font-display);
+  font-weight:600!important;
 }
