@@ -55,9 +55,9 @@
 .home-upcoming-card:hover{transform:translateY(-4px);box-shadow:0 22px 70px rgba(9,9,11,.16);}
 .home-upcoming-meta{grid-template-columns:auto 1fr;gap:8px 10px;padding:18px 18px 12px;border-bottom:1px solid rgba(9,9,11,.08);background:#fff;}
 .home-upcoming-meta b{font-size:13px;color:#09090b;text-transform:uppercase;letter-spacing:.07em;}
-.home-upcoming-meta>span:not(.home-upcoming-mode){grid-column:1/-1;color:#71717a;font-size:12px;}
-.home-upcoming-meta em{grid-column:1/-1;color:var(--red);font-size:10px;letter-spacing:.12em;text-transform:uppercase;}
-.home-upcoming-mode{min-width:0;border-radius:999px;background:#f4f4f5;color:#3f3f46;border:1px solid rgba(9,9,11,.08);padding:7px 10px;font-size:10px;letter-spacing:.10em;}
+.home-upcoming-meta>span:not(.home-upcoming-mode){grid-column:1/-1;color:#71717a;font-size:13px;}
+.home-upcoming-meta em{grid-column:1/-1;color:var(--red);font-size:12px;letter-spacing:.12em;text-transform:uppercase;}
+.home-upcoming-mode{min-width:0;border-radius:999px;background:#f4f4f5;color:#3f3f46;border:1px solid rgba(9,9,11,.08);padding:7px 10px;font-size:13px;letter-spacing:.10em;}
 .home-upcoming-mode.home{background:#fee2e2;color:var(--red);border-color:#fecaca;}
 .home-upcoming-body{display:flex;flex-direction:column;justify-content:space-between;gap:18px;padding:18px;}
 .home-upcoming-teams{gap:14px;}

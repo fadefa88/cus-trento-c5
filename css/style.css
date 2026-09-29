@@ -15,7 +15,7 @@ h1,h2,h3,h4,h5,h6,.title,.brand,.crest span,
 .home-upcoming-title,.home-upcoming-mode,.home-upcoming-team i,.home-upcoming-team strong,.home-upcoming-time,
 .cus-rework-kicker,.cus-rework-metric b,.cus-rework-event-tabs button,.cus-event-date,.cus-event-type,.cus-rework-action,.cus-event-card button,.cus-mobile-menu-head,
 .home-structure-news-standing-card .home-structure-standing-list,.home-structure-news-standing-card .home-structure-card-foot,.home-structure-card-foot b,
-.home-upcoming-track,.social-feed-platform,.footer-expanded .footer-copy,
+.home-upcoming-track,.social-feed-platform,.social-feed-meta b,.footer-expanded .footer-copy,
 .match-center-v57-homeaway,.match-center-v57-competition,.match-center-v57-teamname,.match-center-v57-score,.match-center-v57-status,.match-squad-v61-number,.match-squad-v61-last{font-family:var(--font-display);font-weight:600;font-synthesis-weight:none}button{cursor:pointer;border:0}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid rgba(185,28,28,.45);outline-offset:3px}img{display:block;max-width:100%}a{color:inherit;text-decoration:none}.container{max-width:1240px;margin:0 auto;padding:0 20px}.skip{position:absolute;left:-9999px;top:auto}.skip:focus{left:14px;top:14px;background:white;z-index:100;padding:10px 14px;border-radius:12px}
 .nav{position:sticky;top:0;z-index:50;background:rgba(246,242,236,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.nav-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;background:transparent;align-items:center;gap:12px;letter-spacing:-.01em}.brand small{display:block;color:var(--red);font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-top:2px}.crest{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#dc2626,#991b1b,#09090b);display:grid;place-items:center;color:#fff;box-shadow:0 12px 30px rgba(185,28,28,.25);position:relative;overflow:hidden;flex:0 0 auto}.crest:after{content:"";position:absolute;inset:4px;border:1px solid rgba(255,255,255,.35);border-radius:12px}.crest span{position:relative;z-index:2;font-size:12px;line-height:.9;text-align:center}
 .nav-brand-group{display:flex;align-items:center;gap:18px;flex:0 0 auto}.cus-parent-link{display:inline-flex!important;align-items:center;gap:9px;border-radius:16px;font-weight:900;letter-spacing:-.02em;transition:background .18s ease,transform .18s ease}.cus-parent-link:hover{transform:translateY(-1px)}.cus-parent-link img{display:block;width:auto;object-fit:contain}.cus-parent-link-header{padding:7px 10px;border-left:1px solid var(--line);border-radius:0;color:#3f3f46;font-size:13px;white-space:nowrap}.cus-parent-link-header img{height:34px;max-width:72px}.cus-parent-link-footer{width:max-content;max-width:100%;margin:18px 0 0!important;padding:10px 13px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);color:#fff!important}.cus-parent-link-footer img{height:42px;max-width:88px;filter:brightness(0) invert(1)}.cus-parent-link-footer span{color:rgba(255,255,255,.82);font-size:13px;line-height:1.25}
@@ -411,9 +411,9 @@ h1,h2,h3,h4,h5,h6,.title,.brand,.crest span,
   margin-bottom:10px;
 }
 .social-feed-meta b{
-  font-size:13px;
+  font-size:22px;
   text-transform:uppercase;
-  letter-spacing:.12em;
+  letter-spacing:-.01em;
 }
 .social-feed-meta span{
   color:var(--muted);
