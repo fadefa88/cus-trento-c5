@@ -292,13 +292,13 @@
           "firstName": "Luca"
         },
         {
-          "goals": 1,
+          "goals": 0,
           "yellow": true,
           "red": false,
           "number": "10",
           "surname": "Bazzanella",
           "firstName": "Manuel",
-          "minute": "12’15” st"
+          "minute": ""
         },
         {
           "goals": 0,
@@ -317,13 +317,13 @@
           "firstName": "Giuseppe"
         },
         {
-          "goals": 1,
+          "goals": 0,
           "yellow": false,
           "red": false,
           "surname": "Barbareschi",
           "firstName": "Nicola",
           "number": "4",
-          "minute": "17’30” st"
+          "minute": ""
         },
         {
           "goals": 0,
@@ -334,13 +334,13 @@
           "firstName": "Mirco"
         },
         {
-          "goals": 1,
+          "goals": 0,
           "yellow": false,
           "red": false,
           "number": "6",
           "surname": "Melillo",
           "firstName": "Antonio",
-          "minute": "13’12” pt"
+          "minute": ""
         },
         {
           "goals": 0,
@@ -367,13 +367,13 @@
           "firstName": "Sergei"
         },
         {
-          "goals": 1,
+          "goals": 0,
           "yellow": false,
           "red": false,
           "number": "11",
           "surname": "Bazzanella",
           "firstName": "Mirco",
-          "minute": "15’17” st"
+          "minute": ""
         },
         {
           "goals": 0,
