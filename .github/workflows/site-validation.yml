@@ -36,8 +36,13 @@ jobs:
       - name: Validate scripts
         run: |
           python -m compileall scripts
-          node --check js/app.js
+          for file in js/*.js admin/custom.js; do
+            node --check "$file"
+          done
           bash -n scripts/build_cloudflare_pages.sh
+
+      - name: Check shared site rules (CMS files, routes, JS/Python slug parity)
+        run: python scripts/check_site_consistency.py
 
       - name: Build Cloudflare Pages output
         run: npm run build

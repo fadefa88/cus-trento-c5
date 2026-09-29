@@ -678,3 +678,213 @@ body .footer .container{
 .cus-rework-page > .cus-rework-page-intro > .container > .cus-rework-kicker{display:none!important}
 .cus-rework-page > .cus-rework-page-intro + .cus-rework-section{padding-top:26px!important}
 @media(max-width:640px){.cus-rework-page > .cus-rework-page-intro{padding-top:22px!important}.cus-rework-page > .cus-rework-page-intro + .cus-rework-section{padding-top:22px!important}}
+
+/* ===== Template overrides (formerly an inline <style> in index.html <head>) ===== */
+html{scroll-behavior:auto!important;}
+a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
+.dropdown a{display:block;width:100%;text-align:left;border-radius:16px;padding:11px 13px;background:#fff;font-weight:850;color:#3f3f46;text-decoration:none;}
+.dropdown a:hover,.dropdown a.active{background:#f4f4f5;color:var(--red);}
+.mobile-menu a{display:block;width:100%;text-align:left;background:#f4f4f5;border-radius:14px;padding:10px;margin-top:8px;font-weight:850;text-decoration:none;}
+.mobile-menu a.cus-mobile-link{background:#fff;border:1px solid var(--line);border-radius:18px;margin:8px 0;padding:12px 14px;}
+.mobile-menu a.active{background:#09090b;color:#fff;}
+.home-structure-card-head a{border-radius:999px;background:#f4f4f5;color:#18181b;padding:8px 12px;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;}
+.home-structure-cta-card a{display:inline-flex;background:#ffd018;color:#111;border-radius:999px;padding:12px 17px;font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;}
+.home-structure-news-card .card-pad .btn.small{align-self:flex-start!important;width:auto!important;max-width:max-content!important;}
+.source-box,.news-share{width:fit-content!important;max-width:max-content!important;}
+.cus-event-card button,.cus-rework-action{display:inline-block!important;}
+@media (max-width:640px) and (orientation:portrait){
+  .hero{min-height:620px!important;align-items:start!important;}
+  .hero-grid{align-items:start!important;gap:14px!important;padding-top:18px!important;padding-bottom:24px!important;}
+  .hero .tag{margin-bottom:8px!important;}
+  .hero h1{margin-top:0!important;}
+  .hero .lead{margin-top:14px!important;line-height:1.48!important;}
+  .hero .lead + .lead{margin-top:8px!important;}
+  .home-hero-socials{margin-top:10px!important;}
+  .home-hero-actions{flex-direction:column!important;align-items:flex-start!important;gap:9px!important;width:auto!important;max-width:230px!important;margin-top:16px!important;}
+  .home-hero-actions .btn{width:auto!important;max-width:max-content!important;min-width:0!important;justify-content:flex-start!important;padding:10px 13px!important;font-size:12px!important;line-height:1.1!important;white-space:nowrap!important;}
+  .hero .home-hero-actions .btn i{font-size:12px!important;}
+}
+
+/* ===== Match center: convocati (formerly injected at runtime by contact-security.js) ===== */
+.match-squad-v61{margin-top:22px!important;padding:28px 26px 32px!important;background:#fff!important;color:#09090b!important;overflow:hidden;}
+.match-squad-v61 h2{margin:0 0 26px;font-size:34px;line-height:1;font-weight:1000;letter-spacing:-.05em;color:#09090b;}
+.match-squad-v61-grid{display:grid;grid-template-columns:minmax(0,1fr);row-gap:26px;}
+.match-squad-v61-player{display:grid;grid-template-columns:54px minmax(0,1fr) 92px;align-items:center;gap:12px;min-width:0;min-height:92px;}
+.match-squad-v61-number{font-size:46px;line-height:.9;font-weight:1000;letter-spacing:-.06em;color:#09090b;text-align:left;font-family:Impact,"Arial Narrow",Arial,sans-serif;}
+.match-squad-v61-copy{min-width:0;display:flex;flex-direction:column;justify-content:center;}
+.match-squad-v61-first{font-size:13px;line-height:1.05;font-weight:500;color:#18181b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.match-squad-v61-last{margin-top:2px;font-size:23px;line-height:.98;font-weight:1000;letter-spacing:-.025em;text-transform:uppercase;color:#09090b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:Impact,"Arial Narrow",Arial,sans-serif;}
+.match-squad-v61-events{display:flex;align-items:center;justify-content:flex-start;gap:7px;min-height:18px;margin-top:7px;}
+.match-squad-v61-yellow,.match-squad-v61-red{display:inline-block;width:11px;height:17px;border-radius:2px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);}
+.match-squad-v61-yellow{background:#f4d94d;}
+.match-squad-v61-red{background:#dc2626;}
+.match-squad-v61-goal{display:inline-flex;align-items:center;gap:4px;font-size:14px;line-height:1;color:#09090b;font-weight:1000;}
+.match-squad-v61-goal i{font-size:13px;color:#09090b;}
+.match-squad-v61-photo{width:92px;height:92px;border-radius:18px;overflow:hidden;justify-self:end;background:#f4f4f5;}
+.match-squad-v61-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;}
+.match-squad-v61-empty{grid-column:1/-1;margin:0;color:#71717a;font-weight:700;}
+@media(max-width:520px){
+  .match-squad-v61{padding:24px 16px 28px!important;}
+  .match-squad-v61 h2{font-size:30px;margin-bottom:24px;}
+  .match-squad-v61-grid{row-gap:23px;}
+  .match-squad-v61-player{grid-template-columns:42px minmax(0,1fr) 72px;gap:9px;min-height:72px;}
+  .match-squad-v61-number{font-size:37px;}
+  .match-squad-v61-first{font-size:11px;}
+  .match-squad-v61-last{font-size:18px;}
+  .match-squad-v61-photo{width:72px;height:72px;border-radius:14px;}
+}
+
+/* ===== Match center (formerly inline <style> blocks v57/v60 in index.html) ===== */
+/* v59: match center ispirato alla gerarchia AC Milan, con logo ufficiale Serie B. */
+.match-center-v57-breadcrumb{margin-bottom:18px!important;}
+.match-center-v57-hero{
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  min-height:570px;
+  border-radius:34px;
+  padding:34px 34px 42px;
+  background:
+    radial-gradient(circle at 50% -8%,rgba(255,255,255,.11),transparent 31%),
+    radial-gradient(circle at 50% 112%,rgba(185,28,28,.40),transparent 39%),
+    linear-gradient(180deg,#09090b 0%,#130405 55%,#250607 100%);
+  color:#fff;
+  text-align:center;
+  box-shadow:0 26px 70px rgba(9,9,11,.18);
+  border:1px solid rgba(255,255,255,.08);
+}
+.match-center-v57-hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 0 42%,rgba(255,255,255,.028) 42% 58%,transparent 58% 100%);
+}
+.match-center-v57-hero>*{position:relative;z-index:1;}
+.match-center-v57-compmark{
+  width:104px;
+  min-height:104px;
+  margin:0 auto 14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  color:#fff;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  line-height:1;
+}
+.match-center-v57-compmark i{font-size:32px;margin:4px 0;color:#fff;}
+.match-center-v57-compmark span{font-size:8px;font-weight:1000;letter-spacing:.20em;text-transform:uppercase;color:rgba(255,255,255,.66);}
+.match-center-v57-compmark b{font-size:17px;font-weight:1000;letter-spacing:-.03em;text-transform:uppercase;}
+.match-center-v57-compmark small{font-size:8px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.72);}
+.match-center-v57-compmark.is-youth img{width:78px;height:78px;object-fit:contain;background:transparent;}
+.match-center-v57-compmark.is-division img{width:104px;height:104px;object-fit:contain;object-position:center;background:transparent;border:0;border-radius:0;box-shadow:none;padding:0;}
+.match-center-v57-homeaway{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:74px;
+  padding:8px 14px;
+  margin:0 auto 13px;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-size:10px;
+  font-weight:1000;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.match-center-v57-competition{font-size:14px;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;color:#fff;}
+.match-center-v57-venue{margin-top:8px;font-size:13px;font-weight:800;color:rgba(255,255,255,.64);}
+.match-center-v57-board{
+  width:min(900px,100%);
+  margin:38px auto 0;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(130px,180px) minmax(0,1fr);
+  gap:28px;
+  align-items:start;
+}
+.match-center-v57-team{min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.match-center-v57-logo{
+  width:112px;
+  height:112px;
+  object-fit:contain;
+  object-position:center;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+}
+.match-center-v57-teamname{
+  margin-top:15px;
+  max-width:250px;
+  font-size:22px;
+  line-height:1.04;
+  font-weight:1000;
+  letter-spacing:-.04em;
+  color:#fff;
+}
+.match-center-v57-scorebox{padding-top:26px;display:flex;flex-direction:column;align-items:center;}
+.match-center-v57-score{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  min-height:74px;
+  color:#fff;
+  font-size:68px;
+  line-height:.9;
+  font-weight:1000;
+  letter-spacing:-.07em;
+  white-space:nowrap;
+}
+.match-center-v57-score em{font-style:normal;font-size:.56em;font-weight:800;color:rgba(255,255,255,.72);letter-spacing:0;}
+.match-center-v57-score.is-vs{font-size:40px;letter-spacing:.04em;}
+.match-center-v57-status{margin-top:10px;font-size:10px;font-weight:1000;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.62);}
+.match-center-v57-scorers{width:100%;margin-top:18px;display:grid;gap:5px;min-height:22px;}
+.match-center-v57-scorer{font-size:12px;line-height:1.35;font-weight:850;color:rgba(255,255,255,.80);}
+.match-center-v57-scorer span{margin-left:5px;color:#fff;font-weight:1000;}
+.match-center-v57-scorer small{margin-left:4px;color:rgba(255,255,255,.60);font-size:10px;}
+.match-center-v57-details{margin-top:22px;}
+.match-center-v57-details .match-list-grid{grid-template-columns:repeat(2,1fr);}
+@media(max-width:720px){
+  .match-center-v57-hero{min-height:485px;padding:26px 14px 30px;border-radius:28px;}
+  .match-center-v57-compmark{width:82px;min-height:82px;margin-bottom:10px;}
+  .match-center-v57-compmark i{font-size:26px;}
+  .match-center-v57-compmark b{font-size:14px;}
+  .match-center-v57-compmark.is-division img{width:82px;height:82px;}
+  .match-center-v57-homeaway{margin-bottom:10px;padding:7px 12px;min-width:68px;}
+  .match-center-v57-competition{font-size:12px;}
+  .match-center-v57-venue{font-size:11px;margin-top:6px;}
+  .match-center-v57-board{margin-top:30px;grid-template-columns:minmax(0,1fr) 82px minmax(0,1fr);gap:8px;}
+  .match-center-v57-logo{width:70px;height:70px;}
+  .match-center-v57-teamname{margin-top:10px;font-size:14px;line-height:1.08;}
+  .match-center-v57-scorebox{padding-top:17px;}
+  .match-center-v57-score{font-size:39px;gap:7px;min-height:48px;}
+  .match-center-v57-score.is-vs{font-size:25px;}
+  .match-center-v57-status{font-size:8px;margin-top:7px;letter-spacing:.11em;}
+  .match-center-v57-scorers{margin-top:13px;gap:4px;}
+  .match-center-v57-scorer{font-size:10px;}
+  .match-center-v57-details .match-list-grid{grid-template-columns:1fr;}
+}
+@media(max-width:390px){
+  .match-center-v57-board{grid-template-columns:minmax(0,1fr) 72px minmax(0,1fr);gap:5px;}
+  .match-center-v57-logo{width:62px;height:62px;}
+  .match-center-v57-teamname{font-size:12px;}
+  .match-center-v57-score{font-size:34px;}
+}
+/* v60: marcatori su una riga e logo Serie B scontornato via clip-path. */
+.match-center-v57-board,.match-center-v57-team,.match-center-v57-scorers{overflow:visible!important;}
+.match-center-v57-scorer{
+  white-space:nowrap!important;
+  width:max-content!important;
+  max-width:none!important;
+  overflow:visible!important;
+  justify-self:center!important;
+}
+.match-center-v57-compmark.is-division{overflow:visible!important;}

@@ -9,32 +9,13 @@
   come oggetti JS in altre. Questo file deve preservare lo stesso tipo ricevuto,
   senza inserire array/oggetti plain dentro strutture Immutable, altrimenti il CMS
   può fallire in salvataggio con errori tipo `.toJS is not a function`.
+
+  Le regole di ID/slug (campi per collection, algoritmo) sono quelle del sito:
+  arrivano da /js/site-core.js, caricato prima di questo file in admin/index.html.
 */
 (function(){
-  const AUTO_OBJECT_FIELDS = {
-    news: ["title", "date"],
-    roster: ["name"],
-    fixtures: ["home", "away", "date"],
-    u21Fixtures: ["home", "away", "date"],
-    galleryAlbums: ["title", "season", "date"],
-    sponsors: ["name"],
-    sponsorPackages: ["name"],
-    staff: ["name", "role"],
-    videos: ["title"],
-    events: ["title", "date"]
-  };
-
-  function slugify(value){
-    return String(value || "")
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/-+/g, "-")
-      .replace(/^-|-$/g, "")
-      .slice(0, 86)
-      .replace(/-$/g, "") || "item";
-  }
+  const SITE = window.CUS_SITE;
+  if(!SITE) throw new Error("CUS Trento CMS: /js/site-core.js non caricato prima di admin/custom.js");
 
   function isObject(value){
     return value && typeof value === "object";
@@ -65,49 +46,13 @@
     return target;
   }
 
-  function baseValue(item, fields){
-    const direct = fields.map(field => item && item[field]).filter(Boolean).join(" ");
-    if(direct) return direct;
-    return item && (item.name || item.title || item.home || item.away || item.date || item.season) || "item";
-  }
-
-  function uniqueValue(base, used){
-    const root = slugify(base);
-    let candidate = root;
-    let n = 2;
-    while(used.has(String(candidate))){
-      candidate = `${root}-${n}`;
-      n += 1;
-    }
-    used.add(String(candidate));
-    return candidate;
-  }
-
-  function computeIdsAndSlugs(items, fields){
-    const usedIds = new Set();
-    const usedSlugs = new Set();
-    return items.map((item) => {
-      if(!item || typeof item !== "object") return {id: null, slug: null};
-
-      const currentId = String(item.id || "").trim();
-      const id = currentId && !usedIds.has(currentId)
-        ? (usedIds.add(currentId), currentId)
-        : uniqueValue(currentId || baseValue(item, fields), usedIds);
-
-      const currentSlug = String(item.slug || "").trim();
-      const slug = uniqueValue(currentSlug || baseValue(item, fields), usedSlugs);
-
-      return {id, slug};
-    });
-  }
-
   function ensureIdsAndSlugs(items, fields){
     if(!isListLike(items)) return items;
 
     const plainItems = toPlain(items);
     if(!Array.isArray(plainItems)) return items;
 
-    const computed = computeIdsAndSlugs(plainItems, fields);
+    const computed = SITE.computeIdsAndSlugs(plainItems, fields);
     const applyComputed = (item, index) => {
       const next = computed[index];
       if(!next || next.id == null || !isObject(item)) return item;
@@ -165,19 +110,20 @@
 
     let nextData = data;
 
-    Object.keys(AUTO_OBJECT_FIELDS).forEach((key) => {
+    Object.entries(SITE.config.collections).forEach(([key, def]) => {
       const currentList = getValue(nextData, key);
       if(isListLike(currentList)){
-        nextData = setValue(nextData, key, ensureIdsAndSlugs(currentList, AUTO_OBJECT_FIELDS[key]));
+        nextData = setValue(nextData, key, ensureIdsAndSlugs(currentList, def.slugFields));
       }
     });
 
-    const clubHistory = getValue(nextData, "clubHistory");
-    const images = getValue(clubHistory, "images");
-    if(isListLike(images)){
-      const nextClubHistory = setValue(clubHistory, "images", ensureIdsAndSlugs(images, ["season"]));
-      nextData = setValue(nextData, "clubHistory", nextClubHistory);
-    }
+    SITE.config.nestedSlugLists.forEach(({object, list, slugFields}) => {
+      const parent = getValue(nextData, object);
+      const nested = getValue(parent, list);
+      if(isListLike(nested)){
+        nextData = setValue(nextData, object, setValue(parent, list, ensureIdsAndSlugs(nested, slugFields)));
+      }
+    });
 
     return nextData;
   }

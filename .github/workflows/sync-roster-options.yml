@@ -8,6 +8,7 @@ on:
       - content/cms/*.json
       - .github/workflows/sync-roster-options.yml
       - scripts/sync_roster_options.py
+      - scripts/site_data.py
   workflow_dispatch:
 
 permissions:
@@ -42,43 +43,7 @@ jobs:
         run: python scripts/sync_roster_options.py
 
       - name: Merge CMS content into frontend data
-        shell: bash
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          root = Path('.')
-          data_path = root / 'content' / 'data.json'
-          data = json.loads(data_path.read_text(encoding='utf-8')) if data_path.exists() else {}
-
-          cms_files = [
-              'news.json',
-              'roster.json',
-              'fixtures.json',
-              'u21-fixtures.json',
-              'gallery-albums.json',
-              'sponsors.json',
-              'sponsor-packages.json',
-              'staff.json',
-              'videos.json',
-              'club-history.json',
-              'events.json',
-          ]
-
-          for name in cms_files:
-              path = root / 'content' / 'cms' / name
-              if not path.exists():
-                  continue
-              payload = json.loads(path.read_text(encoding='utf-8'))
-              if isinstance(payload, dict):
-                  data.update(payload)
-
-          data_path.write_text(
-              json.dumps(data, ensure_ascii=False, indent=2) + '\n',
-              encoding='utf-8',
-          )
-          PY
+        run: python scripts/site_data.py merge
 
       - name: Commit and push synced CMS data
         shell: bash

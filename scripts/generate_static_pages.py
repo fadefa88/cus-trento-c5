@@ -2,370 +2,58 @@
 """Generate SEO-friendly static entry pages for the CUS Trento C5 site.
 
 The JavaScript app remains the interactive runtime. This script reads the same
-JSON content used by the app and writes prerendered HTML pages, sitemap.xml and
-robots.txt so crawlers and social previews can see stable clean URLs.
+JSON content used by the app and writes prerendered HTML pages, sitemap.xml,
+robots.txt and _redirects so crawlers and social previews can see stable clean
+URLs.
+
+Routes, collections and slug rules come from js/site-core.js via
+scripts/site_data.py. `--list-output-dirs` prints the top-level directories this
+generator owns, which the Cloudflare build publishes.
 """
 from __future__ import annotations
 
 import html
-import json
 import os
 import re
 import shutil
-import unicodedata
+import sys
 import xml.sax.saxutils as xml_escape
 from datetime import date
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 
-ROOT = Path(__file__).resolve().parents[1]
-SITE_URL = os.environ.get("SITE_URL", "https://calcioa5.custrento.it").rstrip("/")
+from site_data import (
+    COLLECTIONS,
+    CONFIG,
+    ROOT,
+    is_hidden_news,
+    item_path,
+    load_site_data,
+    public_youth_text,
+    season_competition,
+)
+
+SITE_URL = os.environ.get("SITE_URL", CONFIG["siteUrl"]).rstrip("/")
 TEMPLATE_PATH = ROOT / "index.html"
 TODAY = date.today().isoformat()
-HIDDEN_NEWS_TITLES = {"Serie C1: ecco il calendario, si parte venerdì 25 settembre"}
-
-CMS_FILES = [
-    "content/cms/news.json",
-    "content/cms/roster.json",
-    "content/cms/fixtures.json",
-    "content/cms/u21-fixtures.json",
-    "content/cms/gallery-albums.json",
-    "content/cms/sponsors.json",
-    "content/cms/sponsor-packages.json",
-    "content/cms/staff.json",
-    "content/cms/videos.json",
-    "content/cms/club-history.json",
-    "content/cms/events.json",
-]
-
-GENERATED_DIRS = [
-    "news",
-    "squadra",
-    "staff",
-    "calendario",
-    "eventi",
-    "partner",
-    "diventa-partner",
-    "classifica",
-    "statistiche",
-    "coppa",
-    "matchday",
-    "gallery",
-    "video",
-    "social",
-    "club",
-    "sponsor",
-    "hall-of-fame",
-    "contatti",
-    "under-21",
-]
-
-MAIN_PAGES = [
-    {
-        "path": "/news/",
-        "route": "news",
-        "title": "News CUS Trento C5",
-        "description": "News, match report e storie ufficiali dal CUS Trento Calcio a 5.",
-        "heading": "News, match report e storie dal club",
-        "eyebrow": "Media center",
-    },
-    {
-        "path": "/squadra/",
-        "route": "squad",
-        "title": "Rosa CUS Trento C5",
-        "description": "Rosa della prima squadra e dell'Under 23 del CUS Trento Calcio a 5.",
-        "heading": "Rosa",
-        "eyebrow": "Team",
-    },
-    {
-        "path": "/staff/",
-        "route": "staff",
-        "title": "Staff tecnico CUS Trento C5",
-        "description": "Staff tecnico e dirigenziale del CUS Trento Calcio a 5.",
-        "heading": "Staff tecnico",
-        "eyebrow": "Club",
-    },
-    {
-        "path": "/calendario/",
-        "route": "fixtures",
-        "title": "Calendario CUS Trento C5",
-        "description": "Calendario, risultati e partite del CUS Trento Calcio a 5.",
-        "heading": "Calendario e risultati",
-        "eyebrow": "Stagione",
-    },
-    {
-        "path": "/classifica/",
-        "route": "standings",
-        "title": "Classifica CUS Trento C5",
-        "description": "Classifica aggiornata della stagione del CUS Trento Calcio a 5.",
-        "heading": "Classifica",
-        "eyebrow": "Stagione",
-    },
-    {
-        "path": "/statistiche/",
-        "route": "stats",
-        "title": "Statistiche CUS Trento C5",
-        "description": "Statistiche giocatori, marcatori e andamento del CUS Trento Calcio a 5.",
-        "heading": "Statistiche",
-        "eyebrow": "Data room",
-    },
-    {
-        "path": "/coppa/",
-        "route": "coppa",
-        "title": "Coppa CUS Trento C5",
-        "description": "Percorso, calendario e risultati di Coppa del CUS Trento Calcio a 5.",
-        "heading": "Coppa",
-        "eyebrow": "Stagione",
-    },
-    {
-        "path": "/gallery/",
-        "route": "gallery",
-        "title": "Gallery CUS Trento C5",
-        "description": "Foto, album e contenuti multimediali del CUS Trento Calcio a 5.",
-        "heading": "Gallery",
-        "eyebrow": "Media",
-    },
-    {
-        "path": "/video/",
-        "route": "video",
-        "title": "Video CUS Trento C5",
-        "description": "Video ufficiali e contenuti multimediali del CUS Trento Calcio a 5.",
-        "heading": "Video",
-        "eyebrow": "Media",
-    },
-    {
-        "path": "/social/",
-        "route": "social",
-        "title": "Social wall CUS Trento C5",
-        "description": "Ultimi contenuti social Instagram e TikTok del CUS Trento C5.",
-        "heading": "Social wall",
-        "eyebrow": "Community",
-    },
-    {
-        "path": "/club/",
-        "route": "club",
-        "title": "Club CUS Trento C5",
-        "description": "Storia e progetto sportivo del CUS Trento Calcio a 5.",
-        "heading": "Chi siamo",
-        "eyebrow": "Club",
-    },
-    {
-        "path": "/sponsor/",
-        "route": "sponsor",
-        "title": "Sponsor CUS Trento C5",
-        "description": "Partner, sponsor e opportunità di collaborazione con il CUS Trento C5.",
-        "heading": "Sponsor e partnership",
-        "eyebrow": "Business club",
-    },
-    {
-        "path": "/hall-of-fame/",
-        "route": "records",
-        "title": "Hall of fame CUS Trento C5",
-        "description": "Record storici, presenze e marcatori del CUS Trento Calcio a 5.",
-        "heading": "Hall of fame",
-        "eyebrow": "Records",
-    },
-    {
-        "path": "/contatti/",
-        "route": "contacts",
-        "title": "Contatti CUS Trento C5",
-        "description": "Contatti ufficiali del CUS Trento Calcio a 5.",
-        "heading": "Contatti",
-        "eyebrow": "Club",
-    },
-    {
-        "path": "/under-21/",
-        "route": "u21",
-        "title": "Under 21 CUS Trento C5",
-        "description": "Sezione Under 21 del CUS Trento Calcio a 5.",
-        "heading": "Under 21",
-        "eyebrow": "Team",
-    },
-    {
-        "path": "/squadre/",
-        "route": "teams-overview",
-        "title": "Squadre CUS Trento C5",
-        "description": "Prima squadra e Under 23 del CUS Trento C5.",
-        "heading": "Squadre",
-        "eyebrow": "Team",
-    },
-    {
-        "path": "/gioca-con-noi/",
-        "route": "play-with-us",
-        "title": "Gioca con noi CUS Trento C5",
-        "description": "Candidature e informazioni per giocare nel CUS Trento C5.",
-        "heading": "Gioca con noi",
-        "eyebrow": "Squadre",
-    },
-    {
-        "path": "/cnu/",
-        "route": "cnu",
-        "title": "CNU CUS Trento C5",
-        "description": "Campionati Nazionali Universitari del CUS Trento C5.",
-        "heading": "CNU",
-        "eyebrow": "Stagione",
-    },
-    {
-        "path": "/archivio-stagioni/",
-        "route": "season-archive",
-        "title": "Archivio stagioni CUS Trento C5",
-        "description": "Archivio storico delle stagioni del CUS Trento C5.",
-        "heading": "Archivio stagioni",
-        "eyebrow": "Stagione",
-    },
-    {
-        "path": "/eventi/",
-        "route": "events",
-        "title": "Eventi CUS Trento C5",
-        "description": "Eventi, tornei e selezioni del CUS Trento C5.",
-        "heading": "Eventi",
-        "eyebrow": "Eventi",
-    },
-    {
-        "path": "/partner/",
-        "route": "partner",
-        "title": "Partner CUS Trento C5",
-        "description": "Partner e sponsor del CUS Trento C5.",
-        "heading": "Partner",
-        "eyebrow": "Partner",
-    },
-    {
-        "path": "/diventa-partner/",
-        "route": "become-partner",
-        "title": "Diventa partner CUS Trento C5",
-        "description": "Pacchetti e opportunità per diventare partner del CUS Trento C5.",
-        "heading": "Diventa partner",
-        "eyebrow": "Partner",
-    },
-    {
-        "path": "/impianto/",
-        "route": "venue",
-        "title": "Palazzetto Sanbàpolis CUS Trento C5",
-        "description": "Impianto e casa del CUS Trento C5.",
-        "heading": "Palazzetto Sanbàpolis",
-        "eyebrow": "Club",
-    },
-]
+MAIN_PAGES: List[Dict[str, str]] = CONFIG["pages"]
+OBJECT_COLLECTIONS = [key for key in COLLECTIONS if key != "news"]
 
 
-def read_json(path: str, default: Any) -> Any:
-    full = ROOT / path
-    if not full.exists():
-        return default
-    try:
-        return json.loads(full.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        raise SystemExit(f"Invalid JSON in {path}: {exc}") from exc
+def top_level_dir(path: str) -> str:
+    return path.strip("/").split("/")[0]
 
 
-def slugify(value: Any, limit: int = 86) -> str:
-    text = unicodedata.normalize("NFKD", str(value or ""))
-    text = "".join(ch for ch in text if not unicodedata.combining(ch))
-    text = text.lower()
-    text = re.sub(r"[^a-z0-9]+", "-", text)
-    text = re.sub(r"-+", "-", text).strip("-")
-    if not text:
-        text = "news"
-    return text[:limit].strip("-") or "news"
+def output_dirs() -> List[str]:
+    """Top-level directories whose content is entirely written by this script."""
+    paths = [page["path"] for page in MAIN_PAGES] + [c["urlBase"] for c in COLLECTIONS.values()]
+    return sorted({top_level_dir(p) for p in paths if top_level_dir(p)})
 
 
-AUTO_OBJECT_FIELDS = {
-    "news": ["title", "date"],
-    "roster": ["name"],
-    "fixtures": ["home", "away", "date"],
-    "u21Fixtures": ["home", "away", "date"],
-    "galleryAlbums": ["title", "season", "date"],
-    "sponsors": ["name"],
-    "sponsorPackages": ["name"],
-    "staff": ["name", "role"],
-    "videos": ["title"],
-    "events": ["title", "date"],
-}
-
-ITEM_URL_BASES = {
-    "news": "/news/",
-    "roster": "/squadra/",
-    "fixtures": "/calendario/",
-    "u21Fixtures": "/under-21/calendario/",
-    "galleryAlbums": "/gallery/",
-    "sponsors": "/partner/",
-    "sponsorPackages": "/diventa-partner/",
-    "staff": "/staff/",
-    "videos": "/video/",
-    "events": "/eventi/",
-}
-
-
-def object_id_base(item: Dict[str, Any], fields: List[str]) -> str:
-    direct = " ".join(str(item.get(field) or "") for field in fields).strip()
-    return direct or str(item.get("name") or item.get("title") or item.get("home") or item.get("away") or item.get("date") or item.get("season") or "item")
-
-
-def unique_slug(base: Any, used: set[str], limit: int = 86) -> str:
-    root = slugify(base, limit)
-    candidate = root
-    counter = 2
-    while candidate in used:
-        candidate = f"{root}-{counter}"
-        counter += 1
-    used.add(candidate)
-    return candidate
-
-
-def ensure_object_ids_and_slugs(items: Any, fields: List[str]) -> Any:
-    if not isinstance(items, list):
-        return items
-    used_ids: set[str] = set()
-    used_slugs: set[str] = set()
-    normalized: List[Any] = []
-    for item in items:
-        if not isinstance(item, dict):
-            normalized.append(item)
-            continue
-        out = dict(item)
-        current_id = str(out.get("id") or "").strip()
-        if current_id and current_id not in used_ids:
-            used_ids.add(current_id)
-        else:
-            out["id"] = unique_slug(current_id or object_id_base(out, fields), used_ids, 72)
-
-        current_slug = str(out.get("slug") or "").strip()
-        out["slug"] = unique_slug(current_slug or object_id_base(out, fields), used_slugs, 86)
-        normalized.append(out)
-    return normalized
-
-
-def normalize_automatic_ids(data: Dict[str, Any]) -> Dict[str, Any]:
-    out = dict(data or {})
-    for key, fields in AUTO_OBJECT_FIELDS.items():
-        if isinstance(out.get(key), list):
-            out[key] = ensure_object_ids_and_slugs(out[key], fields)
-    if isinstance(out.get("clubHistory"), dict) and isinstance(out["clubHistory"].get("images"), list):
-        out["clubHistory"] = dict(out["clubHistory"])
-        out["clubHistory"]["images"] = ensure_object_ids_and_slugs(out["clubHistory"].get("images"), ["season"])
-    return out
-
-
-def item_slug(item: Dict[str, Any], key: str) -> str:
-    fields = AUTO_OBJECT_FIELDS.get(key, ["title", "name", "date"])
-    return slugify(item.get("slug") or object_id_base(item, fields))
-
-
-def item_url(key: str, item: Dict[str, Any]) -> str:
-    return f"{ITEM_URL_BASES[key]}{item_slug(item, key)}/"
-
-
-def legacy_news_slug(item: Dict[str, Any]) -> str:
-    raw_id = item.get("id") or item.get("sourceId") or item.get("date") or "item"
-    return f"{slugify(item.get('title') or 'news')}-{slugify(raw_id, 32)}"
-
-
-def news_slug(item: Dict[str, Any]) -> str:
-    return slugify(item.get("slug") or legacy_news_slug(item))
-
-
-def news_url(item: Dict[str, Any]) -> str:
-    return item_url("news", item)
+def stale_dirs() -> List[str]:
+    """Redirect sources must not keep an old prerendered page."""
+    owned = set(output_dirs())
+    return sorted({top_level_dir(r["from"]) for r in CONFIG["redirects"]} - owned)
 
 
 def canonical(path: str) -> str:
@@ -374,12 +62,6 @@ def canonical(path: str) -> str:
 
 def esc(value: Any) -> str:
     return html.escape(str(value or ""), quote=True)
-
-
-def public_youth_text(value: Any) -> str:
-    text = str(value or "")
-    text = re.sub(r"\bunder\s*21\b", "Under 23", text, flags=re.I)
-    return re.sub(r"\bu21\b", "U23", text, flags=re.I)
 
 
 def roster_card_name_html(value: Any) -> str:
@@ -405,50 +87,6 @@ def text_excerpt(value: Any, max_len: int = 156) -> str:
 def valid_date(value: Any) -> str:
     text = str(value or "").strip()[:10]
     return text if re.match(r"^\d{4}-\d{2}-\d{2}$", text) else TODAY
-
-
-def load_site_data() -> Dict[str, Any]:
-    base = read_json("content/data.json", {})
-    if not isinstance(base, dict):
-        base = {}
-    data = dict(base)
-
-    for rel in CMS_FILES:
-        payload = read_json(rel, {})
-        if isinstance(payload, dict):
-            for key, value in payload.items():
-                data[key] = value
-
-    data = normalize_automatic_ids(data)
-
-    imported_index = read_json("content/news.index.json", {})
-    imported_full = read_json("content/news.imported.json", {})
-    index_news = imported_index.get("news", []) if isinstance(imported_index, dict) else imported_index if isinstance(imported_index, list) else []
-    full_news = imported_full.get("news", []) if isinstance(imported_full, dict) else imported_full if isinstance(imported_full, list) else []
-    cms_news = data.get("news", []) if isinstance(data.get("news"), list) else []
-
-    full_by_key: Dict[str, Dict[str, Any]] = {}
-    for item in full_news:
-        if isinstance(item, dict):
-            key = str(item.get("sourceUrl") or item.get("sourceId") or item.get("id") or f"{item.get('title')}|{item.get('date')}")
-            full_by_key[key] = item
-
-    merged: List[Dict[str, Any]] = []
-    seen = set()
-    for source in [cms_news, index_news]:
-        for item in source:
-            if not isinstance(item, dict):
-                continue
-            key = str(item.get("sourceUrl") or item.get("sourceId") or item.get("id") or f"{item.get('title')}|{item.get('date')}")
-            if key in seen:
-                continue
-            seen.add(key)
-            full = full_by_key.get(key)
-            merged.append({**item, **full} if full else item)
-
-    data["news"] = sorted(merged, key=lambda n: (str(n.get("date") or ""), int(n.get("id") or 0) if str(n.get("id") or "").isdigit() else 0), reverse=True)
-    data["news"] = ensure_object_ids_and_slugs(data["news"], AUTO_OBJECT_FIELDS["news"])
-    return data
 
 
 def page_template(title: str, description: str, path: str, image: str | None, prerender_html: str) -> str:
@@ -477,7 +115,7 @@ def write_page(path: str, html_content: str) -> None:
 
 
 def remove_generated_dirs() -> None:
-    for rel in GENERATED_DIRS:
+    for rel in output_dirs() + stale_dirs():
         target = ROOT / rel
         if target.exists():
             shutil.rmtree(target)
@@ -490,7 +128,7 @@ def render_shell(eyebrow: str, heading: str, body: str) -> str:
 def render_news_teasers(news: List[Dict[str, Any]], limit: int = 36) -> str:
     cards = []
     for item in news[:limit]:
-        url = news_url(item)
+        url = item_path("news", item)
         img = item.get("image") or ""
         cards.append(
             f'''<article class="card news-card"><a href="{esc(url)}" aria-label="Leggi {esc(item.get('title'))}">'''
@@ -507,7 +145,7 @@ def render_simple_main(page: Dict[str, Any], data: Dict[str, Any]) -> str:
     pieces: List[str] = []
     if route == "news":
         pieces.append("<p class=\"muted\">Le ultime notizie pubblicate dal club e importate dall'archivio SporTrentino.</p>")
-        visible_news = [item for item in data.get("news", []) if str(item.get("title") or "").strip() not in HIDDEN_NEWS_TITLES]
+        visible_news = [item for item in data.get("news", []) if not is_hidden_news(item)]
         pieces.append(render_news_teasers(visible_news))
     elif route == "squad":
         roster = data.get("roster", []) if isinstance(data.get("roster"), list) else []
@@ -541,19 +179,8 @@ def render_simple_main(page: Dict[str, Any], data: Dict[str, Any]) -> str:
             rows = hs.get("seasons", [])
         elif isinstance(data.get("seasons"), list):
             rows = data.get("seasons", [])
-        def comp_for(season: Any) -> str:
-            mapping = {
-                "2011/2012":"Serie D", "2012/2013":"Serie D", "2013/2014":"Serie D", "2014/2015":"Serie C2", "2015/2016":"Serie D", "2016/2017":"Serie D", "2017/2018":"Serie C2", "2018/2019":"Serie C2", "2019/2020":"Serie C2", "2020/2021":"Serie C2", "2021/2022":"Serie C1", "2022/2023":"Serie C1", "2023/2024":"Serie C1", "2024/2025":"Serie C1", "2025/2026":"Serie C1", "2026/2027":"Serie B"
-            }
-            key = str(season or "").replace(" ", "")
-            if key in mapping:
-                return mapping[key]
-            match = re.match(r"^(\d{4})/(\d{2})$", key)
-            if match:
-                return mapping.get(f"{match.group(1)}/20{match.group(2)}", "")
-            return ""
         table = "".join(
-            f'''<tr><td>{esc(r.get('season'))}</td><td>{esc(r.get('competition') or comp_for(r.get('season')) or '-')}</td><td>{esc(r.get('played') or '-')}</td><td>{esc(r.get('wins') or '-')}</td><td>{esc(r.get('draws') or '-')}</td><td>{esc(r.get('losses') or '-')}</td><td>{esc(r.get('goalsFor') or '-')}</td><td>{esc(r.get('goalsAgainst') or '-')}</td><td>{esc(r.get('goalDifference') if r.get('goalDifference') is not None else '-')}</td></tr>'''
+            f'''<tr><td>{esc(r.get('season'))}</td><td>{esc(r.get('competition') or season_competition(r.get('season')) or '-')}</td><td>{esc(r.get('played') or '-')}</td><td>{esc(r.get('wins') or '-')}</td><td>{esc(r.get('draws') or '-')}</td><td>{esc(r.get('losses') or '-')}</td><td>{esc(r.get('goalsFor') or '-')}</td><td>{esc(r.get('goalsAgainst') or '-')}</td><td>{esc(r.get('goalDifference') if r.get('goalDifference') is not None else '-')}</td></tr>'''
             for r in rows if isinstance(r, dict)
         )
         pieces.append(f'<div class="card card-pad table-wrap"><table class="table"><thead><tr><th>Stagione</th><th>Campionato</th><th>Gare</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>Diff.</th></tr></thead><tbody>{table}</tbody></table></div>')
@@ -643,7 +270,7 @@ def generate_news_pages(data: Dict[str, Any], urls: List[Tuple[str, str]]) -> No
     for item in data.get("news", []):
         if not isinstance(item, dict):
             continue
-        path = news_url(item)
+        path = item_path("news", item)
         title = item.get("title") or "News CUS Trento C5"
         description = text_excerpt(item.get("excerpt") or item.get("body") or title)
         html_out = page_template(title, description, path, item.get("image"), render_article(item))
@@ -676,17 +303,7 @@ def item_image(key: str, item: Dict[str, Any]) -> str | None:
 
 def render_object_page(key: str, item: Dict[str, Any]) -> str:
     title = item_title(key, item)
-    crumbs = {
-        "roster": ("/squadra/", "Rosa"),
-        "staff": ("/staff/", "Staff"),
-        "fixtures": ("/calendario/", "Calendario"),
-        "u21Fixtures": ("/calendario/", "Calendario"),
-        "galleryAlbums": ("/gallery/", "Gallery"),
-        "sponsors": ("/partner/", "Partner"),
-        "sponsorPackages": ("/diventa-partner/", "Diventa partner"),
-        "videos": ("/video/", "Video"),
-        "events": ("/eventi/", "Eventi"),
-    }.get(key, ("/", "CUS Trento C5"))
+    crumbs = COLLECTIONS[key].get("breadcrumb", ["/", "CUS Trento C5"])
     details: List[str] = []
     for label, field in [
         ("Ruolo", "role"), ("Squadra/Gruppo", "team"), ("Numero", "number"), ("Categoria", "category"),
@@ -726,12 +343,12 @@ def render_object_page(key: str, item: Dict[str, Any]) -> str:
 
 
 def generate_object_pages(data: Dict[str, Any], urls: List[Tuple[str, str]]) -> None:
-    for key in ["roster", "staff", "fixtures", "u21Fixtures", "galleryAlbums", "sponsors", "sponsorPackages", "videos", "events"]:
+    for key in OBJECT_COLLECTIONS:
         items = data.get(key, []) if isinstance(data.get(key), list) else []
         for item in items:
             if not isinstance(item, dict):
                 continue
-            path = item_url(key, item)
+            path = item_path(key, item)
             title = item_title(key, item)
             description = item_description(key, item)
             html_out = page_template(title, description, path, item_image(key, item), render_object_page(key, item))
@@ -763,7 +380,18 @@ def write_sitemap(urls: Iterable[Tuple[str, str]]) -> None:
     (ROOT / "sitemap.xml").write_text("\n".join(body) + "\n", encoding="utf-8")
 
 
-def main() -> None:
+def write_redirects() -> None:
+    lines = ["# Generated by scripts/generate_static_pages.py from js/site-core.js redirects."]
+    lines += [f"{r['from']} {r['to']} {r.get('status', 301)}" for r in CONFIG["redirects"]]
+    (ROOT / "_redirects").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def main(argv: List[str]) -> int:
+    if argv == ["--list-output-dirs"]:
+        print("\n".join(output_dirs()))
+        return 0
+    if argv:
+        raise SystemExit("usage: generate_static_pages.py [--list-output-dirs]")
     data = load_site_data()
     remove_generated_dirs()
     urls: List[Tuple[str, str]] = []
@@ -772,8 +400,10 @@ def main() -> None:
     generate_object_pages(data, urls)
     write_robots()
     write_sitemap(urls)
-    print(f"Generated {len(data.get('news', []))} news pages, object slug pages, {len(MAIN_PAGES)} main pages, sitemap.xml and robots.txt")
+    write_redirects()
+    print(f"Generated {len(data.get('news', []))} news pages, object slug pages, {len(MAIN_PAGES)} main pages, sitemap.xml, robots.txt and _redirects")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main(sys.argv[1:]))
