@@ -241,8 +241,6 @@ def article_body_html(item: Dict[str, Any]) -> str:
 
 def render_article(item: Dict[str, Any]) -> str:
     title = item.get("title") or "News CUS Trento C5"
-    date_s = valid_date(item.get("date"))
-    author = item.get("author") or "Redazione"
     tags = item.get("tags") if isinstance(item.get("tags"), list) else []
     tag_values = []
     for tag in [item.get("category"), *tags]:
@@ -250,7 +248,7 @@ def render_article(item: Dict[str, Any]) -> str:
             tag_values.append(tag)
     tag_html = "".join(f'<span class="badge">{esc(public_youth_text(tag))}</span>' for tag in tag_values)
     body = f'''
-    <div class="breadcrumb"><a class="back-link" href="/news/"><span>←</span> News</a><span>{esc(date_s)} · {esc(author)}</span></div>
+    <div class="breadcrumb"><a class="back-link" href="/news/"><span>←</span> News</a></div>
     <div class="badge-row" style="margin:0 0 14px">{tag_html}</div>
     <div class="grid grid" style="margin-top:28px"><article class="card card-pad article-body imported-article">
       {article_body_html(item)}

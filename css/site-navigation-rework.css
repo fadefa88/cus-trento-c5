@@ -27,16 +27,16 @@
 .cus-rework-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
 .cus-rework-metric{background:#f4f4f5;border-radius:18px;padding:14px}
 .cus-rework-metric b{display:block;font-size:30px;line-height:1;letter-spacing:-.01em}
-.cus-rework-metric span{display:block;margin-top:5px;color:#71717a;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.cus-rework-metric span{display:block;margin-top:5px;color:#71717a;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
 .cus-rework-band{background:linear-gradient(135deg,#09090b,#4c0d12 58%,#b91c1c);color:#fff;border-radius:34px;padding:30px;box-shadow:var(--shadow)}
 .cus-rework-band h2,.cus-rework-band h3{color:#fff;font-size:28px;line-height:.96;letter-spacing:-.01em;margin:0 0 12px}
 .cus-rework-band p{color:rgba(255,255,255,.75)}
 .cus-rework-list{display:grid;gap:12px}
-.cus-rework-list li{list-style:none;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;font-weight:850;color:#3f3f46}
+.cus-rework-list li{list-style:none;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;font-size:20px;color:#3f3f46}
 .cus-rework-list li b{display:block;color:#09090b;margin-bottom:4px}
 .cus-rework-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:30px;overflow:hidden;box-shadow:var(--shadow)}
 .cus-rework-table th{background:#09090b;color:#fff;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
-.cus-rework-table th,.cus-rework-table td{padding:14px;border-bottom:1px solid var(--line);font-weight:850}
+.cus-rework-table th,.cus-rework-table td{padding:14px;border-bottom:1px solid var(--line);font-weight:600;font-size:18px}
 .cus-rework-table tr:last-child td{border-bottom:0}
 .cus-rework-event-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
 .cus-rework-event-tabs button{border-radius:999px;background:#fff;color:#3f3f46;border:1px solid var(--line);padding:10px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
@@ -46,9 +46,9 @@
 .cus-event-date{width:70px;height:70px;border-radius:20px;background:#09090b;color:#fff;display:grid;place-items:center;text-align:center;flex:0 0 auto}
 .cus-event-date b{font-size:28px;line-height:.9;}
 .cus-event-date span{font-size:10px;text-transform:uppercase;color:rgba(255,255,255,.65)}
-.cus-event-type{border-radius:999px;background:#fee2e2;color:#b91c1c;padding:7px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.cus-event-type{display:inline-block;border-radius:999px;background:#fee2e2;color:var(--red);padding:7px 11px;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
 .cus-event-card h3{font-size:25px}
-.cus-event-card small{display:block;margin-top:15px;color:#71717a;font-weight:900}
+.cus-event-card small{display:block;margin-top:15px;color:#71717a;font-size:15px}
 .cus-event-card button,.cus-rework-action{margin-top:18px;border-radius:999px;background:#09090b;color:#fff;padding:7px 12px;font-size:15px;text-transform:uppercase;letter-spacing:.08em}
 .cus-rework-action.red{background:var(--red)}
 .cus-rework-split{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;align-items:start}
@@ -704,7 +704,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 
 /* ===== Match center: convocati (formerly injected at runtime by contact-security.js) ===== */
 .match-squad-v61{margin-top:22px!important;padding:28px 26px 32px!important;background:#fff!important;color:#09090b!important;overflow:hidden;}
-.match-squad-v61 h2{margin:0 0 26px;font-size:34px;line-height:1;letter-spacing:-.01em;color:#09090b;}
+.match-squad-v61 h2{margin:0 0 26px;font-size:28px;line-height:1;letter-spacing:-.01em;color:#09090b;}
 .match-squad-v61-grid{display:grid;grid-template-columns:minmax(0,1fr);row-gap:26px;}
 .match-squad-v61-player{display:grid;grid-template-columns:54px minmax(0,1fr) 92px;align-items:center;gap:12px;min-width:0;min-height:92px;}
 .match-squad-v61-number{font-size:46px;line-height:.9;letter-spacing:-.01em;color:#09090b;text-align:left;}
@@ -722,7 +722,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .match-squad-v61-empty{grid-column:1/-1;margin:0;color:#71717a;font-weight:700;}
 @media(max-width:520px){
   .match-squad-v61{padding:24px 16px 28px!important;}
-  .match-squad-v61 h2{font-size:30px;margin-bottom:24px;}
+  .match-squad-v61 h2{margin-bottom:24px;}
   .match-squad-v61-grid{row-gap:23px;}
   .match-squad-v61-player{grid-template-columns:42px minmax(0,1fr) 72px;gap:9px;min-height:72px;}
   .match-squad-v61-number{font-size:37px;}
