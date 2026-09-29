@@ -746,8 +746,21 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .match-squad-v61 .player-card-number{font-size:37px;}
   .match-squad-v61 .player-card-name > .player-card-surname{font-size:18px;}
   .match-squad-v61 .player-card-name > .player-card-given{font-size:12px;}
-  .match-squad-v61-cols{grid-template-columns:minmax(0,1fr);gap:30px;}
-  .match-squad-v61-col+.match-squad-v61-col{border-left:0;padding-left:0;}
+  /* Phone: keep home and away side by side, with smaller type. */
+  .match-squad-v61-cols{gap:12px;}
+  .match-squad-v61-col+.match-squad-v61-col{padding-left:12px;}
+  .match-squad-v61-team{gap:6px;margin-bottom:16px;padding-bottom:10px;font-size:14px;}
+  .match-squad-v61-team img{width:24px;height:24px;}
+  .match-squad-v61-team span{min-width:0;}
+  .match-squad-v61.is-split .match-squad-v61-grid{row-gap:16px;}
+  .match-squad-v61.is-split .player-card-id{gap:6px;}
+  .match-squad-v61.is-split .player-card-number{font-size:26px;}
+  .match-squad-v61.is-split .player-card-name > .player-card-surname{font-size:14px;}
+  .match-squad-v61.is-split .player-card-name > .player-card-given{font-size:10px;}
+  .match-squad-v61.is-split .match-squad-v61-events{gap:4px;min-height:14px;margin-top:4px;}
+  .match-squad-v61.is-split .match-squad-v61-yellow,.match-squad-v61.is-split .match-squad-v61-red{width:8px;height:12px;}
+  .match-squad-v61.is-split .match-squad-v61-goal i{font-size:10px;}
+  .match-squad-v61.is-split .match-squad-v61-empty{font-size:13px;}
   .match-squad-v61-photo{width:72px;height:72px;border-radius:14px;}
 }
 

@@ -18,6 +18,8 @@ h1,h2,h3,h4,h5,h6,.title,.brand,.crest span,
 .home-upcoming-track,.social-feed-platform,.social-feed-meta b,.stats-meta-strip span,.stats-big-tile span,.bar-row,.click-hint,.metric b,.metric small,.player-info-box span,.player-info-box b,.table th,.table td,.fixture-top,.fixture,.cup-highlight,.footer-expanded .footer-copy,
 .cal-tabs,.cal-months button,.lightbox-caption,label span,input,select,textarea,.cus-rework-metric span,.cus-rework-list li,.cus-rework-table th,.cus-rework-table td,.cus-event-card small,.news-meta,.news-share,.source-box,.news-search input,.album-count,.page-jump,.cal-side,.cal-team b,.cal-score,.cal-time,.cal-center small,.cal-countdown b,.cal-mc,
 .match-center-v57-homeaway,.match-center-v57-competition,.match-center-v57-teamname,.match-center-v57-score,.match-center-v57-status{font-family:var(--font-display);font-weight:600;font-synthesis-weight:none}
+/* Static pages carry a copy of the page for search engines: keep it hidden until app.js has drawn the real page. */
+#app[data-prerendered]{visibility:hidden}
 /* Base heading rules; card-specific h3 rules below keep their own sizes. */
 h1,h2,h3{text-transform:uppercase}
 h2,h3{font-size:28px}
