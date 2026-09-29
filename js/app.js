@@ -2127,9 +2127,10 @@ function matchPlayerGoals(match,player,roster){
   },0);
 }
 // Squad rows use the roster-card identity block: number, given name above SURNAME.
-function matchSquadIdHtml(number,nameHtml){
+// The number sits in a fixed-width slot (empty when missing) so every name block, icons included, starts at the same point.
+function matchSquadIdHtml(number,nameHtml,eventsHtml){
   const hasNumber=number!=null&&String(number).trim()!=="";
-  return `<div class="player-card-id">${hasNumber?`<span class="player-card-number">${safe(number)}</span>`:""}<div class="player-card-name">${nameHtml}</div></div>`;
+  return `<div class="player-card-id"><span class="player-card-number">${hasNumber?safe(number):""}</span><div class="match-squad-v61-namecol"><div class="player-card-name">${nameHtml}</div>${eventsHtml}</div></div>`;
 }
 function matchSquadEventsHtml(yellow,red,goals){
   const goalIcons=goals?'<i class="fa-solid fa-futbol" aria-hidden="true"></i>'.repeat(goals):'';
@@ -2137,9 +2138,8 @@ function matchSquadEventsHtml(yellow,red,goals){
   return events?`<div class="match-squad-v61-events">${events}</div>`:'';
 }
 // Prima squadra columns: no photo, and the event icons sit under the name block (not under the number).
-function matchSquadCompactRow(number,nameHtml,eventsHtml){
-  const hasNumber=number!=null&&String(number).trim()!=="";
-  return `<div class="match-squad-v61-player is-compact"><div class="player-card-id">${hasNumber?`<span class="player-card-number">${safe(number)}</span>`:""}<div class="match-squad-v61-namecol"><div class="player-card-name">${nameHtml}</div>${eventsHtml}</div></div></div>`;
+function matchSquadCompactRow(number,nameHtml,eventsHtml,opponent){
+  return `<div class="match-squad-v61-player is-compact${opponent?" is-opponent":""}">${matchSquadIdHtml(number,nameHtml,eventsHtml)}</div>`;
 }
 function matchOwnSquadRows(match,compact){
   const roster=Array.isArray(state.roster)?state.roster:[];
@@ -2153,7 +2153,7 @@ function matchOwnSquadRows(match,compact){
     const goals=matchPlayerGoals(match,player,roster);
     if(compact) return matchSquadCompactRow(player.number,rosterCardNameHtml(player),matchSquadEventsHtml(yellow,red,goals));
     const photo=String(player.photo||"").trim()||"/img/placeholder.webp";
-    return `<div class="match-squad-v61-player"><div class="match-squad-v61-copy">${matchSquadIdHtml(player.number,rosterCardNameHtml(player))}${matchSquadEventsHtml(yellow,red,goals)}</div><div class="match-squad-v61-photo"><img loading="lazy" decoding="async" src="${safe(photo)}" alt="${safe(player.name||"Giocatore")}" onerror="this.onerror=null;this.src='/img/placeholder.webp'"></div></div>`;
+    return `<div class="match-squad-v61-player"><div class="match-squad-v61-copy">${matchSquadIdHtml(player.number,rosterCardNameHtml(player),matchSquadEventsHtml(yellow,red,goals))}</div><div class="match-squad-v61-photo"><img loading="lazy" decoding="async" src="${safe(photo)}" alt="${safe(player.name||"Giocatore")}" onerror="this.onerror=null;this.src='/img/placeholder.webp'"></div></div>`;
   }).join("");
 }
 // Opponent squad (Prima squadra only): typed in the CMS, display-only, never counted in any statistic.
@@ -2169,7 +2169,7 @@ function matchOpponentSquadRows(match){
     const surname=String(p.surname).trim();
     const given=String(p.firstName||"").trim();
     const nameHtml=`<span class="player-card-surname">${safe(surname)}</span>${given?` <span class="player-card-given">${safe(given)}</span>`:""}`;
-    return matchSquadCompactRow(p.number,nameHtml,matchSquadEventsHtml(!!p.yellow,!!p.red,opponentGoalCount(p)));
+    return matchSquadCompactRow(p.number,nameHtml,matchSquadEventsHtml(!!p.yellow,!!p.red,opponentGoalCount(p)),true);
   }).join("");
 }
 function matchSquadHtml(match){

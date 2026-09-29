@@ -711,7 +711,8 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .match-squad-v61-namecol{min-width:0;display:flex;flex-direction:column;align-items:flex-start;}
 /* Number + given name + SURNAME: roster-card block, scaled for the squad list. */
 .match-squad-v61 .player-card-id{gap:10px;}
-.match-squad-v61 .player-card-number{font-size:46px;}
+.match-squad-v61 .player-card-number{font-size:46px;flex:0 0 .9em;width:.9em;text-align:left;}
+.match-squad-v61-player.is-opponent .player-card-number{color:var(--ink);}
 .match-squad-v61 .player-card-name > .player-card-surname{font-size:23px;line-height:.85;}
 .match-squad-v61 .player-card-name > .player-card-given{font-size:14px;}
 /* Prima squadra: home squad on the left, away squad on the right. */
@@ -724,6 +725,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .match-squad-v61-col.is-away .match-squad-v61-team,.match-squad-v61-col.is-away .player-card-id{flex-direction:row-reverse;}
 .match-squad-v61-col.is-away .match-squad-v61-namecol,.match-squad-v61-col.is-away .player-card-name{align-items:flex-end;text-align:right;}
 .match-squad-v61-col.is-away .match-squad-v61-events{justify-content:flex-end;}
+.match-squad-v61-col.is-away .player-card-number{text-align:right;}
 .match-squad-v61-col.is-away .match-squad-v61-empty{text-align:right;}
 .match-squad-v61-copy{min-width:0;display:flex;flex-direction:column;justify-content:center;}
 .match-squad-v61-events{display:flex;align-items:center;justify-content:flex-start;gap:7px;min-height:18px;margin-top:7px;}
