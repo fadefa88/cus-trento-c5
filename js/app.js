@@ -57,7 +57,7 @@ function appPathForRoute(id){
   return SITE.pathByRoute[target] || `/#${target}`;
 }
 let current = routeFromLocation();
-let view = {staff:"prima", calendar:"prima", calendarFilter:"Tutte", calendarPage:1, standings:"prima", cup:"prima", stats:"prima", statsCompetition:"totale", squadPage:1, squadTeam:"Prima squadra", newsPage:1, newsCategory:"Tutte", galleryPage:1, galleryCategory:"Tutte", gallerySeason:"2026/27", videoPage:1, videoCategory:"Tutte", videoSeason:"2026/27", clubHistoryIndex:0};
+let view = {staff:"prima", calendar:"prima", calendarFilter:"Tutte", calendarMonth:null, standings:"prima", cup:"prima", stats:"prima", statsCompetition:"totale", squadPage:1, squadTeam:"Prima squadra", newsPage:1, newsCategory:"Tutte", galleryPage:1, galleryCategory:"Tutte", gallerySeason:"2026/27", videoPage:1, videoCategory:"Tutte", videoSeason:"2026/27", clubHistoryIndex:0};
 
 function teamSwitch(kind){
   const currentValue = view[kind] || (kind==="staff" ? "tecnico" : "prima");
@@ -68,7 +68,7 @@ function teamSwitch(kind){
 }
 function setView(kind,value){
   view[kind]=value;
-  if(kind==="calendar"){view.calendarPage=1;fixtures();return;}
+  if(kind==="calendar"){view.calendarFilter="Tutte";view.calendarMonth=null;fixtures();return;}
   if(kind==="standings"){standings();return;}
   if(kind==="cup"){coppa();return;}
   if(kind==="stats"){stats();return;}
@@ -1957,29 +1957,76 @@ function calendarSource(){
   return source.map(f=>normalizeMatchForCalendar(f,calendarTypeFromFixture(f)));
 }
 function matchCalendarFilter(f, filter){
-  if(filter==="Tutte") return true;
-  if(filter==="Da giocare"||filter==="Terminata") return normText(f.status)===normText(filter);
-  if(filter==="Campionato") return f._calendarType==="Campionato" || ["Serie C1","Under 21","Campionato"].includes(f.competition);
-  if(filter==="Coppa") return f._calendarType==="Coppa" || f.competition==="Coppa";
+  if(filter==="Campionato"||filter==="Coppa") return f._calendarType===filter;
   return true;
 }
-function calendarPageButtons(totalPages){
-  if(totalPages<=1) return "";
-  return `<div class="pagination">${Array.from({length:totalPages},(_,i)=>i+1).map(n=>`<button class="${view.calendarPage===n?'active':''}" onclick="setCalendarPage(${n})">${n}</button>`).join("")}</div>`;
+// Calendar page laid out like the AC Milan one: next matches with countdown, month tabs, one row per match.
+const CALENDAR_MONTHS=["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"];
+let calendarCountdownTimer=null;
+function calendarKickoff(f){
+  const time=/^\d{1,2}:\d{2}$/.test(String(f.time||"").trim())?String(f.time).trim().padStart(5,"0"):"00:00";
+  const d=new Date(`${f.date}T${time}:00`);
+  return Number.isNaN(d.getTime())?null:d;
 }
-function setCalendarFilter(filter){view.calendarFilter=filter;view.calendarPage=1;document.querySelectorAll(".fixf").forEach(btn=>btn.classList.toggle("active",btn.textContent.trim()===filter));renderCalendarList();}
-function setCalendarPage(page){view.calendarPage=page;renderCalendarList();}
-function renderCalendarList(){
-  const perPage=5;
-  const filtered=calendarSource().filter(f=>matchCalendarFilter(f,view.calendarFilter)).sort((a,b)=>new Date(a.date)-new Date(b.date));
-  const totalPages=Math.max(1,Math.ceil(filtered.length/perPage));
-  if(view.calendarPage>totalPages)view.calendarPage=totalPages;
-  const start=(view.calendarPage-1)*perPage;
-  const pageItems=filtered.slice(start,start+perPage);
-  const target=$("#fixGrid");
-  if(target) target.innerHTML=`${pageItems.map(fixtureRow).join("")||"<div class='card card-pad'><p class='muted'>Nessuna partita trovata.</p></div>"}${calendarPageButtons(totalPages)}`;
+function calendarDateLabel(f){
+  const d=new Date(`${f.date}T12:00:00`);
+  if(Number.isNaN(d.getTime())) return "Data da definire";
+  return `${new Intl.DateTimeFormat("it-IT",{weekday:"short"}).format(d)}. ${new Intl.DateTimeFormat("it-IT",{day:"numeric",month:"short"}).format(d)}`;
 }
-function fixtures(){const team=view.calendar==="u21"?"Under 23":"Prima squadra";shell("Stagione","Calendario",`${teamSwitch("calendar")}<div class="toolbar">${["Tutte","Da giocare","Terminata","Campionato","Coppa"].map(f=>`<button class="pill fixf ${view.calendarFilter===f?"active":""}" onclick="setCalendarFilter('${f}')">${f}</button>`).join("")}</div><div class="grid" id="fixGrid"></div>`,"","Calendario e risultati CUS Trento C5.");renderCalendarList();}
+function calendarBrand(f){return matchCompetitionBrand(f._calendarType,view.calendar==="u21");}
+function calendarSideBadge(f){const home=isCusTeam(f.home);return `<span class="cal-side ${home?"is-home":"is-away"}">${home?"Home":"Away"}</span>`;}
+function calendarTeam(name,f){return `<div class="cal-team"><img src="${safe(matchTeamLogo(name,f))}" alt="" loading="lazy" decoding="async"><b>${safe(publicYouthText(name||"Da definire"))}</b></div>`;}
+function calendarMatchCenter(f){const slug=objectSlug(f,'fixtures');return slug?`<button class="cal-mc" onclick="route('match-${slug}')">Match center <span aria-hidden="true">→</span></button>`:"";}
+function calendarCenter(f){
+  const m=String(f.score||"").trim().match(/^(\d+)\s*[-:]\s*(\d+)$/);
+  const done=normText(f.status)===normText("Terminata");
+  const core=m?`<div class="cal-score"><span>${m[1]}</span><span>${m[2]}</span></div><small>${done?"Finita":safe(f.status||"")}</small>`:`<div class="cal-time">${safe(f.time||"--:--")}</div>`;
+  return `<div class="cal-center">${calendarSideBadge(f)}${core}</div>`;
+}
+function calendarRow(f){
+  const b=calendarBrand(f);
+  return `<article class="cal-row"><div class="cal-date">${calendarDateLabel(f)} - ${safe(f.time||"--:--")}</div><div class="cal-row-body"><div class="cal-comp"><img src="${b.logo}" alt="${safe(b.name)}" loading="lazy" decoding="async"><div><b>${safe(b.label)}</b><span>${safe(f.venue||"Campo da definire")}</span></div></div><div class="cal-match">${calendarTeam(f.home,f)}${calendarCenter(f)}${calendarTeam(f.away,f)}</div><div class="cal-action">${calendarMatchCenter(f)}</div></div></article>`;
+}
+function calendarNextCard(f){
+  const b=calendarBrand(f);
+  const kickoff=calendarKickoff(f);
+  const units=[["d","Giorni"],["h","Ore"],["m","Minuti"],["s","Secondi"]];
+  return `<article class="cal-next"><div class="cal-next-head"><img class="cal-next-comp" src="${b.logo}" alt="${safe(b.name)}" loading="lazy" decoding="async">${calendarSideBadge(f)}<p>${calendarDateLabel(f)} - ${safe(f.venue||"Campo da definire")}<br>${safe(b.label)}</p></div><div class="cal-match">${calendarTeam(f.home,f)}<div class="cal-center"><div class="cal-time">${safe(f.time||"--:--")}</div></div>${calendarTeam(f.away,f)}</div><div class="cal-countdown" data-kickoff="${kickoff.getTime()}">${units.map(([u,label])=>`<div><b data-u="${u}">--</b><span>${label}</span></div>`).join("")}</div><div class="cal-next-foot">${calendarMatchCenter(f)}</div></article>`;
+}
+function tickCalendarCountdowns(){
+  const boxes=document.querySelectorAll(".cal-countdown[data-kickoff]");
+  if(!boxes.length){clearInterval(calendarCountdownTimer);calendarCountdownTimer=null;return;}
+  boxes.forEach(box=>{
+    const ms=Math.max(0,Number(box.dataset.kickoff)-Date.now());
+    const parts={d:Math.floor(ms/864e5),h:Math.floor(ms/36e5)%24,m:Math.floor(ms/6e4)%60,s:Math.floor(ms/1e3)%60};
+    box.querySelectorAll("b[data-u]").forEach(el=>{el.textContent=String(parts[el.dataset.u]).padStart(2,"0");});
+  });
+}
+function setCalendarFilter(filter){view.calendarFilter=filter;view.calendarMonth=null;renderCalendarBody();}
+function setCalendarMonth(month){view.calendarMonth=month;renderCalendarBody();}
+function renderCalendarBody(){
+  const target=$("#calBody");
+  if(!target) return;
+  const all=calendarSource().filter(f=>matchCalendarFilter(f,view.calendarFilter)).sort((a,b)=>String(a.date||"").localeCompare(String(b.date||""))||String(a.time||"").localeCompare(String(b.time||"")));
+  const now=Date.now();
+  const upcoming=all.filter(f=>{const k=calendarKickoff(f);return k&&k.getTime()>now&&normText(f.status)!==normText("Terminata");});
+  const months=[...new Set(all.map(f=>String(f.date||"").slice(0,7)).filter(m=>/^\d{4}-\d{2}$/.test(m)))];
+  if(view.calendarMonth!=="all"&&!months.includes(view.calendarMonth)){
+    const next=upcoming[0]&&String(upcoming[0].date).slice(0,7);
+    view.calendarMonth=next||months[months.length-1]||"all";
+  }
+  const list=view.calendarMonth==="all"?all:all.filter(f=>String(f.date||"").startsWith(view.calendarMonth));
+  const tabs=[["all","Tutti"],...months.map(m=>[m,CALENDAR_MONTHS[Number(m.slice(5,7))-1]])];
+  target.innerHTML=`${upcoming.length?`<section class="cal-next-wrap"><h2 class="cal-h2">Prossime partite</h2><div class="cal-next-grid">${upcoming.slice(0,2).map(calendarNextCard).join("")}</div></section>`:""}<div class="cal-months">${tabs.map(([m,label])=>`<button class="${view.calendarMonth===m?"active":""}" onclick="setCalendarMonth('${m}')">${label}</button>`).join("")}</div><div class="cal-list">${list.map(calendarRow).join("")||"<p class='muted'>Nessuna partita trovata.</p>"}</div>`;
+  tickCalendarCountdowns();
+  if(!calendarCountdownTimer&&upcoming.length) calendarCountdownTimer=setInterval(tickCalendarCountdowns,1000);
+}
+function calendarTabs(){
+  const youth=view.calendar==="u21";
+  const options=[["Tutte","Tutte le competizioni"],["Campionato",matchCompetitionBrand("Campionato",youth).label],["Coppa",matchCompetitionBrand("Coppa",youth).label]];
+  return `<div class="cal-tabs">${[["prima","Prima squadra"],["u21","Under 23"]].map(([v,label])=>`<button class="${view.calendar===v?"active":""}" onclick="setView('calendar','${v}')">${label}</button>`).join("")}<select class="cal-comp-select" aria-label="Competizione" onchange="setCalendarFilter(this.value)">${options.map(([v,label])=>`<option value="${v}"${view.calendarFilter===v?" selected":""}>${safe(label)}</option>`).join("")}</select></div>`;
+}
+function fixtures(){shell("Stagione","Calendario",`${calendarTabs()}<div id="calBody"></div>`,"","Calendario e risultati CUS Trento C5.");renderCalendarBody();}
 // ===== MATCH CENTER =====
 function isYouthMatch(match){
   return (state.u21Fixtures||[]).some(item=>item===match || (item&&match&&String(item.id||"")===String(match.id||"")&&String(item.date||"")===String(match.date||"")));
