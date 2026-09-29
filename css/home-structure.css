@@ -4,22 +4,22 @@
 .home-structure-season-head,
 .home-structure-section-head{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:22px;}
 .home-structure-season-head>span,
-.home-structure-section-head>span{color:var(--red);font-size:13px;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;}
+.home-structure-section-head>span{color:var(--red);font-size:13px;letter-spacing:.12em;text-transform:uppercase;}
 .home-structure-team-switch{display:inline-flex;gap:6px;padding:6px;border:1px solid var(--line);border-radius:999px;background:#fff;box-shadow:0 14px 38px rgba(9,9,11,.06);}
-.home-structure-team-switch button{border-radius:999px;background:transparent;color:#52525b;padding:10px 15px;font-size:12px;font-weight:950;text-transform:uppercase;letter-spacing:.08em;}
+.home-structure-team-switch button{border-radius:999px;background:transparent;color:#52525b;padding:10px 15px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;}
 .home-structure-team-switch button.active{background:var(--ink);color:#fff;}
 .home-structure-card-grid{display:grid;grid-template-columns:1fr 1fr .98fr;gap:22px;}
 .home-structure-card{min-height:276px;border-radius:26px;display:flex;flex-direction:column;gap:16px;}
 .home-structure-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:2px;}
-.home-structure-card-head span{font-size:17px;font-weight:1000;letter-spacing:-.04em;}
-.home-structure-card-head button{border-radius:999px;background:#f4f4f5;color:#18181b;padding:8px 12px;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.08em;}
+.home-structure-card-head span{font-size:17px;letter-spacing:-.01em;}
+.home-structure-card-head button{border-radius:999px;background:#f4f4f5;color:#18181b;padding:8px 12px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;}
 .home-structure-match{border:1px solid var(--line);border-radius:22px;background:#fff;padding:16px;}
 .home-structure-card .home-structure-match{box-shadow:0 10px 28px rgba(9,9,11,.05);}
 .home-structure-match-top{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#71717a;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.06em;}
 .home-structure-teams{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:12px;}
-.home-structure-teams b{min-width:0;font-size:15px;line-height:1.08;font-weight:1000;overflow:hidden;text-overflow:ellipsis;}
+.home-structure-teams b{min-width:0;font-size:15px;line-height:1.08;overflow:hidden;text-overflow:ellipsis;}
 .home-structure-teams b:last-child{text-align:right;}
-.home-structure-teams span{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:var(--ink);color:#fff;padding:7px 11px;font-size:12px;font-weight:1000;}
+.home-structure-teams span{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:var(--ink);color:#fff;padding:7px 11px;font-size:12px;}
 .home-structure-match p{margin:12px 0 0;color:#71717a;font-size:13px;line-height:1.35;font-weight:750;}
 .home-structure-card-foot{margin-top:auto;border-top:1px solid var(--line);padding-top:13px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .home-structure-card-foot b{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#71717a;}
@@ -37,7 +37,7 @@
 .home-structure-card-cup:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.06),transparent 38%);pointer-events:none;}
 .home-structure-card-cup>*{position:relative;z-index:1;}
 .home-structure-card-cup .home-structure-card-head button{background:#fff;color:#09090b;}
-.home-structure-card-cup h3{margin:0;font-size:28px;line-height:.96;letter-spacing:-.055em;color:#fff;}
+.home-structure-card-cup h3{margin:0;font-size:28px;line-height:.96;letter-spacing:-.01em;color:#fff;}
 .home-structure-card-cup p{margin:0;color:rgba(255,255,255,.72);font-weight:850;}
 .home-structure-card-cup .home-structure-match{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16);box-shadow:none;}
 .home-structure-card-cup .home-structure-match-top,
@@ -48,7 +48,7 @@
 .home-structure-news-card{border-radius:26px;}
 .home-structure-news-image{height:210px;background:#e7e1d7;overflow:hidden;}
 .home-structure-news-image img{width:100%;height:100%;object-fit:cover;}
-.home-structure-news-card h3{font-size:22px;line-height:1.02;letter-spacing:-.045em;margin:14px 0 8px;font-weight:1000;}
+.home-structure-news-card h3{font-size:22px;line-height:1.02;letter-spacing:-.01em;margin:14px 0 8px;}
 .home-structure-news-card .muted{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0 0 15px;}
 .home-structure-empty{border:1px dashed var(--line);border-radius:18px;padding:18px;color:#71717a;font-weight:800;background:#fff;}
 .home-structure-cta-section{padding-top:24px;padding-bottom:92px;}
@@ -60,9 +60,9 @@
 .home-structure-cta-partner:before{background-image:url('/assets/team.jpg');filter:grayscale(1) contrast(1.08);}
 .home-structure-cta-events:before{background-image:url('/assets/foto-sito.webp?auto=format&fit=crop&w=1200&q=80');filter:hue-rotate(165deg) saturate(.8);}
 .home-structure-cta-card>div{position:relative;z-index:1;max-width:330px;}
-.home-structure-cta-card h3{margin:0 0 12px;color:#fff;font-size:28px;line-height:.95;font-weight:1000;letter-spacing:-.055em;text-transform:uppercase;}
+.home-structure-cta-card h3{margin:0 0 12px;color:#fff;font-size:28px;line-height:.95;letter-spacing:-.01em;text-transform:uppercase;}
 .home-structure-cta-card p{margin:0 auto 22px;color:rgba(255,255,255,.82);font-size:14px;line-height:1.42;font-weight:750;}
-.home-structure-cta-card button{background:#ffd018;color:#111;border-radius:999px;padding:12px 17px;font-size:11px;font-weight:1000;text-transform:uppercase;letter-spacing:.08em;}
+.home-structure-cta-card button{background:#ffd018;color:#111;border-radius:999px;padding:12px 17px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;}
 .home-structure .social-home-section{padding-top:44px;}
 @media (max-width:980px){
   .home-structure-card-grid,.home-structure-news-grid,.home-structure-cta-grid{grid-template-columns:1fr;}
@@ -346,8 +346,7 @@
   color:#fff;
   font-size:17px;
   line-height:1.02;
-  font-weight:1000;
-  letter-spacing:-.035em;
+  letter-spacing:-.01em;
   text-transform:uppercase;
   white-space:normal;
   overflow-wrap:anywhere;
@@ -367,8 +366,7 @@
   color:#fff;
   font-size:48px;
   line-height:.92;
-  font-weight:1000;
-  letter-spacing:-.075em;
+  letter-spacing:-.01em;
   box-shadow:none;
   white-space:nowrap;
 }
@@ -433,20 +431,9 @@
   }
   #app .breadcrumb + .grid.grid-2 > .cup-highlight:first-child .timebox{
     font-size:40px;
-    letter-spacing:-.07em;
+    letter-spacing:-.01em;
   }
   #app .breadcrumb + .grid.grid-2 > .cup-highlight:first-child .match-teams small{
     font-size:9px;
   }
 }
-
-/* v57: sporty typography trial */
-html body{font-family:"Arial Narrow",Arial,sans-serif!important;}
-button,input,select,textarea{font-family:inherit!important;}
-h1,h2,h3,.title,.brand,.home-structure-card-head span,.home-structure-card-cup h3,.home-structure-news-card h3,.home-structure-cta-card h3,.timebox,.score,.num,.stat-tile b,.stats-big-tile b,.player-detail-heading h2,.player-detail-number,.match-center-v57-score,.match-center-v57-competition,.match-center-v57-teamname{font-family:Impact,"Arial Narrow",Arial,sans-serif!important;}
-.player-card-given,.player-profile-name>.player-card-given{font-family:"Arial Narrow",Arial,sans-serif!important;}
-
-/* v58: typography tracking refinement */
-html body{letter-spacing:.012em!important;}
-h1,h2,h3,.title,.brand,.home-structure-card-head span,.home-structure-card-cup h3,.home-structure-news-card h3,.home-structure-cta-card h3,.timebox,.score,.num,.stat-tile b,.stats-big-tile b,.player-detail-heading h2,.player-detail-number,.match-center-v57-score,.match-center-v57-competition,.match-center-v57-teamname{letter-spacing:.012em!important;}
-.match-center-v57-score,.timebox,.score,.num,.stat-tile b,.stats-big-tile b,.player-detail-number{letter-spacing:.006em!important;}
