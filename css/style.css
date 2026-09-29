@@ -8,12 +8,12 @@
    Only the 600 weight is loaded: font-synthesis-weight:none stops the browser from faking a heavier
    bold where legacy markup still asks for 800-1000. */
 h1,h2,h3,h4,h5,h6,.title,.brand,.crest span,
-.nav-main,.dropdown,.mobile-menu,.footer-menu-col b,
+.nav-main,.mobile-menu,.footer-menu-col b,
 .btn,.pill,.tag,.kicker,.eyebrow,.badge,.stage-label,.media-filter-label,.back-link,.team-switch button,.pagination button,.news-search-button,
 .clubmark,.timebox,.num,.teams,.mini strong,.stat-tile b,.stats-meta-strip b,.player-detail-number,.lead-strong,
 .home-structure-season-head>span,.home-structure-section-head>span,.home-structure-team-switch button,.home-structure-card-head span,.home-structure-card-head button,.home-structure-card-head a,.home-structure-teams b,.home-structure-teams span,.home-structure-cta-card button,.home-structure-cta-card a,
 .home-upcoming-title,.home-upcoming-mode,.home-upcoming-team i,.home-upcoming-team strong,.home-upcoming-time,
-.cus-rework-kicker,.cus-rework-title,.cus-rework-metric b,.cus-rework-event-tabs button,.cus-event-date,.cus-event-type,.cus-rework-action,.cus-event-card button,.cus-mobile-menu-head,
+.cus-rework-kicker,.cus-rework-metric b,.cus-rework-event-tabs button,.cus-event-date,.cus-event-type,.cus-rework-action,.cus-event-card button,.cus-mobile-menu-head,
 .home-structure-news-standing-card .home-structure-standing-list,.home-structure-news-standing-card .home-structure-card-foot,.home-structure-card-foot b,
 .home-upcoming-track,.social-feed-platform,.footer-expanded .footer-copy,
 .match-center-v57-homeaway,.match-center-v57-competition,.match-center-v57-teamname,.match-center-v57-score,.match-center-v57-status,.match-squad-v61-number,.match-squad-v61-last{font-family:var(--font-display);font-weight:600;font-synthesis-weight:none}button{cursor:pointer;border:0}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid rgba(185,28,28,.45);outline-offset:3px}img{display:block;max-width:100%}a{color:inherit;text-decoration:none}.container{max-width:1240px;margin:0 auto;padding:0 20px}.skip{position:absolute;left:-9999px;top:auto}.skip:focus{left:14px;top:14px;background:white;z-index:100;padding:10px 14px;border-radius:12px}
