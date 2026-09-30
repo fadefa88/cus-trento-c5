@@ -117,3 +117,15 @@
     };
   }
 })();
+
+// Calendar and match center: use the dedicated CUS team crest for both senior and U23 teams.
+(() => {
+  const CUS_MATCH_LOGO = "https://calcioa5.custrento.it/img/uploads/cus-trento.webp";
+  const originalMatchTeamLogo = window.matchTeamLogo;
+  if(typeof originalMatchTeamLogo !== "function") return;
+
+  window.matchTeamLogo = function(name,match){
+    if(typeof window.isCusTeam === "function" && window.isCusTeam(name)) return CUS_MATCH_LOGO;
+    return originalMatchTeamLogo(name,match);
+  };
+})();
