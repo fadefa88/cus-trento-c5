@@ -85,3 +85,35 @@
   const app = document.getElementById("app");
   if(app) new MutationObserver(prepareAll).observe(app,{childList:true,subtree:true});
 })();
+
+// Roster compatibility: "De Nardis Andrea" means surname "De Nardis", given name "Andrea".
+(() => {
+  function partsOf(player){
+    return String(player && player.name || "").trim().split(/\s+/).filter(Boolean);
+  }
+  function isDeNardis(parts){
+    return parts.length >= 3 && parts[0].toLowerCase() === "de" && parts[1].toLowerCase() === "nardis";
+  }
+  function escapeHtml(value){
+    return String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[char]));
+  }
+
+  const originalRosterCardNameHtml = window.rosterCardNameHtml;
+  if(typeof originalRosterCardNameHtml === "function"){
+    window.rosterCardNameHtml = function(player){
+      const parts = partsOf(player);
+      if(!isDeNardis(parts)) return originalRosterCardNameHtml(player);
+      const surname = parts.slice(0,2).join(" ");
+      const given = parts.slice(2).join(" ");
+      return `<span class="player-card-surname">${escapeHtml(surname)}</span>${given ? ` <span class="player-card-given">${escapeHtml(given)}</span>` : ""}`;
+    };
+  }
+
+  const originalPlayerSurname = window.playerSurname;
+  if(typeof originalPlayerSurname === "function"){
+    window.playerSurname = function(player){
+      const parts = partsOf(player);
+      return isDeNardis(parts) ? parts.slice(0,2).join(" ") : originalPlayerSurname(player);
+    };
+  }
+})();
