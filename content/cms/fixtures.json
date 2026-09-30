@@ -195,7 +195,7 @@
         },
         {
           "goals": 3,
-          "yellow": false,
+          "yellow": true,
           "red": false,
           "number": "8",
           "surname": "Vivian",
