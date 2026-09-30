@@ -726,7 +726,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .match-squad-v61-col.is-away .match-squad-v61-namecol,.match-squad-v61-col.is-away .player-card-name{align-items:flex-end;text-align:right;}
 .match-squad-v61-col.is-away .match-squad-v61-events{justify-content:flex-end;}
 .match-squad-v61-col.is-away .player-card-number{text-align:right;}
-.match-squad-v61-col.is-away .match-squad-v61-empty{text-align:right;}
+.match-squad-v61-col.is-away .match-squad-v61-empty{text-align:right;font-family:'Barlow Condensed';}
 .match-squad-v61-copy{min-width:0;display:flex;flex-direction:column;justify-content:center;}
 .match-squad-v61-events{display:flex;align-items:center;justify-content:flex-start;gap:7px;min-height:18px;margin-top:7px;}
 .match-squad-v61-yellow,.match-squad-v61-red{display:inline-block;width:11px;height:17px;border-radius:2px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);}
@@ -736,7 +736,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .match-squad-v61-goal i{font-size:13px;color:#09090b;}
 .match-squad-v61-photo{width:92px;height:92px;border-radius:18px;overflow:hidden;justify-self:end;background:#f4f4f5;}
 .match-squad-v61-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;}
-.match-squad-v61-empty{grid-column:1/-1;margin:0;color:#71717a;font-weight:700;}
+.match-squad-v61-empty{grid-column:1/-1;margin:0;color:#71717a;font-weight:700;font-family:'Barlow Condensed';}
 @media(max-width:520px){
   .match-squad-v61{padding:24px 16px 28px!important;}
   .match-squad-v61 h2{margin-bottom:24px;}
@@ -852,9 +852,10 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .match-center-v57-teamname{
   margin-top:15px;
   max-width:250px;
-  font-size:22px;
+  font-size:26px;
   line-height:1.04;
   letter-spacing:-.01em;
+  text-transform:uppercase;
   color:#fff;
 }
 .match-center-v57-scorebox{padding-top:26px;display:flex;flex-direction:column;align-items:center;}
@@ -872,7 +873,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 }
 .match-center-v57-score em{font-style:normal;font-size:.56em;font-weight:800;color:rgba(255,255,255,.72);letter-spacing:0;}
 .match-center-v57-score.is-vs{font-size:40px;letter-spacing:.04em;}
-.match-center-v57-status{margin-top:10px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.62);}
+.match-center-v57-status{margin-top:10px;font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.62);}
 .match-center-v57-scorers{width:100%;margin-top:18px;display:grid;gap:5px;min-height:22px;}
 .match-center-v57-scorer{font-size:12px;line-height:1.35;font-weight:850;color:rgba(255,255,255,.80);}
 .match-center-v57-scorer span{margin-left:5px;color:#fff;font-weight:1000;}
@@ -890,11 +891,11 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .match-center-v57-venue{font-size:11px;margin-top:6px;}
   .match-center-v57-board{margin-top:30px;grid-template-columns:minmax(0,1fr) 82px minmax(0,1fr);gap:8px;}
   .match-center-v57-logo{width:70px;height:70px;}
-  .match-center-v57-teamname{margin-top:10px;font-size:14px;line-height:1.08;}
+  .match-center-v57-teamname{margin-top:10px;font-size:20px;line-height:1.08;text-transform:uppercase;}
   .match-center-v57-scorebox{padding-top:17px;}
   .match-center-v57-score{font-size:39px;gap:7px;min-height:48px;}
   .match-center-v57-score.is-vs{font-size:25px;}
-  .match-center-v57-status{font-size:8px;margin-top:7px;letter-spacing:.11em;}
+  .match-center-v57-status{font-size:14px;margin-top:7px;letter-spacing:.11em;}
   .match-center-v57-scorers{margin-top:13px;gap:4px;}
   .match-center-v57-scorer{font-size:10px;}
   .match-center-v57-details .match-list-grid{grid-template-columns:1fr;}
@@ -902,7 +903,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 @media(max-width:390px){
   .match-center-v57-board{grid-template-columns:minmax(0,1fr) 72px minmax(0,1fr);gap:5px;}
   .match-center-v57-logo{width:62px;height:62px;}
-  .match-center-v57-teamname{font-size:12px;}
+  .match-center-v57-teamname{font-size:20px;text-transform:uppercase;}
   .match-center-v57-score{font-size:34px;}
 }
 /* v60: marcatori su una riga e logo Serie B scontornato via clip-path. */
