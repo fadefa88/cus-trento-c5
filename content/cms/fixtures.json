@@ -1184,7 +1184,10 @@
         {
           "goals": 0,
           "yellow": false,
-          "red": false
+          "red": false,
+          "number": "46",
+          "surname": "Mulciri",
+          "firstName": "Natan"
         }
       ],
       "time": "15:00",
