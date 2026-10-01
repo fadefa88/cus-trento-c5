@@ -761,12 +761,124 @@
     {
       "opponentLogo": "/img/uploads/manzano.png",
       "slug": "cus-trento-manzano-brn-1988-2026-10-10",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "1",
+          "surname": "Calligaro",
+          "firstName": "Mattia"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "12",
+          "surname": "Saro",
+          "firstName": "Cristian"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "13",
+          "surname": "Tancos",
+          "firstName": "Tadej"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "6",
+          "surname": "Genna",
+          "firstName": "Simone"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "De Giorgio",
+          "firstName": "Lorenzo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "3",
+          "surname": "Avitabile",
+          "firstName": "Luca"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "4",
+          "surname": "Stacco",
+          "firstName": "Andrea"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "5",
+          "surname": "Zharri",
+          "firstName": "Erijon"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "surname": "De Giorgio",
+          "number": "7",
+          "firstName": "Leonardo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "8",
+          "surname": "De Bernardo",
+          "firstName": "Roberto"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Iurlaro",
+          "firstName": "Emanuele"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "9",
+          "surname": "Fusco",
+          "firstName": "Jacopo"
+        }
+      ],
       "time": "16:00",
       "away": "Manzano BRN 1988",
       "date": "2026-10-10",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "ceola-michele",
+          "10",
+          "7",
+          "tesser-alvise"
+        ],
+        "bench": [
+          "1",
+          "16",
+          "sarcletti-paolo",
+          "scala-luca",
+          "19",
+          "18",
+          "11"
+        ],
         "suspended": [],
         "injured": []
       },
@@ -779,12 +891,76 @@
     {
       "opponentLogo": "/img/uploads/atletico-sestu.png",
       "slug": "atletico-sestu-cus-trento-2026-10-17",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Mascia",
+          "firstName": "Manuel"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "9",
+          "surname": "Tidu",
+          "firstName": "Marco"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "8",
+          "surname": "Lozano",
+          "firstName": "Juan Pérez"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "Fratini",
+          "firstName": "Jacopo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "6",
+          "surname": "Carletti",
+          "firstName": "Fabio"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "5",
+          "surname": "Monti",
+          "firstName": "Filippo"
+        }
+      ],
       "time": "16:00",
       "away": "CUS Trento",
       "date": "2026-10-17",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "7",
+          "tesser-alvise",
+          "16",
+          "19"
+        ],
+        "bench": [
+          "1",
+          "7",
+          "ceola-michele",
+          "11",
+          "sarcletti-paolo",
+          "10",
+          "8"
+        ],
         "suspended": [],
         "injured": []
       },
