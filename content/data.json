@@ -631,6 +631,72 @@
     {
       "opponentLogo": "/img/uploads/futsal-villorba.png",
       "slug": "futsal-villorba-cus-trento-2026-10-03",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "4",
+          "surname": "Bordignon",
+          "firstName": "Michele"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "5",
+          "surname": "Belfassi",
+          "firstName": "Ayoub"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "6",
+          "surname": "Vailati",
+          "firstName": "Nicolò"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "8",
+          "surname": "Da Ros",
+          "firstName": "Christian"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Marton",
+          "firstName": "Giacomo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Stefanon",
+          "firstName": "Giacomo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "14",
+          "surname": "Bardini",
+          "firstName": "Alessandro"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "15",
+          "surname": "Fiducia",
+          "firstName": "Gabriele"
+        }
+      ],
       "time": "15:30",
       "away": "CUS Trento",
       "date": "2026-10-03",
