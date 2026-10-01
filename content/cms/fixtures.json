@@ -660,6 +660,14 @@
           "number": "5",
           "surname": "Monti",
           "firstName": "Filippo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Scozzatti",
+          "firstName": "Franco Armando"
         }
       ],
       "time": "16:00",
