@@ -973,12 +973,124 @@
     {
       "opponentLogo": "/img/uploads/canottieri-belluno.png",
       "slug": "cus-trento-canottieri-belluno-2026-10-24",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "1",
+          "surname": "Lecis",
+          "firstName": "Nicolò"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "12",
+          "surname": "Dalla Libera",
+          "firstName": "Manuel"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "2",
+          "surname": "Dalla Zanna",
+          "firstName": "Demis"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "6",
+          "surname": "Reolon",
+          "firstName": "Moreno"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "9",
+          "surname": "Filho",
+          "firstName": "Robson Fernandes"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "17",
+          "surname": "Bonavera",
+          "firstName": "Mattia"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "21",
+          "surname": "Ahmed",
+          "firstName": "Ghodbane"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "22",
+          "surname": "Bortolini",
+          "firstName": "Alessandro"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "Dal Borgo",
+          "firstName": "Massimo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Dal Farra",
+          "firstName": "Riccardo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Lambarki",
+          "firstName": "Fahed"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "8",
+          "surname": "Orsi",
+          "firstName": "Brayan Augusto"
+        }
+      ],
       "time": "16:00",
       "away": "Canottieri Belluno",
       "date": "2026-10-24",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "7",
+          "tesser-alvise",
+          "ceola-michele",
+          "16"
+        ],
+        "bench": [
+          "1",
+          "19",
+          "8",
+          "10",
+          "11",
+          "sarcletti-paolo",
+          "scala-luca"
+        ],
         "suspended": [],
         "injured": []
       },
@@ -991,12 +1103,124 @@
     {
       "opponentLogo": "/img/uploads/real-bubi.png",
       "slug": "real-bubi-merano-cus-trento-2026-10-31",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "1",
+          "surname": "Ninz",
+          "firstName": "Martin"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "12",
+          "surname": "Parlanti",
+          "firstName": "Patrick"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Deriu",
+          "firstName": "Jan Esteban"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Tenca",
+          "firstName": "Loris"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "69",
+          "surname": "Morales",
+          "firstName": "Samuel Cantero"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Karim",
+          "firstName": "Ayoub"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Karim",
+          "firstName": "Dana Bajdar"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "Belsito",
+          "firstName": "Pablo Esteban"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "8",
+          "surname": "Caverzan",
+          "firstName": "Marco"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "6",
+          "surname": "Mustafov",
+          "firstName": "Erdan"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "5",
+          "surname": "Manarin",
+          "firstName": "Luca"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "13",
+          "surname": "Peluso",
+          "firstName": "Manuel"
+        }
+      ],
       "time": "16:00",
       "away": "CUS Trento",
       "date": "2026-10-31",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "7",
+          "tesser-alvise",
+          "ceola-michele",
+          "16"
+        ],
+        "bench": [
+          "1",
+          "19",
+          "8",
+          "10",
+          "11",
+          "gobbetti-fabio",
+          "scala-luca"
+        ],
         "suspended": [],
         "injured": []
       },
@@ -1009,12 +1233,124 @@
     {
       "opponentLogo": "/img/uploads/elmas.png",
       "slug": "cus-trento-elmas-2026-11-07",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "22",
+          "surname": "Loporto",
+          "firstName": "Jaime"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "26",
+          "surname": "Ferraro",
+          "firstName": "Gianmarco"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "2",
+          "surname": "Tola",
+          "firstName": "Francesco"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "5",
+          "surname": "Fronteddu",
+          "firstName": "Mirco"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "6",
+          "surname": "Cogoni",
+          "firstName": "Federico"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "Ennas",
+          "firstName": "Matteo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "8",
+          "surname": "Coni",
+          "firstName": "Simone"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Boi",
+          "firstName": "Roberto"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Idda",
+          "firstName": "Alessio"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "17",
+          "surname": "De Oliveira",
+          "firstName": "Alan Patrick"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "81",
+          "surname": "Serra",
+          "firstName": "Renzo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "99",
+          "surname": "Cossu",
+          "firstName": "Aldo"
+        }
+      ],
       "time": "16:00",
       "away": "Elmas",
       "date": "2026-11-07",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "7",
+          "tesser-alvise",
+          "ceola-michele",
+          "16"
+        ],
+        "bench": [
+          "1",
+          "19",
+          "8",
+          "10",
+          "11",
+          "gobbetti-fabio",
+          "scala-luca"
+        ],
         "suspended": [],
         "injured": []
       },
@@ -1027,12 +1363,121 @@
     {
       "opponentLogo": "/img/uploads/futsal-atesina.png",
       "slug": "futsal-atesina-cus-trento-2026-11-14",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "1",
+          "surname": "Piredda",
+          "firstName": "Thomas"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "20",
+          "surname": "Tosoni",
+          "firstName": "Daniele"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "21",
+          "surname": "Monteiro",
+          "firstName": "Thyago Augusto"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "6",
+          "surname": "Manzoni",
+          "firstName": "Alex"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "Varesco",
+          "firstName": "Mattia"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "8",
+          "surname": "Cecchin",
+          "firstName": "Riccardo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "9",
+          "surname": "Iancu",
+          "firstName": "Alexandru"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Basso",
+          "firstName": "Marco"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Petrizzelli",
+          "firstName": "Claudio"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "12",
+          "surname": "Mustafov",
+          "firstName": "Rehjan"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "19",
+          "surname": "Jonuzovski",
+          "firstName": "Alden"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false
+        }
+      ],
       "time": "15:00",
       "away": "CUS Trento",
       "date": "2026-11-14",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "7",
+          "tesser-alvise",
+          "ceola-michele",
+          "16"
+        ],
+        "bench": [
+          "1",
+          "19",
+          "8",
+          "10",
+          "scala-luca",
+          "18",
+          "cuman-mattia"
+        ],
         "suspended": [],
         "injured": []
       },
@@ -1045,12 +1490,124 @@
     {
       "opponentLogo": "/img/uploads/futsal-jesolo.png",
       "slug": "cus-trento-futsal-jesolo-2026-11-21",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "1",
+          "surname": "Boracco",
+          "firstName": "Gianfranco"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "12",
+          "surname": "Vento",
+          "firstName": "Leonardo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "2",
+          "surname": "Biondo",
+          "firstName": "Gianmarco"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "3",
+          "surname": "Celin",
+          "firstName": "Daniel"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "8",
+          "surname": "Karouani",
+          "firstName": "Omar"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Azzabi",
+          "firstName": "Ayoub"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Facco",
+          "firstName": "Simone"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "13",
+          "surname": "Finato",
+          "firstName": "Federico"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "Callegari",
+          "firstName": "Filippo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "4",
+          "surname": "Giovinazzi",
+          "firstName": "Stefano"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "14",
+          "surname": "Giramonte",
+          "firstName": "Lorenzo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "15",
+          "surname": "Cartano",
+          "firstName": "Luiz"
+        }
+      ],
       "time": "16:00",
       "away": "Futsal Jesolo",
       "date": "2026-11-21",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "7",
+          "tesser-alvise",
+          "ceola-michele",
+          "16"
+        ],
+        "bench": [
+          "1",
+          "19",
+          "8",
+          "cuman-mattia",
+          "scala-luca",
+          "10",
+          "gobbetti-fabio"
+        ],
         "suspended": [],
         "injured": []
       },
@@ -1063,12 +1620,124 @@
     {
       "opponentLogo": "/img/uploads/futsal-conegliano-montello.png",
       "slug": "futsal-conegliano-cus-trento-2026-11-28",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "1",
+          "surname": "Bresolin",
+          "firstName": "Roberto"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "12",
+          "surname": "Modolo",
+          "firstName": "Nicola"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "2",
+          "surname": "Ercolessi",
+          "firstName": "Marco"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "3",
+          "surname": "Mohssine",
+          "firstName": "Brahim"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "5",
+          "surname": "Leandro",
+          "firstName": "Alfonso"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "Nicolati",
+          "firstName": "Jordi"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Ait Cheikh",
+          "firstName": "Yousef"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Rexhepaj",
+          "firstName": "Besnik"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "9",
+          "surname": "Basso",
+          "firstName": "Rudy"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "13",
+          "surname": "Nicoli",
+          "firstName": "Diego"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "15",
+          "surname": "Panziera",
+          "firstName": "Andrea"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "4",
+          "surname": "Favaro",
+          "firstName": "Lorenzo"
+        }
+      ],
       "time": "16:00",
       "away": "CUS Trento",
       "date": "2026-11-28",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "7",
+          "tesser-alvise",
+          "16",
+          "ceola-michele"
+        ],
+        "bench": [
+          "1",
+          "19",
+          "8",
+          "10",
+          "11",
+          "gobbetti-fabio",
+          "scala-luca"
+        ],
         "suspended": [],
         "injured": []
       },
@@ -1081,12 +1750,124 @@
     {
       "opponentLogo": "/img/uploads/eagles.png",
       "slug": "eagles-futsal-cus-trento-2026-12-05",
+      "opponentLineup": [
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "23",
+          "surname": "Patti",
+          "firstName": "Andrea"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "1",
+          "surname": "Facchin",
+          "firstName": "Jacopo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "10",
+          "surname": "Barile",
+          "firstName": "Alessandro"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "2",
+          "surname": "Guandeline",
+          "firstName": "João Pedro"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "3",
+          "surname": "Casarsa",
+          "firstName": "Nicolò"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "9",
+          "surname": "Calderone",
+          "firstName": "Devid"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Costantini",
+          "firstName": "Filippo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "4",
+          "surname": "Turolo",
+          "firstName": "Nils"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "5",
+          "surname": "Štendler",
+          "firstName": "Tilen"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "6",
+          "surname": "Langella",
+          "firstName": "Michele"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "Camargo De Mendonca",
+          "firstName": "Raul"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "8",
+          "surname": "Halili",
+          "firstName": "Samoel"
+        }
+      ],
       "time": "15:00",
       "away": "CUS Trento",
       "date": "2026-12-05",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "7",
+          "ceola-michele",
+          "16",
+          "tesser-alvise"
+        ],
+        "bench": [
+          "1",
+          "19",
+          "8",
+          "scala-luca",
+          "cuman-mattia",
+          "10",
+          "gobbetti-fabio"
+        ],
         "suspended": [],
         "injured": []
       },
@@ -1103,8 +1884,22 @@
       "away": "Trento",
       "date": "2026-12-12",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "baccaro-zeni-lucca",
+          "7",
+          "tesser-alvise",
+          "ceola-michele",
+          "16"
+        ],
+        "bench": [
+          "1",
+          "19",
+          "8",
+          "10",
+          "11",
+          "sarcletti-paolo",
+          "scala-luca"
+        ],
         "suspended": [],
         "injured": []
       },
