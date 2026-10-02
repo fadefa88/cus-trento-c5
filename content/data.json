@@ -2435,7 +2435,15 @@
       "name": "Zago Alessandro",
       "role": "Portiere",
       "team": "Prima squadra",
-      "number": 32
+      "number": 25
+    },
+    {
+      "id": "paoli-jacopo",
+      "slug": "paoli-jacopo",
+      "name": "Paoli Jacopo",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 25
     }
   ],
   "social": [

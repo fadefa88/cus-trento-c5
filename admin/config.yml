@@ -290,12 +290,12 @@ collections:
             value: gobbetti-fabio
           - label: '#22 Scala Luca'
             value: scala-luca
+          - label: '#25 Zago Alessandro'
+            value: zago-alessandro
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
-          - label: '#32 Zago Alessandro'
-            value: zago-alessandro
           hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
         - label: Panchina / Convocati
           name: bench
@@ -329,12 +329,12 @@ collections:
             value: gobbetti-fabio
           - label: '#22 Scala Luca'
             value: scala-luca
+          - label: '#25 Zago Alessandro'
+            value: zago-alessandro
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
-          - label: '#32 Zago Alessandro'
-            value: zago-alessandro
           hint: Scegli solo giocatori non già presenti nel quintetto.
       - label: Marcatori
         name: scorerEvents
@@ -375,12 +375,12 @@ collections:
             value: gobbetti-fabio
           - label: '#22 Scala Luca'
             value: scala-luca
+          - label: '#25 Zago Alessandro'
+            value: zago-alessandro
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
-          - label: '#32 Zago Alessandro'
-            value: zago-alessandro
           - label: Autogol (avversario)
             value: autogol
         - label: Gol
@@ -427,12 +427,12 @@ collections:
             value: gobbetti-fabio
           - label: '#22 Scala Luca'
             value: scala-luca
+          - label: '#25 Zago Alessandro'
+            value: zago-alessandro
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
-          - label: '#32 Zago Alessandro'
-            value: zago-alessandro
         - label: Ammonizioni
           name: cards
           widget: number
@@ -477,12 +477,12 @@ collections:
             value: gobbetti-fabio
           - label: '#22 Scala Luca'
             value: scala-luca
+          - label: '#25 Zago Alessandro'
+            value: zago-alessandro
           - label: '#27 Cuman Mattia'
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
-          - label: '#32 Zago Alessandro'
-            value: zago-alessandro
         - label: Espulsioni
           name: cards
           widget: number
@@ -506,7 +506,7 @@ collections:
             value: '1'
           - label: '#12 Baccaro Zeni Lucca'
             value: baccaro-zeni-lucca
-          - label: '#32 Zago Alessandro'
+          - label: '#25 Zago Alessandro'
             value: zago-alessandro
         - label: Gol subiti
           name: goalsAgainst
@@ -620,6 +620,8 @@ collections:
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#25 Paoli Jacopo'
+            value: paoli-jacopo
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -657,6 +659,8 @@ collections:
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#25 Paoli Jacopo'
+            value: paoli-jacopo
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -701,6 +705,8 @@ collections:
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#25 Paoli Jacopo'
+            value: paoli-jacopo
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -751,6 +757,8 @@ collections:
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#25 Paoli Jacopo'
+            value: paoli-jacopo
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -799,6 +807,8 @@ collections:
             value: zanrosso-matteo
           - label: '#20 Caldonazzi Federico'
             value: '28'
+          - label: '#25 Paoli Jacopo'
+            value: paoli-jacopo
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
