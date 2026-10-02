@@ -2428,6 +2428,14 @@
       "role": "Centrale",
       "team": "Under 21",
       "number": 14
+    },
+    {
+      "id": "zago-alessandro",
+      "slug": "zago-alessandro",
+      "name": "Zago Alessandro",
+      "role": "Portiere",
+      "team": "Prima squadra",
+      "number": 32
     }
   ],
   "social": [
@@ -2575,37 +2583,7 @@
       "gf": 2
     }
   ],
-  "news": [
-    {
-      "id": 81175308,
-      "title": "Seconda giornata: big match tra Ledrense e San Giuseppe",
-      "category": "SporTrentino",
-      "tags": [
-        "SporTrentino",
-        "Under 23"
-      ],
-      "teamTag": "Under 23",
-      "originalCategory": "SporTrentino",
-      "date": "2026-10-01",
-      "author": "SporTrentino.it",
-      "image": "https://cms.pegasomedia.it/public/immagininotizie/81/SerieD_2526/260318sangiuseppe.jpg",
-      "images": [
-        "https://cms.pegasomedia.it/public/immagininotizie/81/SerieD_2526/260318sangiuseppe.jpg",
-        "https://cms.pegasomedia.it/public/immagininotizie/81/SerieD_2526/251026_tnt_c5.jpg"
-      ],
-      "excerpt": "Dopo un primo turno ricco di gol e indicazioni interessanti, la Serie D torna in campo. Venerdì 2 ottobre è in programma la seconda giornata, con dieci sfide distribuite tra Girone A e Girone B. Una serata che potrà già dare qualche conf...",
-      "body": [
-        "Dopo un primo turno ricco di gol e indicazioni interessanti, la Serie D torna in campo. Venerdì 2 ottobre è in programma la seconda giornata, con dieci sfide distribuite tra Girone A e Girone B. Una serata che potrà già dare qualche conferma, ma anche permettere alle squadre sconfitte all’esordio di rialzare subito la testa. Girone A: Bleggio e Ledrense, subito un altro esame Dopo il largo successo nell’anticipo contro la Settaurense, il Calcio Bleggio torna in campo per la prima gara casalinga della stagione e riceve il Cus Trento U23 . Il Bleggio ha iniziato con un 11-4 che ha subito acceso i riflettori sulla squadra, mentre il Cus arriva dal combattuto 4-3 contro il San Floriano. Una sfida che mette di fronte due formazioni partite con il piede giusto. Vuole confermarsi anche la Ledrense , capolista dopo il pesantissimo 11-2 rifilato all’Athesis. La squadra biancoazzurra farà visita al San Giuseppe , reduce dal convincente 5-1 sull’Alta Giudicarie. Sarà quindi uno dei confronti più interessanti della giornata. San Giuseppe (stagione 2025/26) Cerca invece il riscatto l’ Athesis , che dopo il difficile debutto contro la Ledrense ospiterà la Settaurense , sconfitta dal Bleggio nell’anticipo della prima giornata. Altra sfida tra squadre a caccia dei primi punti quella tra Nomi e Alta Giudicarie , entrambe sconfitte all’esordio. Chiude il programma San Floriano - Lagarina Futsal , con gli ospiti reduci dal successo per 4-3 sul Nomi. Girone B: Ortigaralefre, Borgo e Cembra alla ricerca della vetta Dopo il 7-2 alla Dx Generation, il Brenta Ortigaralefre è chiamato subito a una nuova prova. La capolista farà visita alla Legion of Doom , che all’esordio ha strappato un punto sul campo dell’Oltrefersina U23. Trasferta anche per il Borgo , che dopo il 3-0 sul Piedicastello affronta la Polisportiva Oltrefersina U23 . Le due formazioni hanno iniziato la stagione con risultati differenti e si troveranno ora una di fronte all’altra per contendersi altri tre punti. Vuole dare continuità alla vittoria dell’esordio anche il Cembra Futsal , impegnato sul campo della Dx Generation , mentre il Futsal Pinè proverà a riscattare il 5-4 subito dal Cembra ospitando il Bolghera . Chiude la giornata la sfida tra Tnt Monte Peller e Piedicastello . Il Tnt arriva dal 3-0 ottenuto sul campo del Bolghera, mentre il Piedicastello cerca la prima gioia dopo il ko contro il Brenta Borgo. Tnt Monte Peller cerca conferme Programma della seconda giornata: Girone A ATHESIS CALCIO – SETTAURENSE (a Besenello alle ore 20:15) Arbitro: Paolo Giuseppe Dalbosco (Trento) BLEGGIO – CUS TRENTO U23 (a Fiavé Palestra alle ore 21:00) Arbitro: Gabriele Civettini (Arco Riva) NOMI – ALTA GIUDICARIE (a Nomi alle ore 21:00) Arbitro: Gabriele Lanzalotto (Rovereto) SAN FLORIANO – LAGARINA FUTSAL (a Noriglio alle ore 21:00) Arbitro: Yassine Nejjari (Rovereto) SAN GIUSEPPE – ledrense (a Rovereto Marco alle ore 21:15) Arbitro: Oussama Bahouch (Rovereto) Partite e classifica girone A Girone B LEGION OF DOOM – BRENTA ORTIGAREFLE (a Trento Piedicastello alle ore 20:15) Arbitro: Marco Girardi (Trento) BRENTA BORGO – POLISPORTIVA OLTREFERSINA U23 (a Borgo Valsugana alle ore 21:00) Arbitro: Simone Girardi (Trento) DX GENERATION – CEMBRA FUTSAL (a Levico Terme alle ore 21:00) Arbitro: Gabriel Deda (Trento) FUTSAL PINÉ – BOLGHERA (a Baselga Pinè Pal. Scuole Medie alle ore 21:00) Arbitro: Daniel Uche (Trento) TNT MONTE PELLER – PIEDICASTELLO (a Tuenno alle ore 21:00) Arbitro: Mirco Baldessari (Trento) Partite e classifica girone B"
-      ],
-      "bodyHtml": "<p>Dopo un primo turno ricco di gol e indicazioni interessanti, la Serie D torna in campo. Venerdì 2 ottobre è in programma la seconda giornata, con dieci sfide distribuite tra Girone A e Girone B. Una serata che potrà già dare qualche conferma, ma anche permettere alle squadre sconfitte all’esordio di rialzare subito la testa.Girone A: Bleggio e Ledrense, subito un altro esameDopo il largo successo nell’anticipo contro la Settaurense, il <strong>Calcio Bleggio</strong> torna in campo per la prima gara casalinga della stagione e riceve il <strong>Cus Trento U23</strong>. Il Bleggio ha iniziato con un 11-4 che ha subito acceso i riflettori sulla squadra, mentre il Cus arriva dal combattuto 4-3 contro il San Floriano. Una sfida che mette di fronte due formazioni partite con il piede giusto.<br>Vuole confermarsi anche la <strong>Ledrense</strong>, capolista dopo il pesantissimo 11-2 rifilato all’Athesis. La squadra biancoazzurra farà visita al <strong>San Giuseppe</strong>, reduce dal convincente 5-1 sull’Alta Giudicarie. Sarà quindi uno dei confronti più interessanti della giornata.San Giuseppe (stagione 2025/26)Cerca invece il riscatto l’<strong>Athesis</strong>, che dopo il difficile debutto contro la Ledrense ospiterà la <strong>Settaurense</strong>, sconfitta dal Bleggio nell’anticipo della prima giornata.<br>Altra sfida tra squadre a caccia dei primi punti quella tra <strong>Nomi </strong>e <strong>Alta Giudicarie</strong>, entrambe sconfitte all’esordio. Chiude il programma <strong>San Floriano</strong>-<strong>Lagarina Futsal</strong>, con gli ospiti reduci dal successo per 4-3 sul Nomi.Girone B: Ortigaralefre, Borgo e Cembra alla ricerca della vettaDopo il 7-2 alla Dx Generation, il <strong>Brenta Ortigaralefre</strong> è chiamato subito a una nuova prova. La capolista farà visita alla <strong>Legion of Doom</strong>, che all’esordio ha strappato un punto sul campo dell’Oltrefersina U23.<br>Trasferta anche per il <strong>Borgo</strong>, che dopo il 3-0 sul Piedicastello affronta la <strong>Polisportiva Oltrefersina U23</strong>. Le due formazioni hanno iniziato la stagione con risultati differenti e si troveranno ora una di fronte all’altra per contendersi altri tre punti.<br>Vuole dare continuità alla vittoria dell’esordio anche il <strong>Cembra Futsal</strong>, impegnato sul campo della <strong>Dx Generation</strong>, mentre il <strong>Futsal Pinè</strong> proverà a riscattare il 5-4 subito dal Cembra ospitando il <strong>Bolghera</strong>.<br>Chiude la giornata la sfida tra <strong>Tnt Monte Peller</strong> e <strong>Piedicastello</strong>. Il Tnt arriva dal 3-0 ottenuto sul campo del Bolghera, mentre il Piedicastello cerca la prima gioia dopo il ko contro il Brenta Borgo.Tnt Monte Peller cerca confermeProgramma della seconda giornata:<strong>Girone A</strong><br>ATHESIS CALCIO – SETTAURENSE (a Besenello alle ore 20:15) <br>Arbitro: Paolo Giuseppe Dalbosco (Trento)<br>BLEGGIO – CUS TRENTO U23 (a Fiavé Palestra alle ore 21:00)<br>Arbitro: Gabriele Civettini (Arco Riva)<br>NOMI – ALTA GIUDICARIE (a Nomi alle ore 21:00)<br>Arbitro: Gabriele Lanzalotto (Rovereto)<br>SAN FLORIANO – LAGARINA FUTSAL (a Noriglio alle ore 21:00)<br>Arbitro: Yassine Nejjari (Rovereto)<br>SAN GIUSEPPE – ledrense (a Rovereto Marco alle ore 21:15)<br>Arbitro: Oussama Bahouch (Rovereto)<a href=\"https://calcioa5.sportrentino.it/camp_giornata.asp?pf=446&amp;f=3668&amp;g=49248\" target=\"_blank\" rel=\"noopener noreferrer\">Partite e classifica girone A</a><strong>Girone B</strong><br>LEGION OF DOOM – BRENTA ORTIGAREFLE (a Trento Piedicastello alle ore 20:15) <br>Arbitro: Marco Girardi (Trento)<br>BRENTA BORGO – POLISPORTIVA OLTREFERSINA U23 (a Borgo Valsugana  alle ore 21:00) <br>Arbitro: Simone Girardi (Trento)<br>DX GENERATION – CEMBRA FUTSAL (a Levico Terme alle ore 21:00)<br>Arbitro: Gabriel Deda (Trento)<br>FUTSAL PINÉ – BOLGHERA (a Baselga Pinè Pal. Scuole Medie alle ore 21:00)<br>Arbitro: Daniel Uche (Trento)<br>TNT MONTE PELLER – PIEDICASTELLO (a Tuenno alle ore 21:00)<br>Arbitro: Mirco Baldessari (Trento)<a href=\"https://calcioa5.sportrentino.it/camp_giornata.asp?pf=446&amp;f=3669&amp;g=49266\" target=\"_blank\" rel=\"noopener noreferrer\">Partite e classifica girone B</a></p>\n<figure class=\"imported-figure\"><a href=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieD_2526/260318sangiuseppe.jpg\" target=\"_blank\" rel=\"noopener noreferrer\"><img loading=\"lazy\" decoding=\"async\" src=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieD_2526/260318sangiuseppe.jpg\" alt=\"San Giuseppe (stagione 2025/26)\"></a></figure>\n<figure class=\"imported-figure\"><a href=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieD_2526/251026_tnt_c5.jpg\" target=\"_blank\" rel=\"noopener noreferrer\"><img loading=\"lazy\" decoding=\"async\" src=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieD_2526/251026_tnt_c5.jpg\" alt=\"Tnt Monte Peller cerca conferme\"></a></figure>",
-      "pinned": false,
-      "sourceName": "SporTrentino.it",
-      "sourceUrl": "https://calcioa5.sportrentino.it/notizie.asp?n=175308&l=0",
-      "sourceId": "175308",
-      "importedFrom": "sportrentino",
-      "importSource": "calcio-a-5-pagina-1"
-    }
-  ],
+  "news": [],
   "historicalStats": {
     "summary": {
       "goalsAgainst": 1725,

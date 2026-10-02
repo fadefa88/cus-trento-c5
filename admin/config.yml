@@ -294,6 +294,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#32 Zago Alessandro'
+            value: zago-alessandro
           hint: Scegli i 5 titolari. Il salvataggio viene bloccato se un giocatore è duplicato o presente anche in panchina.
         - label: Panchina / Convocati
           name: bench
@@ -331,6 +333,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#32 Zago Alessandro'
+            value: zago-alessandro
           hint: Scegli solo giocatori non già presenti nel quintetto.
       - label: Marcatori
         name: scorerEvents
@@ -375,6 +379,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#32 Zago Alessandro'
+            value: zago-alessandro
           - label: Autogol (avversario)
             value: autogol
         - label: Gol
@@ -425,6 +431,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#32 Zago Alessandro'
+            value: zago-alessandro
         - label: Ammonizioni
           name: cards
           widget: number
@@ -473,6 +481,8 @@ collections:
             value: cuman-mattia
           - label: '#32 Conti Diego'
             value: '18'
+          - label: '#32 Zago Alessandro'
+            value: zago-alessandro
         - label: Espulsioni
           name: cards
           widget: number
@@ -496,6 +506,8 @@ collections:
             value: '1'
           - label: '#12 Baccaro Zeni Lucca'
             value: baccaro-zeni-lucca
+          - label: '#32 Zago Alessandro'
+            value: zago-alessandro
         - label: Gol subiti
           name: goalsAgainst
           widget: number
