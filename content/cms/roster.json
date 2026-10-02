@@ -308,6 +308,14 @@
       "role": "Centrale",
       "team": "Under 21",
       "number": 14
+    },
+    {
+      "id": "zago-alessandro",
+      "slug": "zago-alessandro",
+      "name": "Zago Alessandro",
+      "role": "Portiere",
+      "team": "Prima squadra",
+      "number": 32
     }
   ]
 }
