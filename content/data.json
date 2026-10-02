@@ -3530,60 +3530,6 @@
     },
     {
       "opponentLogo": "/img/uploads/san-floriano.png",
-      "slug": "san-floriano-2025-a-s-d-cus-trento-u23-2026-11-27",
-      "time": "21:00",
-      "away": "CUS Trento U23",
-      "date": "2026-11-27",
-      "lineup": {
-        "startingFive": [],
-        "bench": [],
-        "suspended": [],
-        "injured": []
-      },
-      "venue": "Palazzetto Noriglio",
-      "status": "Da giocare",
-      "id": "san-floriano-2025-a-s-d-cus-trento-u23-2026-11-27",
-      "home": "San Floriano 2025",
-      "competition": "Coppa"
-    },
-    {
-      "opponentLogo": "/img/uploads/cembra-futsal.png",
-      "slug": "cus-trento-cembra-futsal-2026-12-04",
-      "time": "21:00",
-      "away": "Cembra Futsal",
-      "date": "2026-12-04",
-      "lineup": {
-        "startingFive": [],
-        "bench": [],
-        "suspended": [],
-        "injured": []
-      },
-      "venue": "Sanbàpolis",
-      "status": "Da giocare",
-      "id": "cus-trento-cembra-futsal-2026-12-04",
-      "home": "CUS Trento U23",
-      "competition": "Coppa"
-    },
-    {
-      "opponentLogo": "/img/uploads/tnt-monte-peller.png",
-      "slug": "cus-trento-tnt-monte-peller-2026-12-18",
-      "time": "21:00",
-      "away": "TNT Monte Peller",
-      "date": "2026-12-18",
-      "lineup": {
-        "startingFive": [],
-        "bench": [],
-        "suspended": [],
-        "injured": []
-      },
-      "venue": "Sanbàpolis",
-      "status": "Da giocare",
-      "id": "cus-trento-tnt-monte-peller-2026-12-18",
-      "home": "CUS Trento U23",
-      "competition": "Coppa"
-    },
-    {
-      "opponentLogo": "/img/uploads/san-floriano.png",
       "slug": "cus-trento-u23-san-floriano-2025-2026-09-25",
       "time": "21:00",
       "away": "San Floriano 2025",
@@ -3662,8 +3608,20 @@
       "away": "CUS Trento U23",
       "date": "2026-10-02",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "20",
+          "buda-samuele",
+          "28",
+          "18",
+          "grippa-michele"
+        ],
+        "bench": [
+          "medeghini-riccardo",
+          "paoli-jacopo",
+          "niccolo-piovesan",
+          "harmeet-singh",
+          "zanrosso-matteo"
+        ],
         "suspended": [],
         "injured": []
       },
@@ -3798,6 +3756,60 @@
       "id": "nomi-cus-trento-u23-2026-11-20",
       "home": "Nomi",
       "competition": "Campionato"
+    },
+    {
+      "opponentLogo": "/img/uploads/san-floriano.png",
+      "slug": "san-floriano-2025-a-s-d-cus-trento-u23-2026-11-27",
+      "time": "21:00",
+      "away": "CUS Trento U23",
+      "date": "2026-11-27",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Palazzetto Noriglio",
+      "status": "Da giocare",
+      "id": "san-floriano-2025-a-s-d-cus-trento-u23-2026-11-27",
+      "home": "San Floriano 2025",
+      "competition": "Coppa"
+    },
+    {
+      "opponentLogo": "/img/uploads/cembra-futsal.png",
+      "slug": "cus-trento-cembra-futsal-2026-12-04",
+      "time": "21:00",
+      "away": "Cembra Futsal",
+      "date": "2026-12-04",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-cembra-futsal-2026-12-04",
+      "home": "CUS Trento U23",
+      "competition": "Coppa"
+    },
+    {
+      "opponentLogo": "/img/uploads/tnt-monte-peller.png",
+      "slug": "cus-trento-tnt-monte-peller-2026-12-18",
+      "time": "21:00",
+      "away": "TNT Monte Peller",
+      "date": "2026-12-18",
+      "lineup": {
+        "startingFive": [],
+        "bench": [],
+        "suspended": [],
+        "injured": []
+      },
+      "venue": "Sanbàpolis",
+      "status": "Da giocare",
+      "id": "cus-trento-tnt-monte-peller-2026-12-18",
+      "home": "CUS Trento U23",
+      "competition": "Coppa"
     }
   ],
   "cup": {
