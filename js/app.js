@@ -2123,11 +2123,16 @@ function matchPlayerFromRef(ref,roster){
 function matchEventPlayer(event,roster){
   return matchPlayerFromRef(event&&(event.playerId??event.player??event.name??event.id),roster);
 }
-function matchPlayerHasCard(events,player,roster){
-  return (Array.isArray(events)?events:[]).some(event=>{
+function matchPlayerCardCount(events,player,roster){
+  return (Array.isArray(events)?events:[]).reduce((sum,event)=>{
     const p=matchEventPlayer(event,roster);
-    return p&&String(p.id)===String(player.id);
-  });
+    if(!p||String(p.id)!==String(player.id)) return sum;
+    if(!event||typeof event!=="object") return sum+1;
+    const rawCount=[event.cards,event.count,event.yellow,event.red,event.value]
+      .map(Number)
+      .find(value=>Number.isFinite(value)&&value>0);
+    return sum+(rawCount||1);
+  },0);
 }
 function matchPlayerGoals(match,player,roster){
   const events=Array.isArray(match&&match.scorerEvents)?match.scorerEvents:[];
@@ -2146,8 +2151,12 @@ function matchSquadIdHtml(number,nameHtml,eventsHtml){
   return `<div class="player-card-id"><span class="player-card-number">${hasNumber?safe(number):""}</span><div class="match-squad-v61-namecol"><div class="player-card-name">${nameHtml}</div>${eventsHtml}</div></div>`;
 }
 function matchSquadEventsHtml(yellow,red,goals){
+  const yellowCount=Math.max(0,Math.trunc(Number(yellow)||0));
+  const redCount=Math.max(0,Math.trunc(Number(red)||0));
+  const yellowIcons=yellowCount?'<span class="match-squad-v61-yellow" aria-label="Ammonito"></span>'.repeat(yellowCount):'';
+  const redIcons=redCount?'<span class="match-squad-v61-red" aria-label="Espulso"></span>'.repeat(redCount):'';
   const goalIcons=goals?'<i class="fa-solid fa-futbol" aria-hidden="true"></i>'.repeat(goals):'';
-  const events=`${yellow?'<span class="match-squad-v61-yellow" aria-label="Ammonito"></span>':''}${red?'<span class="match-squad-v61-red" aria-label="Espulso"></span>':''}${goals?`<span class="match-squad-v61-goal" aria-label="${goals} gol">${goalIcons}</span>`:''}`;
+  const events=`${yellowIcons}${redIcons}${goals?`<span class="match-squad-v61-goal" aria-label="${goals} gol">${goalIcons}</span>`:''}`;
   return events?`<div class="match-squad-v61-events">${events}</div>`:'';
 }
 // Prima squadra columns: no photo, and the event icons sit under the name block (not under the number).
@@ -2161,8 +2170,8 @@ function matchOwnSquadRows(match,compact){
     .filter((value,index,arr)=>arr.findIndex(item=>String(item)===String(value))===index);
   const players=refs.map(ref=>matchPlayerFromRef(ref,roster)).filter(Boolean);
   return players.map(player=>{
-    const yellow=matchPlayerHasCard(match.yellowCardEvents,player,roster);
-    const red=matchPlayerHasCard(match.redCardEvents,player,roster);
+    const yellow=matchPlayerCardCount(match.yellowCardEvents,player,roster);
+    const red=matchPlayerCardCount(match.redCardEvents,player,roster);
     const goals=matchPlayerGoals(match,player,roster);
     if(compact) return matchSquadCompactRow(player.number,rosterCardNameHtml(player),matchSquadEventsHtml(yellow,red,goals));
     const photo=String(player.photo||"").trim()||"/img/placeholder.webp";
