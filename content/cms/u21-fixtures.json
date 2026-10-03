@@ -182,8 +182,35 @@
         "injured": []
       },
       "venue": "Fiavé Palazzetto",
+      "score": "8-2",
       "status": "Da giocare",
+      "opponentScorerEvents": [],
+      "scorerEvents": [
+        {
+          "goals": 2,
+          "playerId": "medeghini-riccardo"
+        }
+      ],
+      "redCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "18"
+        }
+      ],
       "id": "calcio-bleggio-cus-trento-u23-2026-10-02",
+      "yellowCardEvents": [
+        {
+          "cards": 2,
+          "playerId": "18"
+        }
+      ],
+      "goalkeeperEvents": [
+        {
+          "goalsAgainst": 8,
+          "appearances": 1,
+          "playerId": "harmeet-singh"
+        }
+      ],
       "home": "Calcio Bleggio",
       "competition": "Campionato"
     },
