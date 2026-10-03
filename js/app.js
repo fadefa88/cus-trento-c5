@@ -291,15 +291,24 @@ function historicalPlayerName(name){
   if(aliases[key])return aliases[key];
   const parts=raw.split(" ").filter(Boolean);
   if(parts.length<=1)return titleCaseWords(raw);
+
+  // Nel CMS/roster il formato è sempre "Cognome Nome": il fallback storico
+  // deve quindi usare la prima parte, non l'ultima.
   const first=titleCaseWords(parts[0]);
-  const last=titleCaseWords(parts[parts.length-1]);
-  const lastKey=normText(last);
-  if(lastKey==="vaia")return `Vaia ${first}`;
-  if(lastKey==="martinelli")return `Martinelli ${first.charAt(0).toUpperCase()}.`;
-  if(key.includes("baccarozeni"))return "Baccaro Zeni";
-  if(key.includes("caccianeff"))return "Caccia Neff";
-  if(raw===raw.toUpperCase())return titleCaseWords(parts[0]);
-  return last;
+  const firstKey=normText(parts[0]);
+  const second=titleCaseWords(parts[1]||"");
+  const secondKey=normText(parts[1]||"");
+
+  // Cognomi composti attualmente presenti/gestiti nel progetto.
+  if(firstKey==="baccaro"&&secondKey==="zeni")return "Baccaro Zeni";
+  if(firstKey==="de"&&secondKey==="nardis")return "De Nardis";
+  if(firstKey==="caccia"&&secondKey==="neff")return "Caccia Neff";
+
+  // Omonimie storiche che richiedono anche nome/iniziale.
+  if(firstKey==="vaia")return `Vaia ${second}`;
+  if(firstKey==="martinelli")return `Martinelli ${second.charAt(0).toUpperCase()}.`;
+
+  return first;
 }
 function mergeTiedRankingMap(map){
   const groups=new Map();
