@@ -3646,6 +3646,10 @@
         {
           "cards": 2,
           "playerId": "18"
+        },
+        {
+          "cards": 1,
+          "playerId": "grippa-michele"
         }
       ],
       "goalkeeperEvents": [
