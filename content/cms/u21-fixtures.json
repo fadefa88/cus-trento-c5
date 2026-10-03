@@ -165,18 +165,18 @@
       "date": "2026-10-02",
       "lineup": {
         "startingFive": [
-          "20",
           "buda-samuele",
           "28",
           "18",
-          "grippa-michele"
+          "grippa-michele",
+          "harmeet-singh"
         ],
         "bench": [
           "paoli-jacopo",
           "niccolo-piovesan",
-          "harmeet-singh",
           "zanrosso-matteo",
-          "medeghini-riccardo"
+          "medeghini-riccardo",
+          "20"
         ],
         "suspended": [],
         "injured": []
