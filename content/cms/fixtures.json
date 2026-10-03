@@ -354,7 +354,7 @@
       "slug": "futsal-villorba-cus-trento-2026-10-03",
       "opponentLineup": [
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "4",
@@ -362,7 +362,7 @@
           "firstName": "Michele"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "5",
@@ -394,7 +394,7 @@
           "firstName": "Giacomo"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "11",
@@ -402,7 +402,7 @@
           "firstName": "Giacomo"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "14",
@@ -442,7 +442,7 @@
           "firstName": "Sebastiano"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "20",
