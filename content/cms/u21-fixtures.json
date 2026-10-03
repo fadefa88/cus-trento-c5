@@ -172,7 +172,6 @@
           "grippa-michele"
         ],
         "bench": [
-          "medeghini-riccardo",
           "paoli-jacopo",
           "niccolo-piovesan",
           "harmeet-singh",
@@ -183,7 +182,7 @@
       },
       "venue": "Fiavé Palazzetto",
       "score": "8-2",
-      "status": "Da giocare",
+      "status": "Terminata",
       "opponentScorerEvents": [],
       "scorerEvents": [
         {
