@@ -3,11 +3,11 @@
 Aggiorna automaticamente le classifiche CUS Trento C5 da SporTrentino.
 
 Configurazione attuale:
-- Prima squadra / Serie B 2026/27: classifica mantenuta manualmente in
-  content/data.json (non viene sovrascritta dallo scraper).
+- Prima squadra / Serie B 2026/27: aggiornata da SporTrentino.
 - Under 21 / Serie D Girone B: aggiornata da SporTrentino.
 
 Scrive in content/data.json:
+- standings
 - u21Standings
 
 Non usa browser/Playwright: lo scraping torna a usare requests + BeautifulSoup
@@ -28,6 +28,7 @@ import requests
 from bs4 import BeautifulSoup, Tag
 
 SOURCES = {
+    "standings": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=446&f=3675",
     "u21Standings": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=446&f=3668",
 }
 
@@ -223,6 +224,20 @@ def preserve_missing_logos(
     return new_rows
 
 
+def preserve_existing_logos(
+    new_rows: list[dict[str, Any]], old_rows: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    old_by_team = {
+        normalize_team_name(str(row.get("team", ""))): row for row in old_rows
+    }
+    for row in new_rows:
+        key = normalize_team_name(str(row.get("team", "")))
+        old_logo = old_by_team.get(key, {}).get("logo", "")
+        if old_logo:
+            row["logo"] = old_logo
+    return new_rows
+
+
 def force_cus_trento_u23_logo(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for row in rows:
         if normalize_team_name(str(row.get("team", ""))).startswith("CUS TRENTO"):
@@ -233,8 +248,6 @@ def force_cus_trento_u23_logo(rows: list[dict[str, Any]]) -> list[dict[str, Any]
 def update_data(data_path: Path) -> bool:
     data = json.loads(data_path.read_text(encoding="utf-8"))
     changed = False
-
-    print("Prima squadra: classifica manuale, non sovrascritta dallo scraper.", flush=True)
 
     for key, url in SOURCES.items():
         print(f"Updating {key} from {url}", flush=True)
@@ -247,7 +260,11 @@ def update_data(data_path: Path) -> bool:
             continue
 
         new_rows = preserve_missing_logos(new_rows, data.get(key, []))
-        if key == "u21Standings":
+        if key == "standings":
+            # I loghi Serie B sono già curati localmente: aggiorna solo i dati
+            # della classifica, mantenendo le immagini esistenti.
+            new_rows = preserve_existing_logos(new_rows, data.get(key, []))
+        elif key == "u21Standings":
             new_rows = force_cus_trento_u23_logo(new_rows)
         print(f"  rows parsed: {len(new_rows)}", flush=True)
 
