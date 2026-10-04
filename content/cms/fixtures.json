@@ -359,15 +359,17 @@
           "red": false,
           "number": "4",
           "surname": "Bordignon",
-          "firstName": "Michele"
+          "firstName": "Michele",
+          "minute": "1’56” pt"
         },
         {
           "goals": 1,
           "yellow": false,
           "red": false,
-          "number": "5",
-          "surname": "Belfassi",
-          "firstName": "Ayoub"
+          "number": "20",
+          "surname": "Sandali",
+          "firstName": "Edoardo",
+          "minute": "7’31” pt"
         },
         {
           "goals": 0,
@@ -386,6 +388,15 @@
           "firstName": "Christian"
         },
         {
+          "goals": 1,
+          "yellow": false,
+          "red": false,
+          "number": "5",
+          "surname": "Belfassi",
+          "firstName": "Ayoub",
+          "minute": "14’11” pt"
+        },
+        {
           "goals": 0,
           "yellow": false,
           "red": false,
@@ -397,17 +408,10 @@
           "goals": 1,
           "yellow": false,
           "red": false,
-          "number": "11",
-          "surname": "Stefanon",
-          "firstName": "Giacomo"
-        },
-        {
-          "goals": 1,
-          "yellow": false,
-          "red": false,
           "number": "14",
           "surname": "Bardini",
-          "firstName": "Alessandro"
+          "firstName": "Alessandro",
+          "minute": "16’52” pt"
         },
         {
           "goals": 0,
@@ -434,20 +438,21 @@
           "firstName": "Allmir"
         },
         {
+          "goals": 1,
+          "yellow": false,
+          "red": false,
+          "number": "11",
+          "surname": "Stefanon",
+          "firstName": "Giacomo",
+          "minute": "0’35” st"
+        },
+        {
           "goals": 0,
           "yellow": false,
           "red": false,
           "number": "19",
           "surname": "Rizzotto",
           "firstName": "Sebastiano"
-        },
-        {
-          "goals": 1,
-          "yellow": false,
-          "red": false,
-          "number": "20",
-          "surname": "Sandali",
-          "firstName": "Edoardo"
         }
       ],
       "time": "15:30",
