@@ -953,6 +953,14 @@
           "number": "11",
           "surname": "Scozzatti",
           "firstName": "Franco Armando"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "2",
+          "surname": "Floris",
+          "firstName": "Filippo"
         }
       ],
       "time": "16:00",
