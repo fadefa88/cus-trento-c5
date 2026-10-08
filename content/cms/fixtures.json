@@ -586,7 +586,7 @@
           "firstName": "Jacopo"
         }
       ],
-      "time": "16:00",
+      "time": "15:00",
       "away": "Manzano BRN 1988",
       "date": "2026-10-10",
       "lineup": {
@@ -707,7 +707,7 @@
         "suspended": [],
         "injured": []
       },
-      "venue": "Paladante Sestu",
+      "venue": "Palasport Comunale Sestu",
       "status": "Da giocare",
       "id": "atletico-sestu-cus-trento-2026-10-17",
       "home": "Atletico Sestu",
@@ -837,7 +837,7 @@
         "suspended": [],
         "injured": []
       },
-      "venue": "Sanbàpolis",
+      "venue": "Palazzetto Trento Nord",
       "status": "Da giocare",
       "id": "cus-trento-canottieri-belluno-2026-10-24",
       "home": "CUS Trento",
@@ -967,7 +967,7 @@
         "suspended": [],
         "injured": []
       },
-      "venue": "Palestrone School Village Merano",
+      "venue": "Palestrone School Village",
       "status": "Da giocare",
       "id": "real-bubi-merano-cus-trento-2026-10-31",
       "home": "Real Bubi Merano",
@@ -1097,7 +1097,7 @@
         "suspended": [],
         "injured": []
       },
-      "venue": "Sanbàpolis",
+      "venue": "Palazzetto Trento Nord",
       "status": "Da giocare",
       "id": "cus-trento-elmas-2026-11-07",
       "home": "CUS Trento",
@@ -1334,7 +1334,7 @@
           "firstName": "Luiz"
         }
       ],
-      "time": "16:00",
+      "time": "15:00",
       "away": "Futsal Jesolo",
       "date": "2026-11-21",
       "lineup": {
@@ -1487,7 +1487,7 @@
         "suspended": [],
         "injured": []
       },
-      "venue": "Palastadio Conegliano",
+      "venue": "Palacicogna",
       "status": "Da giocare",
       "id": "futsal-conegliano-cus-trento-2026-11-28",
       "home": "Futsal Conegliano",
@@ -1617,7 +1617,7 @@
         "suspended": [],
         "injured": []
       },
-      "venue": "PalaGesteco Cividale del Friuli",
+      "venue": "Palasport Cividale del Friuli",
       "status": "Da giocare",
       "id": "eagles-futsal-cus-trento-2026-12-05",
       "home": "Eagles Futsal",
@@ -1626,9 +1626,9 @@
     {
       "opponentLogo": "/img/uploads/trento-calcio-a-5.png",
       "slug": "cus-trento-trento-1921-2026-12-12",
-      "time": "16:00",
+      "time": "20:00",
       "away": "Trento",
-      "date": "2026-12-12",
+      "date": "2026-12-11",
       "lineup": {
         "startingFive": [
           "baccaro-zeni-lucca",
@@ -1658,7 +1658,7 @@
     {
       "opponentLogo": "/img/uploads/futsal-villorba.png",
       "slug": "cus-trento-futsal-villorba-2026-12-19",
-      "time": "16:00",
+      "time": "15:00",
       "away": "Futsal Villorba",
       "date": "2026-12-19",
       "lineup": {
@@ -1685,7 +1685,7 @@
         "suspended": [],
         "injured": []
       },
-      "venue": "Palestra Comunale Manzano",
+      "venue": "Palestra Comunale di Manzano",
       "status": "Da giocare",
       "id": "manzano-brn-1988-cus-trento-2027-01-09",
       "home": "Manzano BRN 1988",
@@ -1694,7 +1694,7 @@
     {
       "opponentLogo": "/img/uploads/atletico-sestu.png",
       "slug": "cus-trento-atletico-sestu-2027-01-16",
-      "time": "16:00",
+      "time": "15:00",
       "away": "Atletico Sestu",
       "date": "2027-01-16",
       "lineup": {
@@ -1721,7 +1721,7 @@
         "suspended": [],
         "injured": []
       },
-      "venue": "Spes Arena Belluno",
+      "venue": "Palaricolt",
       "status": "Da giocare",
       "id": "canottieri-belluno-cus-trento-2027-01-23",
       "home": "Canottieri Belluno",
@@ -1730,7 +1730,7 @@
     {
       "opponentLogo": "/img/uploads/real-bubi.png",
       "slug": "cus-trento-real-bubi-merano-2027-01-30",
-      "time": "16:00",
+      "time": "15:00",
       "away": "Real Bubi Merano",
       "date": "2027-01-30",
       "lineup": {
@@ -1757,7 +1757,7 @@
         "suspended": [],
         "injured": []
       },
-      "venue": "Palazzetto Roberto Melis Elmas",
+      "venue": "Palasport Roberto Melis",
       "status": "Da giocare",
       "id": "elmas-cus-trento-2027-02-06",
       "home": "Elmas",
@@ -1766,7 +1766,7 @@
     {
       "opponentLogo": "/img/uploads/futsal-atesina.png",
       "slug": "cus-trento-futsal-atesina-2027-02-13",
-      "time": "16:00",
+      "time": "15:00",
       "away": "Futsal Atesina",
       "date": "2027-02-13",
       "lineup": {
@@ -1784,16 +1784,16 @@
     {
       "opponentLogo": "/img/uploads/futsal-jesolo.png",
       "slug": "futsal-jesolo-cus-trento-2027-03-20",
-      "time": "15:00",
+      "time": "18:00",
       "away": "CUS Trento",
-      "date": "2027-03-20",
+      "date": "2027-02-20",
       "lineup": {
         "startingFive": [],
         "bench": [],
         "suspended": [],
         "injured": []
       },
-      "venue": "Pala Rodari Jesolo",
+      "venue": "Palestra Rodari",
       "status": "Da giocare",
       "id": "futsal-jesolo-cus-trento-2027-03-20",
       "home": "Futsal Jesolo",
@@ -1811,7 +1811,7 @@
         "suspended": [],
         "injured": []
       },
-      "venue": "Sanbàpolis",
+      "venue": "Palazzetto Trento Nord",
       "status": "Da giocare",
       "id": "cus-trento-futsal-conegliano-montello-2027-02-27",
       "home": "CUS Trento",
@@ -1820,7 +1820,7 @@
     {
       "opponentLogo": "/img/uploads/eagles.png",
       "slug": "cus-trento-eagles-futsal-2027-03-06",
-      "time": "16:00",
+      "time": "15:00",
       "away": "Eagles Futsal",
       "date": "2027-03-06",
       "lineup": {
