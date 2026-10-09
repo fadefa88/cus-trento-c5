@@ -324,6 +324,22 @@
       "role": "Laterale",
       "team": "Under 21",
       "number": 25
+    },
+    {
+      "id": "amendola-tommaso",
+      "slug": "amendola-tommaso",
+      "name": "Amendola Tommaso",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 26
+    },
+    {
+      "id": "el-mahi-rida",
+      "slug": "el-mahi-rida",
+      "name": "El Mahi Rida",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 27
     }
   ]
 }
