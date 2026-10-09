@@ -622,6 +622,10 @@ collections:
             value: '28'
           - label: '#25 Paoli Jacopo'
             value: paoli-jacopo
+          - label: '#26 Amendola Tommaso'
+            value: amendola-tommaso
+          - label: '#27 El Mahi Rida'
+            value: el-mahi-rida
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -661,6 +665,10 @@ collections:
             value: '28'
           - label: '#25 Paoli Jacopo'
             value: paoli-jacopo
+          - label: '#26 Amendola Tommaso'
+            value: amendola-tommaso
+          - label: '#27 El Mahi Rida'
+            value: el-mahi-rida
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -707,6 +715,10 @@ collections:
             value: '28'
           - label: '#25 Paoli Jacopo'
             value: paoli-jacopo
+          - label: '#26 Amendola Tommaso'
+            value: amendola-tommaso
+          - label: '#27 El Mahi Rida'
+            value: el-mahi-rida
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -759,6 +771,10 @@ collections:
             value: '28'
           - label: '#25 Paoli Jacopo'
             value: paoli-jacopo
+          - label: '#26 Amendola Tommaso'
+            value: amendola-tommaso
+          - label: '#27 El Mahi Rida'
+            value: el-mahi-rida
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
@@ -809,6 +825,10 @@ collections:
             value: '28'
           - label: '#25 Paoli Jacopo'
             value: paoli-jacopo
+          - label: '#26 Amendola Tommaso'
+            value: amendola-tommaso
+          - label: '#27 El Mahi Rida'
+            value: el-mahi-rida
           - label: '#30 Buda Samuele'
             value: buda-samuele
           - label: '#99 Bigonzi Paolo'
