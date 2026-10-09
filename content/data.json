@@ -2537,16 +2537,16 @@
       "gf": 16
     },
     {
-      "g": 2,
+      "g": 3,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25241logo.png",
-      "gs": 7,
+      "gs": 8,
       "n": 0,
-      "pts": 3,
+      "pts": 6,
       "p": 1,
       "pos": 4,
-      "v": 1,
+      "v": 2,
       "team": "SAN GIUSEPPE",
-      "gf": 9
+      "gf": 15
     },
     {
       "g": 2,
@@ -2598,26 +2598,26 @@
     },
     {
       "g": 2,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25248logo.png",
-      "gs": 13,
-      "n": 0,
-      "pts": 0,
-      "p": 2,
-      "pos": 9,
-      "v": 0,
-      "team": "SETTAURENSE",
-      "gf": 5
-    },
-    {
-      "g": 2,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25243logo.png",
       "gs": 16,
       "n": 0,
       "pts": 0,
       "p": 2,
-      "pos": 10,
+      "pos": 9,
       "v": 0,
       "team": "SAN FLORIANO",
+      "gf": 6
+    },
+    {
+      "g": 3,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25248logo.png",
+      "gs": 19,
+      "n": 0,
+      "pts": 0,
+      "p": 3,
+      "pos": 10,
+      "v": 0,
+      "team": "SETTAURENSE",
       "gf": 6
     }
   ],
