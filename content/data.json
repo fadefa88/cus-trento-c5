@@ -3699,8 +3699,20 @@
       "away": "CUS Trento U23",
       "date": "2026-10-09",
       "lineup": {
-        "startingFive": [],
-        "bench": [],
+        "startingFive": [
+          "amendola-tommaso",
+          "battaglia-edoardo",
+          "26",
+          "20",
+          "buda-samuele"
+        ],
+        "bench": [
+          "28",
+          "el-mahi-rida",
+          "medeghini-riccardo",
+          "paoli-jacopo",
+          "harmeet-singh"
+        ],
         "suspended": [],
         "injured": []
       },
