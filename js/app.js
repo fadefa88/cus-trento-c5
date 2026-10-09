@@ -1861,7 +1861,10 @@ function rosterCardNameHtml(p){
   const parts=String(p&&p.name||"").trim().split(/\s+/).filter(Boolean);
   let surnameParts=parts.slice(0,1);
   if(parts.length>=2&&parts[0].toLowerCase()==="baccaro"&&parts[1].toLowerCase()==="zeni")surnameParts=parts.slice(0,2);
-  if(parts.length>=2&&parts[0].toLowerCase()==="el"&&parts[1].toLowerCase()==="mahi")surnameParts=parts.slice(0,2);
+  if(parts.length>=2&&parts[0].toLowerCase()==="el"&&parts[1].toLowerCase()==="mahi"){
+    const given=parts.slice(2).join(" ");
+    return `${given?`<span class="player-card-given">${safe(given)}</span> `:""}<span class="player-card-surname">El Mahi</span>`;
+  }
   const givenParts=parts.slice(surnameParts.length);
   const surname=surnameParts.join(" ");
   const given=givenParts.join(" ");
