@@ -303,6 +303,7 @@ function historicalPlayerName(name){
   if(firstKey==="baccaro"&&secondKey==="zeni")return "Baccaro Zeni";
   if(firstKey==="de"&&secondKey==="nardis")return "De Nardis";
   if(firstKey==="caccia"&&secondKey==="neff")return "Caccia Neff";
+  if(firstKey==="el"&&secondKey==="mahi")return "El Mahi";
 
   // Omonimie storiche che richiedono anche nome/iniziale.
   if(firstKey==="vaia")return `Vaia ${second}`;
@@ -1860,6 +1861,7 @@ function rosterCardNameHtml(p){
   const parts=String(p&&p.name||"").trim().split(/\s+/).filter(Boolean);
   let surnameParts=parts.slice(0,1);
   if(parts.length>=2&&parts[0].toLowerCase()==="baccaro"&&parts[1].toLowerCase()==="zeni")surnameParts=parts.slice(0,2);
+  if(parts.length>=2&&parts[0].toLowerCase()==="el"&&parts[1].toLowerCase()==="mahi")surnameParts=parts.slice(0,2);
   const givenParts=parts.slice(surnameParts.length);
   const surname=surnameParts.join(" ");
   const given=givenParts.join(" ");
@@ -2298,7 +2300,7 @@ function resultStatsFromMatches(matches){
   return out;
 }
 function teamRosterForStats(isU21){return (state.roster||[]).filter(p=>isU21?p.team==="Under 21":p.team==="Prima squadra");}
-function playerSurname(p){const name=(p&&p.name?String(p.name):"").trim();const parts=name.split(/\s+/).filter(Boolean);if(parts.length>=2&&parts[0].toLowerCase()==="baccaro"&&parts[1].toLowerCase()==="zeni")return `${parts[0]} ${parts[1]}`;return parts[0]||"Giocatore";}
+function playerSurname(p){const name=(p&&p.name?String(p.name):"").trim();const parts=name.split(/\s+/).filter(Boolean);if(parts.length>=2&&parts[0].toLowerCase()==="baccaro"&&parts[1].toLowerCase()==="zeni")return `${parts[0]} ${parts[1]}`;if(parts.length>=2&&parts[0].toLowerCase()==="el"&&parts[1].toLowerCase()==="mahi")return `${parts[0]} ${parts[1]}`;return parts[0]||"Giocatore";}
 function statShortName(p){return playerSurname(p);}
 function playerSurnameById(roster,id){const p=(roster||[]).find(x=>String(x.id)===String(id));return p?playerSurname(p):playerSurname({name:playerDisplayNameById(roster,id)});}
 function statRankingFromMap(map){return [...map.values()].sort((a,b)=>b.value-a.value||String(a.label).localeCompare(String(b.label)));}
