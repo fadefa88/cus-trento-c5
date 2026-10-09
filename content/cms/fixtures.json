@@ -494,48 +494,16 @@
           "yellow": false,
           "red": false,
           "number": "1",
-          "surname": "Calligaro",
-          "firstName": "Mattia"
-        },
-        {
-          "goals": 0,
-          "yellow": false,
-          "red": false,
-          "number": "12",
-          "surname": "Saro",
+          "surname": "Fedrigo",
           "firstName": "Cristian"
         },
         {
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "13",
-          "surname": "Tancos",
-          "firstName": "Tadej"
-        },
-        {
-          "goals": 0,
-          "yellow": false,
-          "red": false,
-          "number": "6",
-          "surname": "Genna",
-          "firstName": "Simone"
-        },
-        {
-          "goals": 0,
-          "yellow": false,
-          "red": false,
-          "number": "11",
-          "surname": "De Giorgio",
-          "firstName": "Lorenzo"
-        },
-        {
-          "goals": 0,
-          "yellow": false,
-          "red": false,
-          "number": "3",
-          "surname": "Avitabile",
-          "firstName": "Luca"
+          "number": "2",
+          "surname": "Polidori",
+          "firstName": "Francesco"
         },
         {
           "goals": 0,
@@ -549,16 +517,24 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "5",
-          "surname": "Zharri",
-          "firstName": "Erijon"
+          "number": "6",
+          "surname": "Genna",
+          "firstName": "Simone"
         },
         {
           "goals": 0,
           "yellow": false,
           "red": false,
-          "surname": "De Giorgio",
+          "number": "5",
+          "surname": "Salah",
+          "firstName": "Oukhrib"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
           "number": "7",
+          "surname": "De Giorgio",
           "firstName": "Leonardo"
         },
         {
@@ -573,6 +549,30 @@
           "goals": 0,
           "yellow": false,
           "red": false,
+          "number": "9",
+          "surname": "Fusco",
+          "firstName": "Jacopo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "surname": "Pozzatello",
+          "number": "14",
+          "firstName": "Luca"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "21",
+          "surname": "Zharri",
+          "firstName": "Klejdi"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
           "number": "10",
           "surname": "Iurlaro",
           "firstName": "Emanuele"
@@ -581,9 +581,9 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "9",
-          "surname": "Fusco",
-          "firstName": "Jacopo"
+          "number": "37",
+          "surname": "Dorigo",
+          "firstName": "Luca"
         }
       ],
       "time": "15:00",
