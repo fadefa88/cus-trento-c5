@@ -243,7 +243,25 @@
         "injured": []
       },
       "venue": "Palestra di Marco",
-      "status": "Da giocare",
+      "status": "Terminata",
+      "scorerEvents": [
+        {
+          "goals": 2,
+          "playerId": "28"
+        },
+        {
+          "goals": 1,
+          "playerId": "medeghini-riccardo"
+        },
+        {
+          "goals": 1,
+          "playerId": "el-mahi-rida"
+        },
+        {
+          "goals": 1,
+          "playerId": "paoli-jacopo"
+        }
+      ],
       "id": "lagarina-futsal-cus-trento-u23-2026-10-09",
       "home": "Lagarina Futsal",
       "competition": "Campionato"
