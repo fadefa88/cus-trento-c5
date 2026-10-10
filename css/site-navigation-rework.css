@@ -708,6 +708,28 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .match-squad-v61-grid{display:grid;grid-template-columns:minmax(0,1fr);row-gap:26px;}
 .match-squad-v61-player{display:grid;grid-template-columns:minmax(0,1fr) 92px;align-items:center;gap:12px;min-width:0;min-height:92px;}
 .match-squad-v61-player.is-compact{display:block;min-height:0;}
+.match-squad-v61-player.is-goalkeeper{position:relative;}
+.match-squad-v61-goalkeeper{
+  position:absolute;
+  top:50%;
+  right:0;
+  transform:translateY(-50%);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:1px;
+  width:29px;
+  height:29px;
+  color:#09090b;
+  font-size:14px;
+  line-height:1;
+}
+.match-squad-v61-goalkeeper i:first-child{transform:rotate(-12deg);}
+.match-squad-v61-goalkeeper i:last-child{transform:scaleX(-1) rotate(-12deg);margin-left:-3px;}
+.match-squad-v61-player:not(.is-compact) .match-squad-v61-goalkeeper{right:104px;}
+.match-squad-v61-col.is-away .match-squad-v61-player.is-goalkeeper{padding-left:34px;}
+.match-squad-v61-col.is-away .match-squad-v61-player.is-goalkeeper .match-squad-v61-goalkeeper{left:0;right:auto;}
+.match-squad-v61-col.is-home .match-squad-v61-player.is-goalkeeper{padding-right:34px;}
 .match-squad-v61-namecol{min-width:0;display:flex;flex-direction:column;align-items:flex-start;}
 /* Number + given name + SURNAME: roster-card block, scaled for the squad list. */
 .match-squad-v61 .player-card-id{gap:10px;}
@@ -743,6 +765,10 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .match-squad-v61-grid{row-gap:23px;}
   .match-squad-v61-player{grid-template-columns:minmax(0,1fr) 72px;gap:9px;min-height:72px;}
   .match-squad-v61-player.is-compact{min-height:0;}
+  .match-squad-v61-goalkeeper{width:24px;height:24px;font-size:12px;}
+  .match-squad-v61-player:not(.is-compact) .match-squad-v61-goalkeeper{right:81px;}
+  .match-squad-v61-col.is-away .match-squad-v61-player.is-goalkeeper{padding-left:27px;}
+  .match-squad-v61-col.is-home .match-squad-v61-player.is-goalkeeper{padding-right:27px;}
   .match-squad-v61 .player-card-number{font-size:37px;}
   .match-squad-v61 .player-card-name > .player-card-surname{font-size:18px;}
   .match-squad-v61 .player-card-name > .player-card-given{font-size:12px;}
