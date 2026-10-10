@@ -891,7 +891,31 @@
       "venue": "Sanbàpolis",
       "score": "3-6",
       "status": "Terminata",
+      "scorerEvents": [
+        {
+          "goals": 1,
+          "playerId": "16"
+        },
+        {
+          "goals": 1,
+          "playerId": "10"
+        },
+        {
+          "goals": 1,
+          "playerId": "8"
+        }
+      ],
       "id": "cus-trento-manzano-brn-1988-2026-10-10",
+      "yellowCardEvents": [
+        {
+          "cards": 1,
+          "playerId": "10"
+        },
+        {
+          "cards": 1,
+          "playerId": "cuman-mattia"
+        }
+      ],
       "home": "CUS Trento",
       "competition": "Campionato"
     },
