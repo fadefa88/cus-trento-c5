@@ -91,12 +91,24 @@
     },
     {
       "g": 2,
+      "logo": "/img/standings/serie-b-2026-27/real-bubi-merano.webp",
+      "gs": 1,
+      "n": 0,
+      "pts": 6,
+      "p": 0,
+      "pos": 3,
+      "v": 2,
+      "team": "REAL BUBI MERANO",
+      "gf": 6
+    },
+    {
+      "g": 2,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25336logo.png",
       "gs": 5,
       "n": 1,
       "pts": 4,
       "p": 0,
-      "pos": 3,
+      "pos": 4,
       "v": 1,
       "team": "MANZANO BRN",
       "gf": 8
@@ -108,7 +120,7 @@
       "n": 1,
       "pts": 4,
       "p": 0,
-      "pos": 4,
+      "pos": 5,
       "v": 1,
       "team": "CANOTTIERI BELLUNO",
       "gf": 5
@@ -120,22 +132,10 @@
       "n": 0,
       "pts": 3,
       "p": 1,
-      "pos": 5,
+      "pos": 6,
       "v": 1,
       "team": "CONEGLIANOMONTELLO",
       "gf": 8
-    },
-    {
-      "g": 1,
-      "logo": "/img/standings/serie-b-2026-27/real-bubi-merano.webp",
-      "gs": 0,
-      "n": 0,
-      "pts": 3,
-      "p": 0,
-      "pos": 6,
-      "v": 1,
-      "team": "REAL BUBI MERANO",
-      "gf": 2
     },
     {
       "g": 2,
@@ -162,28 +162,28 @@
       "gf": 8
     },
     {
-      "g": 1,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25339logo.png",
-      "gs": 6,
-      "n": 0,
-      "pts": 0,
-      "p": 1,
-      "pos": 9,
-      "v": 0,
-      "team": "JESOLO",
-      "gf": 2
-    },
-    {
       "g": 2,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25344logo.png",
       "gs": 7,
       "n": 0,
       "pts": 0,
       "p": 2,
-      "pos": 10,
+      "pos": 9,
       "v": 0,
       "team": "TRENTO",
       "gf": 2
+    },
+    {
+      "g": 2,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25339logo.png",
+      "gs": 10,
+      "n": 0,
+      "pts": 0,
+      "p": 2,
+      "pos": 10,
+      "v": 0,
+      "team": "JESOLO",
+      "gf": 3
     },
     {
       "g": 2,
