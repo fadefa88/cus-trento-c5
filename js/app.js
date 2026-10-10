@@ -788,7 +788,7 @@ function tableRows(rows,cus="CUS Trento",isU21=false){
     const label=standingsRuleLabel(s,list,isU21,rowIndex);
     const logo=isU21 && isCusTeam(s.team) ? CUS_TRENTO_U23_STANDINGS_LOGO : s.logo;
     const dr=(Number(s.gf)||0)-(Number(s.gs)||0);
-    return `<tr class="${[highlight?'cus':'',ruleClass?`standing-${ruleClass}`:''].filter(Boolean).join(' ')}"><td>${displayPos}</td><td><span style="display:flex;align-items:center;gap:10px">${logo?`<img src="${logo}" alt="${publicYouthText(s.team)}" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:#fff">`:""}<span>${publicYouthText(s.team)}${label?`<small class="standing-status ${ruleClass}">${label}</small>`:""}</span></span></td><td>${s.pts}</td><td>${s.g}</td><td>${s.v}</td><td>${s.n}</td><td>${s.p}</td><td>${s.gf}</td><td>${s.gs}</td><td>${dr>0?'+':''}${dr}</td></tr>`;
+    return `<tr class="${[highlight?'cus':'',ruleClass?`standing-${ruleClass}`:''].filter(Boolean).join(' ')}"><td>${displayPos}</td><td><span style="display:flex;align-items:center;gap:10px">${logo?`<img src="${logo}" alt="${publicYouthText(s.team)}" style="width:28px;height:28px;object-fit:contain;border-radius:6px;background:transparent">`:""}<span>${publicYouthText(s.team)}${label?`<small class="standing-status ${ruleClass}">${label}</small>`:""}</span></span></td><td>${s.pts}</td><td>${s.g}</td><td>${s.v}</td><td>${s.n}</td><td>${s.p}</td><td>${s.gf}</td><td>${s.gs}</td><td>${dr>0?'+':''}${dr}</td></tr>`;
   }).join("");
 }
 
