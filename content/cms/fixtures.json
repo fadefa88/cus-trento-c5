@@ -498,8 +498,8 @@
           "firstName": "Cristian"
         },
         {
-          "goals": 0,
-          "yellow": false,
+          "goals": 1,
+          "yellow": true,
           "red": false,
           "number": "2",
           "surname": "Polidori",
@@ -530,7 +530,7 @@
           "firstName": "Oukhrib"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "7",
@@ -538,7 +538,7 @@
           "firstName": "Leonardo"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "8",
@@ -546,7 +546,7 @@
           "firstName": "Roberto"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "9",
@@ -570,7 +570,7 @@
           "firstName": "Klejdi"
         },
         {
-          "goals": 0,
+          "goals": 2,
           "yellow": false,
           "red": false,
           "number": "10",
