@@ -2174,8 +2174,11 @@ function matchSquadEventsHtml(yellow,red,goals){
   return events?`<div class="match-squad-v61-events">${events}</div>`:'';
 }
 // Prima squadra columns: no photo, and the event icons sit under the name block (not under the number).
-function matchSquadCompactRow(number,nameHtml,eventsHtml,opponent){
-  return `<div class="match-squad-v61-player is-compact${opponent?" is-opponent":""}">${matchSquadIdHtml(number,nameHtml,eventsHtml)}</div>`;
+function matchGoalkeeperGlovesHtml(){
+  return '<span class="match-squad-v61-goalkeeper" aria-label="Portiere" title="Portiere"><i class="fa-solid fa-mitten" aria-hidden="true"></i><i class="fa-solid fa-mitten" aria-hidden="true"></i></span>';
+}
+function matchSquadCompactRow(number,nameHtml,eventsHtml,opponent,goalkeeper=false){
+  return `<div class="match-squad-v61-player is-compact${opponent?" is-opponent":""}${goalkeeper?" is-goalkeeper":""}">${matchSquadIdHtml(number,nameHtml,eventsHtml)}${goalkeeper?matchGoalkeeperGlovesHtml():""}</div>`;
 }
 function matchOwnSquadRows(match,compact){
   const roster=Array.isArray(state.roster)?state.roster:[];
@@ -2187,9 +2190,10 @@ function matchOwnSquadRows(match,compact){
     const yellow=matchPlayerCardCount(match.yellowCardEvents,player,roster);
     const red=matchPlayerCardCount(match.redCardEvents,player,roster);
     const goals=matchPlayerGoals(match,player,roster);
-    if(compact) return matchSquadCompactRow(player.number,rosterCardNameHtml(player),matchSquadEventsHtml(yellow,red,goals));
+    const goalkeeper=isGoalkeeperPlayer(player);
+    if(compact) return matchSquadCompactRow(player.number,rosterCardNameHtml(player),matchSquadEventsHtml(yellow,red,goals),false,goalkeeper);
     const photo=String(player.photo||"").trim()||"/img/placeholder.webp";
-    return `<div class="match-squad-v61-player"><div class="match-squad-v61-copy">${matchSquadIdHtml(player.number,rosterCardNameHtml(player),matchSquadEventsHtml(yellow,red,goals))}</div><div class="match-squad-v61-photo"><img loading="lazy" decoding="async" src="${safe(photo)}" alt="${safe(player.name||"Giocatore")}" onerror="this.onerror=null;this.src='/img/placeholder.webp'"></div></div>`;
+    return `<div class="match-squad-v61-player${goalkeeper?" is-goalkeeper":""}"><div class="match-squad-v61-copy">${matchSquadIdHtml(player.number,rosterCardNameHtml(player),matchSquadEventsHtml(yellow,red,goals))}</div>${goalkeeper?matchGoalkeeperGlovesHtml():""}<div class="match-squad-v61-photo"><img loading="lazy" decoding="async" src="${safe(photo)}" alt="${safe(player.name||"Giocatore")}" onerror="this.onerror=null;this.src='/img/placeholder.webp'"></div></div>`;
   }).join("");
 }
 // Opponent squad (Prima squadra only): typed in the CMS, display-only, never counted in any statistic.
