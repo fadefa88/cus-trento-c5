@@ -3,7 +3,7 @@
 Aggiorna automaticamente le classifiche CUS Trento C5 da SporTrentino.
 
 Configurazione attuale:
-- Prima squadra / Serie B 2026/27: aggiornata da SporTrentino.
+- Prima squadra / Serie B 2026/27: scraping temporaneamente sospeso; classifica mantenuta manualmente.
 - Under 21 / Serie D Girone B: aggiornata da SporTrentino.
 
 Scrive in content/data.json:
@@ -28,7 +28,9 @@ import requests
 from bs4 import BeautifulSoup, Tag
 
 SOURCES = {
-    "standings": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=446&f=3675",
+    # TEMPORANEAMENTE DISABILITATO: SporTrentino Serie B è ancora fermo alla
+    # prima giornata e sovrascriverebbe la classifica aggiornata manualmente.
+    # "standings": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=446&f=3675",
     "u21Standings": "https://calcioa5.sportrentino.it/camp_classifica.asp?pf=446&f=3668",
 }
 
