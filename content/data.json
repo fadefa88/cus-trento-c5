@@ -777,12 +777,20 @@
           "firstName": "Cristian"
         },
         {
-          "goals": 1,
-          "yellow": true,
+          "goals": 2,
+          "yellow": false,
           "red": false,
-          "number": "2",
-          "surname": "Polidori",
-          "firstName": "Francesco"
+          "number": "10",
+          "surname": "Iurlaro",
+          "firstName": "Emanuele",
+          "goalTimes": [
+            {
+              "time": "4’44” pt"
+            },
+            {
+              "time": "13’52” pt"
+            }
+          ]
         },
         {
           "goals": 0,
@@ -793,12 +801,30 @@
           "firstName": "Andrea"
         },
         {
+          "goals": 1,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "De Giorgio",
+          "firstName": "Leonardo",
+          "minute": "10’56” pt"
+        },
+        {
           "goals": 0,
           "yellow": false,
           "red": false,
           "number": "6",
           "surname": "Genna",
           "firstName": "Simone"
+        },
+        {
+          "goals": 1,
+          "yellow": false,
+          "red": false,
+          "number": "9",
+          "surname": "Fusco",
+          "firstName": "Jacopo",
+          "minute": "9’39” st"
         },
         {
           "goals": 0,
@@ -812,25 +838,10 @@
           "goals": 1,
           "yellow": false,
           "red": false,
-          "number": "7",
-          "surname": "De Giorgio",
-          "firstName": "Leonardo"
-        },
-        {
-          "goals": 1,
-          "yellow": false,
-          "red": false,
           "number": "8",
           "surname": "De Bernardo",
-          "firstName": "Roberto"
-        },
-        {
-          "goals": 1,
-          "yellow": false,
-          "red": false,
-          "number": "9",
-          "surname": "Fusco",
-          "firstName": "Jacopo"
+          "firstName": "Roberto",
+          "minute": "10’02” st"
         },
         {
           "goals": 0,
@@ -849,20 +860,21 @@
           "firstName": "Klejdi"
         },
         {
-          "goals": 2,
-          "yellow": false,
-          "red": false,
-          "number": "10",
-          "surname": "Iurlaro",
-          "firstName": "Emanuele"
-        },
-        {
           "goals": 0,
           "yellow": false,
           "red": false,
           "number": "37",
           "surname": "Dorigo",
           "firstName": "Luca"
+        },
+        {
+          "goals": 1,
+          "yellow": true,
+          "red": false,
+          "number": "2",
+          "surname": "Polidori",
+          "firstName": "Francesco",
+          "minute": "19’36” st"
         }
       ],
       "time": "15:00",
@@ -894,15 +906,18 @@
       "scorerEvents": [
         {
           "goals": 1,
-          "playerId": "16"
+          "playerId": "16",
+          "minute": "4’14” st"
         },
         {
           "goals": 1,
-          "playerId": "10"
+          "playerId": "10",
+          "minute": "15’47” st"
         },
         {
           "goals": 1,
-          "playerId": "8"
+          "playerId": "8",
+          "minute": "18’46” st"
         }
       ],
       "id": "cus-trento-manzano-brn-1988-2026-10-10",
@@ -2646,67 +2661,7 @@
       "gf": 6
     }
   ],
-  "news": [
-    {
-      "id": 81175473,
-      "title": "Trento e Cus: ancora niente punti, ma non tutto è da buttare",
-      "category": "SporTrentino",
-      "tags": [
-        "SporTrentino",
-        "Prima squadra"
-      ],
-      "teamTag": "Prima squadra",
-      "originalCategory": "SporTrentino",
-      "date": "2026-10-11",
-      "author": "SporTrentino.it",
-      "image": "https://cms.pegasomedia.it/public/immagininotizie/81/SerieB_2627/261004_custrento_e_misterpiazza.jpg",
-      "images": [
-        "https://cms.pegasomedia.it/public/immagininotizie/81/SerieB_2627/261004_custrento_e_misterpiazza.jpg",
-        "https://cms.pegasomedia.it/public/immagininotizie/81/SerieB_2627/261008_viviantrento.jpg",
-        "https://cms.pegasomedia.it/public/immagininotizie/81/SerieB_2627/260919_damianoloperfido.jpg"
-      ],
-      "excerpt": "Seconda giornata di campionato amara per le formazioni trentine di Serie B. Il Trento esce sconfitto per 3-1 dal campo della Canottieri Belluno , mentre il Cus Trento si arrende al Manzano , che passa al Sanbapolis con il punteggio di 6-...",
-      "body": [
-        "Seconda giornata di campionato amara per le formazioni trentine di Serie B. Il Trento esce sconfitto per 3-1 dal campo della Canottieri Belluno , mentre il Cus Trento si arrende al Manzano , che passa al Sanbapolis con il punteggio di 6-3. Per entrambe le squadre arriva così un altro risultato negativo dopo le difficoltà dell’esordio, ma iniziano a intravedersi anche i primi segnali positivi. Trento, sconfitta e tanta sfortuna: troppi legni a Belluno Non basta un secondo tempo generoso al Trento per tornare dalla trasferta veneta con un risultato positivo. Gli aquilotti cadono 3-1 sul campo della Canottieri Belluno, al termine di una gara condizionata da un primo tempo complicato e da una ripresa in cui la squadra di mister Alessio Wegher deve fare i conti anche con una buona dose di sfortuna. I padroni di casa indirizzano la partita nella prima frazione, portandosi sul doppio vantaggio. Il Trento prova a reagire e riesce ad accorciare le distanze sul 2-1, grazie alla rete di Melillo , riaprendo momentaneamente la gara. A pochi istanti dall’intervallo, però, un errore difensivo permette alla Canottieri Belluno di ristabilire le due reti di vantaggio, fissando il punteggio sul 3-1. A rendere ancora più complicata la giornata degli aquilotti è l’infortunio di Davide Vivian, costretto a fermarsi nel finale del primo tempo e a non rientrare in campo dopo l’intervallo. Davide Vivian costretto al cambio nella prima metà di gara (foto Sportrentino) Nella ripresa il Trento cerca di rimettersi in partita e costruisce diverse occasioni, senza però riuscire a trovare la via della rete. A negare agli aquilotti la possibilità di riaprire il confronto è anche il legno: sono numerosi i pali colpiti nella seconda frazione, ben otto secondo quanto riferito dalla squadra. Una sequenza di episodi sfortunati che impedisce agli ospiti di concretizzare la pressione esercitata sui veneti. La Canottieri Belluno difende così il vantaggio e conquista l’intera posta in palio. Per il Trento resta il rammarico per un primo tempo pagato a caro prezzo e per una ripresa nella quale le occasioni non sono mancate, ma è mancata la precisione necessaria per cambiare il destino della partita. Tabellino Canottieri Belluno - Trento RETI: 1'31\" pt e 10'23 pt Lambarki (CB)5'15\" pt Dal Borgo (CB), 11'19\" pt Melillo CANOTTIERI BELLUNO: Lecis, Dal Farra, Lambarki, Reolon, Orsi, Fernardes Filho, Dalla Zanna, Bonavera, Vigne, Dal Borgo, Bortolini Alessandro, De Bona. All. Bortolini Alessio TRENTO: Degasperi, Bazzanella Man., Chemotti, Saracino, Barbareschi, Mellllo, Kagmierski, Contreras, Bazzanella Mir., Ungureanu, Vivian D., Toniolli. All. Wegher ARBITRI: Carboni di Udine e Zorzin di Gradisca d'Isonzo CRONO: Grossutti di Udine Cus Trento: primi segnali positivi nella sconfitta contro il Manzano Sconfitta anche per il Cus Trento, che davanti al proprio pubblico si arrende per 3-6 al Manzano. Gli universitari, alla prima partita casalinga in Serie B al Sanbapolis, incassano così il secondo ko consecutivo dopo quello rimediato all’esordio contro il Futsal Villorba. La formazione friulana si dimostra concreta e sfrutta le disattenzioni difensive dei padroni di casa. Il Manzano sblocca il risultato in contropiede, approfittando di un’azione offensiva del Cus: dopo una parata del portiere, gli ospiti ripartono in superiorità numerica e finalizzano con un passaggio sul secondo palo. La squadra trentina fatica a contenere le iniziative avversarie e concede spazio anche alle conclusioni dalla distanza. Due reti arrivano proprio in questo modo, con gli ospiti che trovano la porta sfruttando le incertezze nelle marcature. Il Cus prova a reagire e trova con Loperfido la rete che vale il primo gol nella storia degli universitari in Serie B. La marcatura porta il punteggio sul 3-1 e restituisce fiducia ai padroni di casa, intenzionati a rientrare in partita. Il Manzano, tuttavia, continua a sfruttare gli spazi concessi dalla retroguardia trentina e colpisce ancora in contropiede, presentandosi in due contro zero davanti al portiere e allungando nuovamente. Damiano Loperfido, autore della prima rete in serie B per il Cus Trento C5 (foto Cus Trento) Nella ripresa il Cus cerca nuove soluzioni per ridurre il divario e si affida anche al portiere di movimento. La scelta dà i suoi frutti: gli universitari trovano altre due reti, firmate da Cirasola e Vaia , mostrando una buona capacità di costruire occasioni attraverso questa soluzione offensiva. Un segnale incoraggiante per la squadra, che riesce così a rendersi pericolosa e a trovare nuove risorse per provare a rimettere in discussione il risultato. Nel finale, però, il Manzano punisce ancora i padroni di casa. Con il Cus proiettato in avanti e il portiere di movimento in campo, un passaggio sbagliato permette agli ospiti di recuperare il pallone e calciare nella porta rimasta sguarnita, fissando il definitivo 3-6. Per gli universitari resta il rammarico per le disattenzioni che hanno favorito gli avversari, soprattutto nelle situazioni di contropiede e sulle conclusioni dalla distanza. Arrivano comunque buoni segnali per la compagine studentesca, che sarà attesa sabato Prossimo dalla trasferta sarda contro l’Atletico Sestu. Tabellino Cus Trento - Manzano RETI: 4'44\" pt e 13'52\" pt lurlaro (M), 10'56\" pt De Giorgio (M), 4'14\" pt Loperfido (C), 9'39\" st Fusco (M), 10'02\" st De Bernardo (M), 15'47\" st Cirasola (C), 18'46\" st Vaia (C), 19'36\" st Polidori (M). CUS TRENTO: Baccaro Zeni, Ceola, Cirasola, Cuman, Filippi, Gobbetti, Loperfido, Martinelli, Sarcletti, Tesser, Vaia, Safi. All. Piazza MANZANO: Calligaro, Avitabile, Polidori, Zharri, Stacco, Salah, Iurlaro, De Giorgio, Genna, Fusco, De Bernardo, Saro. All. Movio ARBITRI: Tasca di Treviso e Dean di Basso Friuli CRONO: Schmid di Rovereto RISULTATI DELLA GIORNATA E CLASSIFICA"
-      ],
-      "bodyHtml": "<p>Seconda giornata di campionato amara per le formazioni trentine di Serie B. Il <strong>Trento</strong> esce sconfitto per 3-1 dal campo della <strong>Canottieri Belluno</strong>, mentre il <strong>Cus Trento</strong> si arrende al <strong>Manzano</strong>, che passa al Sanbapolis con il punteggio di 6-3. Per entrambe le squadre arriva così un altro risultato negativo dopo le difficoltà dell’esordio, ma iniziano a intravedersi anche i primi segnali positivi.Trento, sconfitta e tanta sfortuna: troppi legni a BellunoNon basta un secondo tempo generoso al Trento per tornare dalla trasferta veneta con un risultato positivo. Gli aquilotti cadono 3-1 sul campo della Canottieri Belluno, al termine di una gara condizionata da un primo tempo complicato e da una ripresa in cui la squadra di mister Alessio Wegher deve fare i conti anche con una buona dose di sfortuna.<br>I padroni di casa indirizzano la partita nella prima frazione, portandosi sul doppio vantaggio. Il Trento prova a reagire e riesce ad accorciare le distanze sul 2-1, grazie alla rete di <strong>Melillo</strong>, riaprendo momentaneamente la gara. A pochi istanti dall’intervallo, però, un errore difensivo permette alla Canottieri Belluno di ristabilire le due reti di vantaggio, fissando il punteggio sul 3-1.<br>A rendere ancora più complicata la giornata degli aquilotti è l’infortunio di Davide Vivian, costretto a fermarsi nel finale del primo tempo e a non rientrare in campo dopo l’intervallo.Davide Vivian costretto al cambio nella prima metà di gara (foto Sportrentino)Nella ripresa il Trento cerca di rimettersi in partita e costruisce diverse occasioni, senza però riuscire a trovare la via della rete. A negare agli aquilotti la possibilità di riaprire il confronto è anche il legno: sono numerosi i pali colpiti nella seconda frazione, ben otto secondo quanto riferito dalla squadra. Una sequenza di episodi sfortunati che impedisce agli ospiti di concretizzare la pressione esercitata sui veneti.<br>La Canottieri Belluno difende così il vantaggio e conquista l’intera posta in palio. Per il Trento resta il rammarico per un primo tempo pagato a caro prezzo e per una ripresa nella quale le occasioni non sono mancate, ma è mancata la precisione necessaria per cambiare il destino della partita.Tabellino Canottieri Belluno - TrentoRETI: 1'31\" pt e 10'23 pt Lambarki (CB)5'15\" pt Dal Borgo (CB), 11'19\" pt MelilloCANOTTIERI BELLUNO: Lecis, Dal Farra, Lambarki, Reolon, Orsi, Fernardes Filho, Dalla Zanna, Bonavera, Vigne, Dal Borgo, Bortolini Alessandro, De Bona. All. Bortolini AlessioTRENTO: Degasperi, Bazzanella Man., Chemotti, Saracino, Barbareschi, Mellllo, Kagmierski, Contreras, Bazzanella Mir., Ungureanu, Vivian D., Toniolli. All. WegherARBITRI: Carboni di Udine e Zorzin di Gradisca d'Isonzo <br>CRONO: Grossutti di UdineCus Trento: primi segnali positivi nella sconfitta contro il ManzanoSconfitta anche per il Cus Trento, che davanti al proprio pubblico si arrende per 3-6 al Manzano. Gli universitari, alla prima partita casalinga in Serie B al Sanbapolis, incassano così il secondo ko consecutivo dopo quello rimediato all’esordio contro il Futsal Villorba.<br>La formazione friulana si dimostra concreta e sfrutta le disattenzioni difensive dei padroni di casa. Il Manzano sblocca il risultato in contropiede, approfittando di un’azione offensiva del Cus: dopo una parata del portiere, gli ospiti ripartono in superiorità numerica e finalizzano con un passaggio sul secondo palo.<br>La squadra trentina fatica a contenere le iniziative avversarie e concede spazio anche alle conclusioni dalla distanza. Due reti arrivano proprio in questo modo, con gli ospiti che trovano la porta sfruttando le incertezze nelle marcature.<br>Il Cus prova a reagire e trova con <strong>Loperfido</strong> la rete che vale il primo gol nella storia degli universitari in Serie B. La marcatura porta il punteggio sul 3-1 e restituisce fiducia ai padroni di casa, intenzionati a rientrare in partita. Il Manzano, tuttavia, continua a sfruttare gli spazi concessi dalla retroguardia trentina e colpisce ancora in contropiede, presentandosi in due contro zero davanti al portiere e allungando nuovamente.Damiano Loperfido, autore della prima rete in serie B per il Cus Trento C5 (foto Cus Trento)Nella ripresa il Cus cerca nuove soluzioni per ridurre il divario e si affida anche al portiere di movimento. La scelta dà i suoi frutti: gli universitari trovano altre due reti, firmate da <strong>Cirasola</strong> e <strong>Vaia</strong>, mostrando una buona capacità di costruire occasioni attraverso questa soluzione offensiva. Un segnale incoraggiante per la squadra, che riesce così a rendersi pericolosa e a trovare nuove risorse per provare a rimettere in discussione il risultato.<br>Nel finale, però, il Manzano punisce ancora i padroni di casa. Con il Cus proiettato in avanti e il portiere di movimento in campo, un passaggio sbagliato permette agli ospiti di recuperare il pallone e calciare nella porta rimasta sguarnita, fissando il definitivo 3-6.<br>Per gli universitari resta il rammarico per le disattenzioni che hanno favorito gli avversari, soprattutto nelle situazioni di contropiede e sulle conclusioni dalla distanza. Arrivano comunque buoni segnali per la compagine studentesca, che sarà attesa sabato Prossimo dalla trasferta sarda contro l’Atletico Sestu.Tabellino Cus Trento - ManzanoRETI: 4'44\" pt e 13'52\" pt lurlaro (M), 10'56\" pt De Giorgio (M), 4'14\" pt Loperfido (C), 9'39\" st Fusco (M), 10'02\" st De Bernardo (M), 15'47\" st Cirasola (C), 18'46\" st Vaia (C), 19'36\" st Polidori (M).CUS TRENTO: Baccaro Zeni, Ceola, Cirasola, Cuman, Filippi, Gobbetti, Loperfido, Martinelli, Sarcletti, Tesser, Vaia, Safi. All. PiazzaMANZANO: Calligaro, Avitabile, Polidori, Zharri, Stacco, Salah, Iurlaro, De Giorgio, Genna, Fusco, De Bernardo, Saro. All. MovioARBITRI: Tasca di Treviso e Dean di Basso Friuli <br>CRONO: Schmid di Rovereto<a href=\"https://calcioa5.sportrentino.it/camp_giornata.asp?pf=446&amp;f=3675&amp;g=49452\" target=\"_blank\" rel=\"noopener noreferrer\">RISULTATI DELLA GIORNATA E CLASSIFICA</a></p>\n<figure class=\"imported-figure\"><a href=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieB_2627/261004_custrento_e_misterpiazza.jpg\" target=\"_blank\" rel=\"noopener noreferrer\"><img loading=\"lazy\" decoding=\"async\" src=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieB_2627/261004_custrento_e_misterpiazza.jpg\" alt=\"Trento e Cus: ancora niente punti, ma non tutto è da buttare\"></a></figure>\n<figure class=\"imported-figure\"><a href=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieB_2627/261008_viviantrento.jpg\" target=\"_blank\" rel=\"noopener noreferrer\"><img loading=\"lazy\" decoding=\"async\" src=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieB_2627/261008_viviantrento.jpg\" alt=\"Davide Vivian costretto al cambio nella prima metà di gara (foto Sportrentino)\"></a></figure>\n<figure class=\"imported-figure\"><a href=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieB_2627/260919_damianoloperfido.jpg\" target=\"_blank\" rel=\"noopener noreferrer\"><img loading=\"lazy\" decoding=\"async\" src=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieB_2627/260919_damianoloperfido.jpg\" alt=\"Damiano Loperfido, autore della prima rete in serie B per il Cus Trento C5 (foto Cus Trento)\"></a></figure>",
-      "pinned": false,
-      "sourceName": "SporTrentino.it",
-      "sourceUrl": "https://calcioa5.sportrentino.it/notizie.asp?n=175473&l=0",
-      "sourceId": "175473",
-      "importedFrom": "sportrentino",
-      "importSource": "calcio-a-5-pagina-1"
-    },
-    {
-      "id": 81175457,
-      "title": "Terza giornata: Bleggio e Brenta Borgo in solitaria a nove punti",
-      "category": "SporTrentino",
-      "tags": [
-        "SporTrentino",
-        "Under 23"
-      ],
-      "teamTag": "Under 23",
-      "originalCategory": "SporTrentino",
-      "date": "2026-10-10",
-      "author": "SporTrentino.it",
-      "image": "https://cms.pegasomedia.it/public/immagininotizie/81/SerieC1_2526/260109_calciobleggio.jpg",
-      "images": [
-        "https://cms.pegasomedia.it/public/immagininotizie/81/SerieC1_2526/260109_calciobleggio.jpg",
-        "https://cms.pegasomedia.it/public/immagininotizie/81/SerieD_2526/251115_piedicastello.jpg"
-      ],
-      "excerpt": "Dopo la terza giornata di campionato, iniziano a delinearsi gli equilibri dei due gironi di Serie D. Restano soltanto due le squadre a punteggio pieno: Calcio Bleggio e Brenta Borgo. Nel Girone A rallentano Ledrense e Lagarina Futsal, en...",
-      "body": [
-        "Dopo la terza giornata di campionato, iniziano a delinearsi gli equilibri dei due gironi di Serie D. Restano soltanto due le squadre a punteggio pieno: Calcio Bleggio e Brenta Borgo. Nel Girone A rallentano Ledrense e Lagarina Futsal, entrambe fermate, mentre nel Girone B si interrompe la corsa del Brenta Ortigaralefre, sconfitto in trasferta. Girone A: Stop per Ledrense e Lagarina, il Bleggio allunga Il Calcio Bleggio non si ferma e conquista la terza vittoria consecutiva. Sul campo dell’ Athesis finisce 5-3 per la formazione di Serafini e compagni, alla quale non bastano la doppietta di Moggio e la rete di Filz per fermare la capolista. Bleggio a punteggio pieno dopo le prime tre giornate Si interrompe, invece, la corsa della Ledrense , che dopo le due vittorie nelle prime giornate cade in casa contro il Nomi . Il 6-2 finale porta la firma di Parisi e Raffaelli, entrambi autori di una doppietta, e di Cauzzi e Mathlouthi, che completano il tabellino degli ospiti. Dieci reti e un punto a testa nella sfida tra Lagarina Futsal e Cus Trento U23 , che chiudono sul 5-5. I lagarini, reduci da due successi consecutivi, vengono fermati dagli universitari guidati da Livia Copellino. Per il Cus segnano Medeghini, El Mahi e Paoli, oltre a Caldonazzi, autore di un’incisiva doppietta. Un pareggio prezioso per la formazione universitaria, che sale così a quota quattro punti. Ancora più ricco di gol il confronto tra Alta Giudicarie e San Floriano ,terminato con un pirotecnico 9-9. Le due squadre si dividono la posta in palio al termine di una gara dalle difese particolarmente sollecitate. I padroni di casa salgono a quota due punti, mentre per il San Floriano arriva il primo pareggio stagionale, che vale il primo punto in classifica. Nell’anticipo di giovedì sera, infine, il San Giuseppe si è imposto per 6-1 sul campo della Settaurense . Una vittoria netta per gli ospiti, mentre la formazione di casa rimane ferma a zero punti dopo le prime tre giornate. Risultati, gol e classifica girone A Girone B: Brenta Borgo capolista, l’Ortigaralefre frena Anche nel Girone B rimane una sola squadra a punteggio pieno. Il Brenta Borgo conquista la terza vittoria consecutiva superando in casa la Legion of Doom per 6-2. Protagonista Villa, autore di una tripletta, con Sotele, Gubert e Capra a completare il tabellino dei padroni di casa. Per gli ospiti vanno a segno De Luca e Baias. Con nove punti in tre partite, il Brenta Borgo allunga sui “cugini” del Brenta Ortigaralefre , che incassano la prima sconfitta stagionale sul campo del Cembra Futsal . I padroni di casa si impongono per 5-3 grazie alla doppietta di Merler e alle reti di Micheli, Senettin e Nardin. Il successo permette al Cembra di salire a quota sei punti e di raggiungere proprio l’Ortigaralefre, appaiandosi a DX Generation e Piedicastello alle spalle della capolista. È proprio il Piedicastello a conquistare tre punti contro il Futsal Pinè , battuto in casa per 5-2. Nel tabellino dei marcatori finiscono Inama, El Asri e Giuliani, oltre a Galvagni, autore di una doppietta. Una vittoria importante per restare nel gruppo delle inseguitrici. Piedicastello vincente contro il Futsal Piné Successo ricco di gol anche per la Dx Generation , che supera il Bolghera con un netto 9-5 e si porta a quota sei punti. Sugli scudi Gretter, autore di una tripletta, e Bontempelli e Nicolussi, entrambi a segno con una doppietta. Completano il tabellino le reti di Diko e Fontanari, che contribuiscono a una vittoria importante per restare nelle zone alte della classifica. Si chiude in parità, invece, la sfida tra Polisportiva Oltrefersina U23 e Tnt Monte Peller . Il 4-4 finale consegna un punto a testa alle due formazioni, che muovono la classifica al termine di una gara equilibrata. Risultati, gol e classifica girone B"
-      ],
-      "bodyHtml": "<p>Dopo la terza giornata di campionato, iniziano a delinearsi gli equilibri dei due gironi di Serie D. Restano soltanto due le squadre a punteggio pieno: Calcio Bleggio e Brenta Borgo. Nel Girone A rallentano Ledrense e Lagarina Futsal, entrambe fermate, mentre nel Girone B si interrompe la corsa del Brenta Ortigaralefre, sconfitto in trasferta.Girone A: Stop per Ledrense e Lagarina, il Bleggio allungaIl <strong>Calcio Bleggio</strong> non si ferma e conquista la terza vittoria consecutiva. Sul campo dell’<strong>Athesis</strong> finisce 5-3 per la formazione di Serafini e compagni, alla quale non bastano la doppietta di Moggio e la rete di Filz per fermare la capolista.Bleggio a punteggio pieno dopo le prime tre giornate Si interrompe, invece, la corsa della <strong>Ledrense</strong>, che dopo le due vittorie nelle prime giornate cade in casa contro il <strong>Nomi</strong>. Il 6-2 finale porta la firma di Parisi e Raffaelli, entrambi autori di una doppietta, e di Cauzzi e Mathlouthi, che completano il tabellino degli ospiti.<br>Dieci reti e un punto a testa nella sfida tra <strong>Lagarina Futsal</strong> e <strong>Cus Trento U23</strong>, che chiudono sul 5-5. I lagarini, reduci da due successi consecutivi, vengono fermati dagli universitari guidati da Livia Copellino. Per il Cus segnano Medeghini, El Mahi e Paoli, oltre a Caldonazzi, autore di un’incisiva doppietta. Un pareggio prezioso per la formazione universitaria, che sale così a quota quattro punti.<br>Ancora più ricco di gol il confronto tra <strong>Alta Giudicarie</strong> e <strong>San Floriano</strong>,terminato con un pirotecnico 9-9. Le due squadre si dividono la posta in palio al termine di una gara dalle difese particolarmente sollecitate. I padroni di casa salgono a quota due punti, mentre per il San Floriano arriva il primo pareggio stagionale, che vale il primo punto in classifica.<br>Nell’anticipo di giovedì sera, infine, il <strong>San Giuseppe</strong> si è imposto per 6-1 sul campo della <strong>Settaurense</strong>. Una vittoria netta per gli ospiti, mentre la formazione di casa rimane ferma a zero punti dopo le prime tre giornate.<a href=\"https://calcioa5.sportrentino.it/camp_giornata.asp?pf=446&amp;f=3668&amp;g=49249\" target=\"_blank\" rel=\"noopener noreferrer\">Risultati, gol e classifica girone A</a>Girone B: Brenta Borgo capolista, l’Ortigaralefre frenaAnche nel Girone B rimane una sola squadra a punteggio pieno. Il <strong>Brenta Borgo</strong> conquista la terza vittoria consecutiva superando in casa la <strong>Legion of Doom</strong> per 6-2. Protagonista Villa, autore di una tripletta, con Sotele, Gubert e Capra a completare il tabellino dei padroni di casa. Per gli ospiti vanno a segno De Luca e Baias.<br>Con nove punti in tre partite, il Brenta Borgo allunga sui “cugini” del <strong>Brenta Ortigaralefre</strong>, che incassano la prima sconfitta stagionale sul campo del <strong>Cembra Futsal</strong>. I padroni di casa si impongono per 5-3 grazie alla doppietta di Merler e alle reti di Micheli, Senettin e Nardin. Il successo permette al Cembra di salire a quota sei punti e di raggiungere proprio l’Ortigaralefre, appaiandosi a DX Generation e Piedicastello alle spalle della capolista.<br>È proprio il <strong>Piedicastello</strong> a conquistare tre punti contro il <strong>Futsal Pinè</strong>, battuto in casa per 5-2. Nel tabellino dei marcatori finiscono Inama, El Asri e Giuliani, oltre a Galvagni, autore di una doppietta. Una vittoria importante per restare nel gruppo delle inseguitrici.Piedicastello vincente contro il Futsal PinéSuccesso ricco di gol anche per la <strong>Dx Generation</strong>, che supera il <strong>Bolghera</strong> con un netto 9-5 e si porta a quota sei punti. Sugli scudi Gretter, autore di una tripletta, e Bontempelli e Nicolussi, entrambi a segno con una doppietta. Completano il tabellino le reti di Diko e Fontanari, che contribuiscono a una vittoria importante per restare nelle zone alte della classifica.<br>Si chiude in parità, invece, la sfida tra <strong>Polisportiva Oltrefersina U23</strong> e <strong>Tnt Monte Peller</strong>. Il 4-4 finale consegna un punto a testa alle due formazioni, che muovono la classifica al termine di una gara equilibrata.<a href=\"https://calcioa5.sportrentino.it/camp_giornata.asp?pf=446&amp;f=3669&amp;g=49267\" target=\"_blank\" rel=\"noopener noreferrer\">Risultati, gol e classifica girone B</a></p>\n<figure class=\"imported-figure\"><a href=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieC1_2526/260109_calciobleggio.jpg\" target=\"_blank\" rel=\"noopener noreferrer\"><img loading=\"lazy\" decoding=\"async\" src=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieC1_2526/260109_calciobleggio.jpg\" alt=\"Bleggio a punteggio pieno dopo le prime tre giornate \"></a></figure>\n<figure class=\"imported-figure\"><a href=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieD_2526/251115_piedicastello.jpg\" target=\"_blank\" rel=\"noopener noreferrer\"><img loading=\"lazy\" decoding=\"async\" src=\"https://cms.pegasomedia.it/public/immagininotizie/81/SerieD_2526/251115_piedicastello.jpg\" alt=\"Piedicastello vincente contro il Futsal Piné\"></a></figure>",
-      "pinned": false,
-      "sourceName": "SporTrentino.it",
-      "sourceUrl": "https://calcioa5.sportrentino.it/notizie.asp?n=175457&l=0",
-      "sourceId": "175457",
-      "importedFrom": "sportrentino",
-      "importSource": "calcio-a-5-pagina-1"
-    }
-  ],
+  "news": [],
   "historicalStats": {
     "summary": {
       "goalsAgainst": 1725,
