@@ -498,12 +498,20 @@
           "firstName": "Cristian"
         },
         {
-          "goals": 1,
-          "yellow": true,
+          "goals": 2,
+          "yellow": false,
           "red": false,
-          "number": "2",
-          "surname": "Polidori",
-          "firstName": "Francesco"
+          "number": "10",
+          "surname": "Iurlaro",
+          "firstName": "Emanuele",
+          "goalTimes": [
+            {
+              "time": "4’44” pt"
+            },
+            {
+              "time": "13’52” pt"
+            }
+          ]
         },
         {
           "goals": 0,
@@ -514,12 +522,30 @@
           "firstName": "Andrea"
         },
         {
+          "goals": 1,
+          "yellow": false,
+          "red": false,
+          "number": "7",
+          "surname": "De Giorgio",
+          "firstName": "Leonardo",
+          "minute": "10’56” pt"
+        },
+        {
           "goals": 0,
           "yellow": false,
           "red": false,
           "number": "6",
           "surname": "Genna",
           "firstName": "Simone"
+        },
+        {
+          "goals": 1,
+          "yellow": false,
+          "red": false,
+          "number": "9",
+          "surname": "Fusco",
+          "firstName": "Jacopo",
+          "minute": "9’39” st"
         },
         {
           "goals": 0,
@@ -533,25 +559,10 @@
           "goals": 1,
           "yellow": false,
           "red": false,
-          "number": "7",
-          "surname": "De Giorgio",
-          "firstName": "Leonardo"
-        },
-        {
-          "goals": 1,
-          "yellow": false,
-          "red": false,
           "number": "8",
           "surname": "De Bernardo",
-          "firstName": "Roberto"
-        },
-        {
-          "goals": 1,
-          "yellow": false,
-          "red": false,
-          "number": "9",
-          "surname": "Fusco",
-          "firstName": "Jacopo"
+          "firstName": "Roberto",
+          "minute": "10’02” st"
         },
         {
           "goals": 0,
@@ -570,20 +581,21 @@
           "firstName": "Klejdi"
         },
         {
-          "goals": 2,
-          "yellow": false,
-          "red": false,
-          "number": "10",
-          "surname": "Iurlaro",
-          "firstName": "Emanuele"
-        },
-        {
           "goals": 0,
           "yellow": false,
           "red": false,
           "number": "37",
           "surname": "Dorigo",
           "firstName": "Luca"
+        },
+        {
+          "goals": 1,
+          "yellow": true,
+          "red": false,
+          "number": "2",
+          "surname": "Polidori",
+          "firstName": "Francesco",
+          "minute": "19’36” st"
         }
       ],
       "time": "15:00",
@@ -615,15 +627,18 @@
       "scorerEvents": [
         {
           "goals": 1,
-          "playerId": "16"
+          "playerId": "16",
+          "minute": "4’14” st"
         },
         {
           "goals": 1,
-          "playerId": "10"
+          "playerId": "10",
+          "minute": "15’47” st"
         },
         {
           "goals": 1,
-          "playerId": "8"
+          "playerId": "8",
+          "minute": "18’46” st"
         }
       ],
       "id": "cus-trento-manzano-brn-1988-2026-10-10",
