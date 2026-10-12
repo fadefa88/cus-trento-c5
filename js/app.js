@@ -3183,40 +3183,34 @@ const sectionPages=(function(){
     </div>`;
   }
 
-  function leagueScreenButton(screen,label,icon){
+  function leagueScreenButton(screen,label){
     const active=(view.leagueScreen||"home")===screen;
-    return `<button class="${active?"active":""}" onclick="cusLeagueScreen('${screen}')"><i class="${icon}" aria-hidden="true"></i><span>${h(label)}</span></button>`;
+    return `<button class="${active?"active":""}" onclick="cusLeagueScreen('${screen}')"><span>${h(label)}</span></button>`;
   }
 
   function leagueScreenContent(screen,teams,matches,scorers){
     if(screen==="squadre") return `<section class="ctl-screen ctl-section">
-      <div class="ctl-screen-top"><button onclick="cusLeagueScreen('home')"><i class="fa-solid fa-arrow-left"></i> Panoramica</button><div><small>Le partecipanti</small><h2>Squadre e rose</h2></div><strong>${teams.length} squadre</strong></div>
       <div class="ctl-rosters">${teams.map(leagueRosterCard).join("")}</div>
     </section>`;
     if(screen==="classifiche") return `<section class="ctl-screen ctl-section">
-      <div class="ctl-screen-top"><button onclick="cusLeagueScreen('home')"><i class="fa-solid fa-arrow-left"></i> Panoramica</button><div><small>Fase a gironi</small><h2>Classifiche</h2></div></div>
       <div class="ctl-standings-grid">${leagueStandingsCard("A")}${leagueStandingsCard("B")}</div>
     </section>`;
     if(screen==="calendario") return `<section class="ctl-screen ctl-section">
-      <div class="ctl-screen-top"><button onclick="cusLeagueScreen('home')"><i class="fa-solid fa-arrow-left"></i> Panoramica</button><div><small>Ottobre — novembre</small><h2>Calendario e risultati</h2></div><strong>${matches.length} gare inserite</strong></div>
       <div class="ctl-matches">${matches.length?matches.map(leagueMatchCard).join(""):`<div class="ctl-empty">Calendario in aggiornamento.</div>`}</div>
     </section>`;
     if(screen==="marcatori") return `<section class="ctl-screen ctl-section">
-      <div class="ctl-screen-top"><button onclick="cusLeagueScreen('home')"><i class="fa-solid fa-arrow-left"></i> Panoramica</button><div><small>Individuale</small><h2>Classifica marcatori</h2></div></div>
       <div class="ctl-panel">${scorers.length?`<div class="ctl-scorers">${scorers.map((row,index)=>`<div><span class="ctl-scorer-pos">${index+1}</span><span><b>${h(row.name)}</b><small>${h(row.team||"")}</small></span><strong>${row.goals} <i class="fa-solid fa-futbol" aria-hidden="true"></i></strong></div>`).join("")}</div>`:`<div class="ctl-empty">I marcatori compariranno qui dopo l’inserimento dei primi risultati.</div>`}</div>
     </section>`;
     if(screen==="finali") return `<section class="ctl-screen ctl-section">
-      <div class="ctl-screen-top"><button onclick="cusLeagueScreen('home')"><i class="fa-solid fa-arrow-left"></i> Panoramica</button><div><small>Knockout stage</small><h2>Tabellone fasi finali</h2></div><strong>Semifinali A/R · Finale secca</strong></div>
       <div class="ctl-bracket-diagram-wrap">${leagueBracketHtml()}</div>
     </section>`;
     return `<section class="ctl-dashboard ctl-section">
-      <div class="ctl-dashboard-intro"><small>Tutto il torneo</small><h2>Scegli cosa vuoi consultare</h2></div>
       <div class="ctl-dashboard-grid">
-        <button onclick="cusLeagueScreen('squadre')"><i class="fa-solid fa-users"></i><span><b>Squadre</b><small>Rose e giocatori</small></span><i class="fa-solid fa-arrow-right"></i></button>
-        <button onclick="cusLeagueScreen('classifiche')"><i class="fa-solid fa-ranking-star"></i><span><b>Classifiche</b><small>Girone A e Girone B</small></span><i class="fa-solid fa-arrow-right"></i></button>
-        <button onclick="cusLeagueScreen('calendario')"><i class="fa-solid fa-calendar-days"></i><span><b>Calendario</b><small>Partite e risultati</small></span><i class="fa-solid fa-arrow-right"></i></button>
-        <button onclick="cusLeagueScreen('marcatori')"><i class="fa-solid fa-futbol"></i><span><b>Marcatori</b><small>Classifica cannonieri</small></span><i class="fa-solid fa-arrow-right"></i></button>
-        <button onclick="cusLeagueScreen('finali')"><i class="fa-solid fa-trophy"></i><span><b>Fasi finali</b><small>Semifinali A/R e finale</small></span><i class="fa-solid fa-arrow-right"></i></button>
+        <button onclick="cusLeagueScreen('squadre')"><span><b>Squadre</b><small>Rose e giocatori</small></span></button>
+        <button onclick="cusLeagueScreen('classifiche')"><span><b>Classifiche</b><small>Girone A e Girone B</small></span></button>
+        <button onclick="cusLeagueScreen('calendario')"><span><b>Calendario</b><small>Partite e risultati</small></span></button>
+        <button onclick="cusLeagueScreen('marcatori')"><span><b>Marcatori</b><small>Classifica cannonieri</small></span></button>
+        <button onclick="cusLeagueScreen('finali')"><span><b>Fasi finali</b><small>Semifinali A/R e finale</small></span></button>
       </div>
     </section>`;
   }
@@ -3224,8 +3218,7 @@ const sectionPages=(function(){
   function setLeagueScreen(screen){
     view.leagueScreen=screen||"home";
     renderCusTrentoLeague();
-    const page=document.querySelector(".ctl-page");
-    if(page) page.scrollIntoView({behavior:"auto",block:"start"});
+    scrollToPageTop();
   }
   window.cusLeagueScreen=setLeagueScreen;
 
@@ -3251,12 +3244,12 @@ const sectionPages=(function(){
     <div class="ctl-page">
       <div class="container">
         <nav class="ctl-subnav" aria-label="Sezioni CUS Trento League">
-          ${leagueScreenButton("home","Panoramica","fa-solid fa-house")}
-          ${leagueScreenButton("squadre","Squadre","fa-solid fa-users")}
-          ${leagueScreenButton("classifiche","Classifiche","fa-solid fa-ranking-star")}
-          ${leagueScreenButton("calendario","Calendario","fa-solid fa-calendar-days")}
-          ${leagueScreenButton("marcatori","Marcatori","fa-solid fa-futbol")}
-          ${leagueScreenButton("finali","Fasi finali","fa-solid fa-trophy")}
+          ${leagueScreenButton("home","Panoramica")}
+          ${leagueScreenButton("squadre","Squadre")}
+          ${leagueScreenButton("classifiche","Classifiche")}
+          ${leagueScreenButton("calendario","Calendario")}
+          ${leagueScreenButton("marcatori","Marcatori")}
+          ${leagueScreenButton("finali","Fasi finali")}
         </nav>
         <div class="ctl-screen-stage">${leagueScreenContent(screen,teams,matches,scorers)}</div>
       </div>
