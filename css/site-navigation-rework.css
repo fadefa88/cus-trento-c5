@@ -1630,10 +1630,18 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .ctl-bracket-diagram-wrap{overflow-x:auto;}
 }
 @media(max-width:640px){
-  .ctl-hero-inner{min-height:220px;padding-top:26px;padding-bottom:26px;}
+  .ctl-hero-inner{
+    min-height:0;
+    padding-top:18px;
+    padding-bottom:20px;
+    justify-content:flex-start;
+    gap:16px;
+  }
   .ctl-hero-brand{gap:12px;align-items:center;}
-  .ctl-league-logo{width:68px;height:68px;flex-basis:68px;}
-  .ctl-hero h1{font-size:42px;}
+  .ctl-league-logo{width:64px;height:64px;flex-basis:64px;}
+  .ctl-hero h1{font-size:40px;line-height:.8;}
+  .ctl-hero p{margin-top:13px;}
+  .ctl-instagram{margin-top:0;}
   .ctl-dashboard-grid>button{min-height:92px;padding:16px;}
   .ctl-dashboard-grid>button b{font-size:21px;}
   .ctl-screen-top h2,.ctl-dashboard-intro h2{font-size:30px;}
