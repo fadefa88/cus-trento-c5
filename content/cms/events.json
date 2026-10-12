@@ -35,41 +35,49 @@
   ],
   "cusTrentoLeague": {
     "bracket": {
-      "format": "Semifinali A/R + finale secca",
+      "format": "Quarti, semifinali e finale a eliminazione diretta",
+      "quarterfinals": [
+        {
+          "name": "Quarto 1",
+          "team1Score": null,
+          "team2Score": null,
+          "winner": ""
+        },
+        {
+          "name": "Quarto 2",
+          "team1Score": null,
+          "team2Score": null,
+          "winner": ""
+        },
+        {
+          "name": "Quarto 3",
+          "team1Score": null,
+          "team2Score": null,
+          "winner": ""
+        },
+        {
+          "name": "Quarto 4",
+          "team1Score": null,
+          "team2Score": null,
+          "winner": ""
+        }
+      ],
       "semifinals": [
         {
           "name": "Semifinale 1",
-          "team1": "",
-          "team2": "",
-          "firstLeg": {
-            "team1Score": null,
-            "team2Score": null
-          },
-          "secondLeg": {
-            "team1Score": null,
-            "team2Score": null
-          },
+          "team1Score": null,
+          "team2Score": null,
           "winner": ""
         },
         {
           "name": "Semifinale 2",
-          "team1": "",
-          "team2": "",
-          "firstLeg": {
-            "team1Score": null,
-            "team2Score": null
-          },
-          "secondLeg": {
-            "team1Score": null,
-            "team2Score": null
-          },
+          "team1Score": null,
+          "team2Score": null,
           "winner": ""
         }
       ],
       "final": {
         "name": "Finale",
-        "team1": "",
-        "team2": "",
         "team1Score": null,
         "team2Score": null,
         "winner": ""
