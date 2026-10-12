@@ -46,7 +46,40 @@
         "id": "rango-fc",
         "name": "Rango FC",
         "group": "A",
-        "players": []
+        "players": [
+          {
+            "number": "3",
+            "name": "Ricci G."
+          },
+          {
+            "number": "7",
+            "name": "Malpaga R."
+          },
+          {
+            "number": "8",
+            "name": "De Nardi G."
+          },
+          {
+            "number": "10",
+            "name": "Facci P."
+          },
+          {
+            "number": "17",
+            "name": "D'Affronto A."
+          },
+          {
+            "number": "23",
+            "name": "Borrello E."
+          },
+          {
+            "number": "69",
+            "name": "Bridi E."
+          },
+          {
+            "number": "77",
+            "name": "Sarais A."
+          }
+        ]
       },
       {
         "id": "golosoni",
