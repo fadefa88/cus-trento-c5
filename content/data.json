@@ -4395,5 +4395,122 @@
       "type": "Torneo",
       "id": "cus-trento-futsal-league-fall-edition-2026-10-05"
     }
-  ]
+  ],
+  "cusTrentoLeague": {
+    "title": "CUS Trento League",
+    "edition": "Fall Edition 2026",
+    "sport": "Futsal",
+    "startDate": "2026-10-05",
+    "endDate": "2026-11-13",
+    "venue": "Campo Clesio",
+    "instagram": "https://www.instagram.com/custrentoleague/",
+    "teams": [
+      {
+        "id": "rango-fc",
+        "name": "Rango FC",
+        "group": "A",
+        "players": []
+      },
+      {
+        "id": "golosoni",
+        "name": "Golosoni",
+        "group": "A",
+        "players": []
+      },
+      {
+        "id": "the-rolling-rocks",
+        "name": "The Rolling Rocks",
+        "group": "A",
+        "players": []
+      },
+      {
+        "id": "recidivi-fc",
+        "name": "Recidivi FC",
+        "group": "A",
+        "players": []
+      },
+      {
+        "id": "banda-bassiotti",
+        "name": "Banda Bassiotti",
+        "group": "B",
+        "players": []
+      },
+      {
+        "id": "calcio-proletario",
+        "name": "Calcio Proletario",
+        "group": "B",
+        "players": []
+      },
+      {
+        "id": "all-blacks",
+        "name": "All Blacks",
+        "group": "B",
+        "players": []
+      },
+      {
+        "id": "tt-le-girlz",
+        "name": "TT Le Girlz",
+        "group": "B",
+        "players": []
+      }
+    ],
+    "matches": [
+      {
+        "id": "banda-bassiotti-calcio-proletario-2026-10-12",
+        "date": "2026-10-12",
+        "time": "19:30",
+        "group": "B",
+        "round": "1ª giornata",
+        "home": "Banda Bassiotti",
+        "away": "Calcio Proletario",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": []
+      },
+      {
+        "id": "rango-fc-golosoni-2026-10-12",
+        "date": "2026-10-12",
+        "time": "20:30",
+        "group": "A",
+        "round": "1ª giornata",
+        "home": "Rango FC",
+        "away": "Golosoni",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": []
+      },
+      {
+        "id": "all-blacks-tt-le-girlz-2026-10-12",
+        "date": "2026-10-12",
+        "time": "19:30",
+        "group": "B",
+        "round": "1ª giornata",
+        "home": "All Blacks",
+        "away": "TT Le Girlz",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": []
+      },
+      {
+        "id": "the-rolling-rocks-recidivi-fc-2026-10-12",
+        "date": "2026-10-12",
+        "time": "20:30",
+        "group": "A",
+        "round": "1ª giornata",
+        "home": "The Rolling Rocks",
+        "away": "Recidivi FC",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": []
+      }
+    ],
+    "bracket": {
+      "note": "Accoppiamenti della fase finale da definire.",
+      "stages": []
+    }
+  }
 }
