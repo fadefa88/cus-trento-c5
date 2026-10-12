@@ -241,20 +241,36 @@
         "group": "A",
         "players": [
           {
+            "number": "",
+            "name": "Carraro M."
+          },
+          {
             "number": "10",
-            "name": "Pedrini"
+            "name": "Pedrini A."
+          },
+          {
+            "number": "",
+            "name": "Fiorentino E."
           },
           {
             "number": "11",
-            "name": "Lapo"
+            "name": "Martino L."
+          },
+          {
+            "number": "",
+            "name": "Vitella E."
           },
           {
             "number": "12",
-            "name": "Perissinotto"
+            "name": "Perissinotto P."
+          },
+          {
+            "number": "",
+            "name": "Calzolaio A."
           },
           {
             "number": "13",
-            "name": "Fusinato"
+            "name": "Fusinato S."
           }
         ],
         "logo": "/img/uploads/img_2616.png"
@@ -279,16 +295,36 @@
         "group": "B",
         "players": [
           {
-            "number": "10",
-            "name": "Kasa"
+            "number": "",
+            "name": "Bekhoudhe T."
           },
           {
-            "number": "11",
-            "name": "Bassi"
+            "number": "",
+            "name": "Candotti D."
           },
           {
             "number": "12",
-            "name": "Castelnuovo"
+            "name": "Castelnuovo D."
+          },
+          {
+            "number": "",
+            "name": "Pedrotti D."
+          },
+          {
+            "number": "",
+            "name": "Bejan A. C."
+          },
+          {
+            "number": "",
+            "name": "Nigrelli S."
+          },
+          {
+            "number": "",
+            "name": "Alemahu R."
+          },
+          {
+            "number": "11",
+            "name": "Bassi M."
           }
         ],
         "logo": "/img/uploads/img_2621.png"
