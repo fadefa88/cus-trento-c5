@@ -1778,3 +1778,153 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     font-size:12px;
   }
 }
+
+
+/* ===== CUS Trento League v4: knockout bracket, rules and portrait navigation ===== */
+.ctl-knockout{min-width:0;}
+.ctl-knockout-intro{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:22px;margin-bottom:18px;padding:16px 20px;
+  border:1px solid rgba(181,138,37,.28);border-radius:18px;
+  background:linear-gradient(110deg,#fff,#fbf5e7);
+}
+.ctl-knockout-intro>span{flex:0 0 auto;font-family:var(--font-display);font-size:22px;text-transform:uppercase;color:#09090b;}
+.ctl-knockout-intro p{max-width:700px;margin:0;color:#52525b;font-size:12px;line-height:1.6;}
+.ctl-knockout-board{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(0,.95fr) minmax(0,.95fr);
+  gap:18px;padding:18px;
+  border:1px solid rgba(181,138,37,.26);border-radius:24px;
+  background:radial-gradient(circle at 100% 50%,rgba(231,189,69,.13),transparent 45%),#fbfaf7;
+}
+.ctl-knockout-round{display:flex;flex-direction:column;gap:14px;min-width:0;}
+.ctl-knockout-round>h3{
+  margin:0 0 2px;text-align:center;
+  color:#9a741c;font-family:var(--font-display);font-size:24px;text-transform:uppercase;
+}
+.ctl-knockout-round-semis{justify-content:space-around;}
+.ctl-knockout-round-final{justify-content:center;}
+.ctl-knockout-match{
+  min-width:0;overflow:hidden;border:1px solid #e7e5e4;
+  border-radius:16px;background:#fff;
+  box-shadow:0 7px 20px rgba(9,9,11,.055);
+}
+.ctl-knockout-match-head{
+  display:flex;align-items:center;justify-content:space-between;gap:6px;
+  padding:10px 12px;background:#09090b;color:#fff;
+}
+.ctl-knockout-match-head span{font-family:var(--font-display);font-size:16px;text-transform:uppercase;}
+.ctl-knockout-match-head small{color:#e7bd45;font-size:9px;text-transform:uppercase;white-space:nowrap;}
+.ctl-knockout-team{
+  display:grid;grid-template-columns:35px 34px minmax(0,1fr) 27px;
+  align-items:center;gap:7px;min-height:48px;padding:6px 10px;
+  border-top:1px solid #f4f4f5;
+}
+.ctl-knockout-team.is-winner{background:#f7f0d9;}
+.ctl-knockout-seed{font-size:10px;font-weight:800;color:#9a741c;white-space:nowrap;}
+.ctl-knockout-team .ctl-team-badge{
+  width:34px;height:34px;border:0;box-shadow:none;border-radius:8px;font-size:11px;
+}
+.ctl-knockout-team .ctl-team-badge.has-logo,
+.ctl-knockout-team .ctl-team-badge.has-logo img{background:transparent;}
+.ctl-knockout-team .ctl-team-badge.has-logo img{padding:0;}
+.ctl-knockout-placeholder{
+  display:grid;place-items:center;width:34px;height:34px;
+  color:#a1a1aa;background:#f4f4f5;border-radius:8px;
+}
+.ctl-knockout-team b{min-width:0;font-size:11px;line-height:1.25;overflow-wrap:anywhere;text-transform:uppercase;}
+.ctl-knockout-team>strong{text-align:right;font-family:var(--font-display);font-size:18px;}
+.ctl-knockout-qualified{
+  padding:7px 12px;border-top:1px solid #ece7da;
+  font-size:10px;color:#71717a;
+}
+.ctl-knockout-qualified b{color:#9a741c;}
+.ctl-knockout-champion{
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;align-items:center;
+  margin-top:5px;padding:15px;border-radius:15px;
+  background:linear-gradient(120deg,#f5d870,#b58a25);color:#09090b;
+}
+.ctl-knockout-champion i{grid-row:1/3;font-size:25px;}
+.ctl-knockout-champion span{font-size:9px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;}
+.ctl-knockout-champion b{font-family:var(--font-display);font-size:20px;text-transform:uppercase;}
+.ctl-knockout-note{margin:14px 3px 0;color:#71717a;font-size:12px;line-height:1.6;}
+.ctl-rules-intro{
+  padding:26px 28px;border-radius:22px;background:#09090b;color:#fff;
+}
+.ctl-rules-intro>span{color:#e7bd45;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;}
+.ctl-rules-intro h2{margin:9px 0 12px;font-family:var(--font-display);font-size:38px;text-transform:uppercase;line-height:1;}
+.ctl-rules-intro p{max-width:850px;margin:0;color:#d4d4d8;line-height:1.6;font-size:13px;}
+.ctl-rules-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px;}
+.ctl-rules-card{
+  padding:24px;border:1px solid var(--line);border-radius:20px;background:#fff;
+  box-shadow:0 8px 22px rgba(9,9,11,.035);
+}
+.ctl-rules-card h3{margin:0 0 10px;font-family:var(--font-display);font-size:23px;line-height:1.1;text-transform:uppercase;}
+.ctl-rules-card p{margin:0 0 9px;color:#52525b;font-size:13px;line-height:1.7;}
+.ctl-rules-card p:last-child{margin-bottom:0;}
+.ctl-rules-card a,.ctl-rules-source a{color:#9a741c;text-decoration:underline;text-underline-offset:3px;}
+.ctl-rules-source{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:18px 4px;color:#71717a;font-size:12px;line-height:1.5;
+}
+.ctl-rules-source a{font-weight:800;white-space:nowrap;}
+@media(max-width:1050px){
+  .ctl-knockout-board{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;}
+  .ctl-knockout-round-final{grid-column:1/-1;max-width:540px;width:100%;justify-self:center;}
+  .ctl-knockout-intro{flex-direction:column;align-items:flex-start;gap:5px;}
+}
+@media(max-width:640px){
+  .ctl-knockout-board{display:flex;flex-direction:column;gap:20px;padding:12px;}
+  .ctl-knockout-round{gap:10px;}
+  .ctl-knockout-round>h3{font-size:22px;text-align:left;}
+  .ctl-knockout-round-final{max-width:none;}
+  .ctl-knockout-intro{padding:15px;gap:9px;}
+  .ctl-knockout-intro>span{font-size:20px;}
+  .ctl-rules-grid{grid-template-columns:1fr;gap:10px;}
+  .ctl-rules-intro{padding:21px 19px;}
+  .ctl-rules-intro h2{font-size:30px;}
+  .ctl-rules-card{padding:19px;}
+  .ctl-rules-source{flex-direction:column;align-items:flex-start;}
+  .ctl-rules-source a{white-space:normal;}
+}
+@media(max-width:640px) and (orientation:portrait){
+  .ctl-subnav{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:8px;
+    overflow:visible;
+    width:100%;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    backdrop-filter:none;
+    margin-left:0;
+    margin-right:0;
+  }
+  .ctl-subnav button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-width:0;
+    width:100%;
+    min-height:43px;
+    padding:9px 3px;
+    border:1px solid #e4e4e7;
+    border-radius:11px;
+    background:#fff;
+    color:#3f3f46;
+    text-align:center;
+    font-size:clamp(9px,2.65vw,11px);
+    line-height:1.1;
+    letter-spacing:0;
+    white-space:normal;
+    box-shadow:0 2px 8px rgba(9,9,11,.05);
+  }
+  .ctl-subnav button.active{
+    border-color:#09090b;
+    background:#09090b;
+    color:#fff;
+  }
+}
