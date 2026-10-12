@@ -991,8 +991,8 @@
           "yellow": false,
           "red": false,
           "number": "11",
-          "surname": "Scozzatti",
-          "firstName": "Franco Armando"
+          "surname": "Cogoni",
+          "firstName": "Jacopo"
         },
         {
           "goals": 0,
@@ -1001,6 +1001,38 @@
           "number": "2",
           "surname": "Floris",
           "firstName": "Filippo"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "15",
+          "surname": "Milia",
+          "firstName": "Gabriele"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "1",
+          "surname": "Arca",
+          "firstName": "Davide"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "14",
+          "surname": "Pili",
+          "firstName": "Mattia"
+        },
+        {
+          "goals": 0,
+          "yellow": false,
+          "red": false,
+          "number": "12",
+          "surname": "Cossu",
+          "firstName": "Giovanni"
         }
       ],
       "time": "16:00",
