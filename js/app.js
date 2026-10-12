@@ -3189,9 +3189,6 @@ const sectionPages=(function(){
   }
 
   function leagueScreenContent(screen,teams,matches,scorers){
-    if(screen==="squadre") return `<section class="ctl-screen ctl-section">
-      <div class="ctl-rosters">${teams.map(leagueRosterCard).join("")}</div>
-    </section>`;
     if(screen==="classifiche") return `<section class="ctl-screen ctl-section">
       <div class="ctl-standings-grid">${leagueStandingsCard("A")}${leagueStandingsCard("B")}</div>
     </section>`;
@@ -3204,19 +3201,13 @@ const sectionPages=(function(){
     if(screen==="finali") return `<section class="ctl-screen ctl-section">
       <div class="ctl-bracket-diagram-wrap">${leagueBracketHtml()}</div>
     </section>`;
-    return `<section class="ctl-dashboard ctl-section">
-      <div class="ctl-dashboard-grid">
-        <button onclick="cusLeagueScreen('squadre')"><span><b>Squadre</b><small>Rose e giocatori</small></span></button>
-        <button onclick="cusLeagueScreen('classifiche')"><span><b>Classifiche</b><small>Girone A e Girone B</small></span></button>
-        <button onclick="cusLeagueScreen('calendario')"><span><b>Calendario</b><small>Partite e risultati</small></span></button>
-        <button onclick="cusLeagueScreen('marcatori')"><span><b>Marcatori</b><small>Classifica cannonieri</small></span></button>
-        <button onclick="cusLeagueScreen('finali')"><span><b>Fasi finali</b><small>Semifinali A/R e finale</small></span></button>
-      </div>
+    return `<section class="ctl-screen ctl-section">
+      <div class="ctl-rosters">${teams.map(leagueRosterCard).join("")}</div>
     </section>`;
   }
 
   function setLeagueScreen(screen){
-    view.leagueScreen=screen||"home";
+    view.leagueScreen=screen||"squadre";
     renderCusTrentoLeague();
     scrollToPageTop();
   }
@@ -3228,7 +3219,7 @@ const sectionPages=(function(){
     const matches=(Array.isArray(league.matches)?league.matches:[]).slice().sort((a,b)=>String(a.date||"").localeCompare(String(b.date||""))||String(a.time||"").localeCompare(String(b.time||"")));
     const scorers=leagueScorers();
     const instagram=String(league.instagram||"https://www.instagram.com/custrentoleague/");
-    const screen=view.leagueScreen||"home";
+    const screen=view.leagueScreen||"squadre";
     const html=`<section class="ctl-hero">
       <div class="container ctl-hero-inner">
         <div class="ctl-hero-brand">
@@ -3244,7 +3235,6 @@ const sectionPages=(function(){
     <div class="ctl-page">
       <div class="container">
         <nav class="ctl-subnav" aria-label="Sezioni CUS Trento League">
-          ${leagueScreenButton("home","Panoramica")}
           ${leagueScreenButton("squadre","Squadre")}
           ${leagueScreenButton("classifiche","Classifiche")}
           ${leagueScreenButton("calendario","Calendario")}
