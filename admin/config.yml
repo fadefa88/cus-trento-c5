@@ -1281,6 +1281,12 @@ collections:
         - label: Nome squadra
           name: name
           widget: string
+        - label: Logo squadra
+          name: logo
+          widget: image
+          choose_url: true
+          required: false
+          hint: Carica il logo della squadra oppure inserisci un URL. Formato consigliato PNG o WebP con sfondo trasparente.
         - label: Girone
           name: group
           widget: select
