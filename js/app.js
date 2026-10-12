@@ -3042,11 +3042,13 @@ const sectionPages=(function(){
   }
 
 
+  const CUS_TRENTO_LEAGUE_LOGO="data:image/webp;base64,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";
+
   function leagueData(){
     const s=localState();
     return s.cusTrentoLeague && typeof s.cusTrentoLeague==="object"
       ? s.cusTrentoLeague
-      : {teams:[],matches:[],bracket:{stages:[]}};
+      : {teams:[],matches:[],bracket:{semifinals:[],final:{}}};
   }
 
   function leagueTeamKey(value){
@@ -3072,9 +3074,7 @@ const sectionPages=(function(){
   function leagueStandings(group){
     const league=leagueData();
     const teams=(league.teams||[]).filter(team=>String(team.group||"").toUpperCase()===String(group||"").toUpperCase());
-    const rows=new Map(teams.map(team=>[leagueTeamKey(team.name),{
-      team:team.name,g:0,v:0,n:0,p:0,gf:0,gs:0,pts:0
-    }]));
+    const rows=new Map(teams.map(team=>[leagueTeamKey(team.name),{team:team.name,g:0,v:0,n:0,p:0,gf:0,gs:0,pts:0}]));
     (league.matches||[]).forEach(match=>{
       if(String(match.group||"").toUpperCase()!==String(group||"").toUpperCase()||!leagueMatchPlayed(match))return;
       const home=rows.get(leagueTeamKey(match.home));
@@ -3143,15 +3143,91 @@ const sectionPages=(function(){
     </article>`;
   }
 
+  function leagueScore(value){
+    return value===null||value===undefined||value===""?"–":h(value);
+  }
+
+  function leagueSemiCard(semi){
+    const team1=semi&&semi.team1?semi.team1:"Da definire";
+    const team2=semi&&semi.team2?semi.team2:"Da definire";
+    const first=semi&&semi.firstLeg||{};
+    const second=semi&&semi.secondLeg||{};
+    return `<article class="ctl-bracket-node ctl-bracket-semi">
+      <div class="ctl-bracket-node-title">${h(semi&&semi.name||"Semifinale")}<small>Andata / ritorno</small></div>
+      <div class="ctl-bracket-leg"><span>Andata</span><div><b>${h(team1)}</b><strong>${leagueScore(first.team1Score)}</strong></div><div><b>${h(team2)}</b><strong>${leagueScore(first.team2Score)}</strong></div></div>
+      <div class="ctl-bracket-leg"><span>Ritorno</span><div><b>${h(team2)}</b><strong>${leagueScore(second.team2Score)}</strong></div><div><b>${h(team1)}</b><strong>${leagueScore(second.team1Score)}</strong></div></div>
+      <div class="ctl-bracket-winner">Finalista: <b>${h(semi&&semi.winner||"Da definire")}</b></div>
+    </article>`;
+  }
+
   function leagueBracketHtml(){
     const league=leagueData();
     const bracket=league.bracket&&typeof league.bracket==="object"?league.bracket:{};
-    const stages=Array.isArray(bracket.stages)?bracket.stages:[];
-    if(!stages.length){
-      return `<div class="ctl-bracket-empty"><i class="fa-solid fa-trophy" aria-hidden="true"></i><div><b>Tabellone in definizione</b><p>${h(bracket.note||"Gli accoppiamenti della fase finale saranno pubblicati appena ufficiali.")}</p></div></div>`;
-    }
-    return `<div class="ctl-bracket">${stages.map(stage=>`<section class="ctl-bracket-stage"><h3>${h(stage.name||"Fase")}</h3><div>${(stage.matches||[]).map(match=>`<article class="ctl-bracket-match"><span>${h(match.home||"Da definire")}</span><b>${match.homeScore??"–"} : ${match.awayScore??"–"}</b><span>${h(match.away||"Da definire")}</span></article>`).join("")}</div></section>`).join("")}</div>`;
+    const semis=Array.isArray(bracket.semifinals)?bracket.semifinals:[];
+    const final=bracket.final&&typeof bracket.final==="object"?bracket.final:{};
+    const semi1=semis[0]||{name:"Semifinale 1"};
+    const semi2=semis[1]||{name:"Semifinale 2"};
+    return `<div class="ctl-bracket-diagram">
+      <div class="ctl-bracket-slot ctl-bracket-slot-one">${leagueSemiCard(semi1)}</div>
+      <div class="ctl-bracket-link ctl-bracket-link-one" aria-hidden="true"><span></span></div>
+      <div class="ctl-bracket-slot ctl-bracket-slot-two">${leagueSemiCard(semi2)}</div>
+      <div class="ctl-bracket-link ctl-bracket-link-two" aria-hidden="true"><span></span></div>
+      <article class="ctl-bracket-node ctl-bracket-final">
+        <div class="ctl-bracket-node-title">${h(final.name||"Finale")}<small>Gara secca</small></div>
+        <div class="ctl-bracket-final-match">
+          <div><b>${h(final.team1||semi1.winner||"Vincente semifinale 1")}</b><strong>${leagueScore(final.team1Score)}</strong></div>
+          <div><b>${h(final.team2||semi2.winner||"Vincente semifinale 2")}</b><strong>${leagueScore(final.team2Score)}</strong></div>
+        </div>
+        <div class="ctl-bracket-champion"><i class="fa-solid fa-trophy" aria-hidden="true"></i><span>Campione</span><b>${h(final.winner||"Da definire")}</b></div>
+      </article>
+    </div>`;
   }
+
+  function leagueScreenButton(screen,label,icon){
+    const active=(view.leagueScreen||"home")===screen;
+    return `<button class="${active?"active":""}" onclick="cusLeagueScreen('${screen}')"><i class="${icon}" aria-hidden="true"></i><span>${h(label)}</span></button>`;
+  }
+
+  function leagueScreenContent(screen,teams,matches,scorers){
+    if(screen==="squadre") return `<section class="ctl-screen ctl-section">
+      <div class="ctl-screen-top"><button onclick="cusLeagueScreen('home')"><i class="fa-solid fa-arrow-left"></i> Panoramica</button><div><small>Le partecipanti</small><h2>Squadre e rose</h2></div><strong>${teams.length} squadre</strong></div>
+      <div class="ctl-rosters">${teams.map(leagueRosterCard).join("")}</div>
+    </section>`;
+    if(screen==="classifiche") return `<section class="ctl-screen ctl-section">
+      <div class="ctl-screen-top"><button onclick="cusLeagueScreen('home')"><i class="fa-solid fa-arrow-left"></i> Panoramica</button><div><small>Fase a gironi</small><h2>Classifiche</h2></div></div>
+      <div class="ctl-standings-grid">${leagueStandingsCard("A")}${leagueStandingsCard("B")}</div>
+    </section>`;
+    if(screen==="calendario") return `<section class="ctl-screen ctl-section">
+      <div class="ctl-screen-top"><button onclick="cusLeagueScreen('home')"><i class="fa-solid fa-arrow-left"></i> Panoramica</button><div><small>Ottobre — novembre</small><h2>Calendario e risultati</h2></div><strong>${matches.length} gare inserite</strong></div>
+      <div class="ctl-matches">${matches.length?matches.map(leagueMatchCard).join(""):`<div class="ctl-empty">Calendario in aggiornamento.</div>`}</div>
+    </section>`;
+    if(screen==="marcatori") return `<section class="ctl-screen ctl-section">
+      <div class="ctl-screen-top"><button onclick="cusLeagueScreen('home')"><i class="fa-solid fa-arrow-left"></i> Panoramica</button><div><small>Individuale</small><h2>Classifica marcatori</h2></div></div>
+      <div class="ctl-panel">${scorers.length?`<div class="ctl-scorers">${scorers.map((row,index)=>`<div><span class="ctl-scorer-pos">${index+1}</span><span><b>${h(row.name)}</b><small>${h(row.team||"")}</small></span><strong>${row.goals} <i class="fa-solid fa-futbol" aria-hidden="true"></i></strong></div>`).join("")}</div>`:`<div class="ctl-empty">I marcatori compariranno qui dopo l’inserimento dei primi risultati.</div>`}</div>
+    </section>`;
+    if(screen==="finali") return `<section class="ctl-screen ctl-section">
+      <div class="ctl-screen-top"><button onclick="cusLeagueScreen('home')"><i class="fa-solid fa-arrow-left"></i> Panoramica</button><div><small>Knockout stage</small><h2>Tabellone fasi finali</h2></div><strong>Semifinali A/R · Finale secca</strong></div>
+      ${leagueBracketHtml()}
+    </section>`;
+    return `<section class="ctl-dashboard ctl-section">
+      <div class="ctl-dashboard-intro"><small>Tutto il torneo</small><h2>Scegli cosa vuoi consultare</h2></div>
+      <div class="ctl-dashboard-grid">
+        <button onclick="cusLeagueScreen('squadre')"><i class="fa-solid fa-users"></i><span><b>Squadre</b><small>Rose e giocatori</small></span><i class="fa-solid fa-arrow-right"></i></button>
+        <button onclick="cusLeagueScreen('classifiche')"><i class="fa-solid fa-ranking-star"></i><span><b>Classifiche</b><small>Girone A e Girone B</small></span><i class="fa-solid fa-arrow-right"></i></button>
+        <button onclick="cusLeagueScreen('calendario')"><i class="fa-solid fa-calendar-days"></i><span><b>Calendario</b><small>Partite e risultati</small></span><i class="fa-solid fa-arrow-right"></i></button>
+        <button onclick="cusLeagueScreen('marcatori')"><i class="fa-solid fa-futbol"></i><span><b>Marcatori</b><small>Classifica cannonieri</small></span><i class="fa-solid fa-arrow-right"></i></button>
+        <button onclick="cusLeagueScreen('finali')"><i class="fa-solid fa-trophy"></i><span><b>Fasi finali</b><small>Semifinali A/R e finale</small></span><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </section>`;
+  }
+
+  function setLeagueScreen(screen){
+    view.leagueScreen=screen||"home";
+    renderCusTrentoLeague();
+    const page=document.querySelector(".ctl-page");
+    if(page) page.scrollIntoView({behavior:"auto",block:"start"});
+  }
+  window.cusLeagueScreen=setLeagueScreen;
 
   function renderCusTrentoLeague(){
     const league=leagueData();
@@ -3159,12 +3235,15 @@ const sectionPages=(function(){
     const matches=(Array.isArray(league.matches)?league.matches:[]).slice().sort((a,b)=>String(a.date||"").localeCompare(String(b.date||""))||String(a.time||"").localeCompare(String(b.time||"")));
     const scorers=leagueScorers();
     const instagram=String(league.instagram||"https://www.instagram.com/custrentoleague/");
+    const screen=view.leagueScreen||"home";
     const html=`<section class="ctl-hero">
       <div class="container ctl-hero-inner">
-        <div>
-          <div class="ctl-kicker">CUS Trento · Futsal universitario</div>
-          <h1>CUS TRENTO<br><span>LEAGUE</span></h1>
-          <p>${h(league.edition||"Fall Edition 2026")} · ${h(fmtDate(league.startDate))} — ${h(fmtDate(league.endDate))} · ${h(league.venue||"Trento")}</p>
+        <div class="ctl-hero-brand">
+          <img class="ctl-league-logo" src="${CUS_TRENTO_LEAGUE_LOGO}" alt="CUS Trento League">
+          <div>
+            <h1>CUS TRENTO<br><span>LEAGUE</span></h1>
+            <p>${h(league.edition||"Fall Edition 2026")}</p>
+          </div>
         </div>
         <a class="ctl-instagram" href="${h(instagram)}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" aria-hidden="true"></i> @custrentoleague</a>
       </div>
@@ -3172,39 +3251,14 @@ const sectionPages=(function(){
     <div class="ctl-page">
       <div class="container">
         <nav class="ctl-subnav" aria-label="Sezioni CUS Trento League">
-          <button onclick="document.getElementById('ctl-squadre').scrollIntoView({behavior:'smooth'})">Squadre</button>
-          <button onclick="document.getElementById('ctl-classifiche').scrollIntoView({behavior:'smooth'})">Classifiche</button>
-          <button onclick="document.getElementById('ctl-calendario').scrollIntoView({behavior:'smooth'})">Calendario</button>
-          <button onclick="document.getElementById('ctl-marcatori').scrollIntoView({behavior:'smooth'})">Marcatori</button>
-          <button onclick="document.getElementById('ctl-finali').scrollIntoView({behavior:'smooth'})">Fasi finali</button>
+          ${leagueScreenButton("home","Panoramica","fa-solid fa-house")}
+          ${leagueScreenButton("squadre","Squadre","fa-solid fa-users")}
+          ${leagueScreenButton("classifiche","Classifiche","fa-solid fa-ranking-star")}
+          ${leagueScreenButton("calendario","Calendario","fa-solid fa-calendar-days")}
+          ${leagueScreenButton("marcatori","Marcatori","fa-solid fa-futbol")}
+          ${leagueScreenButton("finali","Fasi finali","fa-solid fa-trophy")}
         </nav>
-
-        <section id="ctl-squadre" class="ctl-section">
-          <div class="ctl-section-head"><div><small>Le partecipanti</small><h2>Squadre e rose</h2></div><strong>${teams.length} squadre</strong></div>
-          <div class="ctl-rosters">${teams.map(leagueRosterCard).join("")}</div>
-        </section>
-
-        <section id="ctl-classifiche" class="ctl-section">
-          <div class="ctl-section-head"><div><small>Fase a gironi</small><h2>Classifiche</h2></div></div>
-          <div class="ctl-standings-grid">${leagueStandingsCard("A")}${leagueStandingsCard("B")}</div>
-        </section>
-
-        <section id="ctl-calendario" class="ctl-section">
-          <div class="ctl-section-head"><div><small>Ottobre — novembre</small><h2>Calendario e risultati</h2></div><strong>${matches.length} gare inserite</strong></div>
-          <div class="ctl-matches">${matches.length?matches.map(leagueMatchCard).join(""):`<div class="ctl-empty">Calendario in aggiornamento.</div>`}</div>
-        </section>
-
-        <section id="ctl-marcatori" class="ctl-section">
-          <div class="ctl-section-head"><div><small>Individuale</small><h2>Classifica marcatori</h2></div></div>
-          <div class="ctl-panel">
-            ${scorers.length?`<div class="ctl-scorers">${scorers.map((row,index)=>`<div><span class="ctl-scorer-pos">${index+1}</span><span><b>${h(row.name)}</b><small>${h(row.team||"")}</small></span><strong>${row.goals} <i class="fa-solid fa-futbol" aria-hidden="true"></i></strong></div>`).join("")}</div>`:`<div class="ctl-empty">I marcatori compariranno qui dopo l’inserimento dei primi risultati.</div>`}
-          </div>
-        </section>
-
-        <section id="ctl-finali" class="ctl-section">
-          <div class="ctl-section-head"><div><small>Knockout stage</small><h2>Tabellone fasi finali</h2></div></div>
-          ${leagueBracketHtml()}
-        </section>
+        <div class="ctl-screen-stage">${leagueScreenContent(screen,teams,matches,scorers)}</div>
       </div>
     </div>`;
     setApp(html,"cus-trento-league","CUS Trento League","Rose, calendario, risultati, classifiche, marcatori e fasi finali della CUS Trento League.");
