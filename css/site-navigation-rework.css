@@ -735,7 +735,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .match-squad-v61 .player-card-id{gap:10px;}
 .match-squad-v61 .player-card-number{font-size:46px;flex:0 0 .9em;width:.9em;text-align:left;}
 .match-squad-v61-player.is-opponent .player-card-number{color:var(--ink);}
-.match-squad-v61 .player-card-name > .player-card-surname{font-size:23px;line-height:1.05;padding-top:1px;}
+.match-squad-v61 .player-card-name > .player-card-surname{font-size:23px;line-height:1.18;padding-top:2px;overflow:visible;text-overflow:clip;}
 .match-squad-v61 .player-card-name > .player-card-given{font-size:14px;}
 /* Prima squadra: home squad on the left, away squad on the right. */
 .match-squad-v61-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;}
@@ -770,7 +770,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .match-squad-v61-col.is-away .match-squad-v61-player.is-goalkeeper{padding-left:27px;}
   .match-squad-v61-col.is-home .match-squad-v61-player.is-goalkeeper{padding-right:27px;}
   .match-squad-v61 .player-card-number{font-size:37px;}
-  .match-squad-v61 .player-card-name > .player-card-surname{font-size:18px;line-height:1.05;padding-top:1px;}
+  .match-squad-v61 .player-card-name > .player-card-surname{font-size:18px;line-height:1.2;padding-top:2px;overflow:visible;text-overflow:clip;}
   .match-squad-v61 .player-card-name > .player-card-given{font-size:12px;}
   /* Phone: keep home and away side by side, with smaller type. */
   .match-squad-v61-cols{gap:12px;}
@@ -781,7 +781,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .match-squad-v61.is-split .match-squad-v61-grid{row-gap:16px;}
   .match-squad-v61.is-split .player-card-id{gap:6px;}
   .match-squad-v61.is-split .player-card-number{font-size:26px;}
-  .match-squad-v61.is-split .player-card-name > .player-card-surname{font-size:14px;line-height:1.1;padding-top:1px;}
+  .match-squad-v61.is-split .player-card-name > .player-card-surname{font-size:15px;line-height:1.24;padding-top:2px;overflow:visible;text-overflow:clip;}
   .match-squad-v61.is-split .player-card-name > .player-card-given{font-size:10px;}
   .match-squad-v61.is-split .match-squad-v61-events{gap:4px;min-height:14px;margin-top:4px;}
   .match-squad-v61.is-split .match-squad-v61-yellow,.match-squad-v61.is-split .match-squad-v61-red{width:8px;height:12px;}
