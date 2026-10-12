@@ -1392,96 +1392,97 @@ collections:
         name: bracket
         widget: object
         collapsed: false
+        hint: Le squadre vengono abbinate automaticamente in base alle classifiche. Inserisci soltanto i risultati, e in caso di pareggio il nome della squadra vincente.
         fields:
         - label: Formula
           name: format
           widget: string
-          default: Semifinali A/R + finale secca
-        - label: Semifinali
-          name: semifinals
+          default: Quarti, semifinali e finale a eliminazione diretta
+          required: false
+        - label: Quarti di finale (4 gare)
+          name: quarterfinals
           widget: list
-          min: 2
-          max: 2
-          collapsed: false
-          summary: '{{fields.name}} — {{fields.team1}} vs {{fields.team2}}'
+          min: 4
+          max: 4
+          collapsed: true
+          label_singular: quarto
+          summary: '{{fields.name}}'
+          hint: Nell'ordine sono 1ª A-4ª B, 2ª A-3ª B, 3ª A-2ª B, 4ª A-1ª B. Non occorre inserire manualmente le squadre.
           fields:
-          - label: Nome
+          - label: Incontro
             name: name
             widget: string
-          - label: Squadra 1
-            name: team1
-            widget: string
-            required: false
-          - label: Squadra 2
-            name: team2
-            widget: string
-            required: false
-          - label: Andata
-            name: firstLeg
-            widget: object
-            fields:
-            - label: Gol squadra 1
-              name: team1Score
-              widget: number
-              value_type: int
-              min: 0
-              required: false
-            - label: Gol squadra 2
-              name: team2Score
-              widget: number
-              value_type: int
-              min: 0
-              required: false
-          - label: Ritorno
-            name: secondLeg
-            widget: object
-            fields:
-            - label: Gol squadra 1
-              name: team1Score
-              widget: number
-              value_type: int
-              min: 0
-              required: false
-            - label: Gol squadra 2
-              name: team2Score
-              widget: number
-              value_type: int
-              min: 0
-              required: false
-          - label: Vincente / finalista
-            name: winner
-            widget: string
-            required: false
-        - label: Finale
-          name: final
-          widget: object
-          collapsed: false
-          fields:
-          - label: Nome
-            name: name
-            widget: string
-            default: Finale
-          - label: Squadra 1
-            name: team1
-            widget: string
-            required: false
-          - label: Squadra 2
-            name: team2
-            widget: string
-            required: false
-          - label: Gol squadra 1
+          - label: Gol prima squadra
             name: team1Score
             widget: number
             value_type: int
             min: 0
             required: false
-          - label: Gol squadra 2
+          - label: Gol seconda squadra
             name: team2Score
             widget: number
             value_type: int
             min: 0
             required: false
-          - label: Vincente
+          - label: Vincente (solo se necessario)
             name: winner
             widget: string
             required: false
+            hint: Se le reti sono pari, scrivi il nome esatto della squadra che passa il turno.
+        - label: Semifinali (2 gare)
+          name: semifinals
+          widget: list
+          min: 2
+          max: 2
+          collapsed: true
+          label_singular: semifinale
+          summary: '{{fields.name}}'
+          hint: Prima semifinale tra le vincenti dei quarti 1 e 2; seconda tra le vincenti dei quarti 3 e 4.
+          fields:
+          - label: Incontro
+            name: name
+            widget: string
+          - label: Gol prima squadra
+            name: team1Score
+            widget: number
+            value_type: int
+            min: 0
+            required: false
+          - label: Gol seconda squadra
+            name: team2Score
+            widget: number
+            value_type: int
+            min: 0
+            required: false
+          - label: Vincente (solo se necessario)
+            name: winner
+            widget: string
+            required: false
+            hint: In caso di parità indica la squadra qualificata.
+        - label: Finale
+          name: final
+          widget: object
+          collapsed: false
+          hint: Le finaliste sono ricavate automaticamente dai risultati delle semifinali.
+          fields:
+          - label: Nome
+            name: name
+            widget: string
+            default: Finale
+          - label: Gol prima squadra
+            name: team1Score
+            widget: number
+            value_type: int
+            min: 0
+            required: false
+          - label: Gol seconda squadra
+            name: team2Score
+            widget: number
+            value_type: int
+            min: 0
+            required: false
+          - label: Vincente (solo se necessario)
+            name: winner
+            widget: string
+            required: false
+            hint: In caso di parità indica la squadra campione.
