@@ -3063,7 +3063,9 @@ const sectionPages=(function(){
   }
 
   function leagueTeamBadge(name){
-    return `<span class="ctl-team-badge" aria-hidden="true">${h(leagueInitials(name))}</span>`;
+    const team=(leagueData().teams||[]).find(item=>leagueTeamKey(item.name)===leagueTeamKey(name));
+    const logo=team&&typeof team.logo==="string"?team.logo.trim():"";
+    return `<span class="ctl-team-badge${logo?" has-logo":""}" aria-hidden="true">${h(leagueInitials(name))}${logo?`<img src="${h(logo)}" alt="" loading="lazy" onerror="this.remove()">`:""}</span>`;
   }
 
   function leagueMatchPlayed(match){
@@ -3175,6 +3177,11 @@ const sectionPages=(function(){
     return value===null||value===undefined||value===""?"–":h(value);
   }
 
+  function leagueBracketTeam(name){
+    const known=(leagueData().teams||[]).some(team=>leagueTeamKey(team.name)===leagueTeamKey(name));
+    return `<span class="ctl-bracket-team">${known?leagueTeamBadge(name):""}<b>${h(name)}</b></span>`;
+  }
+
   function leagueSemiCard(semi){
     const team1=semi&&semi.team1?semi.team1:"Da definire";
     const team2=semi&&semi.team2?semi.team2:"Da definire";
@@ -3182,8 +3189,8 @@ const sectionPages=(function(){
     const second=semi&&semi.secondLeg||{};
     return `<article class="ctl-bracket-node ctl-bracket-semi">
       <div class="ctl-bracket-node-title">${h(semi&&semi.name||"Semifinale")}<small>Andata / ritorno</small></div>
-      <div class="ctl-bracket-leg"><span>Andata</span><div><b>${h(team1)}</b><strong>${leagueScore(first.team1Score)}</strong></div><div><b>${h(team2)}</b><strong>${leagueScore(first.team2Score)}</strong></div></div>
-      <div class="ctl-bracket-leg"><span>Ritorno</span><div><b>${h(team2)}</b><strong>${leagueScore(second.team2Score)}</strong></div><div><b>${h(team1)}</b><strong>${leagueScore(second.team1Score)}</strong></div></div>
+      <div class="ctl-bracket-leg"><span>Andata</span><div>${leagueBracketTeam(team1)}<strong>${leagueScore(first.team1Score)}</strong></div><div>${leagueBracketTeam(team2)}<strong>${leagueScore(first.team2Score)}</strong></div></div>
+      <div class="ctl-bracket-leg"><span>Ritorno</span><div>${leagueBracketTeam(team2)}<strong>${leagueScore(second.team2Score)}</strong></div><div>${leagueBracketTeam(team1)}<strong>${leagueScore(second.team1Score)}</strong></div></div>
       <div class="ctl-bracket-winner">Finalista: <b>${h(semi&&semi.winner||"Da definire")}</b></div>
     </article>`;
   }
@@ -3203,8 +3210,8 @@ const sectionPages=(function(){
       <article class="ctl-bracket-node ctl-bracket-final">
         <div class="ctl-bracket-node-title">${h(final.name||"Finale")}<small>Gara secca</small></div>
         <div class="ctl-bracket-final-match">
-          <div><b>${h(final.team1||semi1.winner||"Vincente semifinale 1")}</b><strong>${leagueScore(final.team1Score)}</strong></div>
-          <div><b>${h(final.team2||semi2.winner||"Vincente semifinale 2")}</b><strong>${leagueScore(final.team2Score)}</strong></div>
+          <div>${leagueBracketTeam(final.team1||semi1.winner||"Vincente semifinale 1")}<strong>${leagueScore(final.team1Score)}</strong></div>
+          <div>${leagueBracketTeam(final.team2||semi2.winner||"Vincente semifinale 2")}<strong>${leagueScore(final.team2Score)}</strong></div>
         </div>
         <div class="ctl-bracket-champion"><i class="fa-solid fa-trophy" aria-hidden="true"></i><span>Campione</span><b>${h(final.winner||"Da definire")}</b></div>
       </article>
