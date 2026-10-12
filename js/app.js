@@ -3219,7 +3219,8 @@ const sectionPages=(function(){
     const matches=(Array.isArray(league.matches)?league.matches:[]).slice().sort((a,b)=>String(a.date||"").localeCompare(String(b.date||""))||String(a.time||"").localeCompare(String(b.time||"")));
     const scorers=leagueScorers();
     const instagram=String(league.instagram||"https://www.instagram.com/custrentoleague/");
-    const screen=view.leagueScreen||"squadre";
+    const requestedScreen=view.leagueScreen||"squadre";
+    const screen=["squadre","classifiche","calendario","marcatori","finali"].includes(requestedScreen)?requestedScreen:"squadre";
     const html=`<section class="ctl-hero">
       <div class="container ctl-hero-inner">
         <div class="ctl-hero-brand">
