@@ -102,7 +102,8 @@ function hydrate(src = {}) {
     "cup",
     "u21Cup",
     "historicalStats",
-    "automation"
+    "automation",
+    "cusTrentoLeague"
   ];
 
   const hydrated = { ...defaults, ...src };
@@ -520,6 +521,7 @@ const MENU_GROUPS = [
   ]},
   {label:"Eventi",items:[
     ["events:upcoming","Prossimi eventi"],
+    ["cus-trento-league","CUS Trento League"],
     ["events:tournaments","Tornei"],
     ["events:selections","Selezioni"],
     ["events:archive","Archivio eventi"]
@@ -553,7 +555,7 @@ function menuGroupKey(label){
 }
 function activeMenuGroup(routeId){
   const base = String(routeId || "home");
-  if(base.startsWith("events") || base.startsWith("event-detail")) return "events";
+  if(base.startsWith("events") || base.startsWith("event-detail") || base==="cus-trento-league") return "events";
   if(["teams-overview","squad","staff","play-with-us"].includes(base)) return "teams";
   if(["fixtures","standings","coppa","stats","cnu","season-archive"].includes(base)) return "season";
   if(["partner","become-partner"].includes(base)) return "partner";
@@ -727,7 +729,7 @@ function footer(){
   const footerGroups = [
     {title:"Squadre",links:[["/squadre/","Squadre"],["/squadra/","Rosa"],["/staff/","Staff"],["/gioca-con-noi/","Gioca con noi"]]},
     {title:"Stagione",links:[["/calendario/","Calendario"],["/classifica/","Classifica"],["/coppa/","Coppa"],["/statistiche/","Statistiche"],["/cnu/","CNU"],["/archivio-stagioni/","Archivio stagioni"]]},
-    {title:"Eventi",links:[["/eventi/#prossimi-eventi","Prossimi eventi"],["/eventi/#tornei","Tornei"],["/eventi/#selezioni","Selezioni"],["/eventi/#archivio-eventi","Archivio eventi"]]},
+    {title:"Eventi",links:[["/eventi/#prossimi-eventi","Prossimi eventi"],["/cus-trento-league/","CUS Trento League"],["/eventi/#tornei","Tornei"],["/eventi/#selezioni","Selezioni"],["/eventi/#archivio-eventi","Archivio eventi"]]},
     {title:"Partner",links:[["/partner/","I nostri partner"],["/diventa-partner/","Diventa partner"]]},
     {title:"Media",links:[["/news/","News"],["/gallery/","Gallery"],["/video/","Video"],["/social/","Social wall"]]},
     {title:"Club",links:[["/club/","Chi siamo"],["/impianto/","Impianto"],["/hall-of-fame/","Hall of Fame"],["/contatti/","Contatti"]]},
@@ -3039,6 +3041,175 @@ const sectionPages=(function(){
     setApp(html,"become-partner","Diventa partner","Pacchetti partner e sponsorship CUS Trento C5.",replace);
   }
 
+
+  function leagueData(){
+    const s=localState();
+    return s.cusTrentoLeague && typeof s.cusTrentoLeague==="object"
+      ? s.cusTrentoLeague
+      : {teams:[],matches:[],bracket:{stages:[]}};
+  }
+
+  function leagueTeamKey(value){
+    return String(value||"").trim().toLowerCase();
+  }
+
+  function leagueInitials(value){
+    const words=String(value||"").trim().split(/\s+/).filter(Boolean);
+    if(!words.length)return "CTL";
+    if(words.length===1)return words[0].slice(0,3).toUpperCase();
+    return (words[0][0]+words[words.length-1][0]).toUpperCase();
+  }
+
+  function leagueTeamBadge(name){
+    return `<span class="ctl-team-badge" aria-hidden="true">${h(leagueInitials(name))}</span>`;
+  }
+
+  function leagueMatchPlayed(match){
+    const hs=match&&match.homeScore, as=match&&match.awayScore;
+    return hs!==null&&hs!==undefined&&hs!==""&&as!==null&&as!==undefined&&as!==""&&Number.isFinite(Number(hs))&&Number.isFinite(Number(as));
+  }
+
+  function leagueStandings(group){
+    const league=leagueData();
+    const teams=(league.teams||[]).filter(team=>String(team.group||"").toUpperCase()===String(group||"").toUpperCase());
+    const rows=new Map(teams.map(team=>[leagueTeamKey(team.name),{
+      team:team.name,g:0,v:0,n:0,p:0,gf:0,gs:0,pts:0
+    }]));
+    (league.matches||[]).forEach(match=>{
+      if(String(match.group||"").toUpperCase()!==String(group||"").toUpperCase()||!leagueMatchPlayed(match))return;
+      const home=rows.get(leagueTeamKey(match.home));
+      const away=rows.get(leagueTeamKey(match.away));
+      if(!home||!away)return;
+      const hg=Number(match.homeScore), ag=Number(match.awayScore);
+      home.g++;away.g++;home.gf+=hg;home.gs+=ag;away.gf+=ag;away.gs+=hg;
+      if(hg>ag){home.v++;home.pts+=3;away.p++;}
+      else if(hg<ag){away.v++;away.pts+=3;home.p++;}
+      else{home.n++;away.n++;home.pts++;away.pts++;}
+    });
+    return [...rows.values()].sort((a,b)=>b.pts-a.pts||((b.gf-b.gs)-(a.gf-a.gs))||b.gf-a.gf||String(a.team).localeCompare(String(b.team),"it"));
+  }
+
+  function leagueStandingsCard(group){
+    const rows=leagueStandings(group);
+    return `<article class="ctl-panel ctl-standing-panel">
+      <div class="ctl-panel-head"><span>Girone ${h(group)}</span><small>Classifica</small></div>
+      <div class="ctl-table-wrap"><table class="ctl-table">
+        <thead><tr><th>#</th><th>Squadra</th><th>PT</th><th>G</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
+        <tbody>${rows.map((row,index)=>`<tr><td>${index+1}</td><td><span class="ctl-team-cell">${leagueTeamBadge(row.team)}<b>${h(row.team)}</b></span></td><td><strong>${row.pts}</strong></td><td>${row.g}</td><td>${row.v}</td><td>${row.n}</td><td>${row.p}</td><td>${row.gf}</td><td>${row.gs}</td><td>${row.gf-row.gs>0?"+":""}${row.gf-row.gs}</td></tr>`).join("")}</tbody>
+      </table></div>
+    </article>`;
+  }
+
+  function leagueScorers(){
+    const league=leagueData();
+    const map=new Map();
+    (league.matches||[]).forEach(match=>(Array.isArray(match.scorers)?match.scorers:[]).forEach(item=>{
+      const name=String(item&&item.name||"").trim();
+      if(!name)return;
+      const team=String(item&&item.team||"").trim();
+      const key=leagueTeamKey(name)+"|"+leagueTeamKey(team);
+      if(!map.has(key))map.set(key,{name,team,goals:0});
+      map.get(key).goals+=Math.max(1,Number(item.goals)||1);
+    }));
+    return [...map.values()].sort((a,b)=>b.goals-a.goals||a.name.localeCompare(b.name,"it"));
+  }
+
+  function leagueRosterCard(team){
+    const players=Array.isArray(team.players)?team.players:[];
+    return `<details class="ctl-roster-card">
+      <summary>
+        <span class="ctl-roster-team">${leagueTeamBadge(team.name)}<span><b>${h(team.name)}</b><small>Girone ${h(team.group||"—")}</small></span></span>
+        <span class="ctl-roster-count">${players.length||"—"} giocatori</span>
+      </summary>
+      <div class="ctl-roster-list">${players.length?players.map((player,index)=>{
+        const obj=typeof player==="string"?{name:player}:player||{};
+        return `<div class="ctl-roster-player"><span>${h(obj.number||index+1)}</span><b>${h(obj.name||"Giocatore")}</b>${obj.role?`<small>${h(obj.role)}</small>`:""}</div>`;
+      }).join(""):`<p>Rosa da inserire.</p>`}</div>
+    </details>`;
+  }
+
+  function leagueMatchCard(match){
+    const played=leagueMatchPlayed(match);
+    const date=fmtDate(match.date);
+    const score=played?`${Number(match.homeScore)} <span>–</span> ${Number(match.awayScore)}`:"VS";
+    return `<article class="ctl-match-card ${played?"is-played":""}">
+      <div class="ctl-match-meta"><span>Girone ${h(match.group||"—")} · ${h(match.round||"")}</span><span>${h(date)} · ${h(match.time||"--:--")}</span></div>
+      <div class="ctl-match-teams">
+        <div>${leagueTeamBadge(match.home)}<b>${h(match.home)}</b></div>
+        <strong class="ctl-match-score">${score}</strong>
+        <div>${leagueTeamBadge(match.away)}<b>${h(match.away)}</b></div>
+      </div>
+      <div class="ctl-match-status">${played?"Terminata":h(match.status||"Da giocare")}</div>
+    </article>`;
+  }
+
+  function leagueBracketHtml(){
+    const league=leagueData();
+    const bracket=league.bracket&&typeof league.bracket==="object"?league.bracket:{};
+    const stages=Array.isArray(bracket.stages)?bracket.stages:[];
+    if(!stages.length){
+      return `<div class="ctl-bracket-empty"><i class="fa-solid fa-trophy" aria-hidden="true"></i><div><b>Tabellone in definizione</b><p>${h(bracket.note||"Gli accoppiamenti della fase finale saranno pubblicati appena ufficiali.")}</p></div></div>`;
+    }
+    return `<div class="ctl-bracket">${stages.map(stage=>`<section class="ctl-bracket-stage"><h3>${h(stage.name||"Fase")}</h3><div>${(stage.matches||[]).map(match=>`<article class="ctl-bracket-match"><span>${h(match.home||"Da definire")}</span><b>${match.homeScore??"–"} : ${match.awayScore??"–"}</b><span>${h(match.away||"Da definire")}</span></article>`).join("")}</div></section>`).join("")}</div>`;
+  }
+
+  function renderCusTrentoLeague(){
+    const league=leagueData();
+    const teams=Array.isArray(league.teams)?league.teams:[];
+    const matches=(Array.isArray(league.matches)?league.matches:[]).slice().sort((a,b)=>String(a.date||"").localeCompare(String(b.date||""))||String(a.time||"").localeCompare(String(b.time||"")));
+    const scorers=leagueScorers();
+    const instagram=String(league.instagram||"https://www.instagram.com/custrentoleague/");
+    const html=`<section class="ctl-hero">
+      <div class="container ctl-hero-inner">
+        <div>
+          <div class="ctl-kicker">CUS Trento · Futsal universitario</div>
+          <h1>CUS TRENTO<br><span>LEAGUE</span></h1>
+          <p>${h(league.edition||"Fall Edition 2026")} · ${h(fmtDate(league.startDate))} — ${h(fmtDate(league.endDate))} · ${h(league.venue||"Trento")}</p>
+        </div>
+        <a class="ctl-instagram" href="${h(instagram)}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" aria-hidden="true"></i> @custrentoleague</a>
+      </div>
+    </section>
+    <div class="ctl-page">
+      <div class="container">
+        <nav class="ctl-subnav" aria-label="Sezioni CUS Trento League">
+          <button onclick="document.getElementById('ctl-squadre').scrollIntoView({behavior:'smooth'})">Squadre</button>
+          <button onclick="document.getElementById('ctl-classifiche').scrollIntoView({behavior:'smooth'})">Classifiche</button>
+          <button onclick="document.getElementById('ctl-calendario').scrollIntoView({behavior:'smooth'})">Calendario</button>
+          <button onclick="document.getElementById('ctl-marcatori').scrollIntoView({behavior:'smooth'})">Marcatori</button>
+          <button onclick="document.getElementById('ctl-finali').scrollIntoView({behavior:'smooth'})">Fasi finali</button>
+        </nav>
+
+        <section id="ctl-squadre" class="ctl-section">
+          <div class="ctl-section-head"><div><small>Le partecipanti</small><h2>Squadre e rose</h2></div><strong>${teams.length} squadre</strong></div>
+          <div class="ctl-rosters">${teams.map(leagueRosterCard).join("")}</div>
+        </section>
+
+        <section id="ctl-classifiche" class="ctl-section">
+          <div class="ctl-section-head"><div><small>Fase a gironi</small><h2>Classifiche</h2></div></div>
+          <div class="ctl-standings-grid">${leagueStandingsCard("A")}${leagueStandingsCard("B")}</div>
+        </section>
+
+        <section id="ctl-calendario" class="ctl-section">
+          <div class="ctl-section-head"><div><small>Ottobre — novembre</small><h2>Calendario e risultati</h2></div><strong>${matches.length} gare inserite</strong></div>
+          <div class="ctl-matches">${matches.length?matches.map(leagueMatchCard).join(""):`<div class="ctl-empty">Calendario in aggiornamento.</div>`}</div>
+        </section>
+
+        <section id="ctl-marcatori" class="ctl-section">
+          <div class="ctl-section-head"><div><small>Individuale</small><h2>Classifica marcatori</h2></div></div>
+          <div class="ctl-panel">
+            ${scorers.length?`<div class="ctl-scorers">${scorers.map((row,index)=>`<div><span class="ctl-scorer-pos">${index+1}</span><span><b>${h(row.name)}</b><small>${h(row.team||"")}</small></span><strong>${row.goals} <i class="fa-solid fa-futbol" aria-hidden="true"></i></strong></div>`).join("")}</div>`:`<div class="ctl-empty">I marcatori compariranno qui dopo l’inserimento dei primi risultati.</div>`}
+          </div>
+        </section>
+
+        <section id="ctl-finali" class="ctl-section">
+          <div class="ctl-section-head"><div><small>Knockout stage</small><h2>Tabellone fasi finali</h2></div></div>
+          ${leagueBracketHtml()}
+        </section>
+      </div>
+    </div>`;
+    setApp(html,"cus-trento-league","CUS Trento League","Rose, calendario, risultati, classifiche, marcatori e fasi finali della CUS Trento League.");
+  }
+
   function renderVenue(replace){
     const html = `${pageHero("Impianto","Palazzetto Sanbàpolis","")}
       <section class="cus-rework-section"><div class="container cus-rework-split">
@@ -3059,6 +3230,7 @@ const sectionPages=(function(){
     "event-detail": renderEventDetail,
     cnu: renderCnu,
     "season-archive": renderSeasonArchive,
+    "cus-trento-league": renderCusTrentoLeague,
     "become-partner": renderBecomePartner,
     venue: renderVenue
   };
