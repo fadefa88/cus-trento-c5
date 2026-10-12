@@ -4587,7 +4587,8 @@
             "number": "77",
             "name": "Sarais A."
           }
-        ]
+        ],
+        "logo": "/img/uploads/img_2620.png"
       },
       {
         "id": "golosoni",
@@ -4610,19 +4611,22 @@
             "number": "13",
             "name": "Fusinato"
           }
-        ]
+        ],
+        "logo": "/img/uploads/img_2616.png"
       },
       {
         "id": "the-rolling-rocks",
         "name": "The Rolling Rocks",
         "group": "A",
-        "players": []
+        "players": [],
+        "logo": "/img/uploads/img_2617.png"
       },
       {
         "id": "recidivi-fc",
         "name": "Recidivi FC",
         "group": "A",
-        "players": []
+        "players": [],
+        "logo": "/img/uploads/img_2614.png"
       },
       {
         "id": "banda-bassiotti",
@@ -4641,7 +4645,8 @@
             "number": "12",
             "name": "Castelnuovo"
           }
-        ]
+        ],
+        "logo": "/img/uploads/img_2621.png"
       },
       {
         "id": "calcio-proletario",
@@ -4692,19 +4697,22 @@
             "number": "25",
             "name": "Merler M."
           }
-        ]
+        ],
+        "logo": "/img/uploads/img_2622.png"
       },
       {
         "id": "all-blacks",
         "name": "All Blacks",
         "group": "B",
-        "players": []
+        "players": [],
+        "logo": "/img/uploads/img_2618.png"
       },
       {
         "id": "tt-le-girlz",
         "name": "TT Le Girlz",
         "group": "B",
-        "players": []
+        "players": [],
+        "logo": "/img/uploads/img_2615.png"
       }
     ],
     "title": "CUS Trento League",
