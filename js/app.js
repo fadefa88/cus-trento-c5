@@ -3182,40 +3182,129 @@ const sectionPages=(function(){
     return `<span class="ctl-bracket-team">${known?leagueTeamBadge(name):""}<b>${h(name)}</b></span>`;
   }
 
-  function leagueSemiCard(semi){
-    const team1=semi&&semi.team1?semi.team1:"Da definire";
-    const team2=semi&&semi.team2?semi.team2:"Da definire";
-    const first=semi&&semi.firstLeg||{};
-    const second=semi&&semi.secondLeg||{};
-    return `<article class="ctl-bracket-node ctl-bracket-semi">
-      <div class="ctl-bracket-node-title">${h(semi&&semi.name||"Semifinale")}<small>Andata / ritorno</small></div>
-      <div class="ctl-bracket-leg"><span>Andata</span><div>${leagueBracketTeam(team1)}<strong>${leagueScore(first.team1Score)}</strong></div><div>${leagueBracketTeam(team2)}<strong>${leagueScore(first.team2Score)}</strong></div></div>
-      <div class="ctl-bracket-leg"><span>Ritorno</span><div>${leagueBracketTeam(team2)}<strong>${leagueScore(second.team2Score)}</strong></div><div>${leagueBracketTeam(team1)}<strong>${leagueScore(second.team1Score)}</strong></div></div>
-      <div class="ctl-bracket-winner">Finalista: <b>${h(semi&&semi.winner||"Da definire")}</b></div>
+
+  // Il tabellone segue la classifica corrente. I risultati sono gestiti dal CMS.
+  function leagueKnockoutMatch(saved, team1, team2){
+    const value = raw => raw===null||raw===undefined||raw===""||!Number.isFinite(Number(raw)) ? null : Number(raw);
+    const first=value(saved&&saved.team1Score);
+    const second=value(saved&&saved.team2Score);
+    const manual=String(saved&&saved.winner||"").trim();
+    const validManual=[team1,team2].find(team=>leagueTeamKey(team)===leagueTeamKey(manual));
+    let winner=validManual||"";
+    if(!winner&&first!==null&&second!==null&&first!==second)winner=first>second?team1:team2;
+    return {team1,team2,team1Score:first,team2Score:second,winner};
+  }
+
+  function leagueKnockoutCard(name,match,seed1,seed2){
+    const ready=!!match.winner;
+    const renderTeam=(team,score,seed)=>{
+      const known=(leagueData().teams||[]).some(item=>leagueTeamKey(item.name)===leagueTeamKey(team));
+      const winner=ready&&leagueTeamKey(team)===leagueTeamKey(match.winner);
+      return `<div class="ctl-knockout-team${winner?" is-winner":""}">
+        <span class="ctl-knockout-seed">${h(seed)}</span>
+        ${known?leagueTeamBadge(team):'<span class="ctl-knockout-placeholder" aria-hidden="true">?</span>'}
+        <b>${h(team||"Da definire")}</b>
+        <strong>${score===null?"–":score}</strong>
+      </div>`;
+    };
+    return `<article class="ctl-knockout-match">
+      <div class="ctl-knockout-match-head"><span>${h(name)}</span><small>Gara secca</small></div>
+      ${renderTeam(match.team1,match.team1Score,seed1)}
+      ${renderTeam(match.team2,match.team2Score,seed2)}
+      ${ready?`<div class="ctl-knockout-qualified">Qualificata: <b>${h(match.winner)}</b></div>`:""}
     </article>`;
   }
 
   function leagueBracketHtml(){
     const league=leagueData();
     const bracket=league.bracket&&typeof league.bracket==="object"?league.bracket:{};
-    const semis=Array.isArray(bracket.semifinals)?bracket.semifinals:[];
-    const final=bracket.final&&typeof bracket.final==="object"?bracket.final:{};
-    const semi1=semis[0]||{name:"Semifinale 1"};
-    const semi2=semis[1]||{name:"Semifinale 2"};
-    return `<div class="ctl-bracket-diagram">
-      <div class="ctl-bracket-slot ctl-bracket-slot-one">${leagueSemiCard(semi1)}</div>
-      <div class="ctl-bracket-link ctl-bracket-link-one" aria-hidden="true"><span></span></div>
-      <div class="ctl-bracket-slot ctl-bracket-slot-two">${leagueSemiCard(semi2)}</div>
-      <div class="ctl-bracket-link ctl-bracket-link-two" aria-hidden="true"><span></span></div>
-      <article class="ctl-bracket-node ctl-bracket-final">
-        <div class="ctl-bracket-node-title">${h(final.name||"Finale")}<small>Gara secca</small></div>
-        <div class="ctl-bracket-final-match">
-          <div>${leagueBracketTeam(final.team1||semi1.winner||"Vincente semifinale 1")}<strong>${leagueScore(final.team1Score)}</strong></div>
-          <div>${leagueBracketTeam(final.team2||semi2.winner||"Vincente semifinale 2")}<strong>${leagueScore(final.team2Score)}</strong></div>
+    const qStored=Array.isArray(bracket.quarterfinals)?bracket.quarterfinals:[];
+    const sStored=Array.isArray(bracket.semifinals)?bracket.semifinals:[];
+    const rankingA=leagueStandings("A"),rankingB=leagueStandings("B");
+    const teamAt=(rows,i)=>rows[i]&&rows[i].team||"Da definire";
+    const pairings=[
+      [teamAt(rankingA,0),teamAt(rankingB,3),"1ª A","4ª B"],
+      [teamAt(rankingA,1),teamAt(rankingB,2),"2ª A","3ª B"],
+      [teamAt(rankingA,2),teamAt(rankingB,1),"3ª A","2ª B"],
+      [teamAt(rankingA,3),teamAt(rankingB,0),"4ª A","1ª B"]
+    ];
+    const quarters=pairings.map((pair,index)=>leagueKnockoutMatch(qStored[index],pair[0],pair[1]));
+    const semis=[
+      leagueKnockoutMatch(sStored[0],quarters[0].winner||"Vincente quarto 1",quarters[1].winner||"Vincente quarto 2"),
+      leagueKnockoutMatch(sStored[1],quarters[2].winner||"Vincente quarto 3",quarters[3].winner||"Vincente quarto 4")
+    ];
+    const final=leagueKnockoutMatch(bracket.final,semis[0].winner||"Vincente semifinale 1",semis[1].winner||"Vincente semifinale 2");
+    return `<div class="ctl-knockout">
+      <div class="ctl-knockout-intro">
+        <span>8 squadre · Eliminazione diretta</span>
+        <p>Accoppiamenti aggiornati automaticamente in base alle posizioni dei gironi A e B. Tutte le squadre accedono ai quarti; le vincenti avanzano a semifinali e finale.</p>
+      </div>
+      <div class="ctl-knockout-board">
+        <div class="ctl-knockout-round">
+          <h3>Quarti di finale</h3>
+          ${quarters.map((match,index)=>leagueKnockoutCard("Quarto "+(index+1),match,pairings[index][2],pairings[index][3])).join("")}
         </div>
-        <div class="ctl-bracket-champion"><i class="fa-solid fa-trophy" aria-hidden="true"></i><span>Campione</span><b>${h(final.winner||"Da definire")}</b></div>
-      </article>
+        <div class="ctl-knockout-round ctl-knockout-round-semis">
+          <h3>Semifinali</h3>
+          ${semis.map((match,index)=>leagueKnockoutCard("Semifinale "+(index+1),match,"VQ"+(index*2+1),"VQ"+(index*2+2))).join("")}
+        </div>
+        <div class="ctl-knockout-round ctl-knockout-round-final">
+          <h3>Finale</h3>
+          ${leagueKnockoutCard("Finale",final,"VS1","VS2")}
+          <div class="ctl-knockout-champion"><i class="fa-solid fa-trophy" aria-hidden="true"></i>
+            <span>Campione CUS Trento League</span>
+            <b>${h(final.winner||"Da definire")}</b>
+          </div>
+        </div>
+      </div>
+      <p class="ctl-knockout-note">In caso di pareggio, inserisci nel CMS la squadra qualificata secondo le disposizioni dell’organizzazione. Il tabellone non assegna automaticamente la vittoria a punteggio pari.</p>
     </div>`;
+  }
+
+  function leagueRulesHtml(){
+    const league=leagueData();
+    const venue=String(league.venue||"").trim();
+    const source="https://www.unitrentosport-custrento.it/it/prenota/centro/cus-trento-futsal%20league";
+    return `<section class="ctl-screen ctl-section ctl-rules">
+      <div class="ctl-rules-intro">
+        <span>Regolamento del torneo</span>
+        <h2>CUS Trento Futsal League</h2>
+        <p>Indicazioni generali tratte e riformulate dal regolamento pubblicato da UniTrento Sport / CUS Trento. La formula a due gironi e le fasi finali qui descritte si riferiscono alla Fall Edition 2026.</p>
+      </div>
+      <div class="ctl-rules-grid">
+        <article class="ctl-rules-card"><h3>1. Partecipazione</h3>
+          <p>Possono partecipare gli iscritti a UniTrento Sport / CUS Trento con tesseramento valido: studenti, dipendenti e alumni dell’Università di Trento. Ogni squadra può comprendere al massimo quattro persone esterne, previa registrazione al portale ufficiale.</p>
+        </article>
+        <article class="ctl-rules-card"><h3>2. Composizione delle squadre</h3>
+          <p>Il regolamento pubblicato prevede rose composte da un minimo di otto e un massimo di quattordici giocatori. Il capitano comunica l’elenco dei componenti al momento dell’iscrizione.</p>
+        </article>
+        <article class="ctl-rules-card"><h3>3. Gironi e qualificazione</h3>
+          <p>La Fall Edition 2026 comprende due gironi da quattro squadre. Tutte e otto accedono alla fase finale, indipendentemente dalla posizione in classifica; la posizione determina l’avversaria dei quarti.</p>
+          <p>Gli incroci sono: <b>1ª A–4ª B</b>, <b>2ª A–3ª B</b>, <b>3ª A–2ª B</b> e <b>4ª A–1ª B</b>.</p>
+        </article>
+        <article class="ctl-rules-card"><h3>4. Fasi finali</h3>
+          <p>Quarti di finale, semifinali e finale si disputano a eliminazione diretta in gara unica. Le vincenti dei quarti 1 e 2 giocano la prima semifinale; quelle dei quarti 3 e 4 la seconda. Le due vincenti si incontrano in finale.</p>
+          <p>Per un risultato di parità, la modalità di individuazione della vincente deve essere comunicata dall’organizzazione.</p>
+        </article>
+        <article class="ctl-rules-card"><h3>5. Partite</h3>
+          <p>La fonte ufficiale indica incontri composti da due tempi di 22 minuti e regole di calcio a 5 con eventuali adattamenti comunicati prima della competizione. Le gare vengono programmate dall’organizzazione, che informa i capitani.</p>
+          ${venue?`<p>Impianto indicato nel programma corrente: <b>${h(venue)}</b>.</p>`:""}
+        </article>
+        <article class="ctl-rules-card"><h3>6. Iscrizione</h3>
+          <p>Il capitano trasmette il modulo con i nominativi dei giocatori. L’iscrizione è confermata solo dopo il pagamento della quota. Nella pagina ufficiale sono previsti consegna del modulo alla segreteria oppure invio tramite email.</p>
+        </article>
+        <article class="ctl-rules-card"><h3>7. Quote e premi</h3>
+          <p>La pagina di riferimento, relativa alla precedente edizione di primavera 2026, riportava quote individuali di <b>15 € per studenti</b>, <b>20 € per dipendenti e alumni</b> e <b>25 € per esterni</b>, oltre a un buono acquisto da 400 € per la prima classificata. Importi e premi <b>non sono confermati per la Fall Edition 2026</b>: chiedere verifica alla segreteria.</p>
+        </article>
+        <article class="ctl-rules-card"><h3>8. Informazioni e contatti</h3>
+          <p>Per iscrizioni, tesseramento, pagamenti e chiarimenti sulle regole rivolgersi alla segreteria CUS Trento: Via Verdi 8, Trento; telefono <a href="tel:+390461281856">0461 281856</a>; email <a href="mailto:custn@unitn.it">custn@unitn.it</a>.</p>
+          <p>Il calendario corrente e le date vengono pubblicati sul sito del torneo.</p>
+        </article>
+      </div>
+      <div class="ctl-rules-source"><span>Fonte: regolamento pubblicato da UniTrento Sport / CUS Trento. Alcune condizioni della pagina originale riguardano l’edizione primavera 2026.</span>
+        <a href="${h(source)}" target="_blank" rel="noopener noreferrer">Consulta il regolamento originale <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+      </div>
+    </section>`;
   }
 
   function leagueScreenButton(screen,label){
@@ -3234,8 +3323,9 @@ const sectionPages=(function(){
       <div class="ctl-panel">${scorers.length?`<div class="ctl-scorers">${scorers.map((row,index)=>`<div><span class="ctl-scorer-pos">${index+1}</span><span><b>${h(row.name)}</b><small>${h(row.team||"")}</small></span><strong>${row.goals} <i class="fa-solid fa-futbol" aria-hidden="true"></i></strong></div>`).join("")}</div>`:`<div class="ctl-empty">I marcatori compariranno qui dopo l’inserimento dei primi risultati.</div>`}</div>
     </section>`;
     if(screen==="finali") return `<section class="ctl-screen ctl-section">
-      <div class="ctl-bracket-diagram-wrap">${leagueBracketHtml()}</div>
+      ${leagueBracketHtml()}
     </section>`;
+    if(screen==="regolamento") return leagueRulesHtml();
     return `<section class="ctl-screen ctl-section">
       <div class="ctl-rosters">${teams.map(leagueRosterCard).join("")}</div>
     </section>`;
@@ -3255,7 +3345,7 @@ const sectionPages=(function(){
     const scorers=leagueScorers();
     const instagram=String(league.instagram||"https://www.instagram.com/custrentoleague/");
     const requestedScreen=view.leagueScreen||"squadre";
-    const screen=["squadre","classifiche","calendario","marcatori","finali"].includes(requestedScreen)?requestedScreen:"squadre";
+    const screen=["squadre","classifiche","calendario","marcatori","finali","regolamento"].includes(requestedScreen)?requestedScreen:"squadre";
     const html=`<section class="ctl-hero">
       <div class="container ctl-hero-inner">
         <div class="ctl-hero-brand">
@@ -3276,6 +3366,7 @@ const sectionPages=(function(){
           ${leagueScreenButton("calendario","Calendario")}
           ${leagueScreenButton("marcatori","Marcatori")}
           ${leagueScreenButton("finali","Fasi finali")}
+          ${leagueScreenButton("regolamento","Regolamento")}
         </nav>
         <div class="ctl-screen-stage">${leagueScreenContent(screen,teams,matches,scorers)}</div>
       </div>
