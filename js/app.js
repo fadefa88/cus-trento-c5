@@ -2207,8 +2207,9 @@ function opponentGoalCount(p){
 function matchOpponentSquadRows(match){
   return matchOpponentLineup(match).map(p=>{
     const surname=String(p.surname).trim();
+    const surnameUpper=surname.toLocaleUpperCase("es-ES");
     const given=String(p.firstName||"").trim();
-    const nameHtml=`<span class="player-card-surname">${safe(surname)}</span>${given?` <span class="player-card-given">${safe(given)}</span>`:""}`;
+    const nameHtml=`<span class="player-card-surname">${safe(surnameUpper)}</span>${given?` <span class="player-card-given">${safe(given)}</span>`:""}`;
     return matchSquadCompactRow(p.number,nameHtml,matchSquadEventsHtml(!!p.yellow,!!p.red,opponentGoalCount(p)),true);
   }).join("");
 }
