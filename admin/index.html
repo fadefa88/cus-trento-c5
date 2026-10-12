@@ -344,6 +344,16 @@
           "Digita il nome: vengono suggeriti i giocatori delle rose e i marcatori già salvati, con la squadra di appartenenza. Autogol rimane disponibile.");
         bind(namedField(scorerFields,"team"),choices.teams,
           "Seleziona la squadra a cui è attribuito il gol (casa o trasferta). Puoi cercarla digitandone il nome.");
+        var bracketField = namedField(leagueField && leagueField.fields,"bracket");
+        var bracketFields = bracketField && bracketField.fields;
+        ["quarterfinals","semifinals"].forEach(function(round){
+          var roundField = namedField(bracketFields,round);
+          bind(namedField(roundField && roundField.fields,"winner"),choices.teams,
+            "Solo in caso di parità: cerca la squadra qualificata tra quelle già salvate.");
+        });
+        var finalField = namedField(bracketFields,"final");
+        bind(namedField(finalField && finalField.fields,"winner"),choices.teams,
+          "Solo in caso di parità: cerca la squadra campione tra quelle già salvate.");
       }
 
       function loadLeague(){
