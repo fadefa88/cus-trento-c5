@@ -1151,6 +1151,21 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   font-weight:600;
   box-shadow:inset 0 0 0 3px rgba(255,255,255,.28);
 }
+.ctl-team-badge.has-logo{
+  position:relative;
+  overflow:hidden;
+  background:#fff;
+}
+.ctl-team-badge.has-logo img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:3px;
+  background:#fff;
+  box-sizing:border-box;
+}
 .ctl-roster-list{
   border-top:1px solid var(--line);
   padding:8px 16px 14px;
@@ -1590,6 +1605,18 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   font-weight:800;
   letter-spacing:.08em;
   text-transform:uppercase;
+}
+.ctl-bracket-team{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+}
+.ctl-bracket-team .ctl-team-badge{
+  width:26px;
+  height:26px;
+  border-radius:8px;
+  font-size:10px;
 }
 .ctl-bracket-leg{
   padding:12px 14px;
