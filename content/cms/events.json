@@ -58,7 +58,52 @@
         "id": "the-rolling-rocks",
         "name": "The Rolling Rocks",
         "group": "A",
-        "players": []
+        "players": [
+          {
+            "number": "3",
+            "name": "Ligori Francesco"
+          },
+          {
+            "number": "4",
+            "name": "Zarantonello Lorenzo"
+          },
+          {
+            "number": "8",
+            "name": "Negro Nicola"
+          },
+          {
+            "number": "10",
+            "name": "Gentile Giovanni"
+          },
+          {
+            "number": "12",
+            "name": "Beltrami Tommaso"
+          },
+          {
+            "number": "14",
+            "name": "Dell'Iturri Pasqualbruno"
+          },
+          {
+            "number": "16",
+            "name": "Milano Sandro"
+          },
+          {
+            "number": "17",
+            "name": "Fenato Niccolò"
+          },
+          {
+            "number": "18",
+            "name": "Pomo Nicola"
+          },
+          {
+            "number": "21",
+            "name": "Ingrosso Riccardo"
+          },
+          {
+            "number": "25",
+            "name": "Merler Matteo"
+          }
+        ]
       },
       {
         "id": "recidivi-fc",
