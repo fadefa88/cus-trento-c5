@@ -3092,7 +3092,7 @@ const sectionPages=(function(){
   function leagueStandingsCard(group){
     const rows=leagueStandings(group);
     return `<article class="ctl-panel ctl-standing-panel">
-      <div class="ctl-panel-head"><span>Girone ${h(group)}</span><small>Classifica</small></div>
+      <div class="ctl-panel-head"><span>Girone ${h(group)}</span></div>
       <div class="ctl-table-wrap"><table class="ctl-table">
         <thead><tr><th>#</th><th>Squadra</th><th>PT</th><th>G</th><th>V</th><th>N</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
         <tbody>${rows.map((row,index)=>`<tr><td>${index+1}</td><td><span class="ctl-team-cell">${leagueTeamBadge(row.team)}<b>${h(row.team)}</b></span></td><td><strong>${row.pts}</strong></td><td>${row.g}</td><td>${row.v}</td><td>${row.n}</td><td>${row.p}</td><td>${row.gf}</td><td>${row.gs}</td><td>${row.gf-row.gs>0?"+":""}${row.gf-row.gs}</td></tr>`).join("")}</tbody>
