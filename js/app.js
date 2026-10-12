@@ -3235,10 +3235,6 @@ const sectionPages=(function(){
     ];
     const final=leagueKnockoutMatch(bracket.final,semis[0].winner||"Vincente semifinale 1",semis[1].winner||"Vincente semifinale 2");
     return `<div class="ctl-knockout">
-      <div class="ctl-knockout-intro">
-        <span>8 squadre · Eliminazione diretta</span>
-        <p>Accoppiamenti aggiornati automaticamente in base alle posizioni dei gironi A e B. Tutte le squadre accedono ai quarti; le vincenti avanzano a semifinali e finale.</p>
-      </div>
       <div class="ctl-knockout-board">
         <div class="ctl-knockout-round">
           <h3>Quarti di finale</h3>
@@ -3257,14 +3253,12 @@ const sectionPages=(function(){
           </div>
         </div>
       </div>
-      <p class="ctl-knockout-note">In caso di pareggio, inserisci nel CMS la squadra qualificata secondo le disposizioni dell’organizzazione. Il tabellone non assegna automaticamente la vittoria a punteggio pari.</p>
     </div>`;
   }
 
   function leagueRulesHtml(){
     const league=leagueData();
     const venue=String(league.venue||"").trim();
-    const source="https://www.unitrentosport-custrento.it/it/prenota/centro/cus-trento-futsal%20league";
     return `<section class="ctl-screen ctl-section ctl-rules">
       <div class="ctl-rules-intro">
         <span>Regolamento del torneo</span>
@@ -3300,9 +3294,6 @@ const sectionPages=(function(){
           <p>Per iscrizioni, tesseramento, pagamenti e chiarimenti sulle regole rivolgersi alla segreteria CUS Trento: Via Verdi 8, Trento; telefono <a href="tel:+390461281856">0461 281856</a>; email <a href="mailto:custn@unitn.it">custn@unitn.it</a>.</p>
           <p>Il calendario corrente e le date vengono pubblicati sul sito del torneo.</p>
         </article>
-      </div>
-      <div class="ctl-rules-source"><span>Fonte: regolamento pubblicato da UniTrento Sport / CUS Trento. Alcune condizioni della pagina originale riguardano l’edizione primavera 2026.</span>
-        <a href="${h(source)}" target="_blank" rel="noopener noreferrer">Consulta il regolamento originale <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
       </div>
     </section>`;
   }
