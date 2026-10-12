@@ -3207,7 +3207,7 @@ const sectionPages=(function(){
     </section>`;
     if(screen==="finali") return `<section class="ctl-screen ctl-section">
       <div class="ctl-screen-top"><button onclick="cusLeagueScreen('home')"><i class="fa-solid fa-arrow-left"></i> Panoramica</button><div><small>Knockout stage</small><h2>Tabellone fasi finali</h2></div><strong>Semifinali A/R · Finale secca</strong></div>
-      ${leagueBracketHtml()}
+      <div class="ctl-bracket-diagram-wrap">${leagueBracketHtml()}</div>
     </section>`;
     return `<section class="ctl-dashboard ctl-section">
       <div class="ctl-dashboard-intro"><small>Tutto il torneo</small><h2>Scegli cosa vuoi consultare</h2></div>
