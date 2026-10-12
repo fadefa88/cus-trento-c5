@@ -1782,14 +1782,6 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 
 /* ===== CUS Trento League v4: knockout bracket, rules and portrait navigation ===== */
 .ctl-knockout{min-width:0;}
-.ctl-knockout-intro{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:22px;margin-bottom:18px;padding:16px 20px;
-  border:1px solid rgba(181,138,37,.28);border-radius:18px;
-  background:linear-gradient(110deg,#fff,#fbf5e7);
-}
-.ctl-knockout-intro>span{flex:0 0 auto;font-family:var(--font-display);font-size:22px;text-transform:uppercase;color:#09090b;}
-.ctl-knockout-intro p{max-width:700px;margin:0;color:#52525b;font-size:12px;line-height:1.6;}
 .ctl-knockout-board{
   display:grid;
   grid-template-columns:minmax(0,1.08fr) minmax(0,.95fr) minmax(0,.95fr);
@@ -1847,7 +1839,6 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .ctl-knockout-champion i{grid-row:1/3;font-size:25px;}
 .ctl-knockout-champion span{font-size:9px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;}
 .ctl-knockout-champion b{font-family:var(--font-display);font-size:20px;text-transform:uppercase;}
-.ctl-knockout-note{margin:14px 3px 0;color:#71717a;font-size:12px;line-height:1.6;}
 .ctl-rules-intro{
   padding:26px 28px;border-radius:22px;background:#09090b;color:#fff;
 }
@@ -1862,46 +1853,39 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .ctl-rules-card h3{margin:0 0 10px;font-family:var(--font-display);font-size:23px;line-height:1.1;text-transform:uppercase;}
 .ctl-rules-card p{margin:0 0 9px;color:#52525b;font-size:13px;line-height:1.7;}
 .ctl-rules-card p:last-child{margin-bottom:0;}
-.ctl-rules-card a,.ctl-rules-source a{color:#9a741c;text-decoration:underline;text-underline-offset:3px;}
-.ctl-rules-source{
-  display:flex;align-items:center;justify-content:space-between;gap:18px;
-  padding:18px 4px;color:#71717a;font-size:12px;line-height:1.5;
-}
-.ctl-rules-source a{font-weight:800;white-space:nowrap;}
+.ctl-rules-card a{color:#9a741c;text-decoration:underline;text-underline-offset:3px;}
 @media(max-width:1050px){
   .ctl-knockout-board{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;}
   .ctl-knockout-round-final{grid-column:1/-1;max-width:540px;width:100%;justify-self:center;}
-  .ctl-knockout-intro{flex-direction:column;align-items:flex-start;gap:5px;}
 }
 @media(max-width:640px){
   .ctl-knockout-board{display:flex;flex-direction:column;gap:20px;padding:12px;}
   .ctl-knockout-round{gap:10px;}
   .ctl-knockout-round>h3{font-size:22px;text-align:left;}
   .ctl-knockout-round-final{max-width:none;}
-  .ctl-knockout-intro{padding:15px;gap:9px;}
-  .ctl-knockout-intro>span{font-size:20px;}
   .ctl-rules-grid{grid-template-columns:1fr;gap:10px;}
   .ctl-rules-intro{padding:21px 19px;}
   .ctl-rules-intro h2{font-size:30px;}
   .ctl-rules-card{padding:19px;}
-  .ctl-rules-source{flex-direction:column;align-items:flex-start;}
-  .ctl-rules-source a{white-space:normal;}
 }
 @media(max-width:640px) and (orientation:portrait){
   .ctl-subnav{
+    position:sticky;
+    top:78px;
+    z-index:30;
     display:grid;
     grid-template-columns:repeat(3,minmax(0,1fr));
     gap:8px;
     overflow:visible;
-    width:100%;
-    padding:0;
-    border:0;
-    border-radius:0;
-    background:transparent;
-    box-shadow:none;
+    width:auto;
+    padding:12px;
+    border:1px solid #e4e4e7;
+    border-radius:18px;
+    background:#fff;
+    box-shadow:0 12px 28px rgba(9,9,11,.12);
     backdrop-filter:none;
-    margin-left:0;
-    margin-right:0;
+    margin-left:-2px;
+    margin-right:-2px;
   }
   .ctl-subnav button{
     display:flex;
