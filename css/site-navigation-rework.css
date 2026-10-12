@@ -1722,7 +1722,24 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 /* ===== CUS Trento League v3: compact internal screens ===== */
 .ctl-screen.ctl-section{padding-top:0;}
 
-/* ===== CUS Trento League: larger logos in teams and calendar ===== */
+/* ===== CUS Trento League: team logos in squads, standings and calendar ===== */
+.ctl-roster-team > .ctl-team-badge,
+.ctl-team-cell .ctl-team-badge,
+.ctl-match-teams .ctl-team-badge{
+  border:0;
+  box-shadow:none;
+}
+.ctl-roster-team > .ctl-team-badge.has-logo,
+.ctl-team-cell .ctl-team-badge.has-logo,
+.ctl-match-teams .ctl-team-badge.has-logo{
+  background:transparent;
+}
+.ctl-roster-team > .ctl-team-badge.has-logo img,
+.ctl-team-cell .ctl-team-badge.has-logo img,
+.ctl-match-teams .ctl-team-badge.has-logo img{
+  padding:0;
+  background:transparent;
+}
 .ctl-roster-team > .ctl-team-badge{
   width:76px;
   height:76px;
@@ -1734,6 +1751,12 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   height:70px;
   border-radius:18px;
   font-size:21px;
+}
+.ctl-team-cell .ctl-team-badge{
+  width:42px;
+  height:42px;
+  border-radius:11px;
+  font-size:13px;
 }
 @media(max-width:640px){
   .ctl-roster-team > .ctl-team-badge{
@@ -1747,5 +1770,11 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     height:60px;
     border-radius:15px;
     font-size:18px;
+  }
+  .ctl-team-cell .ctl-team-badge{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    font-size:12px;
   }
 }
