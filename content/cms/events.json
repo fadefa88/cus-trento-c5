@@ -34,13 +34,158 @@
     }
   ],
   "cusTrentoLeague": {
-    "title": "CUS Trento League",
-    "edition": "Fall Edition 2026",
-    "sport": "Futsal",
-    "startDate": "2026-10-05",
+    "bracket": {
+      "format": "Semifinali A/R + finale secca",
+      "semifinals": [
+        {
+          "name": "Semifinale 1",
+          "team1": "",
+          "team2": "",
+          "firstLeg": {
+            "team1Score": null,
+            "team2Score": null
+          },
+          "secondLeg": {
+            "team1Score": null,
+            "team2Score": null
+          },
+          "winner": ""
+        },
+        {
+          "name": "Semifinale 2",
+          "team1": "",
+          "team2": "",
+          "firstLeg": {
+            "team1Score": null,
+            "team2Score": null
+          },
+          "secondLeg": {
+            "team1Score": null,
+            "team2Score": null
+          },
+          "winner": ""
+        }
+      ],
+      "final": {
+        "name": "Finale",
+        "team1": "",
+        "team2": "",
+        "team1Score": null,
+        "team2Score": null,
+        "winner": ""
+      }
+    },
     "endDate": "2026-11-13",
     "venue": "Campo Clesio",
+    "startDate": "2026-10-05",
     "instagram": "https://www.instagram.com/custrentoleague/",
+    "matches": [
+      {
+        "awayScore": 0,
+        "time": "19:30",
+        "round": "1ª giornata",
+        "away": "Calcio Proletario",
+        "date": "2026-10-12",
+        "status": "Terminata",
+        "scorers": [
+          {
+            "goals": 1,
+            "name": "Kasa",
+            "team": "Banda Bassiotti"
+          },
+          {
+            "goals": 1,
+            "name": "Bassi",
+            "team": "Banda Bassiotti"
+          },
+          {
+            "goals": 1,
+            "name": "Castelnuovo",
+            "team": "Banda Bassiotti"
+          },
+          {
+            "goals": 1,
+            "name": "Autogol",
+            "team": "Banda Bassiotti"
+          }
+        ],
+        "homeScore": 4,
+        "id": "banda-bassiotti-calcio-proletario-2026-10-12",
+        "home": "Banda Bassiotti",
+        "group": "B"
+      },
+      {
+        "awayScore": 4,
+        "time": "20:30",
+        "round": "1ª giornata",
+        "away": "Golosoni",
+        "date": "2026-10-12",
+        "status": "Da giocare",
+        "scorers": [
+          {
+            "goals": 1,
+            "name": "Borrello",
+            "team": "Rango FC"
+          },
+          {
+            "goals": 1,
+            "name": "Faggi",
+            "team": "Rango FC"
+          },
+          {
+            "goals": 1,
+            "name": "Pedrini",
+            "team": "Golosoni"
+          },
+          {
+            "goals": 1,
+            "name": "Lapo",
+            "team": "Golosoni"
+          },
+          {
+            "goals": 1,
+            "name": "Perissinotto",
+            "team": "Golosoni"
+          },
+          {
+            "goals": 1,
+            "name": "Fusinato",
+            "team": "Golosoni"
+          }
+        ],
+        "homeScore": 2,
+        "id": "rango-fc-golosoni-2026-10-12",
+        "home": "Rango FC",
+        "group": "A"
+      },
+      {
+        "awayScore": null,
+        "time": "19:30",
+        "round": "1ª giornata",
+        "away": "TT Le Girlz",
+        "date": "2026-10-12",
+        "status": "Da giocare",
+        "scorers": [],
+        "homeScore": null,
+        "id": "all-blacks-tt-le-girlz-2026-10-12",
+        "home": "All Blacks",
+        "group": "B"
+      },
+      {
+        "awayScore": null,
+        "time": "20:30",
+        "round": "1ª giornata",
+        "away": "Recidivi FC",
+        "date": "2026-10-12",
+        "status": "Da giocare",
+        "scorers": [],
+        "homeScore": null,
+        "id": "the-rolling-rocks-recidivi-fc-2026-10-12",
+        "home": "The Rolling Rocks",
+        "group": "A"
+      }
+    ],
+    "sport": "Futsal",
     "teams": [
       {
         "id": "rango-fc",
@@ -85,7 +230,24 @@
         "id": "golosoni",
         "name": "Golosoni",
         "group": "A",
-        "players": []
+        "players": [
+          {
+            "number": "10",
+            "name": "Pedrini"
+          },
+          {
+            "number": "11",
+            "name": "Lapo"
+          },
+          {
+            "number": "12",
+            "name": "Perissinotto"
+          },
+          {
+            "number": "13",
+            "name": "Fusinato"
+          }
+        ]
       },
       {
         "id": "the-rolling-rocks",
@@ -103,7 +265,20 @@
         "id": "banda-bassiotti",
         "name": "Banda Bassiotti",
         "group": "B",
-        "players": []
+        "players": [
+          {
+            "number": "10",
+            "name": "Kasa"
+          },
+          {
+            "number": "11",
+            "name": "Bassi"
+          },
+          {
+            "number": "12",
+            "name": "Castelnuovo"
+          }
+        ]
       },
       {
         "id": "calcio-proletario",
@@ -169,100 +344,7 @@
         "players": []
       }
     ],
-    "matches": [
-      {
-        "id": "banda-bassiotti-calcio-proletario-2026-10-12",
-        "date": "2026-10-12",
-        "time": "19:30",
-        "group": "B",
-        "round": "1ª giornata",
-        "home": "Banda Bassiotti",
-        "away": "Calcio Proletario",
-        "homeScore": null,
-        "awayScore": null,
-        "status": "Da giocare",
-        "scorers": []
-      },
-      {
-        "id": "rango-fc-golosoni-2026-10-12",
-        "date": "2026-10-12",
-        "time": "20:30",
-        "group": "A",
-        "round": "1ª giornata",
-        "home": "Rango FC",
-        "away": "Golosoni",
-        "homeScore": null,
-        "awayScore": null,
-        "status": "Da giocare",
-        "scorers": []
-      },
-      {
-        "id": "all-blacks-tt-le-girlz-2026-10-12",
-        "date": "2026-10-12",
-        "time": "19:30",
-        "group": "B",
-        "round": "1ª giornata",
-        "home": "All Blacks",
-        "away": "TT Le Girlz",
-        "homeScore": null,
-        "awayScore": null,
-        "status": "Da giocare",
-        "scorers": []
-      },
-      {
-        "id": "the-rolling-rocks-recidivi-fc-2026-10-12",
-        "date": "2026-10-12",
-        "time": "20:30",
-        "group": "A",
-        "round": "1ª giornata",
-        "home": "The Rolling Rocks",
-        "away": "Recidivi FC",
-        "homeScore": null,
-        "awayScore": null,
-        "status": "Da giocare",
-        "scorers": []
-      }
-    ],
-    "bracket": {
-      "format": "Semifinali A/R + finale secca",
-      "semifinals": [
-        {
-          "name": "Semifinale 1",
-          "team1": "",
-          "team2": "",
-          "firstLeg": {
-            "team1Score": null,
-            "team2Score": null
-          },
-          "secondLeg": {
-            "team1Score": null,
-            "team2Score": null
-          },
-          "winner": ""
-        },
-        {
-          "name": "Semifinale 2",
-          "team1": "",
-          "team2": "",
-          "firstLeg": {
-            "team1Score": null,
-            "team2Score": null
-          },
-          "secondLeg": {
-            "team1Score": null,
-            "team2Score": null
-          },
-          "winner": ""
-        }
-      ],
-      "final": {
-        "name": "Finale",
-        "team1": "",
-        "team2": "",
-        "team1Score": null,
-        "team2Score": null,
-        "winner": ""
-      }
-    }
+    "title": "CUS Trento League",
+    "edition": "Fall Edition 2026"
   }
 }
