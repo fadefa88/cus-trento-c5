@@ -3105,7 +3105,7 @@ const sectionPages=(function(){
     const map=new Map();
     (league.matches||[]).forEach(match=>(Array.isArray(match.scorers)?match.scorers:[]).forEach(item=>{
       const name=String(item&&item.name||"").trim();
-      if(!name)return;
+      if(!name||/^autogol$/i.test(name))return;
       const team=String(item&&item.team||"").trim();
       const key=leagueTeamKey(name)+"|"+leagueTeamKey(team);
       if(!map.has(key))map.set(key,{name,team,goals:0});
@@ -3128,10 +3128,37 @@ const sectionPages=(function(){
     </details>`;
   }
 
+  function leagueMatchScorers(match,team){
+    const grouped=new Map();
+    (Array.isArray(match.scorers)?match.scorers:[]).forEach(item=>{
+      const name=String(item&&item.name||"").trim();
+      if(!name||leagueTeamKey(item&&item.team)!==leagueTeamKey(team))return;
+      const key=leagueTeamKey(name);
+      if(!grouped.has(key))grouped.set(key,{name,goals:0});
+      grouped.get(key).goals+=Math.max(1,Number(item.goals)||1);
+    });
+    return [...grouped.values()];
+  }
+
+  function leagueMatchGoalLines(scorers){
+    return scorers.map(item=>`<div class="ctl-match-goal"><i class="fa-solid fa-futbol" aria-hidden="true"></i><span>${h(item.name)}${item.goals>1?` <strong>×${item.goals}</strong>`:""}</span></div>`).join("");
+  }
+
   function leagueMatchCard(match){
     const played=leagueMatchPlayed(match);
     const date=fmtDate(match.date);
     const score=played?`${Number(match.homeScore)} <span>–</span> ${Number(match.awayScore)}`:"VS";
+    const homeScorers=played?leagueMatchScorers(match,match.home):[];
+    const awayScorers=played?leagueMatchScorers(match,match.away):[];
+    const goalsMarkup=homeScorers.length||awayScorers.length
+      ? `<div class="ctl-match-goals" aria-label="Marcatori della partita">
+          <div class="ctl-match-goals-title">Marcatori</div>
+          <div class="ctl-match-goals-grid">
+            <div class="ctl-match-goals-side">${leagueMatchGoalLines(homeScorers)}</div>
+            <div class="ctl-match-goals-side">${leagueMatchGoalLines(awayScorers)}</div>
+          </div>
+        </div>`
+      : "";
     return `<article class="ctl-match-card ${played?"is-played":""}">
       <div class="ctl-match-meta"><span>Girone ${h(match.group||"—")} · ${h(match.round||"")}</span><span>${h(date)} · ${h(match.time||"--:--")}</span></div>
       <div class="ctl-match-teams">
@@ -3139,6 +3166,7 @@ const sectionPages=(function(){
         <strong class="ctl-match-score">${score}</strong>
         <div>${leagueTeamBadge(match.away)}<b>${h(match.away)}</b></div>
       </div>
+      ${goalsMarkup}
       <div class="ctl-match-status">${played?"Terminata":h(match.status||"Da giocare")}</div>
     </article>`;
   }
