@@ -1226,3 +1226,256 @@ collections:
         name: details
         widget: text
         required: false
+    - label: CUS Trento League
+      name: cusTrentoLeague
+      widget: object
+      collapsed: false
+      hint: Gestisci qui squadre, rose, partite, risultati, marcatori e fasi finali della League.
+      fields:
+      - label: Titolo
+        name: title
+        widget: string
+        default: CUS Trento League
+      - label: Edizione
+        name: edition
+        widget: string
+        default: Fall Edition 2026
+      - label: Sport
+        name: sport
+        widget: string
+        default: Futsal
+      - label: Data inizio
+        name: startDate
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        picker_utc: false
+        required: false
+      - label: Data fine
+        name: endDate
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        picker_utc: false
+        required: false
+      - label: Campo
+        name: venue
+        widget: string
+        required: false
+      - label: Instagram
+        name: instagram
+        widget: string
+        required: false
+      - label: Squadre e rose
+        name: teams
+        widget: list
+        label_singular: squadra
+        summary: 'Girone {{fields.group}} — {{fields.name}}'
+        fields:
+        - label: ID
+          name: id
+          widget: string
+          required: false
+        - label: Nome squadra
+          name: name
+          widget: string
+        - label: Girone
+          name: group
+          widget: select
+          options:
+          - A
+          - B
+        - label: Giocatori
+          name: players
+          widget: list
+          required: false
+          collapsed: true
+          label_singular: giocatore
+          summary: '#{{fields.number}} {{fields.name}}'
+          fields:
+          - label: Numero
+            name: number
+            widget: string
+            required: false
+          - label: Nome e cognome
+            name: name
+            widget: string
+          - label: Ruolo
+            name: role
+            widget: string
+            required: false
+      - label: Calendario e risultati
+        name: matches
+        widget: list
+        label_singular: partita
+        collapsed: true
+        summary: '{{fields.date}} — {{fields.home}} vs {{fields.away}}'
+        fields:
+        - label: ID
+          name: id
+          widget: string
+          required: false
+        - label: Data
+          name: date
+          widget: datetime
+          format: YYYY-MM-DD
+          date_format: DD/MM/YYYY
+          time_format: false
+          picker_utc: false
+        - label: Ora
+          name: time
+          widget: string
+          required: false
+        - label: Girone
+          name: group
+          widget: select
+          options:
+          - A
+          - B
+        - label: Giornata
+          name: round
+          widget: string
+          required: false
+        - label: Casa
+          name: home
+          widget: string
+        - label: Trasferta
+          name: away
+          widget: string
+        - label: Gol casa
+          name: homeScore
+          widget: number
+          value_type: int
+          min: 0
+          required: false
+        - label: Gol trasferta
+          name: awayScore
+          widget: number
+          value_type: int
+          min: 0
+          required: false
+        - label: Stato
+          name: status
+          widget: select
+          options:
+          - Da giocare
+          - Terminata
+          default: Da giocare
+        - label: Marcatori
+          name: scorers
+          widget: list
+          required: false
+          collapsed: true
+          summary: '{{fields.name}} — {{fields.goals}} gol'
+          fields:
+          - label: Nome e cognome
+            name: name
+            widget: string
+          - label: Squadra
+            name: team
+            widget: string
+          - label: Gol
+            name: goals
+            widget: number
+            value_type: int
+            min: 1
+            default: 1
+      - label: Fasi finali
+        name: bracket
+        widget: object
+        collapsed: false
+        fields:
+        - label: Formula
+          name: format
+          widget: string
+          default: Semifinali A/R + finale secca
+        - label: Semifinali
+          name: semifinals
+          widget: list
+          min: 2
+          max: 2
+          collapsed: false
+          summary: '{{fields.name}} — {{fields.team1}} vs {{fields.team2}}'
+          fields:
+          - label: Nome
+            name: name
+            widget: string
+          - label: Squadra 1
+            name: team1
+            widget: string
+            required: false
+          - label: Squadra 2
+            name: team2
+            widget: string
+            required: false
+          - label: Andata
+            name: firstLeg
+            widget: object
+            fields:
+            - label: Gol squadra 1
+              name: team1Score
+              widget: number
+              value_type: int
+              min: 0
+              required: false
+            - label: Gol squadra 2
+              name: team2Score
+              widget: number
+              value_type: int
+              min: 0
+              required: false
+          - label: Ritorno
+            name: secondLeg
+            widget: object
+            fields:
+            - label: Gol squadra 1
+              name: team1Score
+              widget: number
+              value_type: int
+              min: 0
+              required: false
+            - label: Gol squadra 2
+              name: team2Score
+              widget: number
+              value_type: int
+              min: 0
+              required: false
+          - label: Vincente / finalista
+            name: winner
+            widget: string
+            required: false
+        - label: Finale
+          name: final
+          widget: object
+          collapsed: false
+          fields:
+          - label: Nome
+            name: name
+            widget: string
+            default: Finale
+          - label: Squadra 1
+            name: team1
+            widget: string
+            required: false
+          - label: Squadra 2
+            name: team2
+            widget: string
+            required: false
+          - label: Gol squadra 1
+            name: team1Score
+            widget: number
+            value_type: int
+            min: 0
+            required: false
+          - label: Gol squadra 2
+            name: team2Score
+            widget: number
+            value_type: int
+            min: 0
+            required: false
+          - label: Vincente
+            name: winner
+            widget: string
+            required: false
