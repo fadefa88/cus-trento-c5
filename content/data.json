@@ -4509,8 +4509,45 @@
       }
     ],
     "bracket": {
-      "note": "Accoppiamenti della fase finale da definire.",
-      "stages": []
+      "format": "Semifinali A/R + finale secca",
+      "semifinals": [
+        {
+          "name": "Semifinale 1",
+          "team1": "",
+          "team2": "",
+          "firstLeg": {
+            "team1Score": null,
+            "team2Score": null
+          },
+          "secondLeg": {
+            "team1Score": null,
+            "team2Score": null
+          },
+          "winner": ""
+        },
+        {
+          "name": "Semifinale 2",
+          "team1": "",
+          "team2": "",
+          "firstLeg": {
+            "team1Score": null,
+            "team2Score": null
+          },
+          "secondLeg": {
+            "team1Score": null,
+            "team2Score": null
+          },
+          "winner": ""
+        }
+      ],
+      "final": {
+        "name": "Finale",
+        "team1": "",
+        "team2": "",
+        "team1Score": null,
+        "team2Score": null,
+        "winner": ""
+      }
     }
   }
 }
