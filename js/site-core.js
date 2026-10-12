@@ -50,6 +50,7 @@
       {"route": "cnu", "path": "/cnu/", "title": "CNU CUS Trento C5", "description": "Campionati Nazionali Universitari del CUS Trento C5.", "heading": "CNU", "eyebrow": "Stagione"},
       {"route": "season-archive", "path": "/archivio-stagioni/", "title": "Archivio stagioni CUS Trento C5", "description": "Archivio storico delle stagioni del CUS Trento C5.", "heading": "Archivio stagioni", "eyebrow": "Stagione"},
       {"route": "events", "path": "/eventi/", "title": "Eventi CUS Trento C5", "description": "Eventi, tornei e selezioni del CUS Trento C5.", "heading": "Eventi", "eyebrow": "Eventi"},
+      {"route": "cus-trento-league", "path": "/cus-trento-league/", "title": "CUS Trento League", "description": "Rose, calendario, risultati, classifiche, marcatori e fasi finali della CUS Trento League.", "heading": "CUS Trento League", "eyebrow": "Eventi"},
       {"route": "partner", "path": "/partner/", "title": "Partner CUS Trento C5", "description": "Partner e sponsor del CUS Trento C5.", "heading": "Partner", "eyebrow": "Partner"},
       {"route": "become-partner", "path": "/diventa-partner/", "title": "Diventa partner CUS Trento C5", "description": "Pacchetti e opportunità per diventare partner del CUS Trento C5.", "heading": "Diventa partner", "eyebrow": "Partner"},
       {"route": "venue", "path": "/impianto/", "title": "Palazzetto Sanbàpolis CUS Trento C5", "description": "Impianto e casa del CUS Trento C5.", "heading": "Palazzetto Sanbàpolis", "eyebrow": "Club"}
