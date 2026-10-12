@@ -233,11 +233,138 @@
         fields.splice(scorerIndex >= 0 ? scorerIndex + 1 : fields.length, 0, field);
       }
 
-      function initCms(config, roster){
+
+      // Autocompletamento CUS Trento League: mantiene stringhe e JSON esistenti.
+      // HTML datalist permette anche nomi nuovi non ancora presenti nelle rose.
+      function registerLeagueAutocomplete(){
+        if(window.__cusLeagueAutocompleteRegistered) return true;
+        var render = window.h;
+        if(!window.CMS || typeof window.CMS.registerWidget !== "function" || typeof render !== "function") return false;
+
+        function LeagueAutocompleteControl(props){
+          var raw = props.field && typeof props.field.get === "function" ? props.field.get("suggestions") : [];
+          var choices = raw && typeof raw.toJS === "function" ? raw.toJS() : raw;
+          if(!Array.isArray(choices)) choices = [];
+          var id = String(props.forID || "league-autocomplete");
+          var datalistId = id + "-suggestions";
+          return render("div", {className:"cms-league-autocomplete"}, [
+            render("input", {
+              key:"input",
+              id:id,
+              className:props.classNameWrapper,
+              type:"text",
+              list:datalistId,
+              value:props.value == null ? "" : String(props.value),
+              onChange:function(event){ props.onChange(event.target.value); },
+              autoComplete:"off",
+              spellCheck:false
+            }),
+            render("datalist", {key:"list",id:datalistId}, choices.map(function(choice,index){
+              return render("option", {
+                key:String(index),
+                value:String(choice.value || ""),
+                label:String(choice.label || choice.value || "")
+              });
+            }))
+          ]);
+        }
+        window.CMS.registerWidget("league-autocomplete", LeagueAutocompleteControl);
+        window.__cusLeagueAutocompleteRegistered = true;
+        return true;
+      }
+
+      function leagueChoices(league){
+        var teamChoices = [], playerChoices = [], seenTeams = Object.create(null), seenPlayers = Object.create(null);
+        function addTeam(name){
+          var value=String(name || "").trim(), key=value.toLocaleLowerCase("it");
+          if(!value || seenTeams[key]) return;
+          seenTeams[key]=true;
+          teamChoices.push({value:value,label:value});
+        }
+        function addPlayer(name,team,number){
+          var value=String(name || "").trim(), owner=String(team || "").trim();
+          var key=value.toLocaleLowerCase("it") + "|" + owner.toLocaleLowerCase("it");
+          if(!value || seenPlayers[key]) return;
+          seenPlayers[key]=true;
+          var details = owner ? owner + (number ? " · #" + number : "") : "Già usato in calendario";
+          playerChoices.push({value:value,label:value + " — " + details});
+        }
+        (Array.isArray(league.teams) ? league.teams : []).forEach(function(team){
+          addTeam(team.name);
+          (Array.isArray(team.players) ? team.players : []).forEach(function(player){
+            addPlayer(typeof player === "string" ? player : player.name, team.name, player.number);
+          });
+        });
+        (Array.isArray(league.matches) ? league.matches : []).forEach(function(match){
+          addTeam(match.home);
+          addTeam(match.away);
+          (Array.isArray(match.scorers) ? match.scorers : []).forEach(function(item){
+            addTeam(item.team);
+            addPlayer(item.name,item.team,"");
+          });
+        });
+        addPlayer("Autogol","","");
+        teamChoices.sort(function(a,b){return a.value.localeCompare(b.value,"it");});
+        playerChoices.sort(function(a,b){
+          if(a.value === "Autogol") return -1;
+          if(b.value === "Autogol") return 1;
+          return a.value.localeCompare(b.value,"it") || a.label.localeCompare(b.label,"it");
+        });
+        return {teams:teamChoices,players:playerChoices};
+      }
+
+      function applyLeagueAutocomplete(config,league){
+        if(!registerLeagueAutocomplete()) {
+          console.warn("Widget autocompletamento League non disponibile: restano i campi di testo.");
+          return;
+        }
+        var collections = config && config.collections;
+        var events = Array.isArray(collections) && collections.find(function(item){return item && item.name === "events";});
+        var file = events && Array.isArray(events.files) && events.files[0];
+        var fields = file && file.fields;
+        var leagueField = namedField(fields,"cusTrentoLeague");
+        var matches = namedField(leagueField && leagueField.fields,"matches");
+        var matchFields = matches && matches.fields;
+        if(!Array.isArray(matchFields)) return;
+        var scorers = namedField(matchFields,"scorers");
+        var scorerFields = scorers && scorers.fields;
+        var choices = leagueChoices(league || {});
+
+        function bind(field,options,hint){
+          if(!field) return;
+          field.widget = "league-autocomplete";
+          field.suggestions = options.map(function(option){return {value:option.value,label:option.label};});
+          field.hint = hint;
+        }
+        bind(namedField(matchFields,"home"),choices.teams,
+          "Digita per cercare una squadra già inserita. Puoi anche scrivere una nuova squadra.");
+        bind(namedField(matchFields,"away"),choices.teams,
+          "Digita per cercare una squadra già inserita. Puoi anche scrivere una nuova squadra.");
+        bind(namedField(scorerFields,"name"),choices.players,
+          "Digita il nome: vengono suggeriti i giocatori delle rose e i marcatori già salvati, con la squadra di appartenenza. Autogol rimane disponibile.");
+        bind(namedField(scorerFields,"team"),choices.teams,
+          "Seleziona la squadra a cui è attribuito il gol (casa o trasferta). Puoi cercarla digitandone il nome.");
+      }
+
+      function loadLeague(){
+        return fetch("/content/cms/events.json?cms=" + Date.now(), {cache:"no-store"})
+          .then(function(response){
+            if(!response.ok) throw new Error("Dati League non caricabili: " + response.status);
+            return response.json();
+          })
+          .then(function(payload){return payload && payload.cusTrentoLeague || {};})
+          .catch(function(error){
+            console.warn("Dati League non caricati: autocompletamento con inserimento libero.",error);
+            return {};
+          });
+      }
+
+      function initCms(config, roster, league){
         syncPlayerOptionsFromRoster(config, roster);
         addOpponentLogoField(config, "fixtures");
         addOpponentLogoField(config, "u21Fixtures");
         addU23OpponentScorers(config);
+        applyLeagueAutocomplete(config, league);
         config.load_config_file = false;
         window.CMS.init({config:config});
       }
@@ -267,9 +394,10 @@
             if(!response.ok) throw new Error("Config CMS non caricabile: " + response.status);
             return response.text();
           }),
-          loadRoster()
+          loadRoster(),
+          loadLeague()
         ])
-          .then(function(results){ initCms(window.jsyaml.load(results[0]), results[1]); })
+          .then(function(results){ initCms(window.jsyaml.load(results[0]), results[1], results[2]); })
           .catch(function(error){
             console.error(error);
             window.CMS.init();
