@@ -58,6 +58,24 @@
         "id": "the-rolling-rocks",
         "name": "The Rolling Rocks",
         "group": "A",
+        "players": []
+      },
+      {
+        "id": "recidivi-fc",
+        "name": "Recidivi FC",
+        "group": "A",
+        "players": []
+      },
+      {
+        "id": "banda-bassiotti",
+        "name": "Banda Bassiotti",
+        "group": "B",
+        "players": []
+      },
+      {
+        "id": "calcio-proletario",
+        "name": "Calcio Proletario",
+        "group": "B",
         "players": [
           {
             "number": "3",
@@ -104,24 +122,6 @@
             "name": "Merler Matteo"
           }
         ]
-      },
-      {
-        "id": "recidivi-fc",
-        "name": "Recidivi FC",
-        "group": "A",
-        "players": []
-      },
-      {
-        "id": "banda-bassiotti",
-        "name": "Banda Bassiotti",
-        "group": "B",
-        "players": []
-      },
-      {
-        "id": "calcio-proletario",
-        "name": "Calcio Proletario",
-        "group": "B",
-        "players": []
       },
       {
         "id": "all-blacks",
