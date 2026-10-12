@@ -1447,11 +1447,8 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   gap:14px;
 }
 .ctl-dashboard-grid>button{
-  min-height:122px;
-  display:grid;
-  grid-template-columns:52px minmax(0,1fr) auto;
-  align-items:center;
-  gap:16px;
+  min-height:106px;
+  display:block;
   padding:20px;
   border:1px solid var(--line);
   border-radius:24px;
@@ -1466,16 +1463,6 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   border-color:rgba(181,138,37,.45);
   box-shadow:0 18px 36px rgba(9,9,11,.09);
 }
-.ctl-dashboard-grid>button>i:first-child{
-  width:52px;
-  height:52px;
-  display:grid;
-  place-items:center;
-  border-radius:16px;
-  background:linear-gradient(145deg,#f4d466,#b58a25);
-  font-size:20px;
-}
-.ctl-dashboard-grid>button>i:last-child{color:#9a741c;}
 .ctl-dashboard-grid>button b{
   display:block;
   font-family:var(--font-display);
@@ -1643,11 +1630,11 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .ctl-bracket-diagram-wrap{overflow-x:auto;}
 }
 @media(max-width:640px){
-  .ctl-hero-brand{gap:14px;align-items:flex-end;}
-  .ctl-league-logo{width:78px;height:78px;flex-basis:78px;}
-  .ctl-hero h1{font-size:48px;}
-  .ctl-dashboard-grid>button{min-height:104px;padding:16px;grid-template-columns:44px minmax(0,1fr) auto;}
-  .ctl-dashboard-grid>button>i:first-child{width:44px;height:44px;border-radius:14px;font-size:17px;}
+  .ctl-hero-inner{min-height:220px;padding-top:26px;padding-bottom:26px;}
+  .ctl-hero-brand{gap:12px;align-items:center;}
+  .ctl-league-logo{width:68px;height:68px;flex-basis:68px;}
+  .ctl-hero h1{font-size:42px;}
+  .ctl-dashboard-grid>button{min-height:92px;padding:16px;}
   .ctl-dashboard-grid>button b{font-size:21px;}
   .ctl-screen-top h2,.ctl-dashboard-intro h2{font-size:30px;}
   .ctl-bracket-diagram{
@@ -1656,3 +1643,6 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     padding:16px;
   }
 }
+
+/* ===== CUS Trento League v3: compact internal screens ===== */
+.ctl-screen.ctl-section{padding-top:0;}
