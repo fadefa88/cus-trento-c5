@@ -3169,7 +3169,7 @@ const sectionPages=(function(){
         <div>${leagueTeamBadge(match.away)}<b>${h(match.away)}</b></div>
       </div>
       ${goalsMarkup}
-      <div class="ctl-match-status">${played?"Terminata":h(match.status||"Da giocare")}</div>
+      ${played?"":`<div class="ctl-match-status">${h(match.status||"Da giocare")}</div>`}
     </article>`;
   }
 
