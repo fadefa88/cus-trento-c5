@@ -1,5 +1,5 @@
-// Automatic fields applied on every save, the same ones Decap applies today
-// (admin/custom.js and the preSave hook in admin/index.html), plus the news
+// Automatic fields applied on every save, the same ones the former Decap CMS
+// applied (its custom.js and preSave hook), plus the news
 // HTML rendering. Applied to unchanged data it is a no-op (see tests).
 import { DOCUMENTS, type DocumentId } from "./documents";
 import { getAt, isObject, setAt } from "./json";

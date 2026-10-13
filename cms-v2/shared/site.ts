@@ -1,5 +1,5 @@
 // Shared site rules come from js/site-core.js, the same file used by the public
-// site, the Decap CMS and (through its Python port) the static generator.
+// site, this CMS and (through its Python port) the static generator.
 // Importing it for its side effect defines globalThis.CUS_SITE.
 import "../../js/site-core.js";
 

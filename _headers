@@ -3,10 +3,6 @@
 /content/*
   Cache-Control: no-cache
 
-# Admin CMS should not be aggressively cached.
-/admin/*
-  Cache-Control: no-cache
-
 # JS/CSS filenames are not version-hashed, so keep browser cache conservative.
 /js/*
   Cache-Control: public, max-age=3600, must-revalidate

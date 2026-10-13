@@ -1,6 +1,5 @@
-// The CMS files Admin V2 manages. They are the same files Decap writes
-// (admin/config.yml) and that scripts/site_data.py merges into content/data.json;
-// a test checks the two lists stay identical.
+// The CMS files Admin V2 manages: the "cmsFiles" list of js/site-core.js, which
+// scripts/site_data.py merges into content/data.json; a test checks they match.
 
 export const DOCUMENT_IDS = [
   "news",

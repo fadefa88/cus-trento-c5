@@ -13,7 +13,7 @@ mkdir -p "$OUT_DIR"
 
 # Static site files and assets. Prerendered route directories are not listed
 # here: the generator owns them and reports them with --list-output-dirs.
-STATIC_PATHS="index.html robots.txt sitemap.xml _headers _redirects css js img assets content admin"
+STATIC_PATHS="index.html robots.txt sitemap.xml _headers _redirects css js img assets content"
 ROUTE_DIRS="$(python3 scripts/generate_static_pages.py --list-output-dirs | tr -d '\r')"
 
 for path in $STATIC_PATHS $ROUTE_DIRS; do
@@ -26,10 +26,16 @@ done
 # The public site never depends on it. On Cloudflare a failure here is reported
 # and the site is published without /admin-v2/ (Decap /admin/ keeps working);
 # CI sets CMS_V2_STRICT=1 so the same failure blocks the pull request.
+# The old Decap CMS address /admin/ points to Admin V2.
 if [ -d node_modules/vite ] && npm run --silent cms:build; then
   rm -rf "$OUT_DIR/admin-v2"
   cp -R cms-v2/dist "$OUT_DIR/admin-v2"
   echo "Admin V2 published in $OUT_DIR/admin-v2"
+  printf '
+# Old Decap CMS address (removed): Admin V2 replaces it.
+/admin /admin-v2/ 301
+/admin/* /admin-v2/ 301
+' >> "$OUT_DIR/_redirects"
 else
   echo "WARNING: Admin V2 build skipped or failed; the public site is not affected." >&2
   if [ "${CMS_V2_STRICT:-0}" = "1" ]; then exit 1; fi
@@ -75,8 +81,6 @@ cat >> "$OUT_DIR/_headers" <<'EOF'
 https://:project.pages.dev/*
   X-Robots-Tag: noindex, nofollow
 https://:version.:project.pages.dev/*
-  X-Robots-Tag: noindex, nofollow
-/admin/*
   X-Robots-Tag: noindex, nofollow
 /admin-v2/*
   X-Robots-Tag: noindex, nofollow

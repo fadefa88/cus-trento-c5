@@ -1,7 +1,9 @@
 # Admin V2 — audit e architettura
 
-Documento di riferimento per il nuovo CMS `/admin-v2/`. Il CMS Decap in `/admin/`
-resta attivo e invariato finché non viene approvata esplicitamente la sua rimozione.
+Documento di riferimento per il CMS `/admin-v2/`. Il CMS Decap (`/admin/`) è stato
+rimosso dopo l'approvazione: l'elenco dei file CMS è ora in `js/site-core.js`
+(`cmsFiles`) e `/admin/` reindirizza ad Admin V2. Le sezioni di audit qui sotto
+descrivono il sistema com'era prima della migrazione.
 
 ## 1. Audit del sistema attuale
 

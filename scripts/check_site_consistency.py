@@ -4,7 +4,7 @@
 js/site-core.js is authoritative for routes, collections and slug rules; the
 Python port lives in scripts/site_data.py. This check fails when:
 
-- the CMS files declared in admin/config.yml and content/cms/*.json diverge,
+- the CMS files declared in js/site-core.js (cmsFiles) and content/cms/*.json diverge,
   or two CMS files define the same top-level key;
 - the Python port and js/site-core.js (run with node) disagree on any slug, ID,
   URL or text rule for the current content;
@@ -63,9 +63,9 @@ def check_cms_files() -> None:
     declared = set(cms_files())
     on_disk = {p.relative_to(ROOT).as_posix() for p in (ROOT / "content" / "cms").glob("*.json")}
     for rel in sorted(on_disk - declared):
-        fail(f"{rel} exists but is not declared in admin/config.yml (it would never be merged)")
+        fail(f"{rel} exists but is not declared in js/site-core.js cmsFiles (it would never be merged)")
     for rel in sorted(declared - on_disk):
-        fail(f"admin/config.yml declares {rel} but the file does not exist")
+        fail(f"js/site-core.js cmsFiles declares {rel} but the file does not exist")
     merged_site_data()  # raises on duplicate top-level keys
 
 
@@ -120,7 +120,7 @@ def check_js_parity() -> None:
 
 def check_no_redeclared_rules() -> None:
     pattern = re.compile(r"\b(AUTO_OBJECT_FIELDS|HIDDEN_NEWS_TITLES|ITEM_URL_BASES)\s*=")
-    for path in [*(ROOT / "js").glob("*.js"), ROOT / "admin" / "custom.js", ROOT / "index.html"]:
+    for path in [*(ROOT / "js").glob("*.js"), ROOT / "index.html"]:
         if path.name == "site-core.js":
             continue
         if pattern.search(path.read_text(encoding="utf-8")):

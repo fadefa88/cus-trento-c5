@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CheckCircle2, CloudUpload, Copy, Eye, FileClock, History, ImagePlus, Loader2, Monitor, Moon, RotateCcw, Shield, Smartphone, Sun, Undo2 } from "lucide-react";
+import { CheckCircle2, CloudUpload, Copy, Eye, FileClock, History, ImagePlus, Loader2, Monitor, Moon, RotateCcw, Shield, Smartphone, Sun } from "lucide-react";
 import * as React from "react";
 import { toast } from "sonner";
 import { DOCUMENTS, DOCUMENT_IDS, type DocumentId } from "@shared/documents";
@@ -229,11 +229,6 @@ export function SettingsPage() {
             <li>Scegli “Aggiungi alla schermata Home”.</li>
           </ol>
           <p className="text-muted">Il pannello si aprirà a tutto schermo come un'app.</p>
-        </Card>
-        <Card className="flex flex-col gap-2 p-4 text-sm">
-          <h2 className="flex items-center gap-2 font-display text-xl font-bold"><Undo2 className="size-5" />CMS precedente</h2>
-          <p className="text-muted">Durante la migrazione il CMS Decap resta disponibile e lavora sugli stessi file.</p>
-          <a href="/admin/" className="font-semibold text-primary">Apri /admin/</a>
         </Card>
       </div>
       {session.data?.role === "admin" && (

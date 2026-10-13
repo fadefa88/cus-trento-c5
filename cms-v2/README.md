@@ -1,7 +1,7 @@
 # Admin V2 — CMS CUS Trento C5
 
 Pannello di amministrazione pubblicato in `/admin-v2/`. Architettura e audit:
-[`docs/ADMIN_V2.md`](../docs/ADMIN_V2.md). Il CMS Decap in `/admin/` resta attivo.
+[`docs/ADMIN_V2.md`](../docs/ADMIN_V2.md). È l'unico CMS del sito: il vecchio Decap (`/admin/`) è stato rimosso e il suo indirizzo reindirizza qui.
 
 ## Struttura
 
@@ -136,8 +136,8 @@ concorrenti e leggere il registro attività; `editor` modifica, salva bozze e pu
 - Ogni pubblicazione è un commit con trailer `CMS-Actor`, `CMS-Action`, `CMS-Document`.
 - *Cronologia e ripristino* riporta un documento a una versione precedente creando un
   nuovo commit (nessun force-push).
-- Per tornare al CMS precedente basta usare `/admin/`: lavora sugli stessi file.
-  Per disattivare Admin V2: rimuovere le variabili `CF_ACCESS_*` (l'API risponde 503)
+- Decap è stato rimosso; se mai servisse recuperarlo, è nella cronologia Git
+  (commit precedenti alla rimozione di `admin/`). Per disattivare Admin V2: rimuovere le variabili `CF_ACCESS_*` (l'API risponde 503)
   oppure revocare l'installazione della GitHub App.
 
 ## Sicurezza: riepilogo dei controlli
