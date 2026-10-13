@@ -88,3 +88,26 @@ describe("bracket", () => {
     expect(b.final.team2).toBe("Vincente semifinale 2");
   });
 });
+
+describe("league rules on the public page", () => {
+  const rulesFns = ["h", "leagueRulesText", "leagueCustomRulesHtml", "leagueRulesHtml"];
+  // app.js has several helpers named h(); the League one is the last before leagueRulesHtml.
+  const start = app.lastIndexOf("function h(value)", app.indexOf("function leagueRulesHtml"));
+  const hSource = extractFunction(app.slice(start), "h");
+  const source = [hSource, ...rulesFns.slice(1).map((n) => extractFunction(app, n))].join("\n");
+  const render = (league: Record<string, unknown>) =>
+    new Function("leagueData", `${source}; return leagueRulesHtml();`)(() => league) as string;
+  const text = (html: string) => html.replace(/<[^>]+>/g, " ").replace(/&[a-z#0-9]+;/g, (e) => ({ "&amp;": "&", "&#039;": "'", "&quot;": '"', "&lt;": "<", "&gt;": ">" })[e] ?? e).replace(/\s+/g, " ").trim();
+
+  it("default rules from the CMS render the same text as the current page", async () => {
+    const { DEFAULT_RULES } = await import("../shared/league-rules");
+    expect(text(render({ rules: DEFAULT_RULES, venue: "" }))).toBe(text(render({ venue: "" })));
+  });
+  it("custom rules escape HTML and only allow bold and safe links", () => {
+    const html = render({ rules: { heading: "<img src=x onerror=alert(1)>", intro: "**Ciao** [sito](https://x.it) [js](javascript:alert(1)) <script>x</script>", sections: [{ title: "T", paragraphs: ['[a](https://x.it" onmouseover="alert(1))'] }] } });
+    expect(html).not.toMatch(/<img|<script|href="javascript|onmouseover="/i);
+    expect(html).toContain("[js](javascript:alert(1))"); // left as plain, escaped text
+    expect(html).toContain("<b>Ciao</b>");
+    expect(html).toContain('<a href="https://x.it" target="_blank" rel="noopener noreferrer">sito</a>');
+  });
+});

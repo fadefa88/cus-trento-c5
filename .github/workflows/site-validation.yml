@@ -15,7 +15,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,6 +24,20 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Admin V2 typecheck and tests (API, permissions, validation, data regression)
+        run: |
+          npm run cms:typecheck
+          npm run cms:test
 
       - name: Validate JSON files
         run: |
@@ -45,7 +59,11 @@ jobs:
         run: python scripts/check_site_consistency.py
 
       - name: Build Cloudflare Pages output
-        run: npm run build
+        env:
+          CMS_V2_STRICT: "1"
+        run: |
+          npm run build
+          test -f _site/admin-v2/index.html
 
       - name: Check generated SEO and security files
         run: |
@@ -54,3 +72,29 @@ jobs:
           test -f _site/_headers
           grep -q "X-Content-Type-Options" _site/_headers
           grep -q "X-Robots-Tag" _site/_headers
+          grep -q "/admin-v2/\*" _site/_headers
+
+  admin-v2-e2e:
+    # Responsive and flow tests of Admin V2 in a phone, tablet and desktop
+    # viewport, plus WebKit (Safari's engine) on iPhone.
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies and browsers
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+
+      - name: End-to-end tests
+        env:
+          CMS_E2E_WEBKIT: "1"
+        run: npm run cms:e2e

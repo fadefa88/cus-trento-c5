@@ -5,7 +5,12 @@
   "description": "Static website for CUS Trento C5 with prerendered SEO pages.",
   "scripts": {
     "build": "bash scripts/build_cloudflare_pages.sh",
-    "generate:static": "python3 scripts/generate_static_pages.py"
+    "generate:static": "python3 scripts/generate_static_pages.py",
+    "cms:dev": "vite --config cms-v2/vite.config.mts",
+    "cms:build": "vite build --config cms-v2/vite.config.mts",
+    "cms:test": "vitest run --config cms-v2/vitest.config.mts",
+    "cms:typecheck": "tsc -p cms-v2/tsconfig.json",
+    "cms:e2e": "playwright test --config cms-v2/playwright.config.mts"
   },
   "dependencies": {
     "@fontsource/barlow-condensed": "^5.3.0",
@@ -48,5 +53,8 @@
     "typescript": "^7.0.2",
     "vite": "^8.3.4",
     "vitest": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=22.12"
   }
 }

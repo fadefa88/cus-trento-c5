@@ -145,3 +145,12 @@ che oggi la committano.
   route/alias/redirect coerenti, nessuna tabella di regole ridichiarata fuori da
   `site-core.js`, parità JS/Python di slug, ID, URL e testi su tutti i contenuti;
 - build completa, inclusa la verifica che ogni URL del sitemap sia pubblicato.
+
+## Admin V2 (`/admin-v2/`)
+
+Nuovo pannello in sviluppo accanto a Decap: sorgenti in `cms-v2/`, API in
+`functions/api/admin/[[path]].ts`, protetto da Cloudflare Access con verifica del token
+lato server. Scrive gli stessi `content/cms/*.json` con le stesse regole di
+`js/site-core.js`; le bozze vivono sul branch `cms-v2-drafts`. La build pubblica
+l'app in `_site/admin-v2/` senza modificare il resto dell'output. Dettagli in
+[`ADMIN_V2.md`](ADMIN_V2.md) e [`../cms-v2/README.md`](../cms-v2/README.md).

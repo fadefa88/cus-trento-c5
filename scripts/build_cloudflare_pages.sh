@@ -22,6 +22,19 @@ for path in $STATIC_PATHS $ROUTE_DIRS; do
   fi
 done
 
+# Admin V2 (cms-v2/): a separate single-page app published under /admin-v2/.
+# The public site never depends on it. On Cloudflare a failure here is reported
+# and the site is published without /admin-v2/ (Decap /admin/ keeps working);
+# CI sets CMS_V2_STRICT=1 so the same failure blocks the pull request.
+if [ -d node_modules/vite ] && npm run --silent cms:build; then
+  rm -rf "$OUT_DIR/admin-v2"
+  cp -R cms-v2/dist "$OUT_DIR/admin-v2"
+  echo "Admin V2 published in $OUT_DIR/admin-v2"
+else
+  echo "WARNING: Admin V2 build skipped or failed; the public site is not affected." >&2
+  if [ "${CMS_V2_STRICT:-0}" = "1" ]; then exit 1; fi
+fi
+
 # The frontend loads content/data.json at runtime. The source content/data.json
 # is only a base dataset, while current editorial data lives in
 # content/cms/*.json. Publish the same merged dataset the generator used so CMS
@@ -65,6 +78,14 @@ https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex, nofollow
 /admin/*
   X-Robots-Tag: noindex, nofollow
+/admin-v2/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; form-action 'self'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+/admin-v2/assets/*
+  ! Cache-Control
+  Cache-Control: public, max-age=31536000, immutable
 EOF
 
 # Safety: never publish CI/tooling folders if they are accidentally copied later.
