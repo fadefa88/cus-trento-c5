@@ -199,7 +199,9 @@ function goalkeeperAgainstEvents(match, roster, againstGoals){
   raw.forEach(ev=>{
     const id=resolvePlayerId(ev&&typeof ev==="object"?(ev.playerId||ev.player||ev.name||ev.id):ev, roster);
     if(id===null)return;
-    const goalsAgainst=statCount(ev&&typeof ev==="object"?(ev.goalsAgainst||ev.against||ev.goals||ev.value):againstGoals, againstGoals);
+    // goalsAgainst written by the CMS is authoritative, including 0 (a goalkeeper who conceded nothing).
+    const explicitAgainst=ev&&typeof ev==="object"&&ev.goalsAgainst!==undefined&&ev.goalsAgainst!==null&&ev.goalsAgainst!==""&&Number.isFinite(Number(ev.goalsAgainst));
+    const goalsAgainst=explicitAgainst?Math.max(0,Number(ev.goalsAgainst)):statCount(ev&&typeof ev==="object"?(ev.against||ev.goals||ev.value):againstGoals, againstGoals);
     const minutes=toNumber(ev&&typeof ev==="object"?ev.minutes:0)||40;
     const appearances=toNumber(goalsAgainst)>0?1:((ev&&typeof ev==="object"&&ev.appearances===0)?0:1);
     events.push({playerId:id,goalsAgainst,minutes,appearances});

@@ -107,7 +107,8 @@ describe("roster integrity", () => {
 describe("match rules", () => {
   async function editFirst(doc: "fixtures" | "u21Fixtures", patch: (m: Item) => Item) {
     const content = readDoc(doc) as Record<string, Item[]>;
-    const m = content[doc].find((x) => x.status === "Terminata")!;
+    // A terminated match whose goalkeepers already account for every goal conceded.
+    const m = content[doc].find((x) => x.status === "Terminata" && Array.isArray(x.goalkeeperEvents) && x.goalkeeperEvents.length)!;
     return processEdit(doc, content, [{ type: "upsert", list: [doc], id: String(m.id), base: await valueHash(m), value: patch(clone(m)) }], { roster: roster().roster });
   }
 
@@ -122,12 +123,21 @@ describe("match rules", () => {
     });
     expect(res.errors.map((e) => e.message)).toContain("Un giocatore non può essere sia titolare sia in panchina");
   });
-  it("U23 terminated match needs exactly five starters", async () => {
-    const res = await editFirst("u21Fixtures", (m) => {
-      (m.lineup as { startingFive: string[] }).startingFive.pop();
-      return m;
+  it("at most 12 players can be called up", async () => {
+    const ids = roster().roster.slice(0, 13).map((p) => String(p.id));
+    const res = await editFirst("u21Fixtures", (m) => ({ ...m, lineup: { startingFive: [], bench: ids }, scorerEvents: [], yellowCardEvents: [], redCardEvents: [], goalkeeperEvents: [] }));
+    expect(res.errors.map((e) => e.message)).toContain("Al massimo 12 giocatori convocati");
+  });
+  it("a terminated match needs its goalkeepers, accounting for every goal conceded", async () => {
+    const none = await editFirst("fixtures", (m) => ({ ...m, goalkeeperEvents: [] }));
+    expect(none.errors.some((e) => e.message.includes("Seleziona il portiere"))).toBe(true);
+    const wrong = await editFirst("fixtures", (m) => ({ ...m, goalkeeperEvents: (m.goalkeeperEvents as Item[]).map((e, i) => (i === 0 ? { ...e, goalsAgainst: 0 } : e)) }));
+    expect(wrong.errors.some((e) => e.message.includes("Gol subiti assegnati"))).toBe(true);
+    const split = await editFirst("fixtures", (m) => {
+      const [a, b] = m.goalkeeperEvents as Item[];
+      return { ...m, goalkeeperEvents: [{ ...a, goalsAgainst: Number(a.goalsAgainst) + Number(b.goalsAgainst) }, { ...b, goalsAgainst: 0 }] };
     });
-    expect(res.errors.some((e) => e.message.includes("esattamente 5"))).toBe(true);
+    expect(split.errors).toEqual([]);
   });
   it("scorer must be in the lineup, own goal is always allowed", async () => {
     const res = await editFirst("fixtures", (m) => ({ ...m, scorerEvents: [{ playerId: "autogol", goals: 1 }, { playerId: "zago-alessandro", goals: 1 }] }));

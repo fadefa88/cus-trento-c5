@@ -16,14 +16,11 @@ test("enter a result as draft, then publish the draft", async ({ page }) => {
   await d.getByRole("button", { name: "Gol casa: più" }).click();
   await d.getByRole("button", { name: "Gol casa: più" }).click();
   await d.getByRole("button", { name: "Gol trasferta: più" }).click();
-  // U23 rule: a terminated match needs exactly five starters.
+  // A terminated match needs the goalkeepers who conceded the goals.
   await d.getByRole("button", { name: "Salva bozza" }).click();
-  await expect(d.getByRole("alert")).toContainText("esattamente 5 titolari");
-  await d.getByRole("tab", { name: /Formazione/ }).click();
-  await d.getByRole("button", { name: "Aggiungi" }).first().click();
-  const picker = dialog(page);
-  for (let i = 0; i < 5; i++) await picker.locator("button:has(span.tabular)").nth(i).click();
-  await picker.getByRole("button", { name: /Fatto/ }).click();
+  await expect(d.getByRole("alert")).toContainText("Seleziona il portiere");
+  await d.getByRole("tab", { name: "Eventi" }).click();
+  await d.getByRole("button", { name: "Portiere" }).click();
   await d.getByRole("button", { name: "Salva bozza" }).click();
   await expect(page.getByText("Bozza salvata")).toBeVisible();
   await expect(page.getByText(/Bozza non pubblicata/)).toBeVisible();
@@ -110,20 +107,20 @@ test("edit the League rules and publish", async ({ page }) => {
   await expect(page.getByLabel("Introduzione")).toHaveValue(text);
 });
 
-test("bench is limited to 7 players; no report tab, no opponents tab for U23", async ({ page }) => {
+test("up to 12 players called up; no report tab, no opponents tab for U23", async ({ page }) => {
   await page.goto("./#/partite/prima?edit=new");
   let d = dialog(page);
   await expect(d.getByRole("tab", { name: "Tabellino" })).toHaveCount(0);
   await expect(d.getByRole("tab", { name: "Avversari" })).toHaveCount(1);
   await d.getByRole("tab", { name: "Avversari" }).click();
   await expect(d.getByText("Marcatori avversari")).toHaveCount(0);
-  await d.getByRole("tab", { name: /Formazione/ }).click();
-  await d.getByRole("button", { name: "Aggiungi" }).nth(1).click();
+  await d.getByRole("tab", { name: /Convocati/ }).click();
+  await d.getByRole("button", { name: "Aggiungi" }).click();
   const picker = dialog(page);
-  for (let i = 0; i < 9; i++) await picker.locator("button:has(span.tabular)").nth(i).click();
+  for (let i = 0; i < 14; i++) await picker.locator("button:has(span.tabular)").nth(i).click();
   await picker.getByRole("button", { name: /Fatto/ }).click();
-  await expect(d.getByText("Panchina(7/7)")).toBeVisible();
-  await expect(d.getByRole("button", { name: "Aggiungi" }).nth(1)).toBeDisabled();
+  await expect(d.getByText("Convocati(12/12)")).toBeVisible();
+  await expect(d.getByRole("button", { name: "Aggiungi" })).toBeDisabled();
   await page.keyboard.press("Escape");
   page.once("dialog", (c) => c.accept());
   await page.goto("./#/partite/u23?edit=new");

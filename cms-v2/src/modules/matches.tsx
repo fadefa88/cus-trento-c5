@@ -1,6 +1,6 @@
 import { CalendarDays, ExternalLink, Plus, Search, Shield } from "lucide-react";
 import * as React from "react";
-import { COMPETITIONS, MAX_BENCH, OWN_GOAL_ID, type DocumentId } from "@shared/documents";
+import { COMPETITIONS, MAX_SQUAD, OWN_GOAL_ID, type DocumentId } from "@shared/documents";
 import { isCusName, scoreParts } from "@shared/rules";
 import { publicUrl } from "@shared/site";
 import { FormSection, ItemEditor } from "@/components/editor";
@@ -215,10 +215,13 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
     replace({ ...m, home: newSide === "home" ? own : opp, away: newSide === "home" ? opp : own, ...(logos.get(opp.toLowerCase()) && !m.opponentLogo ? { opponentLogo: logos.get(opp.toLowerCase()) } : {}) });
   };
   const setScore = (h: number | null, a: number | null) => set("score", h === null && a === null ? "" : `${h ?? 0}-${a ?? 0}`);
-  const setLineup = (key: "startingFive" | "bench", ids: string[]) => {
-    const next = { ...lineup, [key]: ids };
-    if (key === "startingFive") next.bench = arr<string>(next.bench).filter((id) => !ids.includes(String(id)));
-    set("lineup", next);
+  const squad = [...starting, ...bench.filter((id) => !starting.includes(id))];
+  // One list of called-up players. Matches saved before keep their starting five
+  // (players still selected stay there); everyone else goes in `bench`, which the
+  // site counts the same way for appearances and the match center.
+  const setSquad = (ids: string[]) => {
+    const keepStarting = starting.filter((id) => ids.includes(id));
+    set("lineup", { ...lineup, startingFive: keepStarting, bench: ids.filter((id) => !keepStarting.includes(id)) });
   };
   const updateList = (key: string, index: number, patch: Ev | null) => {
     const list = [...arr(m[key])];
@@ -227,6 +230,8 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
     set(key, list);
   };
 
+  const conceded = score ? score[side === "home" ? 1 : 0] : null;
+  const assignedAgainst = arr(m.goalkeeperEvents).reduce((n, e) => n + (Number(e.goalsAgainst) || 0), 0);
   const cusGoals = arr(m.scorerEvents).reduce((n, e) => n + Math.max(1, Number(e.goals) || 1), 0);
   const ourScore = score ? score[side === "home" ? 0 : 1] : null;
 
@@ -234,7 +239,7 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
     <Tabs value={tab} onValueChange={setTab}>
       <TabsList className="mb-5">
         <TabsTrigger value="info">Partita</TabsTrigger>
-        <TabsTrigger value="lineup">Formazione <span className="ml-1 opacity-60">{starting.length + bench.length}</span></TabsTrigger>
+        <TabsTrigger value="lineup">Convocati <span className="ml-1 opacity-60">{squad.length}</span></TabsTrigger>
         <TabsTrigger value="events">Eventi</TabsTrigger>
         {!cfg.youth && <TabsTrigger value="opponents">Avversari</TabsTrigger>}
       </TabsList>
@@ -287,11 +292,8 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
       </TabsContent>
 
       <TabsContent value="lineup" className="flex flex-col gap-5">
-        <FormSection title="Quintetto titolare" description={cfg.youth && m.status === "Terminata" ? "Per una partita U23 terminata servono esattamente 5 titolari." : "Fino a 5 giocatori. Il portiere titolare riceve i gol subiti se non indichi altrimenti."}>
-          <PlayerMultiPicker label="Titolari" value={starting} onChange={(ids) => setLineup("startingFive", ids)} players={players} max={5} exclude={bench} />
-        </FormSection>
-        <FormSection title="Panchina / convocati">
-          <PlayerMultiPicker label="Panchina" value={bench} onChange={(ids) => setLineup("bench", ids)} players={players} exclude={starting} max={MAX_BENCH} hint={`Al massimo ${MAX_BENCH} giocatori in panchina.`} />
+        <FormSection title="Convocati" description={`Fino a ${MAX_SQUAD} giocatori. Nella scheda Eventi indica poi i portieri che hanno giocato.`}>
+          <PlayerMultiPicker label="Convocati" value={squad} onChange={setSquad} players={players} max={MAX_SQUAD} />
         </FormSection>
       </TabsContent>
 
@@ -321,7 +323,15 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
             ))}
           </FormSection>
         ))}
-        <FormSection title="Portieri e gol subiti" description="Lascia vuoto per assegnare i gol subiti al portiere titolare." action={<Button type="button" size="sm" variant="secondary" onClick={() => set("goalkeeperEvents", [...arr(m.goalkeeperEvents), { playerId: goalkeepers[0]?.id ?? "", goalsAgainst: 0, appearances: 1 }])}><Plus />Portiere</Button>}>
+        <FormSection title="Portieri e gol subiti" description={`Seleziona il portiere o i portieri che hanno giocato e quanti gol ha subito ciascuno. Obbligatorio per una partita terminata.${conceded !== null ? ` Gol subiti assegnati: ${assignedAgainst}/${conceded}.` : ""}`} action={<Button type="button" size="sm" variant="secondary" onClick={() => {
+            const used = arr(m.goalkeeperEvents).map((e) => str(e.playerId));
+            const next = goalkeepers.find((g) => !used.includes(g.id));
+            // The first goalkeeper gets the goals still unassigned; the editor can split them.
+            const remaining = conceded !== null ? Math.max(0, conceded - assignedAgainst) : 0;
+            set("goalkeeperEvents", [...arr(m.goalkeeperEvents), { playerId: next?.id ?? "", goalsAgainst: remaining, appearances: 1 }]);
+          }}><Plus />Portiere</Button>}>
+          {m.status === "Terminata" && !arr(m.goalkeeperEvents).length && <p className="rounded-xl bg-warning-soft px-3 py-2 text-sm text-warning">Seleziona almeno un portiere.</p>}
+          {m.status === "Terminata" && conceded !== null && arr(m.goalkeeperEvents).length > 0 && assignedAgainst !== conceded && <p className="rounded-xl bg-danger-soft px-3 py-2 text-sm text-danger">I gol subiti assegnati ({assignedAgainst}) devono essere {conceded}.</p>}
           {arr(m.goalkeeperEvents).map((e, i) => (
             <RowCard key={i} onRemove={() => updateList("goalkeeperEvents", i, null)}>
               <PlayerButton title="Portiere" value={str(e.playerId)} onChange={(id) => updateList("goalkeeperEvents", i, { ...e, playerId: id })} players={goalkeepers.length ? goalkeepers : convocati} />
