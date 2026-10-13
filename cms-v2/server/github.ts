@@ -83,7 +83,14 @@ export class GitHubStore implements RepoStore {
   private async token() {
     if (this.cfg.appId && this.cfg.appPrivateKey && this.cfg.installationId) return installationToken(this.cfg);
     if (this.cfg.token) return this.cfg.token;
-    throw new HttpError(503, "config", "Credenziali GitHub non configurate per il CMS.");
+    // Diagnostic is safe to return after Cloudflare Access authentication:
+    // identify missing binding names, never expose credential values.
+    const missing = [
+      !this.cfg.appId ? "G_APP_ID" : null,
+      !this.cfg.installationId ? "G_APP_INSTALLATION_ID" : null,
+      !this.cfg.appPrivateKey ? "G_APP_PRIVATE_KEY" : null,
+    ].filter(Boolean);
+    throw new HttpError(503, "config", `Credenziali GitHub non configurate per il CMS. Variabili mancanti nel runtime Cloudflare: ${missing.join(", ")}.`);
   }
 
   private async call<T>(method: string, path: string, body?: unknown, okStatuses: number[] = []): Promise<{ status: number; data: T }> {
