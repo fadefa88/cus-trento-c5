@@ -5,7 +5,7 @@ import { bracket, resolveKnockout, scorers, standings, type LeagueData } from ".
 import { extractFunction, readDoc, readRepo } from "./helpers";
 
 const app = readRepo("js/app.js");
-const names = ["leagueTeamKey", "leagueMatchPlayed", "leagueStandings", "leagueScorers", "leagueKnockoutMatch"];
+const names = ["leagueTeamKey", "leagueMatchPlayed", "leagueStandings", "leagueKnockoutGames", "leagueScorers", "leagueKnockoutMatch"];
 const source = names.map((n) => extractFunction(app, n)).join("\n");
 
 function siteFunctions(league: LeagueData) {
@@ -31,7 +31,7 @@ const synthetic: LeagueData = {
     match("Due", "Quattro", null, null, "B"),
   ],
   bracket: {
-    quarterfinals: [{ team1Score: 2, team2Score: 2, winner: "Quattro" }, { team1Score: 1, team2Score: 3 }, { team1Score: 2, team2Score: 2 }, { team1Score: 0, team2Score: 1, winner: "Nessuno" }],
+    quarterfinals: [{ team1Score: 2, team2Score: 2, winner: "Quattro", scorers: [{ name: "Rossi", team: "Alfa", goals: 2 }, { name: "Autogol", team: "Quattro" }] }, { team1Score: 1, team2Score: 3, scorers: [{ name: "Neri", team: "Tre", goals: 3 }] }, { team1Score: 2, team2Score: 2 }, { team1Score: 0, team2Score: 1, winner: "Nessuno" }],
     semifinals: [{ team1Score: 4, team2Score: 1 }, {}],
     final: {},
   },
@@ -62,8 +62,8 @@ describe("league parity with js/app.js", () => {
       [{ team1Score: 0, team2Score: 3, winner: "X" }, "X", "Y"],
     ] as const;
     for (const [saved, a, b] of cases) {
-      const { team1, team2, team1Score, team2Score, winner } = resolveKnockout(saved as never, a, b);
-      expect({ team1, team2, team1Score, team2Score, winner }).toEqual(site.leagueKnockoutMatch(saved, a, b));
+      const { team1, team2, team1Score, team2Score, winner, scorers: sc } = resolveKnockout(saved as never, a, b);
+      expect({ team1, team2, team1Score, team2Score, winner, scorers: sc }).toEqual(site.leagueKnockoutMatch(saved, a, b));
     }
   });
 });
@@ -81,6 +81,11 @@ describe("bracket", () => {
     expect(b.quarters[2].needsManualWinner).toBe(true);
     expect(b.quarters[3].invalidManualWinner).toBe(true);
     expect(b.quarters[3].winner).toBe(b.quarters[3].team2); // 0-1
+  });
+  it("knockout goals count in the scorers ranking, own goals excluded", () => {
+    const rossi = scorers(synthetic).find((r) => r.name === "Rossi" && r.team === "Alfa")!;
+    expect(rossi.goals).toBe(4); // 2 in the group stage + 2 in the quarterfinal
+    expect(scorers(synthetic).find((r) => r.name === "Neri")!.goals).toBe(3);
   });
   it("semifinal 1 = winners of Q1 and Q2, semifinal 2 waits for Q3", () => {
     expect([b.semis[0].team1, b.semis[0].team2]).toEqual([b.quarters[0].winner || "Vincente quarto 1", b.quarters[1].winner]);

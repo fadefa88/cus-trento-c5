@@ -1,7 +1,7 @@
 // Business rules checked on the items an operation touched. Data already in
 // the repository is never rejected for problems it had before: only what the
 // editor changed must be valid (errors); everything else is a warning.
-import { COMPETITIONS, MATCH_STATUSES, OWN_GOAL_ID, ROSTER_ROLES, ROSTER_TEAMS, type DocumentId } from "./documents";
+import { COMPETITIONS, MATCH_STATUSES, MAX_BENCH, OWN_GOAL_ID, ROSTER_ROLES, ROSTER_TEAMS, type DocumentId } from "./documents";
 import { getAt, isObject } from "./json";
 import { bracket, isOwnGoal, matchPlayed, teamKey, type LeagueData } from "./league";
 import type { Touched } from "./ops";
@@ -72,6 +72,7 @@ function checkMatch(doc: DocumentId, m: Item, p: string, ctx: RuleContext, r: Ru
   if (starting.length > 5) err("lineup.startingFive", "Il quintetto titolare ha al massimo 5 giocatori");
   if (new Set(starting).size !== starting.length) err("lineup.startingFive", "Giocatore duplicato nel quintetto");
   if (new Set(bench).size !== bench.length) err("lineup.bench", "Giocatore duplicato in panchina");
+  if (bench.length > MAX_BENCH) err("lineup.bench", `In panchina al massimo ${MAX_BENCH} giocatori`);
   if (bench.some((id) => starting.includes(id))) err("lineup.bench", "Un giocatore non può essere sia titolare sia in panchina");
   if (doc === "u21Fixtures" && terminated && starting.length !== 5) err("lineup.startingFive", "Per una partita U23 terminata servono esattamente 5 titolari");
   if (doc === "fixtures" && terminated && starting.length && starting.length !== 5) warn("lineup.startingFive", "Il quintetto titolare non ha 5 giocatori");
@@ -155,6 +156,17 @@ function checkBracket(league: LeagueData, r: RuleResult) {
   const b = bracket(league);
   const all = [...b.quarters.map((m, i) => [`Quarto ${i + 1}`, m] as const), ...b.semis.map((m, i) => [`Semifinale ${i + 1}`, m] as const), ["Finale", b.final] as const];
   for (const [name, m] of all) {
+    const goals: Record<string, number> = {};
+    m.scorers.forEach((sc, i) => {
+      if (!String(sc?.name || "").trim()) return r.errors.push({ path: "cusTrentoLeague.bracket", message: `${name}: nome del marcatore ${i + 1} mancante` });
+      const t = teamKey(sc.team);
+      if (t !== teamKey(m.team1) && t !== teamKey(m.team2)) return r.errors.push({ path: "cusTrentoLeague.bracket", message: `${name}: ${sc.name} non appartiene a ${m.team1} o ${m.team2}` });
+      goals[t] = (goals[t] || 0) + Math.max(1, Number(sc.goals) || 1);
+    });
+    for (const [team, score] of [[m.team1, m.team1Score], [m.team2, m.team2Score]] as Array<[string, number | null]>) {
+      const g = goals[teamKey(team)] || 0;
+      if (score !== null && g > score) r.errors.push({ path: "cusTrentoLeague.bracket", message: `${name}: i marcatori di ${team} (${g}) superano i gol segnati (${score})` });
+    }
     if (m.invalidManualWinner) r.errors.push({ path: "cusTrentoLeague.bracket", message: `${name}: la vincente indicata non è una delle due squadre` });
     if (m.needsManualWinner) r.warnings.push({ path: "cusTrentoLeague.bracket", message: `${name}: pareggio, indica la squadra qualificata` });
   }

@@ -1,6 +1,6 @@
 import { CalendarDays, ExternalLink, Plus, Search, Shield } from "lucide-react";
 import * as React from "react";
-import { COMPETITIONS, OWN_GOAL_ID, type DocumentId } from "@shared/documents";
+import { COMPETITIONS, MAX_BENCH, OWN_GOAL_ID, type DocumentId } from "@shared/documents";
 import { isCusName, scoreParts } from "@shared/rules";
 import { publicUrl } from "@shared/site";
 import { FormSection, ItemEditor } from "@/components/editor";
@@ -236,8 +236,7 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
         <TabsTrigger value="info">Partita</TabsTrigger>
         <TabsTrigger value="lineup">Formazione <span className="ml-1 opacity-60">{starting.length + bench.length}</span></TabsTrigger>
         <TabsTrigger value="events">Eventi</TabsTrigger>
-        <TabsTrigger value="opponents">Avversari</TabsTrigger>
-        <TabsTrigger value="preview">Tabellino</TabsTrigger>
+        {!cfg.youth && <TabsTrigger value="opponents">Avversari</TabsTrigger>}
       </TabsList>
 
       <TabsContent value="info" className="flex flex-col gap-5">
@@ -292,7 +291,7 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
           <PlayerMultiPicker label="Titolari" value={starting} onChange={(ids) => setLineup("startingFive", ids)} players={players} max={5} exclude={bench} />
         </FormSection>
         <FormSection title="Panchina / convocati">
-          <PlayerMultiPicker label="Panchina" value={bench} onChange={(ids) => setLineup("bench", ids)} players={players} exclude={starting} />
+          <PlayerMultiPicker label="Panchina" value={bench} onChange={(ids) => setLineup("bench", ids)} players={players} exclude={starting} max={MAX_BENCH} hint={`Al massimo ${MAX_BENCH} giocatori in panchina.`} />
         </FormSection>
       </TabsContent>
 
@@ -336,19 +335,8 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
         </FormSection>
       </TabsContent>
 
+      {!cfg.youth && (
       <TabsContent value="opponents" className="flex flex-col gap-5">
-        <FormSection title="Marcatori avversari" description="Solo per il tabellino: non cambiano statistiche né storico." action={<Button type="button" size="sm" variant="secondary" onClick={() => set("opponentScorerEvents", [...arr(m.opponentScorerEvents), { name: "", goals: 1 }])}><Plus />Gol</Button>}>
-          {arr(m.opponentScorerEvents).map((e, i) => (
-            <RowCard key={i} onRemove={() => updateList("opponentScorerEvents", i, null)}>
-              <div className="flex items-center gap-2">
-                <Input value={str(e.name)} placeholder="Cognome" onChange={(x) => updateList("opponentScorerEvents", i, { ...e, name: x.target.value })} aria-label="Marcatore avversario" />
-                <Stepper label="Reti" min={1} value={Number(e.goals) || 1} onChange={(g) => updateList("opponentScorerEvents", i, { ...e, goals: g })} />
-              </div>
-              {!cfg.youth && <GoalTimes goals={Number(e.goals) || 1} times={eventTimes(e)} onChange={(t) => updateList("opponentScorerEvents", i, withTimes(e, t))} />}
-            </RowCard>
-          ))}
-        </FormSection>
-        {!cfg.youth && (
           <FormSection title="Convocati avversari" description="Mostrati nella colonna dei convocati del match center." action={<Button type="button" size="sm" variant="secondary" onClick={() => set("opponentLineup", [...arr(m.opponentLineup), { number: "", surname: "", firstName: "", goals: 0, yellow: false, red: false }])}><Plus />Giocatore</Button>}>
             {arr(m.opponentLineup).map((p, i) => (
               <RowCard key={i} onRemove={() => updateList("opponentLineup", i, null)}>
@@ -367,56 +355,8 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
               </RowCard>
             ))}
           </FormSection>
-        )}
       </TabsContent>
-
-      <TabsContent value="preview">
-        <MatchReport m={m} players={players} youth={cfg.youth} />
-      </TabsContent>
-    </Tabs>
-  );
-}
-
-export function MatchReport({ m, players, youth }: { m: Item; players: PlayerChoice[]; youth: boolean }) {
-  const name = (id: unknown) => (str(id) === OWN_GOAL_ID ? "Autogol" : players.find((p) => p.id === str(id))?.name ?? str(id));
-  const score = scoreParts(m.score);
-  const side = cusSide(m);
-  const ours = arr(m.scorerEvents).filter((e) => e.playerId);
-  const theirs = arr(m.opponentScorerEvents).filter((e) => e.name);
-  const lineup = (m.lineup || {}) as Ev;
-  const line = (e: Ev, label: string) => {
-    const times = youth ? [] : eventTimes(e);
-    const goals = Math.max(1, Number(e.goals) || 1, times.length);
-    return <li key={label + JSON.stringify(e)} className="text-sm">{label}{goals > 1 && <b className="ml-1">×{goals}</b>}{times.length > 0 && <span className="ml-2 text-xs text-muted">{times.join(" · ")}</span>}</li>;
-  };
-  const homeList = side === "home" ? ours.map((e) => line(e, name(e.playerId))) : theirs.map((e) => line(e, str(e.name)));
-  const awayList = side === "away" ? ours.map((e) => line(e, name(e.playerId))) : theirs.map((e) => line(e, str(e.name)));
-  return (
-    <div className="overflow-hidden rounded-3xl border border-border bg-surface">
-      <div className="bg-foreground px-4 py-5 text-background">
-        <p className="text-center text-xs uppercase tracking-widest opacity-70">{[m.competition || "Campionato", formatDate(m.date, true), m.time].filter(Boolean).join(" · ")}</p>
-        <div className="mt-3 grid grid-cols-[1fr_auto_1fr] items-center gap-3 text-center">
-          <p className="font-display text-xl font-bold leading-tight">{str(m.home) || "Casa"}</p>
-          <p className="font-display text-5xl font-bold tabular">{score ? `${score[0]}-${score[1]}` : "VS"}</p>
-          <p className="font-display text-xl font-bold leading-tight">{str(m.away) || "Trasferta"}</p>
-        </div>
-        {!!m.venue && <p className="mt-2 text-center text-xs opacity-70">{str(m.venue)}</p>}
-      </div>
-      <div className="grid grid-cols-2 gap-4 p-4">
-        <ul className="space-y-1">{homeList}</ul>
-        <ul className="space-y-1 text-right">{awayList}</ul>
-      </div>
-      {(arr(m.yellowCardEvents).length > 0 || arr(m.redCardEvents).length > 0) && (
-        <div className="border-t border-border p-4 text-sm">
-          {arr(m.yellowCardEvents).map((e, i) => <p key={`y${i}`}><span className="mr-2 inline-block h-3.5 w-2.5 rounded-[2px] bg-yellow-400 align-middle" />{name(e.playerId)}{Number(e.cards) > 1 ? ` ×${e.cards}` : ""}</p>)}
-          {arr(m.redCardEvents).map((e, i) => <p key={`r${i}`}><span className="mr-2 inline-block h-3.5 w-2.5 rounded-[2px] bg-red-600 align-middle" />{name(e.playerId)}</p>)}
-        </div>
       )}
-      <div className="grid grid-cols-1 gap-4 border-t border-border p-4 text-sm sm:grid-cols-2">
-        <div><p className="mb-1 text-xs font-bold uppercase text-muted">Titolari</p>{arr<string>(lineup.startingFive).map((id) => <p key={id}>{name(id)}</p>)}</div>
-        <div><p className="mb-1 text-xs font-bold uppercase text-muted">Panchina</p>{arr<string>(lineup.bench).map((id) => <p key={id}>{name(id)}</p>)}</div>
-      </div>
-      <p className="border-t border-border px-4 py-3 text-xs text-muted">Anteprima indicativa: l'impaginazione definitiva è quella del match center sul sito.</p>
-    </div>
+    </Tabs>
   );
 }

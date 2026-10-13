@@ -203,8 +203,7 @@ export const knockoutMatch = z.looseObject({
   team1Score: optScore,
   team2Score: optScore,
   winner: optText.nullable(),
-  team1Scorers: z.array(leagueScorer).optional().nullable(),
-  team2Scorers: z.array(leagueScorer).optional().nullable(),
+  scorers: z.array(leagueScorer).optional().nullable(),
 });
 
 export const leagueRulesSection = z.looseObject({ title: z.string(), paragraphs: z.array(z.string()) });
