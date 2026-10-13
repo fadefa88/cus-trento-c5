@@ -4642,7 +4642,53 @@
         "id": "the-rolling-rocks",
         "name": "The Rolling Rocks",
         "group": "A",
-        "players": [],
+        "players": [
+          {
+            "number": "1",
+            "name": "Cassatella R.",
+            "role": "POR"
+          },
+          {
+            "number": "4",
+            "name": "Cavazzoni A.",
+            "role": "DC"
+          },
+          {
+            "number": "2",
+            "name": "Occari B.",
+            "role": "DC"
+          },
+          {
+            "number": "10",
+            "name": "Cacciatore G.",
+            "role": "CC"
+          },
+          {
+            "number": "14",
+            "name": "Casali G.",
+            "role": "CC"
+          },
+          {
+            "number": "8",
+            "name": "Fazio F.",
+            "role": "CC"
+          },
+          {
+            "number": "5",
+            "name": "Quarta R.",
+            "role": "CC"
+          },
+          {
+            "number": "7",
+            "name": "Farina N.",
+            "role": "AT"
+          },
+          {
+            "number": "11",
+            "name": "Mordiglia A.",
+            "role": "AT"
+          }
+        ],
         "logo": "/img/uploads/img_2617.png"
       },
       {
