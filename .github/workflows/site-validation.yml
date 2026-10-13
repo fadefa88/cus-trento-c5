@@ -50,7 +50,7 @@ jobs:
       - name: Validate scripts
         run: |
           python -m compileall scripts
-          for file in js/*.js admin/custom.js; do
+          for file in js/*.js; do
             node --check "$file"
           done
           bash -n scripts/build_cloudflare_pages.sh

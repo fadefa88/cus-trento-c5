@@ -1,12 +1,12 @@
 /*
   CUS Trento C5 — shared site rules (single source of truth).
 
-  Loaded by the public site (before app.js) and by the Decap CMS admin
-  (before admin/custom.js). The JSON between the SITE-CONFIG markers is also
+  Loaded by the public site (before app.js) and bundled by the Admin V2 CMS
+  (cms-v2/shared/site.ts). The JSON between the SITE-CONFIG markers is also
   parsed by scripts/site_data.py, so it must stay strict JSON: double quotes,
   no comments, no trailing commas.
 
-  Owns: public routes and their prerender metadata, CMS collections with their
+  Owns: the list of CMS files, public routes and their prerender metadata, CMS collections with their
   slug fields and URL bases, the slug algorithm, hidden news, route aliases.
   scripts/check_site_consistency.py verifies that the Python port of the slug
   rules (scripts/site_data.py) produces the same URLs as this file.
@@ -15,6 +15,7 @@
   const CONFIG = /*SITE-CONFIG-START*/{
     "siteUrl": "https://calcioa5.custrento.it",
     "slug": {"maxLength": 86, "fallback": "news"},
+    "cmsFiles": ["content/cms/news.json", "content/cms/roster.json", "content/cms/fixtures.json", "content/cms/u21-fixtures.json", "content/cms/gallery-albums.json", "content/cms/sponsors.json", "content/cms/sponsor-packages.json", "content/cms/staff.json", "content/cms/videos.json", "content/cms/club-history.json", "content/cms/events.json"],
     "collections": {
       "news": {"slugFields": ["title", "date"], "urlBase": "/news/", "routePrefix": "article-"},
       "roster": {"slugFields": ["name"], "urlBase": "/squadra/", "routePrefix": "player-", "breadcrumb": ["/squadra/", "Rosa"]},

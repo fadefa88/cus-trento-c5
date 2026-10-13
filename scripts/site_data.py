@@ -3,10 +3,10 @@
 
 - Site configuration (routes, collections, slug settings) is read from the
   SITE-CONFIG block of js/site-core.js, which the browser uses as well.
-- CMS files are discovered from admin/config.yml (the files Decap CMS writes),
-  so adding a CMS collection there is enough for every merge to pick it up.
+- CMS files are listed in SITE-CONFIG "cmsFiles" (the files Admin V2 writes),
+  so adding a CMS file there is enough for every merge to pick it up.
 - The CMS merge is: base content/data.json, then each CMS file's top-level
-  keys in admin/config.yml order (a CMS key always wins over data.json).
+  keys in "cmsFiles" order (a CMS key always wins over data.json).
 
 CLI:
   python scripts/site_data.py merge [--root DIR]
@@ -25,10 +25,8 @@ from typing import Any, Dict, List
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_CORE_JS = ROOT / "js" / "site-core.js"
-CMS_CONFIG = ROOT / "admin" / "config.yml"
 
 _CONFIG_RE = re.compile(r"/\*SITE-CONFIG-START\*/(.*?)/\*SITE-CONFIG-END\*/", re.S)
-_CMS_FILE_RE = re.compile(r"^\s*file:\s*['\"]?(content/cms/[^'\"\s]+\.json)['\"]?\s*$", re.M)
 
 
 def load_site_config() -> Dict[str, Any]:
@@ -62,10 +60,10 @@ def write_json(path: Path, data: Any) -> None:
 # ----- CMS merge ---------------------------------------------------------------
 
 def cms_files() -> List[str]:
-    """CMS JSON files in admin/config.yml order (repository-relative paths)."""
-    files = _CMS_FILE_RE.findall(CMS_CONFIG.read_text(encoding="utf-8"))
+    """CMS JSON files in SITE-CONFIG order (repository-relative paths)."""
+    files = CONFIG.get("cmsFiles") or []
     if not files:
-        raise SystemExit(f"No content/cms/*.json files declared in {CMS_CONFIG}")
+        raise SystemExit(f"No cmsFiles declared in the SITE-CONFIG block of {SITE_CORE_JS}")
     return list(dict.fromkeys(files))
 
 

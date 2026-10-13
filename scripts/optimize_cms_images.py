@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Optimize images uploaded through Decap CMS.
+Optimize images uploaded through the CMS (Admin V2).
 
 Profiles:
 - roster/staff photos: 800x1000 WebP, cover crop, quality 82

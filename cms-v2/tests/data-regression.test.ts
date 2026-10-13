@@ -9,9 +9,9 @@ import { SITE } from "../shared/site";
 import { readDoc, readRepo } from "./helpers";
 
 describe("repository content", () => {
-  it("declares the same CMS files as admin/config.yml (the list scripts/site_data.py merges)", () => {
-    const declared = [...readRepo("admin/config.yml").matchAll(/^\s*file:\s*['"]?(content\/cms\/[^'"\s]+\.json)/gm)].map((m) => m[1]);
-    expect(new Set(Object.values(DOCUMENTS).map((d) => d.file))).toEqual(new Set(declared));
+  it("manages exactly the CMS files listed in js/site-core.js (the list scripts/site_data.py merges)", () => {
+    const declared = (SITE.config as unknown as { cmsFiles: string[] }).cmsFiles;
+    expect(Object.values(DOCUMENTS).map((d) => d.file)).toEqual(declared);
   });
 
   it("uses the collections defined in js/site-core.js", () => {

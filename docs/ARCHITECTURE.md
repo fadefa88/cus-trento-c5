@@ -3,12 +3,12 @@
 Sito statico su Cloudflare Pages: pagine HTML prerenderizzate per SEO + una SPA
 in JavaScript senza framework che, una volta caricati i dati, prende il controllo
 di `<main id="app">`. Il repository Git è anche il database (JSON) e il backend
-del CMS (Decap).
+del CMS (Admin V2, `/admin-v2/`).
 
 ```
-Decap CMS (/admin) ──commit──► content/cms/*.json ─┐
+Admin V2 (/admin-v2) ─commit─► content/cms/*.json ─┐
 Workflow orari/giornalieri ──► content/*.json        ├─► main ──► Cloudflare Pages: npm run build
-Workflow su push ─ roster → admin/config.yml ────────┘            │
+                                                     ┘            │
                                                                    ▼
                           scripts/generate_static_pages.py + build_cloudflare_pages.sh ─► _site/
                                                                    │
@@ -21,16 +21,16 @@ Browser: HTML prerenderizzato ─► js/site-core.js + js/app.js caricano /conte
 | Regola | Autorità | Usata da | Controllo |
 |---|---|---|---|
 | Route pubbliche, pagine prerenderizzate e loro meta (title, description, heading) | `js/site-core.js` → `pages` | generatore, build, router SPA | `check_site_consistency.py` |
-| Collection CMS: campi dello slug, URL base, prefisso della route di dettaglio, breadcrumb | `js/site-core.js` → `collections` | generatore, `app.js`, `admin/custom.js` | idem |
-| Algoritmo di slug/ID (NFKD, max 86 caratteri, suffisso `-2`, `-3`…) | `js/site-core.js` | `app.js`, `admin/custom.js`; porting Python in `scripts/site_data.py` | parità JS/Python su tutti i contenuti reali |
+| Collection CMS: campi dello slug, URL base, prefisso della route di dettaglio, breadcrumb | `js/site-core.js` → `collections` | generatore, `app.js`, `cms-v2/shared` | idem |
+| Algoritmo di slug/ID (NFKD, max 86 caratteri, suffisso `-2`, `-3`…) | `js/site-core.js` | `app.js`, `cms-v2/shared`; porting Python in `scripts/site_data.py` | parità JS/Python su tutti i contenuti reali |
 | News nascoste, stagione → campionato, testo Under 21 → Under 23 | `js/site-core.js` | generatore, `app.js` | parità JS/Python |
 | Alias di route e redirect (`/sponsor/` → `/partner/`) | `js/site-core.js` → `routeAliases`, `redirects` | router SPA, `_redirects` generato | idem |
-| Elenco dei file CMS | `admin/config.yml` (ciò che Decap scrive davvero) | `scripts/site_data.py` | file dichiarati = file su disco; chiavi disgiunte |
+| Elenco dei file CMS | `js/site-core.js` → `cmsFiles` | `scripts/site_data.py` | file dichiarati = file su disco; chiavi disgiunte |
 | Fusione CMS → `content/data.json` | `scripts/site_data.py merge` | build Cloudflare, workflow *Sync CMS data*, generatore | build |
 | Cartelle prerenderizzate pubblicate | `generate_static_pages.py --list-output-dirs` | build Cloudflare | la build fallisce se un URL del sitemap non ha la sua pagina |
 
 Il blocco `SITE-CONFIG` in `js/site-core.js` è JSON rigoroso: lo legge anche Python.
-Per aggiungere una collection CMS bastano la voce in `admin/config.yml` e la voce in
+Per aggiungere una collection CMS bastano la voce in `cmsFiles` e la voce in
 `collections`; fusione, generatore, router e CMS la raccolgono da lì.
 
 ### Precedenza dei dati
@@ -105,7 +105,7 @@ divergevano; per le partite lo script inline chiamava `render()` prima dei dati.
 ## GitHub Actions
 
 ```
-Decap CMS (commit con token OAuth dell'utente)
+Admin V2 (commit con la GitHub App)
  ├─► Site validation            (ogni push/PR su main)
  ├─► Sync CMS data              (content/cms/*.json) ── push con GITHUB_TOKEN ──► nessun altro workflow
  └─► Optimize CMS images        (img/uploads, JSON CMS, data.json) ── push con GH_PAT ─┐
@@ -118,8 +118,8 @@ Update social feed  (ogni giorno 05:23) ── GH_PAT ─► Site validation
 ```
 
 - Ogni push su `main` produce un deploy Cloudflare (integrazione Git, non Actions).
-- `GITHUB_TOKEN` per *Sync CMS data* è intenzionale: il suo commit (`admin/config.yml`,
-  `content/data.json`) non deve riavviare *Optimize*. Gli altri workflow usano `GH_PAT`
+- `GITHUB_TOKEN` per *Sync CMS data* è intenzionale: il suo commit
+  (`content/data.json`) non deve riavviare *Optimize*. Gli altri workflow usano `GH_PAT`
   perché le loro modifiche devono attivare validazione e ottimizzazione.
 - La condizione `github.actor != 'github-actions[bot]'` non ferma i push fatti con
   `GH_PAT` (l'attore è il proprietario del token). Le catene terminano perché la
@@ -148,7 +148,7 @@ che oggi la committano.
 
 ## Admin V2 (`/admin-v2/`)
 
-Nuovo pannello in sviluppo accanto a Decap: sorgenti in `cms-v2/`, API in
+Unico CMS del sito (Decap è stato rimosso; `/admin/` reindirizza qui): sorgenti in `cms-v2/`, API in
 `functions/api/admin/[[path]].ts`, protetto da Cloudflare Access con verifica del token
 lato server. Scrive gli stessi `content/cms/*.json` con le stesse regole di
 `js/site-core.js`; le bozze vivono sul branch `cms-v2-drafts`. La build pubblica

@@ -1,5 +1,5 @@
 // Editorial collections built on the generic CollectionPage. Fields mirror
-// admin/config.yml one to one; fields not shown here are preserved on save.
+// the former Decap configuration; fields not shown here are preserved on save.
 import { Film, Handshake, Images, Package, Sparkles, UserRound } from "lucide-react";
 import { EVENT_TYPES, MEDIA_CATEGORIES, MEDIA_SEASONS, STAFF_GROUPS } from "@shared/documents";
 import { SAFE_URL } from "@shared/schemas";
