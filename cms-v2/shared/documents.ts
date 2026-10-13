@@ -92,7 +92,7 @@ export const MEDIA_CATEGORIES = [
 ] as const;
 export const STAFF_GROUPS = ["Staff tecnico", "Dirigenza"] as const;
 export const EVENT_TYPES = ["Torneo", "Selezione"] as const;
-/** Players allowed on the bench (both teams). */
-export const MAX_BENCH = 7;
+/** Players that can be called up for a match (both teams), starters and bench together. */
+export const MAX_SQUAD = 12;
 export const OWN_GOAL_ID = "autogol";
 export const LEAGUE_OWN_GOAL = "Autogol";

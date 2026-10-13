@@ -1,7 +1,7 @@
 // Business rules checked on the items an operation touched. Data already in
 // the repository is never rejected for problems it had before: only what the
 // editor changed must be valid (errors); everything else is a warning.
-import { COMPETITIONS, MATCH_STATUSES, MAX_BENCH, OWN_GOAL_ID, ROSTER_ROLES, ROSTER_TEAMS, type DocumentId } from "./documents";
+import { COMPETITIONS, MATCH_STATUSES, MAX_SQUAD, OWN_GOAL_ID, ROSTER_ROLES, ROSTER_TEAMS, type DocumentId } from "./documents";
 import { getAt, isObject } from "./json";
 import { bracket, isOwnGoal, matchPlayed, teamKey, type LeagueData } from "./league";
 import type { Touched } from "./ops";
@@ -51,7 +51,7 @@ export const isCusName = (name: unknown) => {
   return t.includes("custrento") || t === "cus";
 };
 
-function checkMatch(doc: DocumentId, m: Item, p: string, ctx: RuleContext, r: RuleResult) {
+function checkMatch(_doc: DocumentId, m: Item, p: string, ctx: RuleContext, r: RuleResult) {
   const err = (path: string, message: string) => r.errors.push({ path: `${p}.${path}`, message });
   const warn = (path: string, message: string) => r.warnings.push({ path: `${p}.${path}`, message });
   if (!ISO_DATE.test(String(m.date || ""))) err("date", "Data obbligatoria");
@@ -72,10 +72,8 @@ function checkMatch(doc: DocumentId, m: Item, p: string, ctx: RuleContext, r: Ru
   if (starting.length > 5) err("lineup.startingFive", "Il quintetto titolare ha al massimo 5 giocatori");
   if (new Set(starting).size !== starting.length) err("lineup.startingFive", "Giocatore duplicato nel quintetto");
   if (new Set(bench).size !== bench.length) err("lineup.bench", "Giocatore duplicato in panchina");
-  if (bench.length > MAX_BENCH) err("lineup.bench", `In panchina al massimo ${MAX_BENCH} giocatori`);
   if (bench.some((id) => starting.includes(id))) err("lineup.bench", "Un giocatore non può essere sia titolare sia in panchina");
-  if (doc === "u21Fixtures" && terminated && starting.length !== 5) err("lineup.startingFive", "Per una partita U23 terminata servono esattamente 5 titolari");
-  if (doc === "fixtures" && terminated && starting.length && starting.length !== 5) warn("lineup.startingFive", "Il quintetto titolare non ha 5 giocatori");
+  if (new Set([...starting, ...bench]).size > MAX_SQUAD) err("lineup", `Al massimo ${MAX_SQUAD} giocatori convocati`);
 
   const roster = ctx.roster;
   const known = roster ? new Set(roster.map((x) => String(x.id))) : null;
@@ -98,6 +96,15 @@ function checkMatch(doc: DocumentId, m: Item, p: string, ctx: RuleContext, r: Ru
         if (player && player.role !== "Portiere") warn(`${key}.${i}`, "Il giocatore non è registrato come portiere");
       }
     });
+  }
+  // Goals conceded are attributed only to the goalkeepers the editor selects
+  // (the site no longer guesses a starting goalkeeper from a separate starting five).
+  const keepers = Array.isArray(m.goalkeeperEvents) ? (m.goalkeeperEvents as Item[]) : [];
+  if (terminated && !keepers.length) err("goalkeeperEvents", "Seleziona il portiere o i portieri che hanno giocato e quanti gol ha subito ciascuno");
+  if (terminated && score && keepers.length) {
+    const conceded = isCusName(m.home) ? score[1] : isCusName(m.away) ? score[0] : null;
+    const assigned = keepers.reduce((n, e) => n + (Number(e.goalsAgainst) || 0), 0);
+    if (conceded !== null && assigned !== conceded) err("goalkeeperEvents", `Gol subiti assegnati ai portieri: ${assigned}, ma la squadra ne ha subiti ${conceded}`);
   }
   if (terminated && score) {
     const cus = isCusName(m.home) ? score[0] : isCusName(m.away) ? score[1] : null;
