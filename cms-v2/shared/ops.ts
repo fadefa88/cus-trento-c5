@@ -8,7 +8,9 @@ import { DOCUMENTS, findList, type DocumentId, type ListDef } from "./documents"
 import { clone, getAt, isObject, setAt, valueHash } from "./json";
 import { SITE } from "./site";
 
-const path = z.array(z.string().max(100).regex(/^[A-Za-z0-9_-]+$/)).min(1).max(8);
+const FORBIDDEN_KEYS = new Set(["__proto__", "prototype", "constructor"]);
+const pathKey = z.string().max(100).regex(/^[A-Za-z0-9_-]+$/).refine((k) => !FORBIDDEN_KEYS.has(k), { error: "Chiave non consentita" });
+const path = z.array(pathKey).min(1).max(8);
 const id = z.string().min(1).max(200);
 const hash = z.string().max(64);
 
@@ -21,7 +23,7 @@ export const opSchema = z.discriminatedUnion("type", [
 export const opsSchema = z.array(opSchema).min(1).max(50);
 export type Op = z.infer<typeof opSchema>;
 
-export interface Conflict { op: number; path: string; reason: "changed" | "deleted" | "id-changed" | "not-a-list" | "unknown-list" | "duplicate-slug" }
+export interface Conflict { op: number; path: string; reason: "changed" | "deleted" | "id-changed" | "not-a-list" | "unknown-list" | "duplicate-slug" | "not-settable" }
 export interface Touched { list?: string[]; id?: string; path?: string[]; isNew?: boolean; before?: unknown }
 export interface ApplyResult { content: Record<string, unknown>; conflicts: Conflict[]; touched: Touched[] }
 
@@ -54,6 +56,25 @@ function assignIdentity(list: Array<Record<string, unknown>>, item: Record<strin
   }
 }
 
+/**
+ * Object fields that `set` may write. List items always go through
+ * upsert/delete/move, so they get identity handling and item-level rules.
+ */
+const SETTABLE: Partial<Record<DocumentId, string[][]>> = {
+  events: [
+    ...["title", "edition", "sport", "startDate", "endDate", "venue", "instagram", "rules"].map((k) => ["cusTrentoLeague", k]),
+    ["cusTrentoLeague", "bracket", "quarterfinals", "*"],
+    ["cusTrentoLeague", "bracket", "semifinals", "*"],
+    ["cusTrentoLeague", "bracket", "final"],
+    ["cusTrentoLeague", "bracket", "format"],
+  ],
+  clubHistory: [["clubHistory", "title"], ["clubHistory", "paragraphs"]],
+};
+
+export function isSettable(doc: DocumentId, path: readonly string[]): boolean {
+  return (SETTABLE[doc] || []).some((allowed) => allowed.length === path.length && allowed.every((k, i) => (k === "*" ? /^\d{1,2}$/.test(path[i]) : k === path[i])));
+}
+
 export async function applyOps(doc: DocumentId, original: Record<string, unknown>, ops: Op[]): Promise<ApplyResult> {
   const content = clone(original);
   const conflicts: Conflict[] = [];
@@ -61,6 +82,10 @@ export async function applyOps(doc: DocumentId, original: Record<string, unknown
 
   for (const [index, op] of ops.entries()) {
     if (op.type === "set") {
+      if (!isSettable(doc, op.path)) {
+        conflicts.push({ op: index, path: op.path.join("."), reason: "not-settable" });
+        continue;
+      }
       const current = getAt(content, op.path);
       if ((await valueHash(current ?? null)) !== op.base) {
         conflicts.push({ op: index, path: op.path.join("."), reason: "changed" });
@@ -168,6 +193,7 @@ export function conflictMessage(c: Conflict): string {
     case "deleted": return `${c.path}: eliminato da un'altra persona`;
     case "id-changed": return `${c.path}: l'ID non può essere cambiato`;
     case "duplicate-slug": return `${c.path}: lo slug è già usato da un altro elemento`;
+    case "not-settable": return `${c.path}: campo non modificabile in questo modo`;
     default: return `${c.path}: operazione non valida`;
   }
 }

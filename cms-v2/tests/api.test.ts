@@ -127,6 +127,20 @@ describe("CSRF and input hardening", () => {
     expect((await call("POST", "documents/roster/edit", { mode: "publish", ops: [{ type: "upsert", list: ["../../etc"], id: null, base: null, value: {} }] })).status).toBe(400);
     expect((await call("POST", "documents/roster/edit", { mode: "publish", ops: [], extra: 1 })).status).toBe(400);
   });
+  it("rejects prototype pollution paths", async () => {
+    for (const path of [["__proto__", "polluted"], ["events", "constructor", "prototype"]]) {
+      const res = await call("POST", "documents/events/edit", { mode: "publish", ops: [{ type: "set", path, base: "x", value: true }] });
+      expect(res.status).toBe(400);
+    }
+    expect(({} as Record<string, unknown>).polluted).toBeUndefined();
+  });
+  it("set operations cannot bypass item rules by writing list items or ids", async () => {
+    const roster = JSON.parse(readRepo("content/cms/roster.json")).roster;
+    for (const [doc, path] of [["roster", ["roster", "0", "id"]], ["events", ["cusTrentoLeague", "matches", "0"]], ["events", ["events"]]] as const) {
+      const res = await call("POST", `documents/${doc}/edit`, { mode: "publish", ops: [{ type: "set", path, base: await valueHash(roster[0].id), value: "x" }] });
+      expect(res.status).toBe(400);
+    }
+  });
   it("rejects unsupported methods", async () => {
     expect((await call("DELETE", "documents/roster")).status).toBe(405);
   });

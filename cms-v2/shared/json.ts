@@ -41,9 +41,12 @@ export async function valueHash(value: unknown): Promise<string> {
   return (await sha256Hex(canonicalJson(value))).slice(0, 20);
 }
 
+const UNSAFE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
+
 export function getAt(root: unknown, path: readonly string[]): unknown {
   let cur: unknown = root;
   for (const key of path) {
+    if (UNSAFE_KEYS.has(key)) return undefined;
     if (Array.isArray(cur)) cur = cur[Number(key)];
     else if (isObject(cur)) cur = cur[key];
     else return undefined;
@@ -54,6 +57,7 @@ export function getAt(root: unknown, path: readonly string[]): unknown {
 /** Sets a value at path, creating intermediate objects. Returns the mutated root. */
 export function setAt<T>(root: T, path: readonly string[], value: unknown): T {
   if (!path.length) return value as T;
+  if (path.some((k) => UNSAFE_KEYS.has(k))) throw new Error("unsafe path");
   let cur: unknown = root;
   for (let i = 0; i < path.length - 1; i++) {
     const key = path[i];

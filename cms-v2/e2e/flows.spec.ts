@@ -41,7 +41,7 @@ test("add a player and publish", async ({ page }) => {
   await d.getByLabel("Numero").fill("77");
   await d.getByLabel("Ruolo").selectOption("Pivot");
   await d.getByRole("button", { name: "Pubblica" }).click();
-  await expect(page.getByText("Pubblicato")).toBeVisible();
+  await expect(page.getByText("Pubblicato", { exact: true })).toBeVisible();
   await page.getByPlaceholder(/Cerca/).fill(name);
   await expect(page.getByText(name)).toBeVisible();
 });
@@ -68,7 +68,7 @@ test("write a news article with rich text and publish it", async ({ page }) => {
   await editor.click();
   await page.keyboard.type("Grande vittoria del CUS.");
   await d.getByRole("button", { name: "Pubblica" }).click();
-  await expect(page.getByText("Pubblicato")).toBeVisible();
+  await expect(page.getByText("Pubblicato", { exact: true })).toBeVisible();
   await expect(page.getByText(title)).toBeVisible();
 });
 
@@ -84,4 +84,28 @@ test("closing an editor with unsaved changes asks for confirmation", async ({ pa
   await d.getByRole("button", { name: "Chiudi" }).click();
   expect(asked).toBe(true);
   await expect(d.getByLabel("Nome")).toHaveValue("Modifica non salvata");
+});
+
+test("knockout draw requires choosing the qualified team, then publishes", async ({ page }) => {
+  await page.goto("./#/league?tab=tabellone");
+  await page.getByRole("button", { name: /Quarto 1/ }).click();
+  const d = dialog(page);
+  for (const label of await d.getByRole("button", { name: /: più$/ }).all()) await label.click();
+  await expect(d.getByText("Qualificata")).toBeVisible();
+  const team = (await d.getByRole("radio").first().textContent())!.trim();
+  await d.getByRole("radio").first().click();
+  await d.getByRole("button", { name: "Pubblica" }).click();
+  await expect(page.getByText("Pubblicato", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Quarto 1/ })).toContainText(team);
+});
+
+test("edit the League rules and publish", async ({ page }) => {
+  await page.goto("./#/league?tab=regolamento");
+  const text = `Regolamento aggiornato dal test ${Date.now()}.`;
+  const intro = page.getByLabel("Introduzione");
+  await intro.fill(text);
+  await page.getByRole("button", { name: "Pubblica" }).click();
+  await expect(page.getByText("Pubblicato", { exact: true })).toBeVisible();
+  await page.reload();
+  await expect(page.getByLabel("Introduzione")).toHaveValue(text);
 });

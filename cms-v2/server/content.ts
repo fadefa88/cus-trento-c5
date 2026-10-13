@@ -108,6 +108,8 @@ export class ContentService {
 
   // ---- writing ---------------------------------------------------------------
   private assertClean(result: Awaited<ReturnType<typeof processEdit>>) {
+    const invalid = result.conflicts.filter((c) => ["not-settable", "unknown-list", "not-a-list", "id-changed"].includes(c.reason));
+    if (invalid.length) throw new HttpError(400, "bad_request", "Operazione non consentita.", { conflicts: invalid.map(conflictMessage) });
     if (result.conflicts.length) {
       throw new HttpError(409, "conflict", "Qualcun altro ha modificato gli stessi contenuti. Ricarica per vedere la versione aggiornata.", {
         conflicts: result.conflicts.map(conflictMessage),
