@@ -18,8 +18,7 @@
     "resolveJsonModule": true,
     "noEmit": true,
     "types": ["vite/client", "@cloudflare/workers-types"],
-    "baseUrl": ".",
-    "paths": { "@/*": ["src/*"], "@shared/*": ["shared/*"] }
+    "paths": { "@/*": ["./src/*"], "@shared/*": ["./shared/*"] }
   },
   "include": ["src", "shared", "server", "tests", "dev", "vite.config.mts", "vitest.config.mts", "../functions/api/admin", "env.d.ts"]
 }
