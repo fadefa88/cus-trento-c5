@@ -3334,7 +3334,8 @@ const sectionPages=(function(){
   }
 
   function leagueScreenButton(screen,label){
-    const active=(view.leagueScreen||"home")===screen;
+    const current=["squadre","classifiche","calendario","marcatori","finali","regolamento"].includes(view.leagueScreen)?view.leagueScreen:"squadre";
+    const active=current===screen;
     return `<button class="${active?"active":""}" onclick="cusLeagueScreen('${screen}')"><span>${h(label)}</span></button>`;
   }
 
@@ -3384,8 +3385,12 @@ const sectionPages=(function(){
         <a class="ctl-instagram" href="${h(instagram)}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram" aria-hidden="true"></i> @custrentoleague</a>
       </div>
     </section>
-    <div class="ctl-page">
-      <div class="container">
+    <div class="ctl-leaguebar">
+      <div class="container ctl-leaguebar-inner">
+        <div class="ctl-leaguebar-brand">
+          <button class="ctl-leaguebar-crest" onclick="route('home')" aria-label="Vai alla home del CUS Trento C5"><img src="https://calcioa5.custrento.it/img/logo.webp" alt="CUS Trento C5"></button>
+          <span class="ctl-leaguebar-league"><img src="${CUS_TRENTO_LEAGUE_LOGO}" alt=""><span>CUS Trento League</span></span>
+        </div>
         <nav class="ctl-subnav" aria-label="Sezioni CUS Trento League">
           ${leagueScreenButton("squadre","Squadre")}
           ${leagueScreenButton("classifiche","Classifiche")}
@@ -3394,6 +3399,10 @@ const sectionPages=(function(){
           ${leagueScreenButton("finali","Fasi finali")}
           ${leagueScreenButton("regolamento","Regolamento")}
         </nav>
+      </div>
+    </div>
+    <div class="ctl-page">
+      <div class="container">
         <div class="ctl-screen-stage">${leagueScreenContent(screen,teams,matches,scorers)}</div>
       </div>
     </div>`;

@@ -1914,3 +1914,91 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     color:#fff;
   }
 }
+
+/* CUS Trento League section bar: same layout, sizes and type as the site header
+   (.nav), on the white background of the former League bar. Phones in portrait
+   keep the 3x2 button grid defined above. */
+.ctl-leaguebar{display:none;}
+.ctl-leaguebar .ctl-leaguebar-brand{display:none;}
+@media not all and (max-width:640px) and (orientation:portrait){
+  .ctl-leaguebar{
+    display:block;
+    position:sticky;
+    top:77px;
+    z-index:40;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+  }
+  .ctl-leaguebar .container.ctl-leaguebar-inner{
+    max-width:none;
+    width:100%;
+    margin-left:0;
+    margin-right:0;
+    padding-left:var(--cus-site-edge);
+    padding-right:var(--cus-site-edge);
+    box-sizing:border-box;
+    min-height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .ctl-leaguebar .ctl-leaguebar-brand{display:flex;align-items:center;gap:18px;flex:0 0 auto;}
+  .ctl-leaguebar-crest{display:grid;place-items:center;width:48px;height:48px;padding:0;background:transparent;border:0;cursor:pointer;flex:0 0 auto;}
+  .ctl-leaguebar-crest img{display:block;width:48px;height:48px;object-fit:contain;}
+  .ctl-leaguebar-league{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-height:48px;
+    padding:0 0 0 18px;
+    border-left:1px solid var(--line);
+    font-family:var(--font-display);
+    font-size:16px;
+    font-weight:600;
+    letter-spacing:-.01em;
+    color:var(--ink);
+    white-space:nowrap;
+  }
+  .ctl-leaguebar-league img{display:block;width:48px;height:48px;border-radius:50%;object-fit:cover;}
+  .ctl-leaguebar .ctl-subnav{
+    position:static;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    min-width:0;
+    margin:0;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    backdrop-filter:none;
+    box-shadow:none;
+    overflow-x:auto;
+  }
+  .ctl-leaguebar .ctl-subnav button{
+    padding:10px 14px;
+    border-radius:999px;
+    font-size:15px;
+    letter-spacing:.07em;
+    line-height:18px;
+    white-space:nowrap;
+  }
+  .ctl-leaguebar + .ctl-page{padding-top:30px;}
+}
+@media not all and (max-width:640px) and (orientation:portrait){
+  @media(max-width:1000px){ .ctl-leaguebar-league span{display:none;} }
+  @media(max-width:720px){
+    .ctl-leaguebar{top:69px;}
+    .ctl-leaguebar .ctl-leaguebar-brand{display:none;}
+  }
+}
+/* Phones in portrait: the bar is only the existing button grid, sticky as before. */
+@media(max-width:640px) and (orientation:portrait){
+  .ctl-leaguebar{display:block;position:sticky;top:78px;z-index:30;margin-top:14px;}
+  .ctl-leaguebar .container.ctl-leaguebar-inner{display:block;}
+  .ctl-leaguebar .ctl-subnav{position:static;margin-bottom:0;}
+  .ctl-leaguebar + .ctl-page{padding-top:30px;}
+}
