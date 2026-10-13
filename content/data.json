@@ -4649,7 +4649,58 @@
         "id": "recidivi-fc",
         "name": "Recidivi FC",
         "group": "A",
-        "players": [],
+        "players": [
+          {
+            "number": "2",
+            "name": "De Pra' A.",
+            "role": "CC"
+          },
+          {
+            "number": "3",
+            "name": "Vanin E.",
+            "role": "CC"
+          },
+          {
+            "number": "4",
+            "name": "Costacurta N.",
+            "role": "CC"
+          },
+          {
+            "number": "5",
+            "name": "Balsamo F.",
+            "role": "DC"
+          },
+          {
+            "number": "7",
+            "name": "Panebianco M.",
+            "role": "AT"
+          },
+          {
+            "number": "8",
+            "name": "Bevilacqua S.",
+            "role": "DC"
+          },
+          {
+            "number": "9",
+            "name": "Brocchi N.",
+            "role": "AT"
+          },
+          {
+            "number": "10",
+            "name": "Favaro P.",
+            "role": "CC"
+          },
+          {
+            "number": "11",
+            "name": "Andreani T.",
+            "role": "DC"
+          },
+          {
+            "number": "18",
+            "name": "Dalla Pietra L.",
+            "role": "POR"
+          }
+        ],
         "logo": "/img/uploads/img_2614.png"
       },
       {
