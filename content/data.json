@@ -4845,7 +4845,32 @@
         "id": "all-blacks",
         "name": "All Blacks",
         "group": "B",
-        "players": [],
+        "players": [
+          {
+            "name": "Pasini M."
+          },
+          {
+            "name": "Tessari L."
+          },
+          {
+            "name": "Stevan P."
+          },
+          {
+            "name": "Massarotto N."
+          },
+          {
+            "name": "Fiorini F."
+          },
+          {
+            "name": "Grassi J."
+          },
+          {
+            "name": "LoConte G."
+          },
+          {
+            "name": "Lorenzonetto T."
+          }
+        ],
         "logo": "/img/uploads/img_2618.png"
       },
       {
