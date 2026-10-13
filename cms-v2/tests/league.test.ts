@@ -95,7 +95,7 @@ describe("bracket", () => {
 });
 
 describe("league rules on the public page", () => {
-  const rulesFns = ["h", "leagueRulesText", "leagueCustomRulesHtml", "leagueRulesHtml"];
+  const rulesFns = ["h", "leagueRulesText", "leagueRulesBlock", "leagueCustomRulesHtml", "leagueRulesHtml"];
   // app.js has several helpers named h(); the League one is the last before leagueRulesHtml.
   const start = app.lastIndexOf("function h(value)", app.indexOf("function leagueRulesHtml"));
   const hSource = extractFunction(app.slice(start), "h");
@@ -114,5 +114,18 @@ describe("league rules on the public page", () => {
     expect(html).toContain("[js](javascript:alert(1))"); // left as plain, escaped text
     expect(html).toContain("<b>Ciao</b>");
     expect(html).toContain('<a href="https://x.it" target="_blank" rel="noopener noreferrer">sito</a>');
+  });
+  it("lines starting with * become a list, other lines keep their breaks", () => {
+    const html = render({ rules: { heading: "R", sections: [{ title: "T", paragraphs: ["Possono iscriversi:\n* Studenti\n* <b>Alumni</b>", "Riga 1\nRiga 2"] }] } });
+    expect(html).toContain('<p>Possono iscriversi:</p><ul class="ctl-rules-list"><li>Studenti</li><li>&lt;b&gt;Alumni&lt;/b&gt;</li></ul>');
+    expect(html).toContain("<p>Riga 1<br>Riga 2</p>");
+  });
+  it("the published League rules render every section", () => {
+    const league = (readDoc("events") as { cusTrentoLeague: Record<string, unknown> }).cusTrentoLeague;
+    const html = render(league);
+    const rules = league.rules as { sections: Array<{ title: string }> };
+    for (const s of rules.sections) expect(html).toContain(s.title);
+    expect(html).toContain('<a href="mailto:custn@unitn.it">custn@unitn.it</a>');
+    expect(html).not.toContain("**");
   });
 });

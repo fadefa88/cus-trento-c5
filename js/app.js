@@ -3216,7 +3216,7 @@ const sectionPages=(function(){
       </div>`;
     };
     return `<article class="ctl-knockout-match">
-      <div class="ctl-knockout-match-head"><span>${h(name)}</span><small>Gara secca</small></div>
+      <div class="ctl-knockout-match-head"><span>${h(name)}</span></div>
       ${renderTeam(match.team1,match.team1Score,seed1)}
       ${renderTeam(match.team2,match.team2Score,seed2)}
       ${(()=>{const t1=leagueMatchScorers(match,match.team1),t2=leagueMatchScorers(match,match.team2);return t1.length||t2.length?`<div class="ctl-match-goals ctl-knockout-goals" aria-label="Marcatori"><div class="ctl-match-goals-grid"><div class="ctl-match-goals-side">${leagueMatchGoalLines(t1)}</div><div class="ctl-match-goals-side">${leagueMatchGoalLines(t2)}</div></div></div>`:"";})()}
@@ -3273,17 +3273,35 @@ const sectionPages=(function(){
       .replace(/\[([^\]]+)\]\(((?:https?:\/\/|mailto:|tel:)[^\s()<>"']+)\)/g,(m,label,url)=>`<a href="${url}"${/^https?:/i.test(url)?' target="_blank" rel="noopener noreferrer"':""}>${label}</a>`);
   }
 
+  // One paragraph of the rules: lines starting with "* " or "- " become a bulleted
+  // list, other lines are kept with their line breaks.
+  function leagueRulesBlock(value){
+    const lines=String(value||"").split(/\r?\n/).map(line=>line.trim()).filter(Boolean);
+    let html="",text=[],items=[];
+    const flush=()=>{
+      if(text.length){html+=`<p>${text.map(leagueRulesText).join("<br>")}</p>`;text=[];}
+      if(items.length){html+=`<ul class="ctl-rules-list">${items.map(item=>`<li>${leagueRulesText(item)}</li>`).join("")}</ul>`;items=[];}
+    };
+    lines.forEach(line=>{
+      const bullet=line.match(/^[*\-•]\s+(.*)$/);
+      if(bullet){if(text.length)flush();items.push(bullet[1]);}
+      else{if(items.length)flush();text.push(line);}
+    });
+    flush();
+    return html;
+  }
+
   function leagueCustomRulesHtml(rules){
     const sections=(Array.isArray(rules.sections)?rules.sections:[]).filter(section=>section&&(section.title||(Array.isArray(section.paragraphs)&&section.paragraphs.length)));
     return `<section class="ctl-screen ctl-section ctl-rules">
       <div class="ctl-rules-intro">
         <span>Regolamento del torneo</span>
         <h2>${h(rules.heading||"CUS Trento Futsal League")}</h2>
-        ${rules.intro?`<p>${leagueRulesText(rules.intro)}</p>`:""}
+        ${rules.intro?leagueRulesBlock(rules.intro):""}
       </div>
       <div class="ctl-rules-grid">
         ${sections.map(section=>`<article class="ctl-rules-card"><h3>${h(section.title||"")}</h3>
-          ${(Array.isArray(section.paragraphs)?section.paragraphs:[]).filter(p=>String(p||"").trim()).map(p=>`<p>${leagueRulesText(p)}</p>`).join("")}
+          ${(Array.isArray(section.paragraphs)?section.paragraphs:[]).map(leagueRulesBlock).join("")}
         </article>`).join("")}
       </div>
     </section>`;
