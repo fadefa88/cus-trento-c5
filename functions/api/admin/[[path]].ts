@@ -16,6 +16,7 @@ interface Env {
   GITHUB_APP_PRIVATE_KEY?: string;
   GITHUB_APP_INSTALLATION_ID?: string;
   CMS_GITHUB_TOKEN?: string;
+  CMS_DRAFT_PREVIEW_URL?: string;
   CMS_KV?: KV;
 }
 
@@ -34,6 +35,7 @@ export const onRequest = (context: { request: Request; env: Env }) => {
       }),
     kv: env.CMS_KV,
     repo,
+    previewUrl: env.CMS_DRAFT_PREVIEW_URL,
     branches: { main: env.CMS_MAIN_BRANCH || "main", drafts: env.CMS_DRAFT_BRANCH || "cms-v2-drafts" },
   });
 };

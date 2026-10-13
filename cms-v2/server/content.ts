@@ -19,7 +19,7 @@ import { validateDocument } from "../shared/schemas";
 import { commitMessage, parseTrailers } from "./audit";
 import type { Actor } from "./auth";
 import { HttpError, RefConflict } from "./errors";
-import { checkUpload } from "./media";
+import { checkUpload, MAX_BATCH_BYTES, MAX_FILES_PER_UPLOAD } from "./media";
 import { gitBlobSha, type RepoStore } from "./store";
 
 export const MANIFEST_PATH = ".cms-v2/drafts.json";
@@ -95,6 +95,11 @@ export class ContentService {
 
   /** Context for cross-document rules: matches are checked against the roster they will be published with. */
   private async ruleContext(doc: DocumentId, s: Snapshot, target: "main" | "draft"): Promise<RuleContext> {
+    if (doc === "roster") {
+      const ref = target === "draft" && s.draftHead ? s.draftHead : s.mainHead;
+      const [a, b] = await Promise.all([this.readDoc(ref, "fixtures"), this.readDoc(ref, "u21Fixtures")]);
+      return { matches: [...((a.content.fixtures as Array<Record<string, unknown>>) || []), ...((b.content.u21Fixtures as Array<Record<string, unknown>>) || [])] };
+    }
     if (doc !== "fixtures" && doc !== "u21Fixtures") return {};
     const useDraft = target === "draft" && s.draftHead && s.manifest.docs.roster;
     const roster = await this.readDoc(useDraft ? s.draftHead! : s.mainHead, "roster");
@@ -298,8 +303,13 @@ export class ContentService {
    * optimize workflow (it only processes images referenced by published JSON),
    * and it must exist on main before the content that uses it is published.
    */
-  async uploadMedia(bytes: Uint8Array, name: string) {
-    const file = checkUpload(bytes, name);
+  async uploadMedia(files: Array<{ bytes: Uint8Array; name: string }>) {
+    if (!files.length) throw new HttpError(400, "no_file", "Nessun file ricevuto.");
+    if (files.length > MAX_FILES_PER_UPLOAD) throw new HttpError(413, "too_many", `Al massimo ${MAX_FILES_PER_UPLOAD} immagini per volta.`);
+    const checked = files.map((f) => checkUpload(f.bytes, f.name));
+    if (checked.reduce((n, f) => n + f.bytes.length, 0) > MAX_BATCH_BYTES) throw new HttpError(413, "too_large", "Caricamento troppo grande: dividilo in più parti.");
+    const names = checked.map((f) => f.path.split("/").pop()).join(", ");
+    // One commit for the whole batch: a gallery upload triggers a single deployment.
     const commit = await this.withRetry(async () => {
       const head = await this.store.head(this.branches.main);
       return this.store.commit({
@@ -307,11 +317,11 @@ export class ContentService {
         expectedHead: head,
         parents: [head!],
         baseCommit: head!,
-        changes: [{ path: file.path, content: file.bytes }],
-        message: commitMessage(`Carica immagine ${file.path.split("/").pop()}`, this.actor, "upload"),
+        changes: checked.map((f) => ({ path: f.path, content: f.bytes })),
+        message: commitMessage(checked.length === 1 ? `Carica immagine ${names}` : `Carica ${checked.length} immagini`, this.actor, "upload", undefined, checked.length > 1 ? checked.map((f) => f.path) : []),
       });
     });
-    return { path: file.publicPath, width: file.width, height: file.height, size: bytes.length, commit };
+    return { files: checked.map((f) => ({ path: f.publicPath, width: f.width, height: f.height, size: f.bytes.length })), commit };
   }
 
   async readMedia(path: string) {

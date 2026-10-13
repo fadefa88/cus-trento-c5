@@ -9,7 +9,7 @@ import { authenticate, requireRole, type AccessConfig, type Actor } from "./auth
 import { ContentService, type Branches } from "./content";
 import { errorResponse, HttpError, json, SECURITY_HEADERS } from "./errors";
 import { assertSameOrigin, rateLimit, readJson, type KV } from "./guards";
-import { isUploadPath, MAX_UPLOAD_BYTES, mimeFor } from "./media";
+import { isUploadPath, MAX_BATCH_BYTES, MAX_UPLOAD_BYTES, mimeFor } from "./media";
 import type { RepoStore } from "./store";
 import type { JWTVerifyGetKey } from "jose";
 
@@ -19,6 +19,8 @@ export interface ApiDeps {
   kv?: KV;
   branches?: Branches;
   repo?: string;
+  /** Cloudflare Pages preview URL of the drafts branch, shown to editors. */
+  previewUrl?: string;
   /** Tests inject local keys instead of fetching the Access certificates. */
   accessKeys?: JWTVerifyGetKey;
 }
@@ -65,7 +67,7 @@ export async function handleApi(request: Request, deps: ApiDeps): Promise<Respon
     const [section, id, sub, extra] = parts;
 
     if (method === "GET" && section === "session") {
-      return json({ email: actor.email, name: actor.name, role: actor.role, repo: deps.repo || null, auditLog: !!deps.kv });
+      return json({ email: actor.email, name: actor.name, role: actor.role, repo: deps.repo || null, auditLog: !!deps.kv, previewUrl: deps.previewUrl && /^https:\/\/[\w.-]+\/?$/.test(deps.previewUrl) ? deps.previewUrl : null });
     }
     if (method === "GET" && section === "status") return json(await svc.status());
     if (method === "GET" && section === "audit") {
@@ -126,15 +128,15 @@ export async function handleApi(request: Request, deps: ApiDeps): Promise<Respon
       if (method === "POST" && !id) {
         action = "upload";
         const len = Number(request.headers.get("Content-Length") || 0);
-        if (len > MAX_UPLOAD_BYTES + 64 * 1024) throw new HttpError(413, "too_large", "File troppo grande.");
+        if (len > MAX_BATCH_BYTES + 256 * 1024) throw new HttpError(413, "too_large", "Caricamento troppo grande.");
         if (!(request.headers.get("Content-Type") || "").startsWith("multipart/form-data")) throw new HttpError(415, "content_type", "Usa un modulo di caricamento.");
         const form = await request.formData();
-        const file = form.get("file");
-        if (!file || typeof file === "string") throw new HttpError(400, "no_file", "Nessun file ricevuto.");
-        const blob = file as unknown as Blob & { name?: string };
-        if (blob.size > MAX_UPLOAD_BYTES) throw new HttpError(413, "too_large", "File troppo grande.");
-        const result = await svc.uploadMedia(new Uint8Array(await blob.arrayBuffer()), String(blob.name || "immagine"));
-        await audit(deps.kv, { email: actor.email, name: actor.name, action, ok: true, commit: result.commit, detail: result.path, ip });
+        const blobs = form.getAll("file").filter((f): f is File => typeof f !== "string") as Array<Blob & { name?: string }>;
+        if (!blobs.length) throw new HttpError(400, "no_file", "Nessun file ricevuto.");
+        if (blobs.some((b) => b.size > MAX_UPLOAD_BYTES)) throw new HttpError(413, "too_large", "Una delle immagini supera 8 MB.");
+        const files = await Promise.all(blobs.map(async (b) => ({ bytes: new Uint8Array(await b.arrayBuffer()), name: String(b.name || "immagine") })));
+        const result = await svc.uploadMedia(files);
+        await audit(deps.kv, { email: actor.email, name: actor.name, action, ok: true, commit: result.commit, detail: result.files.map((f) => f.path).join(", ").slice(0, 500), ip });
         return json(result, 201);
       }
     }

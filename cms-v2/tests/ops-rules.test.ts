@@ -89,6 +89,21 @@ describe("operations", () => {
   });
 });
 
+describe("roster integrity", () => {
+  it("a player referenced by matches cannot be deleted, an unused one can", async () => {
+    const doc = roster();
+    const matches = [...fixtures().fixtures, ...(readDoc("u21Fixtures") as { u21Fixtures: Item[] }).u21Fixtures];
+    const used = doc.roster.find((p) => JSON.stringify(matches).includes(`"${p.id}"`))!;
+    const res = await processEdit("roster", doc, [{ type: "delete", list: ["roster"], id: String(used.id), base: await valueHash(used) }], { matches });
+    expect(res.errors[0].message).toContain("compare in");
+    const unused = doc.roster.find((p) => !JSON.stringify(matches).includes(`"${p.id}"`));
+    if (unused) {
+      const ok = await processEdit("roster", doc, [{ type: "delete", list: ["roster"], id: String(unused.id), base: await valueHash(unused) }], { matches });
+      expect(ok.errors).toEqual([]);
+    }
+  });
+});
+
 describe("match rules", () => {
   async function editFirst(doc: "fixtures" | "u21Fixtures", patch: (m: Item) => Item) {
     const content = readDoc(doc) as Record<string, Item[]>;

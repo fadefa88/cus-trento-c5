@@ -10,7 +10,25 @@ import { HTML_TAG, ISO_DATE, TIME } from "./schemas";
 
 export interface RuleIssue { path: string; message: string }
 export interface RuleResult { errors: RuleIssue[]; warnings: RuleIssue[] }
-export interface RuleContext { roster?: Array<Record<string, unknown>> }
+export interface RuleContext {
+  roster?: Array<Record<string, unknown>>;
+  /** Matches of both teams, to protect players referenced by match events. */
+  matches?: Array<Record<string, unknown>>;
+}
+
+function playerReferences(matches: Array<Record<string, unknown>>, id: string): number {
+  let n = 0;
+  for (const m of matches) {
+    const l = isObject(m.lineup) ? m.lineup : {};
+    const ids = [
+      ...(Array.isArray(l.startingFive) ? l.startingFive : []),
+      ...(Array.isArray(l.bench) ? l.bench : []),
+      ...["scorerEvents", "yellowCardEvents", "redCardEvents", "goalkeeperEvents"].flatMap((k) => (Array.isArray(m[k]) ? (m[k] as Item[]).map((e) => e?.playerId) : [])),
+    ].map(String);
+    if (ids.includes(id)) n++;
+  }
+  return n;
+}
 
 type Item = Record<string, unknown>;
 
@@ -166,7 +184,13 @@ export function checkRules(doc: DocumentId, content: Record<string, unknown>, to
     const list = getAt(content, t.list);
     if (!Array.isArray(list)) continue;
     const index = list.findIndex((x) => isObject(x) && String(x.id) === t.id);
-    if (index < 0) continue; // deleted
+    if (index < 0) {
+      if (doc === "roster" && ctx.matches) {
+        const refs = playerReferences(ctx.matches, t.id);
+        if (refs) r.errors.push({ path: `roster.${t.id}`, message: `Il giocatore compare in ${refs} partit${refs === 1 ? "a" : "e"}: eliminarlo cancellerebbe le sue statistiche. Spostalo di squadra invece di eliminarlo.` });
+      }
+      continue; // deleted
+    }
     const item = list[index] as Item;
     const p = `${t.list.join(".")}.${index}`;
     findMarkup(item, p, r.errors);

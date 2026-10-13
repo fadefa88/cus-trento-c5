@@ -5,6 +5,8 @@ import { HttpError } from "./errors";
 import { SITE } from "../shared/site";
 
 export const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
+export const MAX_FILES_PER_UPLOAD = 12;
+export const MAX_BATCH_BYTES = 24 * 1024 * 1024;
 export const UPLOAD_DIR = "img/uploads";
 
 const SIGNATURES: Array<{ ext: string; mime: string; test: (b: Uint8Array) => boolean }> = [

@@ -271,9 +271,9 @@ describe("media", () => {
     b.set([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 13, 0x49, 0x48, 0x44, 0x52, 0, 0, 0, 10, 0, 0, 0, 20]);
     return b;
   };
-  async function upload(bytes: Uint8Array, name: string) {
+  async function upload(bytes: Uint8Array | Uint8Array[], name: string) {
     const form = new FormData();
-    form.append("file", new File([bytes as Uint8Array<ArrayBuffer>], name));
+    for (const b of Array.isArray(bytes) ? bytes : [bytes]) form.append("file", new File([b as Uint8Array<ArrayBuffer>], name));
     const req = new Request(`${ORIGIN}/api/admin/media`, { method: "POST", body: form, headers: { Origin: ORIGIN, "X-CMS-Request": "1", "Cf-Access-Jwt-Assertion": await token() } });
     const res = await handleApi(req, deps);
     const body: any = await res.json(); // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -282,9 +282,19 @@ describe("media", () => {
   it("accepts a real PNG and stores it under img/uploads with a safe unique name", async () => {
     const res = await upload(png(), "Logo Squadra (1).PNG");
     expect(res.status).toBe(201);
-    expect(res.body.path).toMatch(/^\/img\/uploads\/logo-squadra-1-[0-9a-f]{8}\.png$/);
-    expect(res.body).toMatchObject({ width: 10, height: 20 });
-    expect(await store.readBytes((await store.head("main"))!, res.body.path.slice(1))).not.toBeNull();
+    expect(res.body.files[0].path).toMatch(/^\/img\/uploads\/logo-squadra-1-[0-9a-f]{8}\.png$/);
+    expect(res.body.files[0]).toMatchObject({ width: 10, height: 20 });
+    expect(await store.readBytes((await store.head("main"))!, res.body.files[0].path.slice(1))).not.toBeNull();
+  });
+  it("uploads a batch of images in a single commit and rejects the whole batch if one file is bad", async () => {
+    const before = store.commitCount;
+    const ok = await upload([png(), png(), png()], "foto.png");
+    expect(ok.status).toBe(201);
+    expect(ok.body.files).toHaveLength(3);
+    expect(store.commitCount).toBe(before + 1);
+    const bad = await upload([png(), new TextEncoder().encode("<svg></svg>")], "foto.png");
+    expect(bad.status).toBe(415);
+    expect(store.commitCount).toBe(before + 1);
   });
   it("rejects SVG, disguised files and empty uploads", async () => {
     expect((await upload(new TextEncoder().encode('<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>'), "logo.png")).status).toBe(415);
