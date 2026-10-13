@@ -88,6 +88,12 @@ describe("authentication and authorization", () => {
     const res = await call("GET", "session", undefined, { jwt: await token({ email: "someone@example.org" }) });
     expect(res.status).toBe(403);
   });
+  it("does not exist outside the configured admin host", async () => {
+    deps.adminHost = "cus-trento-c5.pages.dev";
+    expect((await call("GET", "session")).status).toBe(404); // ORIGIN is the public domain
+    const res = await handleApi(new Request("https://cus-trento-c5.pages.dev/api/admin/session", { headers: { "Cf-Access-Jwt-Assertion": await token() } }), deps);
+    expect(res.status).toBe(200);
+  });
   it("fails closed when Access is not configured", async () => {
     deps.access = { admins: deps.access.admins };
     expect((await call("GET", "session")).status).toBe(503);

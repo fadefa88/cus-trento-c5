@@ -78,7 +78,7 @@ resta attivo e invariato finché non viene approvata esplicitamente la sua rimoz
 ## 2. Architettura proposta
 
 ```
-iPhone / desktop ──► Cloudflare Access (SSO + MFA) ──► /admin-v2/  (React PWA statica)
+iPhone / desktop ──► Cloudflare Access (SSO + MFA) su cus-trento-c5.pages.dev ──► /admin-v2/  (React PWA statica)
                                    │
                                    └──► /api/admin/*  (Pages Function)
                                           1. verifica JWT Access (firma RS256, aud, iss, exp)
@@ -115,6 +115,13 @@ generatore, sitemap, URL pubblici, workflow esistenti. Il frontend pubblico rice
 solo cambiamento additivo: il regolamento League letto da `cusTrentoLeague.rules` se
 presente, altrimenti il testo attuale.
 
+### Dominio
+
+`calcioa5.custrento.it` è un CNAME (DNS su Aruba) verso `cus-trento-c5.pages.dev`:
+Access non può proteggere il dominio pubblico. Il CMS si usa da
+`https://cus-trento-c5.pages.dev/admin-v2/`, protetto da Access; con `CMS_ADMIN_HOST`
+il dominio pubblico reindirizza `/admin-v2/` e non espone `/api/admin`.
+
 ## 3. Configurazione richiesta (a cura del proprietario)
 
 Nessun segreto è nel repository. Valori da impostare nelle variabili della Pages Function
@@ -122,7 +129,8 @@ Nessun segreto è nel repository. Valori da impostare nelle variabili della Page
 
 | Variabile | Tipo | Descrizione |
 |---|---|---|
-| `CF_ACCESS_TEAM_DOMAIN` | var | es. `custrento.cloudflareaccess.com` |
+| `CMS_ADMIN_HOST` | var | `cus-trento-c5.pages.dev` |
+| `CF_ACCESS_TEAM_DOMAIN` | var | es. `<team>.cloudflareaccess.com` |
 | `CF_ACCESS_AUD` | var | Application Audience (AUD) tag dell'applicazione Access |
 | `CMS_ADMIN_EMAILS` | var | email autorizzate, separate da virgola (`email:ruolo`, ruoli `admin`/`editor`) |
 | `GITHUB_APP_ID` | secret | ID della GitHub App |

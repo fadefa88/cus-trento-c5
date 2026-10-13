@@ -10,6 +10,7 @@ Pannello di amministrazione pubblicato in `/admin-v2/`. Architettura e audit:
 | `shared/` | regole condivise da browser e server: schemi Zod, operazioni di modifica, normalizzazione (ID/slug da `js/site-core.js`), regole di business, League, rich text |
 | `server/` | API: autenticazione Access, CSRF, rate limit, audit, GitHub, bozze/pubblicazione, media |
 | `../functions/api/admin/[[path]].ts` | Pages Function che collega l'ambiente Cloudflare a `server/` |
+| `../functions/admin-v2/_middleware.ts` | reindirizza `/admin-v2/` all'host protetto quando arriva da un altro dominio |
 | `src/` | app React (Vite, Tailwind CSS 4, componenti Radix in stile shadcn/ui, Lucide) |
 | `dev/devApi.ts` | solo sviluppo: API reale su copia in memoria del repository, JWT firmato localmente |
 | `tests/` | test unitari e di integrazione delle API (Vitest) |
@@ -32,21 +33,49 @@ npm run build          # build Cloudflare completa: sito + _site/admin-v2
 
 Nulla di quanto segue è nel repository. Servono tre passaggi, nell'ordine.
 
+### Dove si usa il CMS
+
+`calcioa5.custrento.it` è un CNAME (DNS su Aruba) verso il progetto Pages
+`cus-trento-c5.pages.dev`: quel dominio non è nell'account Cloudflare, quindi Access
+non può proteggerlo. Il CMS si usa quindi da:
+
+**https://cus-trento-c5.pages.dev/admin-v2/** (da aggiungere alla schermata Home dell'iPhone)
+
+Con `CMS_ADMIN_HOST=cus-trento-c5.pages.dev`:
+
+- `calcioa5.custrento.it/admin-v2/` reindirizza (302) all'indirizzo sopra;
+- `calcioa5.custrento.it/api/admin/*` risponde 404: le API esistono solo sull'host
+  protetto e sui suoi sottodomini di anteprima (`*.cus-trento-c5.pages.dev`);
+- il sito pubblico non cambia.
+
+Anche senza questa variabile le API restano chiuse sul dominio pubblico: lì le
+richieste non attraversano Access, non hanno il token firmato e ricevono 401.
+
 ### 1. Cloudflare Access (Zero Trust → Access → Applications)
 
-Crea un'applicazione **Self-hosted** con:
+Il piano gratuito di Zero Trust basta (fino a 50 utenti). Alla prima attivazione
+Cloudflare chiede un nome di team: la pagina di login sarà `<team>.cloudflareaccess.com`,
+senza bisogno di DNS.
 
-- domini/percorsi: `calcioa5.custrento.it/admin-v2`, `calcioa5.custrento.it/api/admin`
-  e, per le anteprime, `*.<progetto>.pages.dev/admin-v2` e `*.<progetto>.pages.dev/api/admin`
-  (in alternativa attiva *Settings → General → Access policy* sul progetto Pages per proteggere tutte le anteprime);
-- policy **Allow** solo per le email degli amministratori, con metodo di login che richieda MFA
-  (es. Google con verifica in due passaggi, oppure one-time PIN + *Require* → *Authentication method: mfa*);
+Crea un'applicazione **Self-hosted** con questi domini:
+
+- `cus-trento-c5.pages.dev` (produzione);
+- `*.cus-trento-c5.pages.dev` (anteprime dei branch, incluse le bozze `cms-v2-drafts`).
+
+Puoi proteggere l'intero host `pages.dev`: il pubblico usa `calcioa5.custrento.it`,
+e le anteprime sono già escluse dai motori di ricerca. In alternativa limita i percorsi
+a `/admin-v2` e `/api/admin`.
+
+Poi:
+
+- policy **Allow** solo per le email degli amministratori, con un metodo di login che
+  richieda MFA (es. Google con verifica in due passaggi, oppure one-time PIN +
+  *Require → Authentication method: mfa*);
 - durata sessione consigliata: 24 ore.
 
-Annota il **team domain** (`<team>.cloudflareaccess.com`) e l'**Application Audience (AUD) tag**.
+Annota il **team domain** e l'**Application Audience (AUD) tag**.
 
-L'API verifica comunque firma, audience, issuer e scadenza del token e l'elenco email:
-se Access non protegge `/api/admin`, le richieste ricevono 401.
+L'API verifica comunque firma, audience, issuer e scadenza del token e l'elenco email.
 
 ### 2. GitHub App (permessi minimi)
 
@@ -72,8 +101,9 @@ Se `main` ha regole di protezione, aggiungi la GitHub App tra gli attori autoriz
 | `GITHUB_APP_ID` | **secret** | ID numerico dell'app |
 | `GITHUB_APP_INSTALLATION_ID` | **secret** | ID dell'installazione sul repository |
 | `GITHUB_APP_PRIVATE_KEY` | **secret** | contenuto del file `.pem` |
+| `CMS_ADMIN_HOST` | testo | `cus-trento-c5.pages.dev` |
 | `CMS_REPO` | testo (facoltativo) | `fadefa88/cus-trento-c5` |
-| `CMS_DRAFT_PREVIEW_URL` | testo (facoltativo) | `https://cms-v2-drafts.<progetto>.pages.dev/` |
+| `CMS_DRAFT_PREVIEW_URL` | testo (facoltativo) | `https://cms-v2-drafts.cus-trento-c5.pages.dev/` |
 | `CMS_KV` | binding KV (consigliato) | namespace per rate limit e registro attività |
 
 In alternativa alla GitHub App: `CMS_GITHUB_TOKEN` (secret) con un *fine-grained token*
@@ -107,7 +137,8 @@ concorrenti e leggere il registro attività; `editor` modifica, salva bozze e pu
 
 ## Sicurezza: riepilogo dei controlli
 
-Access + verifica JWT RS256 lato server · allowlist email e ruoli · CSRF (header
+Access + verifica JWT RS256 lato server · CMS e API solo sull'host protetto
+(`CMS_ADMIN_HOST`) · allowlist email e ruoli · CSRF (header
 dedicato, Origin, Sec-Fetch-Site) · nessun CORS · rate limit per utente e per IP sui
 tentativi negati · validazione Zod e regole di business su ogni scrittura · HTML delle
 news generato dal server con escaping · URL immagini/link limitati a percorsi del sito e

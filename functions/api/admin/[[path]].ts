@@ -4,6 +4,7 @@
 import { handleApi } from "../../../cms-v2/server/api";
 import { GitHubStore } from "../../../cms-v2/server/github";
 import type { KV } from "../../../cms-v2/server/guards";
+import { normalizeAdminHost } from "../../../cms-v2/server/host";
 
 interface Env {
   CF_ACCESS_TEAM_DOMAIN?: string;
@@ -17,6 +18,7 @@ interface Env {
   GITHUB_APP_INSTALLATION_ID?: string;
   CMS_GITHUB_TOKEN?: string;
   CMS_DRAFT_PREVIEW_URL?: string;
+  CMS_ADMIN_HOST?: string;
   CMS_KV?: KV;
 }
 
@@ -36,6 +38,7 @@ export const onRequest = (context: { request: Request; env: Env }) => {
     kv: env.CMS_KV,
     repo,
     previewUrl: env.CMS_DRAFT_PREVIEW_URL,
+    adminHost: normalizeAdminHost(env.CMS_ADMIN_HOST),
     branches: { main: env.CMS_MAIN_BRANCH || "main", drafts: env.CMS_DRAFT_BRANCH || "cms-v2-drafts" },
   });
 };

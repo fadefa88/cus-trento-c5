@@ -10,6 +10,7 @@ import { ContentService, type Branches } from "./content";
 import { errorResponse, HttpError, json, SECURITY_HEADERS } from "./errors";
 import { assertSameOrigin, rateLimit, readJson, type KV } from "./guards";
 import { isUploadPath, MAX_BATCH_BYTES, MAX_UPLOAD_BYTES, mimeFor } from "./media";
+import { isAdminHost } from "./host";
 import type { RepoStore } from "./store";
 import type { JWTVerifyGetKey } from "jose";
 
@@ -21,6 +22,8 @@ export interface ApiDeps {
   repo?: string;
   /** Cloudflare Pages preview URL of the drafts branch, shown to editors. */
   previewUrl?: string;
+  /** Host protected by Cloudflare Access (normalized); null accepts any host. */
+  adminHost?: string | null;
   /** Tests inject local keys instead of fetching the Access certificates. */
   accessKeys?: JWTVerifyGetKey;
 }
@@ -51,6 +54,8 @@ export async function handleApi(request: Request, deps: ApiDeps): Promise<Respon
   let doc: DocumentId | undefined;
 
   try {
+    // Outside the Access-protected host the API does not exist.
+    if (!isAdminHost(request.url, deps.adminHost ?? null)) throw new HttpError(404, "not_found", "Risorsa non trovata.");
     if (!["GET", "POST"].includes(method)) throw new HttpError(405, "method", "Metodo non consentito.");
     try {
       actor = await authenticate(request, deps.access, deps.accessKeys);
