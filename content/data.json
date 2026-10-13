@@ -4645,48 +4645,39 @@
         "players": [
           {
             "number": "1",
-            "name": "Cassatella",
-            "role": "POR"
+            "name": "Cassatella"
           },
           {
             "number": "4",
-            "name": "Cavazzoni",
-            "role": "DC"
+            "name": "Cavazzoni"
           },
           {
             "number": "2",
-            "name": "Occari",
-            "role": "DC"
+            "name": "Occari"
           },
           {
             "number": "10",
-            "name": "Cacciatore",
-            "role": "CC"
+            "name": "Cacciatore"
           },
           {
             "number": "14",
-            "name": "Casali",
-            "role": "CC"
+            "name": "Casali"
           },
           {
             "number": "8",
-            "name": "Fazio",
-            "role": "CC"
+            "name": "Fazio"
           },
           {
             "number": "5",
-            "name": "Quarta",
-            "role": "CC"
+            "name": "Quarta"
           },
           {
             "number": "7",
-            "name": "Farina",
-            "role": "AT"
+            "name": "Farina"
           },
           {
             "number": "11",
-            "name": "Mordiglia",
-            "role": "AT"
+            "name": "Mordiglia"
           }
         ],
         "logo": "/img/uploads/img_2617.png"
@@ -4698,53 +4689,43 @@
         "players": [
           {
             "number": "2",
-            "name": "De Pra'",
-            "role": "CC"
+            "name": "De Pra'"
           },
           {
             "number": "3",
-            "name": "Vanin",
-            "role": "CC"
+            "name": "Vanin"
           },
           {
             "number": "4",
-            "name": "Costacurta",
-            "role": "CC"
+            "name": "Costacurta"
           },
           {
             "number": "5",
-            "name": "Balsamo",
-            "role": "DC"
+            "name": "Balsamo"
           },
           {
             "number": "7",
-            "name": "Panebianco",
-            "role": "AT"
+            "name": "Panebianco"
           },
           {
             "number": "8",
-            "name": "Bevilacqua",
-            "role": "DC"
+            "name": "Bevilacqua"
           },
           {
             "number": "9",
-            "name": "Brocchi",
-            "role": "AT"
+            "name": "Brocchi"
           },
           {
             "number": "10",
-            "name": "Favaro",
-            "role": "CC"
+            "name": "Favaro"
           },
           {
             "number": "11",
-            "name": "Andreani",
-            "role": "DC"
+            "name": "Andreani"
           },
           {
             "number": "18",
-            "name": "Dalla Pietra",
-            "role": "POR"
+            "name": "Dalla Pietra"
           }
         ],
         "logo": "/img/uploads/img_2614.png"
