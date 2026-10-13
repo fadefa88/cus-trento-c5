@@ -1,0 +1,125 @@
+@import "tailwindcss";
+@import "@fontsource/barlow-condensed/600.css";
+@import "@fontsource/barlow-condensed/700.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* CUS Trento palette: club red, warm paper, ink. Dark mode keeps the red as accent. */
+:root {
+  --background: #f6f2ec;
+  --surface: #ffffff;
+  --surface-2: #faf8f5;
+  --foreground: #121214;
+  --muted: #6b6b73;
+  --border: #e6e0d8;
+  --ring: #b91c1c;
+  --primary: #b91c1c;
+  --primary-strong: #991b1b;
+  --primary-soft: #fdecec;
+  --primary-foreground: #ffffff;
+  --success: #15803d;
+  --success-soft: #e8f6ed;
+  --warning: #b45309;
+  --warning-soft: #fdf3e3;
+  --danger: #b91c1c;
+  --danger-soft: #fdecec;
+  --shadow: 0 1px 2px rgb(18 18 20 / 0.04), 0 4px 16px rgb(18 18 20 / 0.06);
+}
+
+.dark {
+  --background: #0c0c0e;
+  --surface: #161619;
+  --surface-2: #1d1d21;
+  --foreground: #f3f2f0;
+  --muted: #a1a1aa;
+  --border: #2a2a30;
+  --ring: #f87171;
+  --primary: #dc2626;
+  --primary-strong: #ef4444;
+  --primary-soft: #3a1414;
+  --primary-foreground: #ffffff;
+  --success: #4ade80;
+  --success-soft: #11291a;
+  --warning: #fbbf24;
+  --warning-soft: #2e2208;
+  --danger: #f87171;
+  --danger-soft: #3a1414;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --shadow-card: var(--shadow);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    background: var(--background);
+    color-scheme: light;
+  }
+  html.dark { color-scheme: dark; }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    min-height: 100dvh;
+    overscroll-behavior-y: none;
+  }
+  /* iOS zooms into inputs smaller than 16px: keep every field at 16px on touch screens. */
+  input, select, textarea { font-size: 16px; }
+  @media (min-width: 1024px) {
+    input, select, textarea { font-size: 15px; }
+  }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  button, [role="button"], a { touch-action: manipulation; }
+}
+
+@layer utilities {
+  .pt-safe { padding-top: env(safe-area-inset-top); }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .pb-tabbar { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  .tabular { font-variant-numeric: tabular-nums; }
+  .scrollbar-none { scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+}
+
+/* Rich text editor (TipTap) and article preview. */
+.prose-cms { line-height: 1.65; }
+.prose-cms p { margin: 0 0 0.85em; }
+.prose-cms h2 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; margin: 1.1em 0 0.4em; line-height: 1.1; }
+.prose-cms h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin: 1em 0 0.35em; }
+.prose-cms ul { list-style: disc; padding-left: 1.4em; margin: 0 0 0.85em; }
+.prose-cms ol { list-style: decimal; padding-left: 1.4em; margin: 0 0 0.85em; }
+.prose-cms blockquote { border-left: 3px solid var(--primary); padding-left: 1em; color: var(--muted); margin: 0 0 0.85em; }
+.prose-cms a { color: var(--primary); text-decoration: underline; }
+.prose-cms img { border-radius: 12px; max-width: 100%; height: auto; }
+.prose-cms figure { margin: 1em 0; }
+.prose-cms figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.35em; }
+.prose-cms hr { border: 0; border-top: 1px solid var(--border); margin: 1.5em 0; }
+.ProseMirror { outline: none; min-height: 14rem; }
+.ProseMirror p.is-editor-empty:first-child::before { content: attr(data-placeholder); color: var(--muted); float: left; height: 0; pointer-events: none; }
+.ProseMirror img.ProseMirror-selectednode { outline: 3px solid var(--primary); }
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sheet-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

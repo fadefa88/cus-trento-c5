@@ -1,0 +1,18 @@
+{
+  "name": "CUS Trento C5 · Admin",
+  "short_name": "CUS Admin",
+  "description": "Pannello di amministrazione del sito CUS Trento Calcio a 5",
+  "id": "/admin-v2/",
+  "start_url": "/admin-v2/",
+  "scope": "/admin-v2/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f6f2ec",
+  "theme_color": "#b91c1c",
+  "lang": "it",
+  "icons": [
+    { "src": "/admin-v2/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/admin-v2/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/admin-v2/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
