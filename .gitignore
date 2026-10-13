@@ -1,0 +1,9 @@
+node_modules/
+_site/
+cms-v2/dist/
+cms-v2/.dev-data/
+.wrangler/
+.dev.vars
+*.local
+test-results/
+playwright-report/
