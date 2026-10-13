@@ -4847,28 +4847,36 @@
         "group": "B",
         "players": [
           {
-            "name": "Pasini M."
+            "name": "Pasini M.",
+            "number": "1"
           },
           {
-            "name": "Tessari L."
+            "name": "Tessari L.",
+            "number": "2"
           },
           {
-            "name": "Stevan P."
+            "name": "Stevan P.",
+            "number": "3"
           },
           {
-            "name": "Massarotto N."
+            "name": "Massarotto N.",
+            "number": "4"
           },
           {
-            "name": "Fiorini F."
+            "name": "Fiorini F.",
+            "number": "5"
           },
           {
-            "name": "Grassi J."
+            "name": "Grassi J.",
+            "number": "6"
           },
           {
-            "name": "LoConte G."
+            "name": "Loconte G.",
+            "number": "7"
           },
           {
-            "name": "Lorenzonetto T."
+            "name": "Lorenzonetto T.",
+            "number": "8"
           }
         ],
         "logo": "/img/uploads/img_2618.png"
