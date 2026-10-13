@@ -267,7 +267,7 @@ function BracketTab({ league, source, hasDraft }: { league: LeagueData; source: 
             {r.items.map((ko) => (
               <Card key={ko.name} className={cn(ko.resolved.needsManualWinner && "border-warning", ko.resolved.invalidManualWinner && "border-danger")}>
                 <button type="button" className="w-full p-3 text-left" onClick={() => setEditing(ko)}>
-                  <div className="mb-2 text-xs text-muted"><span className="font-semibold uppercase">{ko.name}</span></div>
+                  <div className="mb-2 flex items-center justify-between text-xs text-muted"><span className="font-semibold uppercase">{ko.name}</span><span>Gara secca</span></div>
                   {([0, 1] as const).map((side) => {
                     const team = side === 0 ? ko.resolved.team1 : ko.resolved.team2;
                     const score = side === 0 ? ko.resolved.team1Score : ko.resolved.team2Score;
@@ -466,7 +466,7 @@ function RulesTab({ source, hasDraft }: { source: Item | undefined; hasDraft: bo
               {rules.sections.map((s, i) => (
                 <RowCard key={i} onRemove={() => update({ sections: rules.sections.filter((_, j) => j !== i) })}>
                   <TextField label={`Sezione ${i + 1}`} value={s.title} onChange={(x) => update({ sections: rules.sections.map((y, j) => (j === i ? { ...y, title: x } : y)) })} />
-                  <StringListField label="Paragrafi" hint="Grassetto: **testo** · Link: [testo](https://…) · Elenco puntato: righe che iniziano con «* »" multiline value={s.paragraphs} onChange={(x) => update({ sections: rules.sections.map((y, j) => (j === i ? { ...y, paragraphs: x } : y)) })} addLabel="Paragrafo" />
+                  <StringListField label="Paragrafi" multiline value={s.paragraphs} onChange={(x) => update({ sections: rules.sections.map((y, j) => (j === i ? { ...y, paragraphs: x } : y)) })} addLabel="Paragrafo" />
                 </RowCard>
               ))}
               <Button type="button" variant="outline" className="self-start" onClick={() => update({ sections: [...rules.sections, { title: `${rules.sections.length + 1}. Nuova sezione`, paragraphs: [""] }] })}><Plus />Sezione</Button>

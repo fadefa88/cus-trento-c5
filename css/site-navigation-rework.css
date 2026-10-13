@@ -2002,9 +2002,3 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .ctl-leaguebar .ctl-subnav{position:static;margin-bottom:0;}
   .ctl-leaguebar + .ctl-page{padding-top:30px;}
 }
-
-/* Bulleted lists in the League rules written from the CMS. */
-.ctl-rules-list{margin:0 0 9px;padding-left:20px;list-style:disc;color:#52525b;font-size:13px;line-height:1.7;}
-.ctl-rules-list:last-child{margin-bottom:0;}
-.ctl-rules-list li{margin:2px 0;}
-.ctl-rules-list li::marker{color:#9a741c;}
