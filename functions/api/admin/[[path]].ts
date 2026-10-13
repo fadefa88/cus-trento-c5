@@ -13,6 +13,11 @@ interface Env {
   CMS_REPO?: string;
   CMS_MAIN_BRANCH?: string;
   CMS_DRAFT_BRANCH?: string;
+  // GitHub App credentials (Cloudflare Pages secrets). G_APP_* is the
+  // documented name; GITHUB_APP_* is still accepted.
+  G_APP_ID?: string;
+  G_APP_PRIVATE_KEY?: string;
+  G_APP_INSTALLATION_ID?: string;
   GITHUB_APP_ID?: string;
   GITHUB_APP_PRIVATE_KEY?: string;
   GITHUB_APP_INSTALLATION_ID?: string;
@@ -30,9 +35,9 @@ export const onRequest = (context: { request: Request; env: Env }) => {
     store: () =>
       new GitHubStore({
         repo,
-        appId: env.GITHUB_APP_ID,
-        appPrivateKey: env.GITHUB_APP_PRIVATE_KEY,
-        installationId: env.GITHUB_APP_INSTALLATION_ID,
+        appId: env.G_APP_ID || env.GITHUB_APP_ID,
+        appPrivateKey: env.G_APP_PRIVATE_KEY || env.GITHUB_APP_PRIVATE_KEY,
+        installationId: env.G_APP_INSTALLATION_ID || env.GITHUB_APP_INSTALLATION_ID,
         token: env.CMS_GITHUB_TOKEN,
       }),
     kv: env.CMS_KV,
