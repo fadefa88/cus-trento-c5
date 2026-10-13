@@ -3256,8 +3256,34 @@ const sectionPages=(function(){
     </div>`;
   }
 
+  // Rules text from the CMS: escaped first, then only **bold** and
+  // [label](https:|mailto:|tel: link) are turned into markup.
+  function leagueRulesText(value){
+    return h(value)
+      .replace(/\*\*(.+?)\*\*/g,"<b>$1</b>")
+      .replace(/\[([^\]]+)\]\(((?:https?:\/\/|mailto:|tel:)[^\s()<>"']+)\)/g,(m,label,url)=>`<a href="${url}"${/^https?:/i.test(url)?' target="_blank" rel="noopener noreferrer"':""}>${label}</a>`);
+  }
+
+  function leagueCustomRulesHtml(rules){
+    const sections=(Array.isArray(rules.sections)?rules.sections:[]).filter(section=>section&&(section.title||(Array.isArray(section.paragraphs)&&section.paragraphs.length)));
+    return `<section class="ctl-screen ctl-section ctl-rules">
+      <div class="ctl-rules-intro">
+        <span>Regolamento del torneo</span>
+        <h2>${h(rules.heading||"CUS Trento Futsal League")}</h2>
+        ${rules.intro?`<p>${leagueRulesText(rules.intro)}</p>`:""}
+      </div>
+      <div class="ctl-rules-grid">
+        ${sections.map(section=>`<article class="ctl-rules-card"><h3>${h(section.title||"")}</h3>
+          ${(Array.isArray(section.paragraphs)?section.paragraphs:[]).filter(p=>String(p||"").trim()).map(p=>`<p>${leagueRulesText(p)}</p>`).join("")}
+        </article>`).join("")}
+      </div>
+    </section>`;
+  }
+
   function leagueRulesHtml(){
     const league=leagueData();
+    // Admin V2 can publish the rules in cusTrentoLeague.rules; without them the text below is shown.
+    if(league.rules&&typeof league.rules==="object"&&Array.isArray(league.rules.sections)&&league.rules.sections.length)return leagueCustomRulesHtml(league.rules);
     const venue=String(league.venue||"").trim();
     return `<section class="ctl-screen ctl-section ctl-rules">
       <div class="ctl-rules-intro">

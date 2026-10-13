@@ -245,6 +245,12 @@ class Optimizer:
                     article["image"] = new_image
                     changed = True
 
+            # Admin V2 articles: images live in the editor document (contentDoc);
+            # bodyHtml is rendered from it, so its src attributes follow below.
+            doc = article.get("contentDoc")
+            if isinstance(doc, dict):
+                changed |= self.process_rich_doc(doc)
+
             blocks = article.get("contentBlocks")
             if isinstance(blocks, list):
                 for block in blocks:
@@ -257,6 +263,37 @@ class Optimizer:
                             block["image"] = new_block_image
                             changed = True
 
+        return changed
+
+    def process_rich_doc(self, node: Any) -> bool:
+        changed = False
+        if isinstance(node, dict):
+            attrs = node.get("attrs")
+            if node.get("type") == "image" and isinstance(attrs, dict) and isinstance(attrs.get("src"), str):
+                new_src = self.optimize_reference(attrs["src"], "news")
+                if new_src != attrs["src"]:
+                    attrs["src"] = new_src
+                    changed = True
+            for child in node.get("content") or []:
+                changed |= self.process_rich_doc(child)
+        return changed
+
+    def rewrite_body_html(self, data: Any) -> bool:
+        """Point <img src="..."> in rendered article HTML at the optimized files."""
+        changed = False
+        if not isinstance(data, dict) or not isinstance(data.get("news"), list):
+            return changed
+        for article in data["news"]:
+            html = article.get("bodyHtml") if isinstance(article, dict) else None
+            if not isinstance(html, str) or not self.replacements:
+                continue
+            updated = html
+            for old, new in self.replacements.items():
+                if old != new:
+                    updated = updated.replace(f'src="{old}"', f'src="{new}"')
+            if updated != html:
+                article["bodyHtml"] = updated
+                changed = True
         return changed
 
     def process_gallery_albums(self, albums: Any) -> bool:
@@ -342,6 +379,7 @@ class Optimizer:
 
         data, replacement_changed = self.recursively_replace_known_paths(data)
         changed = changed or replacement_changed
+        changed = self.rewrite_body_html(data) or changed
 
         if changed:
             self.log(f"Update JSON references: {path.relative_to(self.root)}")
