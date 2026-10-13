@@ -20,7 +20,7 @@ export interface LeagueMatch {
   status?: string | null;
   scorers?: LeagueScorer[] | null;
 }
-export interface KnockoutSaved { name?: string; team1Score?: number | null; team2Score?: number | null; winner?: string | null; [k: string]: unknown }
+export interface KnockoutSaved { name?: string; team1Score?: number | null; team2Score?: number | null; winner?: string | null; scorers?: LeagueScorer[] | null; [k: string]: unknown }
 export interface LeagueData {
   title?: string;
   edition?: string;
@@ -66,9 +66,15 @@ export function standings(league: LeagueData, group: string): StandingRow[] {
 export interface ScorerRow { name: string; team: string; goals: number }
 
 /** Top scorers. Own goals appear in the match report but never here. */
+/** Saved knockout games (quarterfinals, semifinals, final), in that order. */
+export function knockoutGames(league: LeagueData): KnockoutSaved[] {
+  const b = league.bracket || {};
+  return [...(b.quarterfinals || []), ...(b.semifinals || []), ...(b.final ? [b.final] : [])].filter((g): g is KnockoutSaved => !!g && typeof g === "object");
+}
+
 export function scorers(league: LeagueData): ScorerRow[] {
   const map = new Map<string, ScorerRow>();
-  for (const match of league.matches || []) {
+  for (const match of [...(league.matches || []), ...knockoutGames(league)]) {
     for (const item of match.scorers || []) {
       const name = String(item?.name || "").trim();
       if (!name || isOwnGoal(name)) continue;
@@ -81,7 +87,7 @@ export function scorers(league: LeagueData): ScorerRow[] {
   return [...map.values()].sort((a, b) => b.goals - a.goals || a.name.localeCompare(b.name, "it"));
 }
 
-export interface KnockoutResolved { team1: string; team2: string; team1Score: number | null; team2Score: number | null; winner: string; needsManualWinner: boolean; invalidManualWinner: boolean }
+export interface KnockoutResolved { team1: string; team2: string; team1Score: number | null; team2Score: number | null; winner: string; scorers: LeagueScorer[]; needsManualWinner: boolean; invalidManualWinner: boolean }
 
 export function resolveKnockout(saved: KnockoutSaved | null | undefined, team1: string, team2: string): KnockoutResolved {
   const value = (raw: unknown) => (filled(raw) ? Number(raw) : null);
@@ -93,6 +99,7 @@ export function resolveKnockout(saved: KnockoutSaved | null | undefined, team1: 
   if (!winner && first !== null && second !== null && first !== second) winner = first > second ? team1 : team2;
   return {
     team1, team2, team1Score: first, team2Score: second, winner,
+    scorers: Array.isArray(saved?.scorers) ? saved!.scorers! : [],
     needsManualWinner: first !== null && second !== null && first === second && !validManual,
     invalidManualWinner: !!manual && !validManual,
   };

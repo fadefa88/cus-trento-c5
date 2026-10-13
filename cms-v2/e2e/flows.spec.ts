@@ -109,3 +109,41 @@ test("edit the League rules and publish", async ({ page }) => {
   await page.reload();
   await expect(page.getByLabel("Introduzione")).toHaveValue(text);
 });
+
+test("bench is limited to 7 players; no report tab, no opponents tab for U23", async ({ page }) => {
+  await page.goto("./#/partite/prima?edit=new");
+  let d = dialog(page);
+  await expect(d.getByRole("tab", { name: "Tabellino" })).toHaveCount(0);
+  await expect(d.getByRole("tab", { name: "Avversari" })).toHaveCount(1);
+  await d.getByRole("tab", { name: "Avversari" }).click();
+  await expect(d.getByText("Marcatori avversari")).toHaveCount(0);
+  await d.getByRole("tab", { name: /Formazione/ }).click();
+  await d.getByRole("button", { name: "Aggiungi" }).nth(1).click();
+  const picker = dialog(page);
+  for (let i = 0; i < 9; i++) await picker.locator("button:has(span.tabular)").nth(i).click();
+  await picker.getByRole("button", { name: /Fatto/ }).click();
+  await expect(d.getByText("Panchina(7/7)")).toBeVisible();
+  await expect(d.getByRole("button", { name: "Aggiungi" }).nth(1)).toBeDisabled();
+  await page.keyboard.press("Escape");
+  page.once("dialog", (c) => c.accept());
+  await page.goto("./#/partite/u23?edit=new");
+  d = dialog(page);
+  await expect(d.getByRole("tab", { name: "Avversari" })).toHaveCount(0);
+  await expect(d.getByRole("tab", { name: "Tabellino" })).toHaveCount(0);
+});
+
+test("knockout games accept scorers from the two teams", async ({ page }) => {
+  await page.goto("./#/league?tab=tabellone");
+  await page.getByRole("button", { name: /Quarto 2/ }).click();
+  const d = dialog(page);
+  await d.getByRole("button", { name: /: più$/ }).first().click();
+  await d.getByRole("button", { name: /: più$/ }).first().click();
+  await d.getByRole("button", { name: "Gol", exact: true }).first().click();
+  const picker = dialog(page);
+  const groups = await picker.locator("p.uppercase").allTextContents();
+  expect(groups.some((g) => g.startsWith("Rosa "))).toBe(true);
+  await picker.getByText("Autogol", { exact: true }).click();
+  await d.getByRole("button", { name: "Pubblica" }).click();
+  await expect(page.getByText("Pubblicato", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Quarto 2/ })).toContainText("Autogol");
+});

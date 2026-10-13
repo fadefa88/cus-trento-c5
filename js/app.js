@@ -3102,10 +3102,16 @@ const sectionPages=(function(){
     </article>`;
   }
 
+  // Knockout games (quarterfinals, semifinals, final) as saved by the CMS.
+  function leagueKnockoutGames(){
+    const b=leagueData().bracket||{};
+    return [...(Array.isArray(b.quarterfinals)?b.quarterfinals:[]),...(Array.isArray(b.semifinals)?b.semifinals:[]),...(b.final?[b.final]:[])].filter(g=>g&&typeof g==="object");
+  }
+
   function leagueScorers(){
     const league=leagueData();
     const map=new Map();
-    (league.matches||[]).forEach(match=>(Array.isArray(match.scorers)?match.scorers:[]).forEach(item=>{
+    [...(league.matches||[]),...leagueKnockoutGames()].forEach(match=>(Array.isArray(match.scorers)?match.scorers:[]).forEach(item=>{
       const name=String(item&&item.name||"").trim();
       if(!name||/^autogol$/i.test(name))return;
       const team=String(item&&item.team||"").trim();
@@ -3192,7 +3198,7 @@ const sectionPages=(function(){
     const validManual=[team1,team2].find(team=>leagueTeamKey(team)===leagueTeamKey(manual));
     let winner=validManual||"";
     if(!winner&&first!==null&&second!==null&&first!==second)winner=first>second?team1:team2;
-    return {team1,team2,team1Score:first,team2Score:second,winner};
+    return {team1,team2,team1Score:first,team2Score:second,winner,scorers:Array.isArray(saved&&saved.scorers)?saved.scorers:[]};
   }
 
   function leagueKnockoutCard(name,match,seed1,seed2){
@@ -3211,6 +3217,7 @@ const sectionPages=(function(){
       <div class="ctl-knockout-match-head"><span>${h(name)}</span><small>Gara secca</small></div>
       ${renderTeam(match.team1,match.team1Score,seed1)}
       ${renderTeam(match.team2,match.team2Score,seed2)}
+      ${(()=>{const t1=leagueMatchScorers(match,match.team1),t2=leagueMatchScorers(match,match.team2);return t1.length||t2.length?`<div class="ctl-match-goals ctl-knockout-goals" aria-label="Marcatori"><div class="ctl-match-goals-grid"><div class="ctl-match-goals-side">${leagueMatchGoalLines(t1)}</div><div class="ctl-match-goals-side">${leagueMatchGoalLines(t2)}</div></div></div>`:"";})()}
       ${ready?`<div class="ctl-knockout-qualified">Qualificata: <b>${h(match.winner)}</b></div>`:""}
     </article>`;
   }

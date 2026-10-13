@@ -1,7 +1,7 @@
-import { CalendarDays, ClipboardPaste, ExternalLink, Medal, Plus, Shield, Trophy, Users } from "lucide-react";
+import { CalendarDays, ClipboardPaste, ExternalLink, Plus, Shield, Trophy, Users } from "lucide-react";
 import * as React from "react";
 import { getAt, valueHash } from "@shared/json";
-import { bracket as computeBracket, matchPlayed, OWN_GOAL_NAME, scorers as computeScorers, standings, teamKey, type KnockoutResolved, type LeagueData, type LeagueMatch, type LeagueTeam } from "@shared/league";
+import { bracket as computeBracket, matchPlayed, OWN_GOAL_NAME, teamKey, type KnockoutResolved, type LeagueData, type LeagueMatch, type LeagueTeam } from "@shared/league";
 import { SITE_URL } from "@shared/site";
 import { DEFAULT_RULES } from "@shared/league-rules";
 import { ErrorBox, FormSection, ItemEditor, SaveBar } from "@/components/editor";
@@ -57,18 +57,14 @@ export function LeaguePage() {
         <Tabs value={tab} onValueChange={(t) => setQuery({ tab: t, edit: null }, { replace: true })}>
           <TabsList className="mb-5">
             <TabsTrigger value="partite">Partite</TabsTrigger>
-            <TabsTrigger value="classifiche">Classifiche</TabsTrigger>
             <TabsTrigger value="tabellone">Fasi finali</TabsTrigger>
             <TabsTrigger value="squadre">Squadre</TabsTrigger>
-            <TabsTrigger value="marcatori">Marcatori</TabsTrigger>
             <TabsTrigger value="regolamento">Regolamento</TabsTrigger>
             <TabsTrigger value="info">Info</TabsTrigger>
           </TabsList>
           <TabsContent value="partite"><MatchesTab league={league} hasDraft={hasDraft} /></TabsContent>
-          <TabsContent value="classifiche"><StandingsTab league={league} /></TabsContent>
           <TabsContent value="tabellone"><BracketTab league={league} source={content} hasDraft={hasDraft} /></TabsContent>
           <TabsContent value="squadre"><TeamsTab league={league} hasDraft={hasDraft} /></TabsContent>
-          <TabsContent value="marcatori"><ScorersTab league={league} /></TabsContent>
           <TabsContent value="regolamento"><RulesTab source={content} hasDraft={hasDraft} /></TabsContent>
           <TabsContent value="info"><InfoTab source={content} hasDraft={hasDraft} /></TabsContent>
         </Tabs>
@@ -160,27 +156,59 @@ function TeamPickerButton({ league, value, onChange, title, group }: { league: L
   );
 }
 
-function LeagueMatchForm({ league, value: m, set, replace }: { league: LeagueData; value: Item; set: (k: string, v: unknown) => void; replace: (v: Item) => void }) {
-  const home = str(m.home), away = str(m.away);
-  const scorers = ((m.scorers as Item[]) || []).map((s) => ({ ...s }));
+/**
+ * Scorers of a game, grouped by team. The picker offers the team's roster and
+ * the own goal ("Autogol", shown in the report but not in the scorers ranking);
+ * a name outside the roster can be typed as an exception.
+ */
+function ScorersByTeam({ league, teams, scores, scorers: input, onChange }: { league: LeagueData; teams: [string, string]; scores: [number | null | undefined, number | null | undefined]; scorers: Item[]; onChange: (list: Item[]) => void }) {
+  const scorers = (input || []).map((s) => ({ ...s }));
   const [picker, setPicker] = React.useState<null | string>(null);
+  const known = (name: string) => (league.teams || []).some((t) => teamKey(t.name) === teamKey(name));
   const goalsOf = (team: string) => scorers.filter((s) => teamKey(s.team) === teamKey(team)).reduce((n, s) => n + Math.max(1, Number(s.goals) || 1), 0);
-  const setScorers = (list: Item[]) => set("scorers", list);
-  const addScorer = (team: string, name: string) => {
+  const add = (team: string, name: string) => {
     const existing = scorers.findIndex((s) => teamKey(s.team) === teamKey(team) && teamKey(s.name) === teamKey(name));
     if (existing >= 0) {
       scorers[existing].goals = Math.max(1, Number(scorers[existing].goals) || 1) + 1;
-      setScorers(scorers);
-    } else setScorers([...scorers, { name, team, goals: 1 }]);
+      onChange(scorers);
+    } else onChange([...scorers, { name, team, goals: 1 }]);
   };
-  const teamOptions = (team: string): PickerOption[] => {
+  const options = (team: string): PickerOption[] => {
     const t = (league.teams || []).find((x) => teamKey(x.name) === teamKey(team));
-    const other = (league.teams || []).find((x) => teamKey(x.name) === teamKey(team === home ? away : home));
+    const other = team === teams[0] ? teams[1] : teams[0];
     return [
-      { value: OWN_GOAL_NAME, label: "Autogol", description: `Autorete di ${other?.name || "avversari"} a favore di ${team}`, group: "Speciale" },
-      ...((t?.players || []).map((p) => (typeof p === "string" ? { name: p } : p)).map((p) => ({ value: p.name, label: p.name, badge: p.number != null && p.number !== "" ? String(p.number) : undefined, group: `Rosa ${team}` }))),
+      { value: OWN_GOAL_NAME, label: "Autogol", description: `Autorete di ${other || "avversari"} a favore di ${team}`, group: "Speciale" },
+      ...(t?.players || []).map((p) => (typeof p === "string" ? { name: p } : p)).map((p) => ({ value: p.name, label: p.name, badge: p.number != null && p.number !== "" ? String(p.number) : undefined, group: `Rosa ${team}` })),
     ];
   };
+  return (
+    <>
+      {teams.map((team, side) => {
+        if (!team || !known(team)) return null;
+        const score = scores[side] ?? null;
+        const g = goalsOf(team);
+        return (
+          <FormSection key={team} title={`Marcatori ${team}`} description={score != null ? `${g} su ${score} gol attribuiti` : undefined} action={<Button type="button" size="sm" variant="secondary" onClick={() => setPicker(team)}><Plus />Gol</Button>}>
+            {score != null && g > score && <p className="rounded-xl bg-danger-soft px-3 py-2 text-sm text-danger">I marcatori superano i gol segnati.</p>}
+            {scorers.map((s, i) => teamKey(s.team) !== teamKey(team) ? null : (
+              <RowCard key={i} onRemove={() => onChange(scorers.filter((_, j) => j !== i))}>
+                <div className="flex items-center gap-2">
+                  <span className="min-w-0 flex-1 truncate font-medium">{str(s.name)}{str(s.name) === OWN_GOAL_NAME && <Badge className="ml-2" tone="warning">non in classifica marcatori</Badge>}</span>
+                  <Stepper label="Reti" min={1} value={Number(s.goals) || 1} onChange={(x) => { scorers[i].goals = x; onChange(scorers); }} />
+                </div>
+              </RowCard>
+            ))}
+            <SearchPicker open={picker === team} onOpenChange={(o) => !o && setPicker(null)} title={`Gol di ${team}`} options={options(team)} value={[]} onChange={(v) => v[0] && add(team, v[0])} allowCustom customLabel="Aggiungi fuori rosa:" emptyText="Rosa vuota: scrivi il nome per aggiungerlo come eccezione" />
+          </FormSection>
+        );
+      })}
+    </>
+  );
+}
+
+function LeagueMatchForm({ league, value: m, set, replace }: { league: LeagueData; value: Item; set: (k: string, v: unknown) => void; replace: (v: Item) => void }) {
+  const home = str(m.home), away = str(m.away);
+  const scorers = (m.scorers as Item[]) || [];
   const swapSelect = (side: "home" | "away", name: string) => {
     const t = (league.teams || []).find((x) => teamKey(x.name) === teamKey(name));
     const old = side === "home" ? home : away;
@@ -205,24 +233,7 @@ function LeagueMatchForm({ league, value: m, set, replace }: { league: LeagueDat
         </div>
         {matchPlayed(m as never) && <Button type="button" variant="ghost" size="sm" className="self-center" onClick={() => replace({ ...m, homeScore: null, awayScore: null, status: "Da giocare" })}>Azzera risultato</Button>}
       </FormSection>
-      {[home, away].filter(Boolean).map((team) => {
-        const score = team === home ? (m.homeScore as number | null) : (m.awayScore as number | null);
-        const g = goalsOf(team);
-        return (
-          <FormSection key={team} title={`Marcatori ${team}`} description={score != null ? `${g} su ${score} gol attribuiti` : undefined} action={<Button type="button" size="sm" variant="secondary" onClick={() => setPicker(team)}><Plus />Gol</Button>}>
-            {score != null && g > score && <p className="rounded-xl bg-danger-soft px-3 py-2 text-sm text-danger">I marcatori superano i gol segnati.</p>}
-            {scorers.map((s, i) => teamKey(s.team) !== teamKey(team) ? null : (
-              <RowCard key={i} onRemove={() => setScorers(scorers.filter((_, j) => j !== i))}>
-                <div className="flex items-center gap-2">
-                  <span className="min-w-0 flex-1 truncate font-medium">{str(s.name)}{str(s.name) === OWN_GOAL_NAME && <Badge className="ml-2" tone="warning">non in classifica marcatori</Badge>}</span>
-                  <Stepper label="Reti" min={1} value={Number(s.goals) || 1} onChange={(x) => { scorers[i].goals = x; setScorers(scorers); }} />
-                </div>
-              </RowCard>
-            ))}
-            <SearchPicker open={picker === team} onOpenChange={(o) => !o && setPicker(null)} title={`Gol di ${team}`} options={teamOptions(team)} value={[]} onChange={(v) => v[0] && addScorer(team, v[0])} allowCustom customLabel="Aggiungi fuori rosa:" emptyText="Rosa vuota: scrivi il nome per aggiungerlo come eccezione" />
-          </FormSection>
-        );
-      })}
+      <ScorersByTeam league={league} teams={[home, away]} scores={[m.homeScore as number | null, m.awayScore as number | null]} scorers={scorers} onChange={(list) => set("scorers", list)} />
       <FormSection title="Programma">
         <div className="grid grid-cols-2 gap-3">
           <DateField label="Data" value={m.date} onChange={(x) => set("date", x)} />
@@ -231,55 +242,6 @@ function LeagueMatchForm({ league, value: m, set, replace }: { league: LeagueDat
         <TextField label="Giornata" value={m.round} onChange={(x) => set("round", x)} placeholder="1ª giornata" />
       </FormSection>
     </div>
-  );
-}
-
-// ---- Standings and scorers --------------------------------------------------------
-function StandingsTab({ league }: { league: LeagueData }) {
-  return (
-    <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-      {(["A", "B"] as const).map((g) => {
-        const rows = standings(league, g);
-        return (
-          <Card key={g} className="overflow-hidden">
-            <h3 className="border-b border-border px-4 py-3 font-display text-xl font-bold">Girone {g}</h3>
-            <table className="w-full text-sm tabular">
-              <thead className="text-xs uppercase text-muted">
-                <tr className="[&>th]:px-2 [&>th]:py-2"><th className="w-8 text-left">#</th><th className="text-left">Squadra</th><th>PT</th><th>G</th><th className="hidden sm:table-cell">V</th><th className="hidden sm:table-cell">N</th><th className="hidden sm:table-cell">P</th><th className="hidden sm:table-cell">GF</th><th className="hidden sm:table-cell">GS</th><th>DR</th></tr>
-              </thead>
-              <tbody>
-                {rows.map((r, i) => (
-                  <tr key={r.team} className="border-t border-border text-center [&>td]:px-2 [&>td]:py-2.5">
-                    <td className="text-left font-bold text-muted">{i + 1}</td>
-                    <td className="text-left"><span className="flex items-center gap-2"><TeamBadge league={league} name={r.team} size="sm" /><b className="truncate">{r.team}</b></span></td>
-                    <td className="font-bold">{r.pts}</td><td>{r.g}</td><td className="hidden sm:table-cell">{r.v}</td><td className="hidden sm:table-cell">{r.n}</td><td className="hidden sm:table-cell">{r.p}</td><td className="hidden sm:table-cell">{r.gf}</td><td className="hidden sm:table-cell">{r.gs}</td>
-                    <td>{r.gf - r.gs > 0 ? "+" : ""}{r.gf - r.gs}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Card>
-        );
-      })}
-      <p className="text-sm text-muted lg:col-span-2">Calcolata automaticamente dai risultati, con le stesse regole del sito: punti, differenza reti, gol fatti.</p>
-    </div>
-  );
-}
-
-function ScorersTab({ league }: { league: LeagueData }) {
-  const rows = computeScorers(league);
-  if (!rows.length) return <EmptyState icon={Medal} title="Nessun marcatore" text="Aggiungi i marcatori nelle partite: la classifica si aggiorna da sola (gli autogol sono esclusi)." />;
-  return (
-    <Card className="divide-y divide-border">
-      {rows.map((r, i) => (
-        <div key={r.name + r.team} className="flex items-center gap-3 px-4 py-3">
-          <span className="w-6 text-center font-display text-lg font-bold text-muted">{i + 1}</span>
-          <TeamBadge league={league} name={r.team} size="sm" />
-          <span className="min-w-0 flex-1"><b className="block truncate">{r.name}</b><span className="block truncate text-xs text-muted">{r.team}</span></span>
-          <span className="font-display text-2xl font-bold tabular">{r.goals}</span>
-        </div>
-      ))}
-    </Card>
   );
 }
 
@@ -319,6 +281,7 @@ function BracketTab({ league, source, hasDraft }: { league: LeagueData; source: 
                       </div>
                     );
                   })}
+                  {ko.resolved.scorers.length > 0 && <p className="mt-2 truncate text-xs text-muted">⚽ {ko.resolved.scorers.map((sc) => `${sc.name}${Number(sc.goals) > 1 ? ` ×${sc.goals}` : ""}`).join(", ")}</p>}
                   {ko.resolved.needsManualWinner && <p className="mt-2 text-xs font-semibold text-warning">Pareggio: indica la qualificata</p>}
                   {ko.resolved.invalidManualWinner && <p className="mt-2 text-xs font-semibold text-danger">Vincente indicata non valida</p>}
                 </button>
@@ -331,12 +294,12 @@ function BracketTab({ league, source, hasDraft }: { league: LeagueData; source: 
         <Trophy className="size-8 text-warning" />
         <div><p className="text-xs uppercase text-muted">Campione CUS Trento League</p><p className="font-display text-2xl font-bold">{b.champion || "Da definire"}</p></div>
       </Card>
-      <KnockoutEditor ko={editing} source={source} onClose={() => setEditing(null)} hasDraft={hasDraft} />
+      <KnockoutEditor ko={editing} league={league} source={source} onClose={() => setEditing(null)} hasDraft={hasDraft} />
     </>
   );
 }
 
-function KnockoutEditor({ ko, source, onClose, hasDraft }: { ko: KoRef | null; source: Item | undefined; onClose: () => void; hasDraft: boolean }) {
+function KnockoutEditor({ ko, league, source, onClose, hasDraft }: { ko: KoRef | null; league: LeagueData; source: Item | undefined; onClose: () => void; hasDraft: boolean }) {
   const [state, setState] = React.useState<Item>({});
   const [original, setOriginal] = React.useState<unknown>(null);
   const [saving, setSaving] = React.useState<SaveMode | null>(null);
@@ -358,7 +321,8 @@ function KnockoutEditor({ ko, source, onClose, hasDraft }: { ko: KoRef | null; s
     setSaving(mode);
     setError(null);
     try {
-      const value = { ...state, name: state.name || ko.name, team1Score: s1 ?? null, team2Score: s2 ?? null, winner: tie ? str(state.winner) : "" };
+      const scorers = ((state.scorers as Item[]) || []).filter((sc) => str(sc.name).trim() && (teamKey(sc.team) === teamKey(t1) || teamKey(sc.team) === teamKey(t2)));
+      const value = { ...state, name: state.name || ko.name, team1Score: s1 ?? null, team2Score: s2 ?? null, winner: tie ? str(state.winner) : "", scorers };
       await save.mutateAsync({ ops: [{ type: "set", path: ko.path, base: await valueHash(original ?? null), value }], mode, summary: `League: ${ko.name} ${t1} - ${t2}` });
       onClose();
     } catch (e) {
@@ -385,6 +349,7 @@ function KnockoutEditor({ ko, source, onClose, hasDraft }: { ko: KoRef | null; s
             <SegmentedControl value={str(state.winner)} onChange={(w) => setState((p) => ({ ...p, winner: w }))} options={[{ value: t1, label: t1 }, { value: t2, label: t2 }]} className="w-full" />
           </FormSection>
         )}
+        <ScorersByTeam league={league} teams={[t1, t2]} scores={[s1, s2]} scorers={(state.scorers as Item[]) || []} onChange={(list) => setState((p) => ({ ...p, scorers: list }))} />
         {/^(Da definire|Vincente )/.test(t1) || /^(Da definire|Vincente )/.test(t2) ? <p className="rounded-xl bg-warning-soft p-3 text-sm text-warning">Le squadre di questo incontro non sono ancora definite: puoi comunque registrare il risultato, ma verifica gli accoppiamenti.</p> : null}
       </div>
     </Sheet>

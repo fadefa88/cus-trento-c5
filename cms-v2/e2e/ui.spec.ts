@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
-const PAGES = ["", "#/partite/prima", "#/partite/u23", "#/rosa", "#/league", "#/league?tab=classifiche", "#/league?tab=tabellone", "#/league?tab=squadre", "#/league?tab=regolamento", "#/news", "#/gallery", "#/video", "#/eventi", "#/storia", "#/staff", "#/sponsor", "#/pacchetti", "#/pubblica", "#/cronologia/fixtures", "#/media", "#/impostazioni"];
+const PAGES = ["", "#/partite/prima", "#/partite/u23", "#/rosa", "#/league", "#/league?tab=tabellone", "#/league?tab=squadre", "#/league?tab=regolamento", "#/news", "#/gallery", "#/video", "#/eventi", "#/storia", "#/staff", "#/sponsor", "#/pacchetti", "#/pubblica", "#/cronologia/fixtures", "#/media", "#/impostazioni"];
 
 async function open(page: Page, hash: string) {
   await page.goto(hash ? `./${hash}` : "./");
