@@ -335,52 +335,52 @@
         "players": [
           {
             "number": "2",
-            "name": "De Pra' A.",
+            "name": "De Pra'",
             "role": "CC"
           },
           {
             "number": "3",
-            "name": "Vanin E.",
+            "name": "Vanin",
             "role": "CC"
           },
           {
             "number": "4",
-            "name": "Costacurta N.",
+            "name": "Costacurta",
             "role": "CC"
           },
           {
             "number": "5",
-            "name": "Balsamo F.",
+            "name": "Balsamo",
             "role": "DC"
           },
           {
             "number": "7",
-            "name": "Panebianco M.",
+            "name": "Panebianco",
             "role": "AT"
           },
           {
             "number": "8",
-            "name": "Bevilacqua S.",
+            "name": "Bevilacqua",
             "role": "DC"
           },
           {
             "number": "9",
-            "name": "Brocchi N.",
+            "name": "Brocchi",
             "role": "AT"
           },
           {
             "number": "10",
-            "name": "Favaro P.",
+            "name": "Favaro",
             "role": "CC"
           },
           {
             "number": "11",
-            "name": "Andreani T.",
+            "name": "Andreani",
             "role": "DC"
           },
           {
             "number": "18",
-            "name": "Dalla Pietra L.",
+            "name": "Dalla Pietra",
             "role": "POR"
           }
         ],
