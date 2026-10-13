@@ -241,35 +241,35 @@
         "group": "A",
         "players": [
           {
-            "number": "",
+            "number": "1",
             "name": "Carraro M."
           },
           {
-            "number": "10",
+            "number": "2",
             "name": "Pedrini A."
           },
           {
-            "number": "",
+            "number": "3",
             "name": "Fiorentino E."
           },
           {
-            "number": "11",
+            "number": "4",
             "name": "Martino L."
           },
           {
-            "number": "",
+            "number": "5",
             "name": "Vitella E."
           },
           {
-            "number": "12",
+            "number": "6",
             "name": "Perissinotto P."
           },
           {
-            "number": "",
+            "number": "7",
             "name": "Calzolaio A."
           },
           {
-            "number": "13",
+            "number": "8",
             "name": "Fusinato S."
           }
         ],
