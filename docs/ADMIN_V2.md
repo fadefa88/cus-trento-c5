@@ -133,9 +133,9 @@ Nessun segreto è nel repository. Valori da impostare nelle variabili della Page
 | `CF_ACCESS_TEAM_DOMAIN` | var | es. `<team>.cloudflareaccess.com` |
 | `CF_ACCESS_AUD` | var | Application Audience (AUD) tag dell'applicazione Access |
 | `CMS_ADMIN_EMAILS` | var | email autorizzate, separate da virgola (`email:ruolo`, ruoli `admin`/`editor`) |
-| `GITHUB_APP_ID` | secret | ID della GitHub App |
-| `GITHUB_APP_PRIVATE_KEY` | secret | chiave privata PKCS#8 (vedi sotto) |
-| `GITHUB_APP_INSTALLATION_ID` | secret | installazione sul repository |
+| `G_APP_ID` | secret | ID della GitHub App |
+| `G_APP_PRIVATE_KEY` | secret | chiave privata PKCS#8 (vedi sotto) |
+| `G_APP_INSTALLATION_ID` | secret | installazione sul repository |
 | `CMS_REPO` | var | `fadefa88/cus-trento-c5` |
 | KV binding `CMS_KV` | binding | opzionale ma consigliato: rate limit e audit log |
 

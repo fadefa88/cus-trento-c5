@@ -93,14 +93,19 @@ Se `main` ha regole di protezione, aggiungi la GitHub App tra gli attori autoriz
 
 ### 3. Variabili del progetto Pages (Production e Preview)
 
+Vanno impostate in **Cloudflare** → Workers & Pages → `cus-trento-c5` → Settings →
+Variables and Secrets, per Production **e** Preview. **Non** come secret del repository
+GitHub: le API girano su Cloudflare e non leggono i secret di GitHub Actions (che inoltre
+non accettano nomi che iniziano con `GITHUB_`, da cui il prefisso `G_APP_`).
+
 | Nome | Tipo | Valore |
 |---|---|---|
 | `CF_ACCESS_TEAM_DOMAIN` | testo | `<team>.cloudflareaccess.com` |
 | `CF_ACCESS_AUD` | testo | AUD tag dell'applicazione |
 | `CMS_ADMIN_EMAILS` | testo | `mail1@…:admin:Nome Cognome, mail2@…:editor:Nome` |
-| `GITHUB_APP_ID` | **secret** | ID numerico dell'app |
-| `GITHUB_APP_INSTALLATION_ID` | **secret** | ID dell'installazione sul repository |
-| `GITHUB_APP_PRIVATE_KEY` | **secret** | contenuto del file `.pem` |
+| `G_APP_ID` | **secret** | ID numerico dell'app |
+| `G_APP_INSTALLATION_ID` | **secret** | ID dell'installazione sul repository |
+| `G_APP_PRIVATE_KEY` | **secret** | contenuto del file `.pem` |
 | `CMS_ADMIN_HOST` | testo | `cus-trento-c5.pages.dev` |
 | `CMS_REPO` | testo (facoltativo) | `fadefa88/cus-trento-c5` |
 | `CMS_DRAFT_PREVIEW_URL` | testo (facoltativo) | `https://cms-v2-drafts.cus-trento-c5.pages.dev/` |
