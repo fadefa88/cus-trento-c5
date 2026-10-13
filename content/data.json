@@ -4885,7 +4885,40 @@
         "id": "tt-le-girlz",
         "name": "TT Le Girlz",
         "group": "B",
-        "players": [],
+        "players": [
+          {
+            "number": "37",
+            "name": "Savoia S."
+          },
+          {
+            "number": "25",
+            "name": "Casicci Placido D."
+          },
+          {
+            "number": "11",
+            "name": "Balistreri A."
+          },
+          {
+            "number": "20",
+            "name": "Afretti F."
+          },
+          {
+            "number": "88",
+            "name": "Malavasi A."
+          },
+          {
+            "number": "7",
+            "name": "Bernardotto M."
+          },
+          {
+            "number": "5",
+            "name": "Pecchini R."
+          },
+          {
+            "number": "1",
+            "name": "Mangiagli A."
+          }
+        ],
         "logo": "/img/uploads/img_2615.png"
       }
     ],
