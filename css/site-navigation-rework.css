@@ -1995,7 +1995,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     .ctl-leaguebar .ctl-leaguebar-brand{display:none;}
   }
 }
-/* Phones in portrait: full-bleed, square-cornered sticky menu bar. */
+/* Portrait phones: menu touches the hero and spans the viewport edge-to-edge. */
 @media(max-width:640px) and (orientation:portrait){
   .ctl-leaguebar{
     display:block;
@@ -2003,15 +2003,16 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     top:78px;
     z-index:30;
     width:100%;
-    margin-top:14px;
+    margin-top:0;
     background:#fff;
   }
-  .ctl-leaguebar .container.ctl-leaguebar-inner{
+  /* Override the site's body .container horizontal padding (!important). */
+  body .ctl-leaguebar .container.ctl-leaguebar-inner{
     display:block;
-    width:100%;
-    max-width:none;
-    margin:0;
-    padding:0;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0!important;
     box-sizing:border-box;
   }
   .ctl-leaguebar .ctl-subnav{
@@ -2019,6 +2020,7 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     width:100%;
     margin:0;
     padding:12px;
+    border-top:0;
     border-left:0;
     border-right:0;
     border-radius:0;
