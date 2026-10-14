@@ -167,14 +167,25 @@
         "group": "A"
       },
       {
-        "awayScore": null,
+        "awayScore": 1,
         "time": "19:30",
         "round": "1ª giornata",
         "away": "TT Le Girlz",
         "date": "2026-10-13",
-        "status": "Da giocare",
-        "scorers": [],
-        "homeScore": null,
+        "status": "Terminata",
+        "scorers": [
+          {
+            "name": "Tessari",
+            "team": "All Blacks",
+            "goals": 1
+          },
+          {
+            "name": "Malavasi",
+            "team": "TT Le Girlz",
+            "goals": 1
+          }
+        ],
+        "homeScore": 1,
         "id": "all-blacks-tt-le-girlz-2026-10-12",
         "home": "All Blacks",
         "group": "B"
