@@ -1995,12 +1995,13 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     .ctl-leaguebar .ctl-leaguebar-brand{display:none;}
   }
 }
-/* Portrait phones: menu touches the hero and spans the viewport edge-to-edge. */
+/* Portrait phones: menu touches the hero and spans the viewport edge-to-edge.
+   The mobile site header is 68px tall: match its height to avoid a sticky gap. */
 @media(max-width:640px) and (orientation:portrait){
   .ctl-leaguebar{
     display:block;
     position:sticky;
-    top:78px;
+    top:68px;
     z-index:30;
     width:100%;
     margin-top:0;
@@ -2027,4 +2028,13 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     box-sizing:border-box;
   }
   .ctl-leaguebar + .ctl-page{padding-top:30px;}
+}
+
+/* Phone landscape: keep the League crest, remove the redundant CUS Trento C5 crest. */
+@media (orientation:landscape) and (max-height:640px) and (max-width:1024px){
+  .ctl-leaguebar .ctl-leaguebar-crest{display:none;}
+  .ctl-leaguebar .ctl-leaguebar-league{
+    border-left:0;
+    padding-left:0;
+  }
 }
