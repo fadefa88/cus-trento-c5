@@ -1995,10 +1995,34 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
     .ctl-leaguebar .ctl-leaguebar-brand{display:none;}
   }
 }
-/* Phones in portrait: the bar is only the existing button grid, sticky as before. */
+/* Phones in portrait: full-bleed, square-cornered sticky menu bar. */
 @media(max-width:640px) and (orientation:portrait){
-  .ctl-leaguebar{display:block;position:sticky;top:78px;z-index:30;margin-top:14px;}
-  .ctl-leaguebar .container.ctl-leaguebar-inner{display:block;}
-  .ctl-leaguebar .ctl-subnav{position:static;margin-bottom:0;}
+  .ctl-leaguebar{
+    display:block;
+    position:sticky;
+    top:78px;
+    z-index:30;
+    width:100%;
+    margin-top:14px;
+    background:#fff;
+  }
+  .ctl-leaguebar .container.ctl-leaguebar-inner{
+    display:block;
+    width:100%;
+    max-width:none;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+  .ctl-leaguebar .ctl-subnav{
+    position:static;
+    width:100%;
+    margin:0;
+    padding:12px;
+    border-left:0;
+    border-right:0;
+    border-radius:0;
+    box-sizing:border-box;
+  }
   .ctl-leaguebar + .ctl-page{padding-top:30px;}
 }
