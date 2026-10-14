@@ -191,14 +191,50 @@
         "group": "B"
       },
       {
-        "awayScore": null,
+        "awayScore": 4,
         "time": "20:30",
         "round": "1ª giornata",
         "away": "Recidivi FC",
         "date": "2026-10-13",
-        "status": "Da giocare",
-        "scorers": [],
-        "homeScore": null,
+        "status": "Terminata",
+        "scorers": [
+          {
+            "name": "Farina",
+            "team": "The Rolling Rocks",
+            "goals": 1
+          },
+          {
+            "name": "Cavazzoni",
+            "team": "The Rolling Rocks",
+            "goals": 1
+          },
+          {
+            "name": "Autogol",
+            "team": "The Rolling Rocks",
+            "goals": 1
+          },
+          {
+            "name": "Cacciatore",
+            "team": "The Rolling Rocks",
+            "goals": 1
+          },
+          {
+            "name": "Panebianco",
+            "team": "Recidivi FC",
+            "goals": 2
+          },
+          {
+            "name": "De Pra'",
+            "team": "Recidivi FC",
+            "goals": 1
+          },
+          {
+            "name": "Bevilacqua",
+            "team": "Recidivi FC",
+            "goals": 1
+          }
+        ],
+        "homeScore": 4,
         "id": "the-rolling-rocks-recidivi-fc-2026-10-12",
         "home": "The Rolling Rocks",
         "group": "A"
