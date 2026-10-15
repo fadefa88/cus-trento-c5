@@ -176,7 +176,6 @@ export const newsConfig: CollectionConfig<Item> = {
   list: ["news"],
   title: "News",
   eyebrow: "Editoriale",
-  description: "Gli articoli scritti qui. Le news importate da SporTrentino arrivano in automatico e non si modificano da qui.",
   icon: Newspaper,
   singular: "articolo",
   collection: "news",
