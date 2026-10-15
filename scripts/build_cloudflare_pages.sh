@@ -22,24 +22,27 @@ for path in $STATIC_PATHS $ROUTE_DIRS; do
   fi
 done
 
-# Admin V2 (cms-v2/): a separate single-page app published under /admin-v2/.
-# The public site never depends on it. On Cloudflare a failure here is reported
-# and the site is published without /admin-v2/ (Decap /admin/ keeps working);
-# CI sets CMS_V2_STRICT=1 so the same failure blocks the pull request.
-# The old Decap CMS address /admin/ points to Admin V2.
-if [ -d node_modules/vite ] && npm run --silent cms:build; then
-  rm -rf "$OUT_DIR/admin-v2"
-  cp -R cms-v2/dist "$OUT_DIR/admin-v2"
-  echo "Admin V2 published in $OUT_DIR/admin-v2"
-  printf '
-# Old Decap CMS address (removed): Admin V2 replaces it.
-/admin /admin-v2/ 301
-/admin/* /admin-v2/ 301
-' >> "$OUT_DIR/_redirects"
-else
-  echo "WARNING: Admin V2 build skipped or failed; the public site is not affected." >&2
-  if [ "${CMS_V2_STRICT:-0}" = "1" ]; then exit 1; fi
+# Admin V2: never silently skip the CMS on a production deployment.
+# Previously Pages could succeed without rebuilding /admin-v2/.
+if [ ! -d node_modules/vite ]; then
+  echo "Admin V2 dependencies missing: installing from package-lock.json."
+  npm ci --no-audit --no-fund
 fi
+
+# Readable deployment identifier to verify which CMS build is actually served.
+DEPLOY_SHA="${CF_PAGES_COMMIT_SHA:-${GITHUB_SHA:-}}"
+if [ -z "$DEPLOY_SHA" ]; then
+  DEPLOY_SHA="$(git rev-parse HEAD 2>/dev/null || printf unknown)"
+fi
+printf 'commit=%s\nbuilt_at_utc=%s\n' "$DEPLOY_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > cms-v2/public/release.txt
+
+npm run --silent cms:build
+test -s cms-v2/dist/index.html
+test -s cms-v2/dist/release.txt
+rm -rf "$OUT_DIR/admin-v2"
+cp -R cms-v2/dist "$OUT_DIR/admin-v2"
+echo "Admin V2 published in $OUT_DIR/admin-v2 (commit: $DEPLOY_SHA)"
+printf '\n# Old Decap CMS address (removed): Admin V2 replaces it.\n/admin /admin-v2/ 301\n/admin/* /admin-v2/ 301\n' >> "$OUT_DIR/_redirects"
 
 # The frontend loads content/data.json at runtime. The source content/data.json
 # is only a base dataset, while current editorial data lives in

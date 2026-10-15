@@ -64,6 +64,8 @@ jobs:
         run: |
           npm run build
           test -f _site/admin-v2/index.html
+          test -s _site/admin-v2/release.txt
+          grep -q "commit=$GITHUB_SHA" _site/admin-v2/release.txt
 
       - name: Check generated SEO and security files
         run: |

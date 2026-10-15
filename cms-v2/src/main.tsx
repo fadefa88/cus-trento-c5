@@ -34,6 +34,8 @@ createRoot(document.getElementById("root")!).render(
 
 if ("serviceWorker" in navigator && import.meta.env.PROD) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/admin-v2/sw.js", { scope: "/admin-v2/" }).catch(() => undefined);
+    navigator.serviceWorker.register("/admin-v2/sw.js", { scope: "/admin-v2/", updateViaCache: "none" })
+      .then((registration) => registration.update())
+      .catch(() => undefined);
   });
 }
