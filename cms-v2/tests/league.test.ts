@@ -128,6 +128,45 @@ describe("League fixture dates and calendar matchdays", () => {
   });
 });
 
+describe("League menu stays at the current scroll position", () => {
+  it("updates only the active tab and screen content, without rebuilding the hero or scrolling", () => {
+    const code = extractFunction(app, "setLeagueScreen");
+    const view = { leagueScreen: "squadre" };
+    const stage = { innerHTML: "old content" };
+    const buttons = ["squadre", "calendario"].map((name) => ({
+      dataset: { leagueScreen: name },
+      active: name === "squadre",
+      pressed: name === "squadre",
+      classList: { toggle(_className: string, _active: boolean) {} },
+      setAttribute(_name: string, _value: string) {},
+    }));
+    buttons.forEach((button) => {
+      button.classList.toggle = (_name: string, active: boolean) => { button.active = active; };
+      button.setAttribute = (_name: string, value: string) => { button.pressed = value === "true"; };
+    });
+    const nav = { querySelectorAll: () => buttons };
+    const document = { querySelector: (selector: string) => selector === ".ctl-screen-stage" ? stage : selector === ".ctl-leaguebar .ctl-subnav" ? nav : null };
+    let renderedWholePage = 0;
+    const select = new Function("view", "document", "leagueData", "leagueScreenContent", "leagueScorers", "renderCusTrentoLeague",
+      `${code}; return setLeagueScreen;`)(
+      view, document,
+      () => ({ teams: [], matches: [] }),
+      (screen: string) => "screen:" + screen,
+      () => [],
+      () => { renderedWholePage++; },
+    ) as (screen: string) => void;
+    select("calendario");
+    expect(stage.innerHTML).toBe("screen:calendario");
+    expect(buttons.map((b) => b.active)).toEqual([false, true]);
+    expect(buttons.map((b) => b.pressed)).toEqual([false, true]);
+    expect(view.leagueScreen).toBe("calendario");
+    expect(renderedWholePage).toBe(0);
+    expect(code).not.toContain("scrollToPageTop");
+    select("calendario");
+    expect(renderedWholePage).toBe(0);
+  });
+});
+
 describe("league rules on the public page", () => {
   const rulesFns = ["h", "leagueRulesText", "leagueCustomRulesHtml", "leagueRulesHtml"];
   // app.js has several helpers named h(); the League one is the last before leagueRulesHtml.
