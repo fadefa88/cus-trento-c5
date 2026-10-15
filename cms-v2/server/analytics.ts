@@ -78,6 +78,22 @@ export function lastRomeDates(now: Date, count = DAYS): string[] {
   return out;
 }
 
+/** Exact local midnight for a Rome calendar day, expressed as a UTC instant. */
+export function romeMidnightUtc(date: string): Date {
+  const [year, month, day] = date.split("-").map(Number);
+  const midnightUtc = new Date(Date.UTC(year, month - 1, day));
+  // Italy is always UTC+1 or UTC+2. At UTC midnight, the local hour is
+  // exactly that offset, including on both DST-transition days.
+  const hour = Number(new Intl.DateTimeFormat("en-GB", {
+    timeZone: TIME_ZONE, hour: "2-digit", hourCycle: "h23",
+  }).format(midnightUtc));
+  return new Date(midnightUtc.getTime() - hour * 3_600_000);
+}
+
+function nextCalendarDate(date: string): string {
+  return new Date(Date.parse(`${date}T00:00:00Z`) + 86_400_000).toISOString().slice(0, 10);
+}
+
 export function parseHosts(value: string | undefined): string[] {
   const hosts = String(value || "")
     .split(",")
@@ -158,9 +174,9 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
   const missing = missingConfig(cfg);
   if (missing.length) return { configured: false, missing };
   const hosts = parseHosts(cfg.hosts);
-  // V2: split the monthly range to reduce adaptive sampling. Bump the
-  // cache namespace so cached V1 estimates cannot be displayed by V2.
-  const key = `analytics:v3:${cfg.siteTag}:${hosts.join(",")}:${Math.floor(now.getTime() / 1000 / CACHE_TTL_SEC)}`;
+  // V4: use ungrouped Cloudflare totals within exact Rome-day boundaries.
+  // Bump the cache namespace so earlier inflated estimates are not served.
+  const key = `analytics:v4:${cfg.siteTag}:${hosts.join(",")}:${Math.floor(now.getTime() / 1000 / CACHE_TTL_SEC)}`;
   const mem = memoryCache.get(key);
   if (mem && mem.expires > now.getTime()) return mem.payload;
   if (kv) {
@@ -186,12 +202,12 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
 
   const doFetch = cfg.fetch ?? fetch;
   const readPeriod = async (period: string[]): Promise<{ dates: string[]; rows: Row[]; total: AnalyticsTotals; sampled: boolean }> => {
-    // UTC bounds deliberately overlap adjoining periods by one day because
-    // local midnight changes with CET/CEST. Filter by actual Rome date below,
-    // otherwise overlapping API windows would double-count page views.
-    const start = new Date(Date.parse(`${period[0]}T00:00:00Z`) - 86_400_000);
-    const afterLast = Date.parse(`${period[period.length - 1]}T00:00:00Z`) + 2 * 86_400_000;
-    const finish = new Date(Math.min(afterLast, now.getTime()));
+    // Use exact Europe/Rome midnight boundaries, including DST changes.
+    // An ungrouped total cannot be filtered after retrieval, so overlapping
+    // UTC windows would inflate counts by including adjacent days.
+    const start = romeMidnightUtc(period[0]);
+    const nextMidnight = romeMidnightUtc(nextCalendarDate(period[period.length - 1]));
+    const finish = new Date(Math.min(nextMidnight.getTime() - 1_000, now.getTime()));
     const filter = {
       AND: [
         { siteTag: cfg.siteTag },
