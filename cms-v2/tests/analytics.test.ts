@@ -29,7 +29,7 @@ function fakeCloudflare(rows: unknown[], init: { status?: number; errors?: unkno
     const selected = rows.filter((r) => {
       const hour = (r as { dimensions?: { datetimeHour?: string } }).dimensions?.datetimeHour;
       return hour && Date.parse(hour) >= Date.parse(range.datetime_geq) && Date.parse(hour) <= Date.parse(range.datetime_leq);
-    });
+    }) as Array<{ count: number; sum: { visits: number }; avg: { sampleInterval: number }; dimensions: { datetimeHour: string } }>;
     const weighted = selected.reduce((totals, value) => {
       const row = value as { count: number; sum: { visits: number }; avg: { sampleInterval: number } };
       totals.pageViews += row.count;
@@ -43,7 +43,7 @@ function fakeCloudflare(rows: unknown[], init: { status?: number; errors?: unkno
     const payload = init.errors ? { data: null, errors: init.errors } : {
       data: { viewer: { accounts: [{
         hourly: selected,
-        total: [{ count: totals.pageViews, sum: { visits: totals.visits }, avg: { sampleInterval: weighted.sampleInterval } }],
+        total: selected.length ? [{ count: totals.pageViews, sum: { visits: totals.visits }, avg: { sampleInterval: weighted.sampleInterval } }] : [],
       }] } }, errors: null,
     };
     return new Response(JSON.stringify(payload), { status: init.status ?? 200, headers: { "Content-Type": "application/json" } });
