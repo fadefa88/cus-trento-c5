@@ -3363,6 +3363,15 @@ const sectionPages=(function(){
     const stage=document.querySelector(".ctl-screen-stage");
     const nav=document.querySelector(".ctl-leaguebar .ctl-subnav");
     if(!stage||!nav){renderCusTrentoLeague();return;}
+    // Calcola la posizione iniziale della sezione prima di sostituire un contenuto
+    // lungo: dopo la sostituzione il browser potrebbe gia aver ridotto lo scroll.
+    const previousScroll=window.scrollY;
+    const bar=document.querySelector(".ctl-leaguebar");
+    const stickyTop=bar?parseFloat(getComputedStyle(bar).top)||0:0;
+    const barHeight=bar?bar.getBoundingClientRect().height:0;
+    const sectionTop=previousScroll+stage.getBoundingClientRect().top;
+    const sectionScroll=Math.max(0,Math.round(sectionTop-stickyTop-barHeight-8));
+    const shouldReturnToStart=previousScroll>sectionScroll+12;
     const league=leagueData();
     const teams=Array.isArray(league.teams)?league.teams:[];
     const matches=(Array.isArray(league.matches)?league.matches:[]).slice().sort((a,b)=>String(a.date||"").localeCompare(String(b.date||""))||String(a.time||"").localeCompare(String(b.time||"")));
@@ -3372,6 +3381,9 @@ const sectionPages=(function(){
       button.classList.toggle("active",active);
       button.setAttribute("aria-pressed",String(active));
     });
+    // Se eri in fondo alla scheda precedente, riparti dal contenuto nuovo
+    // sotto il menu sticky, senza tornare alla hero o alla cima del sito.
+    if(shouldReturnToStart)window.scrollTo({top:sectionScroll,left:0,behavior:"instant"});
   }
   window.cusLeagueScreen=setLeagueScreen;
 
