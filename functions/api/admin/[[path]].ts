@@ -25,6 +25,11 @@ interface Env {
   CMS_DRAFT_PREVIEW_URL?: string;
   CMS_ADMIN_HOST?: string;
   CMS_KV?: KV;
+  // Cloudflare Web Analytics, read-only (dashboard visitor statistics).
+  CF_ANALYTICS_API_TOKEN?: string;
+  CF_ACCOUNT_ID?: string;
+  CF_WEB_ANALYTICS_SITE_TAG?: string;
+  CF_ANALYTICS_HOSTS?: string;
 }
 
 export const onRequest = (context: { request: Request; env: Env }) => {
@@ -41,6 +46,7 @@ export const onRequest = (context: { request: Request; env: Env }) => {
         token: env.CMS_GITHUB_TOKEN,
       }),
     kv: env.CMS_KV,
+    analytics: { apiToken: env.CF_ANALYTICS_API_TOKEN, accountId: env.CF_ACCOUNT_ID, siteTag: env.CF_WEB_ANALYTICS_SITE_TAG, hosts: env.CF_ANALYTICS_HOSTS },
     repo,
     previewUrl: env.CMS_DRAFT_PREVIEW_URL,
     adminHost: normalizeAdminHost(env.CMS_ADMIN_HOST),

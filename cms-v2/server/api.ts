@@ -4,6 +4,7 @@
 import { z } from "zod";
 import { isDocumentId, type DocumentId } from "../shared/documents";
 import { opsSchema } from "../shared/ops";
+import { getAnalytics, type AnalyticsConfig } from "./analytics";
 import { audit, listAudit } from "./audit";
 import { authenticate, requireRole, type AccessConfig, type Actor } from "./auth";
 import { ContentService, type Branches } from "./content";
@@ -24,6 +25,8 @@ export interface ApiDeps {
   previewUrl?: string;
   /** Host protected by Cloudflare Access (normalized); null accepts any host. */
   adminHost?: string | null;
+  /** Cloudflare Web Analytics credentials (server-side only). */
+  analytics?: AnalyticsConfig;
   /** Tests inject local keys instead of fetching the Access certificates. */
   accessKeys?: JWTVerifyGetKey;
 }
@@ -75,6 +78,7 @@ export async function handleApi(request: Request, deps: ApiDeps): Promise<Respon
       return json({ email: actor.email, name: actor.name, role: actor.role, repo: deps.repo || null, auditLog: !!deps.kv, previewUrl: deps.previewUrl && /^https:\/\/[\w.-]+\/?$/.test(deps.previewUrl) ? deps.previewUrl : null });
     }
     if (method === "GET" && section === "status") return json(await svc.status());
+    if (method === "GET" && section === "analytics" && !id) return json(await getAnalytics(deps.analytics || {}, deps.kv));
     if (method === "GET" && section === "audit") {
       requireRole(actor, "admin");
       return json({ entries: await listAudit(deps.kv, 150) });

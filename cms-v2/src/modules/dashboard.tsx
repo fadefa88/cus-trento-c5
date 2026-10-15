@@ -3,6 +3,7 @@ import { CalendarPlus, CheckCircle2, CircleAlert, CircleDashed, ClipboardCheck, 
 import * as React from "react";
 import { isCusName } from "@shared/rules";
 import { MatchCard } from "@/modules/matches";
+import { VisitorStats } from "@/modules/visitor-stats";
 import { useSession } from "@/components/shell";
 import { Badge, Card, Skeleton } from "@/components/ui/primitives";
 import { api } from "@/lib/api";
@@ -106,6 +107,7 @@ export function Dashboard() {
         </div>
 
         <aside className="flex flex-col gap-6">
+          <VisitorStats />
           <Card className="p-4">
             <h2 className="font-display text-xl font-bold">Stato pubblicazione</h2>
             <div className="mt-3 flex items-center gap-3">

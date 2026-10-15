@@ -111,11 +111,58 @@ non accettano nomi che iniziano con `GITHUB_`, da cui il prefisso `G_APP_`).
 | `CMS_DRAFT_PREVIEW_URL` | testo (facoltativo) | `https://cms-v2-drafts.cus-trento-c5.pages.dev/` |
 | `CMS_KV` | binding KV (consigliato) | namespace per rate limit e registro attività |
 
+Per le statistiche visitatori in dashboard (facoltative, vedi sotto):
+
+| Nome | Tipo | Valore |
+|---|---|---|
+| `CF_ANALYTICS_API_TOKEN` | **secret** | API token con solo *Account → Account Analytics → Read* |
+| `CF_ACCOUNT_ID` | testo | Account ID Cloudflare (32 caratteri esadecimali) |
+| `CF_WEB_ANALYTICS_SITE_TAG` | testo | site tag del sito Web Analytics (32 caratteri) |
+| `CF_ANALYTICS_HOSTS` | testo (facoltativo) | host conteggiati, default `calcioa5.custrento.it` |
+
 In alternativa alla GitHub App: `CMS_GITHUB_TOKEN` (secret) con un *fine-grained token*
 limitato al solo repository e a *Contents: Read and write*.
 
 Ruoli: `admin` può anche ripristinare versioni, pubblicare una bozza sopra modifiche
 concorrenti e leggere il registro attività; `editor` modifica, salva bozze e pubblica.
+
+## Statistiche visitatori
+
+La card *Visite al sito* in dashboard legge **Cloudflare Web Analytics** tramite la
+GraphQL Analytics API (`rumPageloadEventsAdaptiveGroups`), da
+`GET /api/admin/analytics` (`server/analytics.ts`): il token resta sul server, la
+risposta è in cache 10 minuti (KV `CMS_KV` se presente).
+
+- **Visite** e **Pagine viste** sono le metriche di Web Analytics: non esistono
+  "visitatori unici" (il beacon non usa cookie né identificatori). Una visita è una
+  pagina vista arrivando da un altro sito o da un link diretto. I valori sono stime
+  di Cloudflare (campionamento adattivo).
+- Filtri: `bot = 0` (esclude crawler, bot AI, Googlebot, Bingbot e gli altri bot
+  riconosciuti; chi arriva da Google resta), solo `calcioa5.custrento.it`
+  (niente `pages.dev`, anteprime, sviluppo), percorsi `/admin*` esclusi. Giorni
+  in ora italiana.
+- Senza le variabili la card mostra *Statistiche non configurate*; mai numeri fittizi.
+
+Il beacon sul sito pubblico è in `js/app.js` (`loadWebAnalytics`) ed è **spento**
+finché `CF_WEB_ANALYTICS_TOKEN` è vuoto. Una volta acceso si carica solo su
+`calcioa5.custrento.it` e solo dopo il consenso ai contenuti facoltativi
+(*Accetta tutto*), come promesso dal pannello cookie. Il CSP di `/admin-v2/` lo
+blocca comunque. **Non** usare *Workers & Pages → progetto → Metrics → Web
+Analytics → Enable*: inietterebbe il beacon su tutte le pagine e su tutti i
+deploy, senza consenso.
+
+Attivazione (dopo l'aggiornamento di informativa privacy e pannello cookie):
+
+1. Cloudflare → **Web Analytics** → **Add a site** → hostname `calcioa5.custrento.it`
+   → copia il **token** dello snippet JS (non incollare lo snippet nelle pagine).
+2. In `js/app.js` imposta `CF_WEB_ANALYTICS_TOKEN` con quel token (è pubblico per
+   natura: compare nell'HTML di qualunque sito che usa Web Analytics).
+3. Aggiorna in `index.html` la voce *Analytics e marketing* del pannello cookie.
+4. **site tag**: Web Analytics → il sito → nell'indirizzo della pagina compare
+   `siteTag~in=<32 caratteri>`.
+5. **API token**: My Profile → API Tokens → Create Token → Custom token, permesso
+   *Account · Account Analytics · Read*, risorsa solo il tuo account.
+6. Imposta le variabili della tabella sopra e rifai il deploy.
 
 ## Bozze e pubblicazione
 
