@@ -4483,7 +4483,10 @@
         "name": "Finale",
         "team1Score": null,
         "team2Score": null,
-        "winner": ""
+        "winner": "",
+        "date": "2026-11-12",
+        "time": "20:30",
+        "scorers": []
       }
     },
     "endDate": "2026-11-13",
