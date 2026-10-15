@@ -218,7 +218,7 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
   const dates = lastRomeDates(now);
   const todayStart = romeMidnightUtc(dates[dates.length - 1]);
   const from24 = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-  const format = (value: Date) => value.toISOString().replace(/\\.\\d{3}Z$/, "Z");
+  const format = (value: Date) => value.toISOString().replace(/\.\d{3}Z$/, "Z");
   const makeFilter = (start: Date) => ({
     AND: [
       { siteTag: cfg.siteTag },
