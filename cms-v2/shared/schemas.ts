@@ -200,6 +200,8 @@ export const leagueMatch = z.looseObject({
 
 export const knockoutMatch = z.looseObject({
   name: optText,
+  date: optDate,
+  time: optText.nullable(),
   team1Score: optScore,
   team2Score: optScore,
   winner: optText.nullable(),
