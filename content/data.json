@@ -4692,6 +4692,19 @@
         "status": "Da giocare",
         "scorers": [],
         "id": "rango-fc-the-rolling-rocks-2026-10-27"
+      },
+      {
+        "date": "2026-10-27",
+        "time": "19:30",
+        "group": "B",
+        "round": "3ª giornata",
+        "home": "Banda Bassiotti",
+        "away": "TT Le Girlz",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": [],
+        "id": "banda-bassiotti-tt-le-girlz-2026-10-27"
       }
     ],
     "sport": "Futsal",
