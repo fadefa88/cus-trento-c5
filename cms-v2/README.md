@@ -137,16 +137,20 @@ risposta è in cache 10 minuti (KV `CMS_KV` se presente).
   "visitatori unici" (il beacon non usa cookie né identificatori). Una visita è una
   pagina vista arrivando da un altro sito o da un link diretto. I valori sono stime
   di Cloudflare (campionamento adattivo).
-- Filtri: `bot = 0` (esclude crawler, bot AI, Googlebot, Bingbot e gli altri bot
-  riconosciuti; chi arriva da Google resta), solo `calcioa5.custrento.it`
-  (niente `pages.dev`, anteprime, sviluppo), percorsi `/admin*` esclusi. Giorni
-  in ora italiana.
-- Per ridurre gli scostamenti dovuti al campionamento GraphQL, il backend
-  interroga **ogni giorno degli ultimi 7 giorni separatamente** e divide i 23
-  giorni precedenti in blocchi da massimo 7 giorni, poi aggrega in Europe/Rome
-  senza contare due volte le ore vicine al cambio di giornata. I valori possono
-  comunque differire dalla dashboard Cloudflare se i filtri o l'intervallo sono
-  diversi: **oggi** (da mezzanotte italiana) non è **ultime 24 ore**.
+- Il riquadro **Visite 24 ore / Pagine viste 24 ore** corrisponde
+  all'intervallo predefinito **Ultime 24 ore** di Web Analytics (senza filtri aggiuntivi).
+  Cloudflare applica un campionamento adattivo, per cui il totale API può comunque
+  differire dalla UI. Il pannello visualizza il sample interval per la finestra 24 ore.
+- Filtri della query: il site tag e il solo host pubblico `calcioa5.custrento.it`
+  (niente `pages.dev`, anteprime e CMS). Nessun filtro bot opzionale o filtro
+  sui percorsi, per non introdurre discrepanze con il dashboard Cloudflare di default.
+  Chi sceglie *Exclude Bots* nel dashboard Cloudflare ottiene invece un perimetro diverso.
+- **Oggi**, **ultimi 7 giorni** e **ultimi 30 giorni** utilizzano ciascuno
+  un singolo totale non raggruppato sulla rispettiva finestra di calendario italiano,
+  evitando di sommare stime campionate da giorni/ore separati.
+  Il grafico deriva dalla suddivisione oraria degli ultimi 30 giorni ed è indicativo.
+- La card mantiene una cache di 10 minuti. I valori dei diversi intervalli
+  sono stime indipendenti e possono non sommarsi perfettamente, specie su siti con poche visite.
 - Senza le variabili la card mostra *Statistiche non configurate*; mai numeri fittizi.
 
 Il beacon sul sito pubblico è in `js/app.js` (`loadWebAnalytics`); con
