@@ -115,7 +115,7 @@ describe("League fixture dates and calendar matchdays", () => {
       { leagueRound: day }, (m: { id: string }) => `<article data-fixture="${m.id}"></article>`, matches,
     ) as string;
     const html = render(2);
-    const panels = [...html.matchAll(/<div class="ctl-matches ctl-calendar-matches" data-league-round="(\\d)"([^>]*)>([\\s\\S]*?)<\\/div>/g)];
+    const panels = [...html.matchAll(/<div class="ctl-matches ctl-calendar-matches" data-league-round="(\d)"([^>]*)>([\s\S]*?)<\/div>/g)];
     expect(panels).toHaveLength(3);
     for (const [i, panel] of panels.entries()) {
       const day = i + 1;
