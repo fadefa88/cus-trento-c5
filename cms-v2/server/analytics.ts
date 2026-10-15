@@ -168,7 +168,7 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
     const filter = {
       AND: [
         { siteTag: cfg.siteTag },
-        { datetime_geq: start.toISOString().replace(/\\.\\d{3}Z$/, "Z"), datetime_leq: finish.toISOString().replace(/\\.\\d{3}Z$/, "Z") },
+        { datetime_geq: start.toISOString().replace(/\.\d{3}Z$/, "Z"), datetime_leq: finish.toISOString().replace(/\.\d{3}Z$/, "Z") },
         { bot: 0 },
         { requestHost_in: hosts },
         { requestPath_notlike: "/admin%" },
