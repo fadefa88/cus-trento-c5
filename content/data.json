@@ -3551,6 +3551,13 @@
       "url": "https://www.tentazionitrento.it/it/",
       "id": "ristorante-tentazioni",
       "slug": "ristorante-tentazioni"
+    },
+    {
+      "name": "Burger F*cktory",
+      "logo": "/img/uploads/burgerf-cktory-92d174c0.webp",
+      "url": "https://burgerfcktory.com/",
+      "id": "burger-f-cktory",
+      "slug": "burger-f-cktory"
     }
   ],
   "u21Fixtures": [
