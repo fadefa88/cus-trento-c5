@@ -2,7 +2,7 @@
 // configuration, errors and caching. Cloudflare is replaced by a fake fetch.
 import { createLocalJWKSet, exportJWK, generateKeyPair, SignJWT, type JWTVerifyGetKey } from "jose";
 import { beforeAll, describe, expect, it } from "vitest";
-import { getAnalytics, lastRomeDates, parseHosts, summarize, type AnalyticsConfig } from "../server/analytics";
+import { getAnalytics, lastRomeDates, romeMidnightUtc, apportion, parseHosts, summarize, type AnalyticsConfig } from "../server/analytics";
 import { handleApi } from "../server/api";
 import type { KV } from "../server/guards";
 import { MemoryStore } from "../server/memoryStore";
@@ -19,18 +19,33 @@ class MemoryKV implements KV {
   async list() { return { keys: [], list_complete: true }; }
 }
 
-function fakeCloudflare(rows: unknown[], init: { status?: number; errors?: unknown[] } = {}) {
+function fakeCloudflare(rows: unknown[], init: { status?: number; errors?: unknown[]; ungrouped?: { visits: number; pageViews: number } } = {}) {
   const calls: Array<{ url: string; headers: Headers; body: any }> = []; // eslint-disable-line @typescript-eslint/no-explicit-any
   const fn = (async (url: string, req: RequestInit) => {
     calls.push({ url, headers: new Headers(req.headers), body: JSON.parse(String(req.body)) });
-    // Simulate Cloudflare's UTC range filter. The real implementation asks
-    // for overlapping UTC hours around Italian midnight and deduplicates them.
+    // Simulate Cloudflare's UTC range filter, including the exact Rome
+    // calendar-day boundaries used for ungrouped and hourly aggregations.
     const range = calls.at(-1)?.body.variables.filter.AND.find((f: Record<string, string>) => f.datetime_geq);
     const selected = rows.filter((r) => {
       const hour = (r as { dimensions?: { datetimeHour?: string } }).dimensions?.datetimeHour;
       return hour && Date.parse(hour) >= Date.parse(range.datetime_geq) && Date.parse(hour) <= Date.parse(range.datetime_leq);
     });
-    const payload = init.errors ? { data: null, errors: init.errors } : { data: { viewer: { accounts: [{ rumPageloadEventsAdaptiveGroups: selected }] } }, errors: null };
+    const weighted = selected.reduce((totals, value) => {
+      const row = value as { count: number; sum: { visits: number }; avg: { sampleInterval: number } };
+      totals.pageViews += row.count;
+      totals.visits += row.sum.visits;
+      totals.sampleInterval = Math.max(totals.sampleInterval, row.avg.sampleInterval);
+      return totals;
+    }, { pageViews: 0, visits: 0, sampleInterval: 1 });
+    // Cloudflare Web Analytics dashboard calculates its top-line statistics
+    // using a separate ungrouped query. Simulate its different sampling rate.
+    const totals = init.ungrouped && selected.length ? init.ungrouped : weighted;
+    const payload = init.errors ? { data: null, errors: init.errors } : {
+      data: { viewer: { accounts: [{
+        hourly: selected,
+        total: [{ count: totals.pageViews, sum: { visits: totals.visits }, avg: { sampleInterval: weighted.sampleInterval } }],
+      }] } }, errors: null,
+    };
     return new Response(JSON.stringify(payload), { status: init.status ?? 200, headers: { "Content-Type": "application/json" } });
   }) as unknown as typeof fetch;
   return { fn, calls };
@@ -53,6 +68,18 @@ describe("Italian calendar days", () => {
     expect(dates).toHaveLength(30);
     expect(dates.at(-1)).toBe("2026-10-15");
     expect(dates[0]).toBe("2026-09-16");
+  });
+  it("finds exact Italian midnights even on DST transition dates", () => {
+    expect(romeMidnightUtc("2026-10-15").toISOString()).toBe("2026-10-14T22:00:00.000Z");
+    expect(romeMidnightUtc("2026-10-25").toISOString()).toBe("2026-10-24T22:00:00.000Z");
+    expect(romeMidnightUtc("2026-10-26").toISOString()).toBe("2026-10-25T23:00:00.000Z");
+    expect(romeMidnightUtc("2026-03-29").toISOString()).toBe("2026-03-28T23:00:00.000Z");
+    expect(romeMidnightUtc("2026-03-30").toISOString()).toBe("2026-03-29T22:00:00.000Z");
+  });
+  it("allocates grouped trends without changing the ungrouped total", () => {
+    expect(apportion(9, [10, 10, 10])).toEqual([3, 3, 3]);
+    expect(apportion(3, [10, 20, 0])).toEqual([1, 2, 0]);
+    expect(apportion(0, [10, 10])).toEqual([0, 0]);
   });
   it("buckets UTC hours into Italian days, across the end of daylight saving time", () => {
     const now = new Date("2026-10-26T12:00:00Z");
@@ -104,7 +131,8 @@ describe("Cloudflare query", () => {
     expect(url).toBe("https://api.cloudflare.com/client/v4/graphql");
     expect(headers.get("Authorization")).toBe("Bearer secret-token");
     expect(JSON.stringify(body)).not.toContain("secret-token");
-    expect(body.query).toContain("rumPageloadEventsAdaptiveGroups");
+    expect(body.query).toContain("hourly: rumPageloadEventsAdaptiveGroups");
+    expect(body.query).toContain("total: rumPageloadEventsAdaptiveGroups(filter: $filter, limit: 1)");
     expect(body.variables.accountTag).toBe(ACCOUNT);
     const filters = body.variables.filter.AND;
     expect(filters).toContainEqual({ siteTag: cfg.siteTag });
@@ -113,12 +141,29 @@ describe("Cloudflare query", () => {
     expect(filters).toContainEqual({ requestPath_notlike: "/admin%" });
     const range = filters.find((f: Record<string, string>) => f.datetime_geq);
     expect(range.datetime_leq).toBe("2026-10-15T10:30:00Z");
-    expect(range.datetime_geq).toBe("2026-10-14T00:00:00Z");
+    expect(range.datetime_geq).toBe("2026-10-14T22:00:00Z");
     expect(cf.calls.some((call) => call.body.variables.filter.AND.some((f: Record<string, string>) =>
       f.datetime_geq && Date.parse(f.datetime_geq) <= Date.parse("2026-09-15T22:00:00Z")))).toBe(true);
     expect(new Set(cf.calls.map((call) => JSON.stringify(call.body.variables.filter)) ).size).toBe(11);
   });
-  it("does not count UTC hours twice where adjacent Italian-day queries overlap", async () => {
+  it("uses the Cloudflare dashboard's ungrouped totals instead of inflated hourly estimates", async () => {
+    // Hourly adaptive sampling estimates 30 for three sampled events,
+    // while the ungrouped dashboard query returns 3 visits / 9 page views.
+    const cf = fakeCloudflare([row("2026-10-15T08:00:00Z", 30, 30, 10)], {
+      ungrouped: { visits: 3, pageViews: 9 },
+    });
+    const result = await getAnalytics(config(cf.fn), undefined, NOW);
+    expect(result).toMatchObject({
+      configured: true,
+      sampled: true,
+      today: { visits: 3, pageViews: 9 },
+      last7: { visits: 3, pageViews: 9 },
+      last30: { visits: 3, pageViews: 9 },
+    });
+    if (!result.configured) throw new Error("missing config");
+    expect(result.days.at(-1)).toEqual({ date: "2026-10-15", visits: 3, pageViews: 9 });
+  });
+  it("does not count UTC hours twice across exact Italian-day queries", async () => {
     const cf = fakeCloudflare([
       row("2026-10-13T21:00:00Z", 2, 1), // 23:00 in Rome on the 13th
       row("2026-10-13T22:00:00Z", 3, 1), // 00:00 in Rome on the 14th
@@ -158,7 +203,7 @@ describe("Cloudflare query", () => {
     await getAnalytics(cfg, kv, NOW);
     await getAnalytics(cfg, kv, new Date(NOW.getTime() + 60_000));
     expect(cf.calls).toHaveLength(11);
-    expect([...kv.data.keys()].some((k) => k.startsWith("analytics:v2:"))).toBe(true);
+    expect([...kv.data.keys()].some((k) => k.startsWith("analytics:v4:"))).toBe(true);
   });
   it("turns Cloudflare failures into readable errors without leaking details", async () => {
     await expect(getAnalytics(config(fakeCloudflare([], { status: 403 }).fn), undefined, NOW)).rejects.toMatchObject({ status: 502, code: "analytics_auth" });
