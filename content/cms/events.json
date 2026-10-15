@@ -264,6 +264,19 @@
         "status": "Da giocare",
         "scorers": [],
         "id": "golosoni-the-rolling-rocks-2026-10-19"
+      },
+      {
+        "date": "2026-10-20",
+        "time": "19:30",
+        "group": "B",
+        "round": "2ª giornata",
+        "home": "All Blacks",
+        "away": "Banda Bassiotti",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": [],
+        "id": "all-blacks-banda-bassiotti-2026-10-20"
       }
     ],
     "sport": "Futsal",
