@@ -50,7 +50,10 @@
           "name": "Quarto 2",
           "team1Score": null,
           "team2Score": null,
-          "winner": ""
+          "winner": "",
+          "date": "2026-11-02",
+          "time": "20:30",
+          "scorers": []
         },
         {
           "name": "Quarto 3",
