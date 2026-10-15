@@ -2603,7 +2603,7 @@ function resetCookieConsent(){
 // OFF while the token is empty. Before setting it, update the cookie panel in
 // index.html and the privacy notice. It loads only on the public domain and only
 // after consent to non-necessary content; CMS and previews are never measured.
-const CF_WEB_ANALYTICS_TOKEN="";
+const CF_WEB_ANALYTICS_TOKEN="7f4a63628aee49db91d4d3da572553bd";
 const CF_WEB_ANALYTICS_HOSTS=["calcioa5.custrento.it"];
 function loadWebAnalytics(){
   if(!CF_WEB_ANALYTICS_TOKEN||!hasThirdPartyConsent()||!CF_WEB_ANALYTICS_HOSTS.includes(location.hostname)||document.getElementById("cfWebAnalytics"))return;
