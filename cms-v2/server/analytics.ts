@@ -115,10 +115,6 @@ export function romeMidnightUtc(date: string): Date {
   return new Date(midnightUtc.getTime() - hour * 3_600_000);
 }
 
-function nextCalendarDate(date: string): string {
-  return new Date(Date.parse(`${date}T00:00:00Z`) + 86_400_000).toISOString().slice(0, 10);
-}
-
 export function parseHosts(value: string | undefined): string[] {
   const hosts = String(value || "")
     .split(",")
@@ -138,7 +134,7 @@ export function missingConfig(cfg: AnalyticsConfig): string[] {
 interface Row { count?: number; sum?: { visits?: number }; avg?: { sampleInterval?: number }; dimensions?: { datetimeHour?: string } }
 
 /** Groups hourly rows (UTC) into Italian calendar days. Italy's offset is a whole number of hours, so no hour straddles two days. */
-export function summarize(rows: Row[], now: Date, hosts: string[]): Extract<AnalyticsPayload, { configured: true }> {
+export function summarize(rows: Row[], now: Date, hosts: string[]): Omit<Extract<AnalyticsPayload, { configured: true }>, "last24" | "window24" | "sampleIntervals" | "dailyAvailable"> {
   const dates = lastRomeDates(now);
   const byDate = new Map(dates.map((date) => [date, { date, visits: 0, pageViews: 0 }]));
   let sampled = false;
