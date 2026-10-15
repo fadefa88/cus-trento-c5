@@ -3300,7 +3300,7 @@ const sectionPages=(function(){
   function leagueScreenButton(screen,label){
     const current=["squadre","classifiche","calendario","marcatori","finali","regolamento"].includes(view.leagueScreen)?view.leagueScreen:"squadre";
     const active=current===screen;
-    return `<button class="${active?"active":""}" onclick="cusLeagueScreen('${screen}')"><span>${h(label)}</span></button>`;
+    return `<button type="button" data-league-screen="${screen}" class="${active?"active":""}" aria-pressed="${active}" onclick="cusLeagueScreen('${screen}')"><span>${h(label)}</span></button>`;
   }
 
   function leagueScreenContent(screen,teams,matches,scorers){
@@ -3354,9 +3354,24 @@ const sectionPages=(function(){
   window.cusLeagueRound=setLeagueRound;
 
   function setLeagueScreen(screen){
-    view.leagueScreen=screen||"squadre";
-    renderCusTrentoLeague();
-    scrollToPageTop();
+    const screens=["squadre","classifiche","calendario","marcatori","finali","regolamento"];
+    const selected=screens.includes(screen)?screen:"squadre";
+    if(view.leagueScreen===selected)return;
+    view.leagueScreen=selected;
+    // Cambia soltanto il contenuto: ricreare hero e menu fa saltare lo scroll,
+    // soprattutto quando la barra e sticky su iPhone.
+    const stage=document.querySelector(".ctl-screen-stage");
+    const nav=document.querySelector(".ctl-leaguebar .ctl-subnav");
+    if(!stage||!nav){renderCusTrentoLeague();return;}
+    const league=leagueData();
+    const teams=Array.isArray(league.teams)?league.teams:[];
+    const matches=(Array.isArray(league.matches)?league.matches:[]).slice().sort((a,b)=>String(a.date||"").localeCompare(String(b.date||""))||String(a.time||"").localeCompare(String(b.time||"")));
+    stage.innerHTML=leagueScreenContent(selected,teams,matches,leagueScorers());
+    nav.querySelectorAll("button[data-league-screen]").forEach(button=>{
+      const active=button.dataset.leagueScreen===selected;
+      button.classList.toggle("active",active);
+      button.setAttribute("aria-pressed",String(active));
+    });
   }
   window.cusLeagueScreen=setLeagueScreen;
 
