@@ -128,6 +128,32 @@ describe("League fixture dates and calendar matchdays", () => {
   });
 });
 
+describe("League team logo badges", () => {
+  const functions = ["leagueTeamKey", "leagueInitials", "leagueTeamBadge"].map((name) => extractFunction(app, name)).join("\n");
+  function badge(name: string, logo: string) {
+    const league = { teams: [{ name, group: "A", logo }] };
+    return new Function("leagueData", "h", `${functions}; return leagueTeamBadge;`)(
+      () => league, (text: unknown) => String(text),
+    )(name) as string;
+  }
+
+  it("does not render initials behind a transparent team logo", () => {
+    const html = badge("The Rolling Rocks", "/img/uploads/rolling-rocks.webp");
+    expect(html).toContain('class="ctl-team-badge has-logo"');
+    expect(html).toContain('data-fallback="TR"');
+    expect(html).toContain('<img src="/img/uploads/rolling-rocks.webp"');
+    expect(html).toMatch(/^<span[^>]*><img[^>]*><\/span>$/);
+    expect(html).not.toContain(">TR<");
+  });
+
+  it("retains initials only for missing or failed logos", () => {
+    expect(badge("The Rolling Rocks", "")).toContain(">TR</span>");
+    expect(badge("The Rolling Rocks", "")).not.toContain("<img");
+    const html = badge("The Rolling Rocks", "/img/broken.webp");
+    expect(html).toContain("this.parentElement.textContent=this.parentElement.dataset.fallback");
+  });
+});
+
 describe("League menu scroll behaviour", () => {
   const code = extractFunction(app, "setLeagueScreen");
 
