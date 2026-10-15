@@ -23,7 +23,14 @@ function fakeCloudflare(rows: unknown[], init: { status?: number; errors?: unkno
   const calls: Array<{ url: string; headers: Headers; body: any }> = []; // eslint-disable-line @typescript-eslint/no-explicit-any
   const fn = (async (url: string, req: RequestInit) => {
     calls.push({ url, headers: new Headers(req.headers), body: JSON.parse(String(req.body)) });
-    const payload = init.errors ? { data: null, errors: init.errors } : { data: { viewer: { accounts: [{ rumPageloadEventsAdaptiveGroups: rows }] } }, errors: null };
+    // Simulate Cloudflare's UTC range filter. The real implementation asks
+    // for overlapping UTC hours around Italian midnight and deduplicates them.
+    const range = calls.at(-1)?.body.variables.filter.AND.find((f: Record<string, string>) => f.datetime_geq);
+    const selected = rows.filter((r) => {
+      const hour = (r as { dimensions?: { datetimeHour?: string } }).dimensions?.datetimeHour;
+      return hour && Date.parse(hour) >= Date.parse(range.datetime_geq) && Date.parse(hour) <= Date.parse(range.datetime_leq);
+    });
+    const payload = init.errors ? { data: null, errors: init.errors } : { data: { viewer: { accounts: [{ rumPageloadEventsAdaptiveGroups: selected }] } }, errors: null };
     return new Response(JSON.stringify(payload), { status: init.status ?? 200, headers: { "Content-Type": "application/json" } });
   }) as unknown as typeof fetch;
   return { fn, calls };
@@ -92,8 +99,8 @@ describe("Cloudflare query", () => {
     const cfg = config(cf.fn);
     const result = await getAnalytics(cfg, undefined, NOW);
     expect(result).toMatchObject({ configured: true, today: { visits: 4, pageViews: 12 }, hosts: ["calcioa5.custrento.it"] });
-    expect(cf.calls).toHaveLength(1);
-    const { url, headers, body } = cf.calls[0];
+    expect(cf.calls).toHaveLength(11); // Seven daily windows + four weekly windows.
+    const { url, headers, body } = cf.calls.at(-1)!;
     expect(url).toBe("https://api.cloudflare.com/client/v4/graphql");
     expect(headers.get("Authorization")).toBe("Bearer secret-token");
     expect(JSON.stringify(body)).not.toContain("secret-token");
@@ -106,7 +113,37 @@ describe("Cloudflare query", () => {
     expect(filters).toContainEqual({ requestPath_notlike: "/admin%" });
     const range = filters.find((f: Record<string, string>) => f.datetime_geq);
     expect(range.datetime_leq).toBe("2026-10-15T10:30:00Z");
-    expect(Date.parse(range.datetime_geq)).toBeLessThanOrEqual(Date.parse("2026-09-15T22:00:00Z")); // 16 Sep 00:00 in Italy
+    expect(range.datetime_geq).toBe("2026-10-14T00:00:00Z");
+    expect(cf.calls.some((call) => call.body.variables.filter.AND.some((f: Record<string, string>) =>
+      f.datetime_geq && Date.parse(f.datetime_geq) <= Date.parse("2026-09-15T22:00:00Z")))).toBe(true);
+    expect(new Set(cf.calls.map((call) => JSON.stringify(call.body.variables.filter)) ).size).toBe(11);
+  });
+  it("does not count UTC hours twice where adjacent Italian-day queries overlap", async () => {
+    const cf = fakeCloudflare([
+      row("2026-10-13T21:00:00Z", 2, 1), // 23:00 in Rome on the 13th
+      row("2026-10-13T22:00:00Z", 3, 1), // 00:00 in Rome on the 14th
+      row("2026-10-15T08:00:00Z", 9, 3), // 10:00 in Rome today
+    ]);
+    const result = await getAnalytics(config(cf.fn), undefined, NOW);
+    expect(result).toMatchObject({
+      configured: true, today: { visits: 3, pageViews: 9 },
+      last7: { visits: 5, pageViews: 14 },
+      last30: { visits: 5, pageViews: 14 },
+    });
+    if (!result.configured) throw new Error("missing config");
+    expect(result.days.find((d) => d.date === "2026-10-13")).toMatchObject({ visits: 1, pageViews: 2 });
+    expect(result.days.find((d) => d.date === "2026-10-14")).toMatchObject({ visits: 1, pageViews: 3 });
+  });
+  it("handles the CET/CEST change without duplicating hourly buckets", async () => {
+    const now = new Date("2026-10-26T12:00:00Z");
+    const cf = fakeCloudflare([
+      row("2026-10-24T21:00:00Z", 2, 1),
+      row("2026-10-24T22:00:00Z", 3, 1),
+      row("2026-10-25T22:00:00Z", 5, 2),
+      row("2026-10-25T23:00:00Z", 7, 3),
+    ]);
+    const result = await getAnalytics(config(cf.fn), undefined, now);
+    expect(result).toMatchObject({ configured: true, today: { visits: 3, pageViews: 7 }, last7: { visits: 7, pageViews: 17 } });
   });
   it("cleans the token pasted into the dashboard", async () => {
     const cf = fakeCloudflare([]);
@@ -120,8 +157,8 @@ describe("Cloudflare query", () => {
     const cfg = config(cf.fn);
     await getAnalytics(cfg, kv, NOW);
     await getAnalytics(cfg, kv, new Date(NOW.getTime() + 60_000));
-    expect(cf.calls).toHaveLength(1);
-    expect([...kv.data.keys()].some((k) => k.startsWith("analytics:v1:"))).toBe(true);
+    expect(cf.calls).toHaveLength(11);
+    expect([...kv.data.keys()].some((k) => k.startsWith("analytics:v2:"))).toBe(true);
   });
   it("turns Cloudflare failures into readable errors without leaking details", async () => {
     await expect(getAnalytics(config(fakeCloudflare([], { status: 403 }).fn), undefined, NOW)).rejects.toMatchObject({ status: 502, code: "analytics_auth" });
