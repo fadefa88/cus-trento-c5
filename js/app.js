@@ -3067,7 +3067,11 @@ const sectionPages=(function(){
   function leagueTeamBadge(name){
     const team=(leagueData().teams||[]).find(item=>leagueTeamKey(item.name)===leagueTeamKey(name));
     const logo=team&&typeof team.logo==="string"?team.logo.trim():"";
-    return `<span class="ctl-team-badge${logo?" has-logo":""}" aria-hidden="true">${h(leagueInitials(name))}${logo?`<img src="${h(logo)}" alt="" loading="lazy" onerror="this.remove()">`:""}</span>`;
+    const initials=h(leagueInitials(name));
+    // Non stampare le iniziali sotto ai loghi trasparenti.
+    // Servono da fallback solo se il logo manca o fallisce il caricamento.
+    if(!logo)return `<span class="ctl-team-badge" aria-hidden="true">${initials}</span>`;
+    return `<span class="ctl-team-badge has-logo" aria-hidden="true" data-fallback="${initials}"><img src="${h(logo)}" alt="" loading="lazy" onerror="this.parentElement.classList.remove('has-logo');this.parentElement.textContent=this.parentElement.dataset.fallback"></span>`;
   }
 
   function leagueMatchPlayed(match){
