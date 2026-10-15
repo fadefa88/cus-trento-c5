@@ -141,6 +141,12 @@ risposta è in cache 10 minuti (KV `CMS_KV` se presente).
   riconosciuti; chi arriva da Google resta), solo `calcioa5.custrento.it`
   (niente `pages.dev`, anteprime, sviluppo), percorsi `/admin*` esclusi. Giorni
   in ora italiana.
+- Per ridurre gli scostamenti dovuti al campionamento GraphQL, il backend
+  interroga **ogni giorno degli ultimi 7 giorni separatamente** e divide i 23
+  giorni precedenti in blocchi da massimo 7 giorni, poi aggrega in Europe/Rome
+  senza contare due volte le ore vicine al cambio di giornata. I valori possono
+  comunque differire dalla dashboard Cloudflare se i filtri o l'intervallo sono
+  diversi: **oggi** (da mezzanotte italiana) non è **ultime 24 ore**.
 - Senza le variabili la card mostra *Statistiche non configurate*; mai numeri fittizi.
 
 Il beacon sul sito pubblico è in `js/app.js` (`loadWebAnalytics`); con
