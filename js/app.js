@@ -2588,7 +2588,6 @@ function acceptCookies(choice="all"){
   localStorage.setItem("cus_cookie_choice",normalized);
   localStorage.setItem("cus_cookie_ok","yes");
   closeCookieDetails();
-  loadWebAnalytics();
   if(current==="matchday")render();
 }
 function rejectCookies(){acceptCookies("necessary");}
@@ -2600,13 +2599,13 @@ function resetCookieConsent(){
 }
 
 // Cloudflare Web Analytics (cookieless beacon, read by the CMS dashboard).
-// OFF while the token is empty. Before setting it, update the cookie panel in
-// index.html and the privacy notice. It loads only on the public domain and only
-// after consent to non-necessary content; CMS and previews are never measured.
+// OFF while the token is empty. It loads for every visitor, independently of the
+// cookie choice (the cookie panel in index.html says so), and only on the public
+// domain: CMS and previews are never measured.
 const CF_WEB_ANALYTICS_TOKEN="7f4a63628aee49db91d4d3da572553bd";
 const CF_WEB_ANALYTICS_HOSTS=["calcioa5.custrento.it"];
 function loadWebAnalytics(){
-  if(!CF_WEB_ANALYTICS_TOKEN||!hasThirdPartyConsent()||!CF_WEB_ANALYTICS_HOSTS.includes(location.hostname)||document.getElementById("cfWebAnalytics"))return;
+  if(!CF_WEB_ANALYTICS_TOKEN||!CF_WEB_ANALYTICS_HOSTS.includes(location.hostname)||document.getElementById("cfWebAnalytics"))return;
   const s=document.createElement("script");
   s.id="cfWebAnalytics";s.defer=true;s.src="https://static.cloudflareinsights.com/beacon.min.js";
   s.setAttribute("data-cf-beacon",JSON.stringify({token:CF_WEB_ANALYTICS_TOKEN,spa:true}));
