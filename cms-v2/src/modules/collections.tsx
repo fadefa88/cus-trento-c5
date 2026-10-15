@@ -82,7 +82,6 @@ export const packagesConfig: CollectionConfig<Item> = {
   list: ["sponsorPackages"],
   title: "Pacchetti sponsor",
   eyebrow: "Club",
-  description: "Le proposte mostrate nella pagina Diventa partner.",
   icon: Package,
   singular: "pacchetto",
   collection: "sponsorPackages",
