@@ -5,10 +5,8 @@
 // - Web Analytics is a cookieless browser beacon: it has no "unique visitors".
 //   "Visite" = page views whose referer is another site or empty (a new visit);
 //   "Pagine viste" = page views. Both are Cloudflare estimates (adaptive sampling).
-// - bot = 0 excludes traffic Cloudflare flags as automated (crawlers, AI bots,
-//   Googlebot, Bingbot…); people arriving from search engines are kept.
-// - Only the public hosts are counted (no pages.dev, previews or localhost),
-//   and /admin* paths are excluded.
+// - Matches the default Web Analytics view: no optional Exclude Bots or path filters.
+// - Only the public hosts are counted (no pages.dev, previews or localhost).
 // - Days are calendar days in Europe/Rome.
 // The API token stays on the server (Pages secret); the browser only sees the totals.
 import { HttpError } from "./errors";
@@ -35,8 +33,14 @@ export type AnalyticsPayload =
       hosts: string[];
       sampled: boolean;
       today: AnalyticsTotals;
+      last24: AnalyticsTotals;
       last7: AnalyticsTotals;
       last30: AnalyticsTotals;
+      /** UTC bounds of the rolling 24h window, matching Web Analytics' default selection. */
+      window24: { from: string; to: string };
+      /** Cloudflare can return different estimates for different ranges. */
+      sampleIntervals: { today: number; last24: number; last7: number; last30: number; daily: number };
+      dailyAvailable: boolean;
       days: AnalyticsDay[];
     };
 
@@ -46,19 +50,40 @@ const ENDPOINT = "https://api.cloudflare.com/client/v4/graphql";
 const CACHE_TTL_SEC = 600;
 const DAYS = 30;
 
-const QUERY = `query CmsVisitorStats($accountTag: string!, $filter: AccountRumPageloadEventsAdaptiveGroupsFilter_InputObject!) {
+const QUERY = `query CmsVisitorStats(
+  $accountTag: string!,
+  $todayFilter: AccountRumPageloadEventsAdaptiveGroupsFilter_InputObject!,
+  $last24Filter: AccountRumPageloadEventsAdaptiveGroupsFilter_InputObject!,
+  $last7Filter: AccountRumPageloadEventsAdaptiveGroupsFilter_InputObject!,
+  $last30Filter: AccountRumPageloadEventsAdaptiveGroupsFilter_InputObject!
+) {
   viewer {
     accounts(filter: { accountTag: $accountTag }) {
-      hourly: rumPageloadEventsAdaptiveGroups(filter: $filter, limit: 1000, orderBy: [datetimeHour_ASC]) {
+      today: rumPageloadEventsAdaptiveGroups(filter: $todayFilter, limit: 1) {
+        count
+        sum { visits }
+        avg { sampleInterval }
+      }
+      last24: rumPageloadEventsAdaptiveGroups(filter: $last24Filter, limit: 1) {
+        count
+        sum { visits }
+        avg { sampleInterval }
+      }
+      last7: rumPageloadEventsAdaptiveGroups(filter: $last7Filter, limit: 1) {
+        count
+        sum { visits }
+        avg { sampleInterval }
+      }
+      last30: rumPageloadEventsAdaptiveGroups(filter: $last30Filter, limit: 1) {
+        count
+        sum { visits }
+        avg { sampleInterval }
+      }
+      hourly: rumPageloadEventsAdaptiveGroups(filter: $last30Filter, limit: 1000, orderBy: [datetimeHour_ASC]) {
         count
         sum { visits }
         avg { sampleInterval }
         dimensions { datetimeHour }
-      }
-      total: rumPageloadEventsAdaptiveGroups(filter: $filter, limit: 1) {
-        count
-        sum { visits }
-        avg { sampleInterval }
       }
     }
   }
@@ -90,10 +115,6 @@ export function romeMidnightUtc(date: string): Date {
   return new Date(midnightUtc.getTime() - hour * 3_600_000);
 }
 
-function nextCalendarDate(date: string): string {
-  return new Date(Date.parse(`${date}T00:00:00Z`) + 86_400_000).toISOString().slice(0, 10);
-}
-
 export function parseHosts(value: string | undefined): string[] {
   const hosts = String(value || "")
     .split(",")
@@ -113,7 +134,7 @@ export function missingConfig(cfg: AnalyticsConfig): string[] {
 interface Row { count?: number; sum?: { visits?: number }; avg?: { sampleInterval?: number }; dimensions?: { datetimeHour?: string } }
 
 /** Groups hourly rows (UTC) into Italian calendar days. Italy's offset is a whole number of hours, so no hour straddles two days. */
-export function summarize(rows: Row[], now: Date, hosts: string[]): Extract<AnalyticsPayload, { configured: true }> {
+export function summarize(rows: Row[], now: Date, hosts: string[]): Omit<Extract<AnalyticsPayload, { configured: true }>, "last24" | "window24" | "sampleIntervals" | "dailyAvailable"> {
   const dates = lastRomeDates(now);
   const byDate = new Map(dates.map((date) => [date, { date, visits: 0, pageViews: 0 }]));
   let sampled = false;
@@ -174,9 +195,9 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
   const missing = missingConfig(cfg);
   if (missing.length) return { configured: false, missing };
   const hosts = parseHosts(cfg.hosts);
-  // V4: use ungrouped Cloudflare totals within exact Rome-day boundaries.
-  // Bump the cache namespace so earlier inflated estimates are not served.
-  const key = `analytics:v4:${cfg.siteTag}:${hosts.join(",")}:${Math.floor(now.getTime() / 1000 / CACHE_TTL_SEC)}`;
+  // V5: direct, independently aggregated totals for each range; optional dashboard filters removed.
+  // Bump the cache key so older inflated estimates are never reused.
+  const key = `analytics:v5:${cfg.siteTag}:${hosts.join(",")}:${Math.floor(now.getTime() / 1000 / CACHE_TTL_SEC)}`;
   const mem = memoryCache.get(key);
   if (mem && mem.expires > now.getTime()) return mem.payload;
   if (kv) {
@@ -191,107 +212,101 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
   }
 
   const dates = lastRomeDates(now);
-  // Cloudflare's 30-day adaptive query can exaggerate small totals.
-  // Query the most recent seven Italian calendar days individually, and
-  // the preceding 23 days in groups of at most seven days. This retains
-  // hourly points for the graph while avoiding one large monthly sample.
-  const periods: string[][] = [];
-  const older = dates.slice(0, -7);
-  for (let i = 0; i < older.length; i += 7) periods.push(older.slice(i, i + 7));
-  for (const day of dates.slice(-7)) periods.push([day]);
-
-  const doFetch = cfg.fetch ?? fetch;
-  const readPeriod = async (period: string[]): Promise<{ dates: string[]; rows: Row[]; total: AnalyticsTotals; sampled: boolean }> => {
-    // Use exact Europe/Rome midnight boundaries, including DST changes.
-    // An ungrouped total cannot be filtered after retrieval, so overlapping
-    // UTC windows would inflate counts by including adjacent days.
-    const start = romeMidnightUtc(period[0]);
-    const nextMidnight = romeMidnightUtc(nextCalendarDate(period[period.length - 1]));
-    const finish = new Date(Math.min(nextMidnight.getTime() - 1_000, now.getTime()));
-    const filter = {
-      AND: [
-        { siteTag: cfg.siteTag },
-        { datetime_geq: start.toISOString().replace(/\.\d{3}Z$/, "Z"), datetime_leq: finish.toISOString().replace(/\.\d{3}Z$/, "Z") },
-        { bot: 0 },
-        { requestHost_in: hosts },
-        { requestPath_notlike: "/admin%" },
-      ],
-    };
-    let res: Response;
-    try {
-      res = await doFetch(ENDPOINT, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${cfg.apiToken}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ query: QUERY, variables: { accountTag: cfg.accountId, filter } }),
-        signal: AbortSignal.timeout(10_000),
-      });
-    } catch {
-      throw new HttpError(502, "analytics_unavailable", "Cloudflare non risponde: statistiche non disponibili al momento.");
-    }
-    if (res.status === 401 || res.status === 403) {
-      throw new HttpError(502, "analytics_auth", "Il token Cloudflare non è valido o non ha il permesso Account Analytics: Read.");
-    }
-    let body: { data?: { viewer?: { accounts?: Array<{ hourly?: Row[]; total?: Array<Row> }> } }; errors?: Array<{ message?: string }> | null } | null = null;
-    try {
-      body = await res.json();
-    } catch {
-      /* handled below */
-    }
-    if (!res.ok || !body || body.errors?.length) {
-      const detail = body?.errors?.map((e) => String(e.message || "")).join("; ").slice(0, 300) || `HTTP ${res.status}`;
-      console.error("cms-v2 analytics error", detail);
-      if (/authentication failed|invalid (api )?token|unable to authenticate/i.test(detail)) {
-        throw new HttpError(502, "analytics_auth", "Cloudflare non riconosce il token in CF_ANALYTICS_API_TOKEN: incolla il valore dell'API token (non l'ID, non la Global API Key, non il token dello snippet Web Analytics).");
-      }
-      const auth = /not authorized|authentication|permission|access/i.test(detail);
-      throw new HttpError(502, auth ? "analytics_auth" : "analytics_unavailable", auth ? "Il token Cloudflare non ha accesso alle statistiche di questo account (serve Account Analytics: Read)." : "Statistiche non disponibili al momento.");
-    }
-    const accounts = body.data?.viewer?.accounts;
-    if (!accounts?.length) throw new HttpError(502, "analytics_auth", "Account Cloudflare non trovato: controlla CF_ACCOUNT_ID e i permessi del token.");
-    const allowed = new Set(period);
-    const rows = (accounts[0].hourly || []).filter((row) => {
-      const date = row.dimensions?.datetimeHour;
-      const hour = date ? new Date(date) : null;
-      return hour && !Number.isNaN(hour.getTime()) && allowed.has(romeDate(hour));
-    });
-    // The Cloudflare Web Analytics dashboard uses this ungrouped (limit: 1)
-    // aggregation for its Visits and Page views summary.
-    const ungrouped = accounts[0].total;
-    if (!Array.isArray(ungrouped)) throw new HttpError(502, "analytics_unavailable", "Cloudflare non ha restituito i totali delle statistiche.");
-    // A period with zero events legitimately returns an empty groups array.
-    const aggregate = ungrouped[0];
-    return {
-      dates: period,
-      rows,
-      total: {
-        visits: Math.max(0, Math.round(Number(aggregate?.sum?.visits) || 0)),
-        pageViews: Math.max(0, Math.round(Number(aggregate?.count) || 0)),
-      },
-      sampled: (Number(aggregate?.avg?.sampleInterval) || 1) > 1,
-    };
+  const todayStart = romeMidnightUtc(dates[dates.length - 1]);
+  const from24 = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const format = (value: Date) => value.toISOString().replace(/\.\d{3}Z$/, "Z");
+  const makeFilter = (start: Date) => ({
+    AND: [
+      { siteTag: cfg.siteTag },
+      { datetime_geq: format(start), datetime_leq: format(now) },
+      // Match the standard Cloudflare Web Analytics dashboard: no optional
+      // "Exclude Bots" or path filters; the siteTag selects the website.
+      { requestHost_in: hosts },
+    ],
+  });
+  const variables = {
+    accountTag: cfg.accountId,
+    todayFilter: makeFilter(todayStart),
+    last24Filter: makeFilter(from24),
+    last7Filter: makeFilter(romeMidnightUtc(dates[dates.length - 7])),
+    last30Filter: makeFilter(romeMidnightUtc(dates[0])),
   };
 
-  const chunks = await Promise.all(periods.map(readPeriod));
-  const payload = summarize(chunks.flatMap((chunk) => chunk.rows), now, hosts);
-  for (const chunk of chunks) {
-    const daily = chunk.dates.map((date) => payload.days.find((day) => day.date === date)!);
-    const visits = apportion(chunk.total.visits, daily.map((day) => day.visits));
-    const pageViews = apportion(chunk.total.pageViews, daily.map((day) => day.pageViews));
-    daily.forEach((day, i) => {
-      day.visits = visits[i];
-      day.pageViews = pageViews[i];
+  // Do not add 30 separate sampled estimates: the sampling rate can change
+  // for every query, inflating the result for low-traffic websites.
+  const doFetch = cfg.fetch ?? fetch;
+  let res: Response;
+  try {
+    res = await doFetch(ENDPOINT, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${cfg.apiToken}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ query: QUERY, variables }),
+      signal: AbortSignal.timeout(10_000),
     });
+  } catch {
+    throw new HttpError(502, "analytics_unavailable", "Cloudflare non risponde: statistiche non disponibili al momento.");
   }
-  // Compute headline numbers from *ungrouped* totals, rather than summing
-  // grouped hourly estimates that can inflate tiny traffic by 10x.
-  const add = (totals: AnalyticsTotals[]) => totals.reduce((a, b) => ({
-    visits: a.visits + b.visits, pageViews: a.pageViews + b.pageViews,
-  }), { visits: 0, pageViews: 0 });
-  payload.today = chunks[chunks.length - 1].total;
-  payload.last7 = add(chunks.slice(-7).map((chunk) => chunk.total));
-  payload.last30 = add(chunks.map((chunk) => chunk.total));
-  payload.sampled ||= chunks.some((chunk) => chunk.sampled);
+  if (res.status === 401 || res.status === 403) {
+    throw new HttpError(502, "analytics_auth", "Il token Cloudflare non è valido o non ha il permesso Account Analytics: Read.");
+  }
+  type AccountRows = { today?: Row[]; last24?: Row[]; last7?: Row[]; last30?: Row[]; hourly?: Row[] };
+  let response: { data?: { viewer?: { accounts?: AccountRows[] } }; errors?: Array<{ message?: string }> | null } | null = null;
+  try {
+    response = await res.json();
+  } catch {
+    /* handled below */
+  }
+  if (!res.ok || !response || response.errors?.length) {
+    const detail = response?.errors?.map((e) => String(e.message || "")).join("; ").slice(0, 300) || `HTTP ${res.status}`;
+    console.error("cms-v2 analytics error", detail);
+    if (/authentication failed|invalid (api )?token|unable to authenticate/i.test(detail)) {
+      throw new HttpError(502, "analytics_auth", "Cloudflare non riconosce il token in CF_ANALYTICS_API_TOKEN: incolla il valore dell'API token (non l'ID, non la Global API Key, non il token dello snippet Web Analytics).");
+    }
+    const auth = /not authorized|authentication|permission|access/i.test(detail);
+    throw new HttpError(502, auth ? "analytics_auth" : "analytics_unavailable", auth ? "Il token Cloudflare non ha accesso alle statistiche di questo account (serve Account Analytics: Read)." : "Statistiche non disponibili al momento.");
+  }
+  const account = response.data?.viewer?.accounts?.[0];
+  if (!account) throw new HttpError(502, "analytics_auth", "Account Cloudflare non trovato: controlla CF_ACCOUNT_ID e i permessi del token.");
 
+  const metric = (rows: Row[] | undefined): { totals: AnalyticsTotals; interval: number } => {
+    if (!Array.isArray(rows)) throw new HttpError(502, "analytics_unavailable", "Cloudflare non ha restituito i totali delle statistiche.");
+    // An empty group array is a legitimate zero-event range.
+    const row = rows[0];
+    return {
+      totals: { visits: Math.max(0, Math.round(Number(row?.sum?.visits) || 0)), pageViews: Math.max(0, Math.round(Number(row?.count) || 0)) },
+      interval: Math.max(1, Number(row?.avg?.sampleInterval) || 1),
+    };
+  };
+  const today = metric(account.today);
+  const last24 = metric(account.last24);
+  const last7 = metric(account.last7);
+  const last30 = metric(account.last30);
+  if (!Array.isArray(account.hourly)) throw new HttpError(502, "analytics_unavailable", "Cloudflare non ha restituito il grafico delle visite.");
+  const hourly = summarize(account.hourly, now, hosts);
+  const dailyAvailable = last30.totals.pageViews === 0 || hourly.days.some((d) => d.pageViews > 0);
+  const visits = apportion(last30.totals.visits, hourly.days.map((d) => d.visits));
+  const pageViews = apportion(last30.totals.pageViews, hourly.days.map((d) => d.pageViews));
+  const days = hourly.days.map((d, i) => ({ date: d.date, visits: visits[i], pageViews: pageViews[i] }));
+
+  const sampleIntervals = {
+    today: today.interval, last24: last24.interval, last7: last7.interval,
+    last30: last30.interval, daily: Math.max(1, ...account.hourly.map((r) => Number(r.avg?.sampleInterval) || 1)),
+  };
+  const payload: Extract<AnalyticsPayload, { configured: true }> = {
+    configured: true,
+    timezone: TIME_ZONE,
+    generatedAt: now.toISOString(),
+    hosts,
+    sampled: Object.values(sampleIntervals).some((value) => value > 1),
+    today: today.totals,
+    last24: last24.totals,
+    last7: last7.totals,
+    last30: last30.totals,
+    window24: { from: from24.toISOString(), to: now.toISOString() },
+    sampleIntervals,
+    dailyAvailable,
+    days,
+  };
   memoryCache.set(key, { expires: now.getTime() + CACHE_TTL_SEC * 1000, payload });
   if (memoryCache.size > 20) for (const [k, v] of memoryCache) if (v.expires <= now.getTime()) memoryCache.delete(k);
   if (kv) await kv.put(key, JSON.stringify(payload), { expirationTtl: CACHE_TTL_SEC * 2 }).catch(() => undefined);

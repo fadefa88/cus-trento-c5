@@ -22,28 +22,31 @@ class MemoryKV implements KV {
 function fakeCloudflare(rows: unknown[], init: { status?: number; errors?: unknown[]; ungrouped?: { visits: number; pageViews: number } } = {}) {
   const calls: Array<{ url: string; headers: Headers; body: any }> = []; // eslint-disable-line @typescript-eslint/no-explicit-any
   const fn = (async (url: string, req: RequestInit) => {
-    calls.push({ url, headers: new Headers(req.headers), body: JSON.parse(String(req.body)) });
-    // Simulate Cloudflare's UTC range filter, including the exact Rome
-    // calendar-day boundaries used for ungrouped and hourly aggregations.
-    const range = calls.at(-1)?.body.variables.filter.AND.find((f: Record<string, string>) => f.datetime_geq);
-    const selected = rows.filter((r) => {
-      const hour = (r as { dimensions?: { datetimeHour?: string } }).dimensions?.datetimeHour;
-      return hour && Date.parse(hour) >= Date.parse(range.datetime_geq) && Date.parse(hour) <= Date.parse(range.datetime_leq);
-    }) as Array<{ count: number; sum: { visits: number }; avg: { sampleInterval: number }; dimensions: { datetimeHour: string } }>;
-    const weighted = selected.reduce((totals, value) => {
-      const row = value as { count: number; sum: { visits: number }; avg: { sampleInterval: number } };
-      totals.pageViews += row.count;
-      totals.visits += row.sum.visits;
-      totals.sampleInterval = Math.max(totals.sampleInterval, row.avg.sampleInterval);
-      return totals;
-    }, { pageViews: 0, visits: 0, sampleInterval: 1 });
-    // Cloudflare Web Analytics dashboard calculates its top-line statistics
-    // using a separate ungrouped query. Simulate its different sampling rate.
-    const totals = init.ungrouped && selected.length ? init.ungrouped : weighted;
+    const body = JSON.parse(String(req.body));
+    calls.push({ url, headers: new Headers(req.headers), body });
+    type FakeRow = { count: number; sum: { visits: number }; avg: { sampleInterval: number }; dimensions: { datetimeHour: string } };
+    const select = (filterName: string): FakeRow[] => {
+      const range = body.variables[filterName].AND.find((f: Record<string, string>) => f.datetime_geq);
+      return (rows as FakeRow[]).filter((row) =>
+        Date.parse(row.dimensions.datetimeHour) >= Date.parse(range.datetime_geq) &&
+        Date.parse(row.dimensions.datetimeHour) <= Date.parse(range.datetime_leq));
+    };
+    const aggregate = (selected: FakeRow[]) => {
+      if (!selected.length) return [];
+      const weighted = selected.reduce((a, r) => ({
+        pageViews: a.pageViews + r.count, visits: a.visits + r.sum.visits,
+        interval: Math.max(a.interval, r.avg.sampleInterval),
+      }), { pageViews: 0, visits: 0, interval: 1 });
+      const totals = init.ungrouped || weighted;
+      return [{ count: totals.pageViews, sum: { visits: totals.visits }, avg: { sampleInterval: weighted.interval } }];
+    };
     const payload = init.errors ? { data: null, errors: init.errors } : {
       data: { viewer: { accounts: [{
-        hourly: selected,
-        total: selected.length ? [{ count: totals.pageViews, sum: { visits: totals.visits }, avg: { sampleInterval: weighted.sampleInterval } }] : [],
+        today: aggregate(select("todayFilter")),
+        last24: aggregate(select("last24Filter")),
+        last7: aggregate(select("last7Filter")),
+        last30: aggregate(select("last30Filter")),
+        hourly: select("last30Filter"),
       }] } }, errors: null,
     };
     return new Response(JSON.stringify(payload), { status: init.status ?? 200, headers: { "Content-Type": "application/json" } });
@@ -121,32 +124,38 @@ describe("configuration", () => {
 });
 
 describe("Cloudflare query", () => {
-  it("asks for human page views on the public host, excluding the CMS, with the token only in the header", async () => {
+  it("uses one request for independent Cloudflare totals and matches default 24h filters", async () => {
     const cf = fakeCloudflare([row("2026-10-15T08:00:00Z", 12, 4)]);
     const cfg = config(cf.fn);
     const result = await getAnalytics(cfg, undefined, NOW);
-    expect(result).toMatchObject({ configured: true, today: { visits: 4, pageViews: 12 }, hosts: ["calcioa5.custrento.it"] });
-    expect(cf.calls).toHaveLength(11); // Seven daily windows + four weekly windows.
-    const { url, headers, body } = cf.calls.at(-1)!;
+    expect(result).toMatchObject({
+      configured: true, today: { visits: 4, pageViews: 12 },
+      last24: { visits: 4, pageViews: 12 }, hosts: ["calcioa5.custrento.it"],
+      window24: { from: "2026-10-14T10:30:00.000Z", to: "2026-10-15T10:30:00.000Z" },
+    });
+    expect(cf.calls).toHaveLength(1);
+    const { url, headers, body } = cf.calls[0];
     expect(url).toBe("https://api.cloudflare.com/client/v4/graphql");
     expect(headers.get("Authorization")).toBe("Bearer secret-token");
     expect(JSON.stringify(body)).not.toContain("secret-token");
     expect(body.query).toContain("hourly: rumPageloadEventsAdaptiveGroups");
-    expect(body.query).toContain("total: rumPageloadEventsAdaptiveGroups(filter: $filter, limit: 1)");
+    expect(body.query).toContain("last24: rumPageloadEventsAdaptiveGroups(filter: $last24Filter, limit: 1)");
     expect(body.variables.accountTag).toBe(ACCOUNT);
-    const filters = body.variables.filter.AND;
-    expect(filters).toContainEqual({ siteTag: cfg.siteTag });
-    expect(filters).toContainEqual({ bot: 0 });
-    expect(filters).toContainEqual({ requestHost_in: ["calcioa5.custrento.it"] });
-    expect(filters).toContainEqual({ requestPath_notlike: "/admin%" });
-    const range = filters.find((f: Record<string, string>) => f.datetime_geq);
-    expect(range.datetime_leq).toBe("2026-10-15T10:30:00Z");
-    expect(range.datetime_geq).toBe("2026-10-14T22:00:00Z");
-    expect(cf.calls.some((call) => call.body.variables.filter.AND.some((f: Record<string, string>) =>
-      f.datetime_geq && Date.parse(f.datetime_geq) <= Date.parse("2026-09-15T22:00:00Z")))).toBe(true);
-    expect(new Set(cf.calls.map((call) => JSON.stringify(call.body.variables.filter)) ).size).toBe(11);
+    for (const name of ["todayFilter", "last24Filter", "last7Filter", "last30Filter"]) {
+      const filters = body.variables[name].AND;
+      expect(filters).toContainEqual({ siteTag: cfg.siteTag });
+      expect(filters).toContainEqual({ requestHost_in: ["calcioa5.custrento.it"] });
+      expect(filters).not.toContainEqual({ bot: 0 });
+      expect(filters).not.toContainEqual({ requestPath_notlike: "/admin%" });
+    }
+    const range = (name: string) => body.variables[name].AND.find((f: Record<string, string>) => f.datetime_geq);
+    expect(range("todayFilter").datetime_geq).toBe("2026-10-14T22:00:00Z");
+    expect(range("last24Filter").datetime_geq).toBe("2026-10-14T10:30:00Z");
+    expect(range("last7Filter").datetime_geq).toBe("2026-10-08T22:00:00Z");
+    expect(range("last30Filter").datetime_geq).toBe("2026-09-15T22:00:00Z");
+    expect(range("todayFilter").datetime_leq).toBe("2026-10-15T10:30:00Z");
   });
-  it("uses the Cloudflare dashboard's ungrouped totals instead of inflated hourly estimates", async () => {
+    it("uses the Cloudflare dashboard's ungrouped totals instead of inflated hourly estimates", async () => {
     // Hourly adaptive sampling estimates 30 for three sampled events,
     // while the ungrouped dashboard query returns 3 visits / 9 page views.
     const cf = fakeCloudflare([row("2026-10-15T08:00:00Z", 30, 30, 10)], {
@@ -157,11 +166,13 @@ describe("Cloudflare query", () => {
       configured: true,
       sampled: true,
       today: { visits: 3, pageViews: 9 },
+      last24: { visits: 3, pageViews: 9 },
       last7: { visits: 3, pageViews: 9 },
       last30: { visits: 3, pageViews: 9 },
     });
     if (!result.configured) throw new Error("missing config");
     expect(result.days.at(-1)).toEqual({ date: "2026-10-15", visits: 3, pageViews: 9 });
+    expect(result.sampleIntervals.last24).toBe(10);
   });
   it("does not count UTC hours twice across exact Italian-day queries", async () => {
     const cf = fakeCloudflare([
@@ -202,8 +213,8 @@ describe("Cloudflare query", () => {
     const cfg = config(cf.fn);
     await getAnalytics(cfg, kv, NOW);
     await getAnalytics(cfg, kv, new Date(NOW.getTime() + 60_000));
-    expect(cf.calls).toHaveLength(11);
-    expect([...kv.data.keys()].some((k) => k.startsWith("analytics:v4:"))).toBe(true);
+    expect(cf.calls).toHaveLength(1);
+    expect([...kv.data.keys()].some((k) => k.startsWith("analytics:v5:"))).toBe(true);
   });
   it("turns Cloudflare failures into readable errors without leaking details", async () => {
     await expect(getAnalytics(config(fakeCloudflare([], { status: 403 }).fn), undefined, NOW)).rejects.toMatchObject({ status: 502, code: "analytics_auth" });

@@ -60,7 +60,7 @@ export interface StatusPayload {
 export interface AnalyticsTotals { visits: number; pageViews: number }
 export type AnalyticsPayload =
   | { configured: false; missing: string[] }
-  | { configured: true; timezone: string; generatedAt: string; hosts: string[]; sampled: boolean; today: AnalyticsTotals; last7: AnalyticsTotals; last30: AnalyticsTotals; days: Array<{ date: string } & AnalyticsTotals> };
+  | { configured: true; timezone: string; generatedAt: string; hosts: string[]; sampled: boolean; today: AnalyticsTotals; last24: AnalyticsTotals; last7: AnalyticsTotals; last30: AnalyticsTotals; window24: { from: string; to: string }; sampleIntervals: { today: number; last24: number; last7: number; last30: number; daily: number }; dailyAvailable: boolean; days: Array<{ date: string } & AnalyticsTotals> };
 export interface MediaFile { path: string; name: string; size: number }
 export interface AuditEntry { ts: string; email?: string; name?: string; action: string; doc?: string; ok: boolean; commit?: string; detail?: string }
 
