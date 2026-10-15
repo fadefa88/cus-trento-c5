@@ -1196,8 +1196,8 @@ body.menu-open{
   .cookie-box .btns .btn{width:100%;justify-content:center;min-height:42px}
 }
 
-/* v39: forza 4 colonne partner su desktop */
-.sponsor-grid-four{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+/* Partner: tre colonne desktop, due tablet e una mobile. */
+.sponsor-grid-four{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 @media(max-width:980px){.sponsor-grid-four{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:640px){.sponsor-grid-four{grid-template-columns:1fr!important}}
 
