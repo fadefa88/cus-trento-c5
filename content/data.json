@@ -4679,6 +4679,19 @@
         "status": "Da giocare",
         "scorers": [],
         "id": "recidivi-fc-golosoni-2026-10-26"
+      },
+      {
+        "date": "2026-10-27",
+        "time": "20:30",
+        "group": "A",
+        "round": "3ª giornata",
+        "home": "Rango FC",
+        "away": "The Rolling Rocks",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": [],
+        "id": "rango-fc-the-rolling-rocks-2026-10-27"
       }
     ],
     "sport": "Futsal",
