@@ -256,8 +256,10 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
     });
     // The Cloudflare Web Analytics dashboard uses this ungrouped (limit: 1)
     // aggregation for its Visits and Page views summary.
-    const aggregate = accounts[0].total?.[0];
-    if (!aggregate) throw new HttpError(502, "analytics_unavailable", "Cloudflare non ha restituito i totali delle statistiche.");
+    const ungrouped = accounts[0].total;
+    if (!Array.isArray(ungrouped)) throw new HttpError(502, "analytics_unavailable", "Cloudflare non ha restituito i totali delle statistiche.");
+    // A period with zero events legitimately returns an empty groups array.
+    const aggregate = ungrouped[0];
     return {
       dates: period,
       rows,
