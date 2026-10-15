@@ -1236,6 +1236,40 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 .ctl-team-cell .ctl-team-badge{width:28px;height:28px;border-radius:9px;font-size:10px;}
 .ctl-team-cell b{font-size:12px;text-transform:uppercase;}
 .ctl-matches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+/* CUS Trento League: single-day calendar, 3 selectable matchdays. */
+.ctl-calendar-days{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  padding:7px;
+  margin-bottom:20px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(9,9,11,.05);
+}
+.ctl-calendar-days button{
+  min-width:0;
+  min-height:46px;
+  padding:10px 8px;
+  border:1px solid transparent;
+  border-radius:12px;
+  background:transparent;
+  color:#52525b;
+  font-family:var(--font-display);
+  font-size:16px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.03em;
+}
+.ctl-calendar-days button:hover{background:#f5f2ea;color:#09090b;}
+.ctl-calendar-days button.active{background:#09090b;color:#fff;}
+.ctl-calendar-days button:focus-visible{outline:3px solid #b58a25;outline-offset:2px;}
+.ctl-calendar-matches[hidden]{display:none!important;}
+@media(max-width:640px){
+  .ctl-calendar-days{gap:5px;padding:5px;border-radius:14px;}
+  .ctl-calendar-days button{min-height:46px;padding:9px 3px;font-size:clamp(13px,3.5vw,16px);}
+}
 .ctl-match-card{
   border:1px solid var(--line);
   border-radius:24px;
