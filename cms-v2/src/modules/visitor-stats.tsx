@@ -110,16 +110,23 @@ export function VisitorStats() {
       ) : data?.configured ? (
         <>
           <div className="mt-3 grid grid-cols-2 gap-2">
+            <Tile label="Visite 24 ore" value={data.last24.visits} />
+            <Tile label="Pagine viste 24 ore" value={data.last24.pageViews} />
             <Tile label="Visite oggi" value={data.today.visits} />
             <Tile label="Visite 7 giorni" value={data.last7.visits} />
             <Tile label="Visite 30 giorni" value={data.last30.visits} />
             <Tile label="Pagine viste 30 giorni" value={data.last30.pageViews} />
           </div>
-          <DailyChart days={data.days} />
+          {data.dailyAvailable ? <DailyChart days={data.days} /> : (
+            <p className="mt-4 text-xs text-muted">Grafico giornaliero non disponibile: Cloudflare non ha restituito una distribuzione attendibile.</p>
+          )}
           <p className="mt-3 text-[11px] leading-snug text-muted">
-            Stime di Cloudflare Web Analytics{data.sampled ? " (dati campionati)" : ""}.
-            Esclusi bot e crawler riconosciuti (motori di ricerca, AI), il CMS e le anteprime; inclusi gli utenti arrivati dai motori di ricerca.
-            Non sono visitatori unici: una visita inizia arrivando da un altro sito o da un link diretto. "Oggi" parte da mezzanotte, a differenza di "Ultime 24 ore" nella dashboard Cloudflare. Aggiornato {relativeTime(data.generatedAt)}.
+            Confronta i primi due valori con Cloudflare Web Analytics impostato su "Ultime 24 ore", senza filtri aggiuntivi.
+            Le statistiche sono stime di Cloudflare e non visitatori unici. Gli intervalli sono interrogati separatamente:
+            con dati campionati i totali possono essere leggermente diversi e il grafico è indicativo.
+            {data.sampled ? ` Campionamento Cloudflare ultime 24 ore: 1 su ${num.format(data.sampleIntervals.last24)} (valori già stimati, non vanno moltiplicati né divisi).` : " Nessun campionamento segnalato."}
+            Il CMS e le anteprime non sono conteggiati; il sito non utilizza cookie per queste statistiche.
+            "Oggi" parte dalla mezzanotte italiana. Aggiornato {relativeTime(data.generatedAt)}.
           </p>
         </>
       ) : null}
