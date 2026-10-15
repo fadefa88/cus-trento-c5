@@ -4464,13 +4464,19 @@
           "name": "Semifinale 1",
           "team1Score": null,
           "team2Score": null,
-          "winner": ""
+          "winner": "",
+          "date": "2026-11-09",
+          "time": "19:30",
+          "scorers": []
         },
         {
           "name": "Semifinale 2",
           "team1Score": null,
           "team2Score": null,
-          "winner": ""
+          "winner": "",
+          "date": "2026-11-09",
+          "time": "20:30",
+          "scorers": []
         }
       ],
       "final": {
