@@ -267,7 +267,7 @@ function BracketTab({ league, source, hasDraft }: { league: LeagueData; source: 
             {r.items.map((ko) => (
               <Card key={ko.name} className={cn(ko.resolved.needsManualWinner && "border-warning", ko.resolved.invalidManualWinner && "border-danger")}>
                 <button type="button" className="w-full p-3 text-left" onClick={() => setEditing(ko)}>
-                  <div className="mb-2 flex items-center justify-between text-xs text-muted"><span className="font-semibold uppercase">{ko.name}</span><span>Gara secca</span></div>
+                  <div className="mb-2 flex items-center justify-between gap-2 text-xs text-muted"><span className="font-semibold uppercase">{ko.name}</span><span className="text-right">{[ko.resolved.date ? formatDate(ko.resolved.date, true) : "", ko.resolved.time].filter(Boolean).join(" · ") || "Da programmare"}</span></div>
                   {([0, 1] as const).map((side) => {
                     const team = side === 0 ? ko.resolved.team1 : ko.resolved.team2;
                     const score = side === 0 ? ko.resolved.team1Score : ko.resolved.team2Score;
@@ -350,6 +350,12 @@ function KnockoutEditor({ ko, league, source, onClose, hasDraft }: { ko: KoRef |
           </FormSection>
         )}
         <ScorersByTeam league={league} teams={[t1, t2]} scores={[s1, s2]} scorers={(state.scorers as Item[]) || []} onChange={(list) => setState((p) => ({ ...p, scorers: list }))} />
+        <FormSection title="Programma" description="Data e ora della gara, come nel calendario dei gironi. Puoi impostarle anche prima di conoscere le squadre.">
+          <div className="grid grid-cols-2 gap-3">
+            <DateField label="Data" value={state.date} onChange={(date) => setState((p) => ({ ...p, date }))} />
+            <TimeField label="Ora" value={state.time} onChange={(time) => setState((p) => ({ ...p, time }))} />
+          </div>
+        </FormSection>
         {/^(Da definire|Vincente )/.test(t1) || /^(Da definire|Vincente )/.test(t2) ? <p className="rounded-xl bg-warning-soft p-3 text-sm text-warning">Le squadre di questo incontro non sono ancora definite: puoi comunque registrare il risultato, ma verifica gli accoppiamenti.</p> : null}
       </div>
     </Sheet>
