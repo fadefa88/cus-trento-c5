@@ -3200,7 +3200,7 @@ const sectionPages=(function(){
     const validManual=[team1,team2].find(team=>leagueTeamKey(team)===leagueTeamKey(manual));
     let winner=validManual||"";
     if(!winner&&first!==null&&second!==null&&first!==second)winner=first>second?team1:team2;
-    return {team1,team2,team1Score:first,team2Score:second,winner,scorers:Array.isArray(saved&&saved.scorers)?saved.scorers:[]};
+    return {team1,team2,date:String(saved&&saved.date||""),time:String(saved&&saved.time||""),team1Score:first,team2Score:second,winner,scorers:Array.isArray(saved&&saved.scorers)?saved.scorers:[]};
   }
 
   function leagueKnockoutCard(name,match,seed1,seed2){
@@ -3215,8 +3215,9 @@ const sectionPages=(function(){
         <strong>${score===null?"–":score}</strong>
       </div>`;
     };
+    const schedule=[match.date?fmtDate(match.date):"",match.time||""].filter(Boolean).join(" · ");
     return `<article class="ctl-knockout-match">
-      <div class="ctl-knockout-match-head"><span>${h(name)}</span></div>
+      <div class="ctl-knockout-match-head"><span>${h(name)}</span>${schedule?`<small>${h(schedule)}</small>`:""}</div>
       ${renderTeam(match.team1,match.team1Score,seed1)}
       ${renderTeam(match.team2,match.team2Score,seed2)}
       ${(()=>{const t1=leagueMatchScorers(match,match.team1),t2=leagueMatchScorers(match,match.team2);return t1.length||t2.length?`<div class="ctl-match-goals ctl-knockout-goals" aria-label="Marcatori"><div class="ctl-match-goals-grid"><div class="ctl-match-goals-side">${leagueMatchGoalLines(t1)}</div><div class="ctl-match-goals-side">${leagueMatchGoalLines(t2)}</div></div></div>`:"";})()}
@@ -3306,9 +3307,7 @@ const sectionPages=(function(){
     if(screen==="classifiche") return `<section class="ctl-screen ctl-section">
       <div class="ctl-standings-grid">${leagueStandingsCard("A")}${leagueStandingsCard("B")}</div>
     </section>`;
-    if(screen==="calendario") return `<section class="ctl-screen ctl-section">
-      <div class="ctl-matches">${matches.length?matches.map(leagueMatchCard).join(""):`<div class="ctl-empty">Calendario in aggiornamento.</div>`}</div>
-    </section>`;
+    if(screen==="calendario") return leagueCalendarHtml(matches);
     if(screen==="marcatori") return `<section class="ctl-screen ctl-section">
       <div class="ctl-panel">${scorers.length?`<div class="ctl-scorers">${scorers.map((row,index)=>`<div><span class="ctl-scorer-pos">${index+1}</span><span><b>${h(row.name)}</b><small>${h(row.team||"")}</small></span><strong>${row.goals} <i class="fa-solid fa-futbol" aria-hidden="true"></i></strong></div>`).join("")}</div>`:`<div class="ctl-empty">I marcatori compariranno qui dopo l’inserimento dei primi risultati.</div>`}</div>
     </section>`;
@@ -3320,6 +3319,39 @@ const sectionPages=(function(){
       <div class="ctl-rosters">${teams.map(leagueRosterCard).join("")}</div>
     </section>`;
   }
+
+  function leagueCalendarHtml(matches){
+    // I gironi si giocano in tre giornate; manteniamo intatti i dati e il loro ordine cronologico.
+    const current=[1,2,3].includes(Number(view.leagueRound))?Number(view.leagueRound):1;
+    const days=[1,2,3];
+    return `<section class="ctl-screen ctl-section ctl-calendar">
+      <div class="ctl-calendar-days" role="group" aria-label="Seleziona giornata">
+        ${days.map(day=>`<button type="button" data-league-round="${day}" class="${day===current?"active":""}" aria-pressed="${day===current}" onclick="cusLeagueRound(${day})">${day}ª giornata</button>`).join("")}
+      </div>
+      ${days.map(day=>{
+        const round=day+"ª giornata";
+        const games=matches.filter(match=>String(match.round||"").trim().toLowerCase()===round);
+        return `<div class="ctl-matches ctl-calendar-matches" data-league-round="${day}" ${day===current?"":"hidden"}>
+          ${games.length?games.map(leagueMatchCard).join(""):`<div class="ctl-empty">Nessuna partita per la ${day}ª giornata.</div>`}
+        </div>`;
+      }).join("")}
+    </section>`;
+  }
+
+  function setLeagueRound(day){
+    const selected=Number(day);
+    if(![1,2,3].includes(selected))return;
+    view.leagueRound=selected;
+    document.querySelectorAll(".ctl-calendar-matches[data-league-round]").forEach(el=>{
+      el.hidden=Number(el.getAttribute("data-league-round"))!==selected;
+    });
+    document.querySelectorAll(".ctl-calendar-days button[data-league-round]").forEach(button=>{
+      const active=Number(button.getAttribute("data-league-round"))===selected;
+      button.classList.toggle("active",active);
+      button.setAttribute("aria-pressed",String(active));
+    });
+  }
+  window.cusLeagueRound=setLeagueRound;
 
   function setLeagueScreen(screen){
     view.leagueScreen=screen||"squadre";
