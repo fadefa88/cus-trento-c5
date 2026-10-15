@@ -259,7 +259,6 @@ function BracketTab({ league, source, hasDraft }: { league: LeagueData; source: 
   ];
   return (
     <>
-      <p className="mb-4 text-sm text-muted">Accoppiamenti automatici dalle classifiche: 1ªA–4ªB, 2ªA–3ªB, 3ªA–2ªB, 4ªA–1ªB. Vincenti Q1/Q2 e Q3/Q4 in semifinale. Gara unica, eliminazione diretta.</p>
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
         {rounds.map((r) => (
           <section key={r.title} className="flex flex-col gap-3">
