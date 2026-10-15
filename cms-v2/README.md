@@ -143,15 +143,15 @@ risposta è in cache 10 minuti (KV `CMS_KV` se presente).
   in ora italiana.
 - Senza le variabili la card mostra *Statistiche non configurate*; mai numeri fittizi.
 
-Il beacon sul sito pubblico è in `js/app.js` (`loadWebAnalytics`) ed è **spento**
-finché `CF_WEB_ANALYTICS_TOKEN` è vuoto. Una volta acceso si carica solo su
+Il beacon sul sito pubblico è in `js/app.js` (`loadWebAnalytics`); con
+`CF_WEB_ANALYTICS_TOKEN` vuoto è spento. Con il token si carica solo su
 `calcioa5.custrento.it` e solo dopo il consenso ai contenuti facoltativi
 (*Accetta tutto*), come promesso dal pannello cookie. Il CSP di `/admin-v2/` lo
 blocca comunque. **Non** usare *Workers & Pages → progetto → Metrics → Web
 Analytics → Enable*: inietterebbe il beacon su tutte le pagine e su tutti i
 deploy, senza consenso.
 
-Attivazione (dopo l'aggiornamento di informativa privacy e pannello cookie):
+Attivazione (con l'informativa privacy e il pannello cookie aggiornati):
 
 1. Cloudflare → **Web Analytics** → **Add a site** → hostname `calcioa5.custrento.it`
    → copia il **token** dello snippet JS (non incollare lo snippet nelle pagine).

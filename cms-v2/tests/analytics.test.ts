@@ -168,8 +168,8 @@ describe("GET /api/admin/analytics", () => {
 
 describe("public site beacon loader", () => {
   const app = readRepo("js/app.js");
-  it("is off: no token committed", () => {
-    expect(app).toMatch(/const CF_WEB_ANALYTICS_TOKEN="";/);
+  it("has an empty token (off) or a Web Analytics site token", () => {
+    expect(app).toMatch(/const CF_WEB_ANALYTICS_TOKEN="(?:[0-9a-f]{32})?";/);
   });
   it("loads only with a token, consent and the public host", () => {
     const loader = extractFunction(app, "loadWebAnalytics");
