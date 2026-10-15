@@ -128,42 +128,67 @@ describe("League fixture dates and calendar matchdays", () => {
   });
 });
 
-describe("League menu stays at the current scroll position", () => {
-  it("updates only the active tab and screen content, without rebuilding the hero or scrolling", () => {
-    const code = extractFunction(app, "setLeagueScreen");
+describe("League menu scroll behaviour", () => {
+  const code = extractFunction(app, "setLeagueScreen");
+
+  function runSwitch(initialScroll: number) {
     const view = { leagueScreen: "squadre" };
-    const stage = { innerHTML: "old content" };
+    const window = {
+      scrollY: initialScroll,
+      scrollTo: (options: { top: number; left: number; behavior: string }) => { calls.push(options); window.scrollY = options.top; },
+    };
+    const calls: Array<{ top: number; left: number; behavior: string }> = [];
+    // Absolute content start at 530px; sticky header = 68px and League bar = 140px.
+    const stage = { innerHTML: "old content", getBoundingClientRect: () => ({ top: 530 - window.scrollY }) };
+    const bar = { getBoundingClientRect: () => ({ height: 140 }) };
     const buttons = ["squadre", "calendario"].map((name) => ({
-      dataset: { leagueScreen: name },
-      active: name === "squadre",
-      pressed: name === "squadre",
-      classList: { toggle(_className: string, _active: boolean) {} },
+      dataset: { leagueScreen: name }, active: name === "squadre", pressed: name === "squadre",
+      classList: { toggle(_name: string, _active: boolean) {} },
       setAttribute(_name: string, _value: string) {},
     }));
-    buttons.forEach((button) => {
+    for (const button of buttons) {
       button.classList.toggle = (_name: string, active: boolean) => { button.active = active; };
       button.setAttribute = (_name: string, value: string) => { button.pressed = value === "true"; };
-    });
+    }
     const nav = { querySelectorAll: () => buttons };
-    const document = { querySelector: (selector: string) => selector === ".ctl-screen-stage" ? stage : selector === ".ctl-leaguebar .ctl-subnav" ? nav : null };
-    let renderedWholePage = 0;
-    const select = new Function("view", "document", "leagueData", "leagueScreenContent", "leagueScorers", "renderCusTrentoLeague",
+    const document = {
+      querySelector: (selector: string) => selector === ".ctl-screen-stage" ? stage
+        : selector === ".ctl-leaguebar .ctl-subnav" ? nav
+        : selector === ".ctl-leaguebar" ? bar : null,
+    };
+    let rebuiltPage = 0;
+    const select = new Function("view", "document", "window", "getComputedStyle", "leagueData",
+      "leagueScreenContent", "leagueScorers", "renderCusTrentoLeague",
       `${code}; return setLeagueScreen;`)(
-      view, document,
+      view, document, window, () => ({ top: "68px" }),
       () => ({ teams: [], matches: [] }),
       (screen: string) => "screen:" + screen,
       () => [],
-      () => { renderedWholePage++; },
+      () => { rebuiltPage++; },
     ) as (screen: string) => void;
     select("calendario");
-    expect(stage.innerHTML).toBe("screen:calendario");
-    expect(buttons.map((b) => b.active)).toEqual([false, true]);
-    expect(buttons.map((b) => b.pressed)).toEqual([false, true]);
-    expect(view.leagueScreen).toBe("calendario");
-    expect(renderedWholePage).toBe(0);
+    return { view, stage, buttons, rebuiltPage, window, calls, select };
+  }
+
+  it("when already near the menu, switches content without changing the page position", () => {
+    const result = runSwitch(250);
+    expect(result.stage.innerHTML).toBe("screen:calendario");
+    expect(result.view.leagueScreen).toBe("calendario");
+    expect(result.buttons.map((b) => b.active)).toEqual([false, true]);
+    expect(result.buttons.map((b) => b.pressed)).toEqual([false, true]);
+    expect(result.rebuiltPage).toBe(0);
+    expect(result.calls).toEqual([]);
     expect(code).not.toContain("scrollToPageTop");
-    select("calendario");
-    expect(renderedWholePage).toBe(0);
+  });
+
+  it("after scrolling far down, positions the new content below the sticky League menu, not the hero", () => {
+    const result = runSwitch(1050);
+    expect(result.stage.innerHTML).toBe("screen:calendario");
+    expect(result.calls).toEqual([{ top: 314, left: 0, behavior: "instant" }]);
+    expect(result.window.scrollY).toBe(314);
+    expect(result.rebuiltPage).toBe(0);
+    result.select("calendario"); // Clicking the already selected tab never scrolls.
+    expect(result.calls).toHaveLength(1);
   });
 });
 
