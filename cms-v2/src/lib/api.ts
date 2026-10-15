@@ -57,12 +57,17 @@ export interface StatusPayload {
   checks: { state: "success" | "pending" | "failure" | "unknown"; items: Array<{ name: string; status: string; url?: string }> };
   recent: Array<{ sha: string; date: string; title: string; actor: string; document: string | null; url?: string }>;
 }
+export interface AnalyticsTotals { visits: number; pageViews: number }
+export type AnalyticsPayload =
+  | { configured: false; missing: string[] }
+  | { configured: true; timezone: string; generatedAt: string; hosts: string[]; sampled: boolean; today: AnalyticsTotals; last7: AnalyticsTotals; last30: AnalyticsTotals; days: Array<{ date: string } & AnalyticsTotals> };
 export interface MediaFile { path: string; name: string; size: number }
 export interface AuditEntry { ts: string; email?: string; name?: string; action: string; doc?: string; ok: boolean; commit?: string; detail?: string }
 
 export const api = {
   session: () => request<Session>("GET", "session"),
   status: () => request<StatusPayload>("GET", "status"),
+  analytics: () => request<AnalyticsPayload>("GET", "analytics"),
   documents: () => request<{ mainHead: string; documents: DocumentSummary[] }>("GET", "documents"),
   document: <T>(doc: DocumentId) => request<DocumentPayload<T>>("GET", `documents/${doc}`),
   edit: (doc: DocumentId, ops: Op[], mode: "draft" | "publish", summary?: string) =>
