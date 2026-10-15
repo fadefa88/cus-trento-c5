@@ -13,6 +13,13 @@
       "url": "https://burgerfcktory.com/",
       "id": "burger-f-cktory",
       "slug": "burger-f-cktory"
+    },
+    {
+      "name": "Amanito",
+      "logo": "/img/uploads/amanito-2f128edc.webp",
+      "url": "https://amanitoshop.it/",
+      "id": "amanito",
+      "slug": "amanito"
     }
   ]
 }
