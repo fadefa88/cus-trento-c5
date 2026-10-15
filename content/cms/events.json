@@ -238,6 +238,19 @@
         "id": "the-rolling-rocks-recidivi-fc-2026-10-12",
         "home": "The Rolling Rocks",
         "group": "A"
+      },
+      {
+        "date": "2026-10-19",
+        "time": "19:30",
+        "group": "B",
+        "round": "2ª giornata",
+        "home": "Calcio Proletario",
+        "away": "TT Le Girlz",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": [],
+        "id": "calcio-proletario-tt-le-girlz-2026-10-19"
       }
     ],
     "sport": "Futsal",
