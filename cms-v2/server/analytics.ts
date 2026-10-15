@@ -131,8 +131,9 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
   const missing = missingConfig(cfg);
   if (missing.length) return { configured: false, missing };
   const hosts = parseHosts(cfg.hosts);
-  // One entry per 10-minute slot: every admin opening the dashboard shares it.
-  const key = `analytics:v1:${cfg.siteTag}:${hosts.join(",")}:${Math.floor(now.getTime() / 1000 / CACHE_TTL_SEC)}`;
+  // V2: split the monthly range to reduce adaptive sampling. Bump the
+  // cache namespace so cached V1 estimates cannot be displayed by V2.
+  const key = `analytics:v2:${cfg.siteTag}:${hosts.join(",")}:${Math.floor(now.getTime() / 1000 / CACHE_TTL_SEC)}`;
   const mem = memoryCache.get(key);
   if (mem && mem.expires > now.getTime()) return mem.payload;
   if (kv) {
@@ -147,54 +148,73 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
   }
 
   const dates = lastRomeDates(now);
-  // One extra day on each side: the hourly rows are bucketed by Italian date afterwards.
-  const start = new Date(Date.parse(`${dates[0]}T00:00:00Z`) - 86_400_000);
-  const filter = {
-    AND: [
-      { siteTag: cfg.siteTag },
-      { datetime_geq: start.toISOString().replace(/\.\d{3}Z$/, "Z"), datetime_leq: now.toISOString().replace(/\.\d{3}Z$/, "Z") },
-      { bot: 0 },
-      { requestHost_in: hosts },
-      { requestPath_notlike: "/admin%" },
-    ],
-  };
+  // Cloudflare's 30-day adaptive query can exaggerate small totals.
+  // Query the most recent seven Italian calendar days individually, and
+  // the preceding 23 days in groups of at most seven days. This retains
+  // hourly points for the graph while avoiding one large monthly sample.
+  const periods: string[][] = [];
+  const older = dates.slice(0, -7);
+  for (let i = 0; i < older.length; i += 7) periods.push(older.slice(i, i + 7));
+  for (const day of dates.slice(-7)) periods.push([day]);
 
   const doFetch = cfg.fetch ?? fetch;
-  let res: Response;
-  try {
-    res = await doFetch(ENDPOINT, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${cfg.apiToken}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ query: QUERY, variables: { accountTag: cfg.accountId, filter } }),
-      signal: AbortSignal.timeout(10_000),
-    });
-  } catch {
-    throw new HttpError(502, "analytics_unavailable", "Cloudflare non risponde: statistiche non disponibili al momento.");
-  }
-  if (res.status === 401 || res.status === 403) {
-    throw new HttpError(502, "analytics_auth", "Il token Cloudflare non è valido o non ha il permesso Account Analytics: Read.");
-  }
-  let body: { data?: { viewer?: { accounts?: Array<{ rumPageloadEventsAdaptiveGroups?: Row[] }> } }; errors?: Array<{ message?: string }> | null } | null = null;
-  try {
-    body = await res.json();
-  } catch {
-    /* handled below */
-  }
-  if (!res.ok || !body || body.errors?.length) {
-    const detail = body?.errors?.map((e) => String(e.message || "")).join("; ").slice(0, 300) || `HTTP ${res.status}`;
-    console.error("cms-v2 analytics error", detail);
-    // "Authentication failed": the value is not a valid API token (wrong value pasted,
-    // Global API Key, token ID or the Web Analytics snippet token). Otherwise the token
-    // is valid but lacks Account Analytics: Read on this account.
-    if (/authentication failed|invalid (api )?token|unable to authenticate/i.test(detail)) {
-      throw new HttpError(502, "analytics_auth", "Cloudflare non riconosce il token in CF_ANALYTICS_API_TOKEN: incolla il valore dell'API token (non l'ID, non la Global API Key, non il token dello snippet Web Analytics).");
+  const readPeriod = async (period: string[]): Promise<Row[]> => {
+    // UTC bounds deliberately overlap adjoining periods by one day because
+    // local midnight changes with CET/CEST. Filter by actual Rome date below,
+    // otherwise overlapping API windows would double-count page views.
+    const start = new Date(Date.parse(`${period[0]}T00:00:00Z`) - 86_400_000);
+    const afterLast = Date.parse(`${period[period.length - 1]}T00:00:00Z`) + 2 * 86_400_000;
+    const finish = new Date(Math.min(afterLast, now.getTime()));
+    const filter = {
+      AND: [
+        { siteTag: cfg.siteTag },
+        { datetime_geq: start.toISOString().replace(/\\.\\d{3}Z$/, "Z"), datetime_leq: finish.toISOString().replace(/\\.\\d{3}Z$/, "Z") },
+        { bot: 0 },
+        { requestHost_in: hosts },
+        { requestPath_notlike: "/admin%" },
+      ],
+    };
+    let res: Response;
+    try {
+      res = await doFetch(ENDPOINT, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${cfg.apiToken}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ query: QUERY, variables: { accountTag: cfg.accountId, filter } }),
+        signal: AbortSignal.timeout(10_000),
+      });
+    } catch {
+      throw new HttpError(502, "analytics_unavailable", "Cloudflare non risponde: statistiche non disponibili al momento.");
     }
-    const auth = /not authorized|authentication|permission|access/i.test(detail);
-    throw new HttpError(502, auth ? "analytics_auth" : "analytics_unavailable", auth ? "Il token Cloudflare non ha accesso alle statistiche di questo account (serve Account Analytics: Read)." : "Statistiche non disponibili al momento.");
-  }
-  const accounts = body.data?.viewer?.accounts;
-  if (!accounts?.length) throw new HttpError(502, "analytics_auth", "Account Cloudflare non trovato: controlla CF_ACCOUNT_ID e i permessi del token.");
-  const payload = summarize(accounts[0].rumPageloadEventsAdaptiveGroups || [], now, hosts);
+    if (res.status === 401 || res.status === 403) {
+      throw new HttpError(502, "analytics_auth", "Il token Cloudflare non è valido o non ha il permesso Account Analytics: Read.");
+    }
+    let body: { data?: { viewer?: { accounts?: Array<{ rumPageloadEventsAdaptiveGroups?: Row[] }> } }; errors?: Array<{ message?: string }> | null } | null = null;
+    try {
+      body = await res.json();
+    } catch {
+      /* handled below */
+    }
+    if (!res.ok || !body || body.errors?.length) {
+      const detail = body?.errors?.map((e) => String(e.message || "")).join("; ").slice(0, 300) || `HTTP ${res.status}`;
+      console.error("cms-v2 analytics error", detail);
+      if (/authentication failed|invalid (api )?token|unable to authenticate/i.test(detail)) {
+        throw new HttpError(502, "analytics_auth", "Cloudflare non riconosce il token in CF_ANALYTICS_API_TOKEN: incolla il valore dell'API token (non l'ID, non la Global API Key, non il token dello snippet Web Analytics).");
+      }
+      const auth = /not authorized|authentication|permission|access/i.test(detail);
+      throw new HttpError(502, auth ? "analytics_auth" : "analytics_unavailable", auth ? "Il token Cloudflare non ha accesso alle statistiche di questo account (serve Account Analytics: Read)." : "Statistiche non disponibili al momento.");
+    }
+    const accounts = body.data?.viewer?.accounts;
+    if (!accounts?.length) throw new HttpError(502, "analytics_auth", "Account Cloudflare non trovato: controlla CF_ACCOUNT_ID e i permessi del token.");
+    const allowed = new Set(period);
+    return (accounts[0].rumPageloadEventsAdaptiveGroups || []).filter((row) => {
+      const date = row.dimensions?.datetimeHour;
+      const hour = date ? new Date(date) : null;
+      return hour && !Number.isNaN(hour.getTime()) && allowed.has(romeDate(hour));
+    });
+  };
+
+  const chunks = await Promise.all(periods.map(readPeriod));
+  const payload = summarize(chunks.flat(), now, hosts);
 
   memoryCache.set(key, { expires: now.getTime() + CACHE_TTL_SEC * 1000, payload });
   if (memoryCache.size > 20) for (const [k, v] of memoryCache) if (v.expires <= now.getTime()) memoryCache.delete(k);
