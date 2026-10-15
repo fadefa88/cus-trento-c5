@@ -4653,6 +4653,19 @@
         "status": "Da giocare",
         "scorers": [],
         "id": "rango-fc-recidivi-fc-2026-10-20"
+      },
+      {
+        "date": "2026-10-26",
+        "time": "19:30",
+        "group": "B",
+        "round": "3ª giornata",
+        "home": "All Blacks",
+        "away": "Calcio Proletario",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": [],
+        "id": "all-blacks-calcio-proletario-2026-10-26"
       }
     ],
     "sport": "Futsal",
