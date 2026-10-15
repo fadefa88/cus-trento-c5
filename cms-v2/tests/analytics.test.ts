@@ -108,6 +108,12 @@ describe("Cloudflare query", () => {
     expect(range.datetime_leq).toBe("2026-10-15T10:30:00Z");
     expect(Date.parse(range.datetime_geq)).toBeLessThanOrEqual(Date.parse("2026-09-15T22:00:00Z")); // 16 Sep 00:00 in Italy
   });
+  it("cleans the token pasted into the dashboard", async () => {
+    const cf = fakeCloudflare([]);
+    await getAnalytics(config(cf.fn, { apiToken: '  "Bearer secret-token"\n' }), undefined, NOW);
+    expect(cf.calls[0].headers.get("Authorization")).toBe("Bearer secret-token");
+    expect(await getAnalytics({ apiToken: "  ", accountId: ACCOUNT, siteTag: SITE }, undefined, NOW)).toEqual({ configured: false, missing: ["CF_ANALYTICS_API_TOKEN"] });
+  });
   it("caches results in KV and in memory", async () => {
     const cf = fakeCloudflare([row("2026-10-15T08:00:00Z", 1, 1)]);
     const kv = new MemoryKV();
@@ -121,6 +127,7 @@ describe("Cloudflare query", () => {
     await expect(getAnalytics(config(fakeCloudflare([], { status: 403 }).fn), undefined, NOW)).rejects.toMatchObject({ status: 502, code: "analytics_auth" });
     await expect(getAnalytics(config(fakeCloudflare([], { errors: [{ message: "not authorized for that account" }] }).fn), undefined, NOW)).rejects.toMatchObject({ code: "analytics_auth" });
     await expect(getAnalytics(config(fakeCloudflare([], { errors: [{ message: "internal" }] }).fn), undefined, NOW)).rejects.toMatchObject({ code: "analytics_unavailable" });
+    await expect(getAnalytics(config(fakeCloudflare([], { errors: [{ message: "Authentication failed (status: 400)" }] }).fn), undefined, NOW)).rejects.toMatchObject({ code: "analytics_auth", message: expect.stringContaining("non riconosce il token") });
     const down = (async () => { throw new TypeError("network"); }) as unknown as typeof fetch;
     await expect(getAnalytics(config(down), undefined, NOW)).rejects.toMatchObject({ code: "analytics_unavailable" });
   });
@@ -171,7 +178,7 @@ describe("public site beacon loader", () => {
   it("has an empty token (off) or a Web Analytics site token", () => {
     expect(app).toMatch(/const CF_WEB_ANALYTICS_TOKEN="(?:[0-9a-f]{32})?";/);
   });
-  it("loads only with a token, consent and the public host", () => {
+  it("loads with a token on the public host only, whatever the cookie choice", () => {
     const loader = extractFunction(app, "loadWebAnalytics");
     const run = (token: string, consent: boolean, hostname: string) => {
       const appended: Array<{ src: string; attrs: Record<string, string> }> = [];
@@ -187,7 +194,7 @@ describe("public site beacon loader", () => {
       return appended;
     };
     expect(run("", true, "calcioa5.custrento.it")).toHaveLength(0);
-    expect(run("tok", false, "calcioa5.custrento.it")).toHaveLength(0);
+    expect(run("tok", false, "calcioa5.custrento.it")).toHaveLength(1);
     expect(run("tok", true, "cus-trento-c5.pages.dev")).toHaveLength(0);
     expect(run("tok", true, "main.cus-trento-c5.pages.dev")).toHaveLength(0);
     const loaded = run("tok", true, "calcioa5.custrento.it");

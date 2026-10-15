@@ -123,7 +123,11 @@ export function summarize(rows: Row[], now: Date, hosts: string[]): Extract<Anal
 
 const memoryCache = new Map<string, { expires: number; payload: AnalyticsPayload }>();
 
+/** Tolerates what a copy-paste into the dashboard tends to add: spaces, newlines, quotes, a "Bearer " prefix. */
+export const cleanToken = (value: string | undefined) => String(value || "").trim().replace(/^["']|["']$/g, "").replace(/^Bearer\s+/i, "").trim();
+
 export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now = new Date()): Promise<AnalyticsPayload> {
+  cfg = { ...cfg, apiToken: cleanToken(cfg.apiToken) || undefined };
   const missing = missingConfig(cfg);
   if (missing.length) return { configured: false, missing };
   const hosts = parseHosts(cfg.hosts);
@@ -179,7 +183,13 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
   if (!res.ok || !body || body.errors?.length) {
     const detail = body?.errors?.map((e) => String(e.message || "")).join("; ").slice(0, 300) || `HTTP ${res.status}`;
     console.error("cms-v2 analytics error", detail);
-    const auth = /not authorized|authentication|permission/i.test(detail);
+    // "Authentication failed": the value is not a valid API token (wrong value pasted,
+    // Global API Key, token ID or the Web Analytics snippet token). Otherwise the token
+    // is valid but lacks Account Analytics: Read on this account.
+    if (/authentication failed|invalid (api )?token|unable to authenticate/i.test(detail)) {
+      throw new HttpError(502, "analytics_auth", "Cloudflare non riconosce il token in CF_ANALYTICS_API_TOKEN: incolla il valore dell'API token (non l'ID, non la Global API Key, non il token dello snippet Web Analytics).");
+    }
+    const auth = /not authorized|authentication|permission|access/i.test(detail);
     throw new HttpError(502, auth ? "analytics_auth" : "analytics_unavailable", auth ? "Il token Cloudflare non ha accesso alle statistiche di questo account (serve Account Analytics: Read)." : "Statistiche non disponibili al momento.");
   }
   const accounts = body.data?.viewer?.accounts;

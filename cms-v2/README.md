@@ -144,12 +144,12 @@ risposta è in cache 10 minuti (KV `CMS_KV` se presente).
 - Senza le variabili la card mostra *Statistiche non configurate*; mai numeri fittizi.
 
 Il beacon sul sito pubblico è in `js/app.js` (`loadWebAnalytics`); con
-`CF_WEB_ANALYTICS_TOKEN` vuoto è spento. Con il token si carica solo su
-`calcioa5.custrento.it` e solo dopo il consenso ai contenuti facoltativi
-(*Accetta tutto*), come promesso dal pannello cookie. Il CSP di `/admin-v2/` lo
-blocca comunque. **Non** usare *Workers & Pages → progetto → Metrics → Web
-Analytics → Enable*: inietterebbe il beacon su tutte le pagine e su tutti i
-deploy, senza consenso.
+`CF_WEB_ANALYTICS_TOKEN` vuoto è spento. Con il token si carica per tutti i
+visitatori, indipendentemente dalla scelta sui cookie (il pannello cookie in
+`index.html` lo dichiara: *Statistiche di visita — Sempre attive*), ma solo su
+`calcioa5.custrento.it`. Il CSP di `/admin-v2/` lo blocca comunque. **Non** usare
+*Workers & Pages → progetto → Metrics → Web Analytics → Enable*: inietterebbe il
+beacon anche su `pages.dev` e sulle anteprime.
 
 Attivazione (con l'informativa privacy e il pannello cookie aggiornati):
 

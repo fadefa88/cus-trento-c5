@@ -117,7 +117,7 @@ export function VisitorStats() {
           </div>
           <DailyChart days={data.days} />
           <p className="mt-3 text-[11px] leading-snug text-muted">
-            Stime di Cloudflare Web Analytics{data.sampled ? " (dati campionati)" : ""}, solo visitatori che hanno accettato i contenuti facoltativi.
+            Stime di Cloudflare Web Analytics{data.sampled ? " (dati campionati)" : ""}.
             Esclusi bot e crawler riconosciuti (motori di ricerca, AI), il CMS e le anteprime; inclusi gli utenti arrivati dai motori di ricerca.
             Non sono visitatori unici: una visita inizia arrivando da un altro sito o da un link diretto. Aggiornato {relativeTime(data.generatedAt)}.
           </p>
