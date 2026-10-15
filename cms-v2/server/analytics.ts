@@ -264,10 +264,10 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
       dates: period,
       rows,
       total: {
-        visits: Math.max(0, Math.round(Number(aggregate.sum?.visits) || 0)),
-        pageViews: Math.max(0, Math.round(Number(aggregate.count) || 0)),
+        visits: Math.max(0, Math.round(Number(aggregate?.sum?.visits) || 0)),
+        pageViews: Math.max(0, Math.round(Number(aggregate?.count) || 0)),
       },
-      sampled: (Number(aggregate.avg?.sampleInterval) || 1) > 1,
+      sampled: (Number(aggregate?.avg?.sampleInterval) || 1) > 1,
     };
   };
 
