@@ -20,7 +20,7 @@ export interface LeagueMatch {
   status?: string | null;
   scorers?: LeagueScorer[] | null;
 }
-export interface KnockoutSaved { name?: string; team1Score?: number | null; team2Score?: number | null; winner?: string | null; scorers?: LeagueScorer[] | null; [k: string]: unknown }
+export interface KnockoutSaved { name?: string; date?: string | null; time?: string | null; team1Score?: number | null; team2Score?: number | null; winner?: string | null; scorers?: LeagueScorer[] | null; [k: string]: unknown }
 export interface LeagueData {
   title?: string;
   edition?: string;
@@ -87,7 +87,7 @@ export function scorers(league: LeagueData): ScorerRow[] {
   return [...map.values()].sort((a, b) => b.goals - a.goals || a.name.localeCompare(b.name, "it"));
 }
 
-export interface KnockoutResolved { team1: string; team2: string; team1Score: number | null; team2Score: number | null; winner: string; scorers: LeagueScorer[]; needsManualWinner: boolean; invalidManualWinner: boolean }
+export interface KnockoutResolved { team1: string; team2: string; date: string; time: string; team1Score: number | null; team2Score: number | null; winner: string; scorers: LeagueScorer[]; needsManualWinner: boolean; invalidManualWinner: boolean }
 
 export function resolveKnockout(saved: KnockoutSaved | null | undefined, team1: string, team2: string): KnockoutResolved {
   const value = (raw: unknown) => (filled(raw) ? Number(raw) : null);
@@ -98,7 +98,7 @@ export function resolveKnockout(saved: KnockoutSaved | null | undefined, team1: 
   let winner = validManual || "";
   if (!winner && first !== null && second !== null && first !== second) winner = first > second ? team1 : team2;
   return {
-    team1, team2, team1Score: first, team2Score: second, winner,
+    team1, team2, date: String(saved?.date || ""), time: String(saved?.time || ""), team1Score: first, team2Score: second, winner,
     scorers: Array.isArray(saved?.scorers) ? saved!.scorers! : [],
     needsManualWinner: first !== null && second !== null && first === second && !validManual,
     invalidManualWinner: !!manual && !validManual,
