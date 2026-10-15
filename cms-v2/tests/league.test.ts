@@ -2,6 +2,7 @@
 // page uses js/app.js. These tests run the real app.js functions side by side.
 import { describe, expect, it } from "vitest";
 import { bracket, resolveKnockout, scorers, standings, type LeagueData } from "../shared/league";
+import { knockoutMatch } from "../shared/schemas";
 import { extractFunction, readDoc, readRepo } from "./helpers";
 
 const app = readRepo("js/app.js");
@@ -91,6 +92,39 @@ describe("bracket", () => {
     expect([b.semis[0].team1, b.semis[0].team2]).toEqual([b.quarters[0].winner || "Vincente quarto 1", b.quarters[1].winner]);
     expect(b.semis[1].team1).toBe("Vincente quarto 3");
     expect(b.final.team2).toBe("Vincente semifinale 2");
+  });
+});
+
+describe("League fixture dates and calendar matchdays", () => {
+  it("persists the same ISO date and time fields on knockout fixtures", () => {
+    const scheduled = { name: "Quarto 1", date: "2026-11-02", time: "20:30", team1Score: null, team2Score: null, winner: "" };
+    expect(knockoutMatch.safeParse(scheduled).success).toBe(true);
+    expect(knockoutMatch.safeParse({ ...scheduled, date: "02/11/2026" }).success).toBe(false);
+    const site = siteFunctions(synthetic);
+    expect(resolveKnockout(scheduled, "Alfa", "Quattro")).toMatchObject({ date: "2026-11-02", time: "20:30" });
+    expect(site.leagueKnockoutMatch(scheduled, "Alfa", "Quattro")).toMatchObject({ date: "2026-11-02", time: "20:30" });
+    expect(bracket({ ...synthetic, bracket: { ...synthetic.bracket, quarterfinals: [scheduled] } }).quarters[0]).toMatchObject({ date: "2026-11-02", time: "20:30" });
+  });
+
+  it("shows the three matchdays separately with four matches per day and the selected tab active", () => {
+    const league = (readDoc("events") as { cusTrentoLeague: LeagueData }).cusTrentoLeague;
+    const matches = league.matches || [];
+    const renderer = extractFunction(app, "leagueCalendarHtml");
+    const render = (day: number) => new Function("view", "leagueMatchCard", "matches",
+      `${renderer}; return leagueCalendarHtml(matches);`)(
+      { leagueRound: day }, (m: { id: string }) => `<article data-fixture="${m.id}"></article>`, matches,
+    ) as string;
+    const html = render(2);
+    const panels = [...html.matchAll(/<div class="ctl-matches ctl-calendar-matches" data-league-round="(\\d)"([^>]*)>([\\s\\S]*?)<\\/div>/g)];
+    expect(panels).toHaveLength(3);
+    for (const [i, panel] of panels.entries()) {
+      const day = i + 1;
+      expect(Number(panel[1])).toBe(day);
+      expect((panel[3].match(/data-fixture=/g) || [])).toHaveLength(4);
+      expect(panel[2].includes("hidden")).toBe(day !== 2);
+    }
+    expect(html).toContain('data-league-round="2" class="active" aria-pressed="true"');
+    expect(render(1)).toContain('data-league-round="1" class="active" aria-pressed="true"');
   });
 });
 
