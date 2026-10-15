@@ -4453,7 +4453,10 @@
           "name": "Quarto 4",
           "team1Score": null,
           "team2Score": null,
-          "winner": ""
+          "winner": "",
+          "date": "2026-11-03",
+          "time": "20:30",
+          "scorers": []
         }
       ],
       "semifinals": [
