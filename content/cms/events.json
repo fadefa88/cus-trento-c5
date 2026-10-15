@@ -39,12 +39,18 @@
       "quarterfinals": [
         {
           "name": "Quarto 1",
-          "team1Score": null,
-          "team2Score": null,
+          "team1Score": 0,
+          "team2Score": 1,
           "winner": "",
           "date": "2026-11-02",
           "time": "19:30",
-          "scorers": []
+          "scorers": [
+            {
+              "name": "Beltrami",
+              "team": "Calcio Proletario",
+              "goals": 1
+            }
+          ]
         },
         {
           "name": "Quarto 2",
