@@ -167,7 +167,7 @@ export function MediaPage() {
   const files = (media.data?.files || []).filter((f) => matchesSearch(query, f.name)).sort((a, b) => a.name.localeCompare(b.name));
   return (
     <>
-      <PageHeader title="Media" eyebrow="Sistema" description="Immagini caricate in img/uploads. Le nuove immagini sono ottimizzate automaticamente quando vengono pubblicate." actions={<Button onClick={() => fileRef.current?.click()} loading={!!progress} aria-label="Carica immagini"><ImagePlus /><span className="hidden sm:inline">{progress || "Carica"}</span></Button>} />
+      <PageHeader title="Media" eyebrow="Sistema" actions={<Button onClick={() => fileRef.current?.click()} loading={!!progress} aria-label="Carica immagini"><ImagePlus /><span className="hidden sm:inline">{progress || "Carica"}</span></Button>} />
       <Input className="mb-4" type="search" placeholder="Cerca per nome…" value={query} onChange={(e) => setQuery(e.target.value)} />
       {media.isLoading ? <Skeleton className="h-64" /> : (
         <ul className="grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6">
