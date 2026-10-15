@@ -251,6 +251,19 @@
         "status": "Da giocare",
         "scorers": [],
         "id": "calcio-proletario-tt-le-girlz-2026-10-19"
+      },
+      {
+        "date": "2026-10-19",
+        "time": "20:30",
+        "group": "A",
+        "round": "2ª giornata",
+        "home": "Golosoni",
+        "away": "The Rolling Rocks",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": [],
+        "id": "golosoni-the-rolling-rocks-2026-10-19"
       }
     ],
     "sport": "Futsal",
