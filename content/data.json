@@ -3544,7 +3544,15 @@
       "url": "https://www.youtube.com/live/brjyNjS7Srw?si=h1bXtc1auvzGpGbh"
     }
   ],
-  "sponsors": [],
+  "sponsors": [
+    {
+      "name": "Ristorante Tentazioni",
+      "logo": "/img/uploads/tentazioni-b631529c.webp",
+      "url": "https://www.tentazionitrento.it/it/",
+      "id": "ristorante-tentazioni",
+      "slug": "ristorante-tentazioni"
+    }
+  ],
   "u21Fixtures": [
     {
       "opponentLogo": "/img/uploads/san-giuseppe.png",
