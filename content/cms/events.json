@@ -303,6 +303,19 @@
         "status": "Da giocare",
         "scorers": [],
         "id": "all-blacks-calcio-proletario-2026-10-26"
+      },
+      {
+        "date": "2026-10-26",
+        "time": "20:30",
+        "group": "A",
+        "round": "3ª giornata",
+        "home": "Recidivi FC",
+        "away": "Golosoni",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": [],
+        "id": "recidivi-fc-golosoni-2026-10-26"
       }
     ],
     "sport": "Futsal",
