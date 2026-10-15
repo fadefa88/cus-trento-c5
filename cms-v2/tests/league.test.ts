@@ -63,8 +63,8 @@ describe("league parity with js/app.js", () => {
       [{ team1Score: 0, team2Score: 3, winner: "X" }, "X", "Y"],
     ] as const;
     for (const [saved, a, b] of cases) {
-      const { team1, team2, team1Score, team2Score, winner, scorers: sc } = resolveKnockout(saved as never, a, b);
-      expect({ team1, team2, team1Score, team2Score, winner, scorers: sc }).toEqual(site.leagueKnockoutMatch(saved, a, b));
+      const { needsManualWinner, invalidManualWinner, ...resolved } = resolveKnockout(saved as never, a, b);
+      expect(resolved).toEqual(site.leagueKnockoutMatch(saved, a, b));
     }
   });
 });
