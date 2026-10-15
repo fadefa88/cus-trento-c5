@@ -21,7 +21,7 @@ export function ClubHistoryPage() {
   const editing = editId && editId !== "new" ? images.find((i) => String(i.id) === editId) || null : null;
   return (
     <>
-      <PageHeader title="Storia del club" eyebrow="Club" description="Testo e immagini della pagina Chi siamo." />
+      <PageHeader title="Storia del club" eyebrow="Club" />
       <DraftBanner doc="clubHistory" />
       {isLoading ? <Skeleton className="h-80" /> : (
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1fr_380px]">
