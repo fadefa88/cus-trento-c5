@@ -49,11 +49,16 @@ const DAYS = 30;
 const QUERY = `query CmsVisitorStats($accountTag: string!, $filter: AccountRumPageloadEventsAdaptiveGroupsFilter_InputObject!) {
   viewer {
     accounts(filter: { accountTag: $accountTag }) {
-      rumPageloadEventsAdaptiveGroups(filter: $filter, limit: 1000, orderBy: [datetimeHour_ASC]) {
+      hourly: rumPageloadEventsAdaptiveGroups(filter: $filter, limit: 1000, orderBy: [datetimeHour_ASC]) {
         count
         sum { visits }
         avg { sampleInterval }
         dimensions { datetimeHour }
+      }
+      total: rumPageloadEventsAdaptiveGroups(filter: $filter, limit: 1) {
+        count
+        sum { visits }
+        avg { sampleInterval }
       }
     }
   }
@@ -121,6 +126,28 @@ export function summarize(rows: Row[], now: Date, hosts: string[]): Extract<Anal
   };
 }
 
+/**
+ * Allocate an ungrouped Cloudflare total over the hourly distribution.
+ * GraphQL's adaptive hourly and ungrouped estimates can differ markedly
+ * with sparse data; the dashboard uses an ungrouped total.
+ */
+export function apportion(total: number, weights: number[]): number[] {
+  const value = Math.max(0, Math.round(Number(total) || 0));
+  const positive = weights.map((n) => Math.max(0, Number(n) || 0));
+  const sum = positive.reduce((a, b) => a + b, 0);
+  if (!positive.length) return [];
+  if (sum === 0) return positive.map(() => 0);
+  const precise = positive.map((w) => value * w / sum);
+  const out = precise.map(Math.floor);
+  let remainder = value - out.reduce((a, b) => a + b, 0);
+  const order = precise.map((v, i) => ({ i, fraction: v - out[i] })).sort((a, b) => b.fraction - a.fraction || a.i - b.i);
+  for (const { i } of order) {
+    if (remainder-- <= 0) break;
+    out[i]++;
+  }
+  return out;
+}
+
 const memoryCache = new Map<string, { expires: number; payload: AnalyticsPayload }>();
 
 /** Tolerates what a copy-paste into the dashboard tends to add: spaces, newlines, quotes, a "Bearer " prefix. */
@@ -133,7 +160,7 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
   const hosts = parseHosts(cfg.hosts);
   // V2: split the monthly range to reduce adaptive sampling. Bump the
   // cache namespace so cached V1 estimates cannot be displayed by V2.
-  const key = `analytics:v2:${cfg.siteTag}:${hosts.join(",")}:${Math.floor(now.getTime() / 1000 / CACHE_TTL_SEC)}`;
+  const key = `analytics:v3:${cfg.siteTag}:${hosts.join(",")}:${Math.floor(now.getTime() / 1000 / CACHE_TTL_SEC)}`;
   const mem = memoryCache.get(key);
   if (mem && mem.expires > now.getTime()) return mem.payload;
   if (kv) {
@@ -158,7 +185,7 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
   for (const day of dates.slice(-7)) periods.push([day]);
 
   const doFetch = cfg.fetch ?? fetch;
-  const readPeriod = async (period: string[]): Promise<Row[]> => {
+  const readPeriod = async (period: string[]): Promise<{ dates: string[]; rows: Row[]; total: AnalyticsTotals; sampled: boolean }> => {
     // UTC bounds deliberately overlap adjoining periods by one day because
     // local midnight changes with CET/CEST. Filter by actual Rome date below,
     // otherwise overlapping API windows would double-count page views.
@@ -188,7 +215,7 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
     if (res.status === 401 || res.status === 403) {
       throw new HttpError(502, "analytics_auth", "Il token Cloudflare non è valido o non ha il permesso Account Analytics: Read.");
     }
-    let body: { data?: { viewer?: { accounts?: Array<{ rumPageloadEventsAdaptiveGroups?: Row[] }> } }; errors?: Array<{ message?: string }> | null } | null = null;
+    let body: { data?: { viewer?: { accounts?: Array<{ hourly?: Row[]; total?: Array<Row> }> } }; errors?: Array<{ message?: string }> | null } | null = null;
     try {
       body = await res.json();
     } catch {
@@ -206,15 +233,46 @@ export async function getAnalytics(cfg: AnalyticsConfig, kv: KV | undefined, now
     const accounts = body.data?.viewer?.accounts;
     if (!accounts?.length) throw new HttpError(502, "analytics_auth", "Account Cloudflare non trovato: controlla CF_ACCOUNT_ID e i permessi del token.");
     const allowed = new Set(period);
-    return (accounts[0].rumPageloadEventsAdaptiveGroups || []).filter((row) => {
+    const rows = (accounts[0].hourly || []).filter((row) => {
       const date = row.dimensions?.datetimeHour;
       const hour = date ? new Date(date) : null;
       return hour && !Number.isNaN(hour.getTime()) && allowed.has(romeDate(hour));
     });
+    // The Cloudflare Web Analytics dashboard uses this ungrouped (limit: 1)
+    // aggregation for its Visits and Page views summary.
+    const aggregate = accounts[0].total?.[0];
+    if (!aggregate) throw new HttpError(502, "analytics_unavailable", "Cloudflare non ha restituito i totali delle statistiche.");
+    return {
+      dates: period,
+      rows,
+      total: {
+        visits: Math.max(0, Math.round(Number(aggregate.sum?.visits) || 0)),
+        pageViews: Math.max(0, Math.round(Number(aggregate.count) || 0)),
+      },
+      sampled: (Number(aggregate.avg?.sampleInterval) || 1) > 1,
+    };
   };
 
   const chunks = await Promise.all(periods.map(readPeriod));
-  const payload = summarize(chunks.flat(), now, hosts);
+  const payload = summarize(chunks.flatMap((chunk) => chunk.rows), now, hosts);
+  for (const chunk of chunks) {
+    const daily = chunk.dates.map((date) => payload.days.find((day) => day.date === date)!);
+    const visits = apportion(chunk.total.visits, daily.map((day) => day.visits));
+    const pageViews = apportion(chunk.total.pageViews, daily.map((day) => day.pageViews));
+    daily.forEach((day, i) => {
+      day.visits = visits[i];
+      day.pageViews = pageViews[i];
+    });
+  }
+  // Compute headline numbers from *ungrouped* totals, rather than summing
+  // grouped hourly estimates that can inflate tiny traffic by 10x.
+  const add = (totals: AnalyticsTotals[]) => totals.reduce((a, b) => ({
+    visits: a.visits + b.visits, pageViews: a.pageViews + b.pageViews,
+  }), { visits: 0, pageViews: 0 });
+  payload.today = chunks[chunks.length - 1].total;
+  payload.last7 = add(chunks.slice(-7).map((chunk) => chunk.total));
+  payload.last30 = add(chunks.map((chunk) => chunk.total));
+  payload.sampled ||= chunks.some((chunk) => chunk.sampled);
 
   memoryCache.set(key, { expires: now.getTime() + CACHE_TTL_SEC * 1000, payload });
   if (memoryCache.size > 20) for (const [k, v] of memoryCache) if (v.expires <= now.getTime()) memoryCache.delete(k);
