@@ -86,7 +86,7 @@ export function VisitorStats() {
       <div className="flex items-start justify-between gap-2">
         <div>
           <h2 className="font-display text-xl font-bold">Visite al sito</h2>
-          {data?.configured && <p className="text-xs text-muted">{data.hosts.join(", ")} · ora italiana</p>}
+          {data?.configured && <p className="text-xs text-muted">{data.hosts.join(", ")} · giorni in ora italiana</p>}
         </div>
         {(data?.configured || q.isError) && (
           <Button variant="ghost" size="icon-sm" className="-mr-2 -mt-1" aria-label="Aggiorna statistiche" disabled={q.isFetching} onClick={() => q.refetch()}>
@@ -119,7 +119,7 @@ export function VisitorStats() {
           <p className="mt-3 text-[11px] leading-snug text-muted">
             Stime di Cloudflare Web Analytics{data.sampled ? " (dati campionati)" : ""}.
             Esclusi bot e crawler riconosciuti (motori di ricerca, AI), il CMS e le anteprime; inclusi gli utenti arrivati dai motori di ricerca.
-            Non sono visitatori unici: una visita inizia arrivando da un altro sito o da un link diretto. Aggiornato {relativeTime(data.generatedAt)}.
+            Non sono visitatori unici: una visita inizia arrivando da un altro sito o da un link diretto. "Oggi" parte da mezzanotte, a differenza di "Ultime 24 ore" nella dashboard Cloudflare. Aggiornato {relativeTime(data.generatedAt)}.
           </p>
         </>
       ) : null}
