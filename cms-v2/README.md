@@ -126,6 +126,22 @@ limitato al solo repository e a *Contents: Read and write*.
 Ruoli: `admin` può anche ripristinare versioni, pubblicare una bozza sopra modifiche
 concorrenti e leggere il registro attività; `editor` modifica, salva bozze e pubblica.
 
+## Verifica deploy e aggiornamento CMS
+
+Cloudflare Pages deve utilizzare **Build command** `npm run build` e
+**Build output directory** `_site` (root directory: repository root).
+La build ora fallisce se `admin-v2` non è compilato, invece di pubblicare
+il sito senza l'interfaccia aggiornata.
+
+Ogni build pubblica `/admin-v2/release.txt` con il commit e l'istante
+UTC di compilazione. Confrontare `commit=` con il SHA della deployment
+Cloudflare Pages, **non** soltanto con il commit indicato dal dashboard.
+
+Il service worker non conserva più una copia HTML dell'amministrazione:
+le schermate e le API vengono sempre richieste online; vengono conservati
+solo gli asset Vite con hash nel nome. Su iOS, dopo l'aggiornamento,
+chiudere e riaprire l'app installata per caricare il nuovo bundle.
+
 ## Statistiche visitatori
 
 La card *Visite al sito* in dashboard legge **Cloudflare Web Analytics** tramite la
