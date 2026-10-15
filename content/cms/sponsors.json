@@ -1,3 +1,11 @@
 {
-  "sponsors": []
+  "sponsors": [
+    {
+      "name": "Ristorante Tentazioni",
+      "logo": "/img/uploads/tentazioni-b631529c.webp",
+      "url": "https://www.tentazionitrento.it/it/",
+      "id": "ristorante-tentazioni",
+      "slug": "ristorante-tentazioni"
+    }
+  ]
 }
