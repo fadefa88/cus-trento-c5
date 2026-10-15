@@ -4640,6 +4640,19 @@
         "status": "Da giocare",
         "scorers": [],
         "id": "all-blacks-banda-bassiotti-2026-10-20"
+      },
+      {
+        "date": "2026-10-20",
+        "time": "20:30",
+        "group": "A",
+        "round": "2ª giornata",
+        "home": "Rango FC",
+        "away": "Recidivi FC",
+        "homeScore": null,
+        "awayScore": null,
+        "status": "Da giocare",
+        "scorers": [],
+        "id": "rango-fc-recidivi-fc-2026-10-20"
       }
     ],
     "sport": "Futsal",
