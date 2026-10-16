@@ -296,7 +296,18 @@
       "status": "Da giocare",
       "id": "cus-trento-u23-alta-giudicarie-2026-10-16",
       "home": "CUS Trento U23",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "scorerEvents": [
+        {
+          "playerId": "grippa-michele",
+          "goals": 1
+        },
+        {
+          "playerId": "26",
+          "goals": 1
+        }
+      ],
+      "score": "2-3"
     },
     {
       "opponentLogo": "/img/uploads/ledrense.png",
