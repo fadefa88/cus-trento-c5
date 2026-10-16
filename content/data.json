@@ -3843,7 +3843,20 @@
       "date": "2026-10-16",
       "lineup": {
         "startingFive": [],
-        "bench": [],
+        "bench": [
+          "battaglia-edoardo",
+          "26",
+          "buda-samuele",
+          "20",
+          "amendola-tommaso",
+          "28",
+          "18",
+          "grippa-michele",
+          "paoli-jacopo",
+          "scala-luca",
+          "zanrosso-matteo",
+          "harmeet-singh"
+        ],
         "suspended": [],
         "injured": []
       },
