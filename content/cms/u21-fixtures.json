@@ -293,7 +293,7 @@
         "injured": []
       },
       "venue": "Sanbàpolis",
-      "status": "Da giocare",
+      "status": "Terminata",
       "id": "cus-trento-u23-alta-giudicarie-2026-10-16",
       "home": "CUS Trento U23",
       "competition": "Campionato",
@@ -307,7 +307,19 @@
           "goals": 1
         }
       ],
-      "score": "2-3"
+      "score": "2-3",
+      "goalkeeperEvents": [
+        {
+          "playerId": "harmeet-singh",
+          "goalsAgainst": 3,
+          "appearances": 1
+        },
+        {
+          "playerId": "20",
+          "goalsAgainst": 0,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/ledrense.png",
