@@ -3887,6 +3887,18 @@
           "goalsAgainst": 0,
           "appearances": 0
         }
+      ],
+      "yellowCardEvents": [
+        {
+          "playerId": "scala-luca",
+          "cards": 2
+        }
+      ],
+      "redCardEvents": [
+        {
+          "playerId": "scala-luca",
+          "cards": 1
+        }
       ]
     },
     {
