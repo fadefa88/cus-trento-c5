@@ -780,10 +780,18 @@
         "injured": []
       },
       "venue": "Palasport Comunale Sestu",
-      "status": "Da giocare",
+      "status": "Terminata",
       "id": "atletico-sestu-cus-trento-2026-10-17",
       "home": "Atletico Sestu",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "6-1",
+      "goalkeeperEvents": [
+        {
+          "playerId": "baccaro-zeni-lucca",
+          "goalsAgainst": 6,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/canottieri-belluno.png",
