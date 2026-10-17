@@ -794,10 +794,6 @@
       ],
       "redCardEvents": [
         {
-          "playerId": "10",
-          "cards": 1
-        },
-        {
           "playerId": "11",
           "cards": 1
         }
@@ -806,6 +802,16 @@
         {
           "playerId": "sarcletti-paolo",
           "goals": 1
+        }
+      ],
+      "yellowCardEvents": [
+        {
+          "playerId": "8",
+          "cards": 1
+        },
+        {
+          "playerId": "16",
+          "cards": 1
         }
       ]
     },
