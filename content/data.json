@@ -955,7 +955,7 @@
           "firstName": "Marco"
         },
         {
-          "goals": 0,
+          "goals": 5,
           "yellow": false,
           "red": false,
           "number": "8",
@@ -963,7 +963,7 @@
           "firstName": "Juan"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "7",
@@ -991,16 +991,16 @@
           "yellow": false,
           "red": false,
           "number": "11",
-          "surname": "Murgia",
-          "firstName": "Andrea"
+          "surname": "Atzori",
+          "firstName": "Enrico"
         },
         {
           "goals": 0,
           "yellow": false,
           "red": false,
           "number": "2",
-          "surname": "Floris",
-          "firstName": "Filippo"
+          "surname": "Farris",
+          "firstName": "Tommaso"
         },
         {
           "goals": 0,
@@ -1069,6 +1069,22 @@
           "playerId": "baccaro-zeni-lucca",
           "goalsAgainst": 6,
           "appearances": 1
+        }
+      ],
+      "redCardEvents": [
+        {
+          "playerId": "10",
+          "cards": 1
+        },
+        {
+          "playerId": "11",
+          "cards": 1
+        }
+      ],
+      "scorerEvents": [
+        {
+          "playerId": "sarcletti-paolo",
+          "goals": 1
         }
       ]
     },
