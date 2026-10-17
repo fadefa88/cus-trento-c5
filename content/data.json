@@ -115,27 +115,27 @@
     },
     {
       "g": 3,
+      "logo": "/img/standings/serie-b-2026-27/elmas.webp",
+      "gs": 10,
+      "n": 0,
+      "pts": 6,
+      "p": 1,
+      "pos": 5,
+      "v": 2,
+      "team": "ELMAS",
+      "gf": 13
+    },
+    {
+      "g": 3,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25336logo.png",
       "gs": 8,
       "n": 1,
       "pts": 4,
       "p": 1,
-      "pos": 5,
+      "pos": 6,
       "v": 1,
       "team": "MANZANO BRN",
       "gf": 10
-    },
-    {
-      "g": 2,
-      "logo": "/img/standings/serie-b-2026-27/canottieri-belluno.webp",
-      "gs": 3,
-      "n": 1,
-      "pts": 4,
-      "p": 0,
-      "pos": 6,
-      "v": 1,
-      "team": "CANOTTIERI BELLUNO",
-      "gf": 5
     },
     {
       "g": 3,
@@ -150,16 +150,16 @@
       "gf": 12
     },
     {
-      "g": 2,
-      "logo": "/img/standings/serie-b-2026-27/elmas.webp",
-      "gs": 5,
-      "n": 0,
-      "pts": 3,
+      "g": 3,
+      "logo": "/img/standings/serie-b-2026-27/canottieri-belluno.webp",
+      "gs": 10,
+      "n": 1,
+      "pts": 4,
       "p": 1,
       "pos": 8,
       "v": 1,
-      "team": "ELMAS",
-      "gf": 6
+      "team": "CANOTTIERI BELLUNO",
+      "gf": 10
     },
     {
       "g": 3,
