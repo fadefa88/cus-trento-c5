@@ -942,7 +942,7 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "10",
+          "number": "4",
           "surname": "Mascia",
           "firstName": "Manuel"
         },
@@ -950,7 +950,7 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "9",
+          "number": "6",
           "surname": "Tidu",
           "firstName": "Marco"
         },
@@ -958,7 +958,7 @@
           "goals": 4,
           "yellow": false,
           "red": false,
-          "number": "8",
+          "number": "10",
           "surname": "Pérez Lozano",
           "firstName": "Juan"
         },
@@ -966,7 +966,7 @@
           "goals": 1,
           "yellow": false,
           "red": false,
-          "number": "7",
+          "number": "11",
           "surname": "Fratini",
           "firstName": "Jacopo"
         },
@@ -974,7 +974,7 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "6",
+          "number": "3",
           "surname": "Carletti",
           "firstName": "Fabio"
         },
@@ -982,7 +982,7 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "5",
+          "number": "8",
           "surname": "Monti",
           "firstName": "Filippo"
         },
@@ -990,7 +990,7 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "11",
+          "number": "14",
           "surname": "Atzori",
           "firstName": "Enrico"
         },
@@ -998,7 +998,7 @@
           "goals": 1,
           "yellow": false,
           "red": false,
-          "number": "2",
+          "number": "7",
           "surname": "Mura",
           "firstName": "Giulio"
         },
@@ -1006,15 +1006,15 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "15",
-          "surname": "Milia",
-          "firstName": "Gabriele"
+          "number": "9",
+          "surname": "Floris",
+          "firstName": "Filippo"
         },
         {
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "1",
+          "number": "2",
           "surname": "Arca",
           "firstName": "Davide"
         },
@@ -1022,7 +1022,7 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "14",
+          "number": "5",
           "surname": "Pili",
           "firstName": "Mattia"
         },
@@ -1030,7 +1030,7 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "12",
+          "number": "1",
           "surname": "Cossu",
           "firstName": "Giovanni"
         }
