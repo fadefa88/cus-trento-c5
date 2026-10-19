@@ -158,11 +158,6 @@
           },
           {
             "goals": 1,
-            "name": "Faggi",
-            "team": "Rango FC"
-          },
-          {
-            "goals": 1,
             "name": "Pedrini",
             "team": "Golosoni"
           },
@@ -180,6 +175,11 @@
             "goals": 1,
             "name": "Fusinato",
             "team": "Golosoni"
+          },
+          {
+            "name": "Facci",
+            "team": "Rango FC",
+            "goals": 1
           }
         ],
         "homeScore": 2,
