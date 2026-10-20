@@ -4730,10 +4730,36 @@
         "round": "2ª giornata",
         "home": "Calcio Proletario",
         "away": "TT Le Girlz",
-        "homeScore": null,
-        "awayScore": null,
-        "status": "Da giocare",
-        "scorers": [],
+        "homeScore": 2,
+        "awayScore": 6,
+        "status": "Terminata",
+        "scorers": [
+          {
+            "name": "Fenato",
+            "team": "Calcio Proletario",
+            "goals": 2
+          },
+          {
+            "name": "Afretti",
+            "team": "TT Le Girlz",
+            "goals": 1
+          },
+          {
+            "name": "Balistreri",
+            "team": "TT Le Girlz",
+            "goals": 2
+          },
+          {
+            "name": "Savoia",
+            "team": "TT Le Girlz",
+            "goals": 1
+          },
+          {
+            "name": "Autogol",
+            "team": "TT Le Girlz",
+            "goals": 2
+          }
+        ],
         "id": "calcio-proletario-tt-le-girlz-2026-10-19"
       },
       {
