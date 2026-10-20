@@ -399,10 +399,41 @@
         "round": "2ª giornata",
         "home": "Rango FC",
         "away": "Recidivi FC",
-        "homeScore": null,
-        "awayScore": null,
-        "status": "Da giocare",
-        "scorers": [],
+        "homeScore": 4,
+        "awayScore": 5,
+        "status": "Terminata",
+        "scorers": [
+          {
+            "name": "De Nardi",
+            "team": "Rango FC",
+            "goals": 1
+          },
+          {
+            "name": "Borrello",
+            "team": "Rango FC",
+            "goals": 2
+          },
+          {
+            "name": "Panebianco",
+            "team": "Recidivi FC",
+            "goals": 2
+          },
+          {
+            "name": "De Pra'",
+            "team": "Recidivi FC",
+            "goals": 1
+          },
+          {
+            "name": "Bevilacqua",
+            "team": "Recidivi FC",
+            "goals": 1
+          },
+          {
+            "name": "Favaro",
+            "team": "Recidivi FC",
+            "goals": 1
+          }
+        ],
         "id": "rango-fc-recidivi-fc-2026-10-20"
       },
       {
