@@ -355,10 +355,36 @@
         "round": "2ª giornata",
         "home": "All Blacks",
         "away": "Banda Bassiotti",
-        "homeScore": null,
-        "awayScore": null,
-        "status": "Da giocare",
-        "scorers": [],
+        "homeScore": 6,
+        "awayScore": 2,
+        "status": "Terminata",
+        "scorers": [
+          {
+            "name": "Tessari",
+            "team": "All Blacks",
+            "goals": 3
+          },
+          {
+            "name": "Lorenzonetto",
+            "team": "All Blacks",
+            "goals": 1
+          },
+          {
+            "name": "Grassi",
+            "team": "All Blacks",
+            "goals": 1
+          },
+          {
+            "name": "Loconte",
+            "team": "All Blacks",
+            "goals": 1
+          },
+          {
+            "name": "Pedrotti",
+            "team": "Banda Bassiotti",
+            "goals": 1
+          }
+        ],
         "id": "all-blacks-banda-bassiotti-2026-10-20"
       },
       {
