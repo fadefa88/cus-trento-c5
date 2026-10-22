@@ -1,0 +1,81 @@
+name: Sync TikTok Display API
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Two updates per day; cover URLs are downloaded locally (TTL about six hours).
+    - cron: "50 6,18 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/sync_tiktok_display_api.py"
+      - ".github/workflows/update-tiktok-display.yml"
+      - ".github/tiktok-display-credentials.enc"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: official-tiktok-feed
+  cancel-in-progress: false
+
+jobs:
+  update-tiktok:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+      TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+      TIKTOK_FERNET_KEY: ${{ secrets.TIKTOK_FERNET_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check whether TikTok API authorization is configured
+        id: config
+        run: |
+          if [ -n "$TIKTOK_CLIENT_KEY" ] && [ -n "$TIKTOK_CLIENT_SECRET" ] && [ -n "$TIKTOK_FERNET_KEY" ] && [ -f ".github/tiktok-display-credentials.enc" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Official TikTok API is not activated. Follow docs/tiktok-display-api.md; leaving the current feed unchanged."
+          fi
+
+      - name: Install official API dependencies
+        if: steps.config.outputs.configured == 'true'
+        run: python -m pip install --quiet requests pillow cryptography
+
+      - name: Sync public TikTok videos from authorized account
+        if: steps.config.outputs.configured == 'true'
+        run: python scripts/sync_tiktok_display_api.py sync --limit 12
+
+      - name: Commit encrypted rotated tokens, feed and local video covers
+        if: steps.config.outputs.configured == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .github/tiktok-display-credentials.enc content/social-feed.json img/social/
+          if git diff --cached --quiet; then
+            echo "No TikTok changes to publish."
+            exit 0
+          fi
+          git commit -m "Sync official TikTok video feed"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main && git push origin HEAD:main; then
+              echo "Official TikTok feed published."
+              exit 0
+            fi
+            echo "Retrying TikTok update push..."
+            git rebase --abort 2>/dev/null || true
+            sleep 3
+          done
+          echo "::error::Could not publish rotated TikTok token and feed"
+          exit 1
