@@ -1068,15 +1068,24 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
             useful_tiktok_caption(raw.get("description")),
         ) if caption
     ), "")
-    existing_caption = useful_tiktok_caption(existing.get("caption") or existing.get("text"))
+    existing_caption = useful_tiktok_caption(existing.get("caption")) or useful_tiktok_caption(existing.get("text"))
+    existing_title = useful_tiktok_caption(existing.get("title"))
     rss_image = tiktok_image_from_item(raw)
     existing_valid = valid_tiktok_cover(existing_local_image, repo_root)
 
-    # Ask for the video-specific cover when a post is new, missing an image,
-    # or the RSS text has degraded into a URL/generic label.
-    embed = tiktok_oembed(post_url) if (not existing_valid or not rss_caption) else {}
-    caption = rss_caption or useful_tiktok_caption(embed.get("title")) or existing_caption or "Video TikTok CUS Trento C5"
-    title = caption if len(caption) <= 120 else caption[:117].rstrip() + "..."
+    # Public TikTok oEmbed returns the actual caption in "title", independent
+    # of whether the post has a downloadable thumbnail.
+    embed = tiktok_oembed(post_url) if (not existing_valid or not rss_caption or rss_caption.endswith("...")) else {}
+    embed_caption = useful_tiktok_caption(embed.get("title"))
+    caption = rss_caption or embed_caption or existing_caption or ""
+    if embed_caption and (not caption or (caption.endswith("...") and len(embed_caption) > len(caption))):
+        caption = embed_caption
+    if existing_caption and (not caption or (caption.endswith("...") and len(existing_caption) > len(caption))):
+        caption = existing_caption
+    # TikTok does not always supply a title separate from the description.
+    title = useful_tiktok_caption(raw.get("title")) or embed_caption or existing_title or ""
+    if caption and (not title or (title.endswith("...") and len(caption) > len(title))):
+        title = caption[:120].rstrip()
 
     date, published = parse_date(
         raw.get("date_published")
@@ -1123,9 +1132,9 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
                     local_image, remote_image = local, remote
                     break
             recovered_caption = useful_tiktok_caption(extracted.get("caption"))
-            if recovered_caption and not rss_caption and not useful_tiktok_caption(embed.get("title")):
+            if recovered_caption and (not caption or (caption.endswith("...") and len(recovered_caption) > len(caption))):
                 caption = recovered_caption
-                title = caption if len(caption) <= 120 else caption[:117].rstrip() + "..."
+                title = caption[:120].rstrip()
         if not local_image:
             # The official TikTok player renders from the video ID: an image is
             # optional. Keep new posts even when the thumbnail API is blocked.
