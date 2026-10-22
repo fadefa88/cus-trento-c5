@@ -12,6 +12,7 @@ from scripts.update_instagram_feed import (
     tiktok_image_from_item,
     useful_tiktok_caption,
     valid_tiktok_cover,
+    import_tiktok_posts,
 )
 
 
@@ -84,6 +85,26 @@ class TestTikTokFeed(unittest.TestCase):
                 self.assertEqual(post["image"], local)
                 self.assertEqual(post["caption"], "Copertina precedente")
                 fetch.assert_not_called()
+
+
+    def test_http_502_recovers_cached_video_urls_and_hides_unavailable_covers(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            valid = self.create_image(root, "ok.jpg", (720, 1280))
+            other_url = "https://www.tiktok.com/@custrentoc5/video/7696852069482761505"
+            cached = [
+                {"platform": "TikTok", "url": VIDEO_URL, "image": "/img/social/missing.jpg", "caption": VIDEO_URL},
+                {"platform": "TikTok", "url": other_url, "image": valid, "caption": "Video precedente"},
+            ]
+            with (
+                patch("scripts.update_instagram_feed.requests.get", side_effect=RuntimeError("HTTP 502")),
+                patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}),
+            ):
+                posts = import_tiktok_posts("https://example.com/rss", root, cached, 12, "@custrentoc5")
+            self.assertEqual(len(posts), 2)
+            self.assertTrue(posts[0]["hidden"])
+            self.assertEqual(posts[1]["image"], valid)
+            self.assertFalse(posts[1].get("hidden", False))
 
     def test_no_avatar_or_placeholder_published_as_real_post(self):
         with tempfile.TemporaryDirectory() as temp:
