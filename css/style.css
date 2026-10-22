@@ -1333,3 +1333,7 @@ body.menu-open{
 .tiktok-embed-activate:focus-visible{outline:3px solid #dc2626;outline-offset:-3px;}
 .tiktok-embedded .social-feed-body{flex:1;}
 .tiktok-embed-external{display:block !important;height:auto !important;padding:0 18px 19px;font-size:13px;font-weight:700;color:#b91c1c !important;text-decoration:underline !important;}
+
+/* Genuine TikTok post metadata: do not present generic importer labels as captions. */
+.social-feed-post-title{font-size:16px;font-weight:800;line-height:1.4;margin:0 0 9px;overflow-wrap:anywhere;}
+.social-feed-caption-missing{font-size:13px !important;font-style:italic;color:#71717a !important;}

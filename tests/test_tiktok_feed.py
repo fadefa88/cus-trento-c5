@@ -111,6 +111,35 @@ class TestTikTokFeed(unittest.TestCase):
             extractor.assert_called_once_with(VIDEO_URL)
             download.assert_called_once()
 
+
+    def test_oembed_preserves_full_original_description_instead_of_truncated_rss_title(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            local = self.create_image(root, "cover.jpg", (720, 1280))
+            old = {VIDEO_URL: {"image": local, "caption": "Video TikTok CUS Trento C5"}}
+            complete = "Gol decisivo del CUS Trento! Le azioni e i festeggiamenti della squadra #futsal"
+            with patch("scripts.update_instagram_feed.tiktok_oembed", return_value={"title": complete}):
+                item = normalize_tiktok_item(
+                    {"url": VIDEO_URL, "title": "Gol decisivo del CUS Trento..."},
+                    root, old, "@custrentoc5",
+                )
+            self.assertEqual(item["caption"], complete)
+            self.assertEqual(item["title"], complete[:120])
+
+    def test_missing_description_does_not_create_a_fake_caption(self):
+        with tempfile.TemporaryDirectory() as temp:
+            with (
+                patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}),
+                patch("scripts.update_instagram_feed.tiktok_video_metadata", return_value={}),
+            ):
+                item = normalize_tiktok_item(
+                    {"url": VIDEO_URL, "title": VIDEO_URL},
+                    Path(temp), {}, "@custrentoc5",
+                )
+            self.assertEqual(item["caption"], "")
+            self.assertEqual(item["title"], "")
+            self.assertTrue(item["embed"])
+
     def test_http_502_keeps_embeddable_video_urls_without_cover(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

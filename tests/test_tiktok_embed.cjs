@@ -39,6 +39,9 @@ assert.equal((home.match(/tiktok-embed-activate/g) || []).length, 2, 'Two click-
 assert.equal((home.match(/<iframe/g) || []).length, 0, 'No TikTok player loaded before click');
 assert.ok(home.includes('Instagram test'), 'Instagram card unchanged');
 assert.ok(home.includes('Il clic carica contenuti esterni'), 'Clear third-party notice');
+assert.ok(home.includes('Nuovo video'), 'Original TikTok caption is retained when available');
+assert.ok(home.includes('Altro video'), 'Second TikTok caption is shown when available');
+const trueCaptionFeed = harness(false);
 assert.equal(without.tiktokVideoId('https://evil.invalid/video/abc'), '', 'Reject nonnumeric video ID');
 
 const allowed = harness(true);
@@ -47,6 +50,29 @@ assert.equal((embeds.match(/<iframe/g) || []).length, 0, 'No iframe auto-load ev
 assert.equal((embeds.match(/tiktok-embed-activate/g) || []).length, 2, 'Already-consenting visitors must still click for each video');
 assert.ok(embeds.includes('7697221559471050017'), 'Latest TikTok video available to click');
 assert.ok(embeds.includes('Apri su TikTok'), 'External fallback link available');
+
+
+const metadataCheck = (function(){
+  const source = js;
+  const begin = source.indexOf('function genuineTikTokPostText(');
+  const end = source.indexOf('function socialFollowActions(', begin);
+  const context = {
+    state: {social: [], socialFeed: [
+      {platform:'Instagram',url:'https://www.instagram.com/p/abc',caption:'Instagram reale'},
+      {platform:'Instagram',url:'https://www.instagram.com/p/def',caption:'Instagram B'},
+      {platform:'TikTok',url:'https://www.tiktok.com/@custrentoc5/video/7697221559471050017',caption:'',title:''},
+      {platform:'TikTok',url:'https://www.tiktok.com/@custrentoc5/video/7696852069482761505',caption:'Descrizione integrale del video',title:'Titolo diverso'},
+    ]},
+    fmt: x=>String(x),esc: x=>String(x),
+  };
+  vm.createContext(context);
+  vm.runInContext(source.slice(source.indexOf('function socialPlatformLabel('),end) + ';this.wall= socialGrid(2);',context);
+  return context.wall;
+})();
+assert.ok(metadataCheck.includes('La descrizione originale è disponibile nel player TikTok'), 'No fabricated caption for unknown metadata');
+assert.ok(!metadataCheck.includes('Video TikTok CUS Trento C5'), 'No generic replacement for missing text');
+assert.ok(metadataCheck.includes('<h3 class="social-feed-post-title">Titolo diverso</h3>'), 'Display an independent title');
+assert.ok(metadataCheck.includes('Descrizione integrale del video'), 'Display full original description');
 
 const shell = { innerHTML: '', };
 const button = { closest: selector => selector === '.tiktok-embed-shell' ? shell : null };

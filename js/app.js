@@ -903,13 +903,25 @@ function activateTikTokEmbed(button,id){
   // Explicit per-video opt-in; do not persist a global cookie preference.
   shell.innerHTML=tiktokEmbedFrame(id);
 }
+function genuineTikTokPostText(value){
+  const text=String(value||"").trim();
+  if(!text || /^https?:\/\/\S+$/i.test(text) || /^video tiktok(?: cus trento c5)?[.!]?$/i.test(text))return "";
+  return text;
+}
 function socialCard(item,index){
   const platform=socialPlatformLabel(item.platform);
   const cls=socialPlatformClass(item.platform);
   const caption=item.caption||item.title||"Ultimo contenuto social del CUS Trento C5";
   const url=item.url||item.permalink||item.share_url||"";
   const date=item.date||item.timestamp||item.create_time||"";
-  const body='<div class="social-feed-body"><div class="social-feed-meta"><b>'+esc(platform)+'</b><span>'+esc(item.username||item.handle||"@custrentoc5")+'</span></div><p>'+esc(caption)+'</p>'+(date?'<small>'+fmt(date)+'</small>':"")+'</div>';
+  const postText=cls==="tiktok" ? (genuineTikTokPostText(item.caption)||genuineTikTokPostText(item.text)) : caption;
+  const originalTitle=cls==="tiktok"?genuineTikTokPostText(item.title):"";
+  const separateTitle=originalTitle && postText && originalTitle!==postText && !postText.startsWith(originalTitle.replace(/\.\.\.$/,"")) ? originalTitle:"";
+  const contentHtml=cls==="tiktok"
+    ? (separateTitle?'<h3 class="social-feed-post-title">'+esc(separateTitle)+'</h3>':"")
+      +(postText?'<p>'+esc(postText)+'</p>':originalTitle?'<p>'+esc(originalTitle)+'</p>':'<p class="social-feed-caption-missing">La descrizione originale è disponibile nel player TikTok.</p>')
+    : '<p>'+esc(caption)+'</p>';
+  const body='<div class="social-feed-body"><div class="social-feed-meta"><b>'+esc(platform)+'</b><span>'+esc(item.username||item.handle||"@custrentoc5")+'</span></div>'+contentHtml+(date?'<small>'+fmt(date)+'</small>':"")+'</div>';
   const videoId=cls==="tiktok"?tiktokVideoId(url):"";
   if(videoId && !item.placeholder){
     // Always render click-to-play. Never auto-load a TikTok iframe, regardless of cookie preferences.
