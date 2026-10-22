@@ -753,6 +753,47 @@ def tiktok_oembed(post_url: str) -> dict:
         return {}
 
 
+def tiktok_video_metadata(post_url: str) -> dict:
+    """Second independent source: video metadata/thumbnail extracted by yt-dlp.
+
+    This only reads the public metadata; it never downloads the video itself.
+    Keep failures isolated, because a blocked TikTok request must not affect Instagram.
+    """
+    try:
+        from yt_dlp import YoutubeDL
+        with YoutubeDL({
+            "quiet": True,
+            "no_warnings": True,
+            "skip_download": True,
+            "noplaylist": True,
+            "socket_timeout": 12,
+            "retries": 1,
+            "extractor_retries": 1,
+        }) as client:
+            info = client.extract_info(post_url, download=False) or {}
+        if not isinstance(info, dict):
+            return {}
+        thumbnails = [
+            item for item in (info.get("thumbnails") or [])
+            if isinstance(item, dict)
+            and str(item.get("url") or "").startswith("https://")
+            and not is_tiktok_avatar_url(item.get("url"))
+        ]
+        thumbnails.sort(key=lambda item: (
+            int(item.get("width") or 0) * int(item.get("height") or 0),
+            int(item.get("preference") or 0),
+        ), reverse=True)
+        urls = [item["url"] for item in thumbnails]
+        primary = str(info.get("thumbnail") or "")
+        if primary.startswith("https://") and not is_tiktok_avatar_url(primary) and primary not in urls:
+            urls.insert(0, primary)
+        print(f"TikTok metadata fallback for {post_url}: {len(urls)} cover candidates.", flush=True)
+        return {"caption": info.get("description") or info.get("title") or "", "cover_urls": urls}
+    except Exception as exc:
+        print(f"WARN: video metadata fallback unavailable for {post_url}: {exc}", flush=True)
+        return {}
+
+
 def download_image(image_url: str, post_url: str, repo_root: Path, existing_local_image: str = "", prefix: str = "instagram", min_dimension: int = 0) -> tuple[str, str]:
     image_url = html.unescape(str(image_url or "")).strip()
 
@@ -1066,6 +1107,25 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
             if valid_tiktok_cover(local, repo_root):
                 local_image = local
                 break
+        if not local_image:
+            extracted = tiktok_video_metadata(post_url)
+            for candidate in extracted.get("cover_urls") or []:
+                if is_tiktok_avatar_url(candidate):
+                    continue
+                local, remote = download_image(
+                    image_url=candidate,
+                    post_url=post_url,
+                    repo_root=repo_root,
+                    prefix="tiktok",
+                    min_dimension=240,
+                )
+                if valid_tiktok_cover(local, repo_root):
+                    local_image, remote_image = local, remote
+                    break
+            recovered_caption = useful_tiktok_caption(extracted.get("caption"))
+            if recovered_caption and not rss_caption and not useful_tiktok_caption(embed.get("title")):
+                caption = recovered_caption
+                title = caption if len(caption) <= 120 else caption[:117].rstrip() + "..."
         if not local_image:
             # Do not publish an avatar, a broken thumbnail, or a placeholder as a real post.
             print(f"WARN: skipping TikTok post without a real cover: {post_url}", flush=True)
