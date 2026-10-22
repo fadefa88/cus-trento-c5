@@ -1044,6 +1044,10 @@ def parse_date(value: Any) -> tuple[str, str]:
     raw = clean_text(value)
     if not raw:
         return "", ""
+    if re.fullmatch(r"\d{10}(?:\.\d+)?", raw):
+        dt = datetime.fromtimestamp(float(raw), tz=timezone.utc)
+        iso = dt.isoformat()
+        return iso[:10], iso
     if re.match(r"^\d{4}-\d{2}-\d{2}", raw):
         return raw[:10], raw
     try:
