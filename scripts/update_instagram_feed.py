@@ -1106,15 +1106,15 @@ def import_tiktok_posts(feed_url: str, repo_root: Path, existing: list[dict], li
     }
 
     print(f"Fetching TikTok JSON feed: {feed_url}")
+    raw_items = []
     try:
-        response = requests.get(feed_url, timeout=60, headers={"User-Agent": BROWSER_UA, "Accept": "application/json,text/plain,*/*"})
+        response = requests.get(feed_url, timeout=30, headers={"User-Agent": BROWSER_UA, "Accept": "application/json,text/plain,*/*"})
         response.raise_for_status()
         payload = response.json()
     except Exception as exc:
-        print(f"WARN: TikTok feed import failed: {exc}", flush=True)
-        return []
+        print(f"WARN: TikTok RSS source unavailable: {exc}. Recovering from cached video URLs.", flush=True)
+        payload = {}
 
-    raw_items = []
     if isinstance(payload, dict):
         for key in ("items", "posts", "entries"):
             if isinstance(payload.get(key), list):
@@ -1124,6 +1124,19 @@ def import_tiktok_posts(feed_url: str, repo_root: Path, existing: list[dict], li
         raw_items = payload
 
     print(f"Raw TikTok feed items found: {len(raw_items)}")
+    if not raw_items:
+        # The RSS-Bridge proxy has frequently returned HTTP 502. Do not leave the
+        # social wall frozen: revisit known URLs using TikTok's video oEmbed API.
+        raw_items = [
+            {
+                "url": item.get("url") or item.get("permalink"),
+                "title": item.get("caption") or item.get("text") or "",
+                "image": item.get("remoteImage") or "",
+            }
+            for item in existing
+            if str(item.get("platform") or "").lower() == "tiktok"
+        ][:limit]
+        print(f"Recovering TikTok metadata for {len(raw_items)} existing video URLs.")
 
     posts: list[dict] = []
     seen = set()
@@ -1132,7 +1145,13 @@ def import_tiktok_posts(feed_url: str, repo_root: Path, existing: list[dict], li
             continue
         normalized = normalize_tiktok_item(raw, repo_root, existing_by_url, handle)
         if not normalized:
-            continue
+            # Preserve IDs for later retries without showing a 100x100 avatar
+            # (or a fake generic placeholder) in the public social wall.
+            url = normalize_tiktok_url(str(raw.get("url") or raw.get("external_url") or raw.get("id") or ""))
+            previous = existing_by_url.get(url)
+            if not previous:
+                continue
+            normalized = {**previous, "hidden": True}
         key = normalize_tiktok_url(str(normalized.get("url") or "")) or normalized.get("id")
         if not key or key in seen:
             continue
@@ -1301,6 +1320,7 @@ def main() -> int:
     parser.add_argument("--tiktok-feed-url", default=DEFAULT_TIKTOK_FEED_URL)
     parser.add_argument("--tiktok-limit", type=int, default=12)
     parser.add_argument("--tiktok-handle", default=DEFAULT_TIKTOK_HANDLE)
+    parser.add_argument("--tiktok-only", action="store_true", help="Quick recovery: skip Instagram browser extraction; preserve existing Instagram posts.")
     parser.add_argument("--report", default="social-feed-import-report.json", help="Write a debug/audit report with old vs imported posts.")
     args = parser.parse_args()
 
@@ -1319,21 +1339,22 @@ def main() -> int:
     raw_by_url: dict[str, dict] = {}
     source_hits: dict[str, int] = {}
 
-    for source in source_order(args.source):
-        raw_items = extract_posts_with_playwright(source, args.elfsight_app_id, args.embedsocial_ref, args.wait_ms)
-        source_hits[source] = len(raw_items)
-        print(f"Raw {source} Instagram candidates found: {len(raw_items)}")
-        for raw in raw_items:
-            if not isinstance(raw, dict):
-                continue
-            url = normalize_instagram_url(str(raw.get("url") or ""))
-            if not url:
-                continue
-            raw["url"] = url
-            raw.setdefault("_source", source)
-            current = raw_by_url.get(url)
-            if current is None or quality_score(raw) > quality_score(current):
-                raw_by_url[url] = raw
+    if not args.tiktok_only:
+        for source in source_order(args.source):
+            raw_items = extract_posts_with_playwright(source, args.elfsight_app_id, args.embedsocial_ref, args.wait_ms)
+            source_hits[source] = len(raw_items)
+            print(f"Raw {source} Instagram candidates found: {len(raw_items)}")
+            for raw in raw_items:
+                if not isinstance(raw, dict):
+                    continue
+                url = normalize_instagram_url(str(raw.get("url") or ""))
+                if not url:
+                    continue
+                raw["url"] = url
+                raw.setdefault("_source", source)
+                current = raw_by_url.get(url)
+                if current is None or quality_score(raw) > quality_score(current):
+                    raw_by_url[url] = raw
 
     print(f"Unique Instagram candidates after dedupe: {len(raw_by_url)}")
 
@@ -1351,7 +1372,7 @@ def main() -> int:
 
     print(f"Usable Instagram posts imported from widgets: {len(instagram_posts)}")
 
-    if not instagram_posts:
+    if not instagram_posts and not args.tiktok_only:
         print("WARN: no usable Instagram posts found from Elfsight/EmbedSocial. Keeping existing Instagram posts unchanged.")
 
     tiktok_posts = import_tiktok_posts(
