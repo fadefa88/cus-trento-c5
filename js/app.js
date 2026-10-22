@@ -863,7 +863,7 @@ function legacySocialToFeed(items){
 }
 function socialSourceItems(){
   const feed=Array.isArray(state.socialFeed)&&state.socialFeed.length?state.socialFeed:legacySocialToFeed(state.social);
-  return (feed||[]).filter(x=>/instagram|tiktok/i.test(x.platform||""));
+  return (feed||[]).filter(x=>/instagram|tiktok/i.test(x.platform||"") && x.hidden !== true);
 }
 function socialPlaceholder(platform,index){
   return {
