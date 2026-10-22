@@ -341,7 +341,19 @@
       "date": "2026-10-23",
       "lineup": {
         "startingFive": [],
-        "bench": [],
+        "bench": [
+          "battaglia-edoardo",
+          "amendola-tommaso",
+          "buda-samuele",
+          "28",
+          "grippa-michele",
+          "medeghini-riccardo",
+          "paoli-jacopo",
+          "zago-alessandro",
+          "harmeet-singh",
+          "zanrosso-matteo",
+          "11"
+        ],
         "suspended": [],
         "injured": []
       },
