@@ -21,7 +21,8 @@ function harness(consented) {
   };
   const context = {
     state,
-    hasThirdPartyConsent: () => consented,
+    // Any attempt to consult global cookie consent for TikTok is a regression.
+    hasThirdPartyConsent: () => { throw new Error('TikTok player must ignore cookie preferences'); },
     fmt: x => String(x),
     esc: s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'),
   };
@@ -35,22 +36,26 @@ const home = without.socialGrid(2);
 assert.ok(home.includes('Nuovo video'), 'Newest previously hidden TikTok post is restored');
 assert.ok(home.includes('7697221559471050017'), 'Newest TikTok post ID present');
 assert.equal((home.match(/tiktok-embed-activate/g) || []).length, 2, 'Two click-to-load TikTok cards');
-assert.equal((home.match(/<iframe/g) || []).length, 0, 'No third-party video loaded without consent');
+assert.equal((home.match(/<iframe/g) || []).length, 0, 'No TikTok player loaded before click');
 assert.ok(home.includes('Instagram test'), 'Instagram card unchanged');
 assert.ok(home.includes('Il clic carica contenuti esterni'), 'Clear third-party notice');
 assert.equal(without.tiktokVideoId('https://evil.invalid/video/abc'), '', 'Reject nonnumeric video ID');
 
 const allowed = harness(true);
 const embeds = allowed.socialGrid(2);
-assert.equal((embeds.match(/<iframe/g) || []).length, 2, 'Authorized embeds render inline');
-assert.ok(embeds.includes('www.tiktok.com/player/v1/7697221559471050017'), 'Latest video player URL');
-assert.ok(embeds.includes('loading="lazy"'), 'Video player loaded lazily');
+assert.equal((embeds.match(/<iframe/g) || []).length, 0, 'No iframe auto-load even after accepting all cookies');
+assert.equal((embeds.match(/tiktok-embed-activate/g) || []).length, 2, 'Already-consenting visitors must still click for each video');
+assert.ok(embeds.includes('7697221559471050017'), 'Latest TikTok video available to click');
 assert.ok(embeds.includes('Apri su TikTok'), 'External fallback link available');
 
 const shell = { innerHTML: '', };
 const button = { closest: selector => selector === '.tiktok-embed-shell' ? shell : null };
 without.activateTikTokEmbed(button, '7697221559471050017');
 assert.ok(shell.innerHTML.includes('<iframe'), 'Explicit click activates player');
+assert.ok(shell.innerHTML.includes('www.tiktok.com/player/v1/7697221559471050017'), 'Click loads official TikTok player');
+const shellSecond = { innerHTML: '' };
+allowed.activateTikTokEmbed({closest: () => shellSecond}, '7696852069482761505');
+assert.ok(shellSecond.innerHTML.includes('7696852069482761505'), 'Each TikTok video can be activated separately');
 shell.innerHTML = '';
 without.activateTikTokEmbed(button, '<script>');
 assert.equal(shell.innerHTML, '', 'Untrusted IDs are rejected');
