@@ -116,6 +116,7 @@ class TestTikTokFeed(unittest.TestCase):
                     "title": "Gol del CUS Trento",
                     "thumbnail_url": COVER_URL,
                 }),
+                patch("scripts.update_instagram_feed.tiktok_page_metadata", return_value={}),
                 patch("scripts.update_instagram_feed.download_image", return_value=(local, COVER_URL)) as fetch,
             ):
                 post = normalize_tiktok_item(
@@ -137,6 +138,7 @@ class TestTikTokFeed(unittest.TestCase):
             old = {VIDEO_URL: {"image": local, "caption": "Copertina precedente", "url": VIDEO_URL}}
             with (
                 patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}),
+                patch("scripts.update_instagram_feed.tiktok_page_metadata", return_value={}),
                 patch("scripts.update_instagram_feed.download_image") as fetch,
             ):
                 post = normalize_tiktok_item({"url": VIDEO_URL, "title": VIDEO_URL, "icon": AVATAR_URL}, root, old, "@custrentoc5")
@@ -152,6 +154,7 @@ class TestTikTokFeed(unittest.TestCase):
             valid = self.create_image(root, "latest-video.jpg", (720, 1280))
             with (
                 patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}),
+                patch("scripts.update_instagram_feed.tiktok_page_metadata", return_value={}),
                 patch("scripts.update_instagram_feed.tiktok_video_metadata", return_value={
                     "caption": "Ultimo video CUS Trento",
                     "cover_urls": [COVER_URL],
@@ -175,7 +178,10 @@ class TestTikTokFeed(unittest.TestCase):
             local = self.create_image(root, "cover.jpg", (720, 1280))
             old = {VIDEO_URL: {"image": local, "caption": "Video TikTok CUS Trento C5"}}
             complete = "Gol decisivo del CUS Trento! Le azioni e i festeggiamenti della squadra #futsal"
-            with patch("scripts.update_instagram_feed.tiktok_oembed", return_value={"title": complete}):
+            with (
+                patch("scripts.update_instagram_feed.tiktok_oembed", return_value={"title": complete}),
+                patch("scripts.update_instagram_feed.tiktok_page_metadata", return_value={}),
+            ):
                 item = normalize_tiktok_item(
                     {"url": VIDEO_URL, "title": "Gol decisivo del CUS Trento..."},
                     root, old, "@custrentoc5",
@@ -187,6 +193,7 @@ class TestTikTokFeed(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             with (
                 patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}),
+                patch("scripts.update_instagram_feed.tiktok_page_metadata", return_value={}),
                 patch("scripts.update_instagram_feed.tiktok_video_metadata", return_value={}),
             ):
                 item = normalize_tiktok_item(
@@ -209,6 +216,7 @@ class TestTikTokFeed(unittest.TestCase):
             with (
                 patch("scripts.update_instagram_feed.requests.get", side_effect=RuntimeError("HTTP 502")),
                 patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}),
+                patch("scripts.update_instagram_feed.tiktok_page_metadata", return_value={}),
                 patch("scripts.update_instagram_feed.tiktok_video_metadata", return_value={}),
             ):
                 posts = import_tiktok_posts("https://example.com/rss", root, cached, 12, "@custrentoc5")
@@ -223,6 +231,7 @@ class TestTikTokFeed(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             with (
                 patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}),
+                patch("scripts.update_instagram_feed.tiktok_page_metadata", return_value={}),
                 patch("scripts.update_instagram_feed.tiktok_video_metadata", return_value={}),
             ):
                 post = normalize_tiktok_item(
