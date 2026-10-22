@@ -6,7 +6,7 @@ import re
 import requests
 from urllib.parse import urlparse
 
-IDS=["7697221559471050017","7696852069482761505","7695745155537636641","7693511007867538721"]
+IDS=["7697221559471050017","7696852069482761505","7695745155537636641","7693511007867538721","7689089002758032673","7688713479485705505","7688330444198120736","7677929285130161441","7675708985785240864","7666400053082197280"]
 HEADERS=[
  {"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36","Accept-Language":"it-IT,it;q=0.9,en-US;q=0.8"},
  {"User-Agent":"facebookexternalhit/1.1","Accept":"text/html,application/json,*/*"},
@@ -68,6 +68,9 @@ def probe(url,headers,params=None):
        data=json.loads(match.group(1))
        vals[name]=discover_fields(data)[:50]
        scope=data.get("__DEFAULT_SCOPE__",{})
+       video = scope.get("webapp.video-detail", {}) if isinstance(scope,dict) else {}
+       details = (video.get("itemInfo") or {}).get("itemStruct") or {}
+       vals["actual_post"]={"id":details.get("id"),"caption":details.get("desc"),"create_time":details.get("createTime")} if isinstance(details,dict) else {}
        vals["scope_keys"]=list(scope.keys()) if isinstance(scope,dict) else []
        vals["video_scopes"]={key:discover_fields(value)[:100] for key,value in scope.items() if "video" in key.lower() or "item" in key.lower()} if isinstance(scope,dict) else {}
        vals["video_scope_data_types"]={key:list(value.keys())[:30] if isinstance(value,dict) else str(type(value).__name__) for key,value in scope.items() if "video" in key.lower() or "item" in key.lower()} if isinstance(scope,dict) else {}
@@ -93,11 +96,4 @@ def probe(url,headers,params=None):
 
 for vid in IDS:
  print("VIDEO",vid,flush=True)
- video=f"https://www.tiktok.com/@custrentoc5/video/{vid}"
- probe("https://www.tiktok.com/oembed",HEADERS[0],{"url":video})
- probe(video,HEADERS[0])
- probe(f"https://www.tiktok.com/embed/v2/{vid}",HEADERS[0])
- probe(f"https://www.tiktok.com/player/v1/{vid}?description=1",HEADERS[0])
- probe("https://www.tiktok.com/api/item/detail/",HEADERS[0],{"itemId":vid})
- probe(video,HEADERS[1])
- if vid==IDS[0]:probe(video,{"User-Agent":"Twitterbot/1.0","Accept":"text/html,application/xhtml+xml"})
+ probe(f"https://www.tiktok.com/@custrentoc5/video/{vid}",HEADERS[0])
