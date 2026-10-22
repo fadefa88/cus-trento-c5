@@ -54,6 +54,7 @@ jobs:
             node --check "$file"
           done
           bash -n scripts/build_cloudflare_pages.sh
+          node tests/test_tiktok_embed.cjs
 
       - name: TikTok social feed regression tests
         run: |
