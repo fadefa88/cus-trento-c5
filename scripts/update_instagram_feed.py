@@ -729,6 +729,54 @@ def useful_tiktok_caption(value: Any) -> str:
     return caption
 
 
+def tiktok_page_metadata(post_url: str) -> dict:
+    """Read genuine video description, date and cover from the public TikTok page.
+
+    Recent oEmbed responses often contain only an iframe, without post metadata.
+    Verify the item ID to avoid attaching another video's text or picture.
+    """
+    id_match = re.search(r"/video/(\d{10,25})(?:[/?#]|$)", post_url)
+    if not id_match:
+        return {}
+    video_id = id_match.group(1)
+    try:
+        response = requests.get(
+            post_url,
+            headers={"User-Agent": BROWSER_UA, "Accept-Language": "it-IT,it;q=0.9,en-US;q=0.8"},
+            timeout=22,
+        )
+        response.raise_for_status()
+        match = re.search(
+            r'<script\b(?=[^>]*\bid=["\x27]__UNIVERSAL_DATA_FOR_REHYDRATION__["\x27])[^>]*>(.*?)</script>',
+            response.text, flags=re.I | re.S,
+        )
+        if not match:
+            return {}
+        data = json.loads(match.group(1))
+        video = (data.get("__DEFAULT_SCOPE__", {})
+                 .get("webapp.video-detail", {})
+                 .get("itemInfo", {})
+                 .get("itemStruct", {}))
+        if not isinstance(video, dict) or str(video.get("id") or "") != video_id:
+            return {}
+        description = useful_tiktok_caption(video.get("desc"))
+        covers = video.get("video") or {}
+        candidates = []
+        for field in ("originCover", "cover", "dynamicCover"):
+            candidate = str(covers.get(field) or "")
+            if candidate.startswith("https://") and not is_tiktok_avatar_url(candidate) and candidate not in candidates:
+                candidates.append(candidate)
+        print(f"TikTok post {video_id}: description={len(description)} chars, covers={len(candidates)}", flush=True)
+        return {
+            "caption": description,
+            "create_time": video.get("createTime") or "",
+            "cover_urls": candidates,
+        }
+    except (requests.RequestException, ValueError, TypeError, AttributeError) as exc:
+        print(f"WARN: TikTok public video metadata unavailable for {video_id}: {exc}", flush=True)
+        return {}
+
+
 def tiktok_oembed(post_url: str) -> dict:
     """Public TikTok oEmbed supplies per-video thumbnail_url and description, without an API key."""
     try:
@@ -985,6 +1033,9 @@ def parse_date(value: Any) -> tuple[str, str]:
     raw = clean_text(value)
     if not raw:
         return "", ""
+    if re.fullmatch(r"\d{10}(?:\.\d+)?", raw):
+        published = datetime.fromtimestamp(float(raw), tz=timezone.utc).isoformat()
+        return published[:10], published
     if re.match(r"^\d{4}-\d{2}-\d{2}", raw):
         return raw[:10], raw
     try:
@@ -1072,11 +1123,14 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
     rss_image = tiktok_image_from_item(raw)
     existing_valid = valid_tiktok_cover(existing_local_image, repo_root)
 
-    # Ask for the video-specific cover when a post is new, missing an image,
-    # or the RSS text has degraded into a URL/generic label.
+    # The real caption is in TikTok's page hydration JSON, not recent oEmbed.
+    # Always refresh this text; some older RSS titles were truncated or generic.
+    page = tiktok_page_metadata(post_url)
+    page_caption = useful_tiktok_caption(page.get("caption"))
     embed = tiktok_oembed(post_url) if (not existing_valid or not rss_caption) else {}
-    caption = rss_caption or useful_tiktok_caption(embed.get("title")) or existing_caption or "Video TikTok CUS Trento C5"
-    title = caption if len(caption) <= 120 else caption[:117].rstrip() + "..."
+    caption = page_caption or rss_caption or useful_tiktok_caption(embed.get("title")) or existing_caption
+    # TikTok normally publishes one description rather than a separate title.
+    title = caption[:120].rstrip() if caption else ""
 
     date, published = parse_date(
         raw.get("date_published")
@@ -1084,6 +1138,7 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
         or raw.get("date")
         or raw.get("published")
         or raw.get("pubDate")
+        or page.get("create_time")
         or existing.get("publishedAt")
         or existing.get("date")
     )
@@ -1093,7 +1148,7 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
         remote_image = str(existing.get("remoteImage") or rss_image or "")
     else:
         local_image, remote_image = "", ""
-        for candidate in (str(embed.get("thumbnail_url") or ""), rss_image):
+        for candidate in (*page.get("cover_urls", []), str(embed.get("thumbnail_url") or ""), rss_image):
             if not candidate or is_tiktok_avatar_url(candidate) or candidate == remote_image:
                 continue
             local, remote = download_image(
@@ -1127,9 +1182,13 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
                 caption = recovered_caption
                 title = caption if len(caption) <= 120 else caption[:117].rstrip() + "..."
         if not local_image:
-            # Do not publish an avatar, a broken thumbnail, or a placeholder as a real post.
-            print(f"WARN: skipping TikTok post without a real cover: {post_url}", flush=True)
-            return None
+            if not caption:
+                # Avoid exposing an item with neither text nor a genuine image.
+                print(f"WARN: TikTok video {post_url} missing both cover and caption.", flush=True)
+                return None
+            # Keep the real latest post in the existing card layout; no profile avatar.
+            local_image = DEFAULT_THUMBNAIL
+            remote_image = ""
 
     item_id = hashlib.sha1(post_url.encode("utf-8", errors="ignore")).hexdigest()[:16]
     return {
