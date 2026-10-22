@@ -12,15 +12,16 @@
       "caption": "Video TikTok CUS Trento C5",
       "url": "https://www.tiktok.com/@custrentoc5/video/7697221559471050017",
       "permalink": "https://www.tiktok.com/@custrentoc5/video/7697221559471050017",
-      "image": "/img/social/tiktok-c89c8d056c9aef27.jpg",
-      "thumbnail": "/img/social/tiktok-c89c8d056c9aef27.jpg",
-      "remoteImage": "https://p16-common-sign.tiktokcdn-eu.com/tos-no1a-avt-0068c001-no/51c5f79e05bcb952492ef578589556e9~tplv-tiktokx-cropcenter:100:100.jpeg?dr=10399&refresh_token=ee2b971c&x-expires=1792749600&x-signature=x84VS%2BCDfGzyz0vOv5BeisRDBhQ%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast2b",
+      "image": "",
+      "thumbnail": "",
+      "remoteImage": "",
       "date": "",
       "publishedAt": "",
       "updatedAt": "2026-10-21T10:21:26.367942+00:00",
       "importedFrom": "rss-bridge-tiktok",
       "placeholder": false,
-      "hidden": true
+      "hidden": false,
+      "embed": true
     },
     {
       "id": "tiktok-5fc942f100981c44",
@@ -33,15 +34,16 @@
       "caption": "Video TikTok CUS Trento C5",
       "url": "https://www.tiktok.com/@custrentoc5/video/7696852069482761505",
       "permalink": "https://www.tiktok.com/@custrentoc5/video/7696852069482761505",
-      "image": "/img/social/tiktok-5fc942f100981c44.jpg",
-      "thumbnail": "/img/social/tiktok-5fc942f100981c44.jpg",
-      "remoteImage": "https://p16-common-sign.tiktokcdn-eu.com/tos-no1a-avt-0068c001-no/51c5f79e05bcb952492ef578589556e9~tplv-tiktokx-cropcenter:100:100.jpeg?dr=10399&refresh_token=ee2b971c&x-expires=1792749600&x-signature=x84VS%2BCDfGzyz0vOv5BeisRDBhQ%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast2b",
+      "image": "",
+      "thumbnail": "",
+      "remoteImage": "",
       "date": "",
       "publishedAt": "",
       "updatedAt": "2026-10-21T10:21:26.433531+00:00",
       "importedFrom": "rss-bridge-tiktok",
       "placeholder": false,
-      "hidden": true
+      "hidden": false,
+      "embed": true
     },
     {
       "id": "tiktok-ed4f2e1a4e4e20db",
