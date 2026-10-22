@@ -912,12 +912,13 @@ function socialCard(item,index){
   const body='<div class="social-feed-body"><div class="social-feed-meta"><b>'+esc(platform)+'</b><span>'+esc(item.username||item.handle||"@custrentoc5")+'</span></div><p>'+esc(caption)+'</p>'+(date?'<small>'+fmt(date)+'</small>':"")+'</div>';
   const videoId=cls==="tiktok"?tiktokVideoId(url):"";
   if(videoId && !item.placeholder){
+    // Always render click-to-play. Never auto-load a TikTok iframe, regardless of cookie preferences.
     // Never show the bad 100x100 creator avatar downloaded by RSS-Bridge.
     // Thumbnail was removed from the two known invalid avatar posts in the feed.
     const cover=!item.hidden && item.thumbnail && item.thumbnail!==SOCIAL_FALLBACK_THUMB
       ?'<img class="tiktok-embed-preview" src="'+esc(item.thumbnail)+'" loading="lazy" alt="Anteprima video TikTok CUS Trento">':"";
     const preview='<button type="button" class="tiktok-embed-activate" onclick="activateTikTokEmbed(this,\''+videoId+'\')" aria-label="Carica video TikTok '+videoId+'">'+cover+'<span class="tiktok-embed-play" aria-hidden="true">▶</span><span class="tiktok-embed-prompt">Riproduci video TikTok<small>Il clic carica contenuti esterni da TikTok</small></span></button>';
-    return '<article class="social-feed-card tiktok tiktok-embedded"><div class="tiktok-embed-shell">'+(hasThirdPartyConsent()?tiktokEmbedFrame(videoId):preview)+'</div>'+body+'<a class="tiktok-embed-external" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Apri su TikTok ↗</a></article>';
+    return '<article class="social-feed-card tiktok tiktok-embedded"><div class="tiktok-embed-shell">'+preview+'</div>'+body+'<a class="tiktok-embed-external" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Apri su TikTok ↗</a></article>';
   }
   const thumb=item.thumbnail||item.media_url||item.cover_image_url||SOCIAL_FALLBACK_THUMB;
   const media='<div class="social-feed-thumb"><img loading="lazy" decoding="async" src="'+esc(thumb)+'" alt="Post '+esc(platform)+' CUS Trento C5"><span class="social-feed-platform">'+esc(platform)+'</span>'+(item.placeholder?'<span class="social-feed-soon">In arrivo</span>':"")+'</div>'+body;
