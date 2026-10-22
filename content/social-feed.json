@@ -99,7 +99,8 @@
       "publishedAt": "",
       "updatedAt": "2026-10-21T10:21:26.367942+00:00",
       "importedFrom": "rss-bridge-tiktok",
-      "placeholder": false
+      "placeholder": false,
+      "hidden": true
     },
     {
       "id": "tiktok-5fc942f100981c44",
@@ -119,7 +120,8 @@
       "publishedAt": "",
       "updatedAt": "2026-10-21T10:21:26.433531+00:00",
       "importedFrom": "rss-bridge-tiktok",
-      "placeholder": false
+      "placeholder": false,
+      "hidden": true
     },
     {
       "id": "tiktok-ed4f2e1a4e4e20db",
