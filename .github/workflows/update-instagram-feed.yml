@@ -69,7 +69,7 @@ jobs:
             EXTRA_ARGS="--tiktok-only"
           fi
 
-          python scripts/update_instagram_feed.py \\
+          python scripts/update_instagram_feed.py \
             --source "$SOURCE" \
             --elfsight-app-id "017a8b39-9a1b-46d1-b742-cb533321bea1" \
             --embedsocial-ref "9abb7ef43c2b80e9cc04e6d7b00fb4d4ebd3e83b" \
