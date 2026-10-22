@@ -1127,9 +1127,10 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
                 caption = recovered_caption
                 title = caption if len(caption) <= 120 else caption[:117].rstrip() + "..."
         if not local_image:
-            # Do not publish an avatar, a broken thumbnail, or a placeholder as a real post.
-            print(f"WARN: skipping TikTok post without a real cover: {post_url}", flush=True)
-            return None
+            # The official TikTok player renders from the video ID: an image is
+            # optional. Keep new posts even when the thumbnail API is blocked.
+            print(f"INFO: TikTok video will use its official embed player: {post_url}", flush=True)
+            remote_image = ""
 
     item_id = hashlib.sha1(post_url.encode("utf-8", errors="ignore")).hexdigest()[:16]
     return {
@@ -1146,6 +1147,8 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
         "image": local_image,
         "thumbnail": local_image,
         "remoteImage": remote_image,
+        "embed": True,
+        "hidden": False,
         "date": date,
         "publishedAt": published,
         "updatedAt": datetime.now(timezone.utc).isoformat(),
@@ -1211,7 +1214,7 @@ def import_tiktok_posts(feed_url: str, repo_root: Path, existing: list[dict], li
             previous = existing_by_url.get(url)
             if not previous:
                 continue
-            normalized = {**previous, "hidden": True}
+            normalized = {**previous, "hidden": False} if "/video/" in url else {**previous, "hidden": True}
         key = normalize_tiktok_url(str(normalized.get("url") or "")) or normalized.get("id")
         if not key or key in seen:
             continue
