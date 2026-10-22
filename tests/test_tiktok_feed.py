@@ -1,5 +1,6 @@
 """Regression checks for video covers imported into the CUS Trento social wall."""
 import tempfile
+import json
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -12,6 +13,8 @@ from scripts.update_instagram_feed import (
     tiktok_image_from_item,
     useful_tiktok_caption,
     valid_tiktok_cover,
+    tiktok_page_metadata,
+    parse_date,
     import_tiktok_posts,
     tiktok_video_metadata,
 )
@@ -26,11 +29,119 @@ COVER_URL = "https://p16.tiktokcdn.com/video-cover/720x1280.jpeg"
 
 
 class TestTikTokFeed(unittest.TestCase):
+    def setUp(self):
+        # Tests must not reach the live TikTok website.
+        self._original_tiktok_page = tiktok_page_metadata
+        no_network = patch("scripts.update_instagram_feed.tiktok_page_metadata", return_value={})
+        no_network.start()
+        self.addCleanup(no_network.stop)
+
     def create_image(self, root, filename, size):
         path = root / "img" / "social" / filename
         path.parent.mkdir(parents=True, exist_ok=True)
         Image.new("RGB", size, "red").save(path, format="JPEG")
         return "/" + path.relative_to(root).as_posix()
+
+
+    def test_public_page_metadata_extracts_true_caption_and_cover(self):
+        caption = "Bentornati alla Cus Trento League 🥳 #futsal #calcio #torneo"
+        data = {"__DEFAULT_SCOPE__": {"webapp.video-detail": {
+            "itemInfo": {"itemStruct": {
+                "id": "7697221559471050017", "desc": caption,
+                "createTime": "1792158650",
+                "video": {
+                    "originCover": "https://example.com/video720.jpg",
+                    "cover": "https://example.com/video640.jpg",
+                },
+            }}
+        }}}
+        page = '<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__" type="application/json">' + json.dumps(data, ensure_ascii=False) + '</script>'
+        with patch("scripts.update_instagram_feed.requests.get") as request:
+            request.return_value.text = page
+            request.return_value.raise_for_status.return_value = None
+            # This mock overrides setUp's default for the duration of this check.
+            with patch("scripts.update_instagram_feed.tiktok_page_metadata", side_effect=None, wraps=None) as unused:
+                pass
+            # Access the real function via a locally restored patch.
+            from scripts import update_instagram_feed as module
+            self._metadata_module = module
+            real = self._original_tiktok_page
+            result = real(VIDEO_URL)
+        self.assertEqual(result["caption"], caption)
+        self.assertEqual(result["create_time"], "1792158650")
+        self.assertEqual(result["cover_urls"], [
+            "https://example.com/video720.jpg", "https://example.com/video640.jpg"
+        ])
+
+    def test_metadata_rejects_wrong_video_id(self):
+        data = {"__DEFAULT_SCOPE__": {"webapp.video-detail": {
+            "itemInfo": {"itemStruct": {"id": "123456789012345678", "desc": "Wrong post"}}
+        }}}
+        with patch("scripts.update_instagram_feed.requests.get") as request:
+            request.return_value.text = '<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__">' + json.dumps(data) + '</script>'
+            request.return_value.raise_for_status.return_value = None
+            self.assertEqual(self._original_tiktok_page(VIDEO_URL), {})
+
+    def test_authentic_description_overrides_truncated_rss_caption(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            cover = self.create_image(root, "actual.jpg", (720, 1280))
+            full = "Un’analisi video tranquilla: Mepo Core 💥 #futsal #calcio #calcioa5 #università #studenti"
+            with patch("scripts.update_instagram_feed.tiktok_page_metadata", return_value={
+                "caption": full, "create_time": "1792158650", "cover_urls": [],
+            }):
+                result = normalize_tiktok_item(
+                    {"url": VIDEO_URL, "title": "Un’analisi video tranquilla..."},
+                    root, {VIDEO_URL: {"image": cover}}, "@custrentoc5",
+                )
+            self.assertEqual(result["caption"], full)
+            self.assertEqual(result["title"], full[:120])
+            self.assertRegex(result["date"], "^2026-10-")
+            self.assertEqual(result["image"], cover)
+
+    def test_latest_video_is_visible_without_cover_or_avatar(self):
+        with tempfile.TemporaryDirectory() as temp:
+            caption = "Bentornati alla Cus Trento League 🥳 #futsal"
+            with (
+                patch("scripts.update_instagram_feed.tiktok_page_metadata", return_value={
+                    "caption": caption, "create_time": "", "cover_urls": [],
+                }),
+                patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}),
+                patch("scripts.update_instagram_feed.tiktok_video_metadata", return_value={}),
+            ):
+                post = normalize_tiktok_item(
+                    {"url": VIDEO_URL, "title": VIDEO_URL, "image": AVATAR_URL},
+                    Path(temp), {}, "@custrentoc5",
+                )
+            self.assertIsNotNone(post)
+            self.assertEqual(post["caption"], caption)
+            self.assertEqual(post["thumbnail"], "/img/placeholder.webp")
+            self.assertFalse(post.get("hidden", False))
+
+    def test_known_caption_is_preserved_during_page_metadata_outage(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            prior = "Testo originale completo #futsal #università"
+            good = self.create_image(root, "cover.jpg", (720, 1280))
+            with patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}):
+                post = normalize_tiktok_item({"url": VIDEO_URL, "title": "Testo..."}, root,
+                    {VIDEO_URL: {"image":good, "caption":prior}}, "@custrentoc5")
+            self.assertEqual(post["caption"], prior)
+
+    def test_epoch_timestamp(self):
+        day, published = parse_date("1792158650")
+        self.assertTrue(day.startswith("2026-10-"))
+        self.assertTrue(published.endswith("+00:00"))
+
+    def test_feed_latest_videos_are_visible_with_original_captions(self):
+        root = Path(__file__).resolve().parents[1]
+        feed = json.loads((root/"content"/"social-feed.json").read_text(encoding="utf-8"))
+        posts = [x for x in feed["posts"] if x.get("platform") == "TikTok"]
+        self.assertGreaterEqual(len(posts), 2)
+        self.assertFalse(posts[0].get("hidden", False))
+        self.assertFalse(posts[1].get("hidden", False))
+        self.assertIn("Mepo Core", posts[0]["caption"])
+        self.assertIn("Cus Trento League", posts[1]["caption"])
 
     def test_rss_avatar_is_not_a_video_cover(self):
         self.assertTrue(is_tiktok_avatar_url(AVATAR_URL))
