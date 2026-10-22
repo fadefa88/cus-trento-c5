@@ -893,9 +893,8 @@ function socialCard(item,index){
   const caption=item.caption||item.title||"Ultimo contenuto social del CUS Trento C5";
   const url=item.url||item.permalink||item.share_url||"";
   const thumb=item.thumbnail||item.media_url||item.cover_image_url||SOCIAL_FALLBACK_THUMB;
-  const date=item.date||item.timestamp||item.create_time||"";
   const media=`<div class="social-feed-thumb"><img loading="lazy" decoding="async" src="${esc(thumb)}" alt="Post ${esc(platform)} CUS Trento C5"><span class="social-feed-platform">${esc(platform)}</span>${item.placeholder?`<span class="social-feed-soon">In arrivo</span>`:""}</div>
-      <div class="social-feed-body"><div class="social-feed-meta"><b>${esc(platform)}</b><span>${esc(item.username||item.handle||"@custrentoc5")}</span></div><p>${esc(caption)}</p>${date?`<small>${fmt(date)}</small>`:""}</div>`;
+      <div class="social-feed-body"><div class="social-feed-meta"><b>${esc(platform)}</b><span>${esc(item.username||item.handle||"@custrentoc5")}</span></div><p>${esc(caption)}</p></div>`;
   return `<article class="social-feed-card ${cls}${item.placeholder?' placeholder':''}">
     ${url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" aria-label="Apri post ${esc(platform)}">${media}</a>`:`<div class="social-feed-static">${media}</div>`}
   </article>`;
