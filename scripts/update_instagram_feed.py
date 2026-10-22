@@ -1381,6 +1381,7 @@ def main() -> int:
     parser.add_argument("--tiktok-limit", type=int, default=12)
     parser.add_argument("--tiktok-handle", default=DEFAULT_TIKTOK_HANDLE)
     parser.add_argument("--tiktok-only", action="store_true", help="Quick recovery: skip Instagram browser extraction; preserve existing Instagram posts.")
+    parser.add_argument("--skip-tiktok", action="store_true", help="Official Display API owns TikTok posts; import Instagram only.")
     parser.add_argument("--report", default="social-feed-import-report.json", help="Write a debug/audit report with old vs imported posts.")
     args = parser.parse_args()
 
@@ -1435,7 +1436,7 @@ def main() -> int:
     if not instagram_posts and not args.tiktok_only:
         print("WARN: no usable Instagram posts found from Elfsight/EmbedSocial. Keeping existing Instagram posts unchanged.")
 
-    tiktok_posts = import_tiktok_posts(
+    tiktok_posts = [] if args.skip_tiktok else import_tiktok_posts(
         feed_url=args.tiktok_feed_url,
         repo_root=repo_root,
         existing=old_posts,
