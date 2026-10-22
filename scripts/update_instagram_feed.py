@@ -13,6 +13,7 @@ from typing import Any
 from urllib.parse import urlparse, urlunparse
 
 import requests
+from PIL import Image
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
 
@@ -698,7 +699,61 @@ def to_site_path(path: Path) -> str:
     return "/" + path.as_posix().lstrip("/")
 
 
-def download_image(image_url: str, post_url: str, repo_root: Path, existing_local_image: str = "", prefix: str = "instagram") -> tuple[str, str]:
+
+def valid_tiktok_cover(local_path: str, repo_root: Path) -> bool:
+    """Only accept a downloaded, decodable video cover; a 100x100 profile avatar is not a cover."""
+    if not looks_like_local_social_image(local_path, repo_root):
+        return False
+    try:
+        with Image.open(repo_root / local_path.lstrip("/")) as picture:
+            return picture.width >= 240 and picture.height >= 240
+    except (OSError, ValueError):
+        return False
+
+
+def is_tiktok_avatar_url(url: str) -> bool:
+    """RSS-Bridge sometimes publishes the creator avatar as the item's image."""
+    url = html.unescape(str(url or "")).lower()
+    return any(hint in url for hint in (
+        "/avatar/", "user-avatar", "cropcenter:100:100",
+        "tos-no1a-avt-", "tos-useast2a-avt-", "~tplv-tiktokx-cropcenter",
+    ))
+
+
+def useful_tiktok_caption(value: Any) -> str:
+    caption = clean_text(re.sub(r"<[^>]+>", " ", str(value or "")))
+    if not caption or caption.lower().strip(" .") == "video tiktok cus trento c5":
+        return ""
+    if re.fullmatch(r"https?://[^\\s]+", caption, re.I):
+        return ""
+    return caption
+
+
+def tiktok_oembed(post_url: str) -> dict:
+    """Public TikTok oEmbed supplies per-video thumbnail_url and description, without an API key."""
+    try:
+        response = requests.get(
+            "https://www.tiktok.com/oembed",
+            params={"url": post_url},
+            headers={"User-Agent": BROWSER_UA, "Accept": "application/json"},
+            timeout=18,
+        )
+        response.raise_for_status()
+        payload = response.json()
+        if not isinstance(payload, dict):
+            return {}
+        thumb = str(payload.get("thumbnail_url") or "")
+        width = int(payload.get("thumbnail_width") or 0)
+        height = int(payload.get("thumbnail_height") or 0)
+        if width < 240 or height < 240 or is_tiktok_avatar_url(thumb):
+            payload.pop("thumbnail_url", None)
+        return payload
+    except Exception as exc:
+        print(f"WARN: TikTok oEmbed not available for {post_url}: {exc}", flush=True)
+        return {}
+
+
+def download_image(image_url: str, post_url: str, repo_root: Path, existing_local_image: str = "", prefix: str = "instagram", min_dimension: int = 0) -> tuple[str, str]:
     image_url = html.unescape(str(image_url or "")).strip()
 
     if existing_local_image and existing_local_image.startswith("/img/social/"):
@@ -728,17 +783,28 @@ def download_image(image_url: str, post_url: str, repo_root: Path, existing_loca
 
             max_bytes = 14 * 1024 * 1024
             total = 0
-            with output_path.open("wb") as f:
-                for chunk in response.iter_content(chunk_size=64 * 1024):
-                    if not chunk:
-                        continue
-                    total += len(chunk)
-                    if total > max_bytes:
-                        raise ValueError("image too large")
-                    f.write(chunk)
+            temp_path = output_path.with_name(output_path.name + ".part")
+            try:
+                with temp_path.open("wb") as f:
+                    for chunk in response.iter_content(chunk_size=64 * 1024):
+                        if not chunk:
+                            continue
+                        total += len(chunk)
+                        if total > max_bytes:
+                            raise ValueError("image too large")
+                        f.write(chunk)
 
-            if output_path.stat().st_size <= 0:
-                raise ValueError("empty image file")
+                if temp_path.stat().st_size <= 0:
+                    raise ValueError("empty image file")
+                if min_dimension:
+                    with Image.open(temp_path) as picture:
+                        picture.verify()
+                    with Image.open(temp_path) as picture:
+                        if picture.width < min_dimension or picture.height < min_dimension:
+                            raise ValueError(f"image too small to be a video cover: {picture.size}")
+                temp_path.replace(output_path)
+            finally:
+                temp_path.unlink(missing_ok=True)
 
             return to_site_path(relative_path), image_url
     except Exception as exc:
@@ -915,11 +981,11 @@ def tiktok_image_from_item(item: dict) -> str:
     # RSS-Bridge/JsonFeed structures vary. Check common direct fields first.
     direct_keys = (
         "image", "thumbnail", "thumbnail_url", "image_url", "media_url", "banner_image",
-        "poster", "cover", "display_url", "icon"
+        "poster", "cover", "cover_image_url", "display_url"
     )
     for key in direct_keys:
         value = item.get(key)
-        if isinstance(value, str) and value.startswith("http"):
+        if isinstance(value, str) and value.startswith("http") and not is_tiktok_avatar_url(value):
             return html.unescape(value)
 
     attachments = item.get("attachments")
@@ -929,14 +995,14 @@ def tiktok_image_from_item(item: dict) -> str:
                 continue
             for key in ("url", "image", "thumbnail", "poster"):
                 value = attachment.get(key)
-                if isinstance(value, str) and value.startswith("http"):
+                if isinstance(value, str) and value.startswith("http") and not is_tiktok_avatar_url(value):
                     return html.unescape(value)
 
     for key in ("content_html", "content_text", "summary", "description", "content"):
         value = item.get(key)
         if isinstance(value, str):
             image = image_from_html_fragment(value)
-            if image:
+            if image and not is_tiktok_avatar_url(image):
                 return image
     return ""
 
@@ -951,19 +1017,24 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
     if existing_local_image.startswith("http"):
         existing_local_image = ""
 
-    caption = first_string(
-        raw.get("title"),
-        raw.get("caption"),
-        raw.get("content_text"),
-        raw.get("summary"),
-        raw.get("description"),
-        existing.get("caption"),
-        existing.get("text"),
-    )
-    if not caption:
-        caption = "Video TikTok CUS Trento C5"
-    # Remove crude HTML tags if RSS-Bridge puts content_html in title/description.
-    caption = clean_text(re.sub(r"<[^>]+>", " ", caption))
+
+    rss_caption = next((
+        caption for caption in (
+            useful_tiktok_caption(raw.get("title")),
+            useful_tiktok_caption(raw.get("caption")),
+            useful_tiktok_caption(raw.get("content_text")),
+            useful_tiktok_caption(raw.get("summary")),
+            useful_tiktok_caption(raw.get("description")),
+        ) if caption
+    ), "")
+    existing_caption = useful_tiktok_caption(existing.get("caption") or existing.get("text"))
+    rss_image = tiktok_image_from_item(raw)
+    existing_valid = valid_tiktok_cover(existing_local_image, repo_root)
+
+    # Ask for the video-specific cover when a post is new, missing an image,
+    # or the RSS text has degraded into a URL/generic label.
+    embed = tiktok_oembed(post_url) if (not existing_valid or not rss_caption) else {}
+    caption = rss_caption or useful_tiktok_caption(embed.get("title")) or existing_caption or "Video TikTok CUS Trento C5"
     title = caption if len(caption) <= 120 else caption[:117].rstrip() + "..."
 
     date, published = parse_date(
@@ -976,14 +1047,29 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
         or existing.get("date")
     )
 
-    image_url = tiktok_image_from_item(raw)
-    local_image, remote_image = download_image(
-        image_url=image_url,
-        post_url=post_url,
-        repo_root=repo_root,
-        existing_local_image=existing_local_image,
-        prefix="tiktok",
-    )
+    if existing_valid:
+        local_image = existing_local_image
+        remote_image = str(existing.get("remoteImage") or rss_image or "")
+    else:
+        local_image, remote_image = "", ""
+        for candidate in (str(embed.get("thumbnail_url") or ""), rss_image):
+            if not candidate or is_tiktok_avatar_url(candidate) or candidate == remote_image:
+                continue
+            local, remote = download_image(
+                image_url=candidate,
+                post_url=post_url,
+                repo_root=repo_root,
+                prefix="tiktok",
+                min_dimension=240,
+            )
+            remote_image = remote
+            if valid_tiktok_cover(local, repo_root):
+                local_image = local
+                break
+        if not local_image:
+            # Do not publish an avatar, a broken thumbnail, or a placeholder as a real post.
+            print(f"WARN: skipping TikTok post without a real cover: {post_url}", flush=True)
+            return None
 
     item_id = hashlib.sha1(post_url.encode("utf-8", errors="ignore")).hexdigest()[:16]
     return {
