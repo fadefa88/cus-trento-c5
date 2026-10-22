@@ -13,7 +13,7 @@ mkdir -p "$OUT_DIR"
 
 # Static site files and assets. Prerendered route directories are not listed
 # here: the generator owns them and reports them with --list-output-dirs.
-STATIC_PATHS="index.html robots.txt sitemap.xml _headers _redirects css js img assets content"
+STATIC_PATHS="index.html robots.txt sitemap.xml _headers _redirects css js img assets content tiktok-auth"
 ROUTE_DIRS="$(python3 scripts/generate_static_pages.py --list-output-dirs | tr -d '\r')"
 
 for path in $STATIC_PATHS $ROUTE_DIRS; do
@@ -85,6 +85,10 @@ https://:project.pages.dev/*
   X-Robots-Tag: noindex, nofollow
 https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex, nofollow
+/tiktok-auth/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Referrer-Policy: no-referrer
+  Cache-Control: no-store
 /admin-v2/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-cache
