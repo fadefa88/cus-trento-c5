@@ -67,6 +67,11 @@ def probe(url,headers,params=None):
       try:
        data=json.loads(match.group(1))
        vals[name]=discover_fields(data)[:50]
+       scope=data.get("__DEFAULT_SCOPE__",{})
+       vals["scope_keys"]=list(scope.keys()) if isinstance(scope,dict) else []
+       vals["video_scopes"]={key:discover_fields(value)[:100] for key,value in scope.items() if "video" in key.lower() or "item" in key.lower()} if isinstance(scope,dict) else {}
+       vals["video_scope_data_types"]={key:list(value.keys())[:30] if isinstance(value,dict) else str(type(value).__name__) for key,value in scope.items() if "video" in key.lower() or "item" in key.lower()} if isinstance(scope,dict) else {}
+
       except Exception: vals[name]="exists"
      else: vals[name]=clean(match.group(1))
    interesting=("title","description","lark:url:video_title","lark:url:video_brand_name","og:title","og:description","twitter:title","twitter:description")
