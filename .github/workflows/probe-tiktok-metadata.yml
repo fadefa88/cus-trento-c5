@@ -1,0 +1,22 @@
+name: Diagnose public TikTok metadata
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "scripts/probe_tiktok_metadata.py"
+      - ".github/workflows/probe-tiktok-metadata.yml"
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Probe TikTok public metadata
+        run: |
+          python -m pip install --quiet requests
+          python scripts/probe_tiktok_metadata.py
