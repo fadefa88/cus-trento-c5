@@ -1128,7 +1128,7 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
     page = tiktok_page_metadata(post_url)
     page_caption = useful_tiktok_caption(page.get("caption"))
     embed = tiktok_oembed(post_url) if (not existing_valid or not rss_caption) else {}
-    caption = page_caption or rss_caption or useful_tiktok_caption(embed.get("title")) or existing_caption
+    caption = page_caption or existing_caption or rss_caption or useful_tiktok_caption(embed.get("title"))
     # TikTok normally publishes one description rather than a separate title.
     title = caption[:120].rstrip() if caption else ""
 
