@@ -745,7 +745,7 @@ def tiktok_oembed(post_url: str) -> dict:
         # Older TikTok oEmbed responses sometimes include the text in the
         # provided embed HTML even if the top-level title is empty.
         if not useful_tiktok_caption(payload.get("title")) and isinstance(payload.get("html"), str):
-            match = re.search(r"<p\\b[^>]*>(.*?)</p>", payload["html"], flags=re.I | re.S)
+            match = re.search(r"<p\b[^>]*>(.*?)</p>", payload["html"], flags=re.I | re.S)
             if match:
                 text = html.unescape(re.sub(r"<[^>]*>", "", match.group(1)))
                 cleaned = useful_tiktok_caption(text)
