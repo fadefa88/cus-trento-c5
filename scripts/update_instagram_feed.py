@@ -724,7 +724,7 @@ def useful_tiktok_caption(value: Any) -> str:
     caption = clean_text(re.sub(r"<[^>]+>", " ", str(value or "")))
     if not caption or caption.lower().strip(" .") == "video tiktok cus trento c5":
         return ""
-    if re.fullmatch(r"https?://[^\\s]+", caption, re.I):
+    if re.fullmatch(r"https?://\S+", caption, re.I):
         return ""
     return caption
 
