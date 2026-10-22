@@ -1178,7 +1178,7 @@ def normalize_tiktok_item(raw: dict, repo_root: Path, existing_by_url: dict[str,
                     local_image, remote_image = local, remote
                     break
             recovered_caption = useful_tiktok_caption(extracted.get("caption"))
-            if recovered_caption and not rss_caption and not useful_tiktok_caption(embed.get("title")):
+            if recovered_caption and not page_caption and not rss_caption and not useful_tiktok_caption(embed.get("title")):
                 caption = recovered_caption
                 title = caption if len(caption) <= 120 else caption[:117].rstrip() + "..."
         if not local_image:
@@ -1270,7 +1270,7 @@ def import_tiktok_posts(feed_url: str, repo_root: Path, existing: list[dict], li
             previous = existing_by_url.get(url)
             if not previous:
                 continue
-            normalized = {**previous, "hidden": True}
+            normalized = {**previous, "hidden": not bool(useful_tiktok_caption(previous.get("caption")) or useful_tiktok_caption(previous.get("text")))}  # retain real previously known posts
         key = normalize_tiktok_url(str(normalized.get("url") or "")) or normalized.get("id")
         if not key or key in seen:
             continue
