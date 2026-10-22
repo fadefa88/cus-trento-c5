@@ -7,6 +7,3 @@ cms-v2/.dev-data/
 *.local
 test-results/
 playwright-report/
-
-# One-time TikTok OAuth state; never commit authorization codes.
-.tiktok-auth-state

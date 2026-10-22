@@ -54,13 +54,11 @@ jobs:
             node --check "$file"
           done
           bash -n scripts/build_cloudflare_pages.sh
-          node tests/test_tiktok_embed.cjs
 
       - name: TikTok social feed regression tests
         run: |
-          python -m pip install --quiet requests pillow playwright yt-dlp cryptography
+          python -m pip install --quiet requests pillow playwright yt-dlp
           python -m unittest discover -s tests -p 'test_tiktok_feed.py' -v
-          python -m unittest discover -s tests -p 'test_tiktok_display_api.py' -v
 
       - name: Check shared site rules (CMS files, routes, JS/Python slug parity)
         run: python scripts/check_site_consistency.py
