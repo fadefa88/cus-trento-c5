@@ -340,6 +340,18 @@
       "role": "Laterale",
       "team": "Under 21",
       "number": 27
+    },
+    {
+      "name": "Doro Francesco",
+      "role": "Laterale",
+      "team": "Under 21",
+      "number": 16,
+      "birthDate": "",
+      "birthPlace": "",
+      "faculty": "",
+      "photo": "",
+      "id": "doro-francesco",
+      "slug": "doro-francesco"
     }
   ]
 }
