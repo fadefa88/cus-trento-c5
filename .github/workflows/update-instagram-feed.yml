@@ -50,7 +50,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests playwright pillow
-          python -m playwright install --with-deps chromium
+          if [ "${{ github.event_name }}" != "push" ]; then
+            python -m playwright install --with-deps chromium
+          fi
 
       - name: Test TikTok cover validation
         run: python -m unittest discover -s tests -p 'test_tiktok_feed.py' -v
@@ -62,7 +64,12 @@ jobs:
             SOURCE="auto"
           fi
 
-          python scripts/update_instagram_feed.py \
+          EXTRA_ARGS=""
+          if [ "${{ github.event_name }}" = "push" ]; then
+            EXTRA_ARGS="--tiktok-only"
+          fi
+
+          python scripts/update_instagram_feed.py \\
             --source "$SOURCE" \
             --elfsight-app-id "017a8b39-9a1b-46d1-b742-cb533321bea1" \
             --embedsocial-ref "9abb7ef43c2b80e9cc04e6d7b00fb4d4ebd3e83b" \
@@ -71,7 +78,7 @@ jobs:
             --tiktok-feed-url "https://rss-bridge.sans-nuage.fr/?action=display&bridge=TikTokBridge&context=By+user&username=%40custrentoc5&format=Json" \
             --tiktok-limit 12 \
             --tiktok-handle "@custrentoc5" \
-            --feed content/social-feed.json
+            --feed content/social-feed.json $EXTRA_ARGS
 
       - name: Validate JSON
         run: |
@@ -91,7 +98,8 @@ jobs:
 
           # The checkout is clean at job start. Stage every change produced by
           # the social updater and static generator so new page directories are included.
-          git add -A
+          git add content/social-feed.json img/social/ social-feed-import-report.json
+          git add -u content/
 
           if git diff --cached --quiet; then
             echo "No social feed or generated SEO page changes to commit."
