@@ -69,6 +69,15 @@ def probe(url,headers,params=None):
        vals[name]=discover_fields(data)[:50]
       except Exception: vals[name]="exists"
      else: vals[name]=clean(match.group(1))
+   interesting=("title","description","lark:url:video_title","lark:url:video_brand_name","og:title","og:description","twitter:title","twitter:description")
+   metas={}
+   for match in re.findall(r"<meta\s+[^>]+>",snippet,re.I):
+    attrs=dict((k.lower(),html.unescape(v)) for k,v in re.findall(r'(name|property|content)\s*=\s*["\x27]([^"\x27]*)["\x27]',match,re.I))
+    key=(attrs.get("name") or attrs.get("property") or "").lower()
+    if key in interesting and attrs.get("content"):metas[key]=attrs["content"][:1000]
+   vals["metadata_texts"]=metas
+   vals["itemInfo_exists"]="itemInfo" in snippet
+   vals["itemStruct_exists"]="itemStruct" in snippet
    vals["tiktok_embeds"]=len(re.findall(r"tiktok-embed",snippet))
    meta_keys=re.findall(r'<meta[^>]+(?:name|property)=["\\x27]([^"\\x27]+)',snippet,re.I)
    vals["meta_tags"]=meta_keys[:70]
@@ -85,4 +94,5 @@ for vid in IDS:
  probe(f"https://www.tiktok.com/embed/v2/{vid}",HEADERS[0])
  probe(f"https://www.tiktok.com/player/v1/{vid}?description=1",HEADERS[0])
  probe("https://www.tiktok.com/api/item/detail/",HEADERS[0],{"itemId":vid})
- if vid==IDS[0]: probe(video,HEADERS[1])
+ probe(video,HEADERS[1])
+ if vid==IDS[0]:probe(video,{"User-Agent":"Twitterbot/1.0","Accept":"text/html,application/xhtml+xml"})
