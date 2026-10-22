@@ -13,6 +13,7 @@ from scripts.update_instagram_feed import (
     useful_tiktok_caption,
     valid_tiktok_cover,
     import_tiktok_posts,
+    tiktok_video_metadata,
 )
 
 
@@ -86,6 +87,29 @@ class TestTikTokFeed(unittest.TestCase):
                 self.assertEqual(post["caption"], "Copertina precedente")
                 fetch.assert_not_called()
 
+
+
+    def test_public_video_metadata_fallback_recovers_cover_and_description(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            valid = self.create_image(root, "latest-video.jpg", (720, 1280))
+            with (
+                patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}),
+                patch("scripts.update_instagram_feed.tiktok_video_metadata", return_value={
+                    "caption": "Ultimo video CUS Trento",
+                    "cover_urls": [COVER_URL],
+                }) as extractor,
+                patch("scripts.update_instagram_feed.download_image", return_value=(valid, COVER_URL)) as download,
+            ):
+                item = normalize_tiktok_item(
+                    {"url": VIDEO_URL, "title": VIDEO_URL, "image": AVATAR_URL},
+                    root, {}, "@custrentoc5",
+                )
+            self.assertEqual(item["image"], valid)
+            self.assertEqual(item["caption"], "Ultimo video CUS Trento")
+            self.assertEqual(item["remoteImage"], COVER_URL)
+            extractor.assert_called_once_with(VIDEO_URL)
+            download.assert_called_once()
 
     def test_http_502_recovers_cached_video_urls_and_hides_unavailable_covers(self):
         with tempfile.TemporaryDirectory() as temp:
