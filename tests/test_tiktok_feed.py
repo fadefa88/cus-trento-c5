@@ -111,7 +111,7 @@ class TestTikTokFeed(unittest.TestCase):
             extractor.assert_called_once_with(VIDEO_URL)
             download.assert_called_once()
 
-    def test_http_502_recovers_cached_video_urls_and_hides_unavailable_covers(self):
+    def test_http_502_keeps_embeddable_video_urls_without_cover(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             valid = self.create_image(root, "ok.jpg", (720, 1280))
@@ -123,23 +123,33 @@ class TestTikTokFeed(unittest.TestCase):
             with (
                 patch("scripts.update_instagram_feed.requests.get", side_effect=RuntimeError("HTTP 502")),
                 patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}),
+                patch("scripts.update_instagram_feed.tiktok_video_metadata", return_value={}),
             ):
                 posts = import_tiktok_posts("https://example.com/rss", root, cached, 12, "@custrentoc5")
             self.assertEqual(len(posts), 2)
-            self.assertTrue(posts[0]["hidden"])
+            self.assertFalse(posts[0]["hidden"])
+            self.assertEqual(posts[0]["image"], "")
+            self.assertTrue(posts[0]["embed"])
             self.assertEqual(posts[1]["image"], valid)
             self.assertFalse(posts[1].get("hidden", False))
 
-    def test_no_avatar_or_placeholder_published_as_real_post(self):
+    def test_no_avatar_is_published_but_official_video_embed_is_kept(self):
         with tempfile.TemporaryDirectory() as temp:
-            with patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}):
+            with (
+                patch("scripts.update_instagram_feed.tiktok_oembed", return_value={}),
+                patch("scripts.update_instagram_feed.tiktok_video_metadata", return_value={}),
+            ):
                 post = normalize_tiktok_item(
                     {"url": VIDEO_URL, "title": VIDEO_URL, "image": AVATAR_URL},
                     Path(temp),
                     {},
                     "@custrentoc5",
                 )
-                self.assertIsNone(post)
+                self.assertIsNotNone(post)
+            self.assertFalse(post["hidden"])
+            self.assertTrue(post["embed"])
+            self.assertEqual(post["image"], "")
+            self.assertEqual(post["thumbnail"], "")
 
 
 if __name__ == "__main__":

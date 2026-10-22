@@ -863,15 +863,16 @@ function legacySocialToFeed(items){
 }
 function socialSourceItems(){
   const feed=Array.isArray(state.socialFeed)&&state.socialFeed.length?state.socialFeed:legacySocialToFeed(state.social);
-  return (feed||[]).filter(x=>/instagram|tiktok/i.test(x.platform||"") && x.hidden !== true);
+  // TikTok player URLs do not depend on previously scraped images.
+  return (feed||[]).filter(x=>/instagram|tiktok/i.test(x.platform||"") && (x.hidden !== true || (socialPlatformClass(x.platform)==="tiktok" && tiktokVideoId(x.url||x.permalink))));
 }
 function socialPlaceholder(platform,index){
   return {
-    id:`placeholder-${socialPlatformClass(platform)}-${index}`,
+    id:"placeholder-"+socialPlatformClass(platform)+"-"+index,
     platform,
     username:"@custrentoc5",
     url:"",
-    caption:`${platform} in aggiornamento automatico. Quando l'automazione avrà i token validi, qui comparirà uno degli ultimi post reali.`,
+    caption:platform+" in aggiornamento automatico. Qui compariranno i nuovi post.",
     date:"",
     thumbnail:SOCIAL_FALLBACK_THUMB,
     placeholder:true
@@ -887,22 +888,44 @@ function socialFeedItems(perPlatform=2){
   };
   return [...pick("Instagram"),...pick("TikTok")];
 }
+function tiktokVideoId(value){
+  const match=String(value||"").match(/(?:^|\/)video\/([0-9]{10,25})(?:[/?#]|$)/);
+  return match?match[1]:"";
+}
+function tiktokEmbedFrame(id){
+  if(!/^[0-9]{10,25}$/.test(String(id||"")))return "";
+  return '<iframe class="tiktok-embed-iframe" loading="lazy" title="Video TikTok CUS Trento C5" src="https://www.tiktok.com/player/v1/'+id+'?controls=1&amp;description=1&amp;music_info=0" allow="fullscreen; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+}
+function activateTikTokEmbed(button,id){
+  if(!/^[0-9]{10,25}$/.test(String(id||"")))return;
+  const shell=button&&button.closest(".tiktok-embed-shell");
+  if(!shell)return;
+  // Explicit per-video opt-in; do not persist a global cookie preference.
+  shell.innerHTML=tiktokEmbedFrame(id);
+}
 function socialCard(item,index){
   const platform=socialPlatformLabel(item.platform);
   const cls=socialPlatformClass(item.platform);
   const caption=item.caption||item.title||"Ultimo contenuto social del CUS Trento C5";
   const url=item.url||item.permalink||item.share_url||"";
-  const thumb=item.thumbnail||item.media_url||item.cover_image_url||SOCIAL_FALLBACK_THUMB;
   const date=item.date||item.timestamp||item.create_time||"";
-  const media=`<div class="social-feed-thumb"><img loading="lazy" decoding="async" src="${esc(thumb)}" alt="Post ${esc(platform)} CUS Trento C5"><span class="social-feed-platform">${esc(platform)}</span>${item.placeholder?`<span class="social-feed-soon">In arrivo</span>`:""}</div>
-      <div class="social-feed-body"><div class="social-feed-meta"><b>${esc(platform)}</b><span>${esc(item.username||item.handle||"@custrentoc5")}</span></div><p>${esc(caption)}</p>${date?`<small>${fmt(date)}</small>`:""}</div>`;
-  return `<article class="social-feed-card ${cls}${item.placeholder?' placeholder':''}">
-    ${url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" aria-label="Apri post ${esc(platform)}">${media}</a>`:`<div class="social-feed-static">${media}</div>`}
-  </article>`;
+  const body='<div class="social-feed-body"><div class="social-feed-meta"><b>'+esc(platform)+'</b><span>'+esc(item.username||item.handle||"@custrentoc5")+'</span></div><p>'+esc(caption)+'</p>'+(date?'<small>'+fmt(date)+'</small>':"")+'</div>';
+  const videoId=cls==="tiktok"?tiktokVideoId(url):"";
+  if(videoId && !item.placeholder){
+    // Never show the bad 100x100 creator avatar downloaded by RSS-Bridge.
+    // Thumbnail was removed from the two known invalid avatar posts in the feed.
+    const cover=!item.hidden && item.thumbnail && item.thumbnail!==SOCIAL_FALLBACK_THUMB
+      ?'<img class="tiktok-embed-preview" src="'+esc(item.thumbnail)+'" loading="lazy" alt="Anteprima video TikTok CUS Trento">':"";
+    const preview='<button type="button" class="tiktok-embed-activate" onclick="activateTikTokEmbed(this,\''+videoId+'\')" aria-label="Carica video TikTok '+videoId+'">'+cover+'<span class="tiktok-embed-play" aria-hidden="true">▶</span><span class="tiktok-embed-prompt">Riproduci video TikTok<small>Il clic carica contenuti esterni da TikTok</small></span></button>';
+    return '<article class="social-feed-card tiktok tiktok-embedded"><div class="tiktok-embed-shell">'+(hasThirdPartyConsent()?tiktokEmbedFrame(videoId):preview)+'</div>'+body+'<a class="tiktok-embed-external" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Apri su TikTok ↗</a></article>';
+  }
+  const thumb=item.thumbnail||item.media_url||item.cover_image_url||SOCIAL_FALLBACK_THUMB;
+  const media='<div class="social-feed-thumb"><img loading="lazy" decoding="async" src="'+esc(thumb)+'" alt="Post '+esc(platform)+' CUS Trento C5"><span class="social-feed-platform">'+esc(platform)+'</span>'+(item.placeholder?'<span class="social-feed-soon">In arrivo</span>':"")+'</div>'+body;
+  return '<article class="social-feed-card '+cls+(item.placeholder?' placeholder':'')+'">'+(url?'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer" aria-label="Apri post '+esc(platform)+'">'+media+'</a>':'<div class="social-feed-static">'+media+'</div>')+'</article>';
 }
 function socialGrid(perPlatform=2){
   const items=socialFeedItems(perPlatform);
-  return `<div class="social-feed-grid${perPlatform>=4?' social-feed-grid-large':''}">${items.map(socialCard).join("")}</div>`;
+  return '<div class="social-feed-grid'+(perPlatform>=4?' social-feed-grid-large':'')+'">'+items.map(socialCard).join("")+'</div>';
 }
 function socialFollowActions(extraClass=""){return `<div class="social-follow-actions ${extraClass}">
   <a class="btn social-follow-btn instagram" href="https://www.instagram.com/custrentoc5/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i><span>Segui su Instagram</span></a>
@@ -2588,14 +2611,14 @@ function acceptCookies(choice="all"){
   localStorage.setItem("cus_cookie_choice",normalized);
   localStorage.setItem("cus_cookie_ok","yes");
   closeCookieDetails();
-  if(current==="matchday")render();
+  if(current==="matchday" || current==="home" || current==="social")render();
 }
 function rejectCookies(){acceptCookies("necessary");}
 function resetCookieConsent(){
   localStorage.removeItem("cus_cookie_choice");
   localStorage.removeItem("cus_cookie_ok");
   closeCookieDetails();
-  if(current==="matchday")render();
+  if(current==="matchday" || current==="home" || current==="social")render();
 }
 
 // Cloudflare Web Analytics (cookieless beacon, read by the CMS dashboard).
