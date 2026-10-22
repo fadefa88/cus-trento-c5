@@ -87,25 +87,20 @@ jobs:
         run: |
           python -m json.tool content/social-feed.json > /dev/null
 
-      - name: Generate static SEO pages
-        run: |
-          python scripts/generate_static_pages.py
-          test -f sitemap.xml
-          test -f robots.txt
-
       - name: Commit and push changes
         shell: bash
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          # The checkout is clean at job start. Stage every change produced by
-          # the social updater and static generator so new page directories are included.
+          # Only the social feed and its locally cached media belong to this job.
+          # Regenerating SEO pages here dirties hundreds of tracked HTML files
+          # and prevented automatic feed updates from being pushed.
           git add content/social-feed.json img/social/ social-feed-import-report.json
           git add -u content/
 
           if git diff --cached --quiet; then
-            echo "No social feed or generated SEO page changes to commit."
+            echo "No social feed changes to commit."
             exit 0
           fi
 
