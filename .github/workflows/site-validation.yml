@@ -55,6 +55,11 @@ jobs:
           done
           bash -n scripts/build_cloudflare_pages.sh
 
+      - name: TikTok social feed regression tests
+        run: |
+          python -m pip install --quiet requests pillow playwright
+          python -m unittest discover -s tests -p 'test_tiktok_feed.py' -v
+
       - name: Check shared site rules (CMS files, routes, JS/Python slug parity)
         run: python scripts/check_site_consistency.py
 
