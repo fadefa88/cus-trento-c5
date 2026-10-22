@@ -23,6 +23,22 @@ def describe_json(value,dep=0):
   if k in ["itemInfo","itemStruct","video","seo","props","data","__DEFAULT_SCOPE__"] and isinstance(v,dict):
    result[k]=describe_json(v,dep+1)
  return result
+def discover_fields(data,path="",depth=0):
+    """Read-only deep scan of TikTok page hydration data."""
+    if depth > 18:return []
+    out=[]
+    if isinstance(data,dict):
+        for key,value in data.items():
+            target=path+"."+str(key)
+            if isinstance(value,str) and (key.lower() in ("desc","description","title","text","caption","sharetitle","sharemeta","nickname") or "video" in str(key).lower()):
+                if value.strip():
+                    out.append({"path":target,"value":clean(value)})
+            elif isinstance(value,(dict,list)):
+                out+=discover_fields(value,target,depth+1)
+    elif isinstance(data,list):
+        for idx,elem in enumerate(data[:30]):out+=discover_fields(elem,path+"["+str(idx)+"]",depth+1)
+    return out[:120]
+
 def probe(url,headers,params=None):
  try:
   response=requests.get(url,params=params,headers=headers,timeout=10,allow_redirects=True)
@@ -33,7 +49,7 @@ def probe(url,headers,params=None):
    try:
     data=response.json()
     vals=describe_json(data)
-    if url.endswith("/oembed"):vals={**vals,"thumbnail_width":data.get("thumbnail_width"),"thumbnail_height":data.get("thumbnail_height"),"author_name":data.get("author_name")}
+    if url.endswith("/oembed"):vals={**vals,"raw":data}
     if "itemInfo" in data:vals["itemInfo"]=describe_json(data["itemInfo"])
     if "itemList" in data:vals["itemListN"]=len(data["itemList"])
     if "itemInfo" in (data.get("data") or {}): vals["dataItemInfo"]=describe_json(data["data"]["itemInfo"])
@@ -50,10 +66,14 @@ def probe(url,headers,params=None):
      if name=="universal_script":
       try:
        data=json.loads(match.group(1))
-       vals[name]=describe_json(data)
+       vals[name]=discover_fields(data)[:50]
       except Exception: vals[name]="exists"
      else: vals[name]=clean(match.group(1))
    vals["tiktok_embeds"]=len(re.findall(r"tiktok-embed",snippet))
+   meta_keys=re.findall(r'<meta[^>]+(?:name|property)=["\\x27]([^"\\x27]+)',snippet,re.I)
+   vals["meta_tags"]=meta_keys[:70]
+   vals["desc_occurrences"]=len(re.findall(r'"desc"\s*:',snippet))
+   vals["video_id_present"]=bool(params and "itemId" in params)
   print(json.dumps({"kind":urlparse(url).path,"status":response.status_code,"type":type[:60],"bytes":len(response.content),"final_url":urlparse(response.url).path,"fields":vals},ensure_ascii=False),flush=True)
  except Exception as e: print(json.dumps({"kind":urlparse(url).path,"error":str(e)[:200]}),flush=True)
 
