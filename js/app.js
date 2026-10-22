@@ -913,8 +913,8 @@ function socialCard(item,index){
   const videoId=cls==="tiktok"?tiktokVideoId(url):"";
   if(videoId && !item.placeholder){
     // Never show the bad 100x100 creator avatar downloaded by RSS-Bridge.
-    const badAvatar=item.hidden || String(item.remoteImage||"").includes("cropcenter:100:100");
-    const cover=!badAvatar && item.thumbnail && item.thumbnail!==SOCIAL_FALLBACK_THUMB
+    // Thumbnail was removed from the two known invalid avatar posts in the feed.
+    const cover=!item.hidden && item.thumbnail && item.thumbnail!==SOCIAL_FALLBACK_THUMB
       ?'<img class="tiktok-embed-preview" src="'+esc(item.thumbnail)+'" loading="lazy" alt="Anteprima video TikTok CUS Trento">':"";
     const preview='<button type="button" class="tiktok-embed-activate" onclick="activateTikTokEmbed(this,\''+videoId+'\')" aria-label="Carica video TikTok '+videoId+'">'+cover+'<span class="tiktok-embed-play" aria-hidden="true">▶</span><span class="tiktok-embed-prompt">Riproduci video TikTok<small>Il clic carica contenuti esterni da TikTok</small></span></button>';
     return '<article class="social-feed-card tiktok tiktok-embedded"><div class="tiktok-embed-shell">'+(hasThirdPartyConsent()?tiktokEmbedFrame(videoId):preview)+'</div>'+body+'<a class="tiktok-embed-external" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Apri su TikTok ↗</a></article>';
