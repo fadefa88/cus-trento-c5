@@ -359,10 +359,24 @@
         "injured": []
       },
       "venue": "Palestra Tiarno di Sotto",
-      "status": "Da giocare",
+      "status": "Terminata",
       "id": "ledrense-cus-trento-u23-2026-10-23",
       "home": "Ledrense",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "5-3",
+      "scorerEvents": [
+        {
+          "playerId": "doro-francesco",
+          "goals": 3
+        }
+      ],
+      "goalkeeperEvents": [
+        {
+          "playerId": "harmeet-singh",
+          "goalsAgainst": 5,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/settaurense.png",
