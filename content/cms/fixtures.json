@@ -920,21 +920,20 @@
       "away": "Canottieri Belluno",
       "date": "2026-10-24",
       "lineup": {
-        "startingFive": [
-          "baccaro-zeni-lucca",
-          "7",
-          "tesser-alvise",
-          "ceola-michele",
-          "16"
-        ],
+        "startingFive": [],
         "bench": [
-          "1",
-          "19",
-          "8",
+          "ceola-michele",
+          "baccaro-zeni-lucca",
           "10",
-          "11",
-          "sarcletti-paolo",
-          "scala-luca"
+          "cuman-mattia",
+          "18",
+          "7",
+          "16",
+          "19",
+          "gobbetti-fabio",
+          "8",
+          "tesser-alvise",
+          "1"
         ],
         "suspended": [],
         "injured": []
