@@ -939,10 +939,18 @@
         "injured": []
       },
       "venue": "Palazzetto Trento Nord",
-      "status": "Da giocare",
+      "status": "Terminata",
       "id": "cus-trento-canottieri-belluno-2026-10-24",
       "home": "CUS Trento",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "0-8",
+      "goalkeeperEvents": [
+        {
+          "playerId": "baccaro-zeni-lucca",
+          "goalsAgainst": 8,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/real-bubi.png",
