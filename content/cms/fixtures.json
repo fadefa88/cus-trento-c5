@@ -823,15 +823,15 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "1",
-          "surname": "Lecis",
-          "firstName": "Nicolò"
+          "number": "8",
+          "surname": "Vigne",
+          "firstName": "Gianmarco"
         },
         {
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "12",
+          "number": "1",
           "surname": "Dalla Libera",
           "firstName": "Manuel"
         },
@@ -839,7 +839,7 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "2",
+          "number": "14",
           "surname": "Dalla Zanna",
           "firstName": "Demis"
         },
@@ -856,14 +856,14 @@
           "yellow": false,
           "red": false,
           "number": "9",
-          "surname": "Filho",
-          "firstName": "Robson Fernandes"
+          "surname": "Fernandes Filho",
+          "firstName": "Robson"
         },
         {
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "17",
+          "number": "4",
           "surname": "Bonavera",
           "firstName": "Mattia"
         },
@@ -871,15 +871,15 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "21",
-          "surname": "Ahmed",
-          "firstName": "Ghodbane"
+          "number": "10",
+          "surname": "Ghodbane",
+          "firstName": "Ahmed"
         },
         {
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "22",
+          "number": "11",
           "surname": "Bortolini",
           "firstName": "Alessandro"
         },
@@ -887,15 +887,15 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "7",
-          "surname": "Dal Borgo",
-          "firstName": "Massimo"
+          "number": "12",
+          "surname": "De Bona",
+          "firstName": "Mario"
         },
         {
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "11",
+          "number": "3",
           "surname": "Dal Farra",
           "firstName": "Riccardo"
         },
@@ -903,7 +903,7 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "10",
+          "number": "5",
           "surname": "Lambarki",
           "firstName": "Fahed"
         },
@@ -911,9 +911,9 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "8",
-          "surname": "Orsi",
-          "firstName": "Brayan Augusto"
+          "number": "7",
+          "surname": "Orsi Brayan",
+          "firstName": "Augusto"
         }
       ],
       "time": "16:00",
