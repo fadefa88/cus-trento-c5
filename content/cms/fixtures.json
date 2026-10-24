@@ -820,12 +820,13 @@
       "slug": "cus-trento-canottieri-belluno-2026-10-24",
       "opponentLineup": [
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "8",
           "surname": "Vigne",
-          "firstName": "Gianmarco"
+          "firstName": "Gianmarco",
+          "minute": "12’20”pt"
         },
         {
           "goals": 0,
@@ -836,12 +837,13 @@
           "firstName": "Manuel"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "14",
           "surname": "Dalla Zanna",
-          "firstName": "Demis"
+          "firstName": "Demis",
+          "minute": "9’14”st"
         },
         {
           "goals": 0,
@@ -860,12 +862,13 @@
           "firstName": "Robson"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "4",
           "surname": "Bonavera",
-          "firstName": "Mattia"
+          "firstName": "Mattia",
+          "minute": "14’39”st"
         },
         {
           "goals": 0,
@@ -876,12 +879,20 @@
           "firstName": "Ahmed"
         },
         {
-          "goals": 0,
+          "goals": 2,
           "yellow": false,
           "red": false,
           "number": "11",
           "surname": "Bortolini",
-          "firstName": "Alessandro"
+          "firstName": "Alessandro",
+          "goalTimes": [
+            {
+              "time": "5’23”pt"
+            },
+            {
+              "time": "10’07”st"
+            }
+          ]
         },
         {
           "goals": 0,
@@ -900,12 +911,23 @@
           "firstName": "Riccardo"
         },
         {
-          "goals": 0,
+          "goals": 3,
           "yellow": false,
           "red": false,
           "number": "5",
           "surname": "Lambarki",
-          "firstName": "Fahed"
+          "firstName": "Fahed",
+          "goalTimes": [
+            {
+              "time": "1’18”pt"
+            },
+            {
+              "time": "10’35”pt"
+            },
+            {
+              "time": "10’08”st"
+            }
+          ]
         },
         {
           "goals": 0,
