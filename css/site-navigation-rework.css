@@ -934,14 +934,24 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .match-center-v57-teamname{font-size:20px;text-transform:uppercase;}
   .match-center-v57-score{font-size:34px;}
 }
-/* v60: marcatori su una riga e logo Serie B scontornato via clip-path. */
-.match-center-v57-board,.match-center-v57-team,.match-center-v57-scorers{overflow:visible!important;}
+/* Marcatori leggibili anche in verticale: niente righe a larghezza illimitata o centratura. */
+.match-center-v57-scorers{justify-items:start;text-align:left;min-width:0;}
 .match-center-v57-scorer{
-  white-space:nowrap!important;
-  width:max-content!important;
-  max-width:none!important;
-  overflow:visible!important;
-  justify-self:center!important;
+  font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;
+  font-size:14px;
+  font-weight:600;
+  line-height:1.35;
+  white-space:normal;
+  width:100%;
+  max-width:100%;
+  overflow-wrap:anywhere;
+  justify-self:start;
+  text-align:left;
+}
+.match-center-v57-scorer span{
+  font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;
+  font-size:14px;
+  font-weight:600;
 }
 .match-center-v57-compmark.is-division{overflow:visible!important;}
 
