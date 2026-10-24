@@ -151,12 +151,24 @@
     },
     {
       "g": 4,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25339logo.png",
+      "gs": 14,
+      "n": 0,
+      "pts": 6,
+      "p": 2,
+      "pos": 8,
+      "v": 2,
+      "team": "JESOLO",
+      "gf": 9
+    },
+    {
+      "g": 4,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25336logo.png",
       "gs": 14,
       "n": 1,
       "pts": 4,
       "p": 2,
-      "pos": 8,
+      "pos": 9,
       "v": 1,
       "team": "MANZANO BRN",
       "gf": 12
@@ -168,34 +180,22 @@
       "n": 1,
       "pts": 4,
       "p": 2,
-      "pos": 9,
+      "pos": 10,
       "v": 1,
       "team": "ATLETICO SESTU",
       "gf": 14
     },
     {
-      "g": 3,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25339logo.png",
-      "gs": 12,
-      "n": 0,
-      "pts": 3,
-      "p": 2,
-      "pos": 10,
-      "v": 1,
-      "team": "JESOLO",
-      "gf": 6
-    },
-    {
-      "g": 3,
+      "g": 4,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25344logo.png",
-      "gs": 12,
+      "gs": 15,
       "n": 0,
       "pts": 0,
-      "p": 3,
+      "p": 4,
       "pos": 11,
       "v": 0,
       "team": "TRENTO",
-      "gf": 2
+      "gf": 4
     },
     {
       "g": 4,
