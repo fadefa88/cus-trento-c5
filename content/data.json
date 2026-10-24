@@ -67,12 +67,24 @@
   "standings": [
     {
       "g": 4,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25343logo.png",
+      "gs": 9,
+      "n": 0,
+      "pts": 9,
+      "p": 1,
+      "pos": 1,
+      "v": 3,
+      "team": "CONEGLIANOMONTELLO",
+      "gf": 17
+    },
+    {
+      "g": 4,
       "logo": "/img/standings/serie-b-2026-27/elmas.webp",
       "gs": 12,
       "n": 0,
       "pts": 9,
       "p": 1,
-      "pos": 1,
+      "pos": 2,
       "v": 3,
       "team": "ELMAS",
       "gf": 19
@@ -84,7 +96,7 @@
       "n": 0,
       "pts": 9,
       "p": 1,
-      "pos": 2,
+      "pos": 3,
       "v": 3,
       "team": "REAL BUBI MERANO",
       "gf": 12
@@ -96,7 +108,7 @@
       "n": 1,
       "pts": 7,
       "p": 1,
-      "pos": 3,
+      "pos": 4,
       "v": 2,
       "team": "VILLORBA",
       "gf": 19
@@ -108,22 +120,22 @@
       "n": 1,
       "pts": 7,
       "p": 1,
-      "pos": 4,
+      "pos": 5,
       "v": 2,
       "team": "CANOTTIERI BELLUNO",
       "gf": 18
     },
     {
-      "g": 3,
+      "g": 4,
       "logo": "/img/standings/serie-b-2026-27/futsal-atesina.webp",
-      "gs": 8,
+      "gs": 12,
       "n": 1,
       "pts": 7,
-      "p": 0,
-      "pos": 5,
+      "p": 1,
+      "pos": 6,
       "v": 2,
       "team": "FUTSAL ATESINA",
-      "gf": 14
+      "gf": 17
     },
     {
       "g": 4,
@@ -132,22 +144,10 @@
       "n": 1,
       "pts": 7,
       "p": 1,
-      "pos": 6,
+      "pos": 7,
       "v": 2,
       "team": "EAGLES",
       "gf": 17
-    },
-    {
-      "g": 3,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25343logo.png",
-      "gs": 6,
-      "n": 0,
-      "pts": 6,
-      "p": 1,
-      "pos": 7,
-      "v": 2,
-      "team": "CONEGLIANOMONTELLO",
-      "gf": 13
     },
     {
       "g": 4,
