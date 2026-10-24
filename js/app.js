@@ -2075,6 +2075,22 @@ function goalTimes(event){
   const legacy=goalTimeLabel(event&&event.minute);
   return legacy?[legacy]:[];
 }
+// Ordina i marcatori secondo il loro primo gol, rispettando primo e secondo tempo.
+// Per le triplette/doppiette considera solo il gol cronologicamente piu' precoce.
+function scorerGoalSeconds(label){
+  const match=String(label||"").trim().match(/^(\d{1,3})\s*(?:['’′:]\s*(\d{1,2})?)?\s*["”″]?\s*(pt|st)?$/i);
+  if(!match) return Number.POSITIVE_INFINITY;
+  const seconds=Number(match[2]||0);
+  if(seconds>=60) return Number.POSITIVE_INFINITY;
+  return ((match[3]||"").toLowerCase()==="st"?20*60:0)+Number(match[1])*60+seconds;
+}
+function firstScorerGoalSeconds(event){
+  return goalTimes(event).reduce((earliest,time)=>Math.min(earliest,scorerGoalSeconds(time)),Number.POSITIVE_INFINITY);
+}
+function chronologicalScorers(items){
+  return items.map((item,index)=>({...item,originalIndex:index,firstSeconds:firstScorerGoalSeconds(item.event)}))
+    .sort((a,b)=>a.firstSeconds===b.firstSeconds?a.originalIndex-b.originalIndex:a.firstSeconds-b.firstSeconds);
+}
 function matchScorerLine(name,event,isYouth){
   const times=isYouth?[]:goalTimes(event);
   const goals=Math.max(1,Number(event&&event.goals||1)||1,times.length||0);
@@ -2099,8 +2115,9 @@ function matchOwnScorers(match,isYouth){
     const player=matchPlayerFromRef(resolved||raw,roster);
     return {surname:playerSurnameById(roster,resolved||raw),full:player&&player.name||"",event};
   });
-  const labels=scorerLabels(items);
-  return items.map((item,i)=>matchScorerLine(labels[i],item.event,isYouth)).join("");
+  const ordered=chronologicalScorers(items);
+  const labels=scorerLabels(ordered);
+  return ordered.map((item,i)=>matchScorerLine(labels[i],item.event,isYouth)).join("");
 }
 // Marcatori avversari: solo visualizzazione, senza tempi per l'Under 23.
 // Se i convocati avversari hanno gol inseriti, il tabellino usa quelli al posto dell'elenco marcatori.
@@ -2109,16 +2126,16 @@ function matchOpponentScorers(match,isYouth){
   const fromLineup=isYouth?[]:matchOpponentLineup(match).filter(p=>opponentGoalCount(p)>0);
   if(fromLineup.length){
     const items=fromLineup.map(p=>({surname:String(p.surname).trim(),full:[String(p.surname).trim(),String(p.firstName||"").trim()].filter(Boolean).join(" "),event:{...p,goals:opponentGoalCount(p)}}));
-    const labels=scorerLabels(items);
-    return items.map((item,i)=>matchScorerLine(labels[i],item.event,false)).join("");
+    const ordered=chronologicalScorers(items);
+    const labels=scorerLabels(ordered);
+    return ordered.map((item,i)=>matchScorerLine(labels[i],item.event,false)).join("");
   }
   const events=Array.isArray(match.opponentScorerEvents)?match.opponentScorerEvents:[];
-  return events.map(event=>{
-    const name=String(event&&event.name||"").trim();
-    if(!name) return "";
-    if(!isYouth) return matchScorerLine(name,event,false);
-    const goals=Math.max(1,Number(event&&event.goals||1)||1);
-    return `<div class="match-center-v57-scorer">${safe(name)}${goals>1?`<small>×${goals}</small>`:""}</div>`;
+  const items=events.map(event=>({name:String(event&&event.name||"").trim(),event})).filter(item=>item.name);
+  return chronologicalScorers(items).map(item=>{
+    if(!isYouth) return matchScorerLine(item.name,item.event,false);
+    const goals=Math.max(1,Number(item.event&&item.event.goals||1)||1);
+    return `<div class="match-center-v57-scorer">${safe(item.name)}${goals>1?`<small>×${goals}</small>`:""}</div>`;
   }).join("");
 }
 function matchCompetitionBrand(type,isYouth){
