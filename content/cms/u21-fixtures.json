@@ -376,6 +376,18 @@
           "goalsAgainst": 5,
           "appearances": 1
         }
+      ],
+      "redCardEvents": [
+        {
+          "playerId": "battaglia-edoardo",
+          "cards": 1
+        }
+      ],
+      "yellowCardEvents": [
+        {
+          "playerId": "battaglia-edoardo",
+          "cards": 2
+        }
       ]
     },
     {
