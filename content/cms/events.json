@@ -448,10 +448,41 @@
         "round": "3ª giornata",
         "home": "All Blacks",
         "away": "Calcio Proletario",
-        "homeScore": null,
-        "awayScore": null,
-        "status": "Da giocare",
-        "scorers": [],
+        "homeScore": 4,
+        "awayScore": 3,
+        "status": "Terminata",
+        "scorers": [
+          {
+            "name": "Lorenzonetto",
+            "team": "All Blacks",
+            "goals": 2
+          },
+          {
+            "name": "Grassi",
+            "team": "All Blacks",
+            "goals": 1
+          },
+          {
+            "name": "Autogol",
+            "team": "All Blacks",
+            "goals": 1
+          },
+          {
+            "name": "Gentile",
+            "team": "Calcio Proletario",
+            "goals": 1
+          },
+          {
+            "name": "Beltrami",
+            "team": "Calcio Proletario",
+            "goals": 1
+          },
+          {
+            "name": "Milano",
+            "team": "Calcio Proletario",
+            "goals": 1
+          }
+        ],
         "id": "all-blacks-calcio-proletario-2026-10-26"
       },
       {
