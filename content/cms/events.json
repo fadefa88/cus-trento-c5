@@ -492,10 +492,31 @@
         "round": "3ª giornata",
         "home": "Recidivi FC",
         "away": "Golosoni",
-        "homeScore": null,
-        "awayScore": null,
-        "status": "Da giocare",
-        "scorers": [],
+        "homeScore": 1,
+        "awayScore": 4,
+        "status": "Terminata",
+        "scorers": [
+          {
+            "name": "De Pra'",
+            "team": "Recidivi FC",
+            "goals": 1
+          },
+          {
+            "name": "Perissinotto",
+            "team": "Golosoni",
+            "goals": 2
+          },
+          {
+            "name": "Fiorentino",
+            "team": "Golosoni",
+            "goals": 1
+          },
+          {
+            "name": "Pedrini",
+            "team": "Golosoni",
+            "goals": 1
+          }
+        ],
         "id": "recidivi-fc-golosoni-2026-10-26"
       },
       {
