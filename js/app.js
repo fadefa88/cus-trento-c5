@@ -3279,20 +3279,21 @@ const sectionPages=(function(){
       [teamAt(rankingA,3),teamAt(rankingB,0),"4ª A","1ª B"]
     ];
     const quarters=pairings.map((pair,index)=>leagueKnockoutMatch(qStored[index],pair[0],pair[1]));
-    const semis=[
-      leagueKnockoutMatch(sStored[0],quarters[0].winner||"Vincente quarto 1",quarters[1].winner||"Vincente quarto 2"),
-      leagueKnockoutMatch(sStored[1],quarters[2].winner||"Vincente quarto 3",quarters[3].winner||"Vincente quarto 4")
-    ];
+    // Solo frontend: SF1 = vincente Q1 vs Q3; SF2 = vincente Q2 vs Q4.
+    const semiQuarterPairs=[[0,2],[1,3]];
+    const semis=semiQuarterPairs.map(([first,second],index)=>
+      leagueKnockoutMatch(sStored[index],quarters[first].winner||"Vincente quarto "+(first+1),quarters[second].winner||"Vincente quarto "+(second+1))
+    );
     const final=leagueKnockoutMatch(bracket.final,semis[0].winner||"Vincente semifinale 1",semis[1].winner||"Vincente semifinale 2");
     return `<div class="ctl-knockout">
       <div class="ctl-knockout-board">
         <div class="ctl-knockout-round">
           <h3>Quarti di finale</h3>
-          ${quarters.map((match,index)=>leagueKnockoutCard("Quarto "+(index+1),match,pairings[index][2],pairings[index][3])).join("")}
+          ${[0,2,1,3].map(index=>leagueKnockoutCard("Quarto "+(index+1),quarters[index],pairings[index][2],pairings[index][3])).join("")}
         </div>
         <div class="ctl-knockout-round ctl-knockout-round-semis">
           <h3>Semifinali</h3>
-          ${semis.map((match,index)=>leagueKnockoutCard("Semifinale "+(index+1),match,"VQ"+(index*2+1),"VQ"+(index*2+2))).join("")}
+          ${semis.map((match,index)=>leagueKnockoutCard("Semifinale "+(index+1),match,...semiQuarterPairs[index].map(i=>"VQ"+(i+1)))).join("")}
         </div>
         <div class="ctl-knockout-round ctl-knockout-round-final">
           <h3>Finale</h3>
