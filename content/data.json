@@ -5082,6 +5082,21 @@
             "name": "Farina",
             "team": "The Rolling Rocks",
             "goals": 1
+          },
+          {
+            "name": "De Nardi",
+            "team": "Rango FC",
+            "goals": 1
+          },
+          {
+            "name": "Facci",
+            "team": "Rango FC",
+            "goals": 1
+          },
+          {
+            "name": "Bridi",
+            "team": "Rango FC",
+            "goals": 2
           }
         ],
         "id": "rango-fc-the-rolling-rocks-2026-10-27"
