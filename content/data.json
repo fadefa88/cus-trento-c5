@@ -5093,10 +5093,36 @@
         "round": "3ª giornata",
         "home": "Banda Bassiotti",
         "away": "TT Le Girlz",
-        "homeScore": null,
-        "awayScore": null,
-        "status": "Da giocare",
-        "scorers": [],
+        "homeScore": 1,
+        "awayScore": 7,
+        "status": "Terminata",
+        "scorers": [
+          {
+            "name": "Bekhouche",
+            "team": "Banda Bassiotti",
+            "goals": 1
+          },
+          {
+            "name": "Pecchini",
+            "team": "TT Le Girlz",
+            "goals": 1
+          },
+          {
+            "name": "Casicci Placido",
+            "team": "TT Le Girlz",
+            "goals": 1
+          },
+          {
+            "name": "Afretti",
+            "team": "TT Le Girlz",
+            "goals": 2
+          },
+          {
+            "name": "Malavasi",
+            "team": "TT Le Girlz",
+            "goals": 3
+          }
+        ],
         "id": "banda-bassiotti-tt-le-girlz-2026-10-27"
       }
     ],
