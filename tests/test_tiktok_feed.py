@@ -145,7 +145,7 @@ class TestTikTokFeed(unittest.TestCase):
             with self.subTest(url=post.get("url")):
                 self.assertFalse(post.get("hidden", False))
                 self.assertFalse(post.get("placeholder", False))
-                self.assertRegex(post.get("url", ""), r"^https://www\\.tiktok\\.com/@custrentoc5/video/\\d+$")
+                self.assertRegex(post.get("url", ""), r"^https://www\.tiktok\.com/@custrentoc5/video/\d+$")
                 caption = useful_tiktok_caption(post.get("caption"))
                 self.assertTrue(caption, "The latest videos must have a real caption")
                 self.assertEqual(post.get("text"), caption)
