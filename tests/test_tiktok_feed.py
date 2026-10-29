@@ -30,11 +30,12 @@ COVER_URL = "https://p16.tiktokcdn.com/video-cover/720x1280.jpeg"
 
 class TestTikTokFeed(unittest.TestCase):
     def setUp(self):
-        # Tests must not reach the live TikTok website.
+        # No real TikTok requests in unit tests: the fallback must be mocked too.
         self._original_tiktok_page = tiktok_page_metadata
-        no_network = patch("scripts.update_instagram_feed.tiktok_page_metadata", return_value={})
-        no_network.start()
-        self.addCleanup(no_network.stop)
+        for function in ("tiktok_page_metadata", "tiktok_video_metadata"):
+            no_network = patch(f"scripts.update_instagram_feed.{function}", return_value={})
+            no_network.start()
+            self.addCleanup(no_network.stop)
 
     def create_image(self, root, filename, size):
         path = root / "img" / "social" / filename
@@ -138,10 +139,24 @@ class TestTikTokFeed(unittest.TestCase):
         feed = json.loads((root/"content"/"social-feed.json").read_text(encoding="utf-8"))
         posts = [x for x in feed["posts"] if x.get("platform") == "TikTok"]
         self.assertGreaterEqual(len(posts), 2)
-        self.assertFalse(posts[0].get("hidden", False))
-        self.assertFalse(posts[1].get("hidden", False))
-        self.assertIn("Mepo Core", posts[0]["caption"])
-        self.assertIn("Cus Trento League", posts[1]["caption"])
+        # Do not pin captions to the first two positions: new videos must be
+        # allowed to appear above older posts without breaking CI.
+        for post in posts[:2]:
+            with self.subTest(url=post.get("url")):
+                self.assertFalse(post.get("hidden", False))
+                self.assertFalse(post.get("placeholder", False))
+                self.assertRegex(post.get("url", ""), r"^https://www\\.tiktok\\.com/@custrentoc5/video/\\d+$")
+                caption = useful_tiktok_caption(post.get("caption"))
+                self.assertTrue(caption, "The latest videos must have a real caption")
+                self.assertEqual(post.get("text"), caption)
+                self.assertEqual(post.get("permalink"), post.get("url"))
+                self.assertTrue(
+                    str(post.get("title") or "").startswith(caption[:60]),
+                    "Video title must reflect the original caption",
+                )
+        self.assertNotEqual(posts[0]["url"], posts[1]["url"])
+        # The feed must keep the newest TikTok item at the top.
+        self.assertGreaterEqual(str(posts[0].get("date") or ""), str(posts[1].get("date") or ""))
 
     def test_rss_avatar_is_not_a_video_cover(self):
         self.assertTrue(is_tiktok_avatar_url(AVATAR_URL))
