@@ -398,7 +398,20 @@
       "date": "2026-10-30",
       "lineup": {
         "startingFive": [],
-        "bench": [],
+        "bench": [
+          "buda-samuele",
+          "20",
+          "28",
+          "18",
+          "de-nardis-andrea",
+          "30",
+          "el-mahi-rida",
+          "paoli-jacopo",
+          "kervalishvili-saba",
+          "zanrosso-matteo",
+          "zago-alessandro",
+          "grippa-michele"
+        ],
         "suspended": [],
         "injured": []
       },
