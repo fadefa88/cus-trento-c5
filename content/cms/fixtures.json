@@ -1079,21 +1079,20 @@
       "away": "CUS Trento",
       "date": "2026-10-31",
       "lineup": {
-        "startingFive": [
-          "baccaro-zeni-lucca",
-          "7",
-          "tesser-alvise",
-          "ceola-michele",
-          "16"
-        ],
+        "startingFive": [],
         "bench": [
-          "1",
-          "19",
-          "8",
+          "baccaro-zeni-lucca",
+          "ceola-michele",
           "10",
-          "11",
+          "cuman-mattia",
           "gobbetti-fabio",
-          "scala-luca"
+          "sarcletti-paolo",
+          "1",
+          "11",
+          "8",
+          "tesser-alvise",
+          "16",
+          "19"
         ],
         "suspended": [],
         "injured": []
