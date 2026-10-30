@@ -416,10 +416,28 @@
         "injured": []
       },
       "venue": "Sanbàpolis",
-      "status": "Da giocare",
+      "status": "Terminata",
       "id": "cus-trento-u23-settaurense-1934-2026-10-30",
       "home": "CUS Trento U23",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "3-4",
+      "scorerEvents": [
+        {
+          "playerId": "grippa-michele",
+          "goals": 2
+        },
+        {
+          "playerId": "paoli-jacopo",
+          "goals": 1
+        }
+      ],
+      "goalkeeperEvents": [
+        {
+          "playerId": "20",
+          "goalsAgainst": 4,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/athesis.png",
