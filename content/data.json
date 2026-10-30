@@ -2655,28 +2655,28 @@
   ],
   "u21Standings": [
     {
+      "g": 6,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25249logo.png",
+      "gs": 19,
+      "n": 1,
+      "pts": 13,
+      "p": 1,
+      "pos": 1,
+      "v": 4,
+      "team": "CALCIO BLEGGIO",
+      "gf": 38
+    },
+    {
       "g": 5,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25246logo.png",
       "gs": 20,
       "n": 0,
       "pts": 12,
       "p": 1,
-      "pos": 1,
+      "pos": 2,
       "v": 4,
       "team": "LEDRENSE",
       "gf": 36
-    },
-    {
-      "g": 5,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25249logo.png",
-      "gs": 17,
-      "n": 1,
-      "pts": 10,
-      "p": 1,
-      "pos": 2,
-      "v": 3,
-      "team": "CALCIO BLEGGIO",
-      "gf": 31
     },
     {
       "g": 5,
@@ -2715,28 +2715,40 @@
       "gf": 29
     },
     {
-      "g": 5,
+      "g": 6,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25240logo.png",
-      "gs": 28,
+      "gs": 35,
       "n": 2,
       "pts": 8,
-      "p": 1,
+      "p": 2,
       "pos": 6,
       "v": 2,
       "team": "ALTA GIUDICARIE",
-      "gf": 26
+      "gf": 28
     },
     {
-      "g": 5,
+      "g": 6,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25248logo.png",
+      "gs": 36,
+      "n": 0,
+      "pts": 6,
+      "p": 4,
+      "pos": 7,
+      "v": 2,
+      "team": "SETTAURENSE",
+      "gf": 20
+    },
+    {
+      "g": 6,
       "logo": "https://calcioa5.custrento.it/img/standings/serie-b-2026-27/cus-trento.webp",
-      "gs": 24,
+      "gs": 28,
       "n": 1,
       "pts": 4,
-      "p": 3,
-      "pos": 7,
+      "p": 4,
+      "pos": 8,
       "v": 1,
       "team": "CUS TRENTO U23",
-      "gf": 16
+      "gf": 19
     },
     {
       "g": 5,
@@ -2745,22 +2757,10 @@
       "n": 0,
       "pts": 3,
       "p": 4,
-      "pos": 8,
+      "pos": 9,
       "v": 1,
       "team": "ATHESIS",
       "gf": 15
-    },
-    {
-      "g": 5,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25248logo.png",
-      "gs": 33,
-      "n": 0,
-      "pts": 3,
-      "p": 4,
-      "pos": 9,
-      "v": 1,
-      "team": "SETTAURENSE",
-      "gf": 16
     },
     {
       "g": 5,
