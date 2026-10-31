@@ -1098,10 +1098,18 @@
         "injured": []
       },
       "venue": "Palestrone School Village",
-      "status": "Da giocare",
+      "status": "Terminata",
       "id": "real-bubi-merano-cus-trento-2026-10-31",
       "home": "Real Bubi Merano",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "5-1",
+      "goalkeeperEvents": [
+        {
+          "playerId": "baccaro-zeni-lucca",
+          "goalsAgainst": 5,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/elmas.png",
