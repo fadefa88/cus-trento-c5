@@ -1027,7 +1027,7 @@
           "firstName": "Ayoub"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "30",
@@ -1043,7 +1043,7 @@
           "firstName": "Pablo Esteban"
         },
         {
-          "goals": 0,
+          "goals": 2,
           "yellow": false,
           "red": false,
           "number": "14",
@@ -1051,7 +1051,7 @@
           "firstName": "Marco"
         },
         {
-          "goals": 0,
+          "goals": 2,
           "yellow": false,
           "red": false,
           "number": "7",
@@ -1108,6 +1108,12 @@
           "playerId": "baccaro-zeni-lucca",
           "goalsAgainst": 5,
           "appearances": 1
+        }
+      ],
+      "scorerEvents": [
+        {
+          "playerId": "sarcletti-paolo",
+          "goals": 1
         }
       ]
     },
