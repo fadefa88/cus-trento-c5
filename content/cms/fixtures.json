@@ -1115,6 +1115,20 @@
           "playerId": "sarcletti-paolo",
           "goals": 1
         }
+      ],
+      "yellowCardEvents": [
+        {
+          "playerId": "tesser-alvise",
+          "cards": 1
+        },
+        {
+          "playerId": "11",
+          "cards": 1
+        },
+        {
+          "playerId": "gobbetti-fabio",
+          "cards": 1
+        }
       ]
     },
     {
