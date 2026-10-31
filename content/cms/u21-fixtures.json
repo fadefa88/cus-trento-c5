@@ -434,7 +434,12 @@
       "goalkeeperEvents": [
         {
           "playerId": "20",
-          "goalsAgainst": 4,
+          "goalsAgainst": 3,
+          "appearances": 1
+        },
+        {
+          "playerId": "zago-alessandro",
+          "goalsAgainst": 1,
           "appearances": 1
         }
       ]
