@@ -2667,52 +2667,52 @@
       "gf": 38
     },
     {
-      "g": 5,
+      "g": 6,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25246logo.png",
-      "gs": 20,
-      "n": 0,
-      "pts": 12,
+      "gs": 27,
+      "n": 1,
+      "pts": 13,
       "p": 1,
       "pos": 2,
       "v": 4,
       "team": "LEDRENSE",
-      "gf": 36
+      "gf": 43
     },
     {
-      "g": 5,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25245logo.png",
+      "g": 6,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25241logo.png",
       "gs": 19,
       "n": 1,
-      "pts": 10,
+      "pts": 13,
       "p": 1,
       "pos": 3,
-      "v": 3,
-      "team": "NOMI",
-      "gf": 30
+      "v": 4,
+      "team": "SAN GIUSEPPE",
+      "gf": 35
     },
     {
-      "g": 5,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25241logo.png",
-      "gs": 16,
-      "n": 1,
-      "pts": 10,
+      "g": 6,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25244logo.png",
+      "gs": 26,
+      "n": 2,
+      "pts": 11,
       "p": 1,
       "pos": 4,
       "v": 3,
-      "team": "SAN GIUSEPPE",
-      "gf": 27
+      "team": "LAGARINA",
+      "gf": 36
     },
     {
-      "g": 5,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25244logo.png",
-      "gs": 19,
+      "g": 6,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25245logo.png",
+      "gs": 27,
       "n": 1,
       "pts": 10,
-      "p": 1,
+      "p": 2,
       "pos": 5,
       "v": 3,
-      "team": "LAGARINA",
-      "gf": 29
+      "team": "NOMI",
+      "gf": 33
     },
     {
       "g": 6,
@@ -2751,28 +2751,28 @@
       "gf": 19
     },
     {
-      "g": 5,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25247logo.png",
-      "gs": 30,
-      "n": 0,
-      "pts": 3,
+      "g": 6,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25243logo.png",
+      "gs": 50,
+      "n": 1,
+      "pts": 4,
       "p": 4,
       "pos": 9,
       "v": 1,
-      "team": "ATHESIS",
-      "gf": 15
+      "team": "SAN FLORIANO",
+      "gf": 31
     },
     {
-      "g": 5,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25243logo.png",
-      "gs": 46,
-      "n": 1,
-      "pts": 1,
-      "p": 4,
+      "g": 6,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25247logo.png",
+      "gs": 35,
+      "n": 0,
+      "pts": 3,
+      "p": 5,
       "pos": 10,
-      "v": 0,
-      "team": "SAN FLORIANO",
-      "gf": 26
+      "v": 1,
+      "team": "ATHESIS",
+      "gf": 19
     }
   ],
   "news": [],
