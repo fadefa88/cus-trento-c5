@@ -1311,7 +1311,8 @@
           "red": false,
           "number": "30",
           "surname": "Karim",
-          "firstName": "Dana Bajdar"
+          "firstName": "Dana Bajdar",
+          "minute": "9’21”pt"
         },
         {
           "goals": 0,
@@ -1327,7 +1328,15 @@
           "red": false,
           "number": "14",
           "surname": "Caverzan",
-          "firstName": "Marco"
+          "firstName": "Marco",
+          "goalTimes": [
+            {
+              "time": "16’19”st"
+            },
+            {
+              "time": "19’30”st"
+            }
+          ]
         },
         {
           "goals": 2,
@@ -1335,7 +1344,15 @@
           "red": false,
           "number": "7",
           "surname": "Mustafov",
-          "firstName": "Erdan"
+          "firstName": "Erdan",
+          "goalTimes": [
+            {
+              "time": "5’21”st"
+            },
+            {
+              "time": "19’06”st"
+            }
+          ]
         },
         {
           "goals": 0,
@@ -1392,7 +1409,8 @@
       "scorerEvents": [
         {
           "playerId": "sarcletti-paolo",
-          "goals": 1
+          "goals": 1,
+          "minute": "11’31”pt"
         }
       ],
       "yellowCardEvents": [
