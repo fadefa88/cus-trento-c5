@@ -3261,7 +3261,6 @@ const sectionPages=(function(){
       ${renderTeam(match.team1,match.team1Score,seed1)}
       ${renderTeam(match.team2,match.team2Score,seed2)}
       ${(()=>{const t1=leagueMatchScorers(match,match.team1),t2=leagueMatchScorers(match,match.team2);return t1.length||t2.length?`<div class="ctl-match-goals ctl-knockout-goals" aria-label="Marcatori"><div class="ctl-match-goals-grid"><div class="ctl-match-goals-side">${leagueMatchGoalLines(t1)}</div><div class="ctl-match-goals-side">${leagueMatchGoalLines(t2)}</div></div></div>`:"";})()}
-      ${ready?`<div class="ctl-knockout-qualified">Qualificata: <b>${h(match.winner)}</b></div>`:""}
     </article>`;
   }
 
