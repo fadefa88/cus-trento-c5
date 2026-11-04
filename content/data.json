@@ -4730,17 +4730,28 @@
               "name": "Castelnuovo",
               "team": "Banda Bassiotti",
               "goals": 2
+            },
+            {
+              "name": "Alemahu",
+              "team": "Banda Bassiotti",
+              "goals": 1
             }
           ]
         },
         {
           "name": "Quarto 3",
-          "team1Score": null,
-          "team2Score": null,
+          "team1Score": 1,
+          "team2Score": 0,
           "winner": "",
           "date": "2026-11-03",
           "time": "20:30",
-          "scorers": []
+          "scorers": [
+            {
+              "name": "Facci",
+              "team": "Rango FC",
+              "goals": 1
+            }
+          ]
         },
         {
           "name": "Quarto 4",
