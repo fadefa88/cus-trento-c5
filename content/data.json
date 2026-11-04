@@ -4695,12 +4695,43 @@
         },
         {
           "name": "Quarto 2",
-          "team1Score": null,
-          "team2Score": null,
+          "team1Score": 3,
+          "team2Score": 5,
           "winner": "",
           "date": "2026-11-03",
           "time": "18:30",
-          "scorers": []
+          "scorers": [
+            {
+              "name": "Andreani",
+              "team": "Recidivi FC",
+              "goals": 1
+            },
+            {
+              "name": "Bevilacqua",
+              "team": "Recidivi FC",
+              "goals": 1
+            },
+            {
+              "name": "Costacurta",
+              "team": "Recidivi FC",
+              "goals": 1
+            },
+            {
+              "name": "Bassi",
+              "team": "Banda Bassiotti",
+              "goals": 1
+            },
+            {
+              "name": "Bekhouche",
+              "team": "Banda Bassiotti",
+              "goals": 1
+            },
+            {
+              "name": "Castelnuovo",
+              "team": "Banda Bassiotti",
+              "goals": 2
+            }
+          ]
         },
         {
           "name": "Quarto 3",
