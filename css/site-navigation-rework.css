@@ -1876,6 +1876,13 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
 }
 .ctl-knockout-team b{min-width:0;font-size:11px;line-height:1.25;overflow-wrap:anywhere;text-transform:uppercase;}
 .ctl-knockout-team>strong{text-align:right;font-family:var(--font-display);font-size:18px;}
+.ctl-knockout-goals{
+  margin-top:0;
+  padding:14px 18px 16px;
+}
+.ctl-knockout-goals .ctl-match-goals-grid{column-gap:24px;}
+.ctl-knockout-goals .ctl-match-goals-side{padding:0 4px;}
+.ctl-knockout-goals .ctl-match-goal{font-size:12px;line-height:1.45;}
 .ctl-knockout-qualified{
   padding:7px 12px;border-top:1px solid #ece7da;
   font-size:10px;color:#71717a;
@@ -1913,6 +1920,9 @@ a.nav-main{display:inline-flex;align-items:center;text-decoration:none;}
   .ctl-knockout-round{gap:10px;}
   .ctl-knockout-round>h3{font-size:22px;text-align:left;}
   .ctl-knockout-round-final{max-width:none;}
+  .ctl-knockout-goals{padding:14px 20px 16px;}
+  .ctl-knockout-goals .ctl-match-goals-grid{column-gap:20px;}
+  .ctl-knockout-goals .ctl-match-goals-side{padding:0;}
   .ctl-rules-grid{grid-template-columns:1fr;gap:10px;}
   .ctl-rules-intro{padding:21px 19px;}
   .ctl-rules-intro h2{font-size:30px;}
