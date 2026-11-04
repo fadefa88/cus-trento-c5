@@ -55,7 +55,13 @@
           "winner": "",
           "date": "2026-11-04",
           "time": "19:30",
-          "scorers": []
+          "scorers": [
+            {
+              "name": "Negro",
+              "team": "Calcio Proletario",
+              "goals": 1
+            }
+          ]
         },
         {
           "name": "Quarto 2",
