@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-04T13:07:58.119508+00:00",
+  "generatedAt": "2026-11-05T13:21:41.641289+00:00",
   "sourceHits": {
     "elfsight": 4,
     "embedsocial": 0,
@@ -12,11 +12,21 @@
   "instagramComparison": [
     {
       "url": "https://www.instagram.com/p/DfPy1hHF4xR",
-      "existedBefore": false,
+      "existedBefore": true,
       "captionChanged": false,
       "imageChanged": false,
       "dateChanged": false,
-      "old": null,
+      "old": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/DfPy1hHF4xR",
+        "title": "🏆 WILD CUP: 3 DISCIPLINE, 1 SOLO TROFEO!🔥 Pensavi fosse il solito torneo universitario di calcio a 5? TI SBAGLIAVI 👀...",
+        "caption": "🏆 WILD CUP: 3 DISCIPLINE, 1 SOLO TROFEO!🔥 Pensavi fosse il solito torneo universitario di calcio a 5? TI SBAGLIAVI 👀 Abbiamo deciso di mescolare un po’ le carte e trasformare una normale domenica in qualcosa di decisamente fuori dagli schemi. ⚽ Calcio a 5, 🏓 ping pong e 🎯calcio balilla. Ma attenzione: qui essere forti a calcio potrebbe non bastare per vincere. Una giornata intera, 8 squadre e un solo trofeo da conquistare. 🏆 🎶 E NON FINISCE QUI! Musica, bar aperto e intrattenimento per...",
+        "image": "/img/social/instagram-0d3daf04c7ec65f8.jpg",
+        "remoteImage": "https://www.instagram.com/p/DfPy1hHF4xR/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      },
       "new": {
         "platform": "Instagram",
         "source": "elfsight",
@@ -31,17 +41,27 @@
     },
     {
       "url": "https://www.instagram.com/p/DfKzjJVBqHa",
-      "existedBefore": false,
-      "captionChanged": false,
+      "existedBefore": true,
+      "captionChanged": true,
       "imageChanged": false,
       "dateChanged": false,
-      "old": null,
-      "new": {
+      "old": {
         "platform": "Instagram",
         "source": "elfsight",
         "url": "https://www.instagram.com/p/DfKzjJVBqHa",
         "title": "spazio_calcio26 3 DAYS AGO 78 7 Share 📍MERANO | NEW REEL🙋‍♂️ Questo pomeriggio ho avuto l’onore di andare a vedere Bu...",
         "caption": "spazio_calcio26 3 DAYS AGO 78 7 Share 📍MERANO | NEW REEL🙋‍♂️ Questo pomeriggio ho avuto l’onore di andare a vedere Bubi Merano - Cus Trento di calcio A5 e a fine match sono riuscito a strappare delle dichiarazioni dal mister della squadra universitaria trentina🤝 #calcio #A5 #trento",
+        "image": "/img/social/instagram-0db6bc4e5c69b1d5.jpg",
+        "remoteImage": "https://www.instagram.com/p/DfKzjJVBqHa/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      },
+      "new": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/DfKzjJVBqHa",
+        "title": "spazio_calcio26 4 DAYS AGO 78 7 Share 📍MERANO | NEW REEL🙋‍♂️ Questo pomeriggio ho avuto l’onore di andare a vedere Bu...",
+        "caption": "spazio_calcio26 4 DAYS AGO 78 7 Share 📍MERANO | NEW REEL🙋‍♂️ Questo pomeriggio ho avuto l’onore di andare a vedere Bubi Merano - Cus Trento di calcio A5 e a fine match sono riuscito a strappare delle dichiarazioni dal mister della squadra universitaria trentina🤝 #calcio #A5 #trento",
         "image": "/img/social/instagram-0db6bc4e5c69b1d5.jpg",
         "remoteImage": "https://www.instagram.com/p/DfKzjJVBqHa/media/?size=l",
         "date": "",
@@ -79,11 +99,21 @@
     },
     {
       "url": "https://www.instagram.com/p/DfMxJY8F0x4",
-      "existedBefore": false,
+      "existedBefore": true,
       "captionChanged": false,
       "imageChanged": false,
       "dateChanged": false,
-      "old": null,
+      "old": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/DfMxJY8F0x4",
+        "title": "FULL TIME | SERIE B | MATCH 5 REAL BUBI MERANO 5 CUS TRENTO 1 ⚽️ Sarcletti #futsal #calcio #calcioa5 #trento #università",
+        "caption": "FULL TIME | SERIE B | MATCH 5 REAL BUBI MERANO 5 CUS TRENTO 1 ⚽️ Sarcletti #futsal #calcio #calcioa5 #trento #università",
+        "image": "/img/social/instagram-98315d6b71302d73.jpg",
+        "remoteImage": "https://www.instagram.com/p/DfMxJY8F0x4/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      },
       "new": {
         "platform": "Instagram",
         "source": "elfsight",
@@ -405,8 +435,8 @@
       "platform": "Instagram",
       "source": "elfsight",
       "url": "https://www.instagram.com/p/DfKzjJVBqHa",
-      "title": "spazio_calcio26 3 DAYS AGO 78 7 Share 📍MERANO | NEW REEL🙋‍♂️ Questo pomeriggio ho avuto l’onore di andare a vedere Bu...",
-      "caption": "spazio_calcio26 3 DAYS AGO 78 7 Share 📍MERANO | NEW REEL🙋‍♂️ Questo pomeriggio ho avuto l’onore di andare a vedere Bubi Merano - Cus Trento di calcio A5 e a fine match sono riuscito a strappare delle dichiarazioni dal mister della squadra universitaria trentina🤝 #calcio #A5 #trento",
+      "title": "spazio_calcio26 4 DAYS AGO 78 7 Share 📍MERANO | NEW REEL🙋‍♂️ Questo pomeriggio ho avuto l’onore di andare a vedere Bu...",
+      "caption": "spazio_calcio26 4 DAYS AGO 78 7 Share 📍MERANO | NEW REEL🙋‍♂️ Questo pomeriggio ho avuto l’onore di andare a vedere Bubi Merano - Cus Trento di calcio A5 e a fine match sono riuscito a strappare delle dichiarazioni dal mister della squadra universitaria trentina🤝 #calcio #A5 #trento",
       "image": "/img/social/instagram-0db6bc4e5c69b1d5.jpg",
       "remoteImage": "https://www.instagram.com/p/DfKzjJVBqHa/media/?size=l",
       "date": "",
