@@ -4761,12 +4761,28 @@
         },
         {
           "name": "Quarto 4",
-          "team1Score": null,
-          "team2Score": null,
+          "team1Score": 2,
+          "team2Score": 4,
           "winner": "",
           "date": "2026-11-05",
           "time": "19:30",
-          "scorers": []
+          "scorers": [
+            {
+              "name": "Afretti",
+              "team": "TT Le Girlz",
+              "goals": 2
+            },
+            {
+              "name": "Autogol",
+              "team": "TT Le Girlz",
+              "goals": 1
+            },
+            {
+              "name": "Bernardotto",
+              "team": "TT Le Girlz",
+              "goals": 1
+            }
+          ]
         }
       ],
       "semifinals": [
