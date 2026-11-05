@@ -87,7 +87,13 @@ test("knockout draw requires choosing the qualified team, then publishes", async
   await page.goto("./#/league?tab=tabellone");
   await page.getByRole("button", { name: /Quarto 1/ }).click();
   const d = dialog(page);
+
+  // Do not depend on the real score currently stored for Quarto 1.
+  // Reset it first, then create a deterministic 1-1 draw.
+  const reset = d.getByRole("button", { name: "Azzera risultato" });
+  if (await reset.count()) await reset.click();
   for (const label of await d.getByRole("button", { name: /: più$/ }).all()) await label.click();
+
   await expect(d.getByText("Qualificata")).toBeVisible();
   const team = (await d.getByRole("radio").first().textContent())!.trim();
   await d.getByRole("radio").first().click();
