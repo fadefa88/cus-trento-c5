@@ -4159,7 +4159,20 @@
       "date": "2026-11-06",
       "lineup": {
         "startingFive": [],
-        "bench": [],
+        "bench": [
+          "battaglia-edoardo",
+          "26",
+          "30",
+          "amendola-tommaso",
+          "doro-francesco",
+          "kervalishvili-saba",
+          "16",
+          "harmeet-singh",
+          "medeghini-riccardo",
+          "paoli-jacopo",
+          "sgraffetto-lorenzo",
+          "zanrosso-matteo"
+        ],
         "suspended": [],
         "injured": []
       },
