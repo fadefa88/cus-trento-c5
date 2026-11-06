@@ -83,7 +83,7 @@ test("closing an editor with unsaved changes asks for confirmation", async ({ pa
   await expect(d.getByLabel("Nome")).toHaveValue("Modifica non salvata");
 });
 
-test("knockout draw requires choosing the qualified team, then publishes", async ({ page }) => {
+test("knockout draw requires choosing the qualified team, then publishes", async ({ page }, testInfo) => {
   await page.goto("./#/league?tab=tabellone");
   await page.getByRole("button", { name: /Quarto 1/ }).click();
   const d = dialog(page);
@@ -92,9 +92,10 @@ test("knockout draw requires choosing the qualified team, then publishes", async
   // Reset it first, then create a deterministic 1-1 draw.
   const reset = d.getByRole("button", { name: "Azzera risultato" });
   if (await reset.count()) await reset.click();
+  const targetScore = testInfo.project.name === "desktop" ? 2 : 1;
   for (const label of await d.getByRole("button", { name: /^Gol .+: più$/ }).all()) {
     await label.click(); // vuoto -> 0
-    await label.click(); // 0 -> 1
+    for (let score = 0; score < targetScore; score++) await label.click();
   }
 
   await expect(d.getByText("Qualificata")).toBeVisible();
