@@ -1254,21 +1254,20 @@
       "away": "Elmas",
       "date": "2026-11-07",
       "lineup": {
-        "startingFive": [
-          "baccaro-zeni-lucca",
-          "7",
-          "tesser-alvise",
-          "ceola-michele",
-          "16"
-        ],
+        "startingFive": [],
         "bench": [
+          "ceola-michele",
+          "baccaro-zeni-lucca",
+          "cuman-mattia",
+          "18",
           "1",
-          "19",
-          "8",
-          "10",
-          "11",
+          "7",
           "gobbetti-fabio",
-          "scala-luca"
+          "scala-luca",
+          "sarcletti-paolo",
+          "8",
+          "11",
+          "vettorazzi-cesare"
         ],
         "suspended": [],
         "injured": []
