@@ -2713,27 +2713,39 @@
   "u21Standings": [
     {
       "g": 7,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25249logo.png",
+      "gs": 21,
+      "n": 1,
+      "pts": 16,
+      "p": 1,
+      "pos": 1,
+      "v": 5,
+      "team": "CALCIO BLEGGIO",
+      "gf": 44
+    },
+    {
+      "g": 7,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25241logo.png",
+      "gs": 24,
+      "n": 1,
+      "pts": 16,
+      "p": 1,
+      "pos": 2,
+      "v": 5,
+      "team": "SAN GIUSEPPE",
+      "gf": 41
+    },
+    {
+      "g": 7,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25244logo.png",
       "gs": 30,
       "n": 2,
       "pts": 14,
       "p": 1,
-      "pos": 1,
+      "pos": 3,
       "v": 4,
       "team": "LAGARINA",
       "gf": 43
-    },
-    {
-      "g": 6,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25249logo.png",
-      "gs": 19,
-      "n": 1,
-      "pts": 13,
-      "p": 1,
-      "pos": 2,
-      "v": 4,
-      "team": "CALCIO BLEGGIO",
-      "gf": 38
     },
     {
       "g": 6,
@@ -2742,34 +2754,22 @@
       "n": 1,
       "pts": 13,
       "p": 1,
-      "pos": 3,
+      "pos": 4,
       "v": 4,
       "team": "LEDRENSE",
       "gf": 43
     },
     {
-      "g": 6,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25241logo.png",
-      "gs": 19,
-      "n": 1,
-      "pts": 13,
-      "p": 1,
-      "pos": 4,
-      "v": 4,
-      "team": "SAN GIUSEPPE",
-      "gf": 35
-    },
-    {
-      "g": 6,
+      "g": 7,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25245logo.png",
-      "gs": 27,
+      "gs": 33,
       "n": 1,
       "pts": 10,
-      "p": 2,
+      "p": 3,
       "pos": 5,
       "v": 3,
       "team": "NOMI",
-      "gf": 33
+      "gf": 35
     },
     {
       "g": 6,
@@ -2808,16 +2808,16 @@
       "gf": 19
     },
     {
-      "g": 6,
+      "g": 7,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25243logo.png",
-      "gs": 50,
+      "gs": 56,
       "n": 1,
       "pts": 4,
-      "p": 4,
+      "p": 5,
       "pos": 9,
       "v": 1,
       "team": "SAN FLORIANO",
-      "gf": 31
+      "gf": 36
     },
     {
       "g": 6,
