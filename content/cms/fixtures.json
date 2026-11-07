@@ -1299,6 +1299,12 @@
           "playerId": "sarcletti-paolo",
           "goals": 1
         }
+      ],
+      "yellowCardEvents": [
+        {
+          "playerId": "18",
+          "cards": 1
+        }
       ]
     },
     {
