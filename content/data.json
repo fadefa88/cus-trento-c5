@@ -1527,6 +1527,15 @@
           "goals": 0,
           "yellow": false,
           "red": false
+        },
+        {
+          "number": "",
+          "surname": "Autogol",
+          "firstName": "",
+          "goals": 2,
+          "yellow": false,
+          "red": false,
+          "ownGoal": true
         }
       ],
       "time": "14:30",
@@ -1556,12 +1565,18 @@
       "id": "cus-trento-elmas-2026-11-07",
       "home": "CUS Trento",
       "competition": "Campionato",
-      "score": "0-3",
+      "score": "1-4",
       "goalkeeperEvents": [
         {
           "playerId": "baccaro-zeni-lucca",
           "goalsAgainst": 2,
           "appearances": 1
+        }
+      ],
+      "scorerEvents": [
+        {
+          "playerId": "sarcletti-paolo",
+          "goals": 1
         }
       ]
     },
