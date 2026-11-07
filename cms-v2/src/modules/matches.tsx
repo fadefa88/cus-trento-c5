@@ -233,7 +233,7 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
   const addOpponentOwnGoal = () => {
     const list = [...arr(m.opponentLineup)];
     const index = list.findIndex((p) => isOpponentOwnGoal(p));
-    if (index >= 0) list[index] = { ...list[index], ownGoal: true, surname: "Autogol", firstName: "", goals: Math.max(1, Number(list[index].goals) || 0) + 1 };
+    if (index >= 0) list[index] = { ...list[index], ownGoal: true, surname: "Autogol", firstName: "", goals: Math.max(0, Number(list[index].goals) || 0) + 1 };
     else list.push({ number: "", surname: "Autogol", firstName: "", goals: 1, yellow: false, red: false, ownGoal: true });
     set("opponentLineup", list);
   };
