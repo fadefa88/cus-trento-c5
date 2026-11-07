@@ -1465,7 +1465,7 @@
           "firstName": "Mirco"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "7",
@@ -1489,7 +1489,7 @@
           "firstName": "Alessio"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "17",
@@ -1555,7 +1555,15 @@
       "status": "Da giocare",
       "id": "cus-trento-elmas-2026-11-07",
       "home": "CUS Trento",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "0-2",
+      "goalkeeperEvents": [
+        {
+          "playerId": "baccaro-zeni-lucca",
+          "goalsAgainst": 2,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/futsal-atesina.png",
