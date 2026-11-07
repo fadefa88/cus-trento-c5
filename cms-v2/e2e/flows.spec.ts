@@ -138,6 +138,9 @@ test("up to 12 players called up; no report tab, no opponents tab for U23", asyn
   await expect(d.getByRole("tab", { name: "Avversari" })).toHaveCount(1);
   await d.getByRole("tab", { name: "Avversari" }).click();
   await expect(d.getByText("Marcatori avversari")).toHaveCount(0);
+  await d.getByRole("button", { name: "Autogol CUS" }).click();
+  await expect(d.getByText("Rete assegnata all'avversario, non compare tra i convocati.")).toBeVisible();
+  await expect(d.getByRole("group", { name: "Reti autogol CUS" })).toContainText("1");
   await d.getByRole("tab", { name: /Convocati/ }).click();
   await d.getByRole("button", { name: "Aggiungi" }).click();
   const picker = dialog(page);
