@@ -1452,7 +1452,7 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "2",
+          "number": "30",
           "surname": "Tola",
           "firstName": "Francesco"
         },
@@ -1460,17 +1460,9 @@
           "goals": 0,
           "yellow": false,
           "red": false,
-          "number": "5",
+          "number": "27",
           "surname": "Fronteddu",
           "firstName": "Mirco"
-        },
-        {
-          "goals": 0,
-          "yellow": false,
-          "red": false,
-          "number": "6",
-          "surname": "Cogoni",
-          "firstName": "Federico"
         },
         {
           "goals": 0,
@@ -1479,14 +1471,6 @@
           "number": "7",
           "surname": "Ennas",
           "firstName": "Matteo"
-        },
-        {
-          "goals": 0,
-          "yellow": false,
-          "red": false,
-          "number": "8",
-          "surname": "Coni",
-          "firstName": "Simone"
         },
         {
           "goals": 0,
@@ -1513,20 +1497,36 @@
           "firstName": "Alan Patrick"
         },
         {
+          "number": "41",
+          "surname": "Costa",
+          "firstName": "Alessandro",
           "goals": 0,
           "yellow": false,
-          "red": false,
-          "number": "81",
-          "surname": "Serra",
-          "firstName": "Renzo"
+          "red": false
         },
         {
+          "number": "18",
+          "surname": "Boi",
+          "firstName": "Nicola",
           "goals": 0,
           "yellow": false,
-          "red": false,
-          "number": "99",
-          "surname": "Cossu",
-          "firstName": "Aldo"
+          "red": false
+        },
+        {
+          "number": "29",
+          "surname": "Marras",
+          "firstName": "Daniele",
+          "goals": 0,
+          "yellow": false,
+          "red": false
+        },
+        {
+          "number": "24",
+          "surname": "Sabiucciu",
+          "firstName": "Filippo",
+          "goals": 0,
+          "yellow": false,
+          "red": false
         }
       ],
       "time": "14:30",
