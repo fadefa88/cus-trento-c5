@@ -2123,7 +2123,7 @@ function matchOwnScorers(match,isYouth){
 // Se i convocati avversari hanno gol inseriti, il tabellino usa quelli al posto dell'elenco marcatori.
 function matchOpponentScorers(match,isYouth){
   if(normText(match.status)!==normText("Terminata")) return "";
-  const fromLineup=isYouth?[]:matchOpponentLineup(match).filter(p=>opponentGoalCount(p)>0);
+  const fromLineup=isYouth?[]:matchOpponentEntries(match).filter(p=>opponentGoalCount(p)>0);
   if(fromLineup.length){
     const items=fromLineup.map(p=>({surname:String(p.surname).trim(),full:[String(p.surname).trim(),String(p.firstName||"").trim()].filter(Boolean).join(" "),event:{...p,goals:opponentGoalCount(p)}}));
     const ordered=chronologicalScorers(items);
@@ -2217,8 +2217,14 @@ function matchOwnSquadRows(match,compact){
   }).join("");
 }
 // Opponent squad (Prima squadra only): typed in the CMS, display-only, never counted in any statistic.
-function matchOpponentLineup(match){
+function isOpponentOwnGoal(p){
+  return !!(p&&p.ownGoal)||normText(p&&p.surname)==="autogol";
+}
+function matchOpponentEntries(match){
   return (Array.isArray(match&&match.opponentLineup)?match.opponentLineup:[]).filter(p=>p&&String(p.surname||"").trim());
+}
+function matchOpponentLineup(match){
+  return matchOpponentEntries(match).filter(p=>!isOpponentOwnGoal(p));
 }
 function opponentGoalCount(p){
   const times=goalTimes(p);
