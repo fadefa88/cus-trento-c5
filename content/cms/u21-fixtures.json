@@ -473,7 +473,21 @@
       "status": "Da giocare",
       "id": "athesis-calcio-cus-trento-u23-2026-11-06",
       "home": "Athesis Calcio",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "3-1",
+      "scorerEvents": [
+        {
+          "playerId": "16",
+          "goals": 1
+        }
+      ],
+      "goalkeeperEvents": [
+        {
+          "playerId": "harmeet-singh",
+          "goalsAgainst": 3,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/san-giuseppe.png",
