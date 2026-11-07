@@ -13,13 +13,27 @@ test("enter a result as draft, then publish the draft", async ({ page }) => {
   await page.locator("section", { has: page.getByRole("heading", { name: /Prossime partite/ }) }).locator("li button").first().click();
   const d = dialog(page);
   await d.getByRole("radio", { name: "Terminata" }).click();
-  await d.getByRole("button", { name: "Gol casa: più" }).click();
-  await d.getByRole("button", { name: "Gol casa: più" }).click();
-  await d.getByRole("button", { name: "Gol trasferta: più" }).click();
-  // A terminated match needs the goalkeepers who conceded the goals.
-  await d.getByRole("button", { name: "Salva bozza" }).click();
-  await expect(d.getByRole("alert")).toContainText("Seleziona il portiere");
+
+  // Real fixtures may already contain a score or events. Keep an existing
+  // score, otherwise create a deterministic 1-0 result for the test.
+  const homeScore = d.getByRole("group", { name: "Gol casa" });
+  const awayScore = d.getByRole("group", { name: "Gol trasferta" });
+  if ((await homeScore.textContent())?.includes("vuoto")) {
+    await d.getByRole("button", { name: "Gol casa: più" }).click(); // vuoto -> 0
+    await d.getByRole("button", { name: "Gol casa: più" }).click(); // 0 -> 1
+  }
+  if ((await awayScore.textContent())?.includes("vuoto")) {
+    await d.getByRole("button", { name: "Gol trasferta: più" }).click(); // vuoto -> 0
+  }
+
+  // Isolate the flow from events already entered on the real fixture.
   await d.getByRole("tab", { name: "Eventi" }).click();
+  const remove = d.getByRole("button", { name: "Rimuovi", exact: true });
+  while (await remove.count()) await remove.first().click();
+
+  // A terminated match needs at least one goalkeeper.
+  await d.getByRole("button", { name: "Salva bozza" }).click();
+  await expect(d.getByRole("alert")).toContainText(/Seleziona.*portiere/i);
   await d.getByRole("button", { name: "Portiere" }).click();
   await d.getByRole("button", { name: "Salva bozza" }).click();
   await expect(page.getByText("Bozza salvata")).toBeVisible();
