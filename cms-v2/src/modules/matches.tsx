@@ -229,6 +229,14 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
     else list[index] = patch;
     set(key, list);
   };
+  const isOpponentOwnGoal = (p: Ev) => !!p.ownGoal || (str(p.surname).trim().toLowerCase() === "autogol" && !str(p.firstName).trim());
+  const addOpponentOwnGoal = () => {
+    const list = [...arr(m.opponentLineup)];
+    const index = list.findIndex((p) => isOpponentOwnGoal(p));
+    if (index >= 0) list[index] = { ...list[index], ownGoal: true, surname: "Autogol", firstName: "", goals: Math.max(1, Number(list[index].goals) || 0) + 1 };
+    else list.push({ number: "", surname: "Autogol", firstName: "", goals: 1, yellow: false, red: false, ownGoal: true });
+    set("opponentLineup", list);
+  };
 
   const conceded = score ? score[side === "home" ? 1 : 0] : null;
   const assignedAgainst = arr(m.goalkeeperEvents).reduce((n, e) => n + (Number(e.goalsAgainst) || 0), 0);
@@ -347,21 +355,46 @@ function MatchForm({ team, value: m, set, replace, roster, opponents, logos, cus
 
       {!cfg.youth && (
       <TabsContent value="opponents" className="flex flex-col gap-5">
-          <FormSection title="Convocati avversari" description="Mostrati nella colonna dei convocati del match center." action={<Button type="button" size="sm" variant="secondary" onClick={() => set("opponentLineup", [...arr(m.opponentLineup), { number: "", surname: "", firstName: "", goals: 0, yellow: false, red: false }])}><Plus />Giocatore</Button>}>
+          <FormSection
+            title="Convocati avversari"
+            description="Mostrati nella colonna dei convocati del match center. Usa “Autogol CUS” per una rete avversaria causata da un nostro autogol."
+            action={
+              <div className="flex flex-wrap justify-end gap-2">
+                <Button type="button" size="sm" variant="secondary" onClick={addOpponentOwnGoal}><Plus />Autogol CUS</Button>
+                <Button type="button" size="sm" variant="secondary" onClick={() => set("opponentLineup", [...arr(m.opponentLineup), { number: "", surname: "", firstName: "", goals: 0, yellow: false, red: false }])}><Plus />Giocatore</Button>
+              </div>
+            }
+          >
             {arr(m.opponentLineup).map((p, i) => (
               <RowCard key={i} onRemove={() => updateList("opponentLineup", i, null)}>
-                <div className="grid grid-cols-[72px_1fr] gap-2">
-                  <Input inputMode="numeric" placeholder="N°" value={str(p.number)} onChange={(x) => updateList("opponentLineup", i, { ...p, number: x.target.value.replace(/[^0-9]/g, "") })} aria-label="Numero" />
-                  <Input placeholder="Cognome" value={str(p.surname)} onChange={(x) => updateList("opponentLineup", i, { ...p, surname: x.target.value })} aria-label="Cognome" />
-                </div>
-                <Input placeholder="Nome" value={str(p.firstName)} onChange={(x) => updateList("opponentLineup", i, { ...p, firstName: x.target.value })} aria-label="Nome" />
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="text-sm text-muted">Reti</span>
-                  <Stepper label="Reti" value={Number(p.goals) || 0} onChange={(g) => updateList("opponentLineup", i, { ...p, goals: g })} />
-                  <label className="flex h-11 items-center gap-2 rounded-xl border border-border px-3 text-sm"><input type="checkbox" className="size-5 accent-yellow-500" checked={!!p.yellow} onChange={(x) => updateList("opponentLineup", i, { ...p, yellow: x.target.checked })} />Ammonito</label>
-                  <label className="flex h-11 items-center gap-2 rounded-xl border border-border px-3 text-sm"><input type="checkbox" className="size-5 accent-red-600" checked={!!p.red} onChange={(x) => updateList("opponentLineup", i, { ...p, red: x.target.checked })} />Espulso</label>
-                </div>
-                {Number(p.goals) > 0 && <GoalTimes goals={Number(p.goals)} times={eventTimes(p)} onChange={(t) => updateList("opponentLineup", i, withTimes(p, t))} />}
+                {isOpponentOwnGoal(p) ? (
+                  <>
+                    <div>
+                      <b className="block">Autogol CUS</b>
+                      <span className="text-sm text-muted">Rete assegnata all'avversario, non compare tra i convocati.</span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="text-sm text-muted">Reti</span>
+                      <Stepper label="Reti autogol CUS" min={1} value={Math.max(1, Number(p.goals) || 1)} onChange={(g) => updateList("opponentLineup", i, { ...p, ownGoal: true, surname: "Autogol", firstName: "", goals: g })} />
+                    </div>
+                    {Number(p.goals) > 0 && <GoalTimes goals={Number(p.goals)} times={eventTimes(p)} onChange={(t) => updateList("opponentLineup", i, withTimes({ ...p, ownGoal: true, surname: "Autogol", firstName: "" }, t))} />}
+                  </>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-[72px_1fr] gap-2">
+                      <Input inputMode="numeric" placeholder="N°" value={str(p.number)} onChange={(x) => updateList("opponentLineup", i, { ...p, number: x.target.value.replace(/[^0-9]/g, "") })} aria-label="Numero" />
+                      <Input placeholder="Cognome" value={str(p.surname)} onChange={(x) => updateList("opponentLineup", i, { ...p, surname: x.target.value })} aria-label="Cognome" />
+                    </div>
+                    <Input placeholder="Nome" value={str(p.firstName)} onChange={(x) => updateList("opponentLineup", i, { ...p, firstName: x.target.value })} aria-label="Nome" />
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="text-sm text-muted">Reti</span>
+                      <Stepper label="Reti" value={Number(p.goals) || 0} onChange={(g) => updateList("opponentLineup", i, { ...p, goals: g })} />
+                      <label className="flex h-11 items-center gap-2 rounded-xl border border-border px-3 text-sm"><input type="checkbox" className="size-5 accent-yellow-500" checked={!!p.yellow} onChange={(x) => updateList("opponentLineup", i, { ...p, yellow: x.target.checked })} />Ammonito</label>
+                      <label className="flex h-11 items-center gap-2 rounded-xl border border-border px-3 text-sm"><input type="checkbox" className="size-5 accent-red-600" checked={!!p.red} onChange={(x) => updateList("opponentLineup", i, { ...p, red: x.target.checked })} />Espulso</label>
+                    </div>
+                    {Number(p.goals) > 0 && <GoalTimes goals={Number(p.goals)} times={eventTimes(p)} onChange={(t) => updateList("opponentLineup", i, withTimes(p, t))} />}
+                  </>
+                )}
               </RowCard>
             ))}
           </FormSection>
