@@ -1500,7 +1500,7 @@
           "number": "41",
           "surname": "Costa",
           "firstName": "Alessandro",
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false
         },
@@ -1565,7 +1565,7 @@
       "id": "cus-trento-elmas-2026-11-07",
       "home": "CUS Trento",
       "competition": "Campionato",
-      "score": "1-4",
+      "score": "1-5",
       "goalkeeperEvents": [
         {
           "playerId": "baccaro-zeni-lucca",
