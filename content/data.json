@@ -2748,16 +2748,28 @@
       "gf": 43
     },
     {
-      "g": 6,
+      "g": 7,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25246logo.png",
-      "gs": 27,
+      "gs": 33,
       "n": 1,
       "pts": 13,
-      "p": 1,
+      "p": 2,
       "pos": 4,
       "v": 4,
       "team": "LEDRENSE",
-      "gf": 43
+      "gf": 47
+    },
+    {
+      "g": 7,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25240logo.png",
+      "gs": 39,
+      "n": 2,
+      "pts": 11,
+      "p": 2,
+      "pos": 5,
+      "v": 3,
+      "team": "ALTA GIUDICARIE",
+      "gf": 34
     },
     {
       "g": 7,
@@ -2766,22 +2778,22 @@
       "n": 1,
       "pts": 10,
       "p": 3,
-      "pos": 5,
+      "pos": 6,
       "v": 3,
       "team": "NOMI",
       "gf": 35
     },
     {
-      "g": 6,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25240logo.png",
-      "gs": 35,
-      "n": 2,
-      "pts": 8,
-      "p": 2,
-      "pos": 6,
+      "g": 7,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25247logo.png",
+      "gs": 36,
+      "n": 0,
+      "pts": 6,
+      "p": 5,
+      "pos": 7,
       "v": 2,
-      "team": "ALTA GIUDICARIE",
-      "gf": 28
+      "team": "ATHESIS",
+      "gf": 22
     },
     {
       "g": 7,
@@ -2790,22 +2802,22 @@
       "n": 0,
       "pts": 6,
       "p": 5,
-      "pos": 7,
+      "pos": 8,
       "v": 2,
       "team": "SETTAURENSE",
       "gf": 24
     },
     {
-      "g": 6,
+      "g": 7,
       "logo": "https://calcioa5.custrento.it/img/standings/serie-b-2026-27/cus-trento.webp",
-      "gs": 28,
+      "gs": 31,
       "n": 1,
       "pts": 4,
-      "p": 4,
-      "pos": 8,
+      "p": 5,
+      "pos": 9,
       "v": 1,
       "team": "CUS TRENTO U23",
-      "gf": 19
+      "gf": 20
     },
     {
       "g": 7,
@@ -2814,22 +2826,10 @@
       "n": 1,
       "pts": 4,
       "p": 5,
-      "pos": 9,
+      "pos": 10,
       "v": 1,
       "team": "SAN FLORIANO",
       "gf": 36
-    },
-    {
-      "g": 6,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25247logo.png",
-      "gs": 35,
-      "n": 0,
-      "pts": 3,
-      "p": 5,
-      "pos": 10,
-      "v": 1,
-      "team": "ATHESIS",
-      "gf": 19
     }
   ],
   "news": [],
