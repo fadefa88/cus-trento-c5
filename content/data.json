@@ -1516,7 +1516,7 @@
           "number": "29",
           "surname": "Marras",
           "firstName": "Daniele",
-          "goals": 1,
+          "goals": 2,
           "yellow": false,
           "red": false
         },
@@ -1565,11 +1565,11 @@
       "id": "cus-trento-elmas-2026-11-07",
       "home": "CUS Trento",
       "competition": "Campionato",
-      "score": "1-5",
+      "score": "1-7",
       "goalkeeperEvents": [
         {
           "playerId": "baccaro-zeni-lucca",
-          "goalsAgainst": 5,
+          "goalsAgainst": 7,
           "appearances": 1
         }
       ],
