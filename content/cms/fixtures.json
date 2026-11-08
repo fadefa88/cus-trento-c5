@@ -1191,11 +1191,12 @@
           "red": false,
           "number": "7",
           "surname": "Ennas",
-          "firstName": "Matteo"
+          "firstName": "Matteo",
+          "minute": "0’47”st"
         },
         {
           "goals": 0,
-          "yellow": false,
+          "yellow": true,
           "red": false,
           "number": "10",
           "surname": "Boi",
@@ -1207,7 +1208,8 @@
           "red": false,
           "number": "11",
           "surname": "Idda",
-          "firstName": "Alessio"
+          "firstName": "Alessio",
+          "minute": "10’45”st"
         },
         {
           "goals": 1,
@@ -1215,7 +1217,8 @@
           "red": false,
           "number": "17",
           "surname": "De Oliveira",
-          "firstName": "Alan Patrick"
+          "firstName": "Alan Patrick",
+          "minute": "12’05”pt"
         },
         {
           "number": "41",
@@ -1223,7 +1226,8 @@
           "firstName": "Alessandro",
           "goals": 1,
           "yellow": false,
-          "red": false
+          "red": false,
+          "minute": "9’06”st"
         },
         {
           "number": "18",
@@ -1239,7 +1243,15 @@
           "firstName": "Daniele",
           "goals": 2,
           "yellow": false,
-          "red": false
+          "red": false,
+          "goalTimes": [
+            {
+              "time": "4’56”st"
+            },
+            {
+              "time": "10’18”st"
+            }
+          ]
         },
         {
           "number": "24",
@@ -1256,7 +1268,15 @@
           "goals": 2,
           "yellow": false,
           "red": false,
-          "ownGoal": true
+          "ownGoal": true,
+          "goalTimes": [
+            {
+              "time": "2’29”st"
+            },
+            {
+              "time": "18’53”st"
+            }
+          ]
         }
       ],
       "time": "14:30",
@@ -1297,7 +1317,8 @@
       "scorerEvents": [
         {
           "playerId": "sarcletti-paolo",
-          "goals": 1
+          "goals": 1,
+          "minute": "5’19”st"
         }
       ],
       "yellowCardEvents": [
