@@ -138,16 +138,28 @@
       "gf": 27
     },
     {
-      "g": 5,
+      "g": 6,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25339logo.png",
+      "gs": 20,
+      "n": 0,
+      "pts": 9,
+      "p": 3,
+      "pos": 7,
+      "v": 3,
+      "team": "JESOLO",
+      "gf": 14
+    },
+    {
+      "g": 6,
       "logo": "/img/standings/serie-b-2026-27/canottieri-belluno.webp",
-      "gs": 12,
+      "gs": 15,
       "n": 1,
       "pts": 7,
-      "p": 2,
-      "pos": 7,
+      "p": 3,
+      "pos": 8,
       "v": 2,
       "team": "CANOTTIERI BELLUNO",
-      "gf": 19
+      "gf": 21
     },
     {
       "g": 6,
@@ -156,22 +168,10 @@
       "n": 1,
       "pts": 7,
       "p": 3,
-      "pos": 8,
+      "pos": 9,
       "v": 2,
       "team": "ATLETICO SESTU",
       "gf": 20
-    },
-    {
-      "g": 5,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25339logo.png",
-      "gs": 18,
-      "n": 0,
-      "pts": 6,
-      "p": 3,
-      "pos": 9,
-      "v": 2,
-      "team": "JESOLO",
-      "gf": 11
     },
     {
       "g": 6,
