@@ -545,6 +545,17 @@ const MENU_GROUPS = [
     ["contacts","Contatti"]
   ]}
 ];
+function isCusTrentoLeagueHidden(){
+  const s=localState();
+  return !!(s&&s.cusTrentoLeague&&s.cusTrentoLeague.hidden);
+}
+function visibleMenuGroups(){
+  const hidden=isCusTrentoLeagueHidden();
+  return MENU_GROUPS.map(group=>({
+    ...group,
+    items:hidden?group.items.filter(([id])=>id!=="cus-trento-league"):group.items
+  })).filter(group=>group.items.length);
+}
 function menuGroupKey(label){
   const key = String(label || "").toLowerCase();
   if(key === "squadre") return "teams";
@@ -698,7 +709,7 @@ function renderNav(){
   const activeTop = activeMenuGroup(active);
 
   nav.dataset.cusRework = "true";
-  nav.innerHTML = MENU_GROUPS.map(group => {
+  nav.innerHTML = visibleMenuGroups().map(group => {
     const groupKey = menuGroupKey(group.label);
     if(group.items.length === 1){
       const [id,label] = group.items[0];
@@ -714,7 +725,7 @@ function renderNav(){
   }).join("");
 
   mobile.dataset.cusRework = "true";
-  mobile.innerHTML = `<div class="cus-mobile-menu-head"><span>Menu</span><button type="button" onclick="cusCloseMobileMenu()" aria-label="Chiudi menu">×</button></div>` + MENU_GROUPS.map(group => {
+  mobile.innerHTML = `<div class="cus-mobile-menu-head"><span>Menu</span><button type="button" onclick="cusCloseMobileMenu()" aria-label="Chiudi menu">×</button></div>` + visibleMenuGroups().map(group => {
     const groupKey = menuGroupKey(group.label);
     const isOpen = activeTop === groupKey;
     if(group.items.length === 1){
@@ -728,6 +739,7 @@ function shell(eyebrow,title,body,right="",desc="",img=""){setSEO(title,desc||`$
 function footer(){
   const year = new Date().getFullYear();
   const copyYear = year <= 2026 ? "2026" : `2026-${year}`;
+  const hideLeague=isCusTrentoLeagueHidden();
   const footerGroups = [
     {title:"Squadre",links:[["/squadre/","Squadre"],["/squadra/","Rosa"],["/staff/","Staff"],["/gioca-con-noi/","Gioca con noi"]]},
     {title:"Stagione",links:[["/calendario/","Calendario"],["/classifica/","Classifica"],["/coppa/","Coppa"],["/statistiche/","Statistiche"],["/cnu/","CNU"],["/archivio-stagioni/","Archivio stagioni"]]},
@@ -736,7 +748,7 @@ function footer(){
     {title:"Media",links:[["/news/","News"],["/gallery/","Gallery"],["/video/","Video"],["/social/","Social wall"]]},
     {title:"Club",links:[["/club/","Chi siamo"],["/impianto/","Impianto"],["/hall-of-fame/","Hall of Fame"],["/contatti/","Contatti"]]},
   ];
-  return `<footer class="footer footer-expanded"><div class="container"><div class="footer-brand-col"><div class="brand" style="color:#fff">${brandMark()}<div>CUS Trento C5<small>Futsal universitario</small></div></div><p>Sito ufficiale del CUS Trento C5: il punto di riferimento per seguire calendario, risultati, rosa, news e attività del CUS Trento Calcio a 5.</p><a class="cus-parent-link cus-parent-link-footer" href="https://www.custrento.it/" target="_blank" rel="noopener noreferrer" aria-label="Visita il sito ufficiale del CUS Trento"><img src="https://www.custrento.it/wp-content/uploads/2021/04/CUS_TRENTO1.png" alt="CUS Trento"></a>${socialFollowActions('footer-follow')}<div class="footer-copy">© ${copyYear} LDF</div></div>${footerGroups.map(group=>`<nav class="footer-menu-col" aria-label="${group.title}"><b>${group.title}</b>${group.links.map(([href,label])=>`<a href="${href}">${label}</a>`).join("")}</nav>`).join("")}</div></footer>`;
+  return `<footer class="footer footer-expanded"><div class="container"><div class="footer-brand-col"><div class="brand" style="color:#fff">${brandMark()}<div>CUS Trento C5<small>Futsal universitario</small></div></div><p>Sito ufficiale del CUS Trento C5: il punto di riferimento per seguire calendario, risultati, rosa, news e attività del CUS Trento Calcio a 5.</p><a class="cus-parent-link cus-parent-link-footer" href="https://www.custrento.it/" target="_blank" rel="noopener noreferrer" aria-label="Visita il sito ufficiale del CUS Trento"><img src="https://www.custrento.it/wp-content/uploads/2021/04/CUS_TRENTO1.png" alt="CUS Trento"></a>${socialFollowActions('footer-follow')}<div class="footer-copy">© ${copyYear} LDF</div></div>${footerGroups.map(group=>`<nav class="footer-menu-col" aria-label="${group.title}"><b>${group.title}</b>${group.links.filter(([href])=>!hideLeague||href!=="/cus-trento-league/").map(([href,label])=>`<a href="${href}">${label}</a>`).join("")}</nav>`).join("")}</div></footer>`;
 }
 function safe(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
 function publicYouthText(value){return String(value??"").replace(/\bunder\s*21\b/gi,"Under 23").replace(/\bu21\b/gi,"U23");}
@@ -3514,6 +3526,7 @@ function partnerPage(){
 // Unico punto di smistamento delle route: prima la pagina, poi il menu (che dipende dalla route effettiva).
 function render(){
   current=resolveRoute(current);
+  if(current==="cus-trento-league"&&isCusTrentoLeagueHidden())current="home";
   const target=current;
   if(target.startsWith("gallery-album-"))galleryAlbum(target.replace("gallery-album-",""));
   else if(target.startsWith("article-"))articleDetail(target.replace("article-",""));
