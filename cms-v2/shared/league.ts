@@ -127,8 +127,8 @@ export function bracket(league: LeagueData): Bracket {
   const at = (rows: StandingRow[], i: number) => rows[i]?.team || "Da definire";
   const quarters = PAIRINGS.map(([ia, ib, sa, sb], i) => ({ ...resolveKnockout(q[i], at(a, ia), at(bb, ib)), seeds: [sa, sb] as [string, string] }));
   const semis = [
-    { ...resolveKnockout(s[0], quarters[0].winner || "Vincente quarto 1", quarters[1].winner || "Vincente quarto 2"), seeds: ["VQ1", "VQ2"] as [string, string] },
-    { ...resolveKnockout(s[1], quarters[2].winner || "Vincente quarto 3", quarters[3].winner || "Vincente quarto 4"), seeds: ["VQ3", "VQ4"] as [string, string] },
+    { ...resolveKnockout(s[0], quarters[0].winner || "Vincente quarto 1", quarters[2].winner || "Vincente quarto 3"), seeds: ["VQ1", "VQ3"] as [string, string] },
+    { ...resolveKnockout(s[1], quarters[1].winner || "Vincente quarto 2", quarters[3].winner || "Vincente quarto 4"), seeds: ["VQ2", "VQ4"] as [string, string] },
   ];
   const final = { ...resolveKnockout(b.final, semis[0].winner || "Vincente semifinale 1", semis[1].winner || "Vincente semifinale 2"), seeds: ["VS1", "VS2"] as [string, string] };
   return { quarters, semis, final, champion: final.winner };
