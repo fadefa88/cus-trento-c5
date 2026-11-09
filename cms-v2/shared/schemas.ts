@@ -218,6 +218,7 @@ export const league = z.looseObject({
   endDate: optDate,
   venue: optText.nullable(),
   instagram: optUrl,
+  hidden: z.boolean().optional(),
   teams: z.array(leagueTeam).optional().nullable(),
   matches: z.array(leagueMatch).optional().nullable(),
   bracket: z
