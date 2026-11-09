@@ -88,9 +88,15 @@ describe("bracket", () => {
     expect(rossi.goals).toBe(4); // 2 in the group stage + 2 in the quarterfinal
     expect(scorers(synthetic).find((r) => r.name === "Neri")!.goals).toBe(3);
   });
-  it("semifinal 1 = winners of Q1 and Q2, semifinal 2 waits for Q3", () => {
-    expect([b.semis[0].team1, b.semis[0].team2]).toEqual([b.quarters[0].winner || "Vincente quarto 1", b.quarters[1].winner]);
-    expect(b.semis[1].team1).toBe("Vincente quarto 3");
+  it("semifinal 1 = winners of Q1 and Q3, semifinal 2 = winners of Q2 and Q4", () => {
+    expect([b.semis[0].team1, b.semis[0].team2]).toEqual([
+      b.quarters[0].winner || "Vincente quarto 1",
+      b.quarters[2].winner || "Vincente quarto 3",
+    ]);
+    expect([b.semis[1].team1, b.semis[1].team2]).toEqual([
+      b.quarters[1].winner || "Vincente quarto 2",
+      b.quarters[3].winner || "Vincente quarto 4",
+    ]);
     expect(b.final.team2).toBe("Vincente semifinale 2");
   });
 });
