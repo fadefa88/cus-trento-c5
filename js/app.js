@@ -546,8 +546,7 @@ const MENU_GROUPS = [
   ]}
 ];
 function isCusTrentoLeagueHidden(){
-  const s=localState();
-  return !!(s&&s.cusTrentoLeague&&s.cusTrentoLeague.hidden);
+  return !!(state&&state.cusTrentoLeague&&state.cusTrentoLeague.hidden);
 }
 function visibleMenuGroups(){
   const hidden=isCusTrentoLeagueHidden();
