@@ -484,9 +484,9 @@ function RulesTab({ source, hasDraft }: { source: Item | undefined; hasDraft: bo
 }
 
 function InfoTab({ source, hasDraft }: { source: Item | undefined; hasDraft: boolean }) {
-  type Info = { title: string; edition: string; sport: string; startDate: string; endDate: string; venue: string; instagram: string };
+  type Info = { title: string; edition: string; sport: string; startDate: string; endDate: string; venue: string; instagram: string; hidden: boolean };
   return (
-    <ObjectEditor<Info> doc="events" path={["cusTrentoLeague"]} source={source} keys={["title", "edition", "sport", "startDate", "endDate", "venue", "instagram"]} hasDraft={hasDraft} summary="League: aggiorna informazioni">
+    <ObjectEditor<Info> doc="events" path={["cusTrentoLeague"]} source={source} keys={["title", "edition", "sport", "startDate", "endDate", "venue", "instagram", "hidden"]} hasDraft={hasDraft} summary="League: aggiorna informazioni">
       {(v, set) => (
         <>
           <TextField label="Titolo" value={v.title} onChange={(x) => set("title", x)} />
@@ -500,6 +500,18 @@ function InfoTab({ source, hasDraft }: { source: Item | undefined; hasDraft: boo
           </div>
           <TextField label="Campo" value={v.venue} onChange={(x) => set("venue", x)} />
           <TextField label="Instagram" type="url" inputMode="url" value={v.instagram} onChange={(x) => set("instagram", x.trim())} placeholder="https://www.instagram.com/…" />
+          <label className="flex min-h-12 items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3">
+            <input
+              type="checkbox"
+              className="size-5 shrink-0 accent-primary"
+              checked={!!v.hidden}
+              onChange={(x) => set("hidden", x.target.checked)}
+            />
+            <span>
+              <b className="block text-sm">Nascondi League dal frontend</b>
+              <span className="block text-xs text-muted">Nasconde pagina, voce di menu e link nel footer senza cancellare dati o risultati.</span>
+            </span>
+          </label>
         </>
       )}
     </ObjectEditor>
