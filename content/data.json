@@ -4895,12 +4895,38 @@
         },
         {
           "name": "Semifinale 2",
-          "team1Score": null,
-          "team2Score": null,
+          "team1Score": 1,
+          "team2Score": 5,
           "winner": "",
           "date": "2026-11-09",
           "time": "19:30",
-          "scorers": []
+          "scorers": [
+            {
+              "name": "Castelnuovo",
+              "team": "Banda Bassiotti",
+              "goals": 1
+            },
+            {
+              "name": "Balistreri",
+              "team": "TT Le Girlz",
+              "goals": 2
+            },
+            {
+              "name": "Afretti",
+              "team": "TT Le Girlz",
+              "goals": 1
+            },
+            {
+              "name": "Malavasi",
+              "team": "TT Le Girlz",
+              "goals": 1
+            },
+            {
+              "name": "Savoia",
+              "team": "TT Le Girlz",
+              "goals": 1
+            }
+          ]
         }
       ],
       "final": {
