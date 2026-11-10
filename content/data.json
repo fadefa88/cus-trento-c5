@@ -4886,12 +4886,33 @@
       "semifinals": [
         {
           "name": "Semifinale 1",
-          "team1Score": null,
-          "team2Score": null,
+          "team1Score": 1,
+          "team2Score": 3,
           "winner": "",
           "date": "2026-11-09",
           "time": "20:30",
-          "scorers": []
+          "scorers": [
+            {
+              "name": "Fenato",
+              "team": "Calcio Proletario",
+              "goals": 1
+            },
+            {
+              "name": "Malpaga",
+              "team": "Rango FC",
+              "goals": 1
+            },
+            {
+              "name": "Borrello",
+              "team": "Rango FC",
+              "goals": 1
+            },
+            {
+              "name": "Sarais",
+              "team": "Rango FC",
+              "goals": 1
+            }
+          ]
         },
         {
           "name": "Semifinale 2",
