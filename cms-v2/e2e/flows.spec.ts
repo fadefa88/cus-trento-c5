@@ -99,13 +99,15 @@ test("closing an editor with unsaved changes asks for confirmation", async ({ pa
 
 test("knockout draw requires choosing the qualified team, then publishes", async ({ page }, testInfo) => {
   await page.goto("./#/league?tab=tabellone");
-  await page.getByRole("button", { name: /Quarto 1/ }).click();
+  await page.getByRole("button", { name: /^Finale/ }).click();
   const d = dialog(page);
 
-  // Do not depend on the real score currently stored for Quarto 1.
-  // Reset it first, then create a deterministic 1-1 draw.
+  // The final has no downstream round: isolate the test from real knockout data.
+  const remove = d.getByRole("button", { name: "Rimuovi", exact: true });
+  while (await remove.count()) await remove.first().click();
   const reset = d.getByRole("button", { name: "Azzera risultato" });
   if (await reset.count()) await reset.click();
+
   const targetScore = testInfo.project.name === "desktop" ? 2 : 1;
   for (const label of await d.getByRole("button", { name: /^Gol .+: più$/ }).all()) {
     await label.click(); // vuoto -> 0
@@ -117,7 +119,7 @@ test("knockout draw requires choosing the qualified team, then publishes", async
   await d.getByRole("radio").first().click();
   await d.getByRole("button", { name: "Pubblica" }).click();
   await expect(page.getByText("Pubblicato", { exact: true })).toBeVisible();
-  await expect(page.getByRole("button", { name: /Quarto 1/ })).toContainText(team);
+  await expect(page.getByRole("button", { name: /^Finale/ })).toContainText(team);
 });
 
 test("edit the League rules and publish", async ({ page }) => {
@@ -158,10 +160,20 @@ test("up to 12 players called up; no report tab, no opponents tab for U23", asyn
 
 test("knockout games accept scorers from the two teams", async ({ page }) => {
   await page.goto("./#/league?tab=tabellone");
-  await page.getByRole("button", { name: /Quarto 2/ }).click();
+  await page.getByRole("button", { name: /^Finale/ }).click();
   const d = dialog(page);
-  await d.getByRole("button", { name: /: più$/ }).first().click();
-  await d.getByRole("button", { name: /: più$/ }).first().click();
+
+  // Build an isolated 2-0 final so scorer validation never depends on real data.
+  const remove = d.getByRole("button", { name: "Rimuovi", exact: true });
+  while (await remove.count()) await remove.first().click();
+  const reset = d.getByRole("button", { name: "Azzera risultato" });
+  if (await reset.count()) await reset.click();
+  const scoreButtons = await d.getByRole("button", { name: /^Gol .+: più$/ }).all();
+  await scoreButtons[0].click(); // vuoto -> 0
+  await scoreButtons[0].click(); // 0 -> 1
+  await scoreButtons[0].click(); // 1 -> 2
+  await scoreButtons[1].click(); // vuoto -> 0
+
   await d.getByRole("button", { name: "Gol", exact: true }).first().click();
   const picker = dialog(page);
   const groups = await picker.locator("p.uppercase").allTextContents();
@@ -169,5 +181,5 @@ test("knockout games accept scorers from the two teams", async ({ page }) => {
   await picker.getByText("Autogol", { exact: true }).click();
   await d.getByRole("button", { name: "Pubblica" }).click();
   await expect(page.getByText("Pubblicato", { exact: true })).toBeVisible();
-  await expect(page.getByRole("button", { name: /Quarto 2/ })).toContainText("Autogol");
+  await expect(page.getByRole("button", { name: /^Finale/ })).toContainText("Autogol");
 });
