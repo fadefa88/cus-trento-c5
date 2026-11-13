@@ -518,7 +518,25 @@
       "status": "Da giocare",
       "id": "cus-trento-u23-san-giuseppe-2026-11-13",
       "home": "CUS Trento U23",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "2-4",
+      "scorerEvents": [
+        {
+          "playerId": "medeghini-riccardo",
+          "goals": 1
+        },
+        {
+          "playerId": "buda-samuele",
+          "goals": 1
+        }
+      ],
+      "goalkeeperEvents": [
+        {
+          "playerId": "harmeet-singh",
+          "goalsAgainst": 4,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/nomi.png",
