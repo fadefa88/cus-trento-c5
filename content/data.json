@@ -2762,28 +2762,28 @@
   ],
   "u21Standings": [
     {
-      "g": 7,
+      "g": 8,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25249logo.png",
-      "gs": 21,
+      "gs": 25,
       "n": 1,
-      "pts": 16,
+      "pts": 19,
       "p": 1,
       "pos": 1,
-      "v": 5,
+      "v": 6,
       "team": "CALCIO BLEGGIO",
-      "gf": 44
+      "gf": 51
     },
     {
-      "g": 7,
+      "g": 8,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25241logo.png",
-      "gs": 24,
+      "gs": 26,
       "n": 1,
-      "pts": 16,
+      "pts": 19,
       "p": 1,
       "pos": 2,
-      "v": 5,
+      "v": 6,
       "team": "SAN GIUSEPPE",
-      "gf": 41
+      "gf": 45
     },
     {
       "g": 7,
@@ -2798,16 +2798,16 @@
       "gf": 43
     },
     {
-      "g": 7,
+      "g": 8,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25246logo.png",
-      "gs": 33,
+      "gs": 40,
       "n": 1,
       "pts": 13,
-      "p": 2,
+      "p": 3,
       "pos": 4,
       "v": 4,
       "team": "LEDRENSE",
-      "gf": 47
+      "gf": 51
     },
     {
       "g": 7,
@@ -2859,27 +2859,27 @@
     },
     {
       "g": 7,
-      "logo": "https://calcioa5.custrento.it/img/standings/serie-b-2026-27/cus-trento.webp",
-      "gs": 31,
-      "n": 1,
-      "pts": 4,
-      "p": 5,
-      "pos": 9,
-      "v": 1,
-      "team": "CUS TRENTO U23",
-      "gf": 20
-    },
-    {
-      "g": 7,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25243logo.png",
       "gs": 56,
       "n": 1,
       "pts": 4,
       "p": 5,
-      "pos": 10,
+      "pos": 9,
       "v": 1,
       "team": "SAN FLORIANO",
       "gf": 36
+    },
+    {
+      "g": 8,
+      "logo": "https://calcioa5.custrento.it/img/standings/serie-b-2026-27/cus-trento.webp",
+      "gs": 35,
+      "n": 1,
+      "pts": 4,
+      "p": 6,
+      "pos": 10,
+      "v": 1,
+      "team": "CUS TRENTO U23",
+      "gf": 22
     }
   ],
   "news": [],
