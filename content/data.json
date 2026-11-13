@@ -4254,7 +4254,20 @@
       "date": "2026-11-13",
       "lineup": {
         "startingFive": [],
-        "bench": [],
+        "bench": [
+          "battaglia-edoardo",
+          "28",
+          "buda-samuele",
+          "amendola-tommaso",
+          "30",
+          "grippa-michele",
+          "el-mahi-rida",
+          "niccolo-piovesan",
+          "harmeet-singh",
+          "medeghini-riccardo",
+          "zanrosso-matteo",
+          "zago-alessandro"
+        ],
         "suspended": [],
         "injured": []
       },
