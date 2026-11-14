@@ -2786,16 +2786,16 @@
       "gf": 45
     },
     {
-      "g": 7,
+      "g": 8,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25244logo.png",
-      "gs": 30,
+      "gs": 32,
       "n": 2,
-      "pts": 14,
+      "pts": 17,
       "p": 1,
       "pos": 3,
-      "v": 4,
+      "v": 5,
       "team": "LAGARINA",
-      "gf": 43
+      "gf": 49
     },
     {
       "g": 8,
@@ -2810,64 +2810,64 @@
       "gf": 51
     },
     {
-      "g": 7,
+      "g": 8,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25240logo.png",
-      "gs": 39,
-      "n": 2,
-      "pts": 11,
+      "gs": 42,
+      "n": 3,
+      "pts": 12,
       "p": 2,
       "pos": 5,
       "v": 3,
       "team": "ALTA GIUDICARIE",
-      "gf": 34
+      "gf": 37
     },
     {
-      "g": 7,
+      "g": 8,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25245logo.png",
-      "gs": 33,
+      "gs": 41,
       "n": 1,
       "pts": 10,
-      "p": 3,
+      "p": 4,
       "pos": 6,
       "v": 3,
       "team": "NOMI",
-      "gf": 35
+      "gf": 41
     },
     {
-      "g": 7,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25247logo.png",
-      "gs": 36,
-      "n": 0,
-      "pts": 6,
+      "g": 8,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25243logo.png",
+      "gs": 62,
+      "n": 1,
+      "pts": 7,
       "p": 5,
       "pos": 7,
       "v": 2,
-      "team": "ATHESIS",
-      "gf": 22
+      "team": "SAN FLORIANO",
+      "gf": 44
     },
     {
-      "g": 7,
+      "g": 8,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25248logo.png",
-      "gs": 43,
-      "n": 0,
-      "pts": 6,
+      "gs": 46,
+      "n": 1,
+      "pts": 7,
       "p": 5,
       "pos": 8,
       "v": 2,
       "team": "SETTAURENSE",
-      "gf": 24
+      "gf": 27
     },
     {
-      "g": 7,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25243logo.png",
-      "gs": 56,
-      "n": 1,
-      "pts": 4,
-      "p": 5,
+      "g": 8,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25247logo.png",
+      "gs": 42,
+      "n": 0,
+      "pts": 6,
+      "p": 6,
       "pos": 9,
-      "v": 1,
-      "team": "SAN FLORIANO",
-      "gf": 36
+      "v": 2,
+      "team": "ATHESIS",
+      "gf": 24
     },
     {
       "g": 8,
