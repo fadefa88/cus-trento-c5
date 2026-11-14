@@ -1336,7 +1336,7 @@
           "number": "41",
           "surname": "Pasquazzo",
           "firstName": "Simone",
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false
         },
@@ -1392,7 +1392,7 @@
           "number": "8",
           "surname": "Cecchin",
           "firstName": "Riccardo Emilio",
-          "goals": 2,
+          "goals": 3,
           "yellow": false,
           "red": false
         },
@@ -1457,7 +1457,14 @@
       "id": "futsal-atesina-cus-trento-2026-11-14",
       "home": "Futsal Atesina",
       "competition": "Campionato",
-      "score": "9-2"
+      "score": "12-3",
+      "goalkeeperEvents": [
+        {
+          "playerId": "baccaro-zeni-lucca",
+          "goalsAgainst": 12,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/futsal-jesolo.png",
