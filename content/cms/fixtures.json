@@ -1352,15 +1352,15 @@
           "number": "12",
           "surname": "Mustafov",
           "firstName": "Rejhan",
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false
         },
         {
           "number": "21",
           "surname": "Monteiro",
-          "firstName": "That go Augusto",
-          "goals": 0,
+          "firstName": "Thyago Augusto",
+          "goals": 1,
           "yellow": false,
           "red": false
         },
@@ -1392,7 +1392,7 @@
           "number": "8",
           "surname": "Cecchin",
           "firstName": "Riccardo Emilio",
-          "goals": 0,
+          "goals": 2,
           "yellow": false,
           "red": false
         },
@@ -1400,7 +1400,7 @@
           "number": "6",
           "surname": "Manzoni",
           "firstName": "Alex",
-          "goals": 0,
+          "goals": 2,
           "yellow": false,
           "red": false
         },
@@ -1408,7 +1408,7 @@
           "number": "9",
           "surname": "Iancu",
           "firstName": "Alexandru Sorin",
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false
         },
@@ -1424,7 +1424,7 @@
           "number": "10",
           "surname": "Basso",
           "firstName": "Marco",
-          "goals": 0,
+          "goals": 2,
           "yellow": false,
           "red": false
         }
@@ -1456,7 +1456,8 @@
       "status": "Da giocare",
       "id": "futsal-atesina-cus-trento-2026-11-14",
       "home": "Futsal Atesina",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "9-2"
     },
     {
       "opponentLogo": "/img/uploads/futsal-jesolo.png",
