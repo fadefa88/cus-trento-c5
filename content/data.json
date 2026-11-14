@@ -67,27 +67,15 @@
   "standings": [
     {
       "g": 7,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25335logo.png",
-      "gs": 26,
+      "logo": "/img/standings/serie-b-2026-27/elmas.webp",
+      "gs": 20,
       "n": 1,
       "pts": 16,
       "p": 1,
       "pos": 1,
       "v": 5,
-      "team": "EAGLES",
-      "gf": 34
-    },
-    {
-      "g": 7,
-      "logo": "/img/standings/serie-b-2026-27/elmas.webp",
-      "gs": 20,
-      "n": 0,
-      "pts": 15,
-      "p": 2,
-      "pos": 2,
-      "v": 5,
       "team": "ELMAS",
-      "gf": 35
+      "gf": 36
     },
     {
       "g": 6,
@@ -96,7 +84,7 @@
       "n": 0,
       "pts": 15,
       "p": 1,
-      "pos": 3,
+      "pos": 2,
       "v": 5,
       "team": "CONEGLIANOMONTELLO",
       "gf": 22
@@ -108,10 +96,22 @@
       "n": 2,
       "pts": 14,
       "p": 1,
-      "pos": 4,
+      "pos": 3,
       "v": 4,
       "team": "VILLORBA",
       "gf": 29
+    },
+    {
+      "g": 7,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25335logo.png",
+      "gs": 27,
+      "n": 2,
+      "pts": 14,
+      "p": 1,
+      "pos": 4,
+      "v": 4,
+      "team": "EAGLES",
+      "gf": 34
     },
     {
       "g": 7,
