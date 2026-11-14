@@ -1464,6 +1464,30 @@
           "goalsAgainst": 12,
           "appearances": 1
         }
+      ],
+      "yellowCardEvents": [
+        {
+          "playerId": "11",
+          "cards": 1
+        },
+        {
+          "playerId": "19",
+          "cards": 1
+        },
+        {
+          "playerId": "7",
+          "cards": 1
+        }
+      ],
+      "scorerEvents": [
+        {
+          "playerId": "19",
+          "goals": 2
+        },
+        {
+          "playerId": "11",
+          "goals": 1
+        }
       ]
     },
     {
