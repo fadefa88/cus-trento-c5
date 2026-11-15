@@ -162,28 +162,28 @@
       "gf": 22
     },
     {
-      "g": 6,
-      "logo": "/img/standings/serie-b-2026-27/atletico-sestu.webp",
-      "gs": 26,
+      "g": 7,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25336logo.png",
+      "gs": 24,
       "n": 1,
       "pts": 7,
-      "p": 3,
+      "p": 4,
       "pos": 9,
       "v": 2,
-      "team": "ATLETICO SESTU",
-      "gf": 20
+      "team": "MANZANO BRN",
+      "gf": 21
     },
     {
-      "g": 6,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25336logo.png",
-      "gs": 22,
+      "g": 7,
+      "logo": "/img/standings/serie-b-2026-27/atletico-sestu.webp",
+      "gs": 31,
       "n": 1,
-      "pts": 4,
+      "pts": 7,
       "p": 4,
       "pos": 10,
-      "v": 1,
-      "team": "MANZANO BRN",
-      "gf": 16
+      "v": 2,
+      "team": "ATLETICO SESTU",
+      "gf": 22
     },
     {
       "g": 7,
