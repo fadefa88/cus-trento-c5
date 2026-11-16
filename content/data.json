@@ -948,7 +948,7 @@
         },
         {
           "goals": 0,
-          "yellow": false,
+          "yellow": true,
           "red": false,
           "number": "6",
           "surname": "Tidu",
@@ -980,7 +980,7 @@
         },
         {
           "goals": 0,
-          "yellow": false,
+          "yellow": true,
           "red": false,
           "number": "8",
           "surname": "Monti",
@@ -996,7 +996,7 @@
         },
         {
           "goals": 1,
-          "yellow": false,
+          "yellow": true,
           "red": false,
           "number": "7",
           "surname": "Mura",
@@ -1283,7 +1283,7 @@
         },
         {
           "goals": 0,
-          "yellow": false,
+          "yellow": true,
           "red": false,
           "number": "11",
           "surname": "Tenca",
@@ -1475,7 +1475,7 @@
         },
         {
           "goals": 0,
-          "yellow": true,
+          "yellow": false,
           "red": false,
           "number": "10",
           "surname": "Boi",
@@ -1513,7 +1513,7 @@
           "surname": "Boi",
           "firstName": "Nicola",
           "goals": 0,
-          "yellow": false,
+          "yellow": true,
           "red": false
         },
         {
