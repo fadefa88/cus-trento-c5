@@ -1261,7 +1261,7 @@ def import_tiktok_posts(feed_url: str, repo_root: Path, existing: list[dict], li
     # increase with publication time: order candidates before applying the limit.
     def video_id(item: dict) -> int:
         url = normalize_tiktok_url(str(item.get("url") or item.get("external_url") or item.get("id") or ""))
-        match = re.search(r"/video/(\\d+)$", url)
+        match = re.search(r"/video/(\d+)$", url)
         return int(match.group(1)) if match else 0
 
     raw_items = sorted(
