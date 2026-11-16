@@ -1338,7 +1338,10 @@
           "firstName": "Simone",
           "goals": 1,
           "yellow": false,
-          "red": false
+          "red": false,
+          "goalTimes": [
+            "16’10” st"
+          ]
         },
         {
           "number": "1",
@@ -1354,7 +1357,10 @@
           "firstName": "Rejhan",
           "goals": 1,
           "yellow": false,
-          "red": false
+          "red": false,
+          "goalTimes": [
+            "1’39” pt"
+          ]
         },
         {
           "number": "21",
@@ -1362,7 +1368,11 @@
           "firstName": "Thyago Augusto",
           "goals": 2,
           "yellow": false,
-          "red": false
+          "red": false,
+          "goalTimes": [
+            "8’16” pt",
+            "16’10” st"
+          ]
         },
         {
           "number": "19",
@@ -1394,7 +1404,12 @@
           "firstName": "Riccardo Emilio",
           "goals": 3,
           "yellow": false,
-          "red": false
+          "red": false,
+          "goalTimes": [
+            "7’32” pt",
+            "5’57” st",
+            "19’20” st"
+          ]
         },
         {
           "number": "6",
@@ -1402,7 +1417,11 @@
           "firstName": "Alex",
           "goals": 2,
           "yellow": false,
-          "red": false
+          "red": false,
+          "goalTimes": [
+            "13’27” pt",
+            "12’47” st"
+          ]
         },
         {
           "number": "9",
@@ -1410,7 +1429,10 @@
           "firstName": "Alexandru Sorin",
           "goals": 1,
           "yellow": false,
-          "red": false
+          "red": false,
+          "goalTimes": [
+            "3’06” pt"
+          ]
         },
         {
           "number": "7",
@@ -1426,7 +1448,11 @@
           "firstName": "Marco",
           "goals": 2,
           "yellow": false,
-          "red": false
+          "red": false,
+          "goalTimes": [
+            "19’34” pt",
+            "5’38” st"
+          ]
         }
       ],
       "time": "15:00",
@@ -1482,11 +1508,18 @@
       "scorerEvents": [
         {
           "playerId": "19",
-          "goals": 2
+          "goals": 2,
+          "goalTimes": [
+            "14’00” st",
+            "18’40” st"
+          ]
         },
         {
           "playerId": "11",
-          "goals": 1
+          "goals": 1,
+          "goalTimes": [
+            "12’18” st"
+          ]
         }
       ]
     },
