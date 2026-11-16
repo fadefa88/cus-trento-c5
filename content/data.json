@@ -1619,7 +1619,9 @@
           "yellow": false,
           "red": false,
           "goalTimes": [
-            "16’10” st"
+            {
+              "time": "16’10” st"
+            }
           ]
         },
         {
@@ -1638,7 +1640,9 @@
           "yellow": false,
           "red": false,
           "goalTimes": [
-            "1’39” pt"
+            {
+              "time": "1’39” pt"
+            }
           ]
         },
         {
@@ -1649,8 +1653,12 @@
           "yellow": false,
           "red": false,
           "goalTimes": [
-            "8’16” pt",
-            "16’10” st"
+            {
+              "time": "8’16” pt"
+            },
+            {
+              "time": "16’10” st"
+            }
           ]
         },
         {
@@ -1685,9 +1693,15 @@
           "yellow": false,
           "red": false,
           "goalTimes": [
-            "7’32” pt",
-            "5’57” st",
-            "19’20” st"
+            {
+              "time": "7’32” pt"
+            },
+            {
+              "time": "5’57” st"
+            },
+            {
+              "time": "19’20” st"
+            }
           ]
         },
         {
@@ -1698,8 +1712,12 @@
           "yellow": false,
           "red": false,
           "goalTimes": [
-            "13’27” pt",
-            "12’47” st"
+            {
+              "time": "13’27” pt"
+            },
+            {
+              "time": "12’47” st"
+            }
           ]
         },
         {
@@ -1710,7 +1728,9 @@
           "yellow": false,
           "red": false,
           "goalTimes": [
-            "3’06” pt"
+            {
+              "time": "3’06” pt"
+            }
           ]
         },
         {
@@ -1729,8 +1749,12 @@
           "yellow": false,
           "red": false,
           "goalTimes": [
-            "19’34” pt",
-            "5’38” st"
+            {
+              "time": "19’34” pt"
+            },
+            {
+              "time": "5’38” st"
+            }
           ]
         }
       ],
@@ -1789,15 +1813,21 @@
           "playerId": "19",
           "goals": 2,
           "goalTimes": [
-            "14’00” st",
-            "18’40” st"
+            {
+              "time": "14’00” st"
+            },
+            {
+              "time": "18’40” st"
+            }
           ]
         },
         {
           "playerId": "11",
           "goals": 1,
           "goalTimes": [
-            "12’18” st"
+            {
+              "time": "12’18” st"
+            }
           ]
         }
       ]
