@@ -1,0 +1,96 @@
+name: Sync Serie B official disciplinary cards
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/sync_serie_b_cards.py"
+      - "tests/test_serie_b_cards.py"
+      - ".github/workflows/sync-serie-b-cards.yml"
+  schedule:
+    # Every day at 06:37 UTC (07:37 Italy in winter, 08:37 in summer).
+    - cron: "37 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-serie-b-cards-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install official PDF extraction tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install --quiet requests beautifulsoup4
+
+      - name: Check safe card-matching rules
+        run: python -m unittest discover -s tests -p 'test_serie_b_cards.py' -v
+
+      - name: Read official Serie B bulletins and update confirmed cards
+        run: python scripts/sync_serie_b_cards.py --apply
+
+      - name: Validate JSON
+        run: |
+          python -m json.tool content/data.json > /dev/null
+          python -m json.tool content/cms/fixtures.json > /dev/null
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Validate CMS types and fixture integrity
+        run: |
+          npm ci --quiet
+          npm run cms:typecheck
+          npm run cms:test
+
+      - name: Commit and publish confirmed player cards only
+        shell: bash
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add content/data.json content/cms/fixtures.json
+
+          if git diff --cached --quiet; then
+            echo "No new confirmed cards: nothing to commit."
+            exit 0
+          fi
+
+          git commit -m "Sync Serie B player cards from official bulletins"
+
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "::error::Concurrent CMS edit: refusing an unsafe merge."
+              exit 1
+            fi
+            if git push origin HEAD:main; then
+              echo "Published verified disciplinary updates."
+              exit 0
+            fi
+            sleep 3
+          done
+
+          echo "::error::Cannot push disciplinary updates."
+          exit 1
