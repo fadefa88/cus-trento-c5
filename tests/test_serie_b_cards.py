@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 
 from scripts.sync_serie_b_cards import (
-    clean, match_player, confirms_result, match_date,
+    clean, match_player, confirms_result, match_date, match_dates,
     disciplinary_players, update_cards, reconcile,
 )
 
@@ -79,6 +79,23 @@ class OfficialCardsTest(unittest.TestCase):
         self.assertEqual(match_date(PDF), "2026-11-07")
         self.assertFalse(confirms_result(PDF, {**self.fixture, "score": "1-7"}))
         self.assertFalse(confirms_result(PDF, {**self.fixture, "away": "Atletico Sestu"}))
+
+    def test_two_day_bulletin_dates(self):
+        bulletin = PDF.replace("GARE DEL 07/11/2026", "GARE DEL 06-07/11/2026")
+        self.assertEqual(match_dates(bulletin), {"2026-11-06", "2026-11-07"})
+        self.assertEqual(match_date(bulletin), "2026-11-07")
+
+    def test_manzano_official_prefix(self):
+        manzano = {
+            **self.fixture,
+            "away": "Manzano BRN 1988",
+            "score": "3-6",
+        }
+        report = PDF.replace(
+            "CUS TRENTO ELMAS C5 1 - 8",
+            "CUS TRENTO C5 MANZANO BRN 1988 3 - 6",
+        )
+        self.assertTrue(confirms_result(report, manzano))
 
     def test_all_players_and_no_coaches(self):
         caution, red = disciplinary_players(PDF)

@@ -26,7 +26,7 @@ UA = "CUS-Trento-C5 disciplinary-sync/1.0 (public official bulletins)"
 ALIASES = {
     "CUS Trento": ["CUS TRENTO"],
     "Futsal Villorba": ["FUTSAL VILLORBA A R.L.", "FUTSAL VILLORBA"],
-    "Manzano BRN 1988": ["MANZANO BRN 1988"],
+    "Manzano BRN 1988": ["C5 MANZANO BRN 1988", "MANZANO BRN 1988"],
     "Atletico Sestu": ["ATLETICO SESTU"],
     "Canottieri Belluno": ["CANOTTIERI BELLUNO C5"],
     "Real Bubi Merano": ["REAL BUBI MERANO C5"],
@@ -135,9 +135,21 @@ def disciplinary_players(text):
     return yellows, reds
 
 
+def match_dates(text):
+    # An official bulletin can encompass "GARE DEL 23-24/10/2026".
+    hit = re.search(r"\bGARE\s+DEL\s+(?:(\d{1,2})\s*-\s*)?(\d{1,2})/(\d{1,2})/(\d{4})", text, re.I)
+    if not hit:
+        return set()
+    first_day, last_day, month, year = hit.groups()
+    days = [int(last_day)]
+    if first_day:
+        days.append(int(first_day))
+    return {f"{int(year):04d}-{int(month):02d}-{day:02d}" for day in days}
+
+
 def match_date(text):
-    hit = re.search(r"\bGARE\s+DEL\s+(\d{1,2})/(\d{1,2})/(\d{4})", text, re.I)
-    return f"{int(hit[3]):04d}-{int(hit[2]):02d}-{int(hit[1]):02d}" if hit else ""
+    # Kept for older callers; single-date communiques retain their original API.
+    return sorted(match_dates(text))[-1] if match_dates(text) else ""
 
 
 def confirms_result(text, fixture):
@@ -216,14 +228,14 @@ def reconcile(root, reports, apply):
     site = json.loads(site_path.read_text(encoding="utf-8"))
     changes = []
     for bulletin, text in sorted(reports, key=lambda row: row[0]["number"]):
-        day = match_date(text)
+        days = match_dates(text)
         matches = [
             f for f in cms["fixtures"]
             if f.get("competition") == "Campionato" and f.get("status") == "Terminata"
-            and f.get("score") and f.get("date") == day and confirms_result(text, f)
+            and f.get("score") and f.get("date") in days and confirms_result(text, f)
             and ("CUS Trento" in (f.get("home"), f.get("away")))
         ]
-        print(f"C.U. {bulletin['number']}: report_date={day or 'unknown'}, matching_CUS_league_games={len(matches)}", flush=True)
+        print(f"C.U. {bulletin['number']}: report_dates={','.join(sorted(days)) or 'unknown'}, matching_CUS_league_games={len(matches)}", flush=True)
         if not matches:
             continue
         if len(matches) != 1:
