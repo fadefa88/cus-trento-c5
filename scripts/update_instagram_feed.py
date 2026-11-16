@@ -1257,6 +1257,19 @@ def import_tiktok_posts(feed_url: str, repo_root: Path, existing: list[dict], li
         ][:limit]
         print(f"Recovering TikTok metadata for {len(raw_items)} existing video URLs.")
 
+    # RSS-Bridge can return old videos before recent ones. TikTok video IDs
+    # increase with publication time: order candidates before applying the limit.
+    def video_id(item: dict) -> int:
+        url = normalize_tiktok_url(str(item.get("url") or item.get("external_url") or item.get("id") or ""))
+        match = re.search(r"/video/(\\d+)$", url)
+        return int(match.group(1)) if match else 0
+
+    raw_items = sorted(
+        (item for item in raw_items if isinstance(item, dict)),
+        key=video_id,
+        reverse=True,
+    )
+
     posts: list[dict] = []
     seen = set()
     for raw in raw_items:
@@ -1279,6 +1292,12 @@ def import_tiktok_posts(feed_url: str, repo_root: Path, existing: list[dict], li
         if len(posts) >= limit:
             break
 
+    # The public feed and the CI check both expect newest-first order.
+    # Use the normalized publication timestamp, with the video ID as tie-breaker.
+    posts.sort(
+        key=lambda item: (str(item.get("publishedAt") or item.get("date") or ""), video_id(item)),
+        reverse=True,
+    )
     print(f"Usable TikTok posts imported: {len(posts)}")
     return posts
 

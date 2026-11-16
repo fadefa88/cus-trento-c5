@@ -158,6 +158,32 @@ class TestTikTokFeed(unittest.TestCase):
         # The feed must keep the newest TikTok item at the top.
         self.assertGreaterEqual(str(posts[0].get("date") or ""), str(posts[1].get("date") or ""))
 
+    def test_out_of_order_rss_keeps_latest_videos_before_limit(self):
+        old_url = "https://www.tiktok.com/@custrentoc5/video/7507942446714637590"
+        middle_url = "https://www.tiktok.com/@custrentoc5/video/7697221559471050017"
+        new_url = "https://www.tiktok.com/@custrentoc5/video/7708728390047599905"
+        entries = [
+            {"url": old_url, "date_published": "2025-05-24T09:31:18+00:00"},
+            {"url": middle_url, "date_published": "2026-10-16T11:10:54+00:00"},
+            {"url": new_url, "date_published": "2026-11-16T11:23:19+00:00"},
+        ]
+        with tempfile.TemporaryDirectory() as temp:
+            with (
+                patch("scripts.update_instagram_feed.requests.get") as request,
+                patch("scripts.update_instagram_feed.normalize_tiktok_item",
+                      side_effect=lambda raw, *_: {
+                          "url": raw["url"],
+                          "date": raw["date_published"][:10],
+                          "publishedAt": raw["date_published"],
+                      }),
+            ):
+                request.return_value.json.return_value = {"items": entries}
+                request.return_value.raise_for_status.return_value = None
+                posts = import_tiktok_posts(
+                    "https://example.com/rss", Path(temp), [], 2, "@custrentoc5"
+                )
+        self.assertEqual([post["url"] for post in posts], [new_url, middle_url])
+
     def test_rss_avatar_is_not_a_video_cover(self):
         self.assertTrue(is_tiktok_avatar_url(AVATAR_URL))
         self.assertFalse(is_tiktok_avatar_url(COVER_URL))
