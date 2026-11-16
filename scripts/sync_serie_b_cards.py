@@ -223,6 +223,7 @@ def reconcile(root, reports, apply):
             and f.get("score") and f.get("date") == day and confirms_result(text, f)
             and ("CUS Trento" in (f.get("home"), f.get("away")))
         ]
+        print(f"C.U. {bulletin['number']}: report_date={day or 'unknown'}, matching_CUS_league_games={len(matches)}", flush=True)
         if not matches:
             continue
         if len(matches) != 1:
