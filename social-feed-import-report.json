@@ -1,14 +1,152 @@
 {
-  "generatedAt": "2026-11-16T15:19:37.702754+00:00",
+  "generatedAt": "2026-11-17T14:43:57.203984+00:00",
   "sourceHits": {
+    "elfsight": 4,
+    "embedsocial": 0,
     "tiktok": 12
   },
   "oldInstagramCount": 4,
-  "newInstagramCount": 0,
+  "newInstagramCount": 4,
   "oldTikTokCount": 12,
   "newTikTokCount": 12,
-  "instagramComparison": [],
+  "instagramComparison": [
+    {
+      "url": "https://www.instagram.com/p/DfuJhCzIQ_t",
+      "existedBefore": true,
+      "captionChanged": false,
+      "imageChanged": false,
+      "dateChanged": false,
+      "old": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/DfuJhCzIQ_t",
+        "title": "IT’S MATCHDAY ⚔️🔥 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laiv...",
+        "caption": "IT’S MATCHDAY ⚔️🔥 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (BZ) 🏟️ Palazzetto dello sport di Laives #futsal #calcio #calcioa5 #trento #matchday",
+        "image": "/img/social/instagram-3e037a37d92e5ba3.jpg",
+        "remoteImage": "https://www.instagram.com/p/DfuJhCzIQ_t/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      },
+      "new": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/DfuJhCzIQ_t",
+        "title": "IT’S MATCHDAY ⚔️🔥 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laiv...",
+        "caption": "IT’S MATCHDAY ⚔️🔥 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (BZ) 🏟️ Palazzetto dello sport di Laives #futsal #calcio #calcioa5 #trento #matchday",
+        "image": "/img/social/instagram-3e037a37d92e5ba3.jpg",
+        "remoteImage": "https://www.instagram.com/p/DfuJhCzIQ_t/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      }
+    },
+    {
+      "url": "https://www.instagram.com/p/DfmfiwEiI7h",
+      "existedBefore": true,
+      "captionChanged": false,
+      "imageChanged": false,
+      "dateChanged": false,
+      "old": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/DfmfiwEiI7h",
+        "title": "🔜 NEXT MATCH 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (B...",
+        "caption": "🔜 NEXT MATCH 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (BZ) 🏟️ Palazzetto dello sport di Laives #futsal #calcio #calcioa5 #trento #università",
+        "image": "/img/social/instagram-93c32d30344a26da.jpg",
+        "remoteImage": "https://www.instagram.com/p/DfmfiwEiI7h/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      },
+      "new": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/DfmfiwEiI7h",
+        "title": "🔜 NEXT MATCH 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (B...",
+        "caption": "🔜 NEXT MATCH 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (BZ) 🏟️ Palazzetto dello sport di Laives #futsal #calcio #calcioa5 #trento #università",
+        "image": "/img/social/instagram-93c32d30344a26da.jpg",
+        "remoteImage": "https://www.instagram.com/p/DfmfiwEiI7h/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      }
+    },
+    {
+      "url": "https://www.instagram.com/p/DfrlzzwoVm3",
+      "existedBefore": true,
+      "captionChanged": false,
+      "imageChanged": false,
+      "dateChanged": false,
+      "old": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/DfrlzzwoVm3",
+        "title": "Qualcosa di buono lo sappiamo pur fare. In C1 ci saremmo annoiati 😈😈 #futsal #calcioa5 #calcio #goal #università",
+        "caption": "Qualcosa di buono lo sappiamo pur fare. In C1 ci saremmo annoiati 😈😈 #futsal #calcioa5 #calcio #goal #università",
+        "image": "/img/social/instagram-9a73d01d2c9d6f27.jpg",
+        "remoteImage": "https://www.instagram.com/p/DfrlzzwoVm3/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      },
+      "new": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/DfrlzzwoVm3",
+        "title": "Qualcosa di buono lo sappiamo pur fare. In C1 ci saremmo annoiati 😈😈 #futsal #calcioa5 #calcio #goal #università",
+        "caption": "Qualcosa di buono lo sappiamo pur fare. In C1 ci saremmo annoiati 😈😈 #futsal #calcioa5 #calcio #goal #università",
+        "image": "/img/social/instagram-9a73d01d2c9d6f27.jpg",
+        "remoteImage": "https://www.instagram.com/p/DfrlzzwoVm3/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      }
+    },
+    {
+      "url": "https://www.instagram.com/p/Dfj2-HKoQTr",
+      "existedBefore": true,
+      "captionChanged": false,
+      "imageChanged": false,
+      "dateChanged": false,
+      "old": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/Dfj2-HKoQTr",
+        "title": "K 32 Share Buon Natale in anticipo da parte del ! 🎅🏻🎄🎁😪 #calcioa5 #futsal #calcio #università #studenti",
+        "caption": "K 32 Share Buon Natale in anticipo da parte del ! 🎅🏻🎄🎁😪 #calcioa5 #futsal #calcio #università #studenti",
+        "image": "/img/social/instagram-68c23d241a4cf2c4.jpg",
+        "remoteImage": "https://www.instagram.com/p/Dfj2-HKoQTr/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      },
+      "new": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/Dfj2-HKoQTr",
+        "title": "K 32 Share Buon Natale in anticipo da parte del ! 🎅🏻🎄🎁😪 #calcioa5 #futsal #calcio #università #studenti",
+        "caption": "K 32 Share Buon Natale in anticipo da parte del ! 🎅🏻🎄🎁😪 #calcioa5 #futsal #calcio #università #studenti",
+        "image": "/img/social/instagram-68c23d241a4cf2c4.jpg",
+        "remoteImage": "https://www.instagram.com/p/Dfj2-HKoQTr/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      }
+    }
+  ],
   "tiktokComparison": [
+    {
+      "url": "https://www.tiktok.com/@custrentoc5/video/7709105238380186913",
+      "existedBefore": false,
+      "captionChanged": false,
+      "imageChanged": false,
+      "dateChanged": false,
+      "old": null,
+      "new": {
+        "platform": "TikTok",
+        "source": "rss-bridge",
+        "url": "https://www.tiktok.com/@custrentoc5/video/7709105238380186913",
+        "title": "Qualcosa di buono lo sappiamo pur fare 😈😈 #futsal #calcioa5 #calcio #goal #football",
+        "caption": "Qualcosa di buono lo sappiamo pur fare 😈😈 #futsal #calcioa5 #calcio #goal #football",
+        "image": "/img/social/tiktok-e080f66eafdda103.jpg",
+        "remoteImage": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/okbRBiQZI1qB8yEmIB8RSmicIfq0PDvh83AseW~tplv-tiktokx-origin.image?dr=9636&x-expires=1795096800&x-signature=CCnj3GcLqslGK%2FK4Xs7Vjdhqpp0%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+        "date": "2026-11-17",
+        "publishedAt": "2026-11-17T11:45:44+00:00"
+      }
+    },
     {
       "url": "https://www.tiktok.com/@custrentoc5/video/7708728390047599905",
       "existedBefore": true,
@@ -271,25 +409,6 @@
       }
     },
     {
-      "url": "https://www.tiktok.com/@custrentoc5/video/7688330444198120736",
-      "existedBefore": false,
-      "captionChanged": false,
-      "imageChanged": false,
-      "dateChanged": false,
-      "old": null,
-      "new": {
-        "platform": "TikTok",
-        "source": "rss-bridge",
-        "url": "https://www.tiktok.com/@custrentoc5/video/7688330444198120736",
-        "title": "La nostra maglia. Ora può essere anche tua. ❤️🤍 Apriamo il preorder della maglia ufficiale da gara CUS Trento C5 per la",
-        "caption": "La nostra maglia. Ora può essere anche tua. ❤️🤍 Apriamo il preorder della maglia ufficiale da gara CUS Trento C5 per la stagione 2026/27. Disponibile in quattro colorazioni: 🔴 Rossa ⚪ Bianca 🟢 Verde (GK) 🔵 Blu (GK) Vuoi la tua? Scrivici in DM per prenotarla.",
-        "image": "/img/social/tiktok-bed262c81ab7bc48.jpg",
-        "remoteImage": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/owykgZMBBIV2Wyy3sM8DjenG9cHXbNIeAQGeWI~tplv-tiktokx-origin.image?dr=9636&x-expires=1795014000&x-signature=icuBm38Bgm12l8i765zU5mFJ9zA%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast8",
-        "date": "2026-09-22",
-        "publishedAt": "2026-09-22T12:08:50+00:00"
-      }
-    },
-    {
       "url": "https://www.tiktok.com/@custrentoc5/video/7661601737437973793",
       "existedBefore": true,
       "captionChanged": false,
@@ -349,6 +468,61 @@
     }
   ],
   "finalPosts": [
+    {
+      "platform": "Instagram",
+      "source": "elfsight",
+      "url": "https://www.instagram.com/p/DfuJhCzIQ_t",
+      "title": "IT’S MATCHDAY ⚔️🔥 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laiv...",
+      "caption": "IT’S MATCHDAY ⚔️🔥 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (BZ) 🏟️ Palazzetto dello sport di Laives #futsal #calcio #calcioa5 #trento #matchday",
+      "image": "/img/social/instagram-3e037a37d92e5ba3.jpg",
+      "remoteImage": "https://www.instagram.com/p/DfuJhCzIQ_t/media/?size=l",
+      "date": "",
+      "publishedAt": ""
+    },
+    {
+      "platform": "Instagram",
+      "source": "elfsight",
+      "url": "https://www.instagram.com/p/DfmfiwEiI7h",
+      "title": "🔜 NEXT MATCH 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (B...",
+      "caption": "🔜 NEXT MATCH 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (BZ) 🏟️ Palazzetto dello sport di Laives #futsal #calcio #calcioa5 #trento #università",
+      "image": "/img/social/instagram-93c32d30344a26da.jpg",
+      "remoteImage": "https://www.instagram.com/p/DfmfiwEiI7h/media/?size=l",
+      "date": "",
+      "publishedAt": ""
+    },
+    {
+      "platform": "Instagram",
+      "source": "elfsight",
+      "url": "https://www.instagram.com/p/DfrlzzwoVm3",
+      "title": "Qualcosa di buono lo sappiamo pur fare. In C1 ci saremmo annoiati 😈😈 #futsal #calcioa5 #calcio #goal #università",
+      "caption": "Qualcosa di buono lo sappiamo pur fare. In C1 ci saremmo annoiati 😈😈 #futsal #calcioa5 #calcio #goal #università",
+      "image": "/img/social/instagram-9a73d01d2c9d6f27.jpg",
+      "remoteImage": "https://www.instagram.com/p/DfrlzzwoVm3/media/?size=l",
+      "date": "",
+      "publishedAt": ""
+    },
+    {
+      "platform": "Instagram",
+      "source": "elfsight",
+      "url": "https://www.instagram.com/p/Dfj2-HKoQTr",
+      "title": "K 32 Share Buon Natale in anticipo da parte del ! 🎅🏻🎄🎁😪 #calcioa5 #futsal #calcio #università #studenti",
+      "caption": "K 32 Share Buon Natale in anticipo da parte del ! 🎅🏻🎄🎁😪 #calcioa5 #futsal #calcio #università #studenti",
+      "image": "/img/social/instagram-68c23d241a4cf2c4.jpg",
+      "remoteImage": "https://www.instagram.com/p/Dfj2-HKoQTr/media/?size=l",
+      "date": "",
+      "publishedAt": ""
+    },
+    {
+      "platform": "TikTok",
+      "source": "rss-bridge",
+      "url": "https://www.tiktok.com/@custrentoc5/video/7709105238380186913",
+      "title": "Qualcosa di buono lo sappiamo pur fare 😈😈 #futsal #calcioa5 #calcio #goal #football",
+      "caption": "Qualcosa di buono lo sappiamo pur fare 😈😈 #futsal #calcioa5 #calcio #goal #football",
+      "image": "/img/social/tiktok-e080f66eafdda103.jpg",
+      "remoteImage": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/okbRBiQZI1qB8yEmIB8RSmicIfq0PDvh83AseW~tplv-tiktokx-origin.image?dr=9636&x-expires=1795096800&x-signature=CCnj3GcLqslGK%2FK4Xs7Vjdhqpp0%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+      "date": "2026-11-17",
+      "publishedAt": "2026-11-17T11:45:44+00:00"
+    },
     {
       "platform": "TikTok",
       "source": "rss-bridge",
@@ -451,17 +625,6 @@
     {
       "platform": "TikTok",
       "source": "rss-bridge",
-      "url": "https://www.tiktok.com/@custrentoc5/video/7688330444198120736",
-      "title": "La nostra maglia. Ora può essere anche tua. ❤️🤍 Apriamo il preorder della maglia ufficiale da gara CUS Trento C5 per la",
-      "caption": "La nostra maglia. Ora può essere anche tua. ❤️🤍 Apriamo il preorder della maglia ufficiale da gara CUS Trento C5 per la stagione 2026/27. Disponibile in quattro colorazioni: 🔴 Rossa ⚪ Bianca 🟢 Verde (GK) 🔵 Blu (GK) Vuoi la tua? Scrivici in DM per prenotarla.",
-      "image": "/img/social/tiktok-bed262c81ab7bc48.jpg",
-      "remoteImage": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/owykgZMBBIV2Wyy3sM8DjenG9cHXbNIeAQGeWI~tplv-tiktokx-origin.image?dr=9636&x-expires=1795014000&x-signature=icuBm38Bgm12l8i765zU5mFJ9zA%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast8",
-      "date": "2026-09-22",
-      "publishedAt": "2026-09-22T12:08:50+00:00"
-    },
-    {
-      "platform": "TikTok",
-      "source": "rss-bridge",
       "url": "https://www.tiktok.com/@custrentoc5/video/7661601737437973793",
       "title": "⚽ Stiamo cercando cfu gr… nuovi giocatori per la stagione sportiva 2026/2027! Vuoi metterti alla prova nel futsal e far",
       "caption": "⚽ Stiamo cercando cfu gr… nuovi giocatori per la stagione sportiva 2026/2027! Vuoi metterti alla prova nel futsal e far parte di una squadra competitiva? Il CUS Trento C5 è alla ricerca di nuovi atleti. 🎓 Se sei uno studente dell’Università di Trento o delle scuole superiori, questa è l’occasione giusta per entrare nella nostra squadra. 📩 Scrivici in DM per ricevere tutte le informazioni #futsal #unilife #tryouts #meme #sport",
@@ -480,50 +643,6 @@
       "remoteImage": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-p-0037-no/o4QIrFS2fDaKLhDDQf29OIDAEPen26hIM7aAjJ~tplv-tiktokx-origin.image?dr=9636&x-expires=1795006800&x-signature=x9eFYl5VkRS3GcAmeQ%2BN66M%2BOJY%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
       "date": "2026-01-25",
       "publishedAt": "2026-01-25T11:03:43+00:00"
-    },
-    {
-      "platform": "Instagram",
-      "source": "elfsight",
-      "url": "https://www.instagram.com/p/DfuJhCzIQ_t",
-      "title": "IT’S MATCHDAY ⚔️🔥 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laiv...",
-      "caption": "IT’S MATCHDAY ⚔️🔥 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (BZ) 🏟️ Palazzetto dello sport di Laives #futsal #calcio #calcioa5 #trento #matchday",
-      "image": "/img/social/instagram-3e037a37d92e5ba3.jpg",
-      "remoteImage": "https://www.instagram.com/p/DfuJhCzIQ_t/media/?size=l",
-      "date": "",
-      "publishedAt": ""
-    },
-    {
-      "platform": "Instagram",
-      "source": "elfsight",
-      "url": "https://www.instagram.com/p/DfmfiwEiI7h",
-      "title": "🔜 NEXT MATCH 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (B...",
-      "caption": "🔜 NEXT MATCH 🆚 @futsalatesina 🇮🇹 Campionato Serie B 7️⃣ª giornata - andata 🗓️ Sabato 14 Novembre 🕒 15:00 ✈️ Laives (BZ) 🏟️ Palazzetto dello sport di Laives #futsal #calcio #calcioa5 #trento #università",
-      "image": "/img/social/instagram-93c32d30344a26da.jpg",
-      "remoteImage": "https://www.instagram.com/p/DfmfiwEiI7h/media/?size=l",
-      "date": "",
-      "publishedAt": ""
-    },
-    {
-      "platform": "Instagram",
-      "source": "elfsight",
-      "url": "https://www.instagram.com/p/DfrlzzwoVm3",
-      "title": "Qualcosa di buono lo sappiamo pur fare. In C1 ci saremmo annoiati 😈😈 #futsal #calcioa5 #calcio #goal #università",
-      "caption": "Qualcosa di buono lo sappiamo pur fare. In C1 ci saremmo annoiati 😈😈 #futsal #calcioa5 #calcio #goal #università",
-      "image": "/img/social/instagram-9a73d01d2c9d6f27.jpg",
-      "remoteImage": "https://www.instagram.com/p/DfrlzzwoVm3/media/?size=l",
-      "date": "",
-      "publishedAt": ""
-    },
-    {
-      "platform": "Instagram",
-      "source": "elfsight",
-      "url": "https://www.instagram.com/p/Dfj2-HKoQTr",
-      "title": "K 32 Share Buon Natale in anticipo da parte del ! 🎅🏻🎄🎁😪 #calcioa5 #futsal #calcio #università #studenti",
-      "caption": "K 32 Share Buon Natale in anticipo da parte del ! 🎅🏻🎄🎁😪 #calcioa5 #futsal #calcio #università #studenti",
-      "image": "/img/social/instagram-68c23d241a4cf2c4.jpg",
-      "remoteImage": "https://www.instagram.com/p/Dfj2-HKoQTr/media/?size=l",
-      "date": "",
-      "publishedAt": ""
     }
   ]
 }
