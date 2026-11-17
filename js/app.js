@@ -1063,9 +1063,13 @@ const homePage=(function(){
   function latestThreeNews(){
     const s = typeof state !== "undefined" ? state : {};
     const items = typeof visibleNews === "function" ? visibleNews(s.news) : (s.news || []);
-    return [...items]
-      .sort((a,b) => (Date.parse(b.date) || 0) - (Date.parse(a.date) || 0))
-      .slice(0,3);
+    const sorted = [...items].sort((a,b) => (Date.parse(b.date) || 0) - (Date.parse(a.date) || 0));
+    // Keep the newest Prima squadra article first, even when newer Under 23 news arrive.
+    const firstTeamLatest = sorted.find(item =>
+      newsTags(item).some(tag => normalizeSearchValue(tag) === "prima squadra")
+    );
+    if(!firstTeamLatest) return sorted.slice(0,3);
+    return [firstTeamLatest, ...sorted.filter(item => item !== firstTeamLatest).slice(0,2)];
   }
 
   function newsCard(news, index){
