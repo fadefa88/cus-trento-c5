@@ -5078,12 +5078,38 @@
       ],
       "final": {
         "name": "Finale",
-        "team1Score": null,
-        "team2Score": null,
+        "team1Score": 2,
+        "team2Score": 4,
         "winner": "",
         "date": "2026-11-17",
         "time": "20:30",
-        "scorers": []
+        "scorers": [
+          {
+            "name": "Malpaga",
+            "team": "Rango FC",
+            "goals": 1
+          },
+          {
+            "name": "Borrello",
+            "team": "Rango FC",
+            "goals": 1
+          },
+          {
+            "name": "Afretti",
+            "team": "TT Le Girlz",
+            "goals": 1
+          },
+          {
+            "name": "Malavasi",
+            "team": "TT Le Girlz",
+            "goals": 1
+          },
+          {
+            "name": "Bernardotto",
+            "team": "TT Le Girlz",
+            "goals": 2
+          }
+        ]
       }
     },
     "endDate": "2026-11-13",
