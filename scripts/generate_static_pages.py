@@ -125,6 +125,12 @@ def render_shell(eyebrow: str, heading: str, body: str) -> str:
     return f'''<section class="section seo-prerender"><div class="container"><div class="head"><div><h1 class="title">{esc(heading)}</h1></div></div>{body}</div></section>'''
 
 
+def is_first_team_news(item: Dict[str, Any]) -> bool:
+    tags = item.get("tags") if isinstance(item.get("tags"), list) else []
+    return any(str(label or "").strip().casefold() == "prima squadra"
+               for label in [item.get("category"), *tags])
+
+
 def render_news_teasers(news: List[Dict[str, Any]], limit: int = 36) -> str:
     cards = []
     for item in news[:limit]:
@@ -191,7 +197,12 @@ def render_simple_main(page: Dict[str, Any], data: Dict[str, Any]) -> str:
             for a in albums if isinstance(a, dict)
         ) + "</div>")
     else:
-        latest = render_news_teasers(data.get("news", []), limit=6)
+        latest_news = [item for item in data.get("news", []) if not is_hidden_news(item)]
+        if route == "home":
+            first_team_latest = next((item for item in latest_news if is_first_team_news(item)), None)
+            if first_team_latest:
+                latest_news = [first_team_latest, *(item for item in latest_news if item is not first_team_latest)]
+        latest = render_news_teasers(latest_news, limit=6)
         pieces.append(f'<p class="muted">Pagina ufficiale CUS Trento Calcio a 5. Il sito interattivo caricherà contenuti completi, filtri e componenti dinamici.</p>{latest}')
 
     pieces.append('<p class="muted" style="margin-top:24px">Questa pagina è prerenderizzata per SEO. Se il browser supporta JavaScript, verrà attivata automaticamente la versione interattiva.</p>')
