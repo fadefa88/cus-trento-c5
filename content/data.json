@@ -1674,7 +1674,7 @@
           "surname": "Grandinetti",
           "firstName": "Matteo",
           "goals": 0,
-          "yellow": false,
+          "yellow": true,
           "red": false
         },
         {
@@ -1725,7 +1725,7 @@
           "surname": "Iancu",
           "firstName": "Alexandru Sorin",
           "goals": 1,
-          "yellow": false,
+          "yellow": true,
           "red": false,
           "goalTimes": [
             {
