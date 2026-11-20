@@ -4379,10 +4379,28 @@
         "injured": []
       },
       "venue": "Nomi Palazzetto",
-      "status": "Da giocare",
+      "status": "Terminata",
       "id": "nomi-cus-trento-u23-2026-11-20",
       "home": "Nomi",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "4-3",
+      "scorerEvents": [
+        {
+          "playerId": "zanrosso-matteo",
+          "goals": 2
+        },
+        {
+          "playerId": "grippa-michele",
+          "goals": 1
+        }
+      ],
+      "goalkeeperEvents": [
+        {
+          "playerId": "20",
+          "goalsAgainst": 4,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/san-floriano.png",
