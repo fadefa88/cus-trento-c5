@@ -129,6 +129,18 @@ class Under23DisciplineTests(unittest.TestCase):
         self.assertIn("BUDA SAMUELE", yellows)
         self.assertIn("BATTAGLIA EDOARDO", reds)
 
+    def test_non_expelled_suspension_is_not_a_red_card(self):
+        modified = REPORT.replace(
+            "CALCIATORI NON ESPULSI\n",
+            "CALCIATORI NON ESPULSI\n"
+            "SQUALIFICA PER UNA GARA EFFETTIVA\n"
+            "ZANROSSO MATTEO\n"
+            "(CUS TRENTO U.23)\n",
+        )
+        cautions, reds = c_us_sanctions(modified, "2026-11-13")
+        self.assertEqual(reds, {"BATTAGLIA EDOARDO"})
+        self.assertNotIn("ZANROSSO MATTEO", cautions | reds)
+
     def test_preserve_existing_cards_and_double_yellow(self):
         match = copy.deepcopy(FIXTURE)
         match["yellowCardEvents"].append({"playerId": "battaglia-edoardo", "cards": 2})

@@ -274,7 +274,16 @@ def c_us_sanctions(text, match_day):
             subsection, pending = "yellow", ""
             continue
         if re.match(r"^SQUALIFICA\b", row):
-            subsection, pending = ("yellow" if "RECIDIVITA IN AMMONIZIONE" in row else "red"), ""
+            # Suspensions of a player NOT sent off (e.g. misconduct or accumulated
+            # bookings) are NOT red cards. Only the "CALCIATORI ESPULSI"
+            # section authorizes a red; recidiva in ammonizione authorizes yellow.
+            if state == "red":
+                subsection = "red"
+            elif "RECIDIVITA IN AMMONIZIONE" in row or "RECIDIVA IN AMMONIZIONE" in row:
+                subsection = "yellow"
+            else:
+                subsection = None
+            pending = ""
             continue
         if row.startswith("PROVVEDIMENTI DISCIPLINARI"):
             state = None
