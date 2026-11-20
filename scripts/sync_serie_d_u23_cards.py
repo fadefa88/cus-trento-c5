@@ -146,7 +146,7 @@ def pdf_text(session, url):
         )
     result = outcome.stdout.replace("\u00a0", " ")
     if CURRENT_SEASON.replace("/", " ") not in norm(result[:1700]) and CURRENT_SEASON not in result[:1700]:
-        raise ValueError("Not a 2026/27 Trento bulletin")
+        raise ValueError(f"Not a 2026/27 Trento bulletin. PDF header preview: {norm(result[:350])[:240]!r}")
     if "COMITATO PROVINCIALE AUTONOMO DI TRENTO" not in norm(result[:1500]):
         raise ValueError("Missing CPA Trento official identification")
     return result
