@@ -181,6 +181,41 @@ class Under23DisciplineTests(unittest.TestCase):
             self.assertEqual(cms["u21Fixtures"][0], cup)
             self.assertFalse(update_site(root, [("https://example.org/official.pdf", REPORT)], True))
 
+    def test_results_and_discipline_in_different_official_bulletins(self):
+        # Results and justice decisions can be in two separate C.U. PDFs.
+        result_only = REPORT.split("5. GIUSTIZIA SPORTIVA")[0]
+        sanction_only = "5. GIUSTIZIA SPORTIVA" + REPORT.split("5. GIUSTIZIA SPORTIVA")[1]
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "content/cms").mkdir(parents=True)
+            fixture = copy.deepcopy(FIXTURE)
+            cms = {"u21Fixtures": [fixture]}
+            data = {"u21Fixtures": [copy.deepcopy(fixture)], "roster": ROSTER}
+            (root / "content/cms/u21-fixtures.json").write_text(json.dumps(cms))
+            (root / "content/data.json").write_text(json.dumps(data))
+            reports = [("result-cu.pdf", result_only), ("justice-cu.pdf", sanction_only)]
+            self.assertTrue(update_site(root, reports, True))
+            published = json.loads((root / "content/data.json").read_text())
+            self.assertEqual(published["u21Fixtures"][0]["redCardEvents"],
+                             [{"playerId": "battaglia-edoardo", "cards": 1}])
+            self.assertFalse(update_site(root, reports, True))
+
+    def test_real_team_aliases_for_lagarina_and_alta_giudicarie(self):
+        lagarina = {**FIXTURE, "home": "Lagarina Futsal",
+                    "away": "CUS Trento U23", "score": "5-5"}
+        lagarina_pdf = REPORT.replace(
+            "CUS TRENTO sq.B - SAN GIUSEPPE       2 - 4",
+            "LAGARINA FUTSAL ASD                 - CUS TRENTO U.23            5-5        OTHER CLUB                          - OTHER CLUB    1-1",
+        )
+        self.assertTrue(confirms_match(lagarina_pdf, lagarina))
+        alta = {**FIXTURE, "home": "CUS Trento U23",
+                "away": "Alta Giudicarie", "score": "2-3"}
+        alta_pdf = REPORT.replace(
+            "CUS TRENTO sq.B - SAN GIUSEPPE       2 - 4",
+            "CUS TRENTO U.23                    - ALTA GIUDICARIE A.S.D.      2-3         OTHER CLUB                          - OTHER CLUB    1-1",
+        )
+        self.assertTrue(confirms_match(alta_pdf, alta))
+
     def test_missing_or_ambiguous_sanctions_fail_closed(self):
         with self.assertRaises(ValueError):
             c_us_sanctions("ALTRA COMPETIZIONE\nGARE DEL 13/11/2026", "2026-11-13")

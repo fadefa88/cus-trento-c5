@@ -32,9 +32,9 @@ TEAM_ALIASES = {
     "San Floriano 2025": ["SAN FLORIANO 2025", "SAN FLORIANO 2025 A S D", "SAN FLORIANO"],
     "San Floriano": ["SAN FLORIANO 2025", "SAN FLORIANO 2025 A S D", "SAN FLORIANO"],
     "Calcio Bleggio": ["CALCIO BLEGGIO"],
-    "Lagarina Futsal": ["LAGARINA FUTSAL"],
-    "Alta Giudicarie": ["ALTA GIUDICARIE"],
-    "Ledrense": ["LEDRENSE"],
+    "Lagarina Futsal": ["LAGARINA FUTSAL ASD", "LAGARINA FUTSAL A.S.D.", "LAGARINA FUTSAL"],
+    "Alta Giudicarie": ["ALTA GIUDICARIE A.S.D.", "ALTA GIUDICARIE ASD", "ALTA GIUDICARIE"],
+    "Ledrense": ["LEDRENSE A.S.D.", "LEDRENSE ASD", "LEDRENSE"],
     "Settaurense 1934": ["SETTAURENSE 1934", "SETTAURENSE"],
     "Settaurense": ["SETTAURENSE 1934", "SETTAURENSE"],
     "Athesis Calcio": ["ATHESIS CALCIO"],
@@ -343,63 +343,107 @@ def add_verified_cards(match, roster, yellows, reds):
 
 
 def update_site(root, reports, apply=False):
+    """Compare league results and official discipline independently.
+
+    These are often published in different C.U. files. A matching result
+    establishes the identity of the game; only then may date-scoped Serie D
+    disciplinary entries be attributed to CUS U23. Never infer a red card
+    from a non-expelled player's suspension, and never discard manual cards.
+    """
     cms_path = root / "content/cms/u21-fixtures.json"
     data_path = root / "content/data.json"
     cms = json.loads(cms_path.read_text(encoding="utf-8"))
     site = json.loads(data_path.read_text(encoding="utf-8"))
     roster = site["roster"]
+    verified = {}
+    matches_with_result = set()
+    matches_with_conflicts = set()
     changed_matches = set()
-    confirmed_matches = set()
-    result_matches = set()
-    for bulletin, raw in reports:
-        matching = [m for m in cms["u21Fixtures"] if confirms_match(raw, m)]
-        if len(matching) > 1:
-            print(f"::warning::Ambiguous CUS Under 23 matches in {bulletin}; skipped", flush=True)
+    all_fixtures = [
+        m for m in cms["u21Fixtures"]
+        if m.get("competition") == "Campionato"
+        and m.get("status") == "Terminata"
+        and m.get("score")
+        and "CUS Trento U23" in (m.get("home"), m.get("away"))
+    ]
+    for match in all_fixtures:
+        game_reports = [url for url, text in reports if confirms_match(text, match)]
+        if not game_reports:
             continue
-        if not matching:
+        matches_with_result.add(match["id"])
+        discipline = []
+        for url, content in reports:
+            try:
+                cautions, dismissals = c_us_sanctions(content, match["date"])
+                discipline.append((url, cautions, dismissals))
+            except ValueError:
+                # A communiqué with only results has no disciplinary section.
+                # A partially readable discipline section must never authorize
+                # an update on its own.
+                continue
+        if not discipline:
+            print(f"::warning::Official result found but no readable Serie D discipline "
+                  f"for {match['date']}: {match['id']}", flush=True)
             continue
-        m = matching[0]
-        result_matches.add(m["id"])
+        cautions = set().union(*(entry[1] for entry in discipline))
+        dismissals = set().union(*(entry[2] for entry in discipline))
+        # Some bulletins only show a subset of sanctions. Treat missing entries
+        # as uncertain, not proof that a manually recorded booking was wrong.
+        if not (cautions or dismissals) and (
+                match.get("yellowCardEvents") or match.get("redCardEvents")):
+            matches_with_conflicts.add(match["id"])
+            print(f"::warning::Official sanctions parser found zero CUS cards but "
+                  f"the match contains manually entered cards: {match['id']}", flush=True)
+            continue
         try:
-            yellows, reds = c_us_sanctions(raw, m["date"])
-            if not (yellows or reds) and (m.get("yellowCardEvents") or m.get("redCardEvents")):
-                raise ValueError("The official parser returned zero sanctions, but cards already exist: manual review required")
-            preview = copy.deepcopy(m)
-            add_verified_cards(preview, roster, yellows, reds)
-            other = [x for x in site["u21Fixtures"] if x.get("id") == m["id"]]
-            if len(other) != 1 or other[0].get("score") != m["score"]:
-                raise ValueError("CMS and published match disagree")
-            add_verified_cards(m, roster, yellows, reds)
-            add_verified_cards(other[0], roster, yellows, reds)
-            if m != preview:
-                raise ValueError("Inconsistent updated match")
-            if m.get("yellowCardEvents") != matching[0].get("yellowCardEvents"):
-                raise ValueError("Inconsistent snapshot")
-            confirmed_matches.add(m["id"])
-            changed_matches.add(m["id"]) if (yellows or reds) else None
-            print(f"Verified Serie D match {m['date']} {m['home']} - {m['away']}: {len(yellows)} cautioned, {len(reds)} expelled", flush=True)
+            proposed = copy.deepcopy(match)
+            changed = add_verified_cards(proposed, roster, cautions, dismissals)
+            originals = [
+                other for other in site["u21Fixtures"] if other.get("id") == match["id"]
+            ]
+            if len(originals) != 1 or originals[0].get("score") != match["score"]:
+                raise ValueError("The CMS and public match are not aligned")
+            # Check that all non-card fields would remain byte-equivalent before
+            # applying changes in either copy.
+            for key in match:
+                if key not in ("yellowCardEvents", "redCardEvents") and proposed[key] != match[key]:
+                    raise ValueError(f"Unexpected non-card change: {key}")
+            add_verified_cards(match, roster, cautions, dismissals)
+            add_verified_cards(originals[0], roster, cautions, dismissals)
+            if match != proposed:
+                raise ValueError("Unexpected CMS match difference")
+            verified[match["id"]] = (cautions, dismissals)
+            if changed:
+                changed_matches.add(match["id"])
+            print(f"VERIFIED Serie D {match['date']} {match['home']} - {match['away']}: "
+                  f"{len(cautions)} cautioned, {len(dismissals)} expelled; "
+                  f"results={len(game_reports)}, sanction_CUs={len(discipline)}",
+                  flush=True)
         except ValueError as exc:
-            print(f"::warning::Skipping {m['id']}: {exc}", flush=True)
-            continue
-    # Only report real changes; don't rewrite volatile or unrelated data.
+            matches_with_conflicts.add(match["id"])
+            print(f"::warning::Cannot safely resolve cards for {match['id']}: {exc}",
+                  flush=True)
+
     original_cms = json.loads(cms_path.read_text(encoding="utf-8"))
     original_site = json.loads(data_path.read_text(encoding="utf-8"))
     dirty = cms != original_cms or site != original_site
     if dirty and apply:
         cms_path.write_text(json.dumps(cms, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         data_path.write_text(json.dumps(site, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    fixtures = [m for m in cms["u21Fixtures"] if m.get("competition") == "Campionato"
-                and m.get("status") == "Terminata" and m.get("score")]
-    for fixture in fixtures:
-        if fixture["id"] in confirmed_matches:
-            state = "CONFIRMED"
-        elif fixture["id"] in result_matches:
-            state = "RESULT_ONLY (disciplinary PDF unavailable/ambiguous)"
+    for match in sorted(all_fixtures, key=lambda m: m["date"]):
+        ident = match["id"]
+        if ident in verified:
+            status = "CONFIRMED"
+        elif ident in matches_with_conflicts:
+            status = "CONFLICT: requires manual verification"
+        elif ident in matches_with_result:
+            status = "RESULT_ONLY: disciplinary PDF unavailable or ambiguous"
         else:
-            state = "UNVERIFIED (official result/bulletin not matched)"
-        print(f"AUDIT {fixture['date']} {fixture['home']} - {fixture['away']}: {state}", flush=True)
-    print(f"Official Serie D U23 verified {len(confirmed_matches)}/{len(fixtures)} matches; "
-          f"new card corrections {len(changed_matches) if dirty else 0}; files changed={dirty and apply}", flush=True)
+            status = "UNVERIFIED: no exact official result matched"
+        print(f"AUDIT {match['date']} {match['home']} - {match['away']}: {status}", flush=True)
+    print(f"Official Serie D U23 verified {len(verified)}/{len(all_fixtures)} matches; "
+          f"card corrections={len(changed_matches)}; files changed={dirty and apply}",
+          flush=True)
     return dirty
 
 
