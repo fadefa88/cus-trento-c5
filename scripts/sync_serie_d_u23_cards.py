@@ -142,8 +142,21 @@ def pdf_text(session, url):
         raise ValueError("Non-official PDF URL")
     response = session.get(url, timeout=40, headers={"User-Agent": USER_AGENT})
     response.raise_for_status()
+    if not response.content.startswith(b"%PDF"):
+        # Some older official links are intermittently served as an HTML
+        # error by the www host. Retry the same verified path via apex domain.
+        fallback = url.replace("://www.figctrento.it/", "://figctrento.it/", 1)
+        if fallback != url:
+            try:
+                alternate = session.get(fallback, timeout=35, headers={"User-Agent": USER_AGENT})
+                if alternate.status_code == 200 and alternate.content.startswith(b"%PDF"):
+                    response = alternate
+            except requests.RequestException:
+                pass
     if not response.content.startswith(b"%PDF") or len(response.content) > 12_000_000:
-        raise ValueError("Unexpected PDF size/signature")
+        raise ValueError(f"Unexpected official PDF response: HTTP {response.status_code}, "
+                         f"content-type {response.headers.get('Content-Type', '?')}, "
+                         f"bytes {len(response.content)}")
     with tempfile.TemporaryDirectory() as folder:
         file = Path(folder) / "bulletin.pdf"
         file.write_bytes(response.content)
@@ -477,6 +490,31 @@ def main():
                      if "CUS TRENTO" in norm(line) and " - " in line and re.search(r"\d+\s*[-:]\s*\d+", line)]
             if lines:
                 print(f"RESULTS {url.rsplit('/', 1)[-1]}: dates={sorted(official_result_dates(part))}; lines={lines[:7]}", flush=True)
+    # Diagnostics for historical fixtures with manually recorded dismissals.
+    # These excerpts come only from public official Serie D justice reports.
+    for url, content in reports:
+        for block in sections(content):
+            if "PROVVEDIMENTI DISCIPLINARI" not in norm(block):
+                continue
+            pieces = re.split(
+                r"(?=^\s*GARE\s+DEL\s+\d{1,2}\s*/\s*\d{1,2}\s*/\s*20\d{2}\s*$)",
+                block, flags=re.I | re.M
+            )
+            for piece in pieces:
+                when = sanction_date(piece)
+                if when not in {"2026-10-02", "2026-10-16", "2026-10-23", "2026-09-25", "2026-10-30"}:
+                    continue
+                lines = piece.splitlines()
+                relevant = []
+                for idx, line in enumerate(lines):
+                    if "CUS TRENTO" in norm(line):
+                        relevant.append(" | ".join(
+                            q.strip()[:100] for q in lines[max(0, idx-3):min(len(lines), idx+2)]
+                        ))
+                headers = [line.strip() for line in lines if re.match(
+                    r"^\s*(?:CALCIATORI|SQUALIFICA|AMMONIZIONE|(?:I|II|III|IV)\s+AMMONIZIONE)",line,re.I)]
+                print(f"DIAG C.U. {url.rsplit('/',1)[-1]} date={when} "
+                      f"club_occurrences={relevant[:8]} headers={headers[:14]}", flush=True)
     update_site(args.root, reports, args.apply)
     return 0
 
