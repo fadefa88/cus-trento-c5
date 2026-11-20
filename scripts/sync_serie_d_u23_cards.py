@@ -370,7 +370,7 @@ def main():
                 content = pdf_text(session, url)
                 if len(reports) < 3:
                     samples = [line.strip() for line in content.splitlines()
-                               if re.search(r"CUS\\s+TRENTO|CALCIO\\s+A\\s*5.*SERIE\\s+D|RISULTATI\\s+UFFICIALI\\s+GARE", line, re.I)]
+                               if re.search(r"CUS\s+TRENTO|CALCIO\s+A\s*5.*SERIE\s+D|RISULTATI\s+UFFICIALI\s+GARE", line, re.I)]
                     print(f"PDF {url.rsplit('/', 1)[-1]}: Serie D blocks={len(list(sections(content)))}, relevant lines={samples[:15]}", flush=True)
                 reports.append((url, content))
             except (ValueError, requests.RequestException, subprocess.SubprocessError) as exc:
