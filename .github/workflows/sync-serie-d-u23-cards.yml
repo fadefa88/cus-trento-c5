@@ -1,0 +1,85 @@
+name: Sync Serie D Under 23 official disciplinary cards
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/sync_serie_d_u23_cards.py"
+      - "tests/test_serie_d_u23_cards.py"
+      - ".github/workflows/sync-serie-d-u23-cards.yml"
+  schedule:
+    # Daily at 07:13 UTC; separate from first-team Serie B sync.
+    - cron: "13 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-serie-d-u23-cards-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 0
+
+      - name: Install Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: PDF and Python dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install --quiet requests beautifulsoup4
+
+      - name: Safety tests for official Serie D Under 23 card matching
+        run: python -m unittest discover -s tests -p 'test_serie_d_u23_cards.py' -v
+
+      - name: Check CPA Trento bulletins and apply verified U23 cards
+        run: python scripts/sync_serie_d_u23_cards.py --apply
+
+      - name: Verify JSON syntax
+        run: |
+          python -m json.tool content/data.json > /dev/null
+          python -m json.tool content/cms/u21-fixtures.json > /dev/null
+
+      - name: CMS typecheck and regression tests
+        run: |
+          npm ci --quiet
+          npm run cms:typecheck
+          npm run cms:test
+
+      - name: Commit only verified U23 fixture changes
+        shell: bash
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add content/cms/u21-fixtures.json content/data.json
+          if git diff --cached --quiet; then
+            echo "No new verified Serie D U23 cards. No commit."
+            exit 0
+          fi
+          git commit -m "Sync Serie D Under 23 cards from CPA Trento bulletins"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "::error::Concurrent modification; unable to publish safely."
+              exit 1
+            fi
+            if git push origin HEAD:main; then
+              echo "Published verified U23 disciplinary updates."
+              exit 0
+            fi
+            sleep 4
+          done
+          exit 1
