@@ -74,6 +74,12 @@ def is_official_pdf(url):
     ) and p.path.lower().endswith(".pdf") and bool(re.search(r"\bCU[_-]\d+", p.path, re.I))
 
 
+def season_path(url):
+    # The official archive spans seasons; CU 145 from June 2026 must not
+    # outrank CU 28 from September 2026 just because its number is greater.
+    return bool(re.search(r"/(?:2026/(?:07|08|09|10|11|12)|2027/(?:01|02|03|04|05|06))/", url))
+
+
 def discover(session, pages=5, max_docs=16):
     """Find real 2026/27 Trento bulletins, not nationwide Serie D football."""
     candidates = set()
@@ -91,7 +97,7 @@ def discover(session, pages=5, max_docs=16):
         soup = BeautifulSoup(response.text, "html.parser")
         for link in soup.select("a[href]"):
             url = urljoin(target, link["href"])
-            if is_official_pdf(url) and "/2026/" in url:
+            if is_official_pdf(url) and season_path(url):
                 candidates.add(url)
             label = norm(link.get_text(" ", strip=True))
             if (re.search(r"/2026/(?:09|10|11|12)/", url) and
@@ -110,12 +116,17 @@ def discover(session, pages=5, max_docs=16):
             continue
         for a in BeautifulSoup(response.text, "html.parser").select("a[href]"):
             url = urljoin(target, a["href"])
-            if is_official_pdf(url) and "/2026/" in url:
+            if is_official_pdf(url) and season_path(url):
                 candidates.add(url)
     ranked = sorted(candidates, key=lambda url: (
+        urlparse(url).path.split("/wp-content/uploads/")[-1][:7],
         int(re.search(r"CU[_-](\d+)", url, re.I)[1]),
         url
     ), reverse=True)
+    if ranked:
+        match = re.search(r"/(2026|2027)/(\d{2})/", ranked[0])
+        if match and (date.today() - date(int(match[1]), int(match[2]), 1)).days > 70:
+            print("::warning::CPA Trento public archive appears stale; cannot validate latest Serie D matches", flush=True)
     return ranked[:max_docs]
 
 
