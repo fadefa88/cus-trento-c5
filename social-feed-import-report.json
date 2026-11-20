@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T14:21:12.849414+00:00",
+  "generatedAt": "2026-11-20T14:11:58.371283+00:00",
   "sourceHits": {
     "elfsight": 4,
     "embedsocial": 0,
@@ -41,11 +41,21 @@
     },
     {
       "url": "https://www.instagram.com/p/Dfw2PTMiBxt",
-      "existedBefore": false,
+      "existedBefore": true,
       "captionChanged": false,
       "imageChanged": false,
       "dateChanged": false,
-      "old": null,
+      "old": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/Dfw2PTMiBxt",
+        "title": "FULL TIME | SERIE B | MATCH 7 FUTSAL ATESINA 12 CUS TRENTO 3 ⚽️ Zampedri ⚽️⚽️ Martinelli #futsal #calcio #calcioa5 #t...",
+        "caption": "FULL TIME | SERIE B | MATCH 7 FUTSAL ATESINA 12 CUS TRENTO 3 ⚽️ Zampedri ⚽️⚽️ Martinelli #futsal #calcio #calcioa5 #trento #università",
+        "image": "/img/social/instagram-855c702897e1f5c5.jpg",
+        "remoteImage": "https://www.instagram.com/p/Dfw2PTMiBxt/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      },
       "new": {
         "platform": "Instagram",
         "source": "elfsight",
@@ -60,11 +70,21 @@
     },
     {
       "url": "https://www.instagram.com/p/Df16EqYI3gK",
-      "existedBefore": false,
+      "existedBefore": true,
       "captionChanged": false,
       "imageChanged": false,
       "dateChanged": false,
-      "old": null,
+      "old": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/Df16EqYI3gK",
+        "title": "Quando il goat decide di segnare, il pubblico può solo che ringraziare 🐐 #futsal #football #goal #meme #sport",
+        "caption": "Quando il goat decide di segnare, il pubblico può solo che ringraziare 🐐 #futsal #football #goal #meme #sport",
+        "image": "/img/social/instagram-6fe47f522ddceb93.jpg",
+        "remoteImage": "https://www.instagram.com/p/Df16EqYI3gK/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      },
       "new": {
         "platform": "Instagram",
         "source": "elfsight",
@@ -79,11 +99,21 @@
     },
     {
       "url": "https://www.instagram.com/p/DfzTw0porSY",
-      "existedBefore": false,
+      "existedBefore": true,
       "captionChanged": false,
       "imageChanged": false,
       "dateChanged": false,
-      "old": null,
+      "old": {
+        "platform": "Instagram",
+        "source": "elfsight",
+        "url": "https://www.instagram.com/p/DfzTw0porSY",
+        "title": "Aura @_.harmeet._singh._ ❤️‍🔥❤️‍🔥❤️‍🔥 #futsal #football #calcio #gk #aura",
+        "caption": "Aura @_.harmeet._singh._ ❤️‍🔥❤️‍🔥❤️‍🔥 #futsal #football #calcio #gk #aura",
+        "image": "/img/social/instagram-47b0c86c26871e01.jpg",
+        "remoteImage": "https://www.instagram.com/p/DfzTw0porSY/media/?size=l",
+        "date": "",
+        "publishedAt": ""
+      },
       "new": {
         "platform": "Instagram",
         "source": "elfsight",
@@ -98,6 +128,25 @@
     }
   ],
   "tiktokComparison": [
+    {
+      "url": "https://www.tiktok.com/@custrentoc5/video/7709599841562660129",
+      "existedBefore": false,
+      "captionChanged": false,
+      "imageChanged": false,
+      "dateChanged": false,
+      "old": null,
+      "new": {
+        "platform": "TikTok",
+        "source": "rss-bridge",
+        "url": "https://www.tiktok.com/@custrentoc5/video/7709599841562660129",
+        "title": "Quando il goat decide di segnare, il pubblico può solo che ringraziare 🐐 #futsal #football #goal #meme #sport",
+        "caption": "Quando il goat decide di segnare, il pubblico può solo che ringraziare 🐐 #futsal #football #goal #meme #sport",
+        "image": "/img/social/tiktok-b8063ed2a5f0dc2a.jpg",
+        "remoteImage": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/oYDaQkLp51YruVleNCGAQAfeGArAAGHRUAIsep~tplv-tiktokx-origin.image?dr=9636&x-expires=1795356000&x-signature=wVK%2BZLi4SSYJEVyJSsBhkF3m18c%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+        "date": "2026-11-18",
+        "publishedAt": "2026-11-18T19:44:56+00:00"
+      }
+    },
     {
       "url": "https://www.tiktok.com/@custrentoc5/video/7709105238380186913",
       "existedBefore": true,
@@ -360,64 +409,6 @@
       }
     },
     {
-      "url": "https://www.tiktok.com/@custrentoc5/video/7688713479485705505",
-      "existedBefore": true,
-      "captionChanged": false,
-      "imageChanged": false,
-      "dateChanged": false,
-      "old": {
-        "platform": "TikTok",
-        "source": "rss-bridge",
-        "url": "https://www.tiktok.com/@custrentoc5/video/7688713479485705505",
-        "title": "⚽️🔥 Dopo tanta attesa, la CUS Trento Futsal League sta tornando in città, con un’edizione tutta autunnale 🍂 Iscrizioni a",
-        "caption": "⚽️🔥 Dopo tanta attesa, la CUS Trento Futsal League sta tornando in città, con un’edizione tutta autunnale 🍂 Iscrizioni aperte al link in bio. ℹ️ Per maggiori info contattaci in DM",
-        "image": "/img/social/tiktok-c955459b8e4b0f58.jpg",
-        "remoteImage": "https://p16-common-sign.tiktokcdn-eu.com/tos-no1a-avt-0068c001-no/51c5f79e05bcb952492ef578589556e9~tplv-tiktokx-cropcenter:100:100.jpeg?dr=10399&refresh_token=ee2b971c&x-expires=1792749600&x-signature=x84VS%2BCDfGzyz0vOv5BeisRDBhQ%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast2b",
-        "date": "2026-09-23",
-        "publishedAt": "2026-09-23T12:55:12+00:00"
-      },
-      "new": {
-        "platform": "TikTok",
-        "source": "rss-bridge",
-        "url": "https://www.tiktok.com/@custrentoc5/video/7688713479485705505",
-        "title": "⚽️🔥 Dopo tanta attesa, la CUS Trento Futsal League sta tornando in città, con un’edizione tutta autunnale 🍂 Iscrizioni a",
-        "caption": "⚽️🔥 Dopo tanta attesa, la CUS Trento Futsal League sta tornando in città, con un’edizione tutta autunnale 🍂 Iscrizioni aperte al link in bio. ℹ️ Per maggiori info contattaci in DM",
-        "image": "/img/social/tiktok-c955459b8e4b0f58.jpg",
-        "remoteImage": "https://p16-common-sign.tiktokcdn-eu.com/tos-no1a-avt-0068c001-no/51c5f79e05bcb952492ef578589556e9~tplv-tiktokx-cropcenter:100:100.jpeg?dr=10399&refresh_token=ee2b971c&x-expires=1792749600&x-signature=x84VS%2BCDfGzyz0vOv5BeisRDBhQ%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast2b",
-        "date": "2026-09-23",
-        "publishedAt": "2026-09-23T12:55:12+00:00"
-      }
-    },
-    {
-      "url": "https://www.tiktok.com/@custrentoc5/video/7661601737437973793",
-      "existedBefore": true,
-      "captionChanged": false,
-      "imageChanged": false,
-      "dateChanged": false,
-      "old": {
-        "platform": "TikTok",
-        "source": "rss-bridge",
-        "url": "https://www.tiktok.com/@custrentoc5/video/7661601737437973793",
-        "title": "⚽ Stiamo cercando cfu gr… nuovi giocatori per la stagione sportiva 2026/2027! Vuoi metterti alla prova nel futsal e far",
-        "caption": "⚽ Stiamo cercando cfu gr… nuovi giocatori per la stagione sportiva 2026/2027! Vuoi metterti alla prova nel futsal e far parte di una squadra competitiva? Il CUS Trento C5 è alla ricerca di nuovi atleti. 🎓 Se sei uno studente dell’Università di Trento o delle scuole superiori, questa è l’occasione giusta per entrare nella nostra squadra. 📩 Scrivici in DM per ricevere tutte le informazioni #futsal #unilife #tryouts #meme #sport",
-        "image": "/img/social/tiktok-2222ede2ee6c7a6b.jpg",
-        "remoteImage": "https://p19-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/o8fIv1LpMgGdbgGAOUYgeJI3UNgejJ9GMANv6D~tplv-tiktokx-origin.image?dr=9636&x-expires=1795006800&x-signature=KYxXH3%2FXLcezvw7Vw1DYemGFu2w%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
-        "date": "2026-07-12",
-        "publishedAt": "2026-07-12T11:27:49+00:00"
-      },
-      "new": {
-        "platform": "TikTok",
-        "source": "rss-bridge",
-        "url": "https://www.tiktok.com/@custrentoc5/video/7661601737437973793",
-        "title": "⚽ Stiamo cercando cfu gr… nuovi giocatori per la stagione sportiva 2026/2027! Vuoi metterti alla prova nel futsal e far",
-        "caption": "⚽ Stiamo cercando cfu gr… nuovi giocatori per la stagione sportiva 2026/2027! Vuoi metterti alla prova nel futsal e far parte di una squadra competitiva? Il CUS Trento C5 è alla ricerca di nuovi atleti. 🎓 Se sei uno studente dell’Università di Trento o delle scuole superiori, questa è l’occasione giusta per entrare nella nostra squadra. 📩 Scrivici in DM per ricevere tutte le informazioni #futsal #unilife #tryouts #meme #sport",
-        "image": "/img/social/tiktok-2222ede2ee6c7a6b.jpg",
-        "remoteImage": "https://p19-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/o8fIv1LpMgGdbgGAOUYgeJI3UNgejJ9GMANv6D~tplv-tiktokx-origin.image?dr=9636&x-expires=1795006800&x-signature=KYxXH3%2FXLcezvw7Vw1DYemGFu2w%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
-        "date": "2026-07-12",
-        "publishedAt": "2026-07-12T11:27:49+00:00"
-      }
-    },
-    {
       "url": "https://www.tiktok.com/@custrentoc5/video/7599253221357423894",
       "existedBefore": true,
       "captionChanged": false,
@@ -444,6 +435,25 @@
         "remoteImage": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-p-0037-no/o4QIrFS2fDaKLhDDQf29OIDAEPen26hIM7aAjJ~tplv-tiktokx-origin.image?dr=9636&x-expires=1795006800&x-signature=x9eFYl5VkRS3GcAmeQ%2BN66M%2BOJY%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
         "date": "2026-01-25",
         "publishedAt": "2026-01-25T11:03:43+00:00"
+      }
+    },
+    {
+      "url": "https://www.tiktok.com/@custrentoc5/video/7555066894093470998",
+      "existedBefore": false,
+      "captionChanged": false,
+      "imageChanged": false,
+      "dateChanged": false,
+      "old": null,
+      "new": {
+        "platform": "TikTok",
+        "source": "rss-bridge",
+        "url": "https://www.tiktok.com/@custrentoc5/video/7555066894093470998",
+        "title": "Chi vincerà la sfida tra i nostri due centrali? #futsal #challenge #calcio #skills #viral",
+        "caption": "Chi vincerà la sfida tra i nostri due centrali? #futsal #challenge #calcio #skills #viral",
+        "image": "/img/social/tiktok-36e1ca808dc18b87.jpg",
+        "remoteImage": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-p-0037-no/oILpxJRjYA4gWrrHI2gf9GeGQejegyOcRZkAgG~tplv-tiktokx-origin.image?dr=9636&x-expires=1795356000&x-signature=ccxRFYL4N143Ys0Y92B9tj0Qgfw%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+        "date": "2025-09-28",
+        "publishedAt": "2025-09-28T09:18:14+00:00"
       }
     }
   ],
@@ -491,6 +501,17 @@
       "remoteImage": "https://www.instagram.com/p/DfzTw0porSY/media/?size=l",
       "date": "",
       "publishedAt": ""
+    },
+    {
+      "platform": "TikTok",
+      "source": "rss-bridge",
+      "url": "https://www.tiktok.com/@custrentoc5/video/7709599841562660129",
+      "title": "Quando il goat decide di segnare, il pubblico può solo che ringraziare 🐐 #futsal #football #goal #meme #sport",
+      "caption": "Quando il goat decide di segnare, il pubblico può solo che ringraziare 🐐 #futsal #football #goal #meme #sport",
+      "image": "/img/social/tiktok-b8063ed2a5f0dc2a.jpg",
+      "remoteImage": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/oYDaQkLp51YruVleNCGAQAfeGArAAGHRUAIsep~tplv-tiktokx-origin.image?dr=9636&x-expires=1795356000&x-signature=wVK%2BZLi4SSYJEVyJSsBhkF3m18c%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+      "date": "2026-11-18",
+      "publishedAt": "2026-11-18T19:44:56+00:00"
     },
     {
       "platform": "TikTok",
@@ -594,28 +615,6 @@
     {
       "platform": "TikTok",
       "source": "rss-bridge",
-      "url": "https://www.tiktok.com/@custrentoc5/video/7688713479485705505",
-      "title": "⚽️🔥 Dopo tanta attesa, la CUS Trento Futsal League sta tornando in città, con un’edizione tutta autunnale 🍂 Iscrizioni a",
-      "caption": "⚽️🔥 Dopo tanta attesa, la CUS Trento Futsal League sta tornando in città, con un’edizione tutta autunnale 🍂 Iscrizioni aperte al link in bio. ℹ️ Per maggiori info contattaci in DM",
-      "image": "/img/social/tiktok-c955459b8e4b0f58.jpg",
-      "remoteImage": "https://p16-common-sign.tiktokcdn-eu.com/tos-no1a-avt-0068c001-no/51c5f79e05bcb952492ef578589556e9~tplv-tiktokx-cropcenter:100:100.jpeg?dr=10399&refresh_token=ee2b971c&x-expires=1792749600&x-signature=x84VS%2BCDfGzyz0vOv5BeisRDBhQ%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast2b",
-      "date": "2026-09-23",
-      "publishedAt": "2026-09-23T12:55:12+00:00"
-    },
-    {
-      "platform": "TikTok",
-      "source": "rss-bridge",
-      "url": "https://www.tiktok.com/@custrentoc5/video/7661601737437973793",
-      "title": "⚽ Stiamo cercando cfu gr… nuovi giocatori per la stagione sportiva 2026/2027! Vuoi metterti alla prova nel futsal e far",
-      "caption": "⚽ Stiamo cercando cfu gr… nuovi giocatori per la stagione sportiva 2026/2027! Vuoi metterti alla prova nel futsal e far parte di una squadra competitiva? Il CUS Trento C5 è alla ricerca di nuovi atleti. 🎓 Se sei uno studente dell’Università di Trento o delle scuole superiori, questa è l’occasione giusta per entrare nella nostra squadra. 📩 Scrivici in DM per ricevere tutte le informazioni #futsal #unilife #tryouts #meme #sport",
-      "image": "/img/social/tiktok-2222ede2ee6c7a6b.jpg",
-      "remoteImage": "https://p19-common-sign.tiktokcdn-us.com/tos-useast2a-p-0037-euttp/o8fIv1LpMgGdbgGAOUYgeJI3UNgejJ9GMANv6D~tplv-tiktokx-origin.image?dr=9636&x-expires=1795006800&x-signature=KYxXH3%2FXLcezvw7Vw1DYemGFu2w%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
-      "date": "2026-07-12",
-      "publishedAt": "2026-07-12T11:27:49+00:00"
-    },
-    {
-      "platform": "TikTok",
-      "source": "rss-bridge",
       "url": "https://www.tiktok.com/@custrentoc5/video/7599253221357423894",
       "title": "Dimostrazione di come si danza con il pallone 🕺🏼🕺🏼#futsal #football #skills #viral #goal",
       "caption": "Dimostrazione di come si danza con il pallone 🕺🏼🕺🏼#futsal #football #skills #viral #goal",
@@ -623,6 +622,17 @@
       "remoteImage": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-p-0037-no/o4QIrFS2fDaKLhDDQf29OIDAEPen26hIM7aAjJ~tplv-tiktokx-origin.image?dr=9636&x-expires=1795006800&x-signature=x9eFYl5VkRS3GcAmeQ%2BN66M%2BOJY%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
       "date": "2026-01-25",
       "publishedAt": "2026-01-25T11:03:43+00:00"
+    },
+    {
+      "platform": "TikTok",
+      "source": "rss-bridge",
+      "url": "https://www.tiktok.com/@custrentoc5/video/7555066894093470998",
+      "title": "Chi vincerà la sfida tra i nostri due centrali? #futsal #challenge #calcio #skills #viral",
+      "caption": "Chi vincerà la sfida tra i nostri due centrali? #futsal #challenge #calcio #skills #viral",
+      "image": "/img/social/tiktok-36e1ca808dc18b87.jpg",
+      "remoteImage": "https://p16-common-sign.tiktokcdn-us.com/tos-no1a-p-0037-no/oILpxJRjYA4gWrrHI2gf9GeGQejegyOcRZkAgG~tplv-tiktokx-origin.image?dr=9636&x-expires=1795356000&x-signature=ccxRFYL4N143Ys0Y92B9tj0Qgfw%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+      "date": "2025-09-28",
+      "publishedAt": "2025-09-28T09:18:14+00:00"
     }
   ]
 }
