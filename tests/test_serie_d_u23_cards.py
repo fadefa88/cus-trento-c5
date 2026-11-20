@@ -100,6 +100,35 @@ class Under23DisciplineTests(unittest.TestCase):
         self.assertEqual(r, {"BATTAGLIA EDOARDO"})
         self.assertNotIn("UN MISTER", y | r)
 
+    def test_multiple_dates_in_one_serie_d_bulletin_do_not_mix_cards(self):
+        other_date = (
+            "GARE DEL 12/11/2026\n"
+            "PROVVEDIMENTI DISCIPLINARI\n"
+            "CALCIATORI NON ESPULSI\n"
+            "AMMONIZIONE I INFR\n"
+            "ZANROSSO MATTEO (CUS TRENTO U.23)\n"
+        )
+        report = REPORT.replace("GARE DEL 13/ 11/2026", other_date + "GARE DEL 13/ 11/2026")
+        yellows, reds = c_us_sanctions(report, "2026-11-13")
+        self.assertEqual(yellows, {"GRIPPA MICHELE", "BUDA SAMUELE"})
+        self.assertEqual(reds, {"BATTAGLIA EDOARDO"})
+        with self.assertRaises(ValueError):
+            c_us_sanctions(report, "2026-11-10")
+
+    def test_same_date_can_have_separate_disciplinary_blocks(self):
+        extra_block = (
+            "GARE DEL 13/11/2026\n"
+            "PROVVEDIMENTI DISCIPLINARI\n"
+            "CALCIATORI NON ESPULSI\n"
+            "AMMONIZIONE I INFR\n"
+            "ZANROSSO MATTEO (CUS TRENTO U.23)\n"
+        )
+        report = REPORT.replace("Pubblicato in Trento il 19/11/2026", extra_block + "Pubblicato in Trento il 19/11/2026")
+        yellows, reds = c_us_sanctions(report, "2026-11-13")
+        self.assertIn("ZANROSSO MATTEO", yellows)
+        self.assertIn("BUDA SAMUELE", yellows)
+        self.assertIn("BATTAGLIA EDOARDO", reds)
+
     def test_preserve_existing_cards_and_double_yellow(self):
         match = copy.deepcopy(FIXTURE)
         match["yellowCardEvents"].append({"playerId": "battaglia-edoardo", "cards": 2})
