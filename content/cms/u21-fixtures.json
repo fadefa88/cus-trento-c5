@@ -546,7 +546,20 @@
       "date": "2026-11-20",
       "lineup": {
         "startingFive": [],
-        "bench": [],
+        "bench": [
+          "26",
+          "20",
+          "buda-samuele",
+          "30",
+          "28",
+          "el-mahi-rida",
+          "niccolo-piovesan",
+          "paoli-jacopo",
+          "grippa-michele",
+          "zanrosso-matteo",
+          "sgraffetto-lorenzo",
+          "zago-alessandro"
+        ],
         "suspended": [],
         "injured": []
       },
