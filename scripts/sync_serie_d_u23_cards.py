@@ -145,9 +145,12 @@ def pdf_text(session, url):
             check=True, capture_output=True, text=True, timeout=45,
         )
     result = outcome.stdout.replace("\u00a0", " ")
-    if CURRENT_SEASON.replace("/", " ") not in norm(result[:1700]) and CURRENT_SEASON not in result[:1700]:
-        raise ValueError(f"Not a 2026/27 Trento bulletin. PDF header preview: {norm(result[:350])[:240]!r}")
-    if "COMITATO PROVINCIALE AUTONOMO DI TRENTO" not in norm(result[:1500]):
+    # pdftotext -layout can add thousands of blank padding characters to
+    # the first page. Inspect the first 12k characters, not just the first 1.7k.
+    first_page = norm(result[:12000])
+    if "STAGIONE SPORTIVA 2026 2027" not in first_page:
+        raise ValueError(f"Not a 2026/27 Trento bulletin. Season markers: {re.findall(r'STAGIONE SPORTIVA.{0,32}', first_page)[:2]!r}")
+    if "COMITATO PROVINCIALE AUTONOMO DI TRENTO" not in first_page:
         raise ValueError("Missing CPA Trento official identification")
     return result
 
