@@ -235,11 +235,24 @@ def c_us_sanctions(text, match_day):
     yellow cannot always be deduced from a disciplinary bulletin, so additions
     are one card unless the existing CMS already records double-yellow.
     """
-    groups = [part for part in sections(text)
-              if "PROVVEDIMENTI DISCIPLINARI" in norm(part) and sanction_date(part) == match_day]
-    if len(groups) != 1:
-        raise ValueError(f"Expected one Serie D disciplinary section for {match_day}, got {len(groups)}")
-    text = groups[0]
+    # A single Serie D justice section may contain several independent
+    # "GARE DEL ..." groups, even two distinct blocks for the same day.
+    disciplinary_sections = [part for part in sections(text)
+                             if "PROVVEDIMENTI DISCIPLINARI" in norm(part)]
+    if len(disciplinary_sections) != 1:
+        raise ValueError(f"Expected exactly one Serie D justice section, got {len(disciplinary_sections)}")
+    chunks = re.split(
+        r"(?=^\s*GARE\s+DEL\s+\d{1,2}\s*/\s*\d{1,2}\s*/\s*20\d{2}\s*$)",
+        disciplinary_sections[0],
+        flags=re.I | re.M,
+    )
+    relevant = [part for part in chunks
+                if sanction_date(part) == match_day and "PROVVEDIMENTI DISCIPLINARI" in norm(part)]
+    if not relevant:
+        raise ValueError(f"No date-specific Serie D disciplinary section for {match_day}")
+    # Process only the exact match-date blocks. Never carry player names across
+    # separate dates or across unrelated competition headings.
+    text = "\n".join(relevant)
     if "CALCIATORI" not in norm(text):
         raise ValueError("Missing disciplinary player headers")
     state = None
