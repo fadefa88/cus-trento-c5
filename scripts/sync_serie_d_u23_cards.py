@@ -383,6 +383,12 @@ def main():
                     samples = [line.strip() for line in content.splitlines()
                                if re.search(r"CUS\s+TRENTO|CALCIO\s+A\s*5.*SERIE\s+D|RISULTATI\s+UFFICIALI\s+GARE", line, re.I)]
                     print(f"PDF {url.rsplit('/', 1)[-1]}: Serie D blocks={len(list(sections(content)))}, relevant lines={samples[:15]}", flush=True)
+                if "CU_50_12-11-2026" in url:
+                    for idx, block in enumerate(sections(content)):
+                        lines = block.splitlines()
+                        headers = [f"{n}:{line.strip()[:125]}" for n, line in enumerate(lines)
+                                   if re.search(r"GARE\s+DEL|GIUSTIZIA|DISCIPLINARI|CALCIATORI|SQUALIFICA|AMMONIZIONE", line, re.I)]
+                        print(f"CU50 Serie D block {idx}: {len(lines)} lines, headings={headers[:28]}", flush=True)
                 reports.append((url, content))
             except (ValueError, requests.RequestException, subprocess.SubprocessError) as exc:
                 print(f"::warning::Cannot parse {url}: {exc}", flush=True)
