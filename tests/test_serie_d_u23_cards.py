@@ -232,6 +232,28 @@ class Under23DisciplineTests(unittest.TestCase):
         )
         self.assertTrue(confirms_match(alta_pdf, alta))
 
+    def test_retains_manual_double_yellow_as_partially_verified(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "content/cms").mkdir(parents=True)
+            original = copy.deepcopy(FIXTURE)
+            original["yellowCardEvents"].append(
+                {"playerId": "battaglia-edoardo", "cards": 2}
+            )
+            cms = {"u21Fixtures": [original]}
+            data = {"u21Fixtures": [copy.deepcopy(original)], "roster": ROSTER}
+            (root / "content/cms/u21-fixtures.json").write_text(json.dumps(cms))
+            (root / "content/data.json").write_text(json.dumps(data))
+            output = StringIO()
+            with redirect_stdout(output):
+                self.assertTrue(update_site(root, [("official.pdf", REPORT)], True))
+            self.assertIn("PARTIAL", output.getvalue())
+            resulting = json.loads((root / "content/data.json").read_text())["u21Fixtures"][0]
+            self.assertIn({"playerId": "battaglia-edoardo", "cards": 2},
+                          resulting["yellowCardEvents"])
+
     def test_missing_or_ambiguous_sanctions_fail_closed(self):
         with self.assertRaises(ValueError):
             c_us_sanctions("ALTRA COMPETIZIONE\nGARE DEL 13/11/2026", "2026-11-13")

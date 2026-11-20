@@ -84,7 +84,7 @@ def is_official_pdf(url):
 def season_path(url):
     # The official archive spans seasons; CU 145 from June 2026 must not
     # outrank CU 28 from September 2026 just because its number is greater.
-    return bool(re.search(r"/(?:2026/(?:07|08|09|10|11|12)|2027/(?:01|02|03|04|05|06))/", url))
+    return bool(re.search(r"/(?:2026/(?:09|10|11|12)|2027/(?:01|02|03|04|05|06))/", url))
 
 
 def discover(session, pages=9, max_docs=55):
@@ -376,6 +376,7 @@ def update_site(root, reports, apply=False):
     site = json.loads(data_path.read_text(encoding="utf-8"))
     roster = site["roster"]
     verified = {}
+    partly_verified = set()
     matches_with_result = set()
     matches_with_conflicts = set()
     changed_matches = set()
@@ -433,6 +434,19 @@ def update_site(root, reports, apply=False):
             if match != proposed:
                 raise ValueError("Unexpected CMS match difference")
             verified[match["id"]] = (cautions, dismissals)
+            called = {str(x) for x in (match.get("lineup", {}).get("startingFive") or [])
+                      + (match.get("lineup", {}).get("bench") or [])}
+            official_y_ids = {resolve_player(name, roster, called) for name in cautions}
+            official_r_ids = {resolve_player(name, roster, called) for name in dismissals}
+            manual_y = {str(x["playerId"]) for x in match.get("yellowCardEvents", [])}
+            manual_r = {str(x["playerId"]) for x in match.get("redCardEvents", [])}
+            # A disciplinary bulletin does not always establish every yellow,
+            # especially when a player was sent off for two bookings.
+            if manual_y - official_y_ids or manual_r - official_r_ids:
+                partly_verified.add(match["id"])
+                print(f"::warning::Existing U23 cards not individually supported by the "
+                      f"available disciplinary entries for {match['id']}; retained unchanged",
+                      flush=True)
             if changed:
                 changed_matches.add(match["id"])
             print(f"VERIFIED Serie D {match['date']} {match['home']} - {match['away']}: "
@@ -453,7 +467,8 @@ def update_site(root, reports, apply=False):
     for match in sorted(all_fixtures, key=lambda m: m["date"]):
         ident = match["id"]
         if ident in verified:
-            status = "CONFIRMED"
+            status = ("PARTIAL: sanctions matched but some existing cards are unverified"
+                      if ident in partly_verified else "CONFIRMED")
         elif ident in matches_with_conflicts:
             status = "CONFLICT: requires manual verification"
         elif ident in matches_with_result:
@@ -461,7 +476,9 @@ def update_site(root, reports, apply=False):
         else:
             status = "UNVERIFIED: no exact official result matched"
         print(f"AUDIT {match['date']} {match['home']} - {match['away']}: {status}", flush=True)
-    print(f"Official Serie D U23 verified {len(verified)}/{len(all_fixtures)} matches; "
+    print(f"Official Serie D U23 readable disciplinary reports {len(verified)}/{len(all_fixtures)} matches; "
+          f"fully supported={len(verified)-len(partly_verified)}; "
+          f"partial={len(partly_verified)}; "
           f"card corrections={len(changed_matches)}; files changed={dirty and apply}",
           flush=True)
     return dirty
@@ -488,40 +505,6 @@ def main():
         if not reports:
             print("::warning::No readable verified 2026/27 PDFs. Nothing changed.", flush=True)
             return 0
-    # Diagnostic: show the exact official league result lines (never personal data).
-    for url, content in reports:
-        for part in sections(content):
-            if "RISULTATI UFFICIALI" not in norm(part):
-                continue
-            lines = [line.strip()[:175] for line in part.splitlines()
-                     if "CUS TRENTO" in norm(line) and " - " in line and re.search(r"\d+\s*[-:]\s*\d+", line)]
-            if lines:
-                print(f"RESULTS {url.rsplit('/', 1)[-1]}: dates={sorted(official_result_dates(part))}; lines={lines[:7]}", flush=True)
-    # Diagnostics for historical fixtures with manually recorded dismissals.
-    # These excerpts come only from public official Serie D justice reports.
-    for url, content in reports:
-        for block in sections(content):
-            if "PROVVEDIMENTI DISCIPLINARI" not in norm(block):
-                continue
-            pieces = re.split(
-                r"(?=^\s*GARE\s+DEL\s+\d{1,2}\s*/\s*\d{1,2}\s*/\s*20\d{2}\s*$)",
-                block, flags=re.I | re.M
-            )
-            for piece in pieces:
-                when = sanction_date(piece)
-                if when not in {"2026-10-02", "2026-10-16", "2026-10-23", "2026-09-25", "2026-10-30"}:
-                    continue
-                lines = piece.splitlines()
-                relevant = []
-                for idx, line in enumerate(lines):
-                    if "CUS TRENTO" in norm(line):
-                        relevant.append(" | ".join(
-                            q.strip()[:100] for q in lines[max(0, idx-3):min(len(lines), idx+2)]
-                        ))
-                headers = [line.strip() for line in lines if re.match(
-                    r"^\s*(?:CALCIATORI|SQUALIFICA|AMMONIZIONE|(?:I|II|III|IV)\s+AMMONIZIONE)",line,re.I)]
-                print(f"DIAG C.U. {url.rsplit('/',1)[-1]} date={when} "
-                      f"club_occurrences={relevant[:8]} headers={headers[:14]}", flush=True)
     update_site(args.root, reports, args.apply)
     return 0
 
