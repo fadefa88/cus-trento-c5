@@ -148,7 +148,7 @@ def pdf_text(session, url):
     # pdftotext -layout can add thousands of blank padding characters to
     # the first page. Inspect the first 12k characters, not just the first 1.7k.
     first_page = norm(result[:12000])
-    if not re.search(r"STAGIONE SPORTIVA\\s+202\\s*6\\s+2027\\b", first_page):
+    if not re.search(r"STAGIONE SPORTIVA\s+202\s*6\s+2027\b", first_page):
         raise ValueError(f"Not a 2026/27 Trento bulletin. Season markers: {re.findall(r'STAGIONE SPORTIVA.{0,32}', first_page)[:2]!r}")
     if "COMITATO PROVINCIALE AUTONOMO DI TRENTO" not in first_page:
         raise ValueError("Missing CPA Trento official identification")
