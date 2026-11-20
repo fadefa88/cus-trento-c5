@@ -1937,21 +1937,20 @@
       "away": "Futsal Jesolo",
       "date": "2026-11-21",
       "lineup": {
-        "startingFive": [
-          "baccaro-zeni-lucca",
-          "7",
-          "tesser-alvise",
-          "ceola-michele",
-          "16"
-        ],
+        "startingFive": [],
         "bench": [
-          "1",
-          "19",
-          "8",
-          "cuman-mattia",
-          "scala-luca",
+          "ceola-michele",
+          "baccaro-zeni-lucca",
           "10",
-          "gobbetti-fabio"
+          "cuman-mattia",
+          "gobbetti-fabio",
+          "19",
+          "7",
+          "8",
+          "sarcletti-paolo",
+          "zago-alessandro",
+          "11",
+          "16"
         ],
         "suspended": [],
         "injured": []
