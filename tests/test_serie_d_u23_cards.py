@@ -77,6 +77,18 @@ class Under23DisciplineTests(unittest.TestCase):
         self.assertFalse(confirms_match(REPORT, {**FIXTURE, "competition": "Coppa"}))
         self.assertFalse(confirms_match(REPORT, {**FIXTURE, "away": "Nomi"}))
 
+    def test_real_two_column_result_and_u23_identifier(self):
+        # Taken from the layout of CPA Trento C.U. 50/2026.
+        row = ("ATHESIS CALCIO                        - CUS TRENTO U.23            3-1"
+               "         BRENTA BORGO                          - BRENTA ORTIGARALEFRE    4-3")
+        report = REPORT.replace("CUS TRENTO sq.B - SAN GIUSEPPE       2 - 4", row)
+        report = report.replace("13/11/2026", "06/11/2026")
+        match = {**FIXTURE, "home": "Athesis Calcio", "away": "CUS Trento U23",
+                 "score": "3-1", "date": "2026-11-06"}
+        self.assertTrue(confirms_match(report, match))
+        self.assertFalse(confirms_match(report, {**match, "score": "4-3"}))
+        self.assertFalse(confirms_match(report, {**match, "home": "Nomi"}))
+
     def test_serie_b_and_coppa_sections_ignored(self):
         text = REPORT.replace("CAMPIONATO CALCIO A 5 SERIE D", "CAMPIONATO CALCIO A 5 SERIE B")
         self.assertFalse(confirms_match(text, FIXTURE))
