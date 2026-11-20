@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ARCHIVE = "https://www.figctrento.it/index.php/category/comunicati-ufficiali/"
 USER_AGENT = "Mozilla/5.0 (compatible; CUSTRENTO-Futsal-Audit/1.0)"
 CURRENT_SEASON = "2026/2027"
-CUS_NAMES = {"CUS TRENTO SQ B", "CUS TRENTO U23", "CUS TRENTO"}
+CUS_NAMES = {"CUS TRENTO SQ B", "CUS TRENTO U23", "CUS TRENTO U 23", "CUS TRENTO"}
 TEAM_ALIASES = {
     "San Floriano 2025": ["SAN FLORIANO 2025", "SAN FLORIANO 2025 A S D", "SAN FLORIANO"],
     "San Floriano": ["SAN FLORIANO 2025", "SAN FLORIANO 2025 A S D", "SAN FLORIANO"],
@@ -42,6 +42,13 @@ TEAM_ALIASES = {
     "Nomi": ["NOMI"],
 }
 SCORE = re.compile(r"(\d{1,2})\s*[-:]\s*(\d{1,2})\s*$")
+# Results from CPA Trento PDF use two columns in the same row, e.g.
+# ATHESIS CALCIO    - CUS TRENTO U.23    3-1    BRENTA BORGO    - ...    4-3
+RESULT_CELL = re.compile(
+    r"(?P<home>[A-ZÀ-ÖØ-Ý][A-ZÀ-ÖØ-Ý0-9. '’/\-]+?)\s{2,}-\s+"
+    r"(?P<away>[A-ZÀ-ÖØ-Ý][A-ZÀ-ÖØ-Ý0-9. '’/\-]+?)\s{2,}"
+    r"(?P<h>\d{1,2})\s*[-:]\s*(?P<a>\d{1,2})(?=\s{2,}|$)"
+)
 DATE = re.compile(r"(\d{1,2})\s*/\s*(\d{1,2})\s*/\s*(20\d{2})")
 U23_PREFIX = re.compile(r"^CAMPIONATO(?:\s+(?:DI|NAZIONALE))?\s+CALCIO\s+A\s*5\s+(?:TRENTO\s+)?SERIE\s+D\b", re.I)
 
@@ -197,15 +204,19 @@ def confirms_match(text, match):
         if not dates or match["date"] not in dates:
             continue
         for line in section.splitlines():
+            for m in RESULT_CELL.finditer(line):
+                if (f"{m['h']}-{m['a']}" == score
+                        and norm(m["home"]) in club_options(match["home"])
+                        and norm(m["away"]) in club_options(match["away"])):
+                    return True
+            # Single-column compact lines found in some older bulletins.
             m = SCORE.search(line)
-            if not m or f"{m[1]}-{m[2]}" != score:
-                continue
-            lhs = re.sub(r"^\s*(?:\d+\s*[aArR]\s+)?", "", line[:m.start()]).strip()
-            if " - " not in lhs:
-                continue
-            first, second = lhs.split(" - ", 1)
-            if norm(first) in club_options(match["home"]) and norm(second) in club_options(match["away"]):
-                return True
+            if m and f"{m[1]}-{m[2]}" == score:
+                lhs = line[:m.start()].strip()
+                pair = re.split(r"\s+-\s+", lhs, maxsplit=1)
+                if (len(pair) == 2 and norm(pair[0]) in club_options(match["home"])
+                        and norm(pair[1]) in club_options(match["away"])):
+                    return True
     return False
 
 
