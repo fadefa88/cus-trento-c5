@@ -353,6 +353,8 @@ def update_site(root, reports, apply=False):
         result_matches.add(m["id"])
         try:
             yellows, reds = c_us_sanctions(raw, m["date"])
+            if not (yellows or reds) and (m.get("yellowCardEvents") or m.get("redCardEvents")):
+                raise ValueError("The official parser returned zero sanctions, but cards already exist: manual review required")
             preview = copy.deepcopy(m)
             add_verified_cards(preview, roster, yellows, reds)
             other = [x for x in site["u21Fixtures"] if x.get("id") == m["id"]]
@@ -413,6 +415,15 @@ def main():
         if not reports:
             print("::warning::No readable verified 2026/27 PDFs. Nothing changed.", flush=True)
             return 0
+    # Diagnostic: show the exact official league result lines (never personal data).
+    for url, content in reports:
+        for part in sections(content):
+            if "RISULTATI UFFICIALI" not in norm(part):
+                continue
+            lines = [line.strip()[:175] for line in part.splitlines()
+                     if "CUS TRENTO" in norm(line) and " - " in line and re.search(r"\d+\s*[-:]\s*\d+", line)]
+            if lines:
+                print(f"RESULTS {url.rsplit('/', 1)[-1]}: dates={sorted(official_result_dates(part))}; lines={lines[:7]}", flush=True)
     update_site(args.root, reports, args.apply)
     return 0
 
