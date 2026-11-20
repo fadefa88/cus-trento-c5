@@ -87,7 +87,7 @@ def season_path(url):
     return bool(re.search(r"/(?:2026/(?:07|08|09|10|11|12)|2027/(?:01|02|03|04|05|06))/", url))
 
 
-def discover(session, pages=5, max_docs=16):
+def discover(session, pages=9, max_docs=55):
     """Find real 2026/27 Trento bulletins, not nationwide Serie D football."""
     candidates = set()
     articles = []
@@ -340,6 +340,8 @@ def update_site(root, reports, apply=False):
     site = json.loads(data_path.read_text(encoding="utf-8"))
     roster = site["roster"]
     changed_matches = set()
+    confirmed_matches = set()
+    result_matches = set()
     for bulletin, raw in reports:
         matching = [m for m in cms["u21Fixtures"] if confirms_match(raw, m)]
         if len(matching) > 1:
@@ -348,6 +350,7 @@ def update_site(root, reports, apply=False):
         if not matching:
             continue
         m = matching[0]
+        result_matches.add(m["id"])
         try:
             yellows, reds = c_us_sanctions(raw, m["date"])
             preview = copy.deepcopy(m)
@@ -361,6 +364,7 @@ def update_site(root, reports, apply=False):
                 raise ValueError("Inconsistent updated match")
             if m.get("yellowCardEvents") != matching[0].get("yellowCardEvents"):
                 raise ValueError("Inconsistent snapshot")
+            confirmed_matches.add(m["id"])
             changed_matches.add(m["id"]) if (yellows or reds) else None
             print(f"Verified Serie D match {m['date']} {m['home']} - {m['away']}: {len(yellows)} cautioned, {len(reds)} expelled", flush=True)
         except ValueError as exc:
@@ -373,7 +377,18 @@ def update_site(root, reports, apply=False):
     if dirty and apply:
         cms_path.write_text(json.dumps(cms, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         data_path.write_text(json.dumps(site, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Official Serie D U23 updates: {len(changed_matches) if dirty else 0} matches; files changed={dirty and apply}", flush=True)
+    fixtures = [m for m in cms["u21Fixtures"] if m.get("competition") == "Campionato"
+                and m.get("status") == "Terminata" and m.get("score")]
+    for fixture in fixtures:
+        if fixture["id"] in confirmed_matches:
+            state = "CONFIRMED"
+        elif fixture["id"] in result_matches:
+            state = "RESULT_ONLY (disciplinary PDF unavailable/ambiguous)"
+        else:
+            state = "UNVERIFIED (official result/bulletin not matched)"
+        print(f"AUDIT {fixture['date']} {fixture['home']} - {fixture['away']}: {state}", flush=True)
+    print(f"Official Serie D U23 verified {len(confirmed_matches)}/{len(fixtures)} matches; "
+          f"new card corrections {len(changed_matches) if dirty else 0}; files changed={dirty and apply}", flush=True)
     return dirty
 
 
