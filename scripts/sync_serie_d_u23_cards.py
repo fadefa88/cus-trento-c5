@@ -153,7 +153,7 @@ def pdf_text(session, url):
                     response = alternate
             except requests.RequestException:
                 pass
-    if not response.content.startswith(b"%PDF") or len(response.content) > 12_000_000:
+    if not response.content.startswith(b"%PDF") or len(response.content) > 40_000_000:
         raise ValueError(f"Unexpected official PDF response: HTTP {response.status_code}, "
                          f"content-type {response.headers.get('Content-Type', '?')}, "
                          f"bytes {len(response.content)}")
@@ -309,10 +309,17 @@ def c_us_sanctions(text, match_day):
                 (yellow if subsection == "yellow" else red).add(pending)
             pending = ""
             continue
-        combined = re.match(r"^\s*([A-ZÀ-ÖØ-Ý][A-ZÀ-ÖØ-Ý '\-.]+?)\s+\(([^()]+)\)\s*$", line)
-        if combined:
-            if norm(combined[2]) in CUS_NAMES and subsection:
-                (yellow if subsection == "yellow" else red).add(norm(combined[1]))
+        # CPA Trento publishes two parallel player columns, so a line can be:
+        # CONTI DIEGO     (CUS TRENTO U.23)      PITTINO ANDREA   (OTHER)
+        # An anchored, one-name-per-line regex misses BOTH names.
+        pairs = list(re.finditer(
+            r"([A-ZÀ-ÖØ-Ý][A-ZÀ-ÖØ-Ý '\-.]{3,}?)\s+\(([^()]+)\)", line
+        ))
+        if pairs:
+            if subsection:
+                for pair in pairs:
+                    if norm(pair[2]) in CUS_NAMES:
+                        (yellow if subsection == "yellow" else red).add(norm(pair[1]))
             pending = ""
             continue
         # A standalone uppercase player name is followed by a club in parentheses.

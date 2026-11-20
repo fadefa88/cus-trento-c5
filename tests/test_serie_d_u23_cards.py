@@ -141,6 +141,22 @@ class Under23DisciplineTests(unittest.TestCase):
         self.assertEqual(reds, {"BATTAGLIA EDOARDO"})
         self.assertNotIn("ZANROSSO MATTEO", cautions | reds)
 
+    def test_official_two_column_player_lines_are_parsed(self):
+        multi = REPORT.replace(
+            "BATTAGLIA EDOARDO\n(CUS TRENTO sq.B)",
+            "BATTAGLIA EDOARDO      (CUS TRENTO U.23)"
+            "          PITTINO ANDREA       (CALCIO BLEGGIO)"
+        ).replace(
+            "BUDA SAMUELE\n(CUS TRENTO sq.B)",
+            "BUDA SAMUELE          (CUS TRENTO U.23)"
+            "          MONTI FILIPPO         (SAN GIUSEPPE)"
+        )
+        cautions, reds = c_us_sanctions(multi, "2026-11-13")
+        self.assertIn("BATTAGLIA EDOARDO", reds)
+        self.assertIn("BUDA SAMUELE", cautions)
+        self.assertNotIn("PITTINO ANDREA", cautions | reds)
+        self.assertNotIn("MONTI FILIPPO", cautions | reds)
+
     def test_preserve_existing_cards_and_double_yellow(self):
         match = copy.deepcopy(FIXTURE)
         match["yellowCardEvents"].append({"playerId": "battaglia-edoardo", "cards": 2})
