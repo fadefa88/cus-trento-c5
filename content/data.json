@@ -2820,39 +2820,39 @@
   ],
   "u21Standings": [
     {
-      "g": 8,
+      "g": 9,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25249logo.png",
-      "gs": 25,
+      "gs": 31,
       "n": 1,
-      "pts": 19,
+      "pts": 22,
       "p": 1,
       "pos": 1,
-      "v": 6,
+      "v": 7,
       "team": "CALCIO BLEGGIO",
-      "gf": 51
+      "gf": 60
     },
     {
-      "g": 8,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25241logo.png",
-      "gs": 26,
-      "n": 1,
-      "pts": 19,
+      "g": 9,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25244logo.png",
+      "gs": 36,
+      "n": 2,
+      "pts": 20,
       "p": 1,
       "pos": 2,
       "v": 6,
-      "team": "SAN GIUSEPPE",
-      "gf": 45
+      "team": "LAGARINA",
+      "gf": 54
     },
     {
-      "g": 8,
-      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25244logo.png",
-      "gs": 32,
-      "n": 2,
-      "pts": 17,
-      "p": 1,
+      "g": 9,
+      "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25241logo.png",
+      "gs": 31,
+      "n": 1,
+      "pts": 19,
+      "p": 2,
       "pos": 3,
-      "v": 5,
-      "team": "LAGARINA",
+      "v": 6,
+      "team": "SAN GIUSEPPE",
       "gf": 49
     },
     {
@@ -2868,40 +2868,40 @@
       "gf": 56
     },
     {
-      "g": 8,
+      "g": 9,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25240logo.png",
-      "gs": 42,
+      "gs": 43,
       "n": 3,
-      "pts": 12,
+      "pts": 15,
       "p": 2,
       "pos": 5,
-      "v": 3,
+      "v": 4,
       "team": "ALTA GIUDICARIE",
-      "gf": 37
+      "gf": 44
     },
     {
-      "g": 8,
+      "g": 9,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25245logo.png",
-      "gs": 41,
+      "gs": 44,
       "n": 1,
-      "pts": 10,
+      "pts": 13,
       "p": 4,
       "pos": 6,
-      "v": 3,
+      "v": 4,
       "team": "NOMI",
-      "gf": 41
+      "gf": 45
     },
     {
-      "g": 8,
+      "g": 9,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25243logo.png",
-      "gs": 62,
+      "gs": 71,
       "n": 1,
       "pts": 7,
-      "p": 5,
+      "p": 6,
       "pos": 7,
       "v": 2,
       "team": "SAN FLORIANO",
-      "gf": 44
+      "gf": 50
     },
     {
       "g": 9,
@@ -2916,28 +2916,28 @@
       "gf": 28
     },
     {
-      "g": 8,
+      "g": 9,
       "logo": "https://cms.pegasomedia.it/public/camp/squadre/2026/25247logo.png",
-      "gs": 42,
+      "gs": 49,
       "n": 0,
       "pts": 6,
-      "p": 6,
+      "p": 7,
       "pos": 9,
       "v": 2,
       "team": "ATHESIS",
-      "gf": 24
+      "gf": 25
     },
     {
-      "g": 8,
+      "g": 9,
       "logo": "https://calcioa5.custrento.it/img/standings/serie-b-2026-27/cus-trento.webp",
-      "gs": 35,
+      "gs": 39,
       "n": 1,
       "pts": 4,
-      "p": 6,
+      "p": 7,
       "pos": 10,
       "v": 1,
       "team": "CUS TRENTO U23",
-      "gf": 22
+      "gf": 25
     }
   ],
   "news": [],
