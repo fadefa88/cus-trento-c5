@@ -1646,10 +1646,18 @@
         "injured": []
       },
       "venue": "Sanbàpolis",
-      "status": "Da giocare",
+      "status": "Terminata",
       "id": "cus-trento-futsal-jesolo-2026-11-21",
       "home": "CUS Trento",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "4-8",
+      "goalkeeperEvents": [
+        {
+          "playerId": "baccaro-zeni-lucca",
+          "goalsAgainst": 8,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/futsal-conegliano-montello.png",
