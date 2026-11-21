@@ -1936,6 +1936,20 @@
           "goalsAgainst": 8,
           "appearances": 1
         }
+      ],
+      "scorerEvents": [
+        {
+          "playerId": "10",
+          "goals": 2
+        },
+        {
+          "playerId": "11",
+          "goals": 1
+        },
+        {
+          "playerId": "gobbetti-fabio",
+          "goals": 1
+        }
       ]
     },
     {
