@@ -1881,7 +1881,8 @@
         {
           "number": "14",
           "surname": "Simonato Cordeiro",
-          "firstName": "Julio Cesar"
+          "firstName": "Julio Cesar",
+          "goals": 1
         },
         {
           "number": "19",
@@ -1892,7 +1893,7 @@
           "number": "21",
           "surname": "Oshafi",
           "firstName": "Alex",
-          "goals": 2
+          "goals": 3
         },
         {
           "number": "23",
