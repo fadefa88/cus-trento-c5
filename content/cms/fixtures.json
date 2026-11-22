@@ -1576,7 +1576,15 @@
           "number": "7",
           "surname": "El Bouchikhi",
           "firstName": "Youness",
-          "goals": 2
+          "goals": 2,
+          "goalTimes": [
+            {
+              "time": "11’54” pt"
+            },
+            {
+              "time": "6’18” st"
+            }
+          ]
         },
         {
           "number": "8",
@@ -1597,13 +1605,23 @@
           "number": "13",
           "surname": "Finato",
           "firstName": "Federico",
-          "goals": 1
+          "goals": 1,
+          "goalTimes": [
+            {
+              "time": "4’14” st"
+            }
+          ]
         },
         {
           "number": "14",
           "surname": "Simonato Cordeiro",
           "firstName": "Julio Cesar",
-          "goals": 1
+          "goals": 1,
+          "goalTimes": [
+            {
+              "time": "13’55” st"
+            }
+          ]
         },
         {
           "number": "19",
@@ -1614,13 +1632,29 @@
           "number": "21",
           "surname": "Oshafi",
           "firstName": "Alex",
-          "goals": 3
+          "goals": 3,
+          "goalTimes": [
+            {
+              "time": "12’44” pt"
+            },
+            {
+              "time": "7’22” st"
+            },
+            {
+              "time": "12’48” st"
+            }
+          ]
         },
         {
           "number": "23",
           "surname": "Guimaraes Falcetta",
           "firstName": "Victor",
-          "goals": 1
+          "goals": 1,
+          "goalTimes": [
+            {
+              "time": "15’03” pt"
+            }
+          ]
         }
       ],
       "time": "15:00",
@@ -1661,15 +1695,33 @@
       "scorerEvents": [
         {
           "playerId": "10",
-          "goals": 2
+          "goals": 2,
+          "goalTimes": [
+            {
+              "time": "7’11” pt"
+            },
+            {
+              "time": "10’49” pt"
+            }
+          ]
         },
         {
-          "playerId": "gobbetti-fabio",
-          "goals": 1
+          "playerId": "11",
+          "goals": 1,
+          "goalTimes": [
+            {
+              "time": "17’09” st"
+            }
+          ]
         },
         {
           "playerId": "cuman-mattia",
-          "goals": 1
+          "goals": 1,
+          "goalTimes": [
+            {
+              "time": "13’08” st"
+            }
+          ]
         }
       ]
     },
