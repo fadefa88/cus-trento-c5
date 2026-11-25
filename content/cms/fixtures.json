@@ -1594,7 +1594,8 @@
         {
           "number": "10",
           "surname": "Azzabi",
-          "firstName": "Ayoub"
+          "firstName": "Ayoub",
+          "yellow": true
         },
         {
           "number": "11",
@@ -1722,6 +1723,18 @@
               "time": "13’08” st"
             }
           ]
+        }
+      ],
+      "yellowCardEvents": [
+        {
+          "playerId": "ceola-michele",
+          "cards": 1
+        }
+      ],
+      "redCardEvents": [
+        {
+          "playerId": "8",
+          "cards": 1
         }
       ]
     },
