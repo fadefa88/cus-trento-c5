@@ -612,10 +612,32 @@
         "injured": []
       },
       "venue": "Palazzetto Noriglio",
-      "status": "Da giocare",
+      "status": "Terminata",
       "id": "san-floriano-2025-a-s-d-cus-trento-u23-2026-11-27",
       "home": "San Floriano",
-      "competition": "Coppa"
+      "competition": "Coppa",
+      "score": "10-3",
+      "scorerEvents": [
+        {
+          "playerId": "medeghini-riccardo",
+          "goals": 1
+        },
+        {
+          "playerId": "zanrosso-matteo",
+          "goals": 1
+        },
+        {
+          "playerId": "amendola-tommaso",
+          "goals": 1
+        }
+      ],
+      "goalkeeperEvents": [
+        {
+          "playerId": "harmeet-singh",
+          "goalsAgainst": 10,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/cembra-futsal.png",
