@@ -595,7 +595,19 @@
       "date": "2026-11-27",
       "lineup": {
         "startingFive": [],
-        "bench": [],
+        "bench": [
+          "amendola-tommaso",
+          "20",
+          "26",
+          "28",
+          "el-mahi-rida",
+          "grippa-michele",
+          "laquale-giuseppe",
+          "medeghini-riccardo",
+          "paoli-jacopo",
+          "harmeet-singh",
+          "zanrosso-matteo"
+        ],
         "suspended": [],
         "injured": []
       },
