@@ -1831,19 +1831,12 @@
           "firstName": "Andrea"
         },
         {
-          "goals": 0,
-          "yellow": false,
-          "red": false,
-          "number": "4",
-          "surname": "Favaro",
-          "firstName": "Lorenzo"
-        },
-        {
           "goals": 2,
           "yellow": false,
           "red": false,
           "surname": "Coppe",
-          "firstName": "Francesco"
+          "firstName": "Francesco",
+          "number": "4"
         }
       ],
       "time": "16:00",
@@ -1869,10 +1862,24 @@
         "injured": []
       },
       "venue": "Palacicogna",
-      "status": "Da giocare",
+      "status": "Terminata",
       "id": "futsal-conegliano-cus-trento-2026-11-28",
       "home": "Futsal Conegliano",
-      "competition": "Campionato"
+      "competition": "Campionato",
+      "score": "8-1",
+      "scorerEvents": [
+        {
+          "playerId": "10",
+          "goals": 1
+        }
+      ],
+      "goalkeeperEvents": [
+        {
+          "playerId": "baccaro-zeni-lucca",
+          "goalsAgainst": 8,
+          "appearances": 1
+        }
+      ]
     },
     {
       "opponentLogo": "/img/uploads/eagles.png",
