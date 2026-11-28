@@ -2038,7 +2038,7 @@
           "firstName": "Nicola"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "2",
@@ -2046,7 +2046,7 @@
           "firstName": "Marco"
         },
         {
-          "goals": 0,
+          "goals": 3,
           "yellow": false,
           "red": false,
           "number": "3",
@@ -2054,7 +2054,7 @@
           "firstName": "Brahim"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "5",
@@ -2070,7 +2070,7 @@
           "firstName": "Jordi"
         },
         {
-          "goals": 0,
+          "goals": 1,
           "yellow": false,
           "red": false,
           "number": "10",
@@ -2116,6 +2116,13 @@
           "number": "4",
           "surname": "Favaro",
           "firstName": "Lorenzo"
+        },
+        {
+          "goals": 2,
+          "yellow": false,
+          "red": false,
+          "surname": "Coppe",
+          "firstName": "Francesco"
         }
       ],
       "time": "16:00",
